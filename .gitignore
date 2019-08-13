@@ -1,0 +1,14 @@
+/.sync
+*.layout
+*.exe
+*.lexe
+*.o
+*.out
+*.gch
+*.bak
+Makefile.win
+temp_tool
+*.vs
+*.sln
+*.vcxproj*
+Debug

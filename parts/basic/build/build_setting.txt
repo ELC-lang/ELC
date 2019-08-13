@@ -1,0 +1,2 @@
+build.sh ELC_TEST_ON#测试模式
+build.sh ELC_USE_STDLIB#使用标准库还是自制轮子

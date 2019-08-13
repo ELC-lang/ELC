@@ -1,0 +1,14 @@
+//core
+//at namespace ::
+/*
+未完成的elc解释器include文件
+由steve02081504与Alex0125设计、编写
+转载时请在不对此文件做任何修改的同时注明出处
+项目地址：https://github.com/steve02081504/ELC
+*/
+#if !defined(ELC_CORE)
+	#define ELC_CORE
+	#include"base"
+	#include"base_exception"
+	#include"_files\core\_body.hpp"
+#endif
