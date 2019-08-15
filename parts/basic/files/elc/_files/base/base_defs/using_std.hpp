@@ -11,3 +11,6 @@ using ::std::size_t;
 using ::std::forward;
 using ::std::swap;
 //using ::std::move;//新move定义于base/memory/lifetime
+
+using ::std::max;
+using ::std::min;
