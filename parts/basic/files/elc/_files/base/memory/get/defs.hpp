@@ -81,21 +81,10 @@ namespace get_n{
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
-				destruct(a);
+				destruct(a,get_size_of_alloc(a));
 				free(a);
 			}
 		}
-		struct array_unget_t{
-			size_t _size;
-			template<typename T,enable_if(able<T>)>
-			void operator()(T*a)const noexcept(nothrow<T>){
-				if(a!=null_ptr){
-					destruct(a,_size);
-					free(a);
-				}
-			}
-		};
-		[[nodiscard]]constexpr array_unget_t operator[](size_t size)const noexcept{return{size};}
 	}unget{};
 
 	constexpr struct get_resize_t{
@@ -105,7 +94,8 @@ namespace get_n{
 		static constexpr bool nothrow=construct<T>.nothrow<>&&destruct.nothrow<T>&&move.nothrow<T>;
 		
 		template<typename T,enable_if(able<T>)>
-		static void base_call(T*&arg,size_t from_size,size_t to_size)noexcept(nothrow<T>){
+		static void base_call(T*&arg,size_t to_size)noexcept(nothrow<T>){
+			size_t from_size=get_size_of_alloc(arg);
 			if(to_size)
 				if(from_size > to_size){
 					destruct(arg+to_size-1,from_size-to_size);
@@ -123,23 +113,14 @@ namespace get_n{
 				}else
 					arg=get<T>[to_size]();
 			else{
-				unget[from_size](arg);
+				unget(arg);
 				arg=null_ptr;
 			}
 		}
 		
 		template<typename T,enable_if(able<T>)>
-		inline void operator()(T*&arg,size_t from_size,size_t to_size)const noexcept(nothrow<T>){
-			base_call(arg,from_size,to_size);
-		}
-		template<typename T,enable_if(able<T>)>
-		inline void operator()(T*&arg,note::from_t<size_t>from_size,note::to_t<size_t>to_size)const noexcept(nothrow<T>){
-			base_call(arg,from_size(),to_size());
-		}
-		
-		template<typename T,enable_if(able<T>)>
-		inline void operator()(T*&arg,note::to_t<size_t>to_size,note::from_t<size_t>from_size)const noexcept(nothrow<T>){
-			base_call(arg,from_size(),to_size());
+		inline void operator()(T*&arg,size_t to_size)const noexcept(nothrow<T>){
+			base_call(arg,to_size);
 		}
 	}get_resize{};
 }

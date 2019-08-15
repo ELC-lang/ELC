@@ -93,15 +93,27 @@ namespace pool_n{//通过提前分配大量空间以节省空间（减少overhea
 		}
 	};
 	template<typename T>
-	struct alloc_by_pool:can_t_alloc_array{};
+	struct alloc_by_pool{};
 	//为alloc提供方法
 	template<typename T>
-	inline T*alloc_method(type_pack_t<T>)noexcept{
+	inline void*alloc_method(type_pack_t<T>)noexcept{
 		return pool<T>.get_new();
+	}
+	template<typename T>
+	inline void*alloc_method(type_pack_t<T>,size_t)noexcept{
+		template_error("pool can\'t alloc array.");
+	}
+	template<typename T>
+	constexpr size_t get_size_of_alloc_method(T*arg){
+		return 1;
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
 		pool<T>.use_end(arg);
+	}
+	template<typename T>
+	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
+		template_error("pool can\'t alloc array.");
 	}
 	//
 }

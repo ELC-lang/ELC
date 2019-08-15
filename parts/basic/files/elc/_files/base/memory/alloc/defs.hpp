@@ -56,8 +56,9 @@ namespace alloc_n{
 	#include"overhead.hpp"
 
 	template<typename T>
-	inline T*alloc_method(type_pack_t<T>)noexcept{
+	inline void*alloc_method(type_pack_t<T>)noexcept{
 		//return空指针被允许，会引起gc
+		using namespace overhead_n;
 		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)));
 		if(tmp){
 			set_overhead(tmp,1);
@@ -66,9 +67,10 @@ namespace alloc_n{
 		return nullptr;
 	}
 	template<typename T>
-	inline T*alloc_method(type_pack_t<T>,size_t size)noexcept{
+	inline void*alloc_method(type_pack_t<T>,size_t size)noexcept{
 		//return空指针被允许，会引起gc
 		//size被保证不为0
+		using namespace overhead_n;
 		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)*size));
 		if(tmp){
 			set_overhead(tmp,size);
@@ -78,23 +80,26 @@ namespace alloc_n{
 	}
 	template<typename T>
 	inline size_t get_size_of_alloc_method(T*arg)noexcept{
+		using namespace overhead_n;
 		return get_overhead(recorrect_pointer(arg));
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
+		using namespace overhead_n;
 		base_free(recorrect_pointer(arg));
 	}
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		//return空指针被允许，会引起gc，但ptr值必须保持有效以保证gc后再次realloc有效
 		//new_size被保证不为0
+		using namespace overhead_n;
 		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size(sizeof(T)*new_size));
 		if(tmp){
 			set_overhead(tmp,new_size);
-			ptr=correct_pointer(tmp);
+			ptr=reinterpret_cast<T*>(correct_pointer(tmp));
 			return ptr;
 		}
-		return tmp;
+		return nullptr;
 	}
 	//
 
@@ -143,7 +148,7 @@ namespace alloc_n{
 		static void base_call(T*&ptr,size_t nsize)noexcept{
 			if(nsize){//辣鸡c标准没有规定0大小分配的返回值，所以检查
 				if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
-					while(realloc_method(ptr,nsize))gc();
+					while(!realloc_method(ptr,nsize))gc();
 				}else
 					ptr=alloc<T>(nsize);
 			}else{
@@ -155,11 +160,16 @@ namespace alloc_n{
 		/*static*/void operator()(T*&ptr,size_t nsize)const noexcept{
 			base_call(ptr,nsize);
 		}
-
 		struct realloc_array_t{
 			size_t _size;
-			[[nodiscard]]T*operator()()const noexcept{return base_call(_size);}
+			template<class T>
+			[[nodiscard]]T*operator()(T*&ptr)const noexcept{return base_call(ptr,_size);}
 		};
 		[[nodiscard]]realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};
+	
+	template<class T>
+	inline size_t get_size_of_alloc(T*arg){
+		return get_size_of_alloc_method(arg);
+	}
 }

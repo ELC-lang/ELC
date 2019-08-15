@@ -12,7 +12,7 @@ template<class T>
 
 template<class...Ts>
 struct data_block:non_copyable,non_moveable{
-	alignas(::std::max({alignof(Ts)...}))
-	byte _data[::std::max({sizeof(Ts)...})];
+	alignas(max({alignof(Ts)...}))
+	byte _data[max({sizeof(Ts)...})];
 	constexpr operator byte*(){return _data;}
 };

@@ -1,5 +1,5 @@
 //overhead.hpp
-//at namespace elc::memory
+//at namespace elc::memory::alloc_n
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -13,10 +13,10 @@ namespace overhead_n{
 	constexpr size_t correct_align(size_t a){
 		return max(a,alignof(size_t));
 	}
-	constexpr pointer correct_pointer(pointer a){
+	inline pointer correct_pointer(pointer a)noexcept{
 		return reinterpret_cast<size_t*>(a)+1;
 	}
-	constexpr pointer recorrect_pointer(pointer a){
+	inline pointer recorrect_pointer(pointer a)noexcept{
 		return reinterpret_cast<size_t*>(a)-1;
 	}
 	inline void set_overhead(pointer a,size_t size){

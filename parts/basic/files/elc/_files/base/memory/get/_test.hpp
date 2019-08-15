@@ -13,20 +13,17 @@ namespace get_n{
 		ste::tester::setzero();
 		tester*p=get<tester>[50]();
 		stest_accert(tester::getbuildtime()==50);
-		get_resize(p,note::from(50),note::to(60));
+		get_resize(p,60);
 		//destroytime:50(+50) cause move(move_construct&destruct).
 		stest_accert(tester::getdestroytime()==50);
 		stest_accert(tester::getbuildtime()==60);
-		get_resize(p,note::to(40),note::from(60));
-		//destroytime:90(+40) cause move.
-		stest_accert(tester::getdestroytime()==90);
-		unget[40](p);
-		//destroytime:130(+40) cause destruct.
-		stest_accert(tester::getdestroytime()==130);
+		unget(p);
+		//destroytime:110(+60) cause destruct.
+		stest_accert(tester::getdestroytime()==110);
 		int i=0;
 		do
 			p[i]();//写入测试
-		while(++i!=40);
+		while(++i!=60);
 		stest_exitevent();
 	}
 	inline void test_log_out(){

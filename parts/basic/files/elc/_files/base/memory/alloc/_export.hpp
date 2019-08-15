@@ -10,5 +10,5 @@
 export alloc;
 export free;
 export realloc;
-export can_t_alloc_array;
+export get_size_of_alloc;
 #undef export
