@@ -169,7 +169,7 @@ namespace alloc_n{
 	}realloc{};
 	
 	template<class T>
-	inline size_t get_size_of_alloc(T*arg){
+	inline size_t get_size_of_alloc(T*arg)noexcept_as(get_size_of_alloc_method(declvalue(T*))){
 		return get_size_of_alloc_method(arg);
 	}
 }

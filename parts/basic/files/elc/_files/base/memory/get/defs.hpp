@@ -7,44 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace get_n{
-	/*
-	有想过增加overhead以避免resize时还需要提供原始size的情况，并增加getsize方法用来避免size的多处存储
-	最后因为不一致性（单个分配与多个分配）放弃了
-	
-	可能的话,应当避免细节暴露才是.
-	若是get更常用于大规模分配,添加头也就无可厚非了不是吗?
-	
-	可是你不能保证get以后一定多用于大规模分配啊？
-	
-	单个分配时malloc都会有头,多一个size_t也无妨吧.
-	
-	。。
-	好像也是
-	
-	干脆移入alloc模块吧.
-	
-	那alloc_by_pool返回的东西该带头么
-	
-	?
-	
-	。
-	
-	....
-	
-	。。
-	
-	理应该带....
-	
-	。。。
-	
-	!
-	
-	？
-	
-	允许自定义get_size就bene了.
-	
-	哦哦
-	*/
 	struct build_by_get_only{};
 
 	struct base_get_t{};
@@ -95,9 +57,11 @@ namespace get_n{
 		
 		template<typename T,enable_if(able<T>)>
 		static void base_call(T*&arg,size_t to_size)noexcept(nothrow<T>){
-			size_t from_size=get_size_of_alloc(arg);
 			if(to_size)
-				if(from_size > to_size){
+				const size_t from_size=get_size_of_alloc(arg);
+				if(from_size==to_size)
+					return;
+				else if(from_size > to_size){
 					destruct(arg+to_size-1,from_size-to_size);
 					realloc(arg,to_size);
 				}else if(from_size){
@@ -123,4 +87,9 @@ namespace get_n{
 			base_call(arg,to_size);
 		}
 	}get_resize{};
+
+	template<class T>
+	inline size_t get_size_of_get(T*arg)noexcept_as(get_size_of_alloc(declvalue(T*))){
+		return get_size_of_alloc(arg);
+	}
 }
