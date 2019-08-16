@@ -1,4 +1,4 @@
-//_body.hpp
+//base_ptr_t.hpp
 //at namespace elc::memory::ptr_n
 /*
 未完成的elc解释器base文件
@@ -6,7 +6,6 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-//base ptr
 //copy from old ELC & adepted.
 template<class T>
 struct same_ptr_p_t{
