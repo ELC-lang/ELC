@@ -152,6 +152,8 @@ namespace ptr_n::compare_n{
 		[[nodiscard]]T*get()const noexcept(nothrow){
 			return static_cast<const convert_interface>(*attribute::get_handle()).get();
 		}
+		template<class T,class T_>
+		friend T*get_p(const compare_interface_t<T,T_>&a)noexcept(compare_interface_t<T,T_>::nothrow);
 	};
 
 	template<class T,class T_>
