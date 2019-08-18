@@ -1,4 +1,4 @@
-//_body.hpp
+//_export.hpp
 //at namespace elc::container
 /*
 未完成的elc解释器base文件
@@ -6,5 +6,6 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#include"array/_body.hpp"
-#include"copy_on_write_array/_body.hpp"
+#define export using copy_on_write_array_n::
+export copy_on_write_array_t;
+#undef export

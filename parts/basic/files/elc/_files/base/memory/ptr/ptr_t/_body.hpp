@@ -7,5 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include"base_ptr_t.hpp"
+#include"comn_ptr_t.hpp"
+#include"weak_ptr_t.hpp"
 // #include"safe_ptr_t.hpp"
-// #include"other_ptr_t.hpp"

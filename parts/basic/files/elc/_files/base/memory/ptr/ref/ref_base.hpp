@@ -26,3 +26,16 @@ template<typename T>
 constexpr bool base_on_ref_able=::std::is_convertible_v<T*,ref_able<T>*>;
 template<typename T>
 constexpr bool base_on_weak_ref_able=::std::is_convertible_v<T*,weak_ref_able<T>*>;
+
+template<typename T>
+[[nodiscard]]link_num_t get_ref_num(const T*a)noexcept{
+	if constexpr(!base_on_ref_able<T>)
+		template_error("hey.");
+	return static_cast<const ref_able<T>*>(a)->link_num();
+}
+template<typename T>
+[[nodiscard]]link_num_t get_weak_ref_num(const T*a)noexcept{
+	if constexpr(!base_on_weak_ref_able<T>)
+		template_error("hey.");
+	return static_cast<const weak_ref_able<T>*>(a)->link_num();
+}

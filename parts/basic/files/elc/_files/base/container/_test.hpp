@@ -9,11 +9,14 @@
 inline void test(){
 	stest_entryevent(L"container部分测试");
 	arrat_n::test();
+	copy_on_write_array_n::test();
 	stest_exitevent();
 }
 inline void test_log_out(){
 	arrat_n::test_log_out();
+	copy_on_write_array_n::test_log_out();
 }
 inline void test_end(){
 	arrat_n::test_end();
+	copy_on_write_array_n::test_end();
 }

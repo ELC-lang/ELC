@@ -16,7 +16,7 @@ public:
 		T*this_T=attribute::get_handle();
 		if(base_t::cut_ref())
 			if constexpr(base_on_weak_ref_able<T>)
-				if(weak_ref_num_is_zero(this_T))
+				if(get_weak_ref_num(this_T)==0)
 					waiting_for_destroy(this_T);
 				else
 					destroy_and_free(this_T);

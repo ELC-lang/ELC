@@ -8,49 +8,49 @@
 */
 namespace array_n{
 	template<typename T>
-	class array{
+	class array_t{
 		T*_m;
-		constexpr array(T*a):_m(a){}
+		constexpr array_t(T*a):_m(a){}
 	public:
-		constexpr array():_m(null_ptr){}
-		explicit array(size_t size)noexcept(get<T>.nothrow<>){
+		constexpr array_t():_m(null_ptr){}
+		explicit array_t(size_t size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size]();
 		}
-		~array()noexcept(unget.nothrow<T>){
+		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
 		}
-		size_t size()const noexcept{
+		[[nodiscard]]size_t size()const noexcept{
 			return get_size_of_get(_m);
 		}
 		void resize(size_t size)noexcept(get_resize.nothrow<T>){
 			get_resize(_m,size);
 		}
-		T&operator[](size_t size)noexcept{return _m[size];}
-		const T&operator[](size_t size)const noexcept{return _m[size];}
+		[[nodiscard]]T&operator[](size_t size)noexcept{return _m[size];}
+		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
 
-		void swap(array&a)noexcept{
+		void swap(array_t&a)noexcept{
 			using ::std::swap;
 			swap(_m,a._m);
 		}
 	private:
 		template<enable_if(copy_get.able<T>)>
-		array copy()const noexcept_as(copy_get.nothrow<T>){
+		array_t copy()const noexcept_as(copy_get.nothrow<T>){
 			return{copy_get(_m);}
 		}
 	public:
-		array(array&&a):array()noexcept{
+		array_t(array_t&&a):array_t()noexcept{
 			swap(a);
 		}
-		array&operator=(array&&a)&noexcept{
+		array_t&operator=(array_t&&a)&noexcept{
 			swap(a);
 			return*this;
 		}
-		#define expr declvalue(array).copy()
+		#define expr declvalue(array_t).copy()
 		template<enable_if_not_ill_form(expr)>
-		array(const array&a)noexcept_as(expr):array(a.copy()){}
+		array_t(const array_t&a)noexcept_as(expr):array_t(a.copy()){}
 		template<enable_if_not_ill_form(expr)>
-		array&operator=(array&a)&noexcept_as(expr){
+		array_t&operator=(array_t&a)&noexcept_as(expr){
 			return operator=(a.copy());
 		}
 		#undef expr
