@@ -79,9 +79,9 @@ namespace alloc_n{
 		return nullptr;
 	}
 	template<typename T>
-	inline size_t get_size_of_alloc_method(T*arg)noexcept{
+	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		using namespace overhead_n;
-		return get_overhead(recorrect_pointer(arg));
+		return get_overhead(recorrect_pointer(const_cast<T*>(arg)));
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
@@ -169,7 +169,9 @@ namespace alloc_n{
 	}realloc{};
 	
 	template<class T>
-	inline size_t get_size_of_alloc(T*arg)noexcept_as(get_size_of_alloc_method(declvalue(T*))){
+	inline size_t get_size_of_alloc(const T*arg)noexcept_as(get_size_of_alloc_method(declvalue(const T*))){
+		if(arg==null_ptr)
+			return 0;
 		return get_size_of_alloc_method(arg);
 	}
 }

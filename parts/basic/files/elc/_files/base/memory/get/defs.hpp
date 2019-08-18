@@ -89,7 +89,7 @@ namespace get_n{
 	}get_resize{};
 
 	template<class T>
-	inline size_t get_size_of_get(T*arg)noexcept_as(get_size_of_alloc(declvalue(T*))){
+	inline size_t get_size_of_get(const T*arg)noexcept_as(get_size_of_alloc(declvalue(const T*))){
 		return get_size_of_alloc(arg);
 	}
 }

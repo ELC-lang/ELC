@@ -63,6 +63,9 @@ public:
 		check();
 		return base_t::get();
 	}
+	[[nodiscard]]explicit constexpr operator hash_t(){
+		return hash(get());
+	}
 };
 
 template<class T>

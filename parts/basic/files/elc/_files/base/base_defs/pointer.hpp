@@ -15,3 +15,4 @@ template<typename T>
 	return a==b;
 }
 typedef void*pointer;
+typedef const void*const_pointer;

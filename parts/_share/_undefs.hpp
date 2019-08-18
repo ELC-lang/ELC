@@ -20,6 +20,8 @@
 #undef enable_flag
 #undef enable_if_not_ill_form
 
+// #undef was_an_ill_form
+
 // #undef BREAK_NAMESPACE
 // #undef INTER_NAMESPACE 
 

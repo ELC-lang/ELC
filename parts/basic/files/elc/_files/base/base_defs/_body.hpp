@@ -18,6 +18,7 @@
 #include"zero.hpp"
 #include"pointer.hpp"
 #include"data.hpp"
+#include"hash.hpp"
 #include"note.hpp"
 #include"attribute.hpp"
 #include"range.hpp"

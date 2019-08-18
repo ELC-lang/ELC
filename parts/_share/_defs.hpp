@@ -32,5 +32,7 @@
 #define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
 #define enable_flag class enable_state
 
+// #define was_an_ill_form(expr) MAGIC//we can't do that --by c++ std.
+
 // #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
 // #define BREAK_NAMESPACE }
