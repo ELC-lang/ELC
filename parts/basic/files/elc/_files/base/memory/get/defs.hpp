@@ -92,4 +92,11 @@ namespace get_n{
 	inline size_t get_size_of_get(const T*arg)noexcept_as(get_size_of_alloc(declvalue(const T*))){
 		return get_size_of_alloc(arg);
 	}
+	
+	#define expr copy_construct(note::from(declvalue(const T*)),note::to(copy_alloc(declvalue(const T*))),get_size_of_get(declvalue(const T*)))
+	template<class T,enable_if_not_ill_form(expr)>
+	inline T* copy_get(const T*arg)noexcept_as(expr){
+		return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
+	}
+	#undef expr
 }

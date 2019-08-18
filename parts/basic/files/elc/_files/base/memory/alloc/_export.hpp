@@ -11,4 +11,5 @@ export alloc;
 export free;
 export realloc;
 export get_size_of_alloc;
+export copy_alloc;
 #undef export

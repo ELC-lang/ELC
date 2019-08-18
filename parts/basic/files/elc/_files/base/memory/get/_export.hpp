@@ -11,5 +11,6 @@ export get;
 export get_resize;
 export unget;
 export get_size_of_get;
+export copy_get;
 export build_by_get_only;
 #undef export

@@ -174,4 +174,9 @@ namespace alloc_n{
 			return 0;
 		return get_size_of_alloc_method(arg);
 	}
+	
+	template<class T>
+	inline T* copy_alloc(const T*arg)noexcept_as(alloc<T>(get_size_of_alloc(declvalue(const T*)))){
+		return alloc<T>(get_size_of_alloc(arg));
+	}
 }
