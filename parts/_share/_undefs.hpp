@@ -9,6 +9,7 @@
 
 // #undef often_noexcept
 #undef noexcept_as
+// #undef constexpr_as
 
 // #undef floop
 #undef declvalue

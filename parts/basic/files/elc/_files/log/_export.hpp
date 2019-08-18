@@ -6,6 +6,6 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#define export using log_n::
+#define export using defs::log_n::
 export log;
 #undef export

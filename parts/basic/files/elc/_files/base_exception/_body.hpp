@@ -9,7 +9,7 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
-namespace elc{
+namespace elc::defs{
 	#include"../_defs.hpp"
 	namespace exception_n{
 		#include"exception/_body.hpp"
@@ -22,4 +22,7 @@ namespace elc{
 	}
 	#endif
 	#include"../_undefs.hpp"
+}
+namespace elc{
+	#include"_export.hpp"
 }

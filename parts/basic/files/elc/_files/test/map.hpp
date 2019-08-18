@@ -7,14 +7,14 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #if defined(ELC_BASE)
-base_part_test::CALL_NAME();
+defs::base_part_test::CALL_NAME();
 #endif
 #if defined(ELC_BASE_EXCEPTION)
-base_exception_part_test::CALL_NAME();
+defs::base_exception_part_test::CALL_NAME();
 #endif
 #if defined(ELC_CORE)
-core_part_test::CALL_NAME();
+defs::core_part_test::CALL_NAME();
 #endif
 #if defined(ELC_STRING)
-string_part_test::CALL_NAME();
+defs::string_part_test::CALL_NAME();
 #endif

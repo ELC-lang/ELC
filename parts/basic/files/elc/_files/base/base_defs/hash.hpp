@@ -9,14 +9,14 @@
 typedef size_t hash_t;
 #define expr hash_t(declvalue(const T&))
 template<class T,enable_if_not_ill_form(expr)>
-[[nodiscard]]constexpr(expr)hash_t hash(const T&a)noexcept_as(expr){
+[[nodiscard]]/*constexpr_as(expr)*/inline hash_t hash(const T&a)noexcept_as(expr){
 	return hash_t(a);
 }
 #undef expr
 /*
 #define expr declvalue(const T&).operator hash_t()
 template<class T,enable_if_not_ill_form(expr)>
-[[nodiscard]]constexpr(expr)hash_t hash(const T&a)noexcept_as(expr){
+[[nodiscard]]constexpr_as(expr)hash_t hash(const T&a)noexcept_as(expr){
 	return a.operator hash_t();
 }
 #undef expr

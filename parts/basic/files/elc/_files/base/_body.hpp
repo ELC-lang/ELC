@@ -9,16 +9,21 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
-namespace elc{
+namespace elc::defs{
 	#include"../_defs.hpp"
 	namespace base{
 		#include"base_defs/_body.hpp"
 		#include"tools/_body.hpp"
 	}
+	using namespace base;
 	namespace memory{
-		using namespace base;
 		#include"memory/_body.hpp"
 	}
+	using namespace memory;
+	namespace container{
+		#include"container/_body.hpp"
+	}
+	using namespace container;
 	#include"_export.hpp"
 	#if defined(ELC_TEST_ON)
 	namespace base_part_test{
@@ -26,4 +31,7 @@ namespace elc{
 	}
 	#endif
 	#include"../_undefs.hpp"
+}
+namespace elc{
+	#include"_export.hpp"
 }

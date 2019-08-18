@@ -315,7 +315,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=move_construct.trivial<T>&&destruct.trivial<T>;
 
 		template<class T,enable_if(able<T>)>
-		static T*operator()(T*to,T*from,size_t size)noexcept(nothrow<T>){
+		static T*base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			move_construct[size](to,from);
 			destruct(from,size);
 			return to;

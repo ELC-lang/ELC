@@ -9,7 +9,7 @@
 namespace elc{
 	#if defined(ELC_BASE)&&!defined(ELC_CORE)
 		//gc：声明于base实现于core
-		inline void memory::gc()noexcept{
+		inline void defs::memory::gc()noexcept{
 			stest_puts(L"out of memory but gc not defined.");
 			stest_wait();
 			stest_accert(0);

@@ -28,23 +28,21 @@ namespace array_n{
 		T&operator[](size_t size)noexcept{return _m[size];}
 		const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
-		
+
 		void swap(array&a)noexcept{
 			using ::std::swap;
 			swap(_m,a._m);
 		}
 	private:
-		#define expr copy_get(declvalue(const T*))
-		template<enable_if_not_ill_form(expr)>
-		array copy()const noexcept_as(expr){
+		template<enable_if(copy_get.able<T>)>
+		array copy()const noexcept_as(copy_get.nothrow<T>){
 			return{copy_get(_m);}
 		}
-		#undef expr
 	public:
 		array(array&&a):array()noexcept{
 			swap(a);
 		}
-		array&operator=(array&&a)noexcept&{
+		array&operator=(array&&a)&noexcept{
 			swap(a);
 			return*this;
 		}
@@ -52,7 +50,7 @@ namespace array_n{
 		template<enable_if_not_ill_form(expr)>
 		array(const array&a)noexcept_as(expr):array(a.copy()){}
 		template<enable_if_not_ill_form(expr)>
-		array&operator=(array&a)noexcept_as(expr)&{
+		array&operator=(array&a)&noexcept_as(expr){
 			return operator=(a.copy());
 		}
 		#undef expr

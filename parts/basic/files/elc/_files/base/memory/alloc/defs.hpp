@@ -176,7 +176,7 @@ namespace alloc_n{
 	}
 	
 	template<class T>
-	inline T* copy_alloc(const T*arg)noexcept_as(alloc<T>(get_size_of_alloc(declvalue(const T*)))){
+	inline T*copy_alloc(const T*arg)noexcept{
 		return alloc<T>(get_size_of_alloc(arg));
 	}
 }

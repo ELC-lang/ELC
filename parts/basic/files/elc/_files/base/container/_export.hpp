@@ -7,4 +7,5 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using container::
+export array;
 #undef export
