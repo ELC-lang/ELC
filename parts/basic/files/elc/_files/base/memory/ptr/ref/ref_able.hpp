@@ -13,7 +13,7 @@ private:
 	typedef attribute<T,ref_able<T>> attribute;
 public:
 	inline void cut_ref()const noexcept{
-		T*this_T=attribute::get_handle();
+		T*this_T=const_cast<T*>(attribute::get_handle());
 		if(base_t::cut_ref())
 			if constexpr(base_on_weak_ref_able<T>)
 				if(get_weak_ref_num(this_T)==0)

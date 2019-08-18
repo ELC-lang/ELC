@@ -116,7 +116,7 @@ namespace lifetime_n{
 			if constexpr(!trivial<T>)to->~T();
 		}
 		template<class T,enable_if(able<T>)>
-		void operator()(T*begin,size_t size)const noexcept(nothrow<T>){
+		void operator()([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)while(size--)operator()(begin+size);
 		}
 	}destruct{};

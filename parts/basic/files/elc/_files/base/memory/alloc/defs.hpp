@@ -80,6 +80,7 @@ namespace alloc_n{
 	}
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
+		//arg保证不与null_ptr相等
 		using namespace overhead_n;
 		return get_overhead(recorrect_pointer(const_cast<T*>(arg)));
 	}

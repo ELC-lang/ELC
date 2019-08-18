@@ -10,9 +10,17 @@ namespace array_n{
 	//BLOCK:for debug
 	inline void test(){
 		stest_entryevent(L"array部分测试");
+		array_t<int>anarray;
+		stest_accert(anarray.size()==0);
+		anarray.resize(5);
+		stest_accert(anarray.size()==5);
+		anarray[2]=99;
+		anarray.resize(3);
+		stest_accert(anarray[2]==99);
 		stest_exitevent();
 	}
 	inline void test_log_out(){
+		alloc_n::test_log_out();
 	}
 	inline void test_end(){
 	}

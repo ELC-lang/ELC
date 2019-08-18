@@ -11,7 +11,7 @@ struct attribute{
 protected:
 	friend T*get_handle(attribute<T,attribute_name>*a);
 	constexpr T*get_handle()noexcept{return static_cast<T*>(static_cast<attribute_name*>(this));}
-	constexpr const T*get_handle()const noexcept{return static_cast<T*>(static_cast<attribute_name*>(this));}
+	constexpr const T*get_handle()const noexcept{return static_cast<const T*>(static_cast<const attribute_name*>(this));}
 };
 template<class T,typename attribute_name>
 T*get_handle(attribute<T,attribute_name>*a){return get_handle(a->get_handle());}

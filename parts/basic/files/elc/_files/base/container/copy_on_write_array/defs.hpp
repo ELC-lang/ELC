@@ -9,22 +9,25 @@
 namespace copy_on_write_array_n{
 	template<typename T>
 	class copy_on_write_array_t{
+		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;
 
-		struct data_t:array_t<T>,ref_able<data_t>,build_by_get_only{
-			typedef array_t<T>base_t;
+		struct data_t:base_t_w,ref_able<data_t>,build_by_get_only,force_use_default_null_ptr{
+			typedef base_t_w base_t;
 			using base_t::base_t;
-			data_t(data_t&a)noexcept_as(construct<base_t>.nothrow<base_t>):base_t(a){}
+
+			static_assert(copy_construct.able<T>,"this type can\'t copy construct.");
+			data_t(const data_t&a)noexcept_as(construct<base_t>.nothrow<const base_t&>):base_t(a){}
 		};
 		typedef comn_ptr_t<data_t>ptr_t;
 
 		ptr_t _m;
 
-		void copy_check()noexcept_as(declvalue(ptr_t)=get<data_t>(*declvalue(ptr_t))){
+		static constexpr bool check_nothrow=noexcept(declvalue(ptr_t&)=get<data_t>(*declvalue(ptr_t)));
+		void copy_check()noexcept(check_nothrow){
 			if(!_m.unique())
 				_m=get<data_t>(*_m);
 		}
-		static constexpr bool check_nothrow=noexcept(declvalue(this_t).copy_check());
 	public:
 		copy_on_write_array_t()noexcept:_m(get<data_t>()){}
 		explicit copy_on_write_array_t(size_t size)noexcept(get<data_t>.nothrow<size_t>):_m(get<data_t>(size)){}
@@ -36,9 +39,18 @@ namespace copy_on_write_array_n{
 		this_t&operator=(this_t&&)noexcept(ptr_t::reset_nothrow)=default;
 
 		void swap(this_t&a)noexcept{_m.swap(a._m);}
-		void swap(array_t<T>&a)noexcept{
+		void swap(base_t_w&a)noexcept(check_nothrow){
 			copy_check();
 			a.swap(*_m);
+		}
+		this_t&operator=(const base_t_w&a)&noexcept(check_nothrow){
+			copy_check();
+			static_cast<base_t_w&>(*_m)=a;
+			return*this;
+		}
+		operator base_t_w&()noexcept(check_nothrow){
+			copy_check();
+			return*_m;
 		}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
 
@@ -56,8 +68,10 @@ namespace copy_on_write_array_n{
 			_m->resize(size);
 		}
 	};
-	template<typename T,typename T_,enable_if_not_ill_form(declvalue(T).swap(declvalue(T_)))>
-	inline void swap(T&a,T_&b)noexcept{a.swap(b);}
-	template<typename T,typename T_,enable_if_not_ill_form(declvalue(T).swap(declvalue(T_)))>
-	inline void swap(T_&a,T&b)noexcept{a.swap(b);}
+	template<typename T>
+	inline void swap(copy_on_write_array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{a.swap(b);}
+	template<typename T>
+	inline void swap(array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{b.swap(a);}
+	template<typename T>
+	inline void swap(copy_on_write_array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
 }

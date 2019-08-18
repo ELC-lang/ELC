@@ -10,9 +10,24 @@ namespace copy_on_write_array_n{
 	//BLOCK:for debug
 	inline void test(){
 		stest_entryevent(L"copy_on_write_array部分测试");
+		copy_on_write_array_t<int>anarray;
+		stest_accert(anarray.size()==0);
+		anarray.resize(5);
+		stest_accert(anarray.size()==5);
+		anarray[2]=99;
+		anarray.resize(3);
+		stest_accert(anarray[2]==99);
+		array_t<int>bnarray(5);
+		swap(anarray,bnarray);
+		stest_accert(bnarray[2]==99);
+		stest_accert(anarray.size()==5);
+		swap(bnarray,anarray);
+		anarray=bnarray;
+		bnarray=anarray;
 		stest_exitevent();
 	}
 	inline void test_log_out(){
+		alloc_n::test_log_out();
 	}
 	inline void test_end(){
 	}

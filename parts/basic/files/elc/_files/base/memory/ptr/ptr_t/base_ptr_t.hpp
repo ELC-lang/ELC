@@ -155,7 +155,7 @@ inline void swap(base_ptr_t<T,ref_type>&a,base_ptr_t<T,ref_type>&b)noexcept{
 	a.swap(b);
 }
 
-namespace ptr_n::compare_n{
+namespace compare_n{
 	template<class T,class T_>
 	class compare_interface_t:attribute<T_,compare_interface_t<T,T_>>{
 		typedef compare_interface_t<T,T_> this_t;
