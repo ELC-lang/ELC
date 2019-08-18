@@ -9,14 +9,14 @@
 namespace copy_on_write_array_n{
 	template<typename T>
 	class copy_on_write_array_t{
+		static_assert(copy_construct.able<T>,"this type can\'t copy construct.");
 		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;
 
-		struct data_t:base_t_w,ref_able<data_t>,build_by_get_only,force_use_default_null_ptr{
-			typedef base_t_w base_t;
+		struct data_t:array_t<T>,ref_able<data_t>,build_by_get_only,force_use_default_null_ptr{
+			typedef array_t<T>base_t;
 			using base_t::base_t;
 
-			static_assert(copy_construct.able<T>,"this type can\'t copy construct.");
 			data_t(const data_t&a)noexcept_as(construct<base_t>.nothrow<const base_t&>):base_t(a){}
 		};
 		typedef comn_ptr_t<data_t>ptr_t;
@@ -45,7 +45,7 @@ namespace copy_on_write_array_n{
 		}
 		this_t&operator=(const base_t_w&a)&noexcept(check_nothrow){
 			copy_check();
-			static_cast<base_t_w&>(*_m)=a;
+			*_m=a;
 			return*this;
 		}
 		operator base_t_w&()noexcept(check_nothrow){
