@@ -7,5 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using container::
-export array;
+export array_t;
+export copy_on_write_array_t;
 #undef export

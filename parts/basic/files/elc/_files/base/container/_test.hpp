@@ -1,5 +1,5 @@
 //_test.hpp
-//at namespace elc::container_part_test
+//at namespace elc::container
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -8,15 +8,15 @@
 */
 inline void test(){
 	stest_entryevent(L"container部分测试");
-	arrat_n::test();
+	array_n::test();
 	copy_on_write_array_n::test();
 	stest_exitevent();
 }
 inline void test_log_out(){
-	arrat_n::test_log_out();
+	array_n::test_log_out();
 	copy_on_write_array_n::test_log_out();
 }
 inline void test_end(){
-	arrat_n::test_end();
+	array_n::test_end();
 	copy_on_write_array_n::test_end();
 }

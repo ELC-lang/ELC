@@ -9,11 +9,14 @@
 inline void test(){
 	stest_entryevent(L"base部分测试");
 	memory::test();
+	container::test();
 	stest_exitevent();
 }
 inline void test_log_out(){
 	memory::test_log_out();
+	container::test_log_out();
 }
 inline void test_end(){
 	memory::test_end();
+	container::test_end();
 }
