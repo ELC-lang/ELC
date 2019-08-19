@@ -45,7 +45,7 @@ namespace copy_on_write_array_n{
 		}
 		this_t&operator=(const base_t_w&a)&noexcept(check_nothrow){
 			copy_check();
-			*_m=a;
+			static_cast<base_t_w&>(*_m)=a;
 			return*this;
 		}
 		operator base_t_w&()noexcept(check_nothrow){

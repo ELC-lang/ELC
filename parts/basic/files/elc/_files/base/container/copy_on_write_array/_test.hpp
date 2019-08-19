@@ -24,6 +24,8 @@ namespace copy_on_write_array_n{
 		swap(bnarray,anarray);
 		anarray=bnarray;
 		bnarray=anarray;
+		swap(bnarray,bnarray);
+		bnarray=bnarray;
 		stest_exitevent();
 	}
 	inline void test_log_out(){

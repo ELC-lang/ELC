@@ -15,12 +15,13 @@ namespace elc::defs{
 		#include"exception/_body.hpp"
 	}
 	namespace exceptions=exception_n;
-	#include"_export.hpp"
+
 	#if defined(ELC_TEST_ON)
 	namespace base_exception_part_test{
 		#include"_test.hpp"
 	}
 	#endif
+
 	#include"../_undefs.hpp"
 }
 namespace elc{

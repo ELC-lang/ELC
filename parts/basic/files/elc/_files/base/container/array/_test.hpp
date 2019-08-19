@@ -17,6 +17,8 @@ namespace array_n{
 		anarray[2]=99;
 		anarray.resize(3);
 		stest_accert(anarray[2]==99);
+		anarray=anarray;
+		swap(anarray,anarray);
 		stest_exitevent();
 	}
 	inline void test_log_out(){

@@ -17,13 +17,14 @@ namespace get_n{
 		//destroytime:50(+50) cause move(move_construct&destruct).
 		stest_accert(tester::getdestroytime()==50);
 		stest_accert(tester::getbuildtime()==60);
-		unget(p);
-		//destroytime:110(+60) cause destruct.
-		stest_accert(tester::getdestroytime()==110);
 		int i=0;
 		do
 			p[i]();//写入测试
 		while(++i!=60);
+		stest_accert(tester::getcalltime()==60);
+		unget(p);
+		//destroytime:110(+60) cause destruct.
+		stest_accert(tester::getdestroytime()==110);
 		stest_exitevent();
 	}
 	inline void test_log_out(){

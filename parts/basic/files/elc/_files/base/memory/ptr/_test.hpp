@@ -6,12 +6,13 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-inline void test(){
-	stest_entryevent(L"ptr部分测试");
-	stest_exitevent();
+namespace ptr_n{
+	inline void test(){
+		stest_entryevent(L"ptr部分测试");
+		stest_exitevent();
+	}
+	inline void test_log_out(){
+	}
+	inline void test_end(){
+	}
 }
-inline void test_log_out(){
-}
-inline void test_end(){
-}
-
