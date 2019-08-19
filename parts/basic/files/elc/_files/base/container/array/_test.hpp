@@ -21,7 +21,6 @@ namespace array_n{
 			anarray=anarray;
 			swap(anarray,anarray);
 		}
-		free(alloc<byte>(0)+1);
 		check_memory_lack();
 		stest_exitevent();
 	}
