@@ -45,7 +45,16 @@ namespace alloc_n{
 	}
 	inline void base_free(void*p)noexcept{
 		#if defined(ELC_TEST_ON)
-			stest_uneventlog(p);
+			auto tmp=stest_geteventlistfromlog(p);
+			if(!tmp){
+				stest_putsf(L"释放了已释放或未分配指针%p，当前的事件记录如下：",p);
+				stest_printeventlist(stderr,stest_geteventlist());
+				stest_wait();
+				p=nullptr;
+			}else{
+				stest_deleteevent(tmp);
+				stest_uneventlog(p);
+			}
 		#endif
 		::std::free(p);
 	}

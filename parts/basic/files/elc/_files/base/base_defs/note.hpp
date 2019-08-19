@@ -22,5 +22,6 @@ namespace note_n{
 	def_note(size);
 
 	#undef def_note
+	constexpr struct fail_t{}fail{};
 }
 namespace note=note_n;
