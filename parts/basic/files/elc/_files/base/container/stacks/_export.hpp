@@ -7,6 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using stack_n::
-export auto_stack;
-export base_stack;
+export auto_stack_t;
+export base_stack_t;
 #undef export

@@ -30,7 +30,10 @@ namespace array_n{
 		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
 
-		void swap(this_t&a)noexcept{swap(_m,a._m);}
+		void swap(this_t&a)noexcept{
+			using elc::defs::swap;
+			swap(_m,a._m);
+		}
 	private:
 		template<enable_if(copy_get.able<T>)>
 		this_t copy()const noexcept_as(copy_get.nothrow<T>){

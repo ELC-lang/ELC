@@ -33,7 +33,7 @@ namespace hash_table_n{
 		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
 
 		template<typename T_>
-		static constexpr bool hash_nothrow=noexcept(hash(declvalue(T_));
+		static constexpr bool hash_nothrow=noexcept(hash(declvalue(T_)));
 		template<typename T_>
 		static constexpr bool find_nothrow=hash_nothrow<T_>&&noexcept(declvalue(bucket_t).find(declvalue(T_)));
 
