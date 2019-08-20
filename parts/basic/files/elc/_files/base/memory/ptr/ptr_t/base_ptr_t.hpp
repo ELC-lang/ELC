@@ -70,7 +70,7 @@ public:
 		check();
 		return base_t::get();
 	}
-	bool unique()const noexcept{return static_cast<ref_able<T>*>(get())->link_num()==1;}
+	[[nodiscard]]bool unique()const noexcept{return static_cast<ref_able<T>*>(get())->link_num()==1;}
 	[[nodiscard]]explicit constexpr operator hash_t()noexcept_as(hash(declvalue(this_t).get())){
 		return hash(get());
 	}
@@ -147,7 +147,7 @@ private:
 		}
 	}for_delete{};
 public:
-	operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
+	[[nodiscard]]operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
 };
 
 template<class T,typename ref_type>
@@ -180,11 +180,11 @@ namespace compare_n{
 
 	#define tmp_expr pointer_equal(get_p(declvalue(const T)),get_p(declvalue(const T_)))
 	template<class T,class T_,enable_if_not_ill_form(tmp_expr)>
-	logical_bool operator==(const T&a,const T_&b)noexcept_as(tmp_expr){
+	[[nodiscard]]logical_bool operator==(const T&a,const T_&b)noexcept_as(tmp_expr){
 		return pointer_equal(get_p(a),get_p(b));
 	}
 	template<class T,class T_,enable_if_not_ill_form(tmp_expr)>
-	logical_bool operator!=(const T&a,const T_&b)noexcept_as(tmp_expr){
+	[[nodiscard]]logical_bool operator!=(const T&a,const T_&b)noexcept_as(tmp_expr){
 		return!pointer_equal(get_p(a),get_p(b));
 	}
 	#undef tmp_expr

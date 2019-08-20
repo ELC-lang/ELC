@@ -16,13 +16,18 @@ template<typename T>
 inline void discard(T&&){}//fucking nodiscard.
 
 template<typename T>
+inline T const_default_value_of{};
+
+template<typename T>
 class maybe_fail_reference{
 	T*_ref_to;
 public:
 	constexpr maybe_fail_reference(T&a):_ref_to(&a){}
+	constexpr maybe_fail_reference(maybe_fail_reference&)=default;
 	constexpr maybe_fail_reference(note::fail_t):_ref_to(nullptr){}
 
-	bool not_fail()noexcept{return _ref_to;}
+	[[nodiscard]]bool not_fail()noexcept{return _ref_to;}
+	[[nodiscard]]bool fail()noexcept{return!not_fail();}
 	T&get_ref()noexcept{return*_ref_to;}
 };
 

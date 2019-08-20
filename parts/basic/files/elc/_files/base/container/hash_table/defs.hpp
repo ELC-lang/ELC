@@ -9,15 +9,16 @@
 namespace hash_table_n{
 	template<typename T,template<typename>class stack_t=auto_stack_t,size_t bucket_max_size=256>
 	class hash_table_t{
-		typedef hash_table_t<T>this_t;
+		typedef hash_table_t<T,stack_t,bucket_max_size>this_t;
 		typedef stack_t<T>bucket_t;
 		typedef array_t<bucket_t>base_t_w;
 
 		base_t_w _m;
 	public:
-		void swap(this_t&)noexcept{swap(_m,a._m);}
+		template<size_t _>
+		void swap(hash_table_t<T,stack_t,_>&a)noexcept{swap(_m,a._m);}
 	private:
-		bucket_t&find_bucket(hash_t a)noexcept{
+		[[nodiscard]]bucket_t&find_bucket(hash_t a)noexcept{
 			return _m[a%_m.size()];
 		}
 		void bucket_count_grow()noexcept{
@@ -28,9 +29,23 @@ namespace hash_table_n{
 			});
 			swap(tmp);
 		}
+		hash_table_t(const base_t_w&a):_m(a)noexcept{}
+		this_t copy()noexcept_as(copy_construct.nothrow<base_t_w>){
+			return{_m};
+		}
 	public:
 		hash_table_t():_m(2){}
 		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
+		hash_table_t(const this_t&a):_m(a._m)noexcept{}
+		hash_table_t(this_t&&a):_m(a._m)noexcept{}
+
+		this_t&operator=(this_t&&a)noexcept{
+			swap(_m,a._m);
+			return*this;
+		}
+		this_t&operator=(const this_t&a)noexcept{
+			return operator=(a.copy());
+		}
 
 		template<typename T_>
 		static constexpr bool hash_nothrow=noexcept(hash(declvalue(T_)));
@@ -42,10 +57,10 @@ namespace hash_table_n{
 				bucket_count_grow();
 		}
 		template<typename T_>
-		maybe_fail_reference<T>find(T_&&a)noexcept(find_nothrow<T_>){
+		[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept(find_nothrow<T_>){
 			return find_bucket(hash(a)).find(a);
 		}
-		bool in_table(const T&a)noexcept(find_nothrow<T_>){
+		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T_>){
 			return find(a).not_fail();
 		}
 
@@ -53,5 +68,9 @@ namespace hash_table_n{
 			destruct(this);
 			construct<this_t>[this]();
 		}
+		//UF
+		//for_each
 	};
+	template<typename T,template<typename>class stack_t,size_t _,size_t __>
+	inline void swap(hash_table_t<T,stack_t,_>&a,hash_table_t<T,stack_t,__>&b)noexcept{a.swap(b);}
 }

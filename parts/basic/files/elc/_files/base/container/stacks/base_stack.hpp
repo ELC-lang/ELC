@@ -15,6 +15,17 @@ protected:
 		data_t*_next;
 	}*_m;
 	size_t _size;
+private:
+	this_t copy()noexcept(copy_get.nothrow<data_t>){
+		this_t tmp;
+		data_t*p=_m,**p_=&tmp._m;
+		while(p!=null_ptr){
+			*p_=copy_get(p);
+			p_=&(**p)._next;
+			p=p->_next;
+		}
+		return tmp;
+	}
 public:
 	constexpr base_stack_t():_m(null_ptr),_size(0){}
 	this_t&operator=(this_t&&a)noexcept{
@@ -25,6 +36,10 @@ public:
 	base_stack_t(this_t&&a)noexcept:base_stack_t(){
 		operator=(a);
 	}
+	this_t&operator=(const this_t&a)noexcept{
+		return operator=(a.copy());
+	}
+	base_stack_t(const this_t&a):base_stack_t(a.copy()){}
 	~base_stack_t()noexcept(unget.nothrow<data_t>){
 		data_t*tmp;
 		while(_m!=null_ptr){
@@ -38,19 +53,19 @@ public:
 		construct<this_t>[this]();
 	}
 	[[nodiscard]]bool empty()noexcept{
-		
+		return _m;
 	}
 	template<typename T_>
-	maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T_)==declvalue(T&)){
+	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==declvalue(T_)){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
-			if(a==tmp->_data)
+			if(tmp->_data==a)
 				return tmp->_data;
 			tmp=tmp->_next;
 		}
 		return note::fail;
 	}
-	bool in_stack(const T&a)noexcept_as(declvalue(const T&)==declvalue(T&)){
+	[[nodiscard]]bool in_stack(const T&a)noexcept_as(declvalue(const T&)==declvalue(T&)){
 		return find(a).not_fail();
 	}
 	[[nodiscard]]size_t size()noexcept{
@@ -98,4 +113,6 @@ public:
 		}else
 			return false;
 	}
+	//UF
+	//for_each
 };
