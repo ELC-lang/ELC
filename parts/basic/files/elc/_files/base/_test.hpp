@@ -1,5 +1,5 @@
 //_test.hpp
-//at namespace elc::base_part_test
+//at namespace elc::defs::base_part_test
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写

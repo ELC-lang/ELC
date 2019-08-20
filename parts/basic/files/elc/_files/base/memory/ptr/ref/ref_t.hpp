@@ -1,5 +1,5 @@
 //ref_t.hpp
-//at namespace elc::memory::ptr_n
+//at namespace elc::defs::memory::ptr_n
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
