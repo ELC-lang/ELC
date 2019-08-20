@@ -18,7 +18,7 @@ private:
 public:
 	this_t&operator=(this_t&&a)noexcept{base_t::operator=(a);return*this;}
 	template<typename T_>
-	maybe_fail_reference<T>get(T_&&a){
+	maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T_)==declvalue(T&)){
 		data_t*tmp=_m,**tmp_=&_m;
 		while(tmp!=null_ptr){
 			if(a==tmp->_data){
@@ -32,7 +32,7 @@ public:
 		}
 		return note::fail;
 	}
-	bool in_stack(const T&a){
-		return get(a).not_fail();
+	bool in_stack(const T&a)noexcept_as(declvalue(const T&)==declvalue(T&)){
+		return find(a).not_fail();
 	}
 };

@@ -1,4 +1,4 @@
-//_body.hpp
+//defs.hpp
 //at namespace elc::defs::container
 /*
 未完成的elc解释器base文件
@@ -6,13 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#include"array/_body.hpp"
-#include"copy_on_write_array/_body.hpp"
-
-#include"stacks/_body.hpp"
-
-#include"hash_table/_body.hpp"
-
-#if defined(ELC_TEST_ON)
-	#include"_test.hpp"
-#endif
+namespace map_n{
+	template<typename T,template<typename>class stack_t=auto_stack_t,size_t bucket_max_size=256>
+	class map_t{
+		#error
+		//UF
+	};
+}

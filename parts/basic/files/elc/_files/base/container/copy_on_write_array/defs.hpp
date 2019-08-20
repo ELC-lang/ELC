@@ -67,6 +67,25 @@ namespace copy_on_write_array_n{
 			copy_check();
 			_m->resize(size);
 		}
+		
+		#define expr declvalue(func_t)(declvalue(T&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each(func_t&&func)noexcept(check_nothrow&&noexcept(expr)){
+			copy_check();
+			auto asize=size();
+			while(asize--)
+				func((*this)[asize]);
+		}
+		#undef expr
+		
+		#define expr declvalue(func_t)(declvalue(const T&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each(func_t&&func)const noexcept_as(expr){
+			auto asize=size();
+			while(asize--)
+				func((*this)[asize]);
+		}
+		#undef expr
 	};
 	template<typename T>
 	inline void swap(copy_on_write_array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{a.swap(b);}

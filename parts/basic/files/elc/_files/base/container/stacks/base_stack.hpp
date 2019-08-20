@@ -14,17 +14,18 @@ protected:
 		T _data;
 		data_t*_next;
 	}*_m;
+	size_t _size;
 public:
-	constexpr base_stack_t():_m(null_ptr){}
+	constexpr base_stack_t():_m(null_ptr),_size(0){}
 	this_t&operator=(this_t&&a)noexcept{
-		using::std::swap;
 		swap(_m,a._m);
+		swap(_size,a._size);
 		return*this;
 	}
-	base_stack_t(this_t&&a):base_stack_t(){
+	base_stack_t(this_t&&a)noexcept:base_stack_t(){
 		operator=(a);
 	}
-	~base_stack_t(){
+	~base_stack_t()noexcept(unget.nothrow<data_t>){
 		data_t*tmp;
 		while(_m!=null_ptr){
 			tmp=_m;
@@ -32,8 +33,15 @@ public:
 			unget(tmp);
 		}
 	}
+	void clear()noexcept(destruct.nothrow<this_t>&&construct<this_t>.nothrow<>){
+		destruct(this);
+		construct<this_t>[this]();
+	}
+	[[nodiscard]]bool empty()noexcept{
+		
+	}
 	template<typename T_>
-	maybe_fail_reference<T>get(T_&&a){
+	maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T_)==declvalue(T&)){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
 			if(a==tmp->_data)
@@ -42,10 +50,52 @@ public:
 		}
 		return note::fail;
 	}
-	bool in_stack(const T&a){
-		return get(a).not_fail();
+	bool in_stack(const T&a)noexcept_as(declvalue(const T&)==declvalue(T&)){
+		return find(a).not_fail();
 	}
-	void add(const T&a){
+	[[nodiscard]]size_t size()noexcept{
+		return _size;
+	}
+	static constexpr bool add_nothrow=get<data_t>.nothrow<decltype({declvalue(const T&),declvalue(data_t*)})>;
+	size_t add(const T&a)noexcept(add_nothrow){
 		_m=get<data_t>({a,_m});
+		_size++;
+		return size();
+	}
+	size_t remove(const T&a)noexcept(unget.nothrow<data_t>){
+		data_t*tmp=_m,**tmp_=&_m;
+		size_t size=0;
+		while(tmp!=null_ptr){
+			size++;
+			if(a==tmp->_data){
+				*tmp_=tmp->_next;
+				unget(tmp);
+				return size;
+			}
+			tmp_=&tmp->_next;
+			tmp=*tmp_;
+		}
+		return 0;
+	}
+private:
+	void add(data_t*a){
+		a->_next=_m;
+		_m=a;
+		_size++;
+	}
+public:
+	[[nodiscard]]hash_t get_top_hash()noexcept_as(hash(declvalue(T&))){
+		if(_m)
+			return hash(_m->_data);
+	}
+	bool move_top_to(this_t&a)noexcept{
+		if(_m){
+			size--;
+			auto tmp=_m;
+			_m=_m->_next;
+			a.add(tmp);
+			return true;
+		}else
+			return false;
 	}
 };
