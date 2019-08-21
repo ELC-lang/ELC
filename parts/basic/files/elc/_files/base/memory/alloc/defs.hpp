@@ -1,5 +1,5 @@
 //defs.hpp
-//at namespace elc::memory
+//at namespace elc::defs::memory
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -45,7 +45,16 @@ namespace alloc_n{
 	}
 	inline void base_free(void*p)noexcept{
 		#if defined(ELC_TEST_ON)
-			stest_uneventlog(p);
+			auto tmp=stest_geteventlistfromlog(p);
+			if(!tmp){
+				stest_putsf(L"释放了已释放或未分配指针%p，当前的事件记录如下：",p);
+				stest_printeventlist(stderr,stest_geteventlist());
+				stest_wait();
+				p=nullptr;
+			}else{
+				stest_deleteevent(tmp);
+				stest_uneventlog(p);
+			}
 		#endif
 		::std::free(p);
 	}
@@ -79,9 +88,10 @@ namespace alloc_n{
 		return nullptr;
 	}
 	template<typename T>
-	inline size_t get_size_of_alloc_method(T*arg)noexcept{
+	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
+		//arg保证不与null_ptr相等
 		using namespace overhead_n;
-		return get_overhead(recorrect_pointer(arg));
+		return get_overhead(recorrect_pointer(const_cast<T*>(arg)));
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
@@ -169,7 +179,14 @@ namespace alloc_n{
 	}realloc{};
 	
 	template<class T>
-	inline size_t get_size_of_alloc(T*arg)noexcept_as(get_size_of_alloc_method(declvalue(T*))){
+	inline size_t get_size_of_alloc(const T*arg)noexcept_as(get_size_of_alloc_method(declvalue(const T*))){
+		if(arg==null_ptr)
+			return 0;
 		return get_size_of_alloc_method(arg);
+	}
+	
+	template<class T>
+	inline T*copy_alloc(const T*arg)noexcept{
+		return alloc<T>(get_size_of_alloc(arg));
 	}
 }

@@ -1,5 +1,5 @@
 //_body.hpp
-//at namespace elc::memory
+//at namespace elc::defs::memory
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -8,7 +8,10 @@
 */
 #include"gc/_body.hpp"
 
+#if !defined(_MSC_VER)//for syntax check
+//https://developercommunity.visualstudio.com/content/problem/683248/a-bug-of-parameter-pack.html
 #include"pool/_body.hpp"
+#endif
 
 #include"alloc/_body.hpp"
 #include"lifetime/_body.hpp"

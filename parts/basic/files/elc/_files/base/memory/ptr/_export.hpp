@@ -7,5 +7,9 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using ptr_n::
-
+export ref_able;
+export weak_ref_able;
+export base_ptr_t;
+export comn_ptr_t;
+export weak_ptr_t;
 #undef export

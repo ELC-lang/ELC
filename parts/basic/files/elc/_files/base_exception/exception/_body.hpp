@@ -1,5 +1,5 @@
 //_body.hpp
-//at namespace elc::exception_n
+//at namespace elc::defs::exception_n
 /*
 未完成的elc解释器base_exception文件
 由steve02081504与Alex0125设计、编写

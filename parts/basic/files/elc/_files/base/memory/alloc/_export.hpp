@@ -1,5 +1,5 @@
 //_export.hpp
-//at namespace elc::memory
+//at namespace elc::defs::memory
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -11,4 +11,5 @@ export alloc;
 export free;
 export realloc;
 export get_size_of_alloc;
+export copy_alloc;
 #undef export

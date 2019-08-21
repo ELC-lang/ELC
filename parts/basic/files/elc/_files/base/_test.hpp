@@ -1,5 +1,5 @@
 //_test.hpp
-//at namespace elc::base_part_test
+//at namespace elc::defs::base_part_test
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -9,11 +9,14 @@
 inline void test(){
 	stest_entryevent(L"base部分测试");
 	memory::test();
+	container::test();
 	stest_exitevent();
 }
 inline void test_log_out(){
 	memory::test_log_out();
+	container::test_log_out();
 }
 inline void test_end(){
 	memory::test_end();
+	container::test_end();
 }

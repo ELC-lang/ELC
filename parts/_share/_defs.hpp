@@ -20,7 +20,8 @@
 
 // #define use_as_template template<bool=true>
 // #define often_noexcept
-#define noexcept_as(line) noexcept(noexcept(line))
+#define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))
+// #define constexpr_as(...) MAGIC//we can't do that ——by std c++.
 
 // #define floop while(1)
 #define declvalue(...) ::std::declval<__VA_ARGS__>()
@@ -31,6 +32,8 @@
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
 #define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
 #define enable_flag class enable_state
+
+// #define was_an_ill_form(...) MAGIC//we can't do that ——by std c++.
 
 // #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
 // #define BREAK_NAMESPACE }

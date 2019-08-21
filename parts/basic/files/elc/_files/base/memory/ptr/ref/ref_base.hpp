@@ -1,5 +1,5 @@
 //ref_base.hpp
-//at namespace elc::memory::ptr_n
+//at namespace elc::defs::memory::ptr_n
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -26,3 +26,16 @@ template<typename T>
 constexpr bool base_on_ref_able=::std::is_convertible_v<T*,ref_able<T>*>;
 template<typename T>
 constexpr bool base_on_weak_ref_able=::std::is_convertible_v<T*,weak_ref_able<T>*>;
+
+template<typename T>
+[[nodiscard]]link_num_t get_ref_num(const T*a)noexcept{
+	if constexpr(!base_on_ref_able<T>)
+		template_error("hey.");
+	return static_cast<const ref_able<T>*>(a)->link_num();
+}
+template<typename T>
+[[nodiscard]]link_num_t get_weak_ref_num(const T*a)noexcept{
+	if constexpr(!base_on_weak_ref_able<T>)
+		template_error("hey.");
+	return static_cast<const weak_ref_able<T>*>(a)->link_num();
+}

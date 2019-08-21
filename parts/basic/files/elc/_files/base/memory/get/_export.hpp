@@ -1,5 +1,5 @@
 //_export.hpp
-//at namespace elc::memory
+//at namespace elc::defs::memory
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -11,5 +11,6 @@ export get;
 export get_resize;
 export unget;
 export get_size_of_get;
+export copy_get;
 export build_by_get_only;
 #undef export

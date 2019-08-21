@@ -6,6 +6,6 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#define export using exception_n::
+#define export using defs::exception_n::
 export exception;
 #undef export

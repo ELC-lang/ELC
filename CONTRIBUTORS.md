@@ -1,6 +1,6 @@
 ### 主要作者  
 ### The main author  
-[steve](https://steve02081504.github.io/about) & [alex](https://coding.net/u/Alex0125)  
+[steve](https://steve02081504.github.io/about) & [alex](https://github.com/alex0125z)  
 
 _______
 

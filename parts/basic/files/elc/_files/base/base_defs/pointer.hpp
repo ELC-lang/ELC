@@ -1,5 +1,5 @@
 //pointer.hpp
-//at namespace elc::base
+//at namespace elc::defs::base
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -15,3 +15,4 @@ template<typename T>
 	return a==b;
 }
 typedef void*pointer;
+typedef const void*const_pointer;

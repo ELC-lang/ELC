@@ -9,7 +9,7 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
-namespace elc{
+namespace elc::defs{
 	#include"../_defs.hpp"
 	
 	namespace log_n{
@@ -17,11 +17,14 @@ namespace elc{
 		#include"log/_body.hpp"
 	}
 
-	#include"_export.hpp"
 	#if defined(ELC_TEST_ON)
 	namespace log_part_test{
 		#include"_test.hpp"
 	}
 	#endif
+
 	#include"../_undefs.hpp"
+}
+namespace elc{
+	#include"_export.hpp"
 }

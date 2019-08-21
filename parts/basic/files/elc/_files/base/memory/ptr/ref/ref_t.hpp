@@ -1,5 +1,5 @@
 //ref_t.hpp
-//at namespace elc::memory::ptr_n
+//at namespace elc::defs::memory::ptr_n
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -16,5 +16,5 @@ public:
 	[[nodiscard]]inline bool cut_ref()const noexcept{return!--_ref_num;}
 	//[[nodiscard]]operator bool()const noexcept{return _ref_num;}
 	inline void set_zero()noexcept{_ref_num=0;}
-	[[nodiscard]]link_num_t link_num(){return _ref_num;}
+	[[nodiscard]]link_num_t link_num()const{return _ref_num;}
 };

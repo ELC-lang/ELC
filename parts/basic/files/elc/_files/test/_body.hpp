@@ -9,8 +9,9 @@
 namespace elc{
 	#if defined(ELC_BASE)&&!defined(ELC_CORE)
 		//gc：声明于base实现于core
-		inline void memory::gc()noexcept{
-			stest_puts(L"out of memory but gc not defined.");
+		inline void defs::memory::gc()noexcept{
+			stest_puts(L"gc被调用但未定义，当前事件记录如下：");
+			stest_printeventlist(stderr,stest_geteventlist());
 			stest_wait();
 			stest_accert(0);
 		}
