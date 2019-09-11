@@ -79,7 +79,10 @@ namespace function_n{
 		template<class T_>
 		using func_data_t=function_n::func_data_t<T_,Ret_t(Args_t...)>;
 
-		comn_ptr_t<base_func_data_t<Ret_t(Args_t...)>>_m;
+		typedef comn_ptr_t<base_func_data_t<Ret_t(Args_t...)>>ptr_t;
+		typedef Ret_t(*func_ptr_t)(Args_t...)noexcept(nothrow);
+
+		ptr_t _m;
 	public:
 		base_function_t()noexcept=default;
 		~base_function_t()noexcept(promise_nothrow_destruct)=default;
@@ -92,8 +95,8 @@ namespace function_n{
 		template<class func_t>
 		this_t&operator=(func_t&&a)&noexcept(
 		promise_nothrow_destruct&&(
-		type_info<func_t>.can_convert_to<Ret_t(*)(Args_t...)noexcept(nothrow)>?
-		type_info<func_t>.can_nothrow_convert_to<Ret_t(*)(Args_t...)noexcept(nothrow)>:
+		type_info<func_t>.can_convert_to<func_ptr_t>?
+		type_info<func_t>.can_nothrow_convert_to<func_ptr_t>:
 		get<func_data_t<::std::remove_cvref_t<func_t>>>.nothrow<func_t>;
 		)){
 			//BLOCK:constexpr checks
@@ -103,10 +106,10 @@ namespace function_n{
 				if constexpr(!invoke<T>.nothrow<args...>)
 					template_warning("the call of T was not noexcept,this may cause terminate.");
 			//BLOCK_END
-			if constexpr(type_info<func_t>.can_convert_to<Ret_t(*)(Args_t...)noexcept(nothrow)>){
-				auto tmp=(Ret_t(*)(Args_t...)noexcept(nothrow))(a);
+			if constexpr(type_info<func_t>.can_convert_to<func_ptr_t>){
+				auto tmp=(func_ptr_t)(a);
 				if(tmp)
-					_m=get<Ret_t(*)(Args_t...)noexcept(nothrow)>(tmp);
+					_m=get<func_ptr_t>(tmp);
 				else
 					_m=null_ptr;
 			}else
@@ -139,10 +142,21 @@ namespace function_n{
 			_m=a._m;
 			return*this;
 		}
-		
+
 		template<bool nothrow_,bool promise_nothrow_destruct_>
 		bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_destruct_>&a)noexcept{
 			return *_m==*(a._m);
+		}
+	private:
+		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
+		static ptr_t _func_ptr_data;
+		static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
+			return _func_ptr_data->call(forward<Args_t>(args)...);
+		}
+	public:
+		explicit operator func_ptr_t()const noexcept(promise_nothrow_destruct){
+			_func_ptr_data=_m;
+			return _func_ptr_value;
 		}
 	};
 
@@ -161,7 +175,7 @@ namespace function_n{
 	};
 	template<class Ret_t,class...Args_t>
 	struct function_t<Ret_t(Args_t...)>:base_function_t<Ret_t(Args_t...),false,true>{
-		typedef function_t<Ret_t(Args_t...)noexcept>this_t;
+		typedef function_t<Ret_t(Args_t...)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),false,true>base_t;
 		using base_t::base_t;
 		template<class assign_t>
