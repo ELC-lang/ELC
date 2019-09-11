@@ -14,7 +14,7 @@
 
 // #undef often_noexcept
 #undef noexcept_as
-// #undef constexpr_as
+#undef constexpr_as
 
 // #undef floop
 #undef declvalue
@@ -26,10 +26,17 @@
 #undef enable_flag
 #undef enable_if_not_ill_form
 
-// #undef was_an_ill_form
+#undef was_an_ill_form
+
+#undef lambda
+#undef lambda_with_catch
+
+#define MAGIC
+
+#define nothing
 
 // #undef BREAK_NAMESPACE
-// #undef INTER_NAMESPACE 
+// #undef INTER_NAMESPACE
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

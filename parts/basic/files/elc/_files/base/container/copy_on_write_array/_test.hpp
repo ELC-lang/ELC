@@ -18,7 +18,7 @@ namespace copy_on_write_array_n{
 			anarray[2]=99;
 			anarray.resize(3);
 			stest_accert(anarray[2]==99);
-			array_t<int>bnarray(5);
+			array_t<int>bnarray(note::size(5));
 			swap(anarray,bnarray);
 			stest_accert(bnarray[2]==99);
 			stest_accert(anarray.size()==5);

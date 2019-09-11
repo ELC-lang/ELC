@@ -11,21 +11,22 @@ namespace hash_table_n{
 	class hash_table_t{
 		typedef hash_table_t<T,stack_t,bucket_max_size>this_t;
 		typedef stack_t<T>bucket_t;
+	public:
 		typedef array_t<bucket_t>base_t_w;
-
+	private:
 		base_t_w _m;
 	public:
-		template<size_t _>
-		void swap(hash_table_t<T,stack_t,_>&a)noexcept{swap(_m,a._m);}
+		void swap(base_t_w&a)noexcept{swap(_m,a);}
 	private:
 		[[nodiscard]]bucket_t&find_bucket(hash_t a)noexcept{
 			return _m[a%_m.size()];
 		}
 		void bucket_count_grow()noexcept{
 			this_t tmp;
-			tmp._m.resize(size_t(this->_m.size()*magic_number::gold_for_resize));
-			_m.for_each([&tmp](bucket_t&a)noexcept{
-				while(a.move_top_to(tmp.find_bucket(a.get_top_hash())));
+			tmp._m.resize(note::size_t(size_t(this->_m.size()*magic_number::gold_for_resize)));
+			_m.for_each(lambda_with_catch(&tmp)(bucket_t&a)noexcept{
+				while(!a.empty())
+					a.move_top_to(tmp.find_bucket(a.get_top_hash()));
 			});
 			swap(tmp);
 		}
@@ -36,15 +37,20 @@ namespace hash_table_n{
 	public:
 		hash_table_t():_m(2){}
 		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
+
+		operator base_t_w&()noexcept{return _m;}
+		operator const base_t_w&()const noexcept{return _m;}
+
 		hash_table_t(const this_t&a):_m(a._m)noexcept{}
 		hash_table_t(this_t&&a):_m(a._m)noexcept{}
 
-		this_t&operator=(this_t&&a)noexcept{
-			swap(_m,a._m);
+		this_t&operator=(base_t_w&&a)&noexcept{
+			swap(_m,a);
 			return*this;
 		}
-		this_t&operator=(const this_t&a)noexcept{
-			return operator=(a.copy());
+		this_t&operator=(const base_t_w&a)&noexcept{
+			_m=a;
+			return*this;
 		}
 
 		template<typename T_>
@@ -55,6 +61,9 @@ namespace hash_table_n{
 		void add(const T&a)noexcept(hash_nothrow<const T&>&&bucket_t::add_nothrow){
 			if(find_bucket(hash(a)).add(a) > bucket_max_size)
 				bucket_count_grow();
+		}
+		void remove(const T&a)noexcept(bucket_t::remove_nothrow){
+			find_bucket(hash(a)).remove(a);
 		}
 		template<typename T_>
 		[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept(find_nothrow<T_>){
@@ -68,9 +77,43 @@ namespace hash_table_n{
 			destruct(this);
 			construct<this_t>[this]();
 		}
-		//UF
-		//for_each
+
+		#define expr declvalue(func_t)(declvalue(T&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each(func_t&&func)noexcept_as(expr){
+			_m.for_each(lambda(bucket_t&a)noexcept_as(expr){
+				a.for_each(func);
+			});
+		}
+		#undef expr
+
+		#define expr declvalue(func_t)(declvalue(const T&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each(func_t&&func)const noexcept_as(expr){
+			_m.for_each(lambda(const bucket_t&a)noexcept_as(expr){
+				a.for_each(func);
+			});
+		}
+		#undef expr
+
+		#define expr declvalue(func_t)(declvalue(bucket_t&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each_bucket(func_t&&func)noexcept_as(expr){
+			_m.for_each(func);
+		}
+		#undef expr
+
+		#define expr declvalue(func_t)(declvalue(const bucket_t&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each_bucket(func_t&&func)const noexcept_as(expr){
+			_m.for_each(func);
+		}
+		#undef expr
 	};
 	template<typename T,template<typename>class stack_t,size_t _,size_t __>
 	inline void swap(hash_table_t<T,stack_t,_>&a,hash_table_t<T,stack_t,__>&b)noexcept{a.swap(b);}
+	template<typename T,template<typename>class stack_t,size_t _>
+	inline void swap(hash_table_t<T,stack_t,_>&a,typename hash_table_t<T,stack_t,_>::base_t_w&b)noexcept{a.swap(b);}
+	template<typename T,template<typename>class stack_t,size_t _>
+	inline void swap(typename hash_table_t<T,stack_t,_>::base_t_w&b,hash_table_t<T,stack_t,_>&a)noexcept{a.swap(b);}
 }

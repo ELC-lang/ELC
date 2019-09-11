@@ -7,12 +7,13 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 //恭喜你找到elc内大部分语法糖所在地
-#include"template_error_helper.hpp"
+#include"template_helper.hpp"
 #include"using_std.hpp"
 
 #include"special_flags.hpp"
 #include"non_Xable.hpp"
-#include"type_pack.hpp"
+#include"type_info.hpp"
+#include"min_max.hpp"
 #include"hash.hpp"
 #include"logic.hpp"
 #include"null_ptr.hpp"

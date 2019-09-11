@@ -5,8 +5,6 @@ __________
 
 ### 正常发展  
 
-- [x] 编码退回uft8withoutbom  
-- [ ] 等待steve.h的sio上线  
-- [x] map_all_able属性  
-- [ ] gc模板  
-- [ ] alloc_by_pool属性  
+- [ ] function测试部分  
+- [ ] 解决gc定义需container先定义的问题  
+- [x] alloc_by_pool属性  

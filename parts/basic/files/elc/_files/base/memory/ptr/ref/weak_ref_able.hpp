@@ -13,7 +13,7 @@ private:
 	typedef attribute<T,ref_able<T>> attribute;
 public:
 	inline void cut_ref()const noexcept{
-		if constexpr(!base_on_ref_able<T>)
+		if constexpr(!was_ref_able<T>)
 			template_error("base on ref_able before base on weak_ref_able,please.");
 		T*this_T=const_cast<T*>(attribute::get_handle());
 		if(base_t::cut_ref())

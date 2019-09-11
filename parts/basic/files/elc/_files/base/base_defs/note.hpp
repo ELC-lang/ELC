@@ -11,6 +11,8 @@ namespace note_n{
 	template<typename T>\
 	struct name##_t{\
 		T value;\
+		template<class T_>\
+		constexpr name##_t(name##_t<T_>a):value(a.value){}\
 		constexpr operator T(){return value;}\
 		constexpr T operator()(){return value;}\
 	};\

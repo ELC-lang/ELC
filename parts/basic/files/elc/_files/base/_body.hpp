@@ -9,6 +9,7 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
+#include"../../../../../_share/APIs/alloc.hpp"//using at memory/alloc
 namespace elc::defs{
 	#include"../_defs.hpp"
 	namespace base{

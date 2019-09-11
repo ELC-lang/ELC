@@ -53,7 +53,7 @@ public:
 		construct<this_t>[this]();
 	}
 	[[nodiscard]]bool empty()noexcept{
-		return _m;
+		return _m==null_ptr;
 	}
 	template<typename T_>
 	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==declvalue(T_)){
@@ -77,6 +77,7 @@ public:
 		_size++;
 		return size();
 	}
+	static constexpr bool remove_nothrow=unget.nothrow<data_t>;
 	size_t remove(const T&a)noexcept(unget.nothrow<data_t>){
 		data_t*tmp=_m,**tmp_=&_m;
 		size_t size=0;
@@ -92,6 +93,29 @@ public:
 		}
 		return 0;
 	}
+	#define expr declvalue(func_t)(declvalue(T&))
+	template<typename func_t,enable_if_not_ill_form(expr)>
+	void for_each(func_t&&func)noexcept_as(expr){
+		data_t*tmp=_m,**tmp_=&_m;
+		while(tmp!=null_ptr){
+			func(tmp->_data);
+			tmp_=&tmp->_next;
+			tmp=*tmp_;
+		}
+	}
+	#undef expr
+	
+	#define expr declvalue(func_t)(declvalue(const T&))
+	template<typename func_t,enable_if_not_ill_form(expr)>
+	void for_each(func_t&&func)const noexcept_as(expr){
+		data_t*tmp=_m,**tmp_=&_m;
+		while(tmp!=null_ptr){
+			func(tmp->_data);
+			tmp_=&tmp->_next;
+			tmp=*tmp_;
+		}
+	}
+	#undef expr
 private:
 	void add(data_t*a){
 		a->_next=_m;
@@ -103,16 +127,10 @@ public:
 		if(_m)
 			return hash(_m->_data);
 	}
-	bool move_top_to(this_t&a)noexcept{
-		if(_m){
-			size--;
-			auto tmp=_m;
-			_m=_m->_next;
-			a.add(tmp);
-			return true;
-		}else
-			return false;
+	void move_top_to(this_t&a)noexcept{
+		size--;
+		auto tmp=_m;
+		_m=_m->_next;
+		a.add(tmp);
 	}
-	//UF
-	//for_each
 };

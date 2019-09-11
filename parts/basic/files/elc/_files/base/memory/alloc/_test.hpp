@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline void check_memory_lack()noexcept{
-	stest_mapeventlogwith([](const void*p,steventlist*a){
+	stest_mapeventlogwith(lambda(const void*p,steventlist*a){
 		stest_putsf(L"内存泄露于%p,分配自:",p);
 		stest_printeventlist(stdout,stest_copyeventlist(a));
 		alloc_n::base_free(const_cast<void*>(p));

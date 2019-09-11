@@ -11,27 +11,18 @@ inline void test(){
 	alloc_n::test();
 	lifetime_n::test();
 	get_n::test();
-	#if !defined(_MSC_VER)//for syntax check
-	//https://developercommunity.visualstudio.com/content/problem/683248/a-bug-of-parameter-pack.html
 	pool_n::test();
-	#endif
 	stest_exitevent();
 }
 inline void test_log_out(){
 	alloc_n::test_log_out();
 	lifetime_n::test_log_out();
 	get_n::test_log_out();
-	#if !defined(_MSC_VER)//for syntax check
-	//https://developercommunity.visualstudio.com/content/problem/683248/a-bug-of-parameter-pack.html
 	pool_n::test_log_out();
-	#endif
 }
 inline void test_end(){
 	alloc_n::test_end();
 	lifetime_n::test_end();
 	get_n::test_end();
-	#if !defined(_MSC_VER)//for syntax check
-	//https://developercommunity.visualstudio.com/content/problem/683248/a-bug-of-parameter-pack.html
 	pool_n::test_end();
-	#endif
 }

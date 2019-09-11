@@ -36,7 +36,7 @@ public:
 	virtual setter eval(){return eval_of(this)->list_call(this);}
 	virtual setter call(ptr args){return call_of(this)->call(cons(this,args));}
 	template<typename...Args>
-	inline setter operator()(Args&&... rest){return list_call(forward<args>(rest)...);}
+	inline setter operator()(Args&&... rest){return list_call(forward<Args>(rest)...);}
 
 	virtual logic_bool eq(ptr a){return a==this->operator&();}
 	virtual logic_bool equal(ptr a){return this->type()->arec(equal)->list_call(this,a);}

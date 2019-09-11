@@ -43,6 +43,8 @@ namespace get_n{
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
+				if constexpr(!destruct.nothrow<T>)
+					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
 				destruct(a,get_size_of_alloc(a));
 				free(a);
 			}
