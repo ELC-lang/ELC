@@ -12,5 +12,10 @@ elc使用的字符串.
 */
 #if !defined(ELC_LOCALE)
 	#define ELC_LOCALE
-	
+	namespace elc::locale::func{
+		
+	}
+	namespace elc::locale::str{
+		
+	}
 #endif

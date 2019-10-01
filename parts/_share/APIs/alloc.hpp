@@ -25,7 +25,6 @@ elc依赖的基础函数.
 			return::std::aligned_alloc(align,size);
 		}
 		inline void free(void*p)noexcept{
-			//p被保证不为空指针
 			::std::free(p);
 		}
 	}

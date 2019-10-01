@@ -1,4 +1,4 @@
-//gc_decl.hpp
+//decl.hpp
 //at namespace elc::defs::memory
 /*
 未完成的elc解释器base文件

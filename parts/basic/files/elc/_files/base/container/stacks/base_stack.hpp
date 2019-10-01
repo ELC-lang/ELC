@@ -71,7 +71,7 @@ public:
 	[[nodiscard]]size_t size()noexcept{
 		return _size;
 	}
-	static constexpr bool add_nothrow=get<data_t>.nothrow<decltype({declvalue(const T&),declvalue(data_t*)})>;
+	static constexpr bool add_nothrow=noexcept(get<data_t>({declvalue(const T&),declvalue(data_t*)}));
 	size_t add(const T&a)noexcept(add_nothrow){
 		_m=get<data_t>({a,_m});
 		_size++;

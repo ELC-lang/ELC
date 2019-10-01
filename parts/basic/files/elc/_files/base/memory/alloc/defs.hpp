@@ -57,10 +57,10 @@ namespace alloc_n{
 	inline void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc
 		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)));
+		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)));
 		if(tmp){
 			set_overhead(tmp,1);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer(tmp));
+			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
 		}
 		return nullptr;
 	}
@@ -69,10 +69,10 @@ namespace alloc_n{
 		//return空指针被允许，会引起gc
 		//size被保证不为0
 		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)*size));
+		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)*size));
 		if(tmp){
 			set_overhead(tmp,size);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer(tmp));
+			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
 		}
 		return nullptr;
 	}
@@ -92,10 +92,10 @@ namespace alloc_n{
 		//return空指针被允许，会引起gc，但ptr值必须保持有效以保证gc后再次realloc有效
 		//new_size被保证不为0
 		using namespace overhead_n;
-		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size(sizeof(T)*new_size));
+		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size<T>(sizeof(T)*new_size));
 		if(tmp){
 			set_overhead(tmp,new_size);
-			ptr=reinterpret_cast<T*>(correct_pointer(tmp));
+			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));
 			return ptr;
 		}
 		return nullptr;

@@ -12,6 +12,7 @@
 
 #include"special_flags.hpp"
 #include"non_Xable.hpp"
+#include"attribute.hpp"
 #include"type_info.hpp"
 #include"min_max.hpp"
 #include"hash.hpp"
@@ -21,7 +22,7 @@
 #include"pointer.hpp"
 #include"data.hpp"
 #include"note.hpp"
-#include"attribute.hpp"
+#include"count_able.hpp"
 #include"range.hpp"
 #include"list.hpp"
 

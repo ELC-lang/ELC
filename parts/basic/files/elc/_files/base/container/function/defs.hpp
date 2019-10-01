@@ -16,10 +16,10 @@ namespace function_n{
 		virtual ~base_func_data_t()=0;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		virtual base_type_info_t&get_type_info()noexcept=0;
-		virtual void*get_data_begin()noexcept=0;
-		virtual bool equal_with(void*)=0;
-		bool operator==(const this_t&a){
+		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept=0;
+		[[nodiscard]]virtual void*get_data_begin()noexcept=0;
+		[[nodiscard]]virtual bool equal_with(void*)=0;
+		[[nodiscard]]bool operator==(const this_t&a){
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
     };
@@ -45,9 +45,9 @@ namespace function_n{
 			//BLOCK_END
 			return _value(forward<Args_t>(args)...);
 		}
-		virtual base_type_info_t&get_type_info()noexcept override{return type_info<T>;}
-		virtual void*get_data_begin()noexcept override{return&_value;}
-		virtual bool equal_with(void*a)noexcept override{
+		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual void*get_data_begin()noexcept override{return&_value;}
+		[[nodiscard]]virtual bool equal_with(void*a)noexcept override{
 			if constexpr(not noexcept(declvalue(T)==declvalue(T)))
 				template_warning("the compare of T was not noexcept,this may cause terminate.");
 			return _value==*reinterpret_cast<T*>(a);
@@ -144,7 +144,7 @@ namespace function_n{
 		}
 
 		template<bool nothrow_,bool promise_nothrow_destruct_>
-		bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_destruct_>&a)noexcept{
+		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_destruct_>&a)noexcept{
 			return *_m==*(a._m);
 		}
 	private:
@@ -154,7 +154,7 @@ namespace function_n{
 			return _func_ptr_data->call(forward<Args_t>(args)...);
 		}
 	public:
-		explicit operator func_ptr_t()const noexcept(promise_nothrow_destruct){
+		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_destruct){
 			_func_ptr_data=_m;
 			return _func_ptr_value;
 		}
