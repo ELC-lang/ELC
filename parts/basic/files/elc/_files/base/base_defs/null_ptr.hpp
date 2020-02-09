@@ -8,7 +8,7 @@
 */
 namespace null_ptr_n{
 	struct can_t_use_default_null_ptr{};
-	struct force_use_default_null_ptr{};
+	struct force_use_default_null_ptr:can_t_use_default_null_ptr{};
 	template<typename T>
 	[[nodiscard]]constexpr T*get_null_ptr(type_info_t<T>)noexcept{
 		if constexpr(type_info<T>.base_on<can_t_use_default_null_ptr>&&type_info<T>.not_base_on<force_use_default_null_ptr>)

@@ -11,6 +11,8 @@ namespace alloc_n{
 	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize)noexcept{
 		void*p=elc::APIs::alloc::realloc(ptr,nsize);
 		#if defined(ELC_TEST_ON)
+			if(nsize==0)
+				stest_uneventlog(ptr);
 			if(p){
 				stest_entryevent(L"base_realloc调用");
 				if(p!=ptr)
@@ -62,7 +64,7 @@ namespace alloc_n{
 			set_overhead(tmp,1);
 			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
 		}
-		return nullptr;
+		else return nullptr;
 	}
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
@@ -74,7 +76,7 @@ namespace alloc_n{
 			set_overhead(tmp,size);
 			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
 		}
-		return nullptr;
+		else return nullptr;
 	}
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
@@ -98,7 +100,7 @@ namespace alloc_n{
 			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));
 			return ptr;
 		}
-		return nullptr;
+		else return nullptr;
 	}
 	//
 

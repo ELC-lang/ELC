@@ -7,7 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<class T>
-class count_able{
+struct count_able:attribute<T,count_able<T>>{
+private:
 	friend size_t the_number_of(type_info_t<T>)noexcept;
 	static size_t _number;
 public:

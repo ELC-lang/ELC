@@ -62,6 +62,9 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
+		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual void*get_data_begin()noexcept override{return null_ptr;}
+		[[nodiscard]]virtual bool equal_with(void*a)noexcept override{return true;}
     };
 	template<class Ret_t,class...Args_t>
 	constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
@@ -100,7 +103,7 @@ namespace function_n{
 		get<func_data_t<::std::remove_cvref_t<func_t>>>.nothrow<func_t>;
 		)){
 			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_destruct&&destruct.nothrow<func_t>)
+			if constexpr(promise_nothrow_destruct and not destruct.nothrow<func_t>)
 				template_error("unexpected assign.");
 			if constexpr(nothrow)
 				if constexpr(!invoke<T>.nothrow<args...>)
@@ -147,6 +150,7 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_destruct_>&a)noexcept{
 			return *_m==*(a._m);
 		}
+	/*
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
 		static ptr_t _func_ptr_data;
@@ -158,6 +162,7 @@ namespace function_n{
 			_func_ptr_data=_m;
 			return _func_ptr_value;
 		}
+	*/
 	};
 
 	template<class T>
@@ -168,7 +173,7 @@ namespace function_n{
 		typedef base_function_t<Ret_t(Args_t...),true,true>base_t;
 		using base_t::base_t;
 		template<class assign_t>
-		this_t&operator=(assign_t&&a)noexcept_as(declval(base_t)=declval(assign_t)){
+		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
 		}
@@ -179,7 +184,7 @@ namespace function_n{
 		typedef base_function_t<Ret_t(Args_t...),false,true>base_t;
 		using base_t::base_t;
 		template<class assign_t>
-		this_t&operator=(assign_t&&a)noexcept_as(declval(base_t)=declval(assign_t)){
+		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
 		}
@@ -198,7 +203,7 @@ namespace function_n{
 		typedef base_function_t<Ret_t(Args_t...),true,false>base_t;
 		using base_t::base_t;
 		template<class assign_t>
-		this_t&operator=(assign_t&&a)noexcept_as(declval(base_t)=declval(assign_t)){
+		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
 		}
@@ -209,7 +214,7 @@ namespace function_n{
 		typedef base_function_t<Ret_t(Args_t...),false,false>base_t;
 		using base_t::base_t;
 		template<class assign_t>
-		this_t&operator=(assign_t&&a)noexcept_as(declval(base_t)=declval(assign_t)){
+		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
 		}

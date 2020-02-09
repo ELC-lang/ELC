@@ -8,7 +8,7 @@
 */
 namespace hash_table_n{
 	template<typename T,template<typename>class stack_t=auto_stack_t,size_t bucket_max_size=256>
-	class hash_table_t{
+	class hash_table_t:container_struct{
 		typedef hash_table_t<T,stack_t,bucket_max_size>this_t;
 		typedef stack_t<T>bucket_t;
 	public:

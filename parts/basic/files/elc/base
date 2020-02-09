@@ -24,13 +24,14 @@
 		template<class,class,class=void>struct is_nothrow_convertible:std::false_type{};
 		template<class From,class To>struct is_nothrow_convertible<From,To,enable_if_t<is_convertible_v<From,To>>>
 		:bool_constant<noexcept(static_cast<To>(declval<From>()))>{};
-*/
+
 		template<class From,class To>
 		struct is_nothrow_convertible{
 			static constexpr bool value=is_convertible_v<From,To>&&noexcept(To(declval<From>()));
 		};
 		template<class From,class To>
 		inline constexpr bool is_nothrow_convertible_v=is_nothrow_convertible<From,To>::value;
+*/
 /*
 		template<class T>
 		struct remove_cvref{

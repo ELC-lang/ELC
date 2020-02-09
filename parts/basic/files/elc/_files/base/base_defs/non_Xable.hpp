@@ -6,17 +6,37 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct non_copyable{
-	constexpr non_copyable()=default;
-	constexpr non_copyable(non_copyable&)=delete;
-	constexpr non_copyable(non_copyable&&)=default;
-	constexpr non_copyable& operator=(non_copyable&)&noexcept=delete;
-	constexpr non_copyable& operator=(non_copyable&&)&noexcept=default;
+struct non_copy_assign_able:helper_struct,basic_struct{
+	constexpr non_copy_assign_able& operator=(non_copy_assign_able&)&noexcept=delete;
+	constexpr non_copy_assign_able& operator=(non_copy_assign_able&&)&noexcept=default;
 };
-struct non_moveable{
-	constexpr non_moveable()=default;
-	constexpr non_moveable(non_moveable&)=default;
-	constexpr non_moveable(non_moveable&&)=delete;
-	constexpr non_moveable& operator=(non_moveable&)&noexcept=default;
-	constexpr non_moveable& operator=(non_moveable&&)&noexcept=delete;
+struct non_move_assign_able:helper_struct,basic_struct{
+	constexpr non_move_assign_able& operator=(non_move_assign_able&)&noexcept=default;
+	constexpr non_move_assign_able& operator=(non_move_assign_able&&)&noexcept=delete;
+};
+
+struct non_default_assign_able:non_copy_assign_able,non_move_assign_able,
+helper_struct,basic_struct{};
+
+struct non_copy_construct_able:helper_struct,basic_struct{
+	constexpr non_copy_construct_able()=default;
+	constexpr non_copy_construct_able(non_copy_construct_able&)=delete;
+	constexpr non_copy_construct_able(non_copy_construct_able&&)=default;
+};
+struct non_move_construct_able:helper_struct,basic_struct{
+	constexpr non_move_construct_able()=default;
+	constexpr non_move_construct_able(non_move_construct_able&)=default;
+	constexpr non_move_construct_able(non_move_construct_able&&)=delete;
+};
+
+struct non_default_construct_able:non_copy_construct_able,non_move_construct_able,
+helper_struct,basic_struct{
+	constexpr non_default_construct_able()=delete;
+};
+
+struct non_copyable:non_copy_assign_able,non_copy_construct_able,
+helper_struct,basic_struct{
+};
+struct non_moveable:non_move_assign_able,non_move_construct_able,
+helper_struct,basic_struct{
 };

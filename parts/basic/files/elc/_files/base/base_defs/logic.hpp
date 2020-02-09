@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-class logical_bool{
+class logical_bool:data_struct{
 	typedef unsigned char base_t;
 	base_t _value;
 	//00:false 01:true 10:neither 11:either

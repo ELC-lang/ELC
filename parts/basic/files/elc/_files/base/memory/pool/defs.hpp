@@ -91,7 +91,7 @@ namespace pool_n{//通过提前分配大量空间以节省空间（减少overhea
 	template<typename T>
 	constexpr ::std::uint_fast16_t get_ment_size(type_info_t<T>){return 2048;}
 	template<typename T>
-	struct alloc_by_pool{
+	struct alloc_by_pool:attribute<T,alloc_by_pool<T>>{
 		constexpr static ::std::uint_fast16_t pool_ment_size=get_ment_size(type_info<T>);
 	};
 	template<typename T>

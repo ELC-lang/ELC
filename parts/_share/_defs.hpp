@@ -8,6 +8,7 @@
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4099)//class与struct混用警告diss
+#pragma warning(disable:26812)//enum class安利diss.
 #endif
 //
 /*#if defined(ELC_TEST_ON)

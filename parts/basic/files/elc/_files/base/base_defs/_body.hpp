@@ -10,6 +10,7 @@
 #include"template_helper.hpp"
 #include"using_std.hpp"
 
+#include"adjectival_structs.hpp"
 #include"special_flags.hpp"
 #include"non_Xable.hpp"
 #include"attribute.hpp"

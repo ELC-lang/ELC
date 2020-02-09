@@ -8,7 +8,7 @@
 */
 namespace copy_on_write_array_n{
 	template<typename T>
-	class copy_on_write_array_t{
+	class copy_on_write_array_t:container_struct{
 		static_assert(copy_construct.able<T>,"this type can\'t copy construct.");
 		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;

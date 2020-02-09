@@ -11,10 +11,11 @@
 	同时，此项目并没有完成
 */
 //copy from old ELC
+//TODO:move to base/container.
 template<typename T>
 class list_t;
 template<typename T>
-struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>{
+struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>,basic_struct,container_struct{
 	typedef cons_t<T> this_t;
 private:
 	friend list_t<T>;
@@ -57,7 +58,7 @@ public:
 	}
 };
 template<typename T>
-struct list_t{
+struct list_t:container_struct{
 	typedef list_t<T> this_t;
 	typedef cons_t<T> cons;
 	struct iterator{

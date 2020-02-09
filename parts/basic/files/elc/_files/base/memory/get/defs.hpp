@@ -58,30 +58,27 @@ namespace get_n{
 		static constexpr bool nothrow=construct<T>.nothrow<>&&destruct.nothrow<T>&&move.nothrow<T>;
 
 		template<typename T,enable_if(able<T>)>
-		static void base_call(T*&arg,size_t to_size)noexcept(nothrow<T>){
-			if(to_size){
-				const size_t from_size=get_size_of_alloc(arg);
-				if(from_size==to_size)
-					return;
-				else if(from_size > to_size){
-					destruct(arg+to_size-1,from_size-to_size);
+		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
+			const size_t from_size=get_size_of_alloc(arg);
+			if(from_size==to_size)
+				return;
+			else if(from_size > to_size){
+				destruct(arg+to_size-1,from_size-to_size);
+				realloc(arg,to_size);
+			}else if(from_size){
+				if constexpr(move.trivial<T>)
 					realloc(arg,to_size);
-				}else if(from_size){
-					if constexpr(move.trivial<T>)
-						realloc(arg,to_size);
-					else{
-						T*tmp=alloc<T>(to_size);
-						move[from_size](note::from(arg),note::to(tmp));
-						free(arg);
-						arg=tmp;
-					}
-					construct<T>[arg+from_size-1][to_size-from_size]();
-				}else
-					arg=get<T>[to_size]();
-			}else{
-				unget(arg);
-				arg=null_ptr;
-			}
+				else{
+					if constexpr(!move.nothrow<T>)
+						template_warning("the move of T was not noexcept,this may cause memory lack.");
+					T*tmp=alloc<T>(to_size);
+					move[from_size](note::from(arg),note::to(tmp));
+					free(arg);
+					arg=tmp;
+				}
+				construct<T>[arg+from_size-1][to_size-from_size]();
+			}else
+				arg=get<T>[to_size]();
 		}
 
 		template<typename T,enable_if(able<T>)>

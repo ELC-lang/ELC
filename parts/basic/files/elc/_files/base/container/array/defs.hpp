@@ -8,7 +8,7 @@
 */
 namespace array_n{
 	template<typename T>
-	class array_t{
+	class array_t:container_struct{
 		typedef array_t<T>this_t;
 		T*_m;
 		constexpr array_t(T*a):_m(a){}
@@ -73,6 +73,28 @@ namespace array_n{
 				func((*this)[asize]);
 		}
 		#undef expr
+		/*
+		void add(T a){
+			resize(size()+1);
+			operator[](size()-1)=a;
+		}
+	
+		void remove(T a){
+			size_t size=this->size();
+			if(size){
+				size_t i=0;
+				this_t&this_e=*this;
+				while(this_e[i++]!=a && i!=size);
+				destruct(&this_e[--i]);
+				while(++i!=size){
+					copy_construct(note::from(&this_e[i]),note::to(&this_e[i-1]));
+					destruct(&this_e[i]);
+				}
+				construct<T>[&this_e[szie-1]]();
+				resize(size-1);
+			}
+		}
+		*/
 	};
 	template<typename T>
 	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
