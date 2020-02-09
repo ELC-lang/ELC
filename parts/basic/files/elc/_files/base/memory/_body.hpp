@@ -8,10 +8,7 @@
 */
 #include"gc/_body.hpp"
 
-#if !defined(_MSC_VER)//for syntax check
-//https://developercommunity.visualstudio.com/content/problem/683248/a-bug-of-parameter-pack.html
 #include"pool/_body.hpp"
-#endif
 
 #include"alloc/_body.hpp"
 #include"lifetime/_body.hpp"

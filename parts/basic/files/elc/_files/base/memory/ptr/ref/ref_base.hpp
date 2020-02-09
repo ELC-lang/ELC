@@ -12,9 +12,10 @@ void waiting_for_destroy(T*)noexcept{
 }
 template<typename T>
 void destroy_and_free(T*a)noexcept{
-	if constexpr(!::std::is_convertible_v<T*,build_by_get_only*>)
+	if constexpr(type_arg<T>.base_on<build_by_get_only>)
+		unget(a);
+	else
 		template_error("please overload the function special_destroy in the namespace where this type is defined.");
-	unget(a);
 }
 //
 template<typename T>
@@ -23,9 +24,9 @@ template<typename T>
 class weak_ref_able;
 
 template<typename T>
-constexpr bool base_on_ref_able=::std::is_convertible_v<T*,ref_able<T>*>;
+constexpr bool base_on_ref_able=type_arg<T>.base_on<ref_able<T>>;
 template<typename T>
-constexpr bool base_on_weak_ref_able=::std::is_convertible_v<T*,weak_ref_able<T>*>;
+constexpr bool base_on_weak_ref_able=type_arg<T>.base_on<weak_ref_able<T>>;
 
 template<typename T>
 [[nodiscard]]link_num_t get_ref_num(const T*a)noexcept{

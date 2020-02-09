@@ -1,0 +1,32 @@
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+/*#if defined(ELC_TEST_ON)
+	#define DO_TEST(namespace_)\
+	namespace_::test();\
+	namespace_::test_log_out();\
+	namespace_::test_end();
+#endif
+*/
+
+// #define use_as_template template<bool=true>
+// #define often_noexcept
+#define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))
+#define constexpr_as(...) MAGIC//we can't do that ——by std c++.
+
+// #define floop while(1)
+#define declvalue(...) ::std::declval<__VA_ARGS__>()
+
+#define template_error(reason) static_assert(template_error_helper<T>,reason)
+#define enable_if(...) class enable_state= ::std::enable_if_t<__VA_ARGS__>
+#define enabled_by_default class enable_state=void
+#define disabled_by_default class enable_state= ::std::enable_if_t<false>
+#define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
+#define enable_flag class enable_state
+
+#define was_an_ill_form(...) MAGIC//we can't do that ——by std c++.
+
+#define MAGIC
+
+// #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
+// #define BREAK_NAMESPACE }

@@ -10,12 +10,9 @@ using ::std::byte;
 template<class T>
 [[nodiscard]]constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
 
-#if !defined(_MSC_VER)//for syntax check
-//https://developercommunity.visualstudio.com/content/problem/683248/a-bug-of-parameter-pack.html
 template<class...Ts>
 struct data_block:non_copyable,non_moveable{
 	alignas(max({alignof(Ts)...}))
 	byte _data[max({sizeof(Ts)...})];
 	constexpr operator byte*(){return _data;}
 };
-#endif

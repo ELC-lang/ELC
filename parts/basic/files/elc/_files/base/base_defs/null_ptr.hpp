@@ -10,14 +10,14 @@ namespace null_ptr_n{
 	struct can_t_use_default_null_ptr{};
 	struct force_use_default_null_ptr{};
 	template<typename T>
-	[[nodiscard]]constexpr T*get_null_ptr(type_pack_t<T>)noexcept{
-		if constexpr(::std::is_convertible_v<T*,can_t_use_default_null_ptr*>&&!::std::is_convertible_v<T*,force_use_default_null_ptr*>)
+	[[nodiscard]]constexpr T*get_null_ptr(type_arg_t<T>)noexcept{
+		if constexpr(type_arg<T>.base_on<can_t_use_default_null_ptr>&&type_arg<T>.not_base_on<force_use_default_null_ptr>)
 			template_error("please overload the function get_null_ptr in the namespace where this type is defined.");
 		return nullptr;
 	}
 	constexpr struct{
 		template<typename T>
-		operator T*()const noexcept{return get_null_ptr(type_pack<T>);}
+		operator T*()const noexcept{return get_null_ptr(type_arg<T>);}
 		//constexpr operator decltype(nullptr)(){return nullptr;}//防止重载多重路线
 	}null_ptr{};
 }

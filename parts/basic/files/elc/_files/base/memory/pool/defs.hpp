@@ -88,19 +88,21 @@ namespace pool_n{//通过提前分配大量空间以节省空间（减少overhea
 			return true;
 		}
 	};
-	template<typename T,note::size_t<::std::uint_fast16_t>ment_size=note::size(::std::uint_fast16_t(2048))>
+	template<typename T>
+	constexpr ::std::uint_fast16_t get_ment_size(type_arg_t<T>){return 2048;}
+	template<typename T>
 	struct alloc_by_pool{
-		constexpr ::std::uint_fast16_t pool_ment_size=ment_size;
+		constexpr static ::std::uint_fast16_t pool_ment_size=get_ment_size(type_arg<T>);
 	};
 	template<typename T>
 	inline pool_t<T,alloc_by_pool<T>::pool_ment_size>pool{};
 	//为alloc提供方法
 	template<typename T>
-	inline void*alloc_method(type_pack_t<T>)noexcept{
+	inline void*alloc_method(type_arg_t<T>)noexcept{
 		return pool<T>.get_new();
 	}
 	template<typename T>
-	inline void*alloc_method(type_pack_t<T>,size_t)noexcept{
+	inline void*alloc_method(type_arg_t<T>,size_t)noexcept{
 		template_error("pool can\'t alloc array.");
 	}
 	template<typename T>

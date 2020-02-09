@@ -12,7 +12,8 @@
 
 #include"special_flags.hpp"
 #include"non_Xable.hpp"
-#include"type_pack.hpp"
+#include"type_arg.hpp"
+#include"min_max.hpp"
 #include"hash.hpp"
 #include"logic.hpp"
 #include"null_ptr.hpp"

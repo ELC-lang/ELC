@@ -65,7 +65,7 @@ namespace alloc_n{
 	#include"overhead.hpp"
 
 	template<typename T>
-	inline void*alloc_method(type_pack_t<T>)noexcept{
+	inline void*alloc_method(type_arg_t<T>)noexcept{
 		//return空指针被允许，会引起gc
 		using namespace overhead_n;
 		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)));
@@ -76,7 +76,7 @@ namespace alloc_n{
 		return nullptr;
 	}
 	template<typename T>
-	inline void*alloc_method(type_pack_t<T>,size_t size)noexcept{
+	inline void*alloc_method(type_arg_t<T>,size_t size)noexcept{
 		//return空指针被允许，会引起gc
 		//size被保证不为0
 		using namespace overhead_n;
@@ -120,13 +120,13 @@ namespace alloc_n{
 		typedef base_alloc_t base_t;
 		[[nodiscard]]static T*base_call()noexcept{
 			void*tmp;
-			while(!assign(tmp,alloc_method(type_pack<T>)))gc();
+			while(!assign(tmp,alloc_method(type_arg<T>)))gc();
 			return reinterpret_cast<T*>(tmp);
 		}
 		[[nodiscard]]static T*base_call(size_t size)noexcept{
 			if(size){//辣鸡c标准没有规定0大小分配的返回值，所以检查
 				void*tmp;
-				while(!assign(tmp,alloc_method(type_pack<T>,size)))gc();
+				while(!assign(tmp,alloc_method(type_arg<T>,size)))gc();
 				return reinterpret_cast<T*>(tmp);
 			}else return null_ptr;
 		}
