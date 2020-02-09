@@ -15,7 +15,7 @@ node:
 
 	arecer
 */
-//草稿代码警告
+//UF:草稿代码警告
 
 struct base_node:gc_able,ref_able,weak_ref_able,replace_able{
 private:

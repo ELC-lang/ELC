@@ -10,6 +10,7 @@ namespace map_n{
 	template<typename T,typename key_t,template<typename>class stack_t=auto_stack_t,size_t bucket_max_size=256>
 	class map_t:container_struct{
 		typedef map_t<T,key_t,stack_t,bucket_max_size>this_t;
+
 		struct data_t{
 			key_t _key;
 			T _value;

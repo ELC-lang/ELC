@@ -71,12 +71,14 @@ public:
 	[[nodiscard]]size_t size()noexcept{
 		return _size;
 	}
+
 	static constexpr bool add_nothrow=noexcept(get<data_t>({declvalue(const T&),declvalue(data_t*)}));
 	size_t add(const T&a)noexcept(add_nothrow){
 		_m=get<data_t>({a,_m});
 		_size++;
 		return size();
 	}
+
 	static constexpr bool remove_nothrow=unget.nothrow<data_t>;
 	size_t remove(const T&a)noexcept(unget.nothrow<data_t>){
 		data_t*tmp=_m,**tmp_=&_m;

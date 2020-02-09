@@ -1,4 +1,4 @@
-//template_error_helper.hpp
+//template_helper.hpp
 //at namespace elc::defs::base
 /*
 未完成的elc解释器base文件

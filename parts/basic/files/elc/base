@@ -25,6 +25,7 @@
 		template<class From,class To>struct is_nothrow_convertible<From,To,enable_if_t<is_convertible_v<From,To>>>
 		:bool_constant<noexcept(static_cast<To>(declval<From>()))>{};
 
+
 		template<class From,class To>
 		struct is_nothrow_convertible{
 			static constexpr bool value=is_convertible_v<From,To>&&noexcept(To(declval<From>()));
