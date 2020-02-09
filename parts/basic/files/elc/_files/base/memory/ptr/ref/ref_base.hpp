@@ -12,7 +12,7 @@ void waiting_for_destroy(T*)noexcept{
 }
 template<typename T>
 void destroy_and_free(T*a)noexcept{
-	if constexpr(type_arg<T>.base_on<build_by_get_only>)
+	if constexpr(type_info<T>.base_on<build_by_get_only>)
 		unget(a);
 	else
 		template_error("please overload the function special_destroy in the namespace where this type is defined.");
@@ -24,19 +24,19 @@ template<typename T>
 class weak_ref_able;
 
 template<typename T>
-constexpr bool base_on_ref_able=type_arg<T>.base_on<ref_able<T>>;
+constexpr bool was_ref_able=type_info<T>.has_attribute<ref_able>;
 template<typename T>
-constexpr bool base_on_weak_ref_able=type_arg<T>.base_on<weak_ref_able<T>>;
+constexpr bool was_weak_ref_able=type_info<T>.has_attribute<weak_ref_able>;
 
 template<typename T>
 [[nodiscard]]link_num_t get_ref_num(const T*a)noexcept{
-	if constexpr(!base_on_ref_able<T>)
+	if constexpr(!was_ref_able<T>)
 		template_error("hey.");
 	return static_cast<const ref_able<T>*>(a)->link_num();
 }
 template<typename T>
 [[nodiscard]]link_num_t get_weak_ref_num(const T*a)noexcept{
-	if constexpr(!base_on_weak_ref_able<T>)
+	if constexpr(!was_weak_ref_able<T>)
 		template_error("hey.");
 	return static_cast<const weak_ref_able<T>*>(a)->link_num();
 }

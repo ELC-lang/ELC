@@ -7,17 +7,30 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace overhead_n{
+	template<class T>
+	struct overhead_helper_t{
+		constexpr static size_t align=max(alignof(T),alignof(size_t));
+		constexpr static size_t _r=size_t(align/sizeof(size_t))+bool(align%sizeof(size_t));
+		constexpr static size_t offset_value=_r*align;
+	};
+	template<class T>
+	constexpr overhead_helper_t<T>overhead_helper{};
+	
+	template<class T>
 	constexpr size_t correct_size(size_t a){
-		return a+sizeof(size_t);
+		return a+overhead_helper<T>.offset_value;
 	}
-	constexpr size_t correct_align(size_t a){
-		return max(a,alignof(size_t));
+	template<class T>
+	constexpr size_t correct_align(type_info_t<T>){
+		return overhead_helper<T>.align;
 	}
-	inline pointer correct_pointer(pointer a)noexcept{
-		return reinterpret_cast<size_t*>(a)+1;
+	template<class T>
+	inline T*correct_pointer(pointer a)noexcept{
+		return reinterpret_cast<T*>(reinterpret_cast<byte*>(a)+overhead_helper<T>.offset_value);
 	}
-	inline pointer recorrect_pointer(pointer a)noexcept{
-		return reinterpret_cast<size_t*>(a)-1;
+	template<class T>
+	inline pointer recorrect_pointer(T*a)noexcept{
+		return reinterpret_cast<pointer>(reinterpret_cast<byte*>(a)-overhead_helper<T>.offset_value);
 	}
 	inline void set_overhead(pointer a,size_t size){
 		*reinterpret_cast<size_t*>(a)=size;

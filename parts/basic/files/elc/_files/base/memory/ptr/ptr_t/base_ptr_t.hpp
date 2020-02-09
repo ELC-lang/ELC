@@ -118,22 +118,22 @@ struct base_ptr_t:ptr_t<T,ref_type>,compare_interface_t<T,base_ptr_t<T,ref_type>
 	base_ptr_t&operator=(same_ref&&a)&noexcept{swap(a);return*this;}
 	base_ptr_t&operator=(nullptr_t)&noexcept(reset_nothrow){reset(null_ptr);return*this;}
 
-	template<class T_,enable_if(type_arg<T_>.can_convert_to<convert_interface>)>
-	base_ptr_t&operator=(T_&&a)&noexcept(type_arg<T_>.can_nothrow_convert_to<convert_interface>&&reset_nothrow){
+	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>)>
+	base_ptr_t&operator=(T_&&a)&noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>&&reset_nothrow){
 		reset(static_cast<convert_interface>(forward<T_>(a))._to);
 		return*this;
 	}
 
 
-	template<class T_,enable_if(type_arg<T_>.can_convert_to<convert_interface>)>
-	base_ptr_t(T_&&a)noexcept(type_arg<T_>.can_nothrow_convert_to<convert_interface>):base_ptr_t(static_cast<convert_interface>(forward<T_>(a))._to){}
+	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>)>
+	base_ptr_t(T_&&a)noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>):base_ptr_t(static_cast<convert_interface>(forward<T_>(a))._to){}
 
 private:
 	static void special_destroy(T*a)noexcept_as(declvalue(T).replace(null_ptr)){//default destroy
-		if constexpr(type_arg<T>.not_base_on<replace_able<T>>)
+		if constexpr(type_info<T>.not_has_attribute<replace_able>)
 			template_error("Please overload the function special_destroy in the namespace where this type is defined.");
-		//(replace_able<T>*)(a)->replace(null_ptr);
-		a->replace(null_ptr);//允许覆写replace方法
+		//(replace_able<T>*)(a)->replace(null_ptr);//×
+		a->replace(null_ptr);//允许覆写replace方法√
 	}
 	static constexpr class for_delete_t{
 		T*_m;

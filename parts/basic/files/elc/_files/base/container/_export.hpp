@@ -7,6 +7,11 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using container::
+export function_t;
 export array_t;
 export copy_on_write_array_t;
+export auto_stack_t;
+export base_stack_t;
+export hash_table_t;
+export map_t;
 #undef export

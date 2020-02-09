@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 enum set_type:bool{seted=true,not_set=false};
-class flag{
+class flag:data_struct{
 	bool _;
 public:
 	explicit constexpr flag(set_type a=not_set)noexcept:_(a){}
@@ -21,7 +21,8 @@ public:
 };
 
 enum mark_type:bool{marked=true,not_mark=false};
-class mark_able:non_copyable,non_moveable{
+template<typename T>
+class mark_able:basic_struct,non_copyable,non_moveable{
 	mutable flag m;
 public:
 	explicit constexpr mark_able(mark_type a=not_mark)noexcept:m(a==not_mark?not_set:seted){};

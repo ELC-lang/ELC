@@ -28,8 +28,15 @@
 
 #undef was_an_ill_form
 
+#undef lambda
+#undef lambda_with_catch
+
+#define MAGIC
+
+#define nothing
+
 // #undef BREAK_NAMESPACE
-// #undef INTER_NAMESPACE 
+// #undef INTER_NAMESPACE
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

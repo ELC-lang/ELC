@@ -6,6 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+class empty_type:elc_struct{};
+
 template<typename T>
 inline T&assign(T&a,const T b)noexcept_as(declvalue(T&)=declvalue(const T)){//为绕过条件内赋值时の警告而使用
 	a=b;
@@ -14,6 +16,8 @@ inline T&assign(T&a,const T b)noexcept_as(declvalue(T&)=declvalue(const T)){//�
 
 template<typename T>
 inline void discard(T&&){}//fucking nodiscard.
+template<typename T>
+inline void just_a_use(T&&){}
 
 template<typename T>
 inline T const_default_value_of{};

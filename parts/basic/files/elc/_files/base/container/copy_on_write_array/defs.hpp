@@ -8,7 +8,7 @@
 */
 namespace copy_on_write_array_n{
 	template<typename T>
-	class copy_on_write_array_t{
+	class copy_on_write_array_t:container_struct{
 		static_assert(copy_construct.able<T>,"this type can\'t copy construct.");
 		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;
@@ -30,7 +30,7 @@ namespace copy_on_write_array_n{
 		}
 	public:
 		copy_on_write_array_t()noexcept:_m(get<data_t>()){}
-		explicit copy_on_write_array_t(size_t size)noexcept(get<data_t>.nothrow<size_t>):_m(get<data_t>(size)){}
+		explicit copy_on_write_array_t(note::size_t<size_t>size)noexcept(get<data_t>.nothrow<size_t>):_m(get<data_t>(size.value)){}
 		~copy_on_write_array_t()noexcept_as(declvalue(ptr_t).~ptr_t())=default;
 
 		copy_on_write_array_t(const this_t&)noexcept=default;
@@ -67,7 +67,7 @@ namespace copy_on_write_array_n{
 			copy_check();
 			_m->resize(size);
 		}
-		
+
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
 		void for_each(func_t&&func)noexcept(check_nothrow&&noexcept(expr)){
@@ -77,7 +77,7 @@ namespace copy_on_write_array_n{
 				func((*this)[asize]);
 		}
 		#undef expr
-		
+
 		#define expr declvalue(func_t)(declvalue(const T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
 		void for_each(func_t&&func)const noexcept_as(expr){

@@ -9,8 +9,11 @@
 namespace note_n{
 	#define def_note(name)\
 	template<typename T>\
-	struct name##_t{\
+	struct name##_t:helper_struct,flag_struct{\
 		T value;\
+		constexpr name##_t(T a):value(a){}\
+		template<class T_>\
+		constexpr name##_t(name##_t<T_>a):value(a.value){}\
 		constexpr operator T(){return value;}\
 		constexpr T operator()(){return value;}\
 	};\
@@ -22,6 +25,6 @@ namespace note_n{
 	def_note(size);
 
 	#undef def_note
-	constexpr struct fail_t{}fail{};
+	constexpr struct fail_t:helper_struct,constexpr_struct{}fail{};
 }
 namespace note=note_n;

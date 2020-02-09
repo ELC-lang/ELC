@@ -8,14 +8,14 @@
 */
 namespace array_n{
 	template<typename T>
-	class array_t{
+	class array_t:container_struct{
 		typedef array_t<T>this_t;
 		T*_m;
 		constexpr array_t(T*a):_m(a){}
 	public:
 		constexpr array_t():_m(null_ptr){}
-		explicit array_t(size_t size)noexcept(get<T>.nothrow<>){
-			_m=get<T>[size]();
+		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
+			_m=get<T>[size.value]();
 		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
@@ -29,6 +29,10 @@ namespace array_n{
 		[[nodiscard]]T&operator[](size_t size)noexcept{return _m[size];}
 		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
+
+		[[nodiscard]]bool empty(){
+			return _m==null_ptr;
+		}
 
 		void swap(this_t&a)noexcept{
 			using elc::defs::swap;
@@ -51,7 +55,7 @@ namespace array_n{
 			return operator=(a.copy());
 		}
 		#undef expr
-		
+
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
 		void for_each(func_t&&func)noexcept_as(expr){
@@ -60,7 +64,7 @@ namespace array_n{
 				func((*this)[asize]);
 		}
 		#undef expr
-		
+
 		#define expr declvalue(func_t)(declvalue(const T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
 		void for_each(func_t&&func)const noexcept_as(expr){
@@ -69,6 +73,28 @@ namespace array_n{
 				func((*this)[asize]);
 		}
 		#undef expr
+		/*
+		void add(T a){
+			resize(size()+1);
+			operator[](size()-1)=a;
+		}
+	
+		void remove(T a){
+			size_t size=this->size();
+			if(size){
+				size_t i=0;
+				this_t&this_e=*this;
+				while(this_e[i++]!=a && i!=size);
+				destruct(&this_e[--i]);
+				while(++i!=size){
+					copy_construct(note::from(&this_e[i]),note::to(&this_e[i-1]));
+					destruct(&this_e[i]);
+				}
+				construct<T>[&this_e[szie-1]]();
+				resize(size-1);
+			}
+		}
+		*/
 	};
 	template<typename T>
 	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}

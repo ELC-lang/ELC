@@ -9,6 +9,7 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
+#include"../../../../../_share/APIs/alloc.hpp"//using at memory/alloc
 namespace elc::defs{
 	#include"../_defs.hpp"
 	namespace base{
@@ -16,14 +17,21 @@ namespace elc::defs{
 		#include"tools/_body.hpp"
 	}
 	using namespace base;
+	
+	//gc required by alloc.
+	//gc require container.
+	//container require alloc.
+	
 	namespace memory{
-		#include"memory/_body.hpp"
+		#include"memory/_body.hpp"//gc decl here,alloc def here.
 	}
 	using namespace memory;
 	namespace container{
-		#include"container/_body.hpp"
+		#include"container/_body.hpp"//container def here.
 	}
 	using namespace container;
+	
+	//UF:gc def here.
 
 	#if defined(ELC_TEST_ON)
 	namespace base_part_test{

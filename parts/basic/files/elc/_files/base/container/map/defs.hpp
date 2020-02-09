@@ -8,26 +8,38 @@
 */
 namespace map_n{
 	template<typename T,typename key_t,template<typename>class stack_t=auto_stack_t,size_t bucket_max_size=256>
-	class map_t{
+	class map_t:container_struct{
 		typedef map_t<T,key_t,stack_t,bucket_max_size>this_t;
+
 		struct data_t{
 			key_t _key;
 			T _value;
 
+			struct seek_value_t{
+				const T*_m;
+				constexpr seek_value_t(const T&a):_m(&a){};
+			}
+
 			bool operator==(const key_t&a)noexcept_as(declvalue(key_t&)==declvalue(const key_t&)){
 				return _key==a;
 			}
-			operator hash_t()noexcept_as(hash(declvalue(key_t&))){
+			bool operator==(const seek_value_t&a)noexcept_as(declvalue(T&)==declvalue(const T&)){
+				return _value==*a._m;
+			}
+			constexpr_as(hash(declvalue(key_t&)))operator hash_t()noexcept_as(hash(declvalue(key_t&))){
 				return hash(_key);
 			}
+			/* operator T&()noexcept{
+				return _value;
+			} */
 			bool empty(){
 				return _value==const_default_value_of<T>;
 			}
 		};
 		typedef hash_table_t<data_t,stack_t,bucket_max_size>base_t_w;
-		
-		base_t_w _m;
-		
+
+		mutable base_t_w _m;//mutable cause shrink.
+
 		base_t_w(const base_t_w&a):_m(a)noexcept{}
 		this_t copy()noexcept_as(copy_construct.nothrow<base_t_w>){
 			return{_m};
@@ -65,8 +77,31 @@ namespace map_n{
 			destruct(this);
 			construct<this_t>[this]();
 		}
-		//UF
-		//for_each、shrink
+
+		#define expr declvalue(func_t)(declvalue(T&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each(func_t&&func)noexcept_as(expr){
+			_m.for_each(lambda(data_t&a)noexcept_as(expr){
+				func(a->_value);
+			});
+		}
+		#undef expr
+
+		#define expr declvalue(func_t)(declvalue(const T&))
+		template<typename func_t,enable_if_not_ill_form(expr)>
+		void for_each(func_t&&func)const noexcept_as(expr){
+			_m.for_each(lambda(data_t&a)noexcept_as(expr){
+				func(const_cast<const T&>(a->_value));
+			});
+		}
+		#undef expr
+
+		static constexpr bool shrink_nothow=stack_t::remove_nothrow;
+		void shrink()noexcept(shrink_nothow){
+			_m.for_each_bucket(lambda(stack_t&a)noexcept(shrink_nothow){
+				while(a.remove(data_t::seek_value_t(const_default_value_of<T>)));
+			});
+		}
 	};
 	template<typename T,template<typename>class stack_t,size_t _,size_t __>
 	inline void swap(map_t<T,stack_t,_>&a,map_t<T,stack_t,__>&b)noexcept{a.swap(b);}

@@ -8,20 +8,11 @@
 */
 namespace alloc_n{
 	//BLOCK:for debug
-	[[nodiscard]]inline void*base_alloc(size_t size)noexcept{
-		void*p= ::std::malloc(size);
-		#if defined(ELC_TEST_ON)
-			if(p){
-				stest_entryevent(L"base_alloc调用");
-				stest_eventlog(p);
-				stest_exitevent();
-			}
-		#endif
-		return p;
-	}
 	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize)noexcept{
-		void*p= ::std::realloc(ptr,nsize);
+		void*p=elc::APIs::alloc::realloc(ptr,nsize);
 		#if defined(ELC_TEST_ON)
+			if(nsize==0)
+				stest_uneventlog(ptr);
 			if(p){
 				stest_entryevent(L"base_realloc调用");
 				if(p!=ptr)
@@ -33,7 +24,7 @@ namespace alloc_n{
 		return p;
 	}
 	[[nodiscard]]inline void*base_aligned_alloc(size_t align,size_t size)noexcept{
-		void*p= ::std::aligned_alloc(align,size);
+		void*p=elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)
 			if(p){
 				stest_entryevent(L"base_aligned_alloc调用");
@@ -56,7 +47,7 @@ namespace alloc_n{
 				stest_uneventlog(p);
 			}
 		#endif
-		::std::free(p);
+		elc::APIs::alloc::free(p);
 	}
 	//BLOCK_END
 
@@ -65,27 +56,27 @@ namespace alloc_n{
 	#include"overhead.hpp"
 
 	template<typename T>
-	inline void*alloc_method(type_arg_t<T>)noexcept{
+	inline void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc
 		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)));
+		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)));
 		if(tmp){
 			set_overhead(tmp,1);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer(tmp));
+			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
 		}
-		return nullptr;
+		else return nullptr;
 	}
 	template<typename T>
-	inline void*alloc_method(type_arg_t<T>,size_t size)noexcept{
+	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
 		//return空指针被允许，会引起gc
 		//size被保证不为0
 		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(alignof(T)),correct_size(sizeof(T)*size));
+		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)*size));
 		if(tmp){
 			set_overhead(tmp,size);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer(tmp));
+			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
 		}
-		return nullptr;
+		else return nullptr;
 	}
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
@@ -103,13 +94,13 @@ namespace alloc_n{
 		//return空指针被允许，会引起gc，但ptr值必须保持有效以保证gc后再次realloc有效
 		//new_size被保证不为0
 		using namespace overhead_n;
-		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size(sizeof(T)*new_size));
+		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size<T>(sizeof(T)*new_size));
 		if(tmp){
 			set_overhead(tmp,new_size);
-			ptr=reinterpret_cast<T*>(correct_pointer(tmp));
+			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));
 			return ptr;
 		}
-		return nullptr;
+		else return nullptr;
 	}
 	//
 
@@ -120,13 +111,13 @@ namespace alloc_n{
 		typedef base_alloc_t base_t;
 		[[nodiscard]]static T*base_call()noexcept{
 			void*tmp;
-			while(!assign(tmp,alloc_method(type_arg<T>)))gc();
+			while(!assign(tmp,alloc_method(type_info<T>)))gc();
 			return reinterpret_cast<T*>(tmp);
 		}
 		[[nodiscard]]static T*base_call(size_t size)noexcept{
-			if(size){//辣鸡c标准没有规定0大小分配的返回值，所以检查
+			if(size){//null_ptr不一定等价于nullptr，请勿删除本行
 				void*tmp;
-				while(!assign(tmp,alloc_method(type_arg<T>,size)))gc();
+				while(!assign(tmp,alloc_method(type_info<T>,size)))gc();
 				return reinterpret_cast<T*>(tmp);
 			}else return null_ptr;
 		}
@@ -156,7 +147,7 @@ namespace alloc_n{
 		typedef realloc_t base_t;
 		template<class T>
 		static void base_call(T*&ptr,size_t nsize)noexcept{
-			if(nsize){//辣鸡c标准没有规定0大小分配的返回值，所以检查
+			if(nsize){//null_ptr不一定等价于nullptr，请勿删除本行
 				if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
 					while(!realloc_method(ptr,nsize))gc();
 				}else
