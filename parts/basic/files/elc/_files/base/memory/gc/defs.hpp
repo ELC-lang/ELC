@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-//草稿.
+//UF:草稿.
 class gc_t{
 	typedef function_t<void()noexcept>gc_method_t;
 	typedef function_t<bool()noexcept>success_identifier_t;

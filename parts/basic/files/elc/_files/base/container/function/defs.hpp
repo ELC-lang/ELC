@@ -73,11 +73,11 @@ namespace function_n{
 		return&default_func_data<Ret_t(Args_t...)>;
 	}
 
-	template<class T,bool nothrow,bool promise_nothrow_destruct>
+	template<class T,bool nothrow,bool promise_nothrow_at_destruct>
 	class base_function_t;
-	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_destruct>
-	class base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_destruct>{
-		typedef base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_destruct>this_t;
+	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
+	class base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>{
+		typedef base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>this_t;
 
 		template<class T_>
 		using func_data_t=function_n::func_data_t<T_,Ret_t(Args_t...)>;
@@ -88,7 +88,7 @@ namespace function_n{
 		ptr_t _m;
 	public:
 		base_function_t()noexcept=default;
-		~base_function_t()noexcept(promise_nothrow_destruct)=default;
+		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 		void swap(this_t&a)noexcept{
 			swap(_m,a._m);
 		}
@@ -97,13 +97,13 @@ namespace function_n{
 		}
 		template<class func_t>
 		this_t&operator=(func_t&&a)&noexcept(
-		promise_nothrow_destruct&&(
+		promise_nothrow_at_destruct&&(
 		type_info<func_t>.can_convert_to<func_ptr_t>?
 		type_info<func_t>.can_nothrow_convert_to<func_ptr_t>:
 		get<func_data_t<::std::remove_cvref_t<func_t>>>.nothrow<func_t>;
 		)){
 			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_destruct and not destruct.nothrow<func_t>)
+			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<func_t>)
 				template_error("unexpected assign.");
 			if constexpr(nothrow)
 				if constexpr(!invoke<T>.nothrow<args...>)
@@ -119,7 +119,7 @@ namespace function_n{
 				_m=get<func_data_t<::std::remove_cvref_t<func_t>>>(a);
 			return*this;
 		}
-		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_destruct){
+		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_at_destruct){
 			_m=a._m;
 			return*this;
 		}
@@ -127,7 +127,7 @@ namespace function_n{
 			swap(_m,a._m);
 			return*this;
 		}
-		this_t&operator=(nullptr_t)noexcept(promise_nothrow_destruct){
+		this_t&operator=(nullptr_t)noexcept(promise_nothrow_at_destruct){
 			_m=null_ptr;
 			return*this;
 		}
@@ -137,17 +137,17 @@ namespace function_n{
 			*this=(forward<func_t>(a));
 		}
 
-		template<bool nothrow_,bool promise_nothrow_destruct_>
-		this_t&operator=(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_destruct_>&a)&noexcept(promise_nothrow_destruct){
+		template<bool nothrow_,bool promise_nothrow_at_destruct_>
+		this_t&operator=(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_at_destruct_>&a)&noexcept(promise_nothrow_at_destruct){
 			if constexpr((nothrow&&!nothrow_)||
-						(promise_nothrow_destruct&&!promise_nothrow_destruct_))
+						(promise_nothrow_at_destruct&&!promise_nothrow_at_destruct_))
 				template_error("unexpected assign.");
 			_m=a._m;
 			return*this;
 		}
 
-		template<bool nothrow_,bool promise_nothrow_destruct_>
-		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_destruct_>&a)noexcept{
+		template<bool nothrow_,bool promise_nothrow_at_destruct_>
+		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_at_destruct_>&a)noexcept{
 			return *_m==*(a._m);
 		}
 	/*
@@ -158,7 +158,7 @@ namespace function_n{
 			return _func_ptr_data->call(forward<Args_t>(args)...);
 		}
 	public:
-		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_destruct){
+		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
 			_func_ptr_data=_m;
 			return _func_ptr_value;
 		}
