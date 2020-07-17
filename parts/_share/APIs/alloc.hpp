@@ -24,7 +24,8 @@ elc依赖的基础函数.
 			//size被保证不为0
 			return::std::aligned_alloc(align,size);
 		}
-		inline void free(void*p)noexcept{
+		inline void free(void*p,size_t size)noexcept{
+			//传入需释放的数据块起始点与大小（字节）
 			::std::free(p);
 		}
 	}

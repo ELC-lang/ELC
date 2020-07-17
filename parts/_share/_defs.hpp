@@ -9,6 +9,7 @@
 #pragma warning(push)
 #pragma warning(disable:4099)//class与struct混用警告diss
 #pragma warning(disable:26812)//enum class安利diss.
+#pragma warning(disable:4584)//重复子类警告diss
 #endif
 //
 /*#if defined(ELC_TEST_ON)
@@ -23,6 +24,7 @@
 // #define often_noexcept
 #define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))
 #define constexpr_as(...) MAGIC//we can't do that ——by std c++.
+#define is_function(...) ::std::is_function_v<__VA_ARGS__>
 
 // #define floop while(1)
 #define declvalue(...) ::std::declval<__VA_ARGS__>()
@@ -42,6 +44,10 @@
 #define MAGIC
 
 #define nothing
+
+#define elseif else if
+#define _big_than_  > 
+#define _small_than_  < 
 
 // #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
 // #define BREAK_NAMESPACE }

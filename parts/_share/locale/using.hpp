@@ -16,6 +16,6 @@ elc使用的字符串.
 		
 	}
 	namespace elc::locale::str{
-		
+		auto const empty_gc_method="gc方法为空时gc被调用";
 	}
 #endif
