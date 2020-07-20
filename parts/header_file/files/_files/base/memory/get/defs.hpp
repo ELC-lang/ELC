@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace get_n{
-	struct build_by_get_only{};
+	//struct build_by_get_only{};已定义于 "../../base_defs/special_flags.hpp"
 
 	struct base_get_t{};
 	template<typename T>
@@ -26,6 +26,8 @@ namespace get_n{
 			size_t _size;
 			template<class...Args,enable_if(able<Args...>)>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+				if constexpr(type_info<T>.has_attribute<never_in_array>)
+					template_error("You can\'t alloc an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
 			}
 		};
@@ -59,26 +61,34 @@ namespace get_n{
 
 		template<typename T,enable_if(able<T>)>
 		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
-			const size_t from_size=get_size_of_alloc(arg);
-			if(from_size==to_size)
-				return;
-			elseif(from_size > to_size){
-				destruct(arg+to_size-1,from_size-to_size);
-				realloc(arg,to_size);
-			}elseif(from_size){
-				if constexpr(move.trivial<T>)
+			if constexpr(type_info<T>.has_attribute<never_in_array>){
+				template_warning("For never_in_array type,get_resize will unget ptr when new_size=0 else do nothing.");
+				if(to_size)
+					return;
+				unget(arg);
+				arg=null_ptr;
+			}else{
+				const size_t from_size=get_size_of_alloc(arg);
+				if(from_size==to_size)
+					return;
+				elseif(from_size > to_size){
+					destruct(arg+to_size-1,from_size-to_size);
 					realloc(arg,to_size);
-				else{
-					if constexpr(!move.nothrow<T>)
-						template_warning("the move of T was not noexcept,this may cause memory lack.");
-					T*tmp=alloc<T>(to_size);
-					move[from_size](note::from(arg),note::to(tmp));
-					free(arg);
-					arg=tmp;
-				}
-				construct<T>[arg+from_size-1][to_size-from_size]();
-			}else
-				arg=get<T>[to_size]();
+				}elseif(from_size){
+					if constexpr(move.trivial<T>)
+						realloc(arg,to_size);
+					else{
+						if constexpr(!move.nothrow<T>)
+							template_warning("the move of T was not noexcept,this may cause memory lack.");
+						T*tmp=alloc<T>(to_size);
+						move[from_size](note::from(arg),note::to(tmp));
+						free(arg);
+						arg=tmp;
+					}
+					construct<T>[arg+from_size-1][to_size-from_size]();
+				}else
+					arg=get<T>[to_size]();
+			}
 		}
 
 		template<typename T,enable_if(able<T>)>

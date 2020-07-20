@@ -97,11 +97,13 @@ namespace function_n{
 		}
 		template<class func_t>
 		this_t&operator=(func_t&&a)&noexcept(
-		promise_nothrow_at_destruct&&(
-		type_info<func_t>.can_convert_to<func_ptr_t>?
-		type_info<func_t>.can_nothrow_convert_to<func_ptr_t>:
-		get<func_data_t<::std::remove_cvref_t<func_t>>>.nothrow<func_t>;
-		)){
+			promise_nothrow_at_destruct
+			&&(
+				type_info<func_t>.can_convert_to<func_ptr_t>?
+				type_info<func_t>.can_nothrow_convert_to<func_ptr_t>:
+				get<func_data_t<::std::remove_cvref_t<func_t>>>.nothrow<func_t>;
+			)
+		){
 			//BLOCK:constexpr checks
 			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<func_t>)
 				template_error("unexpected assign.");

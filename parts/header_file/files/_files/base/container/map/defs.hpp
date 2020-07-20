@@ -41,12 +41,12 @@ namespace map_n{
 		mutable base_t_w _m;//mutable cause shrink.
 
 		base_t_w(const base_t_w&a):_m(a)noexcept{}
-		this_t copy()noexcept_as(copy_construct.nothrow<base_t_w>){
+		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
 			return{_m};
 		}
 	public:
 		map_t()noexcept=default;
-		~map_t()noexcept_as(destruct.nothrow<base_t_w>)=default;
+		~map_t()noexcept(destruct.nothrow<base_t_w>)=default;
 		map_t(const this_t&a):_m(a._m)noexcept{}
 		map_t(this_t&&a):_m(a._m)noexcept{}
 

@@ -18,7 +18,11 @@ struct type_info_t:base_type_info_t{
 	template<template<class>class attribute_name>
 	static constexpr bool has_attribute=base_on<attribute_name<T>>;
 	template<template<class>class attribute_name>
-	static constexpr bool not_has_attribute=not_base_on<attribute_name<T>>;
+	static constexpr bool not_has_attribute=!has_attribute<attribute_name>;
+	template<class attribute_name>
+	static constexpr bool has_attribute=::std::is_base_of_v<attribute_name,T>;//防止因子类属性误判，不可用base_on
+	template<class attribute_name>
+	static constexpr bool not_has_attribute=!has_attribute<attribute_name>;
 	
 	template<class T_>
 	static constexpr bool can_convert_to=::std::is_convertible_v<T,T_>;

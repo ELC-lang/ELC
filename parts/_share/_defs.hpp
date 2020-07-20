@@ -21,13 +21,22 @@
 */
 
 // #define use_as_template template<bool=true>
+
 // #define often_noexcept
-#define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))
+#define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto
 #define constexpr_as(...) MAGIC//we can't do that ——by std c++.
 #define is_function(...) ::std::is_function_v<__VA_ARGS__>
 
+#define using_method_from_base_t(name) \
+template<class...Args,enable_if_not_ill_form(declvalue(base_t).name(declvalue(Args)...))>\
+auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
+{\
+	return base_t::name(forward<Args>(rest)...);\
+}\
+
+
 // #define floop while(1)
-#define declvalue(...) ::std::declval<__VA_ARGS__>()
+#define declvalue(...) (::std::declval<__VA_ARGS__>())
 
 #define template_error(reason) static_assert(template_error_helper<T>,reason)
 #define enable_if(...) class enable_state= ::std::enable_if_t<__VA_ARGS__>

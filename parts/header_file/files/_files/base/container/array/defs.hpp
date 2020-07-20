@@ -40,7 +40,7 @@ namespace array_n{
 		}
 	private:
 		template<enable_if(copy_get.able<T>)>
-		[[nodiscard]]this_t copy()const noexcept_as(copy_get.nothrow<T>){
+		[[nodiscard]]this_t copy()const noexcept(copy_get.nothrow<T>){
 			return{copy_get(_m)};
 		}
 	public:

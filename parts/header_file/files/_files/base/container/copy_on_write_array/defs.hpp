@@ -17,7 +17,7 @@ namespace copy_on_write_array_n{
 			typedef array_t<T>base_t;
 			using base_t::base_t;
 
-			data_t(const data_t&a)noexcept_as(construct<base_t>.nothrow<const base_t&>):base_t(a){}
+			data_t(const data_t&a)noexcept(construct<base_t>.nothrow<const base_t&>):base_t(a){}
 		};
 		typedef comn_ptr_t<data_t>ptr_t;
 

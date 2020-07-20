@@ -31,7 +31,7 @@ namespace hash_table_n{
 			swap(tmp);
 		}
 		hash_table_t(const base_t_w&a):_m(a)noexcept{}
-		this_t copy()noexcept_as(copy_construct.nothrow<base_t_w>){
+		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
 			return{_m};
 		}
 	public:

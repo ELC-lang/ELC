@@ -58,9 +58,9 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	void reset(T*a)const noexcept(reset_nothrow){auto tmp=_to;add_ref(_to=a);cut_ref(tmp);}
 	void reset(nullptr_t=nullptr)const noexcept(reset_nothrow){reset(null_ptr);}
 protected:
-	static constexpr bool check_nothrow=(!::std::is_base_of_v<replace_able<T>,T>)||reset_nothrow;
-	void check()const noexcept(check_nothrow){
-		if constexpr(::std::is_base_of_v<replace_able<T>,T>)
+	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute<replace_able>)||reset_nothrow;
+	inline void check()const noexcept(check_nothrow){
+		if constexpr(type_info<T>.has_attribute<replace_able>)
 			if((replace_able<T>*)(_to)->replaced())
 				reset((replace_able<T>*)(_to)->get_ptr());
 	}
@@ -71,7 +71,7 @@ public:
 		return base_t::get();
 	}
 	[[nodiscard]]bool unique()const noexcept{return static_cast<ref_able<T>*>(get())->link_num()==1;}
-	[[nodiscard]]explicit constexpr operator hash_t()noexcept_as(hash(declvalue(this_t).get())){
+	[[nodiscard]]explicit constexpr operator hash_t()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
 };
@@ -129,17 +129,11 @@ struct base_ptr_t:ptr_t<T,ref_type>,compare_interface_t<T,base_ptr_t<T,ref_type>
 	base_ptr_t(T_&&a)noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>):base_ptr_t(static_cast<convert_interface>(forward<T_>(a))._to){}
 
 private:
-	static void special_destroy(T*a)noexcept_as(declvalue(T).replace(null_ptr)){//default destroy
-		if constexpr(type_info<T>.not_has_attribute<replace_able>)
-			template_error("Please overload the function special_destroy in the namespace where this type is defined.");
-		//(replace_able<T>*)(a)->replace(null_ptr);//×
-		a->replace(null_ptr);//允许覆写replace方法√
-	}
 	static constexpr class for_delete_t{
 		T*_m;
 	public:
 		static void operator delete(void*a)noexcept_as(special_destroy(nullptr)){
-			special_destroy(reinterpret_cast<for_delete_t*>(a)->_m);
+			destroy(reinterpret_cast<for_delete_t*>(a)->_m);
 		}
 		for_delete_t*operator()(T*a)noexcept{
 			_m=a;

@@ -20,7 +20,7 @@ template<typename T>
 inline void just_a_use(T&&){}
 
 template<typename T>
-inline T const_default_value_of{};
+inline T const_default_value_of{};//?
 
 template<typename T>
 class maybe_fail_reference{
@@ -34,6 +34,18 @@ public:
 	[[nodiscard]]bool fail()noexcept{return!not_fail();}
 	T&get_ref()noexcept{return*_ref_to;}
 };
+
+template<typename T>
+static void destroy(T*a)noexcept_as(declvalue(T).replace(null_ptr)){//default destroy
+	if constexpr(type_info<T>.has_attribute<replace_able>){
+		//(replace_able<T>*)(a)->replace(null_ptr);//×
+		a->replace(null_ptr);//允许覆写replace方法√
+	}elseif(type_info<T>.has_attribute<build_by_get_only>&&type_info<T>.has_attribute<never_in_array>){
+		unget(a);
+	}else{
+		template_error("Please overload the function special_destroy in the namespace where this type is defined.");
+	}
+}
 
 /*
 typedef int64_t elint;

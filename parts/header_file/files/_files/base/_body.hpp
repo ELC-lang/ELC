@@ -31,7 +31,7 @@ namespace elc::defs{
 	using namespace container;
 
 	namespace memory::gc_n{
-		#include"memory/gc/defs.hpp"
+		#include"memory/gc/_body.hpp"
 	}
 	using namespace memory::gc_n;
 

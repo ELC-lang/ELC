@@ -6,6 +6,9 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+namespace gc_n{
+	void gc_for_alloc()noexcept;
+}
 namespace alloc_n{
 	//BLOCK:for debug
 	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize)noexcept{
@@ -58,7 +61,7 @@ namespace alloc_n{
 
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>)noexcept{
-		//return空指针被允许，会引起gc
+		//return空指针被允许，会引起gc_for_alloc
 		using namespace overhead_n;
 		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)));
 		if(tmp){
@@ -69,7 +72,7 @@ namespace alloc_n{
 	}
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
-		//return空指针被允许，会引起gc
+		//return空指针被允许，会引起gc_for_alloc
 		//size被保证不为0
 		using namespace overhead_n;
 		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)*size));
@@ -92,7 +95,7 @@ namespace alloc_n{
 	}
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
-		//return空指针被允许，会引起gc，但ptr值必须保持有效以保证gc后再次realloc有效
+		//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效
 		//new_size被保证不为0
 		using namespace overhead_n;
 		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size<T>(sizeof(T)*new_size));
@@ -112,13 +115,15 @@ namespace alloc_n{
 		typedef base_alloc_t base_t;
 		[[nodiscard]]static T*base_call()noexcept{
 			void*tmp;
-			while(!assign(tmp,alloc_method(type_info<T>)))gc();
+			while(!assign(tmp,alloc_method(type_info<T>)))gc_for_alloc();
 			return reinterpret_cast<T*>(tmp);
 		}
 		[[nodiscard]]static T*base_call(size_t size)noexcept{
+			if constexpr(type_info<T>.has_attribute<never_in_array>)
+				template_error("You can\'t alloc an array for never_in_array type.");
 			if(size){//null_ptr不一定等价于nullptr，请勿删除本行
 				void*tmp;
-				while(!assign(tmp,alloc_method(type_info<T>,size)))gc();
+				while(!assign(tmp,alloc_method(type_info<T>,size)))gc_for_alloc();
 				return reinterpret_cast<T*>(tmp);
 			}else return null_ptr;
 		}
@@ -148,11 +153,14 @@ namespace alloc_n{
 		typedef realloc_t base_t;
 		template<class T>
 		static void base_call(T*&ptr,size_t nsize)noexcept{
+			if constexpr(type_info<T>.has_attribute<never_in_array>)
+				template_warning("For never_in_array type,realloc will free ptr when new_size=0 else do nothing.");
 			if(nsize){//null_ptr不一定等价于nullptr，请勿删除本行
-				if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
-					while(!realloc_method(ptr,nsize))gc();
-				}else
-					ptr=alloc<T>(nsize);
+				if constexpr(type_info<T>.not_has_attribute<never_in_array>)
+					if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
+						while(!realloc_method(ptr,nsize))gc_for_alloc();
+					}else
+						ptr=alloc<T>(nsize);
 			}else{
 				free(ptr);
 				ptr=null_ptr;

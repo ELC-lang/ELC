@@ -14,7 +14,11 @@ elc依赖的基础函数.
 	#define ELC_APIS_DIE
 	namespace elc::APIs::die{
 		[[noreturn]]void die_with(const char*err_msg){
-			
+			//UF
+			::std::exit(1);
 		}
+	}
+	namespace elc{
+		using namespace elc::APIs::die
 	}
 #endif
