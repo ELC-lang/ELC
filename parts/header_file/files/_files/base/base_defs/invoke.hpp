@@ -15,7 +15,7 @@ struct invoke_t:constexpr_struct,helper_struct{
 
 	template<class...Args,enable_if(able<Args...>)>
 	auto _as(Args&&...rest)const noexcept(nothrow<Args...>){//invoke<T>._as(...)
-		return lambda(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
+		return lambda_with_catch(rest...)(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
 	}
 };
 template<typename T>

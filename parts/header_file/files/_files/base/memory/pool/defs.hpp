@@ -31,7 +31,7 @@ namespace pool_n{
 		data_block<T>_data[ment_size];//无需考虑对齐问题：data_block自动根据类型参数提出对齐要求，它定义于 "../../base_defs/data.hpp"
 
 		constexpr ment(){
-			for(uint a=0;a!=ment_size;a++)unuse_indexes[a]=a;
+			for(uint a=0;a!=ment_size;a++)_unuse_indexes[a]=a;
 			_unuse_indexes_index=ment_size;
 		}
 		[[nodiscard]]T*get_new()noexcept{

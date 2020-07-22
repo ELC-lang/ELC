@@ -10,7 +10,7 @@ inline void test(){
 	stest_entryevent("base_exception部分测试");
 	try{
 		throw elc::exception();
-	}catch(elc::exception){
+	}catch(::elc::exception){
 		moha=1;
 	}
 	stest_exitevent();

@@ -10,9 +10,10 @@ namespace gc_n{
 	void gc_for_alloc()noexcept;
 }
 namespace alloc_n{
+	using ::elc::defs::memory::gc_n::gc_for_alloc;
 	//BLOCK:for debug
 	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize)noexcept{
-		void*p=elc::APIs::alloc::realloc(ptr,nsize);
+		void*p=::elc::APIs::alloc::realloc(ptr,nsize);
 		#if defined(ELC_TEST_ON)
 			if(nsize==0)
 				stest_uneventlog(ptr);
@@ -27,7 +28,7 @@ namespace alloc_n{
 		return p;
 	}
 	[[nodiscard]]inline void*base_aligned_alloc(size_t align,size_t size)noexcept{
-		void*p=elc::APIs::alloc::aligned_alloc(align,size);
+		void*p=::elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)
 			if(p){
 				stest_entryevent(L"base_aligned_alloc调用");
@@ -51,7 +52,7 @@ namespace alloc_n{
 				stest_uneventlog(p);
 			}
 		#endif
-		elc::APIs::alloc::free(p,size);
+		::elc::APIs::alloc::free(p,size);
 	}
 	//BLOCK_END
 

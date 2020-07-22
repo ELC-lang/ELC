@@ -95,30 +95,30 @@ namespace function_n{
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
 			return _m->call(forward<Args_t>(args)...);
 		}
-		template<class func_t>
-		this_t&operator=(func_t&&a)&noexcept(
+		template<class T>
+		this_t&operator=(T&&a)&noexcept(
 			promise_nothrow_at_destruct
 			&&(
-				type_info<func_t>.can_convert_to<func_ptr_t>?
-				type_info<func_t>.can_nothrow_convert_to<func_ptr_t>:
-				get<func_data_t<::std::remove_cvref_t<func_t>>>.nothrow<func_t>;
+				type_info<T>.can_convert_to<func_ptr_t>?
+				type_info<T>.can_nothrow_convert_to<func_ptr_t>:
+				get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>;
 			)
 		){
 			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<func_t>)
+			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
 				template_error("unexpected assign.");
 			if constexpr(nothrow)
 				if constexpr(!invoke<T>.nothrow<args...>)
 					template_warning("the call of T was not noexcept,this may cause terminate.");
 			//BLOCK_END
-			if constexpr(type_info<func_t>.can_convert_to<func_ptr_t>){
+			if constexpr(type_info<T>.can_convert_to<func_ptr_t>){
 				auto tmp=(func_ptr_t)(a);
 				if(tmp)
 					_m=get<func_ptr_t>(tmp);
 				else
 					_m=null_ptr;
 			}else
-				_m=get<func_data_t<::std::remove_cvref_t<func_t>>>(a);
+				_m=get<func_data_t<::std::remove_cvref_t<T>>>(a);
 			return*this;
 		}
 		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_at_destruct){
@@ -134,9 +134,9 @@ namespace function_n{
 			return*this;
 		}
 
-		template<class func_t>
-		base_function_t(func_t&&a)noexcept_as(declvalue(this_t)=declvalue(func_t)):base_function_t(){
-			*this=(forward<func_t>(a));
+		template<class T>
+		base_function_t(T&&a)noexcept_as(declvalue(this_t)=declvalue(T)):base_function_t(){
+			*this=(forward<T>(a));
 		}
 
 		template<bool nothrow_,bool promise_nothrow_at_destruct_>

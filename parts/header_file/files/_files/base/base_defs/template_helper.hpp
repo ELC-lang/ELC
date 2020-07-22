@@ -8,9 +8,9 @@
 */
 template<class T>
 constexpr bool template_error_helper=false;
-template<class T>
+template<class T,class T_>
 [[deprecated("this was a template warning.")]]
-inline void template_warning(T&&){nothing}
+inline void template_warning_helper(T_&&){nothing}
 
 //file_end
 
