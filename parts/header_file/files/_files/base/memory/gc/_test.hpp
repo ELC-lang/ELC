@@ -9,18 +9,21 @@
 //UF:没想好如何测试
 #error
 struct gc_tester:gc_able<gc_tester>,can_shrink<gc_tester>,count_able<gc_tester>,can_map_all<gc_tester>,mark_able_for_gc<gc_tester>{
-	
+
 	void shrink(){
 		//?
 	}
 }
 inline void test(){
 	stest_entryevent(L"gc部分测试");
-	
+
 }
 inline void test_log_out(){
-	
+
 }
 inline void test_end(){
-	
+
 }
+
+//file_end
+

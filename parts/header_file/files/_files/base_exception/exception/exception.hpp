@@ -11,3 +11,6 @@ struct exception{
 	virtual const char*what()noexcept{return "unknow error.";}
 };
 inline exception::~exception()noexcept{}
+
+//file_end
+

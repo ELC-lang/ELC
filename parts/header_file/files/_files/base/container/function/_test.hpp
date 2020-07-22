@@ -11,7 +11,7 @@ namespace function_n{
 	inline void test(){
 		stest_entryevent(L"function部分测试");
 		{
-			
+
 		}
 		check_memory_lack();
 		stest_exitevent();
@@ -22,3 +22,6 @@ namespace function_n{
 	}
 	//BLOCK_END
 }
+
+//file_end
+

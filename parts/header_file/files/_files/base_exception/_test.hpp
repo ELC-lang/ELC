@@ -21,3 +21,6 @@ inline void test_log_out(){
 inline void test_end{
 	moha=0;
 }
+
+//file_end
+

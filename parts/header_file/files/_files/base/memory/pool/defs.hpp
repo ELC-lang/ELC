@@ -47,7 +47,7 @@ namespace pool_n{
 			}
 			return false;
 		}
-		[[nodiscard]]bool empty()noexcept{return _unuse_indexes_index==ment_size;}
+		[[nodiscard]]bool empty()const noexcept{return _unuse_indexes_index==ment_size;}
 	};
 	template<class T,::std::uint_fast16_t ment_size>
 	class pool_t final:list_t<ment<T,ment_size>>,non_copyable,non_moveable{
@@ -136,3 +136,6 @@ namespace pool_n{
 	}
 	//
 }
+
+//file_end
+

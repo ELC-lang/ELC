@@ -6,4 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct mark_able_for_gc:mark_able,helper_class{};
+template<typename T>
+struct mark_able_for_gc:mark_able<T>,helper_struct{};
+
+//file_end
+

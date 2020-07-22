@@ -36,3 +36,6 @@ public:
 	move
 	for_each
 };
+
+//file_end
+

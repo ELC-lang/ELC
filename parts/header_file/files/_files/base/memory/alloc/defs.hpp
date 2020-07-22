@@ -57,7 +57,7 @@ namespace alloc_n{
 
 	//允许自定义对象的alloc/free/realloc/get_size_of_alloc方法：为pool留的后门（大概）
 	//这里是缺省时的默认方法定义
-	#include"overhead.hpp"
+	#include "overhead.hpp"
 
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>)noexcept{
@@ -119,7 +119,7 @@ namespace alloc_n{
 			return reinterpret_cast<T*>(tmp);
 		}
 		[[nodiscard]]static T*base_call(size_t size)noexcept{
-			if constexpr(type_info<T>.has_attribute<never_in_array>)
+			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You can\'t alloc an array for never_in_array type.");
 			if(size){//null_ptr不一定等价于nullptr，请勿删除本行
 				void*tmp;
@@ -153,10 +153,10 @@ namespace alloc_n{
 		typedef realloc_t base_t;
 		template<class T>
 		static void base_call(T*&ptr,size_t nsize)noexcept{
-			if constexpr(type_info<T>.has_attribute<never_in_array>)
+			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_warning("For never_in_array type,realloc will free ptr when new_size=0 else do nothing.");
 			if(nsize){//null_ptr不一定等价于nullptr，请勿删除本行
-				if constexpr(type_info<T>.not_has_attribute<never_in_array>)
+				if constexpr(type_info<T>.not_has_attribute(never_in_array))
 					if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
 						while(!realloc_method(ptr,nsize))gc_for_alloc();
 					}else
@@ -177,16 +177,19 @@ namespace alloc_n{
 		};
 		[[nodiscard]]realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};
-	
+
 	template<class T>
 	inline size_t get_size_of_alloc(const T*arg)noexcept_as(get_size_of_alloc_method(declvalue(const T*))){
 		if(arg==null_ptr)
 			return 0;
 		return get_size_of_alloc_method(arg);
 	}
-	
+
 	template<class T>
 	inline T*copy_alloc(const T*arg)noexcept{
 		return alloc<T>(get_size_of_alloc(arg));
 	}
 }
+
+//file_end
+

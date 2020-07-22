@@ -13,22 +13,22 @@ class gc_t{
 
 	base_stack_t<gc_method_t>_gc_methods;
 	base_stack_t<success_identifier_t>_gc_success_identifiers;
-	bool _gc_running=0;
+	mutable flag _gc_running=flag(not_set);
 public:
-	inline void operator()()noexcept{
+	inline void operator()()const noexcept{
 		if(_gc_running)
 			die_with(locale::str::gc_fail);
-		_gc_running=1;
+		_gc_running.set();
 		if(_gc_methods.empty())
 			die_with(locale::str::empty_gc_method);
-		_gc_methods.for_each(invoke<gc_method_t>._as(nothing));
-		_gc_running=0;
+		_gc_methods.for_each(invoke<const gc_method_t>._as(nothing));
+		_gc_running.unset();
 	}
-	[[nodiscard]]inline bool success()noexcept{
+	[[nodiscard]]inline bool success()const noexcept{
 		bool success=_gc_success_identifiers.empty();
 		_gc_success_identifiers.for_each(
-			lambda_with_catch(&success)(success_identifier_t&a)noexcept{
-				if(not success)
+			lambda_with_catch(&success)(const success_identifier_t&a)noexcept{
+				if(!success)
 					success=a();
 			}
 		);
@@ -61,4 +61,4 @@ public:
 		if constexpr(is_function(gc_success_identifier_of<T>))
 			this_t::remove_gc_success_identifier(gc_success_identifier_of<T>);
 	}
-}
+};

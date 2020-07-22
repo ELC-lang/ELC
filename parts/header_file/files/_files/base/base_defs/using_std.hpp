@@ -15,3 +15,6 @@ using ::std::swap;
 // using ::std::max;
 // using ::std::min;
 //新min与max定义于base/base_defs/min_max
+
+//file_end
+

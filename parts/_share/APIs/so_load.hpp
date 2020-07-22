@@ -13,6 +13,9 @@ elc依赖的基础函数.
 #if !defined(ELC_APIS_SO_LOAD)
 	#define ELC_APIS_SO_LOAD
 	namespace elc::APIs::so_load{
-		
+
 	}
 #endif
+
+//file_end
+

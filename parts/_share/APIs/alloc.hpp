@@ -30,3 +30,6 @@ elc依赖的基础函数.
 		}
 	}
 #endif
+
+//file_end
+

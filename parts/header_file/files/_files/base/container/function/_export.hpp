@@ -10,3 +10,6 @@
 export function_t;
 //export may_throw_in_destruct_function_t;
 #undef export
+
+//file_end
+

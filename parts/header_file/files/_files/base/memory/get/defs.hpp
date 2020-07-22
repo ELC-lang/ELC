@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace get_n{
-	//struct build_by_get_only{};已定义于 "../../base_defs/special_flags.hpp"
+	//struct build_by_get_only{};已定义于 "../../base_defs/special_attribute.hpp"
 
 	struct base_get_t{};
 	template<typename T>
@@ -26,8 +26,8 @@ namespace get_n{
 			size_t _size;
 			template<class...Args,enable_if(able<Args...>)>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
-				if constexpr(type_info<T>.has_attribute<never_in_array>)
-					template_error("You can\'t alloc an array for never_in_array type.");
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t get an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
 			}
 		};
@@ -61,7 +61,7 @@ namespace get_n{
 
 		template<typename T,enable_if(able<T>)>
 		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
-			if constexpr(type_info<T>.has_attribute<never_in_array>){
+			if constexpr(type_info<T>.has_attribute(never_in_array)){
 				template_warning("For never_in_array type,get_resize will unget ptr when new_size=0 else do nothing.");
 				if(to_size)
 					return;
@@ -119,3 +119,6 @@ namespace get_n{
 		}
 	}copy_get{};
 }
+
+//file_end
+

@@ -58,9 +58,9 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	void reset(T*a)const noexcept(reset_nothrow){auto tmp=_to;add_ref(_to=a);cut_ref(tmp);}
 	void reset(nullptr_t=nullptr)const noexcept(reset_nothrow){reset(null_ptr);}
 protected:
-	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute<replace_able>)||reset_nothrow;
+	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute(replace_able))||reset_nothrow;
 	inline void check()const noexcept(check_nothrow){
-		if constexpr(type_info<T>.has_attribute<replace_able>)
+		if constexpr(type_info<T>.has_attribute(replace_able))
 			if((replace_able<T>*)(_to)->replaced())
 				reset((replace_able<T>*)(_to)->get_ptr());
 	}
@@ -183,3 +183,6 @@ namespace compare_n{
 	}
 	#undef tmp_expr
 }
+
+//file_end
+

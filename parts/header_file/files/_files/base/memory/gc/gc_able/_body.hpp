@@ -8,10 +8,13 @@
 */
 template<typename T>
 class gc_able{
-	inline struct method_marker_t{
+	inline static struct method_marker_t{
 		method_marker_t()noexcept{
 			gc.add_gc_method(type_info<T>);
 		}
 	}method_marker;
 };
 //?
+
+//file_end
+

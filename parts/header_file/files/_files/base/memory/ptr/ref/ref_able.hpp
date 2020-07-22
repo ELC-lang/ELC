@@ -24,3 +24,6 @@ public:
 				destroy_and_free(this_T);
 	}
 };
+
+//file_end
+

@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//此属性配合 "../ptr" 食用
 template<typename T>
 struct replace_able:non_copyable,non_moveable,attribute<T,replace_able<T>>{
 private:
@@ -23,3 +24,6 @@ public:
 	constexpr void replace(T*new_p)noexcept{_m=new_p;}
 	constexpr void replace(nullptr_t)noexcept{replace(null_ptr);}
 };
+
+//file_end
+

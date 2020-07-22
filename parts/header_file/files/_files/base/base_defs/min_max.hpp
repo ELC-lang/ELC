@@ -26,3 +26,6 @@ constexpr struct max_t:helper_struct,functionlike_struct,constexpr_struct{
 		return ::std::numeric_limits<T>::max();
 	}
 }max{};
+
+//file_end
+

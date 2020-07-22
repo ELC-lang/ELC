@@ -12,7 +12,8 @@ constexpr struct name##_t:flag_struct{} name{}
 
 defspecflag(never_ref_num_zero);
 defspecflag(special_init);
-defspecflag(build_by_get_only);
-defspecflag(never_in_array);
 
 #undef defspecflag
+
+//file_end
+

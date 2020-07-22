@@ -117,3 +117,6 @@ namespace hash_table_n{
 	template<typename T,template<typename>class stack_t,size_t _>
 	inline void swap(typename hash_table_t<T,stack_t,_>::base_t_w&b,hash_table_t<T,stack_t,_>&a)noexcept{a.swap(b);}
 }
+
+//file_end
+

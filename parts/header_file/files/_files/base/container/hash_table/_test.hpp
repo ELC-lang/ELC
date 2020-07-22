@@ -11,7 +11,7 @@ namespace hash_table_n{
 	inline void test(){
 		stest_entryevent(L"hash_table部分测试");
 		{
-			
+
 		}
 		check_memory_lack();
 		stest_exitevent();
@@ -22,3 +22,6 @@ namespace hash_table_n{
 	}
 	//BLOCK_END
 }
+
+//file_end
+

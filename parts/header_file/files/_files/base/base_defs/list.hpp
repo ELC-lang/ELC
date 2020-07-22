@@ -26,7 +26,7 @@ private:
 
 	[[nodiscard]]this_t*get_before()noexcept{return _before;}
 	[[nodiscard]]this_t*get_next()noexcept{return _next;}
-	
+
 	constexpr cons_t(this_t*a,this_t*b):_before(a),_next(b){}
 
 	constexpr void set_before(this_t*a){
@@ -86,5 +86,8 @@ public:
 	[[nodiscard]]constexpr iterator begin()noexcept{return head_.get_next();}//这叫头迭代器
 	[[nodiscard]]constexpr iterator end()noexcept{return&end_;}//这叫超尾迭代器
 	[[nodiscard]]constexpr iterator head()noexcept{return&head_;}//。。。。这个大概就是超头迭代器了😂
-	[[nodiscard]]constexpr bool empty()noexcept{return head_.get_next()==&end_;}
+	[[nodiscard]]constexpr bool empty()const noexcept{return head_.get_next()==&end_;}
 };
+
+//file_end
+

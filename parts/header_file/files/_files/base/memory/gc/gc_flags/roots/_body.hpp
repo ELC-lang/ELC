@@ -7,8 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 //UF:草稿
-#error
-struct have_root,helper_class{};
+//#error
+struct have_root:helper_struct{};
 
 template<typename T>
 class root_of;
@@ -38,7 +38,7 @@ public:
 			}
 		);
 	}
-}
+};
 template<typename T>
 inline roots_t<T>roots_of;
 
@@ -51,8 +51,11 @@ public:
 	}
 	virtual T& get()noexcept=0;
 	virtual void map_and_mark()noexcept=0;
-}
+};
 template<typename T>
 T& root_of<T>::get()noexcept{return const_default_value_of<T>;}
 template<typename T>
 void root_of<T>::map_and_mark()noexcept{}
+
+//file_end
+

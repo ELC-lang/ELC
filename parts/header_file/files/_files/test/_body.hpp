@@ -7,15 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace elc{
-	#if defined(ELC_BASE)&&!defined(ELC_CORE)
-		//gc：声明于base实现于core
-		inline void defs::memory::gc_for_alloc()noexcept{
-			stest_puts(L"gc被调用但未定义，当前事件记录如下：");
-			stest_printeventlist(stderr,stest_geteventlist());
-			stest_wait();
-			stest_accert(0);
-		}
-	#endif
 	inline void test(){
 		stest_entryevent(L"elc总测试");
 		#define CALL_NAME test
@@ -34,3 +25,6 @@ namespace elc{
 		#undef CALL_NAME
 	}
 }
+
+//file_end
+

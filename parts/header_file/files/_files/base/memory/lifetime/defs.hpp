@@ -54,7 +54,7 @@ namespace lifetime_n{
 	constexpr bool copy_assign_nothrow=::std::is_nothrow_copy_assignable_v<T>;
 	template<class T>
 	constexpr bool copy_assign_trivial=::std::is_trivially_copy_assignable_v<T>;
-	
+
 	class move_assign_t;
 	template<class T>
 	constexpr bool move_assign_able=::std::is_move_assignable_v<T>;
@@ -197,7 +197,7 @@ namespace lifetime_n{
 				return to;
 			}
 		}
-		
+
 		template<class T,enable_if(able<T>)>
 		T*operator()(T*to,const T*from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to,from,size);}
@@ -221,11 +221,11 @@ namespace lifetime_n{
 				}
 			return to;
 		}
-		
+
 		template<class T,enable_if(able<T>)>
 		T*operator()(T*to,const T&from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to,from,size);}
-		
+
 		struct array_copy_construct_t{
 			size_t _size;
 			template<class T,enable_if(able<T>)>
@@ -275,7 +275,7 @@ namespace lifetime_n{
 					return copy_construct[size](to,from);
 			}
 		}
-		
+
 		template<class T,enable_if(able<T>)>
 		T*operator()(T*to,T*from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to,from,size);}
@@ -305,7 +305,7 @@ namespace lifetime_n{
 		};
 		[[nodiscard]]array_move_construct_t operator[](size_t a)const noexcept{return{a};}
 	}move_construct{};
-	
+
 	constexpr struct move_t{
 		template<class T>
 		static constexpr bool able=move_construct.able<T>&&destruct.able<T>;
@@ -320,7 +320,7 @@ namespace lifetime_n{
 			destruct(from,size);
 			return to;
 		}
-		
+
 		template<class T,enable_if(able<T>)>
 		T*operator()(T*to,T*from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to,from,size);}
@@ -349,14 +349,14 @@ namespace lifetime_n{
 			}
 		};
 		[[nodiscard]]array_move_t operator[](size_t a)const noexcept{return{a};}
-		
+
 		//特殊使用
 		template<class T>
 		[[nodiscard]]constexpr ::std::remove_reference_t<T>&& operator()(T&&a)const noexcept{
 			return static_cast<::std::remove_reference_t<T>&&>(a);
 		}
 	}move{};
-	
+
 	constexpr struct copy_t{
 		//特殊使用
 		template<class T,enable_if(copy_construct_able<T>?1:(construct<T>.able<>&&copy_assign_able<T>))>
@@ -368,3 +368,6 @@ namespace lifetime_n{
 		}
 	}copy{};
 }
+
+//file_end
+

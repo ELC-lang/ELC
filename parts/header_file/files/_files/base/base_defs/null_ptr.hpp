@@ -26,3 +26,6 @@ using null_ptr_n::force_use_default_null_ptr;
 using null_ptr_n::null_ptr;
 typedef decltype(null_ptr) null_ptr_t;
 typedef decltype(nullptr) nullptr_t;
+
+//file_end
+

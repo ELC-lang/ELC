@@ -10,3 +10,6 @@ template<class T,enable_flag>
 inline void gc_method_of()noexcept;
 template<class T,enable_flag>
 [[nodiscard]]inline bool gc_success_identifier_of()noexcept;
+
+//file_end
+

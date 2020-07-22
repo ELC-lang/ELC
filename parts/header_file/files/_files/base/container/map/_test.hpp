@@ -11,7 +11,7 @@ namespace map_n{
 	inline void test(){
 		stest_entryevent(L"map部分测试");
 		{
-			
+
 		}
 		check_memory_lack();
 		stest_exitevent();
@@ -22,3 +22,6 @@ namespace map_n{
 	}
 	//BLOCK_END
 }
+
+//file_end
+

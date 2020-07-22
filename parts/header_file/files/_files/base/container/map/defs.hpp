@@ -32,7 +32,7 @@ namespace map_n{
 			/* operator T&()noexcept{
 				return _value;
 			} */
-			bool empty(){
+			[[nodiscard]]bool empty(){
 				return _value==const_default_value_of<T>;
 			}
 		};
@@ -106,3 +106,6 @@ namespace map_n{
 	template<typename T,template<typename>class stack_t,size_t _,size_t __>
 	inline void swap(map_t<T,stack_t,_>&a,map_t<T,stack_t,__>&b)noexcept{a.swap(b);}
 }
+
+//file_end
+

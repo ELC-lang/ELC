@@ -17,7 +17,10 @@ public:
 };
 template<class T>
 [[nodiscard]]inline size_t the_number_of(type_info_t<T>)noexcept{
-	if constexpr(type_info<T>.not_has_attribute<count_able>)
+	if constexpr(type_info<T>.not_has_attribute(count_able))
 		template_error("hey.");
 	return count_able<T>::_number;
 }
+
+//file_end
+

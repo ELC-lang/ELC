@@ -30,7 +30,7 @@ namespace array_n{
 		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
 
-		[[nodiscard]]bool empty(){
+		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;
 		}
 
@@ -78,7 +78,7 @@ namespace array_n{
 			resize(size()+1);
 			operator[](size()-1)=a;
 		}
-	
+
 		void remove(T a){
 			size_t size=this->size();
 			if(size){
@@ -99,3 +99,6 @@ namespace array_n{
 	template<typename T>
 	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
 }
+
+//file_end
+

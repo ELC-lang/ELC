@@ -8,3 +8,6 @@
 */
 template<typename T,enable_if(was_ref_able<T>)>
 using comn_ptr_t=base_ptr_t<T,ref_able<T>>;
+
+//file_end
+

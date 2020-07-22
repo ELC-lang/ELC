@@ -36,3 +36,6 @@ public:
 		return find(a).not_fail();
 	}
 };
+
+//file_end
+

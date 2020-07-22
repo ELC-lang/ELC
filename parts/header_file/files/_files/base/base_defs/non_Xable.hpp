@@ -40,3 +40,6 @@ helper_struct,basic_struct{
 struct non_moveable:non_move_assign_able,non_move_construct_able,
 helper_struct,basic_struct{
 };
+
+//file_end
+

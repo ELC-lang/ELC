@@ -10,18 +10,21 @@
 	#error "this part cannot be tested."
 #endif
 namespace elc::defs{
-	#include"../_defs.hpp"
+	#include "../_defs.hpp"
 
-	#include"string/_body.hpp"
+	#include "string/_body.hpp"
 
 	#if defined(ELC_TEST_ON)
 	namespace string_part_test{
-		#include"_test.hpp"
+		#include "_test.hpp"
 	}
 	#endif
 
-	#include"../_undefs.hpp"
+	#include "../_undefs.hpp"
 }
 namespace elc{
-	#include"_export.hpp"
+	#include "_export.hpp"
 }
+
+//file_end
+

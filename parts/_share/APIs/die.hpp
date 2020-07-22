@@ -19,6 +19,9 @@ elc依赖的基础函数.
 		}
 	}
 	namespace elc{
-		using namespace elc::APIs::die
+		using namespace elc::APIs::die;
 	}
 #endif
+
+//file_end
+

@@ -8,3 +8,6 @@
 */
 inline gc_t gc;
 //
+
+//file_end
+

@@ -24,9 +24,9 @@ template<typename T>
 class weak_ref_able;
 
 template<typename T>
-constexpr bool was_ref_able=type_info<T>.has_attribute<ref_able>;
+constexpr bool was_ref_able=type_info<T>.has_attribute(ref_able);
 template<typename T>
-constexpr bool was_weak_ref_able=type_info<T>.has_attribute<weak_ref_able>;
+constexpr bool was_weak_ref_able=type_info<T>.has_attribute(weak_ref_able);
 
 template<typename T>
 [[nodiscard]]link_num_t get_ref_num(const T*a)noexcept{
@@ -40,3 +40,6 @@ template<typename T>
 		template_error("hey.");
 	return static_cast<const weak_ref_able<T>*>(a)->link_num();
 }
+
+//file_end
+

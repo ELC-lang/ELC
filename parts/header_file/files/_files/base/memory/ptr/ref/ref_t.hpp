@@ -18,3 +18,6 @@ public:
 	inline void set_zero()noexcept{_ref_num=0;}
 	[[nodiscard]]link_num_t link_num()const{return _ref_num;}
 };
+
+//file_end
+

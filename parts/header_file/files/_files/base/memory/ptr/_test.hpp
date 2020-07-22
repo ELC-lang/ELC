@@ -16,3 +16,6 @@ namespace ptr_n{
 	inline void test_end(){
 	}
 }
+
+//file_end
+

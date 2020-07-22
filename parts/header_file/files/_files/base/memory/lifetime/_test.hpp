@@ -18,3 +18,6 @@ namespace lifetime_n{
 	}
 	//BLOCK_END
 }
+
+//file_end
+

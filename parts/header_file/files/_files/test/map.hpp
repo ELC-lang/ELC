@@ -18,3 +18,6 @@ defs::core_part_test::CALL_NAME();
 #if defined(ELC_STRING)
 defs::string_part_test::CALL_NAME();
 #endif
+
+//file_end
+

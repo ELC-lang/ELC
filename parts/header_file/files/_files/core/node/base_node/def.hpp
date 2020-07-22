@@ -52,3 +52,6 @@ public:
 	}
 	ptr operator&(){return this;}
 };
+
+//file_end
+

@@ -10,3 +10,6 @@ constexpr struct zero_t{
 	template<class T,enable_if(type_info<decltype(0)>.can_convert_to<T>)>
 	operator T()const noexcept(type_info<decltype(0)>.can_nothrow_convert_to<T>){return 0;}
 }zero{};
+
+//file_end
+

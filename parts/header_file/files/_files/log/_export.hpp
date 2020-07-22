@@ -9,3 +9,6 @@
 #define export using defs::log_n::
 export log;
 #undef export
+
+//file_end
+

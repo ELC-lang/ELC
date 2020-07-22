@@ -30,3 +30,6 @@ public:
 	inline void unmark()const noexcept{m.unset();}
 	[[nodiscard]]bool was_marked()const noexcept{return(bool)m;}
 };
+
+//file_end
+

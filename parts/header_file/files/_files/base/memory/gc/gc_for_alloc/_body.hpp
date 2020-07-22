@@ -9,3 +9,6 @@
 inline void gc_for_alloc()noexcept{
 	gc();
 }
+
+//file_end
+

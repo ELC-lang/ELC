@@ -14,3 +14,6 @@ inline void test_log_out(){
 }
 inline void test_end(){
 }
+
+//file_end
+

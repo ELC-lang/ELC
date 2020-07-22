@@ -45,3 +45,6 @@ struct noexcept_istream:virtual base_istream,virtual noexcept_stream{
 struct noexcept_iostream:virtual base_iostream,virtual noexcept_ostream,virtual noexcept_istream{};
 static_assert(noexcept(((noexcept_iostream*)(nullptr))->~noexcept_iostream()));
 static_assert(noexcept(((noexcept_iostream*)(nullptr))->sync()));
+
+//file_end
+

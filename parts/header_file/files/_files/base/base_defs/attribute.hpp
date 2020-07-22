@@ -21,3 +21,5 @@ T*get_handle(T*a){return a;}
 template<typename T>\
 class name{}\
 
+//file_end
+

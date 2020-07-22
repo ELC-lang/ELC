@@ -52,7 +52,7 @@ public:
 		destruct(this);
 		construct<this_t>[this]();
 	}
-	[[nodiscard]]bool empty()noexcept{
+	[[nodiscard]]bool empty()const noexcept{
 		return _m==null_ptr;
 	}
 	template<typename T_>
@@ -106,7 +106,7 @@ public:
 		}
 	}
 	#undef expr
-	
+
 	#define expr declvalue(func_t)(declvalue(const T&))
 	template<typename func_t,enable_if_not_ill_form(expr)>
 	void for_each(func_t&&func)const noexcept_as(expr){
@@ -136,3 +136,6 @@ public:
 		a.add(tmp);
 	}
 };
+
+//file_end
+

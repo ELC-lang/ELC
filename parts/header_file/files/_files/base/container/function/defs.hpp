@@ -10,7 +10,7 @@ namespace function_n{
 	template<class T>
 	class base_func_data_t;
 	template<class Ret_t,class...Args_t>
-    struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only{
+	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
 
 		virtual ~base_func_data_t()=0;
@@ -22,14 +22,14 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const this_t&a){
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
-    };
+	};
 	template<class Ret_t,class...Args_t>
 	base_func_data_t<Ret_t(Args_t...)>::~base_func_data_t(){nothing};
 
 	template<class T,class Func_t>
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
-    struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
+	struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		T _value;
@@ -52,12 +52,12 @@ namespace function_n{
 				template_warning("the compare of T was not noexcept,this may cause terminate.");
 			return _value==*reinterpret_cast<T*>(a);
 		}
-    };
+	};
 
 	template<class T>
 	class default_func_data_t;
 	template<class Ret_t,class...Args_t>
-    struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
+	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		virtual ~default_func_data_t()noexcept override{}
@@ -65,7 +65,7 @@ namespace function_n{
 		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual void*get_data_begin()noexcept override{return null_ptr;}
 		[[nodiscard]]virtual bool equal_with(void*a)noexcept override{return true;}
-    };
+	};
 	template<class Ret_t,class...Args_t>
 	constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 	template<class Ret_t,class...Args_t>
@@ -227,3 +227,6 @@ namespace function_n{
 	}
 	*/
 }
+
+//file_end
+

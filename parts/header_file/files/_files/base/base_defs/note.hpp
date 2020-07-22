@@ -28,3 +28,6 @@ namespace note_n{
 	constexpr struct fail_t:helper_struct,constexpr_struct{}fail{};
 }
 namespace note=note_n;
+
+//file_end
+

@@ -24,3 +24,6 @@ public:
 	}
 };
 constexpr logical_bool neither{special_init,0b10},either{special_init,0b11};
+
+//file_end
+

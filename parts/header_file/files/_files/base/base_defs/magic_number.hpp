@@ -15,3 +15,6 @@ namespace magic_number{
 
 	constexpr auto god=72//神已死,神万岁.
 }
+
+//file_end
+

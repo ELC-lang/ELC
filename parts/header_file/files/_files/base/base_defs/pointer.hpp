@@ -16,3 +16,6 @@ template<typename T>
 }
 typedef void*pointer;
 typedef const void*const_pointer;
+
+//file_end
+

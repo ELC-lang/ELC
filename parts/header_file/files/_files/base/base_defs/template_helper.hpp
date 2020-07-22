@@ -11,3 +11,6 @@ constexpr bool template_error_helper=false;
 template<class T>
 [[deprecated("this was a template warning.")]]
 inline void template_warning(T&&){nothing}
+
+//file_end
+

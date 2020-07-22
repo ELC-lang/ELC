@@ -37,3 +37,6 @@ namespace copy_on_write_array_n{
 	}
 	//BLOCK_END
 }
+
+//file_end
+

@@ -94,3 +94,6 @@ namespace copy_on_write_array_n{
 	template<typename T>
 	inline void swap(copy_on_write_array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
 }
+
+//file_end
+

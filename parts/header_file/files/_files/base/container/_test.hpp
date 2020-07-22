@@ -20,3 +20,6 @@ inline void test_end(){
 	array_n::test_end();
 	copy_on_write_array_n::test_end();
 }
+
+//file_end
+

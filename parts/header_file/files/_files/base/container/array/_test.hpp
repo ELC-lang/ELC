@@ -30,3 +30,6 @@ namespace array_n{
 	}
 	//BLOCK_END
 }
+
+//file_end
+

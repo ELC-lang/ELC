@@ -15,7 +15,7 @@ namespace overhead_n{
 	};
 	template<class T>
 	constexpr overhead_helper_t<T>overhead_helper{};
-	
+
 	template<class T>
 	constexpr size_t correct_size(size_t a){
 		return a+overhead_helper<T>.offset_value;
@@ -39,3 +39,6 @@ namespace overhead_n{
 		return*reinterpret_cast<size_t*>(a);
 	}
 }
+
+//file_end
+
