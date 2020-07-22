@@ -13,9 +13,13 @@ elc使用的字符串.
 #if !defined(ELC_LOCALE)
 	#define ELC_LOCALE
 	namespace elc::locale::func{
-		
+
 	}
 	namespace elc::locale::str{
-		
+		auto const gc_fail="gc失败";
+		auto const empty_gc_method="gc方法为空时gc被调用";
 	}
 #endif
+
+//file_end
+
