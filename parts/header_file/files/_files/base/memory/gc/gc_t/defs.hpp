@@ -62,3 +62,6 @@ public:
 			this_t::remove_gc_success_identifier(gc_success_identifier_of<T>);
 	}
 };
+
+//file_end
+

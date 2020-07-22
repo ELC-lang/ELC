@@ -7,7 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline gc_t gc;
-//
 
 //file_end
 

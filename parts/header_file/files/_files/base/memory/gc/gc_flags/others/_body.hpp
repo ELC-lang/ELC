@@ -9,3 +9,6 @@
 def_attribute_with_nothing(can_shrink);
 def_attribute_with_nothing(can_map_all);
 //def_attribute_with_nothing(build_by_get_only);
+
+//file_end
+

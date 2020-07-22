@@ -134,7 +134,6 @@ namespace pool_n{
 			template_warning("pool can\'t alloc array.");
 		return memory::alloc_n::realloc_method(type_info<T>,a);
 	}
-	//
 }
 
 //file_end
