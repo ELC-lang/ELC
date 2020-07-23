@@ -77,17 +77,17 @@ struct list_t:container_struct{
 		constexpr operator T*()noexcept{return operator->();}
 	};
 private:
-	cons _begin,end_;
+	cons _begin,_end;
 public:
-	constexpr list_t()noexcept{_begin.bind_with(end_);}
+	constexpr list_t()noexcept{_begin.bind_with(_end);}
 	constexpr inline void add(cons*a)noexcept{
-		a->insert_to_before(&end_);
+		a->insert_to_before(&_end);
 	}
 	[[nodiscard]]constexpr iterator begin()noexcept{return _begin.get_next();}//这叫头迭代器
-	[[nodiscard]]constexpr iterator end()noexcept{return&end_;}//这叫超尾迭代器
+	[[nodiscard]]constexpr iterator end()noexcept{return&_end;}//这叫超尾迭代器
 	[[nodiscard]]constexpr iterator head()noexcept{return&_begin;}//。。。。这个大概就是超头迭代器了😂
-	[[nodiscard]]constexpr bool empty()const noexcept{return _begin.get_next()==&end_;}
+	[[nodiscard]]constexpr bool empty()const noexcept{return _begin.get_next()==&_end;}
 };
 
-//fileend_
+//file_end
 
