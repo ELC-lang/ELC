@@ -58,6 +58,10 @@ auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 #define _big_than_  >
 #define _small_than_  <
 
+#if defined(_MSC_VER)
+	#define not !
+#endif
+
 // #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
 // #define BREAK_NAMESPACE }
 

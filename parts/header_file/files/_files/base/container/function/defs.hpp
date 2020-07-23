@@ -16,10 +16,10 @@ namespace function_n{
 		virtual ~base_func_data_t()=0;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept=0;
-		[[nodiscard]]virtual void*get_data_begin()noexcept=0;
-		[[nodiscard]]virtual bool equal_with(void*)=0;
-		[[nodiscard]]bool operator==(const this_t&a){
+		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept=0;
+		[[nodiscard]]virtual void*get_data_begin()const noexcept=0;
+		[[nodiscard]]virtual bool equal_with(void*)const=0;
+		[[nodiscard]]bool operator==(const this_t&a)const{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
 	};
@@ -45,11 +45,9 @@ namespace function_n{
 			//BLOCK_END
 			return _value(forward<Args_t>(args)...);
 		}
-		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept override{return type_info<T>;}
-		[[nodiscard]]virtual void*get_data_begin()noexcept override{return&_value;}
-		[[nodiscard]]virtual bool equal_with(void*a)noexcept override{
-			if constexpr(not noexcept(declvalue(T)==declvalue(T)))
-				template_warning("the compare of T was not noexcept,this may cause terminate.");
+		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual void*get_data_begin()const noexcept override{return&_value;}
+		[[nodiscard]]virtual bool equal_with(void*a)const override{
 			return _value==*reinterpret_cast<T*>(a);
 		}
 	};
@@ -62,12 +60,12 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
-		[[nodiscard]]virtual base_type_info_t&get_type_info()noexcept override{return type_info<void>;}
-		[[nodiscard]]virtual void*get_data_begin()noexcept override{return null_ptr;}
-		[[nodiscard]]virtual bool equal_with(void*a)noexcept override{return true;}
+		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual void*get_data_begin()const noexcept override{return null_ptr;}
+		[[nodiscard]]virtual bool equal_with(void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
-	constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(type_info_t<base_func_data_t<Ret_t(Args_t...)>>)noexcept{
 		return&default_func_data<Ret_t(Args_t...)>;
@@ -101,7 +99,7 @@ namespace function_n{
 			&&(
 				type_info<T>.can_convert_to<func_ptr_t>?
 				type_info<T>.can_nothrow_convert_to<func_ptr_t>:
-				get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>;
+				get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>
 			)
 		){
 			//BLOCK:constexpr checks
@@ -129,12 +127,12 @@ namespace function_n{
 			swap(_m,a._m);
 			return*this;
 		}
-		this_t&operator=(nullptr_t)noexcept(promise_nothrow_at_destruct){
+		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){
 			_m=null_ptr;
 			return*this;
 		}
 
-		template<class T>
+		template<class T,enable_if_not_ill_form(declvalue(this_t)=declvalue(T))>
 		base_function_t(T&&a)noexcept_as(declvalue(this_t)=declvalue(T)):base_function_t(){
 			*this=(forward<T>(a));
 		}

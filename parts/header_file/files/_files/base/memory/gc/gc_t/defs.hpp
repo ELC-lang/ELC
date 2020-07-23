@@ -28,7 +28,7 @@ public:
 		bool success=_gc_success_identifiers.empty();
 		_gc_success_identifiers.for_each(
 			lambda_with_catch(&success)(const success_identifier_t&a)noexcept{
-				if(!success)
+				if(not success)
 					success=a();
 			}
 		);

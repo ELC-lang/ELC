@@ -79,6 +79,10 @@ namespace lifetime_n{
 		[[nodiscard]]T operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return T(forward<Args>(rest)...);
 		}
+		template<class...Args,enable_if_not_ill_form(T{Args...})>
+		[[nodiscard]]T init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+			return T{forward<Args>(rest)...};
+		}
 		struct array_construct_t{
 			T*_to;
 			size_t _size;
@@ -88,12 +92,23 @@ namespace lifetime_n{
 				while(tmp--)new(&_to[tmp])T(forward<Args>(rest)...);
 				return _to;
 			}
+			template<class...Args,enable_if_not_ill_form(T{Args...})>
+			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+				auto tmp=_size;
+				while(tmp--)new(&_to[tmp])T{forward<Args>(rest)...};
+				return _to;
+			}
 		};
 		struct placement_construct_t{
 			T*_to;
 			template<class...Args,enable_if(able<Args...>)>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				new(_to)T(forward<Args>(rest)...);
+				return _to;
+			}
+			template<class...Args,enable_if_not_ill_form(T{Args...})>
+			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+				new(_to)T{forward<Args>(rest)...};
 				return _to;
 			}
 			[[nodiscard]]constexpr array_construct_t operator[](size_t size)const noexcept{return{_to,size};}

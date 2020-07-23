@@ -15,6 +15,9 @@
 // #undef often_noexcept
 #undef noexcept_as
 #undef constexpr_as
+#undef is_function
+
+#undef using_method_from_base_t
 
 // #undef floop
 #undef declvalue
@@ -23,20 +26,28 @@
 #undef enable_if
 #undef enabled_by_default
 #undef disabled_by_default
-#undef enable_flag
 #undef enable_if_not_ill_form
+#undef enable_flag
 
 #undef was_an_ill_form
 
 #undef lambda
 #undef lambda_with_catch
 
-#define MAGIC
+#undef MAGIC
 
-#define nothing
+#undef nothing
 
-// #undef BREAK_NAMESPACE
+#undef elseif
+#undef _big_than_
+#undef _small_than_
+
+#if defined(_MSC_VER)
+	#undef not
+#endif
+
 // #undef INTER_NAMESPACE
+// #undef BREAK_NAMESPACE
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

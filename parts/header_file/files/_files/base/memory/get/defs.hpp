@@ -22,6 +22,10 @@ namespace get_n{
 		T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
+		template<class...Args,enable_if(able<Args...>)>
+		T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+			return construct<T>[alloc<T>()].init_list_construct(forward<Args>(rest)...);
+		}
 		struct array_get_t{
 			size_t _size;
 			template<class...Args,enable_if(able<Args...>)>
@@ -29,6 +33,12 @@ namespace get_n{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
+			}
+			template<class...Args,enable_if(able<Args...>)>
+			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t get an array for never_in_array type.");
+				return construct<T>[alloc<T>(_size)][_size].init_list_construct(forward<Args>(rest)...);
 			}
 		};
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
