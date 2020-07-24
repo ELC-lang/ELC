@@ -39,6 +39,8 @@ auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 #define declvalue(...) (::std::declval<__VA_ARGS__>())
 
 #define template_error(reason) static_assert(template_error_helper<T>,reason)
+#define template_warning(reason) template_warning_helper<T>(reason)
+
 #define enable_if(...) class enable_state= ::std::enable_if_t<__VA_ARGS__>
 #define enabled_by_default class enable_state=void
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
@@ -60,6 +62,7 @@ auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 
 #if defined(_MSC_VER)
 	#define not !
+	#define and &&
 #endif
 
 // #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{

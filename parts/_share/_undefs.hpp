@@ -23,6 +23,8 @@
 #undef declvalue
 
 #undef template_error
+#undef template_warning
+
 #undef enable_if
 #undef enabled_by_default
 #undef disabled_by_default
@@ -44,6 +46,7 @@
 
 #if defined(_MSC_VER)
 	#undef not
+	#undef and
 #endif
 
 // #undef INTER_NAMESPACE

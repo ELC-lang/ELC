@@ -11,7 +11,20 @@ namespace function_n{
 	inline void test(){
 		stest_entryevent(L"function部分测试");
 		{
-
+			int tester=0;
+			function_t<void()noexcept> a(lambda_with_catch(&tester)(){tester=1;});
+			stest_accert(tester==0);
+			a();
+			stest_accert(tester==1);
+			function_t<void()> b;
+			b=a;
+			a=null_ptr;
+			tester=0;
+			a();
+			stest_accert(tester==0);
+			b();
+			stest_accert(tester==1);
+			a=b;
 		}
 		check_memory_lack();
 		stest_exitevent();

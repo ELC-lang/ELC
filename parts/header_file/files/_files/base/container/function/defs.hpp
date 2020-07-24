@@ -16,9 +16,9 @@ namespace function_n{
 		virtual ~base_func_data_t()=0;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept=0;
-		[[nodiscard]]virtual void*get_data_begin()const noexcept=0;
-		[[nodiscard]]virtual bool equal_with(void*)const=0;
+		[[nodiscard]]virtual base_type_info&get_type_info()const noexcept=0;
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
+		[[nodiscard]]virtual bool equal_with(const void*)const=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
@@ -38,17 +38,20 @@ namespace function_n{
 		virtual ~func_data_t()noexcept(destruct.nothrow<T>)override=default;
 		virtual Ret_t call(Args_t...args)override{
 			//BLOCK:constexpr checks
-			if constexpr(!invoke<T>.able<args...>)
+			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
 			if constexpr(type_info<decltype(declvalue(T)(declvalue(Args_t)...))> != type_info<Ret_t>)
 				template_error("the return type of T was wrong.");
 			//BLOCK_END
 			return _value(forward<Args_t>(args)...);
 		}
-		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
-		[[nodiscard]]virtual void*get_data_begin()const noexcept override{return&_value;}
-		[[nodiscard]]virtual bool equal_with(void*a)const override{
-			return _value==*reinterpret_cast<T*>(a);
+		[[nodiscard]]virtual base_type_info&get_type_info()const noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
+		[[nodiscard]]virtual bool equal_with(const void*a)const override{
+			if constexpr(equality_comparable<T>)
+				return _value==*reinterpret_cast<const T*>(a);
+			else
+				return false;
 		}
 	};
 
@@ -60,9 +63,9 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
-		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
-		[[nodiscard]]virtual void*get_data_begin()const noexcept override{return null_ptr;}
-		[[nodiscard]]virtual bool equal_with(void*a)const noexcept override{return true;}
+		[[nodiscard]]virtual base_type_info&get_type_info()const noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
 	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
@@ -87,48 +90,37 @@ namespace function_n{
 	public:
 		base_function_t()noexcept=default;
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
-		void swap(this_t&a)noexcept{
+		void swap_with(this_t&a)noexcept{
 			swap(_m,a._m);
 		}
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
 			return _m->call(forward<Args_t>(args)...);
-		}
-		template<class T>
-		this_t&operator=(T&&a)&noexcept(
-			promise_nothrow_at_destruct
-			&&(
-				type_info<T>.can_convert_to<func_ptr_t>?
-				type_info<T>.can_nothrow_convert_to<func_ptr_t>:
-				get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>
-			)
-		){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			if constexpr(nothrow)
-				if constexpr(!invoke<T>.nothrow<args...>)
-					template_warning("the call of T was not noexcept,this may cause terminate.");
-			//BLOCK_END
-			if constexpr(type_info<T>.can_convert_to<func_ptr_t>){
-				auto tmp=(func_ptr_t)(a);
-				if(tmp)
-					_m=get<func_ptr_t>(tmp);
-				else
-					_m=null_ptr;
-			}else
-				_m=get<func_data_t<::std::remove_cvref_t<T>>>(a);
-			return*this;
 		}
 		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_at_destruct){
 			_m=a._m;
 			return*this;
 		}
 		this_t&operator=(this_t&&a)&noexcept{
-			swap(_m,a._m);
+			swap_with(a);
 			return*this;
 		}
 		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){
 			_m=null_ptr;
+			return*this;
+		}
+		template<class T,enable_if(invoke<T>.able<Args_t...>)>
+		this_t&operator=(T&&a)&noexcept(
+			promise_nothrow_at_destruct&&
+			get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>
+		){
+			//BLOCK:constexpr checks
+			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+				template_error("unexpected assign.");
+			if constexpr(nothrow)
+				if constexpr(!invoke<T>.nothrow<Args_t...>)
+					template_warning("the call of T was not noexcept,this may cause terminate.");
+			//BLOCK_END
+			_m=get<func_data_t<::std::remove_cvref_t<T>>>(a);
 			return*this;
 		}
 
@@ -191,7 +183,7 @@ namespace function_n{
 	};
 	template<class T>
 	void swap(function_t<T>&a,function_t<T>&b)noexcept{
-		a.swap(b);
+		a.swap_with(b);
 	}
 
 	/*

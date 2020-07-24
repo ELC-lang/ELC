@@ -49,10 +49,11 @@ struct type_info_t:base_type_info_t{
 	template<class T_>
 	static constexpr bool can_t_nothrow_convert_to=!can_convert_to<T_>;
 };
+typedef const base_type_info_t base_type_info;
 template<class T>
 constexpr type_info_t<T> type_info{};
-constexpr bool operator==(base_type_info_t&a,base_type_info_t&b){return &a==&b;}
-constexpr bool operator!=(base_type_info_t&a,base_type_info_t&b){return!(a==b);}
+constexpr bool operator==(base_type_info&a,base_type_info&b){return &a==&b;}
+constexpr bool operator!=(base_type_info&a,base_type_info&b){return!(a==b);}
 
 //file_end
 
