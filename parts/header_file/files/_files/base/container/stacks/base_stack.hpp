@@ -15,10 +15,11 @@ protected:
 		data_t*_next;
 
 		constexpr_as(construct<T>(declvalue(const T&)))data_t(const T&a,data_t*b)noexcept(construct<T>.nothrow<const T&>):_data(a),_next(b){}
+		constexpr_as(construct<T>(declvalue(const T&)))data_t(const data_t&a)noexcept(construct<T>.nothrow<const T&>):_data(a._data),_next(null_ptr){}
 	}*_m;
 	size_t _size;
 private:
-	this_t&& copy()const noexcept(copy_get.nothrow<data_t>){
+	this_t copy()const noexcept(copy_get.nothrow<data_t>){
 		this_t tmp;
 		const data_t*p=_m;
 		data_t**p_=&tmp._m;
@@ -27,22 +28,23 @@ private:
 			p_=&(**p_)._next;
 			p=p->_next;
 		}
-		return move(tmp);
+		tmp._size = size();
+		return tmp;
 	}
 public:
-	constexpr base_stack_t():_m(null_ptr),_size(0){}
+	constexpr base_stack_t()noexcept:_m(null_ptr),_size(0){}
 	void swap_with(this_t&a)noexcept{
 		swap(_m,a._m);
 		swap(_size,a._size);
 	}
-	this_t&operator=(this_t&&a)noexcept{
-		swap_with(move(a));
+	this_t&operator=(this_t&&a)&noexcept{
+		swap_with(a);
 		return*this;
 	}
 	base_stack_t(this_t&&a)noexcept:base_stack_t(){
 		operator=(move(a));
 	}
-	this_t&operator=(const this_t&a)noexcept_as(declvalue(this_t).copy()){
+	this_t&operator=(const this_t&a)&noexcept_as(declvalue(this_t).copy()){
 		return operator=(a.copy());
 	}
 	base_stack_t(const this_t&a)noexcept_as(declvalue(this_t).copy()):base_stack_t(a.copy()){}
@@ -77,7 +79,7 @@ public:
 	[[nodiscard]]bool not_in_stack(const T&a)const noexcept_as(declvalue(this_t).in_stack(declvalue(const T&))){
 		return not in_stack(a);
 	}
-	[[nodiscard]]size_t size()noexcept{
+	[[nodiscard]]size_t size()const noexcept{
 		return _size;
 	}
 

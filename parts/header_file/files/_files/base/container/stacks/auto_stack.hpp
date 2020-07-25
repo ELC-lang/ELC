@@ -19,14 +19,15 @@ public:
 	auto_stack_t(const base_t&a)noexcept_as(base_t(declvalue(const base_t&))):base_t(a){}
 	auto_stack_t(base_t&&a)noexcept_as(base_t(declvalue(base_t&&))):base_t(a){}
 
-	this_t&operator=(this_t&&a)noexcept{base_t::operator=(a);return*this;}
+	this_t&operator=(this_t&&a)&noexcept{base_t::operator=(move(a));return*this;}
 	template<typename T_>
 	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==declvalue(T_)){
 		data_t*tmp=_m,**tmp_=&_m;
 		while(tmp!=null_ptr){
 			if(tmp->_data==a){
 				*tmp_=tmp->_next;
-				base_t::add(tmp);//提头
+				tmp->_next=_m;//提头
+				_m=tmp;
 				return tmp->_data;
 			}
 			tmp_=&tmp->_next;
