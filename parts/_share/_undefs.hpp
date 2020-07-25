@@ -25,6 +25,9 @@
 #undef template_error
 #undef template_warning
 
+#undef has_attribute
+#undef not_has_attribute
+
 #undef enable_if
 #undef enabled_by_default
 #undef disabled_by_default

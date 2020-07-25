@@ -12,6 +12,7 @@ namespace overhead_n{
 		constexpr static size_t align=max(alignof(T),alignof(size_t));
 		constexpr static size_t _r=size_t(sizeof(size_t)/align)+bool(sizeof(size_t)%align);
 		constexpr static size_t offset_value=_r*align;
+		static_assert(offset_value >= sizeof(size_t));
 	};
 	template<class T>
 	constexpr overhead_helper_t<T>overhead_helper{};

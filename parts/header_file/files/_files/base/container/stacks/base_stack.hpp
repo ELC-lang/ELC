@@ -18,30 +18,34 @@ protected:
 	}*_m;
 	size_t _size;
 private:
-	this_t copy()noexcept(copy_get.nothrow<data_t>){
+	this_t&& copy()const noexcept(copy_get.nothrow<data_t>){
 		this_t tmp;
-		data_t*p=_m,**p_=&tmp._m;
+		const data_t*p=_m;
+		data_t**p_=&tmp._m;
 		while(p!=null_ptr){
 			*p_=copy_get(p);
-			p_=&(**p)._next;
+			p_=&(**p_)._next;
 			p=p->_next;
 		}
-		return tmp;
+		return move(tmp);
 	}
 public:
 	constexpr base_stack_t():_m(null_ptr),_size(0){}
-	this_t&operator=(this_t&&a)noexcept{
+	void swap_with(this_t&a)noexcept{
 		swap(_m,a._m);
 		swap(_size,a._size);
+	}
+	this_t&operator=(this_t&&a)noexcept{
+		swap_with(move(a));
 		return*this;
 	}
 	base_stack_t(this_t&&a)noexcept:base_stack_t(){
-		operator=(a);
+		operator=(move(a));
 	}
-	this_t&operator=(const this_t&a)noexcept{
+	this_t&operator=(const this_t&a)noexcept_as(declvalue(this_t).copy()){
 		return operator=(a.copy());
 	}
-	base_stack_t(const this_t&a):base_stack_t(a.copy()){}
+	base_stack_t(const this_t&a)noexcept_as(declvalue(this_t).copy()):base_stack_t(a.copy()){}
 	~base_stack_t()noexcept(unget.nothrow<data_t>){
 		data_t*tmp;
 		while(_m!=null_ptr){
@@ -67,8 +71,11 @@ public:
 		}
 		return note::fail;
 	}
-	[[nodiscard]]bool in_stack(const T&a)noexcept_as(declvalue(const T&)==declvalue(T&)){
-		return find(a).not_fail();
+	[[nodiscard]]bool in_stack(const T&a)const noexcept_as(declvalue(const T&)==declvalue(T&)){
+		return const_cast<this_t*>(this)->find(a).not_fail();
+	}
+	[[nodiscard]]bool not_in_stack(const T&a)const noexcept_as(declvalue(this_t).in_stack(declvalue(const T&))){
+		return not in_stack(a);
 	}
 	[[nodiscard]]size_t size()noexcept{
 		return _size;
@@ -88,6 +95,8 @@ public:
 		while(tmp!=null_ptr){
 			size++;
 			if(a==tmp->_data){
+				_size--;
+				data_t*remove_p=tmp;
 				*tmp_=tmp->_next;
 				unget(tmp);
 				return size;
@@ -100,11 +109,10 @@ public:
 	#define expr declvalue(func_t)(declvalue(T&))
 	template<typename func_t,enable_if_not_ill_form(expr)>
 	void for_each(func_t&&func)noexcept_as(expr){
-		(data_t*)tmp=_m,*tmp_=&_m;
+		data_t*tmp=_m;
 		while(tmp!=null_ptr){
 			func(tmp->_data);
-			tmp_=&tmp->_next;
-			tmp=*tmp_;
+			tmp=tmp->_next;
 		}
 	}
 	#undef expr
@@ -112,15 +120,14 @@ public:
 	#define expr declvalue(func_t)(declvalue(const T&))
 	template<typename func_t,enable_if_not_ill_form(expr)>
 	void for_each(func_t&&func)const noexcept_as(expr){
-		const data_t*tmp=_m,*const*tmp_=&_m;
+		const data_t*tmp=_m;
 		while(tmp!=null_ptr){
 			func(tmp->_data);
-			tmp_=&tmp->_next;
-			tmp=*tmp_;
+			tmp=tmp->_next;
 		}
 	}
 	#undef expr
-private:
+protected:
 	void add(data_t*a){
 		a->_next=_m;
 		_m=a;

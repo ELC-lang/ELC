@@ -41,6 +41,9 @@ auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 #define template_error(reason) static_assert(template_error_helper<T>,reason)
 #define template_warning(reason) template_warning_helper<T>(reason)
 
+#define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
+#define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
+
 #define enable_if(...) class enable_state= ::std::enable_if_t<__VA_ARGS__>
 #define enabled_by_default class enable_state=void
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>

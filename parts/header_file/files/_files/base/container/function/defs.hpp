@@ -16,7 +16,7 @@ namespace function_n{
 		virtual ~base_func_data_t()=0;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		[[nodiscard]]virtual base_type_info&get_type_info()const noexcept=0;
+		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
 		[[nodiscard]]virtual bool equal_with(const void*)const=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
@@ -34,7 +34,7 @@ namespace function_n{
 
 		T _value;
 
-		func_data_t(T&)noexcept(construct<T>.nothrow<T>):_value(a){}
+		func_data_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		virtual ~func_data_t()noexcept(destruct.nothrow<T>)override=default;
 		virtual Ret_t call(Args_t...args)override{
 			//BLOCK:constexpr checks
@@ -45,7 +45,7 @@ namespace function_n{
 			//BLOCK_END
 			return _value(forward<Args_t>(args)...);
 		}
-		[[nodiscard]]virtual base_type_info&get_type_info()const noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
 		[[nodiscard]]virtual bool equal_with(const void*a)const override{
 			if constexpr(equality_comparable<T>)
@@ -63,15 +63,16 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
-		[[nodiscard]]virtual base_type_info&get_type_info()const noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
 	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(type_info_t<base_func_data_t<Ret_t(Args_t...)>>)noexcept{
-		return&default_func_data<Ret_t(Args_t...)>;
+		return&default_func_data<Ret_t,Args_t...>;
 	}
 
 	template<class T,bool nothrow,bool promise_nothrow_at_destruct>
@@ -88,28 +89,19 @@ namespace function_n{
 
 		ptr_t _m;
 	public:
-		base_function_t()noexcept=default;
-		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 		void swap_with(this_t&a)noexcept{
 			swap(_m,a._m);
 		}
-		Ret_t operator()(Args_t...args)const noexcept(nothrow){
-			return _m->call(forward<Args_t>(args)...);
-		}
-		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_at_destruct){
-			_m=a._m;
-			return*this;
-		}
-		this_t&operator=(this_t&&a)&noexcept{
+
+		base_function_t()noexcept=default;
+		base_function_t(const this_t&a)noexcept:_m(a._m){}
+		base_function_t(this_t&&a)noexcept:base_function_t(){
 			swap_with(a);
-			return*this;
 		}
-		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){
-			_m=null_ptr;
-			return*this;
-		}
+		base_function_t(nullptr_t)noexcept:base_function_t(){}
+		base_function_t(null_ptr_t)noexcept:base_function_t(){}
 		template<class T,enable_if(invoke<T>.able<Args_t...>)>
-		this_t&operator=(T&&a)&noexcept(
+		base_function_t(T&&a)noexcept(
 			promise_nothrow_at_destruct&&
 			get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>
 		){
@@ -121,12 +113,14 @@ namespace function_n{
 					template_warning("the call of T was not noexcept,this may cause terminate.");
 			//BLOCK_END
 			_m=get<func_data_t<::std::remove_cvref_t<T>>>(a);
-			return*this;
 		}
+		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		template<class T,enable_if_not_ill_form(declvalue(this_t)=declvalue(T))>
-		base_function_t(T&&a)noexcept_as(declvalue(this_t)=declvalue(T)):base_function_t(){
-			*this=(forward<T>(a));
+		template<class T,enable_if_not_ill_form(declvalue(this_t).swap_with(this_t(declvalue(T))))>
+		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(declvalue(T)))){
+			this_t tmp(forward<T>(a));
+			swap_with(tmp);
+			return*this;
 		}
 
 		template<bool nothrow_,bool promise_nothrow_at_destruct_>
@@ -138,23 +132,27 @@ namespace function_n{
 			return*this;
 		}
 
+		Ret_t operator()(Args_t...args)const noexcept(nothrow){
+			return _m->call(forward<Args_t>(args)...);
+		}
+
 		template<bool nothrow_,bool promise_nothrow_at_destruct_>
 		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_at_destruct_>&a)noexcept{
 			return *_m==*(a._m);
 		}
-	/*
-	private:
-		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-		static ptr_t _func_ptr_data;
-		static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
-			return _func_ptr_data->call(forward<Args_t>(args)...);
-		}
-	public:
-		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
-			_func_ptr_data=_m;
-			return _func_ptr_value;
-		}
-	*/
+		/*
+		private:
+			//以下是突然想加的功能(没什么用<迷惑行为大赏>).
+			static ptr_t _func_ptr_data;
+			static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
+				return _func_ptr_data->call(forward<Args_t>(args)...);
+			}
+		public:
+			[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
+				_func_ptr_data=_m;
+				return _func_ptr_value;
+			}
+		*/
 	};
 
 	template<class T>
@@ -166,7 +164,7 @@ namespace function_n{
 		using base_t::base_t;
 		template<class assign_t>
 		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
-			base_t::operator=(a);
+			base_t::operator=(forward<assign_t>(a));
 			return*this;
 		}
 	};
@@ -177,7 +175,7 @@ namespace function_n{
 		using base_t::base_t;
 		template<class assign_t>
 		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
-			base_t::operator=(a);
+			base_t::operator=(forward<assign_t>(a));
 			return*this;
 		}
 	};

@@ -12,10 +12,13 @@ private:
 	typedef base_stack_t<T>base_t;
 	typedef auto_stack_t<T>this_t;
 
-	using base_t::base_t;
 	using base_t::data_t;
 	using base_t::_m;
 public:
+	using base_t::base_t;
+	auto_stack_t(const base_t&a)noexcept_as(base_t(declvalue(const base_t&))):base_t(a){}
+	auto_stack_t(base_t&&a)noexcept_as(base_t(declvalue(base_t&&))):base_t(a){}
+
 	this_t&operator=(this_t&&a)noexcept{base_t::operator=(a);return*this;}
 	template<typename T_>
 	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==declvalue(T_)){
@@ -23,8 +26,7 @@ public:
 		while(tmp!=null_ptr){
 			if(tmp->_data==a){
 				*tmp_=tmp->_next;
-				tmp->_next=_m;
-				_m=tmp;
+				base_t::add(tmp);//提头
 				return tmp->_data;
 			}
 			tmp_=&tmp->_next;
@@ -32,8 +34,11 @@ public:
 		}
 		return note::fail;
 	}
-	[[nodiscard]]bool in_stack(const T&a)noexcept_as(declvalue(const T&)==declvalue(T&)){
-		return find(a).not_fail();
+	[[nodiscard]]bool in_stack(const T&a)const noexcept_as(declvalue(const T&)==declvalue(T&)){
+		return const_cast<this_t*>(this)->find(a).not_fail();
+	}
+	[[nodiscard]]bool not_in_stack(const T&a)const noexcept_as(declvalue(this_t).in_stack(declvalue(const T&))){
+		return not in_stack(a);
 	}
 };
 
