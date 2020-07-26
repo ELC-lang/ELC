@@ -15,5 +15,9 @@
 #include "gc_able/_body.hpp"
 #include "gc_for_alloc/_body.hpp"//for alloc (def in "../alloc/defs.hpp#L10" )
 
+#if defined(ELC_TEST_ON)
+	#include "_test.hpp"
+#endif
+
 //file_end
 

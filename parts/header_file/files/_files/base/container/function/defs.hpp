@@ -16,7 +16,7 @@ namespace function_n{
 		virtual ~base_func_data_t()=0;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept=0;
+		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
 		[[nodiscard]]virtual bool equal_with(const void*)const=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
@@ -45,7 +45,7 @@ namespace function_n{
 			//BLOCK_END
 			return _value(forward<Args_t>(args)...);
 		}
-		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
 		[[nodiscard]]virtual bool equal_with(const void*a)const override{
 			if constexpr(equality_comparable<T>)
@@ -63,7 +63,7 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
-		[[nodiscard]]virtual base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
@@ -162,7 +162,7 @@ namespace function_n{
 		typedef function_t<Ret_t(Args_t...)noexcept>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,true>base_t;
 		using base_t::base_t;
-		template<class assign_t>
+		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(forward<assign_t>(a));
 			return*this;
@@ -173,7 +173,7 @@ namespace function_n{
 		typedef function_t<Ret_t(Args_t...)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),false,true>base_t;
 		using base_t::base_t;
-		template<class assign_t>
+		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(forward<assign_t>(a));
 			return*this;

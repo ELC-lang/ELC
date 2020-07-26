@@ -17,10 +17,10 @@ template<typename T>
 class roots_t{
 	typedef roots_t<T>this_t;
 	typedef root_of<T>root_t;
-	typedef root_of<T>*v_t;
-	typedef base_stack_t<v_t> base_t;
+	typedef root_of<T>*value_t;
+	typedef base_stack_t<value_t> base_t;
 
-	base_stack_t<v_t> _roots;
+	base_stack_t<value_t> _roots;
 public:
 	constexpr roots_t()noexcept=default;
 	~roots_t()noexcept=default;
@@ -30,9 +30,9 @@ public:
 	using_method_from_base_t(remove);
 	using_method_from_base_t(for_each);
 
-	void map_and_mark()noexcept_as(declvalue(v_t)->map_and_mark()){
+	void map_and_mark()noexcept_as(declvalue(value_t)->map_and_mark()){
 		base_t::for_each(
-			lambda(v_t a)noexcept_as(declvalue(v_t)->map_and_mark())
+			lambda(value_t a)noexcept_as(declvalue(value_t)->map_and_mark())
 			{
 				a->map_and_mark();
 			}
