@@ -132,7 +132,7 @@ private:
 	static constexpr class for_delete_t{
 		T*_m;
 	public:
-		static void operator delete(void*a)noexcept_as(special_destroy(nullptr)){
+		static void operator delete(void*a)noexcept_as(destroy(declvalue(T*))){
 			destroy(reinterpret_cast<for_delete_t*>(a)->_m);
 		}
 		for_delete_t*operator()(T*a)noexcept{

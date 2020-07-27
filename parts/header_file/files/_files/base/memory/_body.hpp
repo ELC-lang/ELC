@@ -15,6 +15,8 @@
 #include "other/_body.hpp"
 #include "ptr/_body.hpp"
 
+//NOTE:gc不在此处定义，因为它依赖container
+
 #if defined(ELC_TEST_ON)
 	#include "_test.hpp"
 #endif
