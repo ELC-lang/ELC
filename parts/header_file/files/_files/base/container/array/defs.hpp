@@ -44,7 +44,7 @@ namespace array_n{
 			return{copy_get(_m)};
 		}
 	public:
-		array_t(this_t&&a):array_t()noexcept{swap(a);}
+		array_t(this_t&&a)noexcept:array_t(){swap(a);}
 		this_t&operator=(this_t&&a)&noexcept{
 			swap(a);
 			return*this;

@@ -89,6 +89,7 @@ template<class T,typename ref_type>
 struct base_ptr_t:ptr_t<T,ref_type>,compare_interface_t<T,base_ptr_t<T,ref_type>>{
 	typedef ptr_t<T,ref_type>base_t;
 	typedef convert_interface_t<T>convert_interface;
+	typedef base_ptr_t<T,ref_type>this_t;
 	template<class T_>
 	using compare_interface=compare_interface_t<T,T_>;
 	using typename base_t::same_ref;
@@ -124,20 +125,20 @@ struct base_ptr_t:ptr_t<T,ref_type>,compare_interface_t<T,base_ptr_t<T,ref_type>
 		return*this;
 	}
 
-
 	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>)>
 	base_ptr_t(T_&&a)noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>):base_ptr_t(static_cast<convert_interface>(forward<T_>(a))._to){}
 
 private:
 	static constexpr class for_delete_t{
 		T*_m;
-	public:
-		static void operator delete(void*a)noexcept_as(destroy(declvalue(T*))){
-			destroy(reinterpret_cast<for_delete_t*>(a)->_m);
-		}
+		friend class this_t;
 		for_delete_t*operator()(T*a)noexcept{
 			_m=a;
 			return this;
+		}
+	public:
+		static void operator delete(void*a)noexcept_as(destroy(declvalue(T*))){
+			destroy(reinterpret_cast<for_delete_t*>(a)->_m);
 		}
 	}for_delete{};
 public:
@@ -161,8 +162,8 @@ namespace compare_n{
 		[[nodiscard]]T*get()const noexcept(nothrow){
 			return static_cast<const convert_interface>(*attribute::get_handle()).get();
 		}
-		template<class T,class T_>
-		friend T*get_p(const compare_interface_t<T,T_>&a)noexcept(compare_interface_t<T,T_>::nothrow);
+		template<class T1,class T1_>
+		friend T*get_p(const compare_interface_t<T1,T1_>&a)noexcept(compare_interface_t<T1,T1_>::nothrow);
 	};
 
 	template<class T,class T_>

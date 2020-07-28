@@ -52,8 +52,8 @@
 	#undef and
 #endif
 
-// #undef INTER_NAMESPACE
-// #undef BREAK_NAMESPACE
+#undef INTER_NAMESPACE
+#undef BREAK_NAMESPACE
 
 #if defined(_MSC_VER)
 #pragma warning(pop)
