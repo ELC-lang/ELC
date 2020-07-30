@@ -10,7 +10,7 @@ namespace function_n{
 	template<class T>
 	class base_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only{
+	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only,never_in_array<base_func_data_t<Ret_t(Args_t...)>>{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
 
 		virtual ~base_func_data_t()=0;
@@ -192,8 +192,8 @@ namespace function_n{
 		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,false>base_t;
 		using base_t::base_t;
-		template<class assign_t>
-		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
+		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
+		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
 		}
@@ -203,15 +203,15 @@ namespace function_n{
 		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept>this_t;
 		typedef base_function_t<Ret_t(Args_t...),false,false>base_t;
 		using base_t::base_t;
-		template<class assign_t>
-		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
+		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
+		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
 		}
 	};
 	template<class T>
 	void swap(may_throw_in_destruct_function_t<T>&a,may_throw_in_destruct_function_t<T>&b)noexcept{
-		a.swap(b);
+		a.swap_with(b);
 	}
 	*/
 }

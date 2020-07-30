@@ -36,14 +36,20 @@ public:
 };
 
 template<typename T>
-static void destroy(T*a)noexcept_as(declvalue(T).replace(null_ptr)){//default destroy
+static void destroy(T*a)noexcept(
+									type_info<T>.has_attribute(replace_able)?
+										noexcept(declvalue(T).be_replace_as(null_ptr)):
+									type_info<T>.has_attribute(build_by_get_only)&&
+									type_info<T>.has_attribute(never_in_array)?
+										unget.nothrow<T>:
+								0){//default destroy
 	if constexpr(type_info<T>.has_attribute(replace_able)){
-		//(replace_able<T>*)(a)->replace(null_ptr);//×
-		a->replace(null_ptr);//允许覆写replace方法√
+		//(replace_able<T>*)(a)->be_replace_as(null_ptr);//×
+		a->be_replace_as(null_ptr);//允许覆写replace方法√
 	}elseif(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array)){
 		unget(a);
 	}else{
-		template_error("Please overload the function special_destroy in the namespace where this type is defined.");
+		template_error("Please overload the function destroy in the namespace where this type is defined.");
 	}
 }
 

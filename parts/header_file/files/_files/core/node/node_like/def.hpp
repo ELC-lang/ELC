@@ -30,10 +30,10 @@ public:
 
 	virtual void destroy(){
 		this->clear();
-		this->replace(null_ptr);
+		this->be_replace_as(null_ptr);
 	}
-	virtual void replace(ptr a){
-		replace_able::replace(a);
+	virtual void be_replace_as(ptr a){
+		replace_able::be_replace_as(a);
 	}
 	ptr operator&(){return this;}
 };

@@ -34,8 +34,8 @@ namespace array_n{
 			return _m==null_ptr;
 		}
 
-		void swap(this_t&a)noexcept{
-			using elc::defs::swap;
+		void swap_with(this_t&a)noexcept{
+			using ::elc::defs::swap;
 			swap(_m,a._m);
 		}
 	private:
@@ -46,7 +46,7 @@ namespace array_n{
 	public:
 		array_t(this_t&&a)noexcept:array_t(){swap(a);}
 		this_t&operator=(this_t&&a)&noexcept{
-			swap(a);
+			swap_with(a);
 			return*this;
 		}
 		#define expr declvalue(this_t).copy()
@@ -97,7 +97,7 @@ namespace array_n{
 		*/
 	};
 	template<typename T>
-	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 }
 
 //file_end

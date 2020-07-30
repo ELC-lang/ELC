@@ -22,7 +22,7 @@ struct same_ref_p_t:same_ptr_p_t<T>{
 	explicit same_ref_p_t(T*a)noexcept:same_ptr_p_t<T>(a){}
 	explicit same_ref_p_t(const same_ptr_p_t<T>&a)noexcept:same_ptr_p_t<T>(a){}
 
-	void swap(same_ref_p_t&a)noexcept{using std::swap;swap(_to,a._to);}
+	void swap_with(same_ref_p_t&a)noexcept{swap(_to,a._to);}
 
 	static constexpr bool cut_nothrow=noexcept(declvalue(ref_type).cut_ref());
 protected:
@@ -34,8 +34,13 @@ protected:
 };
 
 template<class T,typename ref_type>
+inline void swap(same_ref_p_t<T,ref_type>&a,same_ref_p_t<T,ref_type>&b)noexcept{
+	a.swap_with(b);
+}
+
+template<class T,typename ref_type,bool replace_check>
 struct ptr_t:same_ref_p_t<T,ref_type>{
-	typedef ptr_t<T,ref_type>this_t;
+	typedef ptr_t<T,ref_type,replace_check>this_t;
 
 	typedef same_ref_p_t<T,ref_type>base_t;
 	typedef same_ref_p_t<T,ref_type>same_ref;
@@ -43,7 +48,7 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	using base_t::cut_nothrow;
 	using same_ref::add_ref;
 	using same_ref::cut_ref;
-	using same_ref::swap;
+	using same_ref::swap_with;
 	using same_ptr::_to;
 
 	explicit ptr_t(T*a,special_init_t)noexcept:same_ref(a){}
@@ -60,7 +65,7 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 protected:
 	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute(replace_able))||reset_nothrow;
 	inline void check()const noexcept(check_nothrow){
-		if constexpr(type_info<T>.has_attribute(replace_able))
+		if constexpr(replace_check&&type_info<T>.has_attribute(replace_able))
 			if((replace_able<T>*)(_to)->replaced())
 				reset((replace_able<T>*)(_to)->get_ptr());
 	}
@@ -77,7 +82,7 @@ public:
 };
 
 template<class T>
-using convert_interface_t=ptr_t<remove_cvref<T>,ref_able<remove_cvref<T>>>;
+using convert_interface_t=ptr_t<remove_cvref<T>,ref_able<remove_cvref<T>>,true>;
 
 namespace compare_n{
 	template<class T,class T_>
@@ -85,18 +90,18 @@ namespace compare_n{
 }
 using compare_n::compare_interface_t;
 
-template<class T,typename ref_type>
-struct base_ptr_t:ptr_t<T,ref_type>,compare_interface_t<T,base_ptr_t<T,ref_type>>{
-	typedef ptr_t<T,ref_type>base_t;
+template<class T,typename ref_type,bool replace_check>
+struct base_ptr_t:ptr_t<T,ref_type,replace_check>,compare_interface_t<T,base_ptr_t<T,ref_type,replace_check>>{
+	typedef ptr_t<T,ref_type,replace_check>base_t;
 	typedef convert_interface_t<T>convert_interface;
-	typedef base_ptr_t<T,ref_type>this_t;
+	typedef base_ptr_t<T,ref_type,replace_check>this_t;
 	template<class T_>
 	using compare_interface=compare_interface_t<T,T_>;
 	using typename base_t::same_ref;
 	using typename base_t::same_ptr;
 	using base_t::reset;
 	using base_t::get;
-	using same_ref::swap;
+	using same_ref::swap_with;
 	using same_ptr::_to;
 
 	using base_t::get_nothrow;
@@ -116,10 +121,10 @@ struct base_ptr_t:ptr_t<T,ref_type>,compare_interface_t<T,base_ptr_t<T,ref_type>
 	base_ptr_t&operator=(T*a)&noexcept(reset_nothrow){reset(a);return*this;}
 	base_ptr_t&operator=(const same_ptr&a)&noexcept(reset_nothrow&&get_nothrow){reset(a.get());return*this;}
 	base_ptr_t&operator=(base_ptr_t&a)&noexcept(reset_nothrow&&get_nothrow){reset(a.get());return*this;}
-	base_ptr_t&operator=(same_ref&&a)&noexcept{swap(a);return*this;}
+	base_ptr_t&operator=(same_ref&&a)&noexcept{swap_with(a);return*this;}
 	base_ptr_t&operator=(nullptr_t)&noexcept(reset_nothrow){reset(null_ptr);return*this;}
 
-	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>)>
+	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>&&type_info<T_>.not_base_on<this_t>)>
 	base_ptr_t&operator=(T_&&a)&noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>&&reset_nothrow){
 		reset(static_cast<convert_interface>(forward<T_>(a))._to);
 		return*this;
@@ -145,11 +150,20 @@ public:
 	[[nodiscard]]operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
 };
 
-template<class T,typename ref_type>
-inline void swap(base_ptr_t<T,ref_type>&a,base_ptr_t<T,ref_type>&b)noexcept{
-	a.swap(b);
+template<class T,enable_if_not_ill_form(declvalue(T).swap_with(declvalue(T)))>
+inline void swap(T&a,T&b)noexcept_as(declvalue(T).swap_with(declvalue(T))){
+	a.swap_with(b);
 }
-
+template<class T,class T_,enable_if_not_ill_form(declvalue(T).swap_with(declvalue(T_)))>
+inline void swap(T&a,T_&b)noexcept_as(declvalue(T).swap_with(declvalue(T_))){
+	a.swap_with(b);
+}
+/*
+template<class T,typename ref_type,bool replace_check_a,bool replace_check_b>
+inline void swap(base_ptr_t<T,ref_type,replace_check_a>&a,base_ptr_t<T,ref_type,replace_check_b>&b)noexcept{
+	a.swap_with(b);
+}
+*/
 namespace compare_n{
 	template<class T,class T_>
 	class compare_interface_t:attribute<T_,compare_interface_t<T,T_>>{

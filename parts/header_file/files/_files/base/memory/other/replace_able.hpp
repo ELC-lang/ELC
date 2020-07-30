@@ -21,8 +21,8 @@ public:
 		else
 			return static_cast<replace_able*>(_m)->get_ptr();
 	}
-	constexpr void replace(T*new_p)noexcept{_m=new_p;}
-	constexpr void replace(nullptr_t)noexcept{replace(null_ptr);}
+	constexpr void be_replace_as(T*new_p)noexcept{_m=new_p;}
+	constexpr void be_replace_as(nullptr_t)noexcept{be_replace_as(null_ptr);}
 };
 
 //file_end

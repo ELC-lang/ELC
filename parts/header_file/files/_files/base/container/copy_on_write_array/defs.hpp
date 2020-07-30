@@ -13,7 +13,7 @@ namespace copy_on_write_array_n{
 		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;
 
-		struct data_t:array_t<T>,ref_able<data_t>,build_by_get_only,force_use_default_null_ptr{
+		struct data_t:array_t<T>,ref_able<data_t>,build_by_get_only,never_in_array<data_t>,force_use_default_null_ptr{
 			typedef array_t<T>base_t;
 			using base_t::base_t;
 
@@ -38,10 +38,10 @@ namespace copy_on_write_array_n{
 		this_t&operator=(const this_t&)noexcept(ptr_t::reset_nothrow)=default;
 		this_t&operator=(this_t&&)noexcept(ptr_t::reset_nothrow)=default;
 
-		void swap(this_t&a)noexcept{_m.swap(a._m);}
-		void swap(base_t_w&a)noexcept(check_nothrow){
+		void swap_with(this_t&a)noexcept{_m.swap_with(a._m);}
+		void swap_with(base_t_w&a)noexcept(check_nothrow){
 			copy_check();
-			a.swap(*_m);
+			a.swap_with(*_m);
 		}
 		this_t&operator=(const base_t_w&a)&noexcept(check_nothrow){
 			copy_check();
@@ -88,11 +88,11 @@ namespace copy_on_write_array_n{
 		#undef expr
 	};
 	template<typename T>
-	inline void swap(copy_on_write_array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(copy_on_write_array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{a.swap_with(b);}
 	template<typename T>
-	inline void swap(array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{b.swap(a);}
+	inline void swap(array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{b.swap_with(a);}
 	template<typename T>
-	inline void swap(copy_on_write_array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(copy_on_write_array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 }
 
 //file_end
