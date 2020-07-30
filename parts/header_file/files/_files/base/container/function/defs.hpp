@@ -136,6 +136,11 @@ namespace function_n{
 			return _m->call(forward<Args_t>(args)...);
 		}
 
+		friend class base_function_t<Ret_t(Args_t...),0,0>;
+		friend class base_function_t<Ret_t(Args_t...),0,1>;
+		friend class base_function_t<Ret_t(Args_t...),1,0>;
+		friend class base_function_t<Ret_t(Args_t...),1,1>;
+
 		template<bool nothrow_,bool promise_nothrow_at_destruct_>
 		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_at_destruct_>&a)noexcept{
 			return *_m==*(a._m);

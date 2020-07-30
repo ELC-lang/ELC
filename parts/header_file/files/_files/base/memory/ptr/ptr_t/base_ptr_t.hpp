@@ -150,20 +150,15 @@ public:
 	[[nodiscard]]operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
 };
 
-template<class T,enable_if_not_ill_form(declvalue(T).swap_with(declvalue(T)))>
-inline void swap(T&a,T&b)noexcept_as(declvalue(T).swap_with(declvalue(T))){
+template<class T,typename ref_type,bool replace_check>
+inline void swap(base_ptr_t<T,ref_type,replace_check>&a,base_ptr_t<T,ref_type,replace_check>&b)noexcept{
 	a.swap_with(b);
 }
-template<class T,class T_,enable_if_not_ill_form(declvalue(T).swap_with(declvalue(T_)))>
-inline void swap(T&a,T_&b)noexcept_as(declvalue(T).swap_with(declvalue(T_))){
-	a.swap_with(b);
-}
-/*
 template<class T,typename ref_type,bool replace_check_a,bool replace_check_b>
 inline void swap(base_ptr_t<T,ref_type,replace_check_a>&a,base_ptr_t<T,ref_type,replace_check_b>&b)noexcept{
 	a.swap_with(b);
 }
-*/
+
 namespace compare_n{
 	template<class T,class T_>
 	class compare_interface_t:attribute<T_,compare_interface_t<T,T_>>{

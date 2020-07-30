@@ -14,7 +14,7 @@ template<class T>
 using remove_cvref= ::std::remove_cvref_t<T>;
 template<class T>
 using remove_cv= ::std::remove_cv_t<T>;
-// using ::std::move;//新move定义于base/memory/lifetime
+// using ::std::move;//新move定义于 "../memory/lifetime/defs.hpp"
 
 // using ::std::max;
 // using ::std::min;

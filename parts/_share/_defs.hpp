@@ -24,7 +24,7 @@
 
 // #define often_noexcept
 #define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto
-#define constexpr_as(...) MAGIC//we can't do that ——by std c++.
+#define constexpr_as(...) MAGIC constexpr//we can't do that ——by std c++.
 #define is_function(...) ::std::is_function_v<__VA_ARGS__>
 
 #define using_method_from_base_t(name) \
