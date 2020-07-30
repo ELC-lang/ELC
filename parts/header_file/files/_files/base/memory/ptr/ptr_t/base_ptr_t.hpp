@@ -77,7 +77,7 @@ public:
 };
 
 template<class T>
-using convert_interface_t=ptr_t<::std::remove_cvref_t<T>,ref_able<::std::remove_cvref_t<T>>>;
+using convert_interface_t=ptr_t<remove_cvref<T>,ref_able<remove_cvref<T>>>;
 
 namespace compare_n{
 	template<class T,class T_>

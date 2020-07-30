@@ -23,7 +23,7 @@ namespace null_ptr_n{
 	}
 	constexpr struct __null_ptr_t__{//sb c++ 标准
 		template<typename T>
-		constexpr_as(get_null_ptr(type_info<T>))operator T*()const noexcept{return get_null_ptr(type_info<T>);}
+		constexpr_as(get_null_ptr(type_info<remove_cvref<T>>))operator T*()const noexcept{return get_null_ptr(type_info<remove_cvref<T>>);}
 		//constexpr operator decltype(nullptr)(){return nullptr;}//防止重载多重路线
 	}null_ptr{};
 }

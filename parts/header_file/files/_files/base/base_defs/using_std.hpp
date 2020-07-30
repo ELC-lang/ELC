@@ -10,6 +10,10 @@ using ::std::size_t;
 
 using ::std::forward;
 using ::std::swap;
+template<class T>
+using remove_cvref= ::std::remove_cvref_t<T>;
+template<class T>
+using remove_cv= ::std::remove_cv_t<T>;
 // using ::std::move;//新move定义于base/memory/lifetime
 
 // using ::std::max;

@@ -100,10 +100,10 @@ namespace function_n{
 		}
 		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
-		template<class T,enable_if(invoke<T>.able<Args_t...>)>
+		template<class T,enable_if(invoke<T>.able<Args_t...>&&type_info<T>.not_base_on<this_t>)>
 		base_function_t(T&&a)noexcept(
 			promise_nothrow_at_destruct&&
-			get<func_data_t<::std::remove_cvref_t<T>>>.nothrow<T>
+			get<func_data_t<remove_cvref<T>>>.nothrow<T>
 		){
 			//BLOCK:constexpr checks
 			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
@@ -112,7 +112,7 @@ namespace function_n{
 				if constexpr(!invoke<T>.nothrow<Args_t...>)
 					template_warning("the call of T was not noexcept,this may cause terminate.");
 			//BLOCK_END
-			_m=get<func_data_t<::std::remove_cvref_t<T>>>(a);
+			_m=get<func_data_t<remove_cvref<T>>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
@@ -163,7 +163,7 @@ namespace function_n{
 		typedef base_function_t<Ret_t(Args_t...),true,true>base_t;
 		using base_t::base_t;
 		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
-		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
+		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(forward<assign_t>(a));
 			return*this;
 		}
@@ -174,7 +174,7 @@ namespace function_n{
 		typedef base_function_t<Ret_t(Args_t...),false,true>base_t;
 		using base_t::base_t;
 		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
-		this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
+		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(forward<assign_t>(a));
 			return*this;
 		}
