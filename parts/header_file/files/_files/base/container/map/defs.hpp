@@ -46,7 +46,7 @@ namespace map_n{
 		}
 	public:
 		map_t()noexcept=default;
-		~map_t()noexcept(destruct.nothrow<base_t_w>)=default;
+		~map_t()=default;
 		map_t(const this_t&a):_m(a._m)noexcept{}
 		map_t(this_t&&a):_m(a._m)noexcept{}
 

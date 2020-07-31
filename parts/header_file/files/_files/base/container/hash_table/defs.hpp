@@ -36,7 +36,7 @@ namespace hash_table_n{
 		}
 	public:
 		hash_table_t():_m(2){}
-		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
+		~hash_table_t()=default;
 
 		operator base_t_w&()noexcept{return _m;}
 		operator const base_t_w&()const noexcept{return _m;}
