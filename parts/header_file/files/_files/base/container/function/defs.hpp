@@ -75,32 +75,69 @@ namespace function_n{
 		return&default_func_data<Ret_t,Args_t...>;
 	}
 
+	template<class T>
+	class function_data_saver_t;
+	template<class Ret_t,class...Args_t>
+	class function_data_saver_t<Ret_t(Args_t...)>{
+	protected:
+		typedef function_data_saver_t<Ret_t(Args_t...)>this_t;
+		typedef comn_ptr_t<base_func_data_t<Ret_t(Args_t...)>>ptr_t;
+		ptr_t _m;
+		void swap_with(this_t&a)noexcept{swap(_m,a._m);}
+	public:
+		function_data_saver_t()noexcept=default;
+		function_data_saver_t(const this_t&a)noexcept:_m(a._m){}
+		function_data_saver_t(this_t&&a)noexcept{swap_with(a);}
+		[[nodiscard]]bool operator==(const this_t&a)const noexcept{
+			return *_m==*(a._m);
+		}
+		void operator=(const this_t&a){_m=a._m;}
+		Ret_t call(Args_t...)const{return _m->call(forward<Args_t>(args)...);}
+	};
+	
 	template<class T,bool nothrow,bool promise_nothrow_at_destruct>
 	class base_function_t;
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
-	class base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>{
+	struct base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
+	protected:
+		typedef function_data_saver_t<Ret_t(Args_t...)>base_t;
 		typedef base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>this_t;
+
+		friend class base_function_t<Ret_t(Args_t...),0,0>;
+		friend class base_function_t<Ret_t(Args_t...),0,1>;
+		friend class base_function_t<Ret_t(Args_t...),1,0>;
+		friend class base_function_t<Ret_t(Args_t...),1,1>;
 
 		template<class T_>
 		using func_data_t=function_n::func_data_t<T_,Ret_t(Args_t...)>;
 
-		typedef comn_ptr_t<base_func_data_t<Ret_t(Args_t...)>>ptr_t;
 		typedef Ret_t(*func_ptr_t)(Args_t...)noexcept(nothrow);
 
-		ptr_t _m;
+		using base_t::ptr_t;
+		using base_t::_m;
+
+		template<class T>
+		static constexpr bool base_on_this_t_or_more_stringent_restrictions=(
+			type_info<T>.base_on<this_t>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),bool(nothrow+1),promise_nothrow_at_destruct>>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),nothrow,bool(promise_nothrow_at_destruct+1)>>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),bool(nothrow+1),bool(promise_nothrow_at_destruct+1)>>
+		);
 	public:
-		void swap_with(this_t&a)noexcept{
-			swap(_m,a._m);
+		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是有风险的
+			base_t::swap_with(a);
 		}
 
 		base_function_t()noexcept=default;
-		base_function_t(const this_t&a)noexcept:_m(a._m){}
+		template<class T,enable_if(base_on_this_t_or_more_stringent_restrictions<T>)>
+		base_function_t(const T&a)noexcept:base_t(a){}
+		base_function_t(const this_t&a)noexcept:base_t(a){}
 		base_function_t(this_t&&a)noexcept:base_function_t(){
 			swap_with(a);
 		}
 		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
-		template<class T,enable_if(invoke<T>.able<Args_t...>&&type_info<T>.not_base_on<this_t>)>
+		template<class T,enable_if(invoke<T>.able<Args_t...>&&not base_on_this_t_or_more_stringent_restrictions<T>)>
 		base_function_t(T&&a)noexcept(
 			promise_nothrow_at_destruct&&
 			get<func_data_t<remove_cvref<T>>>.nothrow<T>
@@ -123,27 +160,14 @@ namespace function_n{
 			return*this;
 		}
 
-		template<bool nothrow_,bool promise_nothrow_at_destruct_>
-		this_t&operator=(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_at_destruct_>&a)&noexcept(promise_nothrow_at_destruct){
-			if constexpr((nothrow&&!nothrow_)||
-						(promise_nothrow_at_destruct&&!promise_nothrow_at_destruct_))
-				template_error("unexpected assign.");
-			_m=a._m;
+		template<class T,enable_if(base_on_this_t_or_more_stringent_restrictions<T>)>
+		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
+			base_t::operator=(a);
 			return*this;
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
-			return _m->call(forward<Args_t>(args)...);
-		}
-
-		friend class base_function_t<Ret_t(Args_t...),0,0>;
-		friend class base_function_t<Ret_t(Args_t...),0,1>;
-		friend class base_function_t<Ret_t(Args_t...),1,0>;
-		friend class base_function_t<Ret_t(Args_t...),1,1>;
-
-		template<bool nothrow_,bool promise_nothrow_at_destruct_>
-		[[nodiscard]]bool operator==(const base_function_t<Ret_t(Args_t...),nothrow_,promise_nothrow_at_destruct_>&a)noexcept{
-			return *_m==*(a._m);
+			return base_t::call(forward<Args_t>(args)...);
 		}
 		/*
 		private:
@@ -154,7 +178,7 @@ namespace function_n{
 			}
 		public:
 			[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
-				_func_ptr_data=_m;
+				_func_ptr_data=base_t::_m;
 				return _func_ptr_value;
 			}
 		*/

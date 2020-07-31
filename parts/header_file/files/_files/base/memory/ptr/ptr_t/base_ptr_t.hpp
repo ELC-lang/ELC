@@ -33,11 +33,6 @@ protected:
 	void add_ref()const noexcept{add_ref(_to);}
 };
 
-template<class T,typename ref_type>
-inline void swap(same_ref_p_t<T,ref_type>&a,same_ref_p_t<T,ref_type>&b)noexcept{
-	a.swap_with(b);
-}
-
 template<class T,typename ref_type,bool replace_check>
 struct ptr_t:same_ref_p_t<T,ref_type>{
 	typedef ptr_t<T,ref_type,replace_check>this_t;
