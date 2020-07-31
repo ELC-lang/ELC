@@ -151,7 +151,7 @@ namespace function_n{
 			//BLOCK_END
 			_m=get<func_data_t<remove_cvref<T>>>(a);
 		}
-		~base_function_t()=default;
+		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T,enable_if_not_ill_form(declvalue(this_t).swap_with(this_t(declvalue(T))))>
 		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(declvalue(T)))){

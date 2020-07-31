@@ -23,7 +23,7 @@ class roots_t{
 	base_stack_t<value_t> _roots;
 public:
 	constexpr roots_t()noexcept=default;
-	~roots_t()=default;
+	~roots_t()noexcept=default;
 
 	using_method_from_base_t(map);
 	using_method_from_base_t(add);
