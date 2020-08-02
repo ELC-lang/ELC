@@ -6,13 +6,16 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-BREAK_NAMESPACE//in namespace elc::defs::memory
-INTER_NAMESPACE(ptr_n)
+BREAK_NAMESPACE//in namespace elc::defs
+INTER_NAMESPACE(memory::ptr_n)
 
 #include "defs.hpp"
 
-BREAK_NAMESPACE//in namespace elc::defs::memory
-INTER_NAMESPACE(gc_n)
+BREAK_NAMESPACE//in namespace elc::defs
+
+#include "_export.hpp"
+
+INTER_NAMESPACE(memory::gc_n)
 
 //file_end
 

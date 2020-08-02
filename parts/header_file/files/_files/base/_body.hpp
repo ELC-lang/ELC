@@ -33,7 +33,7 @@ namespace elc::defs{
 	namespace memory::gc_n{
 		#include "memory/gc/_body.hpp"
 	}
-	using namespace memory::gc_n;
+	using namespace memory;
 
 	#if defined(ELC_TEST_ON)
 	namespace base_part_test{

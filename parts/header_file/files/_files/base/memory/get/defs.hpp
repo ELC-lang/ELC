@@ -55,9 +55,17 @@ namespace get_n{
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
-				if constexpr(!destruct.nothrow<T>)
+				if constexpr(!destruct.nothrow<T>){
 					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-				destruct(a,get_size_of_alloc(a));
+					try{
+						destruct(a,get_size_of_alloc(a));
+					}catch(...){
+						free(a);
+						throw;
+					}
+				}else{
+					destruct(a,get_size_of_alloc(a));
+				}
 				free(a);
 			}
 		}
@@ -88,10 +96,16 @@ namespace get_n{
 					if constexpr(move.trivial<T>)
 						realloc(arg,to_size);
 					else{
-						if constexpr(!move.nothrow<T>)
-							template_warning("the move of T was not noexcept,this may cause memory lack.");
 						T*tmp=alloc<T>(to_size);
-						move[from_size](note::from(arg),note::to(tmp));
+						if constexpr(!move.nothrow<T>){
+							template_warning("the move of T was not noexcept,this may cause memory lack.");
+							try{
+								move[from_size](note::from(arg),note::to(tmp));
+							}catch(...){
+								free(tmp);
+								throw;
+							}
+						}
 						free(arg);
 						arg=tmp;
 					}

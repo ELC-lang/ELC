@@ -103,14 +103,13 @@ namespace function_n{
 		typedef function_data_saver_t<Ret_t(Args_t...)>base_t;
 		typedef base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>this_t;
 
-		friend class base_function_t<Ret_t(Args_t...),0,0>;
-		friend class base_function_t<Ret_t(Args_t...),0,1>;
-		friend class base_function_t<Ret_t(Args_t...),1,0>;
-		friend class base_function_t<Ret_t(Args_t...),1,1>;
+		template<class,bool,bool>
+		friend class base_function_t;
 
 		template<class T_>
 		using func_data_t=function_n::func_data_t<T_,Ret_t(Args_t...)>;
 
+		typedef Ret_t func_t(Args_t...)noexcept(nothrow);
 		typedef Ret_t(*func_ptr_t)(Args_t...)noexcept(nothrow);
 
 		using base_t::ptr_t;
@@ -149,7 +148,10 @@ namespace function_n{
 				if constexpr(!invoke<T>.nothrow<Args_t...>)
 					template_warning("the call of T was not noexcept,this may cause terminate.");
 			//BLOCK_END
-			_m=get<func_data_t<remove_cvref<T>>>(a);
+			if constexpr(type_info<T*>==type_info<func_ptr_t>)
+				_m=get<func_data_t<func_ptr_t>>(&a);
+			else
+				_m=get<func_data_t<remove_cvref<T>>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 

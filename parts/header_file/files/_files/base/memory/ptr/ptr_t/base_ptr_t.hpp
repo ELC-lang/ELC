@@ -33,7 +33,7 @@ protected:
 	void add_ref()const noexcept{add_ref(_to);}
 };
 
-template<class T,typename ref_type,bool replace_check>
+template<class T,typename ref_type,bool replace_check=1>
 struct ptr_t:same_ref_p_t<T,ref_type>{
 	typedef ptr_t<T,ref_type,replace_check>this_t;
 
@@ -57,8 +57,9 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	static constexpr bool reset_nothrow=cut_nothrow;
 	void reset(T*a)const noexcept(reset_nothrow){auto tmp=_to;add_ref(_to=a);cut_ref(tmp);}
 	void reset(nullptr_t=nullptr)const noexcept(reset_nothrow){reset(null_ptr);}
-protected:
+public:
 	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute(replace_able))||reset_nothrow;
+protected:
 	inline void check()const noexcept(check_nothrow){
 		if constexpr(replace_check&&type_info<T>.has_attribute(replace_able))
 			if((replace_able<T>*)(_to)->replaced())

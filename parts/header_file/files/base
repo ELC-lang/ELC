@@ -15,6 +15,10 @@
 	#include <new>//operator new(T*)
 	#include <algorithm>//max、min
 	#include <type_traits>//enable_if等
+	#if defined(ELC_TEST_ON)
+		#include<ctime>
+		#include<cstdlib>
+	#endif
 	namespace std{//cpp20还未实现，占位。
 //*
 		template<size_t N,class T>

@@ -17,6 +17,7 @@ namespace function_n{
 			a();
 			stest_accert(tester==1);
 			function_t<void()> b;
+			b=test;
 			b=a;
 			a=null_ptr;
 			tester=0;

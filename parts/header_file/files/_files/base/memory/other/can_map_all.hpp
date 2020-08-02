@@ -10,12 +10,12 @@ template<typename T>
 struct can_map_all:non_copyable,non_moveable,cons_t<can_map_all<T>>,attribute<T,can_map_all<T>>{
 	typedef can_map_all<T> this_t;
 private:
-	typedef attribute<T,this_t> attribute;
+	typedef attribute<T,this_t> attribute_t;
 
 	inline static list_t<this_t> type_list;
 
 	constexpr T*get_handle(){
-		return attribute::get_handle();
+		return attribute_t::get_handle();
 	}
 	#define expr declvalue(func_t)(declvalue(T_*))
 	template<class T_,class func_t,enable_flag>

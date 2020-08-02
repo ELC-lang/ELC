@@ -34,8 +34,18 @@ auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 	return base_t::name(forward<Args>(rest)...);\
 }\
 
+#define using_method_from_value(name,value_name) \
+template<class...Args,enable_if_not_ill_form(re_declvalue(value_name).name(declvalue(Args)...))>\
+auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args)...))\
+{\
+	return value_name.name(forward<Args>(rest)...);\
+}\
+
 
 // #define floop while(1)
+#define re_declvalue(...) (declvalue(decltype(__VA_ARGS__)))
+#define re_decltype(...) (decltype(declvalue(__VA_ARGS__)))
+
 #define declvalue(...) (::std::declval<__VA_ARGS__>())
 
 #define template_error(reason) static_assert(template_error_helper<T>,reason)

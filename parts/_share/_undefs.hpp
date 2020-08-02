@@ -18,8 +18,12 @@
 #undef is_function
 
 #undef using_method_from_base_t
+#undef using_method_from_value
 
 // #undef floop
+#undef re_declvalue
+#undef re_decltype
+
 #undef declvalue
 
 #undef template_error

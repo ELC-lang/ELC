@@ -6,15 +6,18 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-using ::elc::defs::memory::gc_n::root_of;
+template<typename T>
+void map_and_mark_for_gc(T*)noexcept{
+	template_error("this function should not be instantiated,please overload the function map_and_mark_for_gc in the namespace where this type is defined");
+}
 using ::elc::defs::memory::gc_n::root_of;
 template<typename T,enable_if(
 								was_ref_able<T>&&
 								ptr_t<T,ref_able<T>>::check_nothrow&&
-								type_info<T>.has_attribute(map_and_mark_able)
+								type_info<T>.has_attribute(have_root)
 							)>
-struct root_ptr_t:base_ptr_t<T,ref_able<T>>,root_of<T>{
-	typedef base_ptr_t<T,ref_able<T>>base_t;
+struct root_ptr_t:comn_ptr_t<T,ref_able<T>>,root_of<T>{
+	typedef comn_ptr_t<T,ref_able<T>>base_t;
 	typedef root_ptr_t<T,ref_able<T>>this_t;
 public:
 	using base_t::base_t;
@@ -27,7 +30,7 @@ public:
 		return operator*();
 	}
 	virtual void map_and_mark()noexcept override{
-		return operator*();
+		map_and_mark_for_gc(base_t::operator->());
 	}
 };
 

@@ -19,7 +19,7 @@ struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>,basic_struct,cont
 	typedef cons_t<T> this_t;
 private:
 	friend list_t<T>;
-	typedef attribute<T,this_t> attribute;
+	typedef attribute<T,this_t> attribute_t;
 
 	mutable this_t*_before;//为了在析构时修改前一项的next，勿删
 	mutable this_t*_next;

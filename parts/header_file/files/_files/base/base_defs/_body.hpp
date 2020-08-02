@@ -18,7 +18,7 @@
 #include "type_info.hpp"
 #include "min_max.hpp"
 #include "hash.hpp"
-#include "logic.hpp"
+#include "logical_bool.hpp"
 #include "null_ptr.hpp"
 #include "zero.hpp"
 #include "pointer.hpp"
