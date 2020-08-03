@@ -30,6 +30,7 @@ namespace function_n{
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
 	struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
+		static_assert(is_not_function(T));
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		T _value;
@@ -94,7 +95,7 @@ namespace function_n{
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t...)const{return _m->call(forward<Args_t>(args)...);}
 	};
-	
+
 	template<class T,bool nothrow,bool promise_nothrow_at_destruct>
 	class base_function_t;
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
@@ -109,7 +110,6 @@ namespace function_n{
 		template<class T_>
 		using func_data_t=function_n::func_data_t<T_,Ret_t(Args_t...)>;
 
-		typedef Ret_t func_t(Args_t...)noexcept(nothrow);
 		typedef Ret_t(*func_ptr_t)(Args_t...)noexcept(nothrow);
 
 		using base_t::ptr_t;
@@ -137,10 +137,7 @@ namespace function_n{
 		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
 		template<class T,enable_if(invoke<T>.able<Args_t...>&&not base_on_this_t_or_more_stringent_restrictions<T>)>
-		base_function_t(T&&a)noexcept(
-			promise_nothrow_at_destruct&&
-			get<func_data_t<remove_cvref<T>>>.nothrow<T>
-		){
+		base_function_t(T&&a)noexcept(get<func_data_t<remove_cvref<T>>>.nothrow<T>){
 			//BLOCK:constexpr checks
 			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
 				template_error("unexpected assign.");
@@ -148,10 +145,10 @@ namespace function_n{
 				if constexpr(!invoke<T>.nothrow<Args_t...>)
 					template_warning("the call of T was not noexcept,this may cause terminate.");
 			//BLOCK_END
-			if constexpr(type_info<T*>==type_info<func_ptr_t>)
-				_m=get<func_data_t<func_ptr_t>>(&a);
-			else
-				_m=get<func_data_t<remove_cvref<T>>>(a);
+			_m=get<func_data_t<remove_cvref<T>>>(a);
+		}
+		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(1)的参数可自动转为noexcept(0)的，不用再次考虑
+			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
@@ -185,11 +182,30 @@ namespace function_n{
 			}
 		*/
 	};
+	//BLOCK:推导指引助手
+	template<typename>
+	struct function_t_guide_helper{};
 
+	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
+	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)noexcept(nothrow)>
+	{using type=Ret_t(Args_t...)noexcept(nothrow);};
+
+	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
+	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)&noexcept(nothrow)>
+	{using type=Ret_t(Args_t...)noexcept(nothrow);};
+
+	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
+	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)const noexcept(nothrow)>
+	{using type=Ret_t(Args_t...)noexcept(nothrow);};
+
+	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
+	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)const&noexcept(nothrow)>
+	{using type=Ret_t(Args_t...)noexcept(nothrow);};
+	//BLOCK_END
 	template<class T>
 	class function_t;
-	template<class Ret_t,class...Args_t>
-	struct function_t<Ret_t(Args_t...)noexcept>:base_function_t<Ret_t(Args_t...),true,true>{
+	template<class Ret_t,class...Args_t,bool nothrow>
+	struct function_t<Ret_t(Args_t...)noexcept(nothrow)>:base_function_t<Ret_t(Args_t...),nothrow,true>{
 		typedef function_t<Ret_t(Args_t...)noexcept>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,true>base_t;
 		using base_t::base_t;
@@ -199,17 +215,12 @@ namespace function_n{
 			return*this;
 		}
 	};
-	template<class Ret_t,class...Args_t>
-	struct function_t<Ret_t(Args_t...)>:base_function_t<Ret_t(Args_t...),false,true>{
-		typedef function_t<Ret_t(Args_t...)>this_t;
-		typedef base_function_t<Ret_t(Args_t...),false,true>base_t;
-		using base_t::base_t;
-		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
-		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
-			base_t::operator=(forward<assign_t>(a));
-			return*this;
-		}
-	};
+	//BLOCK:推导指引
+	template<class Ret_t,class...Args_t,bool nothrow>
+	function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->function_t<Ret_t(Args_t...)noexcept(nothrow)>;
+	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type>
+	function_t(T)->function_t<Func_t>;
+	//BLOCK_END
 	template<class T>
 	void swap(function_t<T>&a,function_t<T>&b)noexcept{
 		a.swap_with(b);
@@ -218,9 +229,9 @@ namespace function_n{
 	/*
 	template<class T>
 	class may_throw_in_destruct_function_t;
-	template<class Ret_t,class...Args_t>
-	struct may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept>:base_function_t<Ret_t(Args_t...),true,false>{
-		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept>this_t;
+	template<class Ret_t,class...Args_t,bool nothrow>
+	struct may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept(nothrow)>:base_function_t<Ret_t(Args_t...),nothrow,false>{
+		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept(nothrow)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,false>base_t;
 		using base_t::base_t;
 		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
@@ -229,17 +240,12 @@ namespace function_n{
 			return*this;
 		}
 	};
-	template<class Ret_t,class...Args_t>
-	struct may_throw_in_destruct_function_t<Ret_t(Args_t...)>:base_function_t<Ret_t(Args_t...),false,false>{
-		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept>this_t;
-		typedef base_function_t<Ret_t(Args_t...),false,false>base_t;
-		using base_t::base_t;
-		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
-		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
-			base_t::operator=(a);
-			return*this;
-		}
-	};
+	//BLOCK:推导指引
+	template<class Ret_t,class...Args_t,bool nothrow>
+	may_throw_in_destruct_function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept(nothrow)>;
+	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type>
+	may_throw_in_destruct_function_t(T)->may_throw_in_destruct_function_t<Func_t>;
+	//BLOCK_END
 	template<class T>
 	void swap(may_throw_in_destruct_function_t<T>&a,may_throw_in_destruct_function_t<T>&b)noexcept{
 		a.swap_with(b);

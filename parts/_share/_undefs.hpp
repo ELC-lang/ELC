@@ -15,6 +15,7 @@
 // #undef often_noexcept
 #undef noexcept_as
 #undef constexpr_as
+#undef is_not_function
 #undef is_function
 
 #undef using_method_from_base_t

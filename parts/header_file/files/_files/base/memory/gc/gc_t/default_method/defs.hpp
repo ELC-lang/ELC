@@ -64,7 +64,7 @@ namespace default_gc_for_type{
 		::std::true_type{});
 	template<class>
 	auto have_default_gc_success_identifier_helper(...) -> ::std::false_type;
-	
+
 	template<class T>
 	inline constexpr bool have_default_gc_success_identifier = decltype(have_default_gc_success_identifier_helper<T>(0))::value;
 }
