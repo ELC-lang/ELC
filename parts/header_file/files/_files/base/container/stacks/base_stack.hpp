@@ -90,18 +90,15 @@ public:
 	}
 
 	static constexpr bool remove_nothrow=unget.nothrow<data_t>;
-	size_t remove(const T&a)noexcept(remove_nothrow){//返回值：被移除的值在此容器的第几个（？有什么用），若找不到此值，返回0
-	//为什么不返回bool？
+	bool remove(const T&a)noexcept(remove_nothrow){//返回值：是否成功移除（容器里是否有此T）
 		data_t*tmp=_m,**tmp_=&_m;
-		size_t size=0;
 		while(tmp!=null_ptr){
-			size++;
 			if(a==tmp->_data){
 				_size--;
 				data_t*remove_p=tmp;
 				*tmp_=tmp->_next;
 				unget(tmp);
-				return size;
+				return 1;
 			}
 			tmp_=&tmp->_next;
 			tmp=*tmp_;
