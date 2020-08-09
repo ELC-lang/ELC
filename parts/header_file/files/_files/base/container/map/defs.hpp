@@ -40,9 +40,9 @@ namespace map_n{
 
 		mutable base_t_w _m;//mutable cause shrink.
 
-		base_t_w(const base_t_w&a):_m(a)noexcept{}
+		map_t(const base_t_w&a):_m(a)noexcept{}
 		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
-			return{_m};
+			return{_m};//不用疑惑，这是deep copy
 		}
 	public:
 		map_t()noexcept=default;
@@ -73,9 +73,8 @@ namespace map_n{
 			auto tmp=_m.find(a);
 			return tmp.fail()?const_default_value_of<T>:tmp.get()._value;
 		}
-		void clear()noexcept(destruct.nothrow<this_t>&&construct<this_t>.nothrow<>){
-			destruct(this);
-			construct<this_t>[this]();
+		void clear()noexcept(re_construct.nothrow<this_t>){
+			re_construct(this);
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))

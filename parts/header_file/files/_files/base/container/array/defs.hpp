@@ -17,6 +17,12 @@ namespace array_n{
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
 		}
+		array_t(const ::std::initializer_list<T>&init_list)noexcept(copy_construct.nothrow<T>){
+			_m=alloc<T>[init_list.size()]();//get==alloc+construct
+			size_t index=0;
+			for(const T&v:init_list)
+				copy_construct(note::form(&v),note::to(_m+(index++)));
+		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
 		}

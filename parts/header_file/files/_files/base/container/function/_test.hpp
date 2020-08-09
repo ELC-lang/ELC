@@ -12,12 +12,13 @@ namespace function_n{
 		stest_entryevent(L"function部分测试");
 		{
 			int tester=0;
-			function_t<void()noexcept> a(lambda_with_catch(&tester)()noexcept{tester=1;});
+			function_t a(lambda_with_catch(&tester)()noexcept{tester=1;});
+			static_assert(type_info<decltype(a)> == type_info<function_t<void()noexcept>>);
 			stest_accert(tester==0);
 			a();
 			stest_accert(tester==1);
-			function_t<void()> b;
-			b=test;
+			function_t b=test;
+			static_assert(type_info<decltype(b)> == type_info<function_t<void()>>);
 			b=a;
 			a=null_ptr;
 			tester=0;

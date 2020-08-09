@@ -149,6 +149,26 @@ namespace lifetime_n{
 		}
 	}destruct{};
 
+	constexpr struct re_construct_t{
+		template<class T,class...Args>
+		static constexpr bool able=destruct.able<T>&&construct<T>.able<Args...>;
+		template<class T,class...Args>
+		static constexpr bool nothrow=destruct.nothrow<T>&&construct<T>.nothrow<Args...>;
+		template<class T,class...Args>
+		static constexpr bool trivial=destruct.trivial<T>&&construct<T>.trivial<Args...>;
+
+		template<class T,class...Args,enable_if(able<T,Args...>)>
+		void operator()(T*to,Args&&rest)const noexcept(nothrow<T>){
+			destruct(to);
+			construct<T>[to](forward<Args>(rest)...);
+		}
+		template<class T,class...Args,enable_if(able<T,Args...>)>
+		void operator()([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
+			destruct(begin,size);
+			construct<T>[to][size](forward<Args>(rest)...);
+		}
+	}re_construct;
+
 	constexpr struct copy_assign_t{
 		template<class T>
 		static constexpr bool r_able=copy_assign_able<T>?

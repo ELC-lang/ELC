@@ -30,7 +30,7 @@ public:
 		return operator*();
 	}
 	virtual void map_and_mark()noexcept override{
-		map_and_mark_for_gc(base_t::operator->());
+		map_and_mark_for_gc(&**this);
 	}
 };
 

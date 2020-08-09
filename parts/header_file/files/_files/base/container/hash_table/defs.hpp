@@ -72,10 +72,12 @@ namespace hash_table_n{
 		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T_>){
 			return find(a).not_fail();
 		}
+		[[nodiscard]]bool not_in_table(const T&a)noexcept_as(declvalue(this_t).in_table(declvalue(const T&))){
+			return not in_table(a);
+		}
 
-		void clear()noexcept(destruct.nothrow<this_t>&&construct<this_t>.nothrow<>){
-			destruct(this);
-			construct<this_t>[this]();
+		void clear()noexcept(re_construct.nothrow<this_t>){
+			re_construct(this);
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))

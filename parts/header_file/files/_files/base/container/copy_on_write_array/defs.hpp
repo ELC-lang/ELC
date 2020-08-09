@@ -31,6 +31,7 @@ namespace copy_on_write_array_n{
 	public:
 		copy_on_write_array_t()noexcept:_m(get<data_t>()){}
 		explicit copy_on_write_array_t(note::size_t<size_t>size)noexcept(get<data_t>.nothrow<size_t>):_m(get<data_t>(size.value)){}
+		copy_on_write_array_t(const ::std::initializer_list<T>&init_list)noexcept(get<data_t>.nothrow<const ::std::initializer_list<T>&>):_m(get<data_t>(init_list)){}
 		~copy_on_write_array_t()noexcept_as(declvalue(ptr_t).~ptr_t())=default;
 
 		copy_on_write_array_t(const this_t&)noexcept=default;

@@ -1,4 +1,4 @@
-//_body.hpp
+//deduction_guides.hpp
 //at namespace elc::defs::memory::ptr_n
 /*
 未完成的elc解释器base文件
@@ -6,9 +6,11 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#include "base_ptr_t.hpp"
-#include "comn_ptr_t.hpp"
-#include "weak_ptr_t.hpp"
+template<class T>
+root_ptr_t(T*) -> root_ptr_t<T>;
+
+template<class T>
+root_ptr_t(convert_interface_t<T>) -> root_ptr_t<T>;
 
 //file_end
 
