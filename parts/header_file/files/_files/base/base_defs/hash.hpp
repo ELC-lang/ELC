@@ -6,21 +6,42 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-typedef size_t hash_t;
-#define expr hash_t(declvalue(const T&))
-template<class T,enable_if_not_ill_form(expr)>
-[[nodiscard]]constexpr_as(expr)inline hash_t hash(const T&a)noexcept_as(expr){
-	return hash_t(a);
+namespace hash_n{
+	struct hash_t{
+		size_t _value;
+		constexpr hash_t(const hash_t&)noexcept=default;
+	};
+	template<class T>
+	auto operator%(const hash_t a,T&&b){
+		return a._value%b;
+	}
+	struct unstable_hash_t:hash_t{};
+	template<class T>
+	auto is_unstable_hash_helper(int) -> decltype(
+		void((struct unstable_hash_t)(declvalue(T const&))),
+		::std::true_type{});
+	template<class>
+	auto is_unstable_hash_helper(...) -> ::std::false_type;
+
+	template<class T>
+	inline constexpr bool is_unstable_hash = decltype(is_unstable_hash_helper<T>(0))::value;
+	template<class T>
+	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
+	template<class T>
+	constexpr(is_fundamental_hash<T> or constexpr(hash_t(declvalue(T))))inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or noexcept(hash_t(declvalue(T)))){
+		if constexpr(is_fundamental_hash<T>)
+			return{size_t(a)};
+		elseif constexpr(is_unstable_hash<T>)
+			return unstable_hash_t(a);
+		else
+			return hash_t(a);
+	}
 }
-#undef expr
-/*
-#define expr declvalue(const T&).operator hash_t()
-template<class T,enable_if_not_ill_form(expr)>
-[[nodiscard]]constexpr_as(expr)inline hash_t hash(const T&a)noexcept_as(expr){
-	return a.operator hash_t();
-}
-#undef expr
-*/
+using hash_n::hash_t;
+using hash_n::unstable_hash_t;
+using hash_n::is_unstable_hash;
+using hash_n::is_fundamental_hash;
+using hash_n::hash;
 
 //file_end
 

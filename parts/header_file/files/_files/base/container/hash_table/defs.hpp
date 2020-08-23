@@ -22,13 +22,13 @@ namespace hash_table_n{
 			return _m[a%_m.size()];
 		}
 		void bucket_count_grow()noexcept{
-			this_t tmp;
-			tmp._m.resize(size_t(this->_m.size()*magic_number::gold_of_resize));
+			base_t_w tmp;
+			tmp.resize(size_t(this->_m.size()*magic_number::gold_of_resize));
 			_m.for_each(lambda_with_catch(&tmp)(bucket_t&a)noexcept{
 				while(!a.empty())
 					a.move_top_to(tmp.find_bucket(a.get_top_hash()));
 			});
-			swap(tmp);
+			swap(tmp,_m);
 		}
 		hash_table_t(const base_t_w&a):_m(a)noexcept{}
 		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
@@ -59,15 +59,41 @@ namespace hash_table_n{
 		static constexpr bool find_nothrow=hash_nothrow<T_>&&noexcept(declvalue(bucket_t).find(declvalue(T_)));
 
 		void add(const T&a)noexcept(hash_nothrow<const T&>&&bucket_t::add_nothrow){
-			if(find_bucket(hash(a)).add(a) > bucket_max_size)
+			auto&bucket=find_bucket(hash(a));
+			bucket.add(a);
+			if(bucket.size() > bucket_max_size)
 				bucket_count_grow();
 		}
-		void remove(const T&a)noexcept(bucket_t::remove_nothrow){
-			find_bucket(hash(a)).remove(a);
+		bool remove(const T&a)noexcept(bucket_t::remove_nothrow){
+			auto&bucket=find_bucket(hash(a));
+			bool remove_success=bucket.remove(a);
+			if constexpr(is_unstable_hash<T>)
+				if(not remove_success){
+					for(auto&i:_m){
+						if(eq(i,bucket))
+							continue;
+						remove_success=i.remove(a);
+						if(remove_success)
+							break;
+					}
+				}
+			return remove_success;
 		}
 		template<typename T_>
 		[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept(find_nothrow<T_>){
-			return find_bucket(hash(a)).find(a);
+			auto&bucket=find_bucket(hash(a));
+			auto reference=bucket.find(a);
+			if constexpr(is_unstable_hash<T>)
+				if(reference.fail()){
+					for(auto&i:_m){
+						if(eq(i,bucket))
+							continue;
+						re_construct(&reference,i.find(a));
+						if(reference.not_fail())
+							break;
+					}
+				}
+			return reference;
 		}
 		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T_>){
 			return find(a).not_fail();

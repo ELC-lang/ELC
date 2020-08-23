@@ -200,10 +200,10 @@ namespace function_n{
 		a.swap_with(b);
 	}
 
-	/*
 	template<class T>
 	class may_throw_in_destruct_function_t;
 	template<class Ret_t,class...Args_t,bool nothrow>
+	//[[deprecated("not safe")]]//用这么长名字的人大概知道自己在干啥
 	struct may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept(nothrow)>:base_function_t<Ret_t(Args_t...),nothrow,false>{
 		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept(nothrow)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,false>base_t;
@@ -218,7 +218,6 @@ namespace function_n{
 	void swap(may_throw_in_destruct_function_t<T>&a,may_throw_in_destruct_function_t<T>&b)noexcept{
 		a.swap_with(b);
 	}
-	*/
 }
 
 //file_end

@@ -13,6 +13,7 @@
 #include "adjectival_structs.hpp"
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
+#include "equal.hpp"
 #include "attribute.hpp"
 #include "special_attribute.hpp"
 #include "type_info.hpp"

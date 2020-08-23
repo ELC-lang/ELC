@@ -83,10 +83,9 @@ public:
 	}
 
 	static constexpr bool add_nothrow=noexcept(get<data_t>(declvalue(const T&),declvalue(data_t*)));
-	size_t add(const T&a)noexcept(add_nothrow){//返回值：添加后此容器的size
+	void add(const T&a)noexcept(add_nothrow){
 		_m=get<data_t>(a,_m);
 		_size++;
-		return size();
 	}
 
 	static constexpr bool remove_nothrow=unget.nothrow<data_t>;

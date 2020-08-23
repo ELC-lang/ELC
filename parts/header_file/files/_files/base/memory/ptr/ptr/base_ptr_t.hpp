@@ -33,7 +33,7 @@ protected:
 	void add_ref()const noexcept{add_ref(_to);}
 };
 
-template<class T,typename ref_type,bool replace_check=1>
+template<class T,typename ref_type,bool replace_check>
 struct ptr_t:same_ref_p_t<T,ref_type>{
 	typedef ptr_t<T,ref_type,replace_check>this_t;
 
@@ -72,7 +72,7 @@ public:
 		return base_t::get();
 	}
 	[[nodiscard]]bool unique()const noexcept{return static_cast<ref_able<T>*>(get())->link_num()==1;}
-	[[nodiscard]]explicit constexpr operator hash_t()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
+	[[nodiscard]]explicit constexpr operator unstable_hash_t()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
 };

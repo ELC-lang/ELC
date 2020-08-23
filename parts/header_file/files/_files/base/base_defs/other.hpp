@@ -9,7 +9,7 @@
 class empty_type:elc_struct{};
 
 template<typename T>
-inline T&assign(T&a,const T b)noexcept_as(declvalue(T&)=declvalue(const T)){//为绕过条件内赋值时の警告而使用
+inline T&assign(T&a,const T&b)noexcept_as(declvalue(T&)=declvalue(const T&)){//为绕过条件内赋值时の警告而使用
 	a=b;
 	return a;
 }
