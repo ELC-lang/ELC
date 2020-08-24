@@ -108,7 +108,7 @@ struct base_ptr_t:ptr_t<T,ref_type,replace_check>,compare_interface_t<T,base_ptr
 	base_ptr_t(base_ptr_t&a)noexcept:base_t(a){}
 	base_ptr_t(base_ptr_t&&a)noexcept:base_t(move(a)){}
 
-	T*operator->()const noexcept(get_nothrow){return get();}
+	[[nodiscard]]T*operator->()const noexcept(get_nothrow){return get();}
 	[[nodiscard]]T&operator*()const noexcept(get_nothrow){return*get();}
 	[[nodiscard]]explicit operator bool()const noexcept(get_nothrow){return pointer_to_bool(get());}
 	[[nodiscard]]logical_bool operator!()const noexcept(get_nothrow){return!pointer_to_bool(get());}
@@ -168,15 +168,14 @@ namespace compare_n{
 			return static_cast<const convert_interface>(*attribute::get_handle()).get();
 		}
 		template<class T1,class T1_>
-		friend T*get_p(const compare_interface_t<T1,T1_>&a)noexcept(compare_interface_t<T1,T1_>::nothrow);
+		friend [[nodiscard]]T*get_p(const compare_interface_t<T1,T1_>&a)noexcept(compare_interface_t<T1,T1_>::nothrow);
 	};
 
 	template<class T,class T_>
-	T*get_p(const compare_interface_t<T,T_>&a)noexcept(compare_interface_t<T,T_>::nothrow)
-	{return a.get();}
+	[[nodiscard]]T*get_p(const compare_interface_t<T,T_>&a)noexcept(compare_interface_t<T,T_>::nothrow){return a.get();}
 	template<class T>
-	T*get_p(T*a)noexcept{return a;}
-	null_ptr_t&get_p(nullptr_t)noexcept{return null_ptr;}
+	[[nodiscard]]T*get_p(T*a)noexcept{return a;}
+	[[nodiscard]]null_ptr_t&get_p(nullptr_t)noexcept{return null_ptr;}
 
 	#define expr pointer_equal(get_p(declvalue(const T)),get_p(declvalue(const T_)))
 	template<class T,class T_,enable_if_not_ill_form(expr)>

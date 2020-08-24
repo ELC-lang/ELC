@@ -6,6 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+namespace copy_on_write_array_n{
+	template<typename T>
+	class copy_on_write_array_t;
+}
 namespace array_n{
 	template<typename T>
 	class array_t:container_struct{
@@ -35,6 +39,22 @@ namespace array_n{
 		[[nodiscard]]T&operator[](size_t size)noexcept{return _m[size];}
 		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
+
+		typedef iterator_t<T>iterator;
+		typedef iterator_t<const T>const_iterator;
+
+		[[nodiscard]]iterator begin()noexcept{
+			return _m;
+		}
+		[[nodiscard]]iterator end()noexcept{
+			return _m+size();
+		}
+		[[nodiscard]]const_iterator cbegin()const noexcept{
+			return begin();
+		}
+		[[nodiscard]]const_iterator cend()const noexcept{
+			return end();
+		}
 
 		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;

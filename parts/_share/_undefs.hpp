@@ -14,7 +14,9 @@
 
 // #undef often_noexcept
 #undef noexcept_as
+#undef noexcept_as_auto
 #undef constexpr_as
+#undef constexpr_as_auto
 #undef is_not_function
 #undef is_function
 
@@ -55,6 +57,7 @@
 #if defined(_MSC_VER)
 	#undef not
 	#undef and
+	#undef or
 #endif
 
 #undef INTER_NAMESPACE

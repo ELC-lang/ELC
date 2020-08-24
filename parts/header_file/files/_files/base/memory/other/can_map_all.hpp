@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-struct can_map_all:non_copyable,non_moveable,cons_t<can_map_all<T>>,attribute<T,can_map_all<T>>{
+struct can_map_all:cons_t<can_map_all<T>>,attribute<T,can_map_all<T>>{
 	typedef can_map_all<T> this_t;
 private:
 	typedef attribute<T,this_t> attribute_t;

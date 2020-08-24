@@ -24,7 +24,9 @@
 
 // #define often_noexcept
 #define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto
+#define noexcept_as_auto MAGIC//哦现在有了
 #define constexpr_as(...) MAGIC constexpr//( •̀ ω •́ )✌
+#define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌
 #define is_not_function(...) (not is_function(__VA_ARGS__))
 #define is_function(...) ::std::is_function_v<__VA_ARGS__>
 
@@ -82,6 +84,7 @@ auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args
 #if defined(_MSC_VER)
 	#define not !
 	#define and &&
+	#define or ||
 #endif
 
 #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{

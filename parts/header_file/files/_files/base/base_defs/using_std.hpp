@@ -9,7 +9,21 @@
 using ::std::size_t;
 
 using ::std::forward;
+using ::std::addressof;
 using ::std::swap;
+/*
+如何不用中间变量swap两个值？
+方法一：
+a=a+b
+b=a-b
+a=a-b
+方法二：
+a^=b^=a^=b
+道理我都懂，可是还是用中间变量快些
+XD
+更多方法欢迎补充
+*/
+
 template<class T>
 using remove_cvref= ::std::remove_cvref_t<T>;
 template<class T>
@@ -18,7 +32,7 @@ using remove_cv= ::std::remove_cv_t<T>;
 
 // using ::std::max;
 // using ::std::min;
-//新min与max定义于base/base_defs/min_max
+//新min与max定义于 "min_max.hpp"
 
 //file_end
 

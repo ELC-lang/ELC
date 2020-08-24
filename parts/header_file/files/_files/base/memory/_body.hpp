@@ -10,12 +10,12 @@
 #include "lifetime/_body.hpp"
 #include "get/_body.hpp"
 
-#include "pool/_body.hpp"
+#include "pool/_body.hpp"//依赖list
 
-#include "other/_body.hpp"
+#include "other/_body.hpp"//依赖list
 #include "ptr/_body.hpp"
 
-//NOTE:gc不在此处定义，因为它依赖container
+//#include "gc/_body.hpp"//NOTE:gc不在此处定义，因为它依赖container
 
 #if defined(ELC_TEST_ON)
 	#include "_test.hpp"

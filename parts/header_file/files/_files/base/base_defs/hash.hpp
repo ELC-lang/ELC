@@ -9,7 +9,6 @@
 namespace hash_n{
 	struct hash_t{
 		size_t _value;
-		constexpr hash_t(const hash_t&)noexcept=default;
 	};
 	template<class T>
 	auto operator%(const hash_t a,T&&b){
@@ -28,7 +27,7 @@ namespace hash_n{
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
 	template<class T>
-	constexpr(is_fundamental_hash<T> or constexpr(hash_t(declvalue(T))))inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or noexcept(hash_t(declvalue(T)))){
+	constexpr_as_auto inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or type_info<T>.can_nothrow_convert_to<hash_t>){
 		if constexpr(is_fundamental_hash<T>)
 			return{size_t(a)};
 		elseif constexpr(is_unstable_hash<T>)

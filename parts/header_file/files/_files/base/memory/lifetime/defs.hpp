@@ -133,15 +133,19 @@ namespace lifetime_n{
 
 	constexpr struct destruct_t{
 		template<class T>
-		static constexpr bool able=destruct_able<T>;
+		static constexpr bool able=destruct_able<T>||(::std::is_array_v<T>&&able<::std::remove_extent_t<T>>);
 		template<class T>
-		static constexpr bool nothrow=destruct_nothrow<T>;
+		static constexpr bool nothrow=destruct_nothrow<T>||(::std::is_array_v<T>&&nothrow<::std::remove_extent_t<T>>);
 		template<class T>
-		static constexpr bool trivial=destruct_trivial<T>;
+		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
 
 		template<class T,enable_if(able<T>)>
 		void operator()(T*to)const noexcept(nothrow<T>){
-			if constexpr(!trivial<T>)to->~T();
+			if constexpr(!trivial<T>)
+				if constexpr(::std::is_array_v<T>)
+					for(auto&i : *to)
+						operator()(addressof(i));
+				else to->~T();
 		}
 		template<class T,enable_if(able<T>)>
 		void operator()([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
@@ -158,7 +162,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=destruct.trivial<T>&&construct<T>.trivial<Args...>;
 
 		template<class T,class...Args,enable_if(able<T,Args...>)>
-		void operator()(T*to,Args&&rest)const noexcept(nothrow<T>){
+		void operator()(T*to,Args&&...rest)const noexcept(nothrow<T>){
 			destruct(to);
 			construct<T>[to](forward<Args>(rest)...);
 		}

@@ -69,6 +69,38 @@ namespace copy_on_write_array_n{
 			_m->resize(size);
 		}
 
+	private:
+		struct base_iterator_t{
+			this_t*_ptr;
+			size_t _size;
+
+			T*get_handle(){
+				return (*_ptr)[_size];
+			}
+			base_iterator_t next_getter(){
+				return {_ptr,_size+1};
+			}
+			base_iterator_t before_getter(){
+				return {_ptr,_size-1};
+			}
+		};
+	public:
+		typedef iterator_t<T,base_iterator_t>iterator;
+		typedef iterator_t<const T,base_iterator_t>const_iterator;
+
+		[[nodiscard]]iterator begin()noexcept{
+			return {this,0};
+		}
+		[[nodiscard]]iterator end()noexcept{
+			return {this,size()};
+		}
+		[[nodiscard]]const_iterator cbegin()const noexcept{
+			return begin();
+		}
+		[[nodiscard]]const_iterator cend()const noexcept{
+			return end();
+		}
+
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
 		void for_each(func_t&&func)noexcept(check_nothrow&&noexcept(expr)){

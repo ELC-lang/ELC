@@ -6,8 +6,14 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-template <class T,class...U>
-array(T,U...) -> array<T>;
+namespace array_n{
+	template <class T,class...U>
+	array_t(T,U...) -> array_t<T>;
+	template <class T>
+	array_t(array_t<T>) -> array_t<T>;
+	template <class T>
+	array_t(copy_on_write_array_n::copy_on_write_array_t<T>) -> array_t<T>;
+}
 
 //file_end
 

@@ -21,7 +21,7 @@ namespace elc::defs{
 	using namespace base;
 
 	namespace memory{
-		#include "memory/_body.hpp"
+		#include "memory/_body.hpp"//依赖list
 	}
 	using namespace memory;
 
@@ -31,7 +31,7 @@ namespace elc::defs{
 	using namespace container;
 
 	namespace memory::gc_n{
-		#include "memory/gc/_body.hpp"
+		#include "memory/gc/_body.hpp"//依赖container
 	}
 	using namespace memory;
 

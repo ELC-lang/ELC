@@ -55,8 +55,8 @@ struct type_info_t:base_type_info_t{
 template<class T>
 constexpr type_info_t<T>type_info{};
 
-constexpr bool operator==(const base_type_info_t&a,const base_type_info_t&b){return &a==&b;}
-constexpr bool operator!=(const base_type_info_t&a,const base_type_info_t&b){return!(a==b);}
+[[nodiscard]]constexpr bool operator==(const base_type_info_t&a,const base_type_info_t&b){return &a==&b;}
+[[nodiscard]]constexpr bool operator!=(const base_type_info_t&a,const base_type_info_t&b){return!(a==b);}
 
 //file_end
 
