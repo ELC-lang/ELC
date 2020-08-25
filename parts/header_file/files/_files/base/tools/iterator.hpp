@@ -9,8 +9,8 @@
 namespace iterator_n{
 	template<typename value_t,typename base_t=value_t*>
 	class iterator_t:helper_struct{
-		template<typename _,typename __>
-		friend class iterator_t<_,__>;
+		template<typename,typename>
+		friend class iterator_t;
 
 		typedef iterator_t<value_t,base_t>this_t;
 		//
@@ -45,11 +45,11 @@ namespace iterator_n{
 		//
 		constexpr iterator_t()noexcept=default;
 		constexpr iterator_t(base_t a)noexcept:_m(a){}
-		constexpr iterator_t(const this_t&)noexcept=default;
-		constexpr iterator_t(this_t&&)noexcept=default;
+		constexpr iterator_t(const this_t&a)noexcept:_m(a,_m){}
+		constexpr iterator_t(this_t&&a)noexcept{swap(_m,a._m);}
 		template<typename other_T>
 		constexpr iterator_t(const iterator_t<other_T,base_t>&a)noexcept:_m(a._m);
-		constexpr ~iterator_t()noexcept=default;
+		~iterator_t()noexcept=default;
 		[[nodiscard]]constexpr bool operator==(this_t a)const noexcept{return _m==a._m;}
 		[[nodiscard]]constexpr bool operator!=(this_t a)const noexcept{return!operator==(a);}
 		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept{return handle_getter()==a;}

@@ -10,7 +10,9 @@
 #include "comn_ptr_t.hpp"
 #include "weak_ptr_t.hpp"
 #include "nocheck_ptr_t.hpp"
-#include "deduction_guides.hpp"
+#if !defined(_MSC_VER)
+	#include "deduction_guides.hpp"
+#endif
 
 //file_end
 

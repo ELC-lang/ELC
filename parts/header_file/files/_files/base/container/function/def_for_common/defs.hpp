@@ -11,7 +11,7 @@ namespace function_n{
 	class function_t;
 	template<class Ret_t,class...Args_t,bool nothrow>
 	struct function_t<Ret_t(Args_t...)noexcept(nothrow)>:base_function_t<Ret_t(Args_t...),nothrow,true>{
-		typedef function_t<Ret_t(Args_t...)noexcept>this_t;
+		typedef function_t<Ret_t(Args_t...)noexcept(nothrow)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),nothrow,true>base_t;
 		using base_t::base_t;
 		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
