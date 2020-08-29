@@ -46,7 +46,7 @@ static void destroy(T*a)noexcept(
 	if constexpr(type_info<T>.has_attribute(replace_able)){
 		//(replace_able<T>*)(a)->be_replace_as(null_ptr);//×
 		a->be_replace_as(null_ptr);//允许覆写replace方法√
-	}elseif(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array)){
+	}elseif constexpr(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array)){
 		unget(a);
 	}else{
 		template_error("Please overload the function destroy in the namespace where this type is defined.");

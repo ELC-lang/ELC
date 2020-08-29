@@ -38,8 +38,8 @@ public:
 	template<typename...Args>
 	inline setter operator()(Args&&... rest){return list_call(forward<Args>(rest)...);}
 
-	virtual logic_bool eq(ptr a){return a==this->operator&();}
-	virtual logic_bool equal(ptr a){return this->type()->arec(equal)->list_call(this,a);}
+	virtual logical_bool eq(ptr a){return a==this->operator&();}
+	virtual logical_bool equal(ptr a){return this->type()->arec(equal)->list_call(this,a);}
 
 
 
