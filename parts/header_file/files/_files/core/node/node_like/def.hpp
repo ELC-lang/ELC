@@ -8,8 +8,8 @@
 struct node_like:ref_able,weak_ref_able,replace_able{
 protected:
 	virtual const base_type_info_t& get_type_info()const=0;
-	virtual function_t<setter()> get_eval_of_this()const{return lambda_with_catch(this){return this;};}
-	virtual function_t<setter(ptr)> get_call_of_this()const{return lambda_with_catch(this){return this;};}
+	virtual function_t<setter()> get_eval_of_this()const{return lambda_with_catch(this)noexcept{return this;};}
+	virtual function_t<setter(ptr)> get_call_of_this()const{return lambda_with_catch(this)noexcept{return this;};}
 	virtual logic_bool equal_with(ptr)const=0;
 	virtual logic_bool eq_with(ptr a)const{return a==this;}
 public:

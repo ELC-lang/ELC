@@ -11,3 +11,6 @@
 	#include"base_stream"
 	#include"_files\log\_body.hpp"
 #endif
+
+//file_end
+

@@ -12,13 +12,6 @@
 #pragma warning(disable:4584)//重复子类警告diss
 #endif
 //
-/*#if defined(ELC_TEST_ON)
-	#define DO_TEST(namespace_)\
-	namespace_::test();\
-	namespace_::test_log_out();\
-	namespace_::test_end();
-#endif
-*/
 
 // #define use_as_template template<bool=true>
 
@@ -56,6 +49,16 @@ auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args
 
 #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
 #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
+
+#define def_common_attribute_with_nothing(name) \
+template<typename T>\
+class name{}\
+
+#define def_special_attribute_with_nothing(name) \
+class name{}\
+
+#define common_attribute_t template<class>class
+
 /*
 为什么不用cpp20的constraints？
 1.不能类内定义

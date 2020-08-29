@@ -42,13 +42,14 @@ namespace iterator_n{
 		}
 		constexpr this_t&operator=(base_t a)&noexcept{_m=a;return*this;}
 	public:
+		constexpr void swap_with(this_t&a)noexcept{swap(_m,a._m);}
 		//
 		constexpr iterator_t()noexcept=default;
 		constexpr iterator_t(base_t a)noexcept:_m(a){}
 		constexpr iterator_t(const this_t&a)noexcept:_m(a,_m){}
-		constexpr iterator_t(this_t&&a)noexcept{swap(_m,a._m);}
-		template<typename other_T>
-		constexpr iterator_t(const iterator_t<other_T,base_t>&a)noexcept:_m(a._m);
+		constexpr iterator_t(this_t&&a)noexcept{swap_with(a);}
+		template<typename other_T,typename other_base_t,enable_if(construct<base_t>.able<other_base_t>)>
+		constexpr iterator_t(const iterator_t<other_T,base_t>&a)noexcept(construct<base_t>.nothrow<other_base_t>):_m(a._m){}
 		~iterator_t()noexcept=default;
 		[[nodiscard]]constexpr bool operator==(this_t a)const noexcept{return _m==a._m;}
 		[[nodiscard]]constexpr bool operator!=(this_t a)const noexcept{return!operator==(a);}

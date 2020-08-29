@@ -74,21 +74,38 @@ namespace copy_on_write_array_n{
 			this_t*_ptr;
 			size_t _size;
 
-			T*get_handle(){
+			[[nodiscard]]T*get_handle(){
 				return (*_ptr)[_size];
 			}
-			base_iterator_t next_getter(){
+			[[nodiscard]]base_iterator_t next_getter(){
 				return {_ptr,_size+1};
 			}
-			base_iterator_t before_getter(){
+			[[nodiscard]]base_iterator_t before_getter(){
+				return {_ptr,_size-1};
+			}
+		};
+		struct base_const_iterator_t{
+			const this_t*_ptr;
+			size_t _size;
+
+			constexpr base_const_iterator_t(const this_t*a,size_t b)noexcept:_ptr(a),_size(b){}
+			constexpr base_const_iterator_t(const base_const_iterator_t&)noexcept=default;
+			constexpr base_const_iterator_t(base_iterator_t&a)noexcept:_ptr(a._ptr),_size(a._size){}
+			[[nodiscard]]const T*get_handle(){
+				return (*_ptr)[_size];
+			}
+			[[nodiscard]]base_const_iterator_t next_getter(){
+				return {_ptr,_size+1};
+			}
+			[[nodiscard]]base_const_iterator_t before_getter(){
 				return {_ptr,_size-1};
 			}
 		};
 	public:
 		typedef iterator_t<T,base_iterator_t>iterator;
-		typedef iterator_t<const T,base_iterator_t>const_iterator;
+		typedef iterator_t<const T,base_const_iterator_t>const_iterator;
 
-		[[nodiscard]]iterator begin()noexcept{
+		[[nodiscard]]constexpr iterator begin()noexcept{
 			return {this,0};
 		}
 		[[nodiscard]]iterator end()noexcept{

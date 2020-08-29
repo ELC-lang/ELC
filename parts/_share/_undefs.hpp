@@ -5,10 +5,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-/*#if defined(ELC_TEST_ON)
-	#undef DO_TEST
+#if defined(_MSC_VER)
+#pragma warning(pop)
 #endif
-*/
+//
 
 // #undef use_as_template
 
@@ -34,6 +34,11 @@
 
 #undef has_attribute
 #undef not_has_attribute
+
+#undef def_common_attribute_with_nothing
+#undef def_special_attribute_with_nothing
+#undef common_attribute_t
+
 
 #undef enable_if
 #undef enabled_by_default
@@ -62,10 +67,6 @@
 
 #undef INTER_NAMESPACE
 #undef BREAK_NAMESPACE
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 //file_end
 

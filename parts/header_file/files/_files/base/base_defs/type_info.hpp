@@ -17,7 +17,7 @@ struct type_info_t:base_type_info_t{
 
 	template<class attribute_name>
 	static constexpr bool has_attribute_helper(){
-		return ::std::is_base_of_v<attribute_name,remove_cvref<T>>;//防止因子类属性误判，不可用base_on
+		return ::std::is_base_of_v<attribute_name,remove_cvref<remove_cvref<T>>>;//防止因子类属性误判，不可用base_on
 	}
 	template<template<class>class attribute_name>
 	static constexpr bool has_attribute_helper(){
@@ -32,11 +32,11 @@ struct type_info_t:base_type_info_t{
 	*/
 	template<class attribute_name>
 	static constexpr bool not_has_has_attribute_helper(){
-		return!::std::is_base_of_v<attribute_name,T>;//防止因子类属性误判，不可用base_on
+		return!::std::is_base_of_v<attribute_name,remove_cvref<T>>;//防止因子类属性误判，不可用base_on
 	}
 	template<template<class>class attribute_name>
 	static constexpr bool not_has_has_attribute_helper(){
-		return!has_attribute_helper<attribute_name<T>>();
+		return!has_attribute_helper<attribute_name<remove_cvref<T>>>();
 	}
 	// defed at defs.
 	// #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()

@@ -10,3 +10,6 @@
 	#define ELC_BASE_EXCEPTION
 	#include"_files\base_exception\_body.hpp"
 #endif
+
+//file_end
+

@@ -88,6 +88,7 @@ using compare_n::compare_interface_t;
 
 template<class T,typename ref_type,bool replace_check>
 struct base_ptr_t:ptr_t<T,ref_type,replace_check>,compare_interface_t<T,base_ptr_t<T,ref_type,replace_check>>{
+	
 	typedef ptr_t<T,ref_type,replace_check>base_t;
 	typedef convert_interface_t<T>convert_interface;
 	typedef base_ptr_t<T,ref_type,replace_check>this_t;

@@ -10,7 +10,7 @@
 	#error "this part cannot be tested."
 #endif
 namespace elc::defs{
-	#include "../_defs.hpp"
+	#include "../_share/_defs.hpp"
 	namespace exception_n{
 		#include "exception/_body.hpp"
 	}
@@ -22,7 +22,7 @@ namespace elc::defs{
 	}
 	#endif
 
-	#include "../_undefs.hpp"
+	#include "../_share/_undefs.hpp"
 }
 namespace elc{
 	#include "_export.hpp"

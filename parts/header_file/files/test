@@ -10,3 +10,6 @@
 	#define ELC_TEST
 	#include"_files\test\_body.hpp"
 #endif
+
+//file_end
+

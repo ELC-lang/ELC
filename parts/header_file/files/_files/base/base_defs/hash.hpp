@@ -14,7 +14,9 @@ namespace hash_n{
 	auto operator%(const hash_t a,T&&b){
 		return a._value%b;
 	}
-	struct unstable_hash_t:hash_t{};
+	struct unstable_hash_t:hash_t{
+		using hash_t::hash_t;
+	};
 	template<class T>
 	auto is_unstable_hash_helper(int) -> decltype(
 		void((struct unstable_hash_t)(declvalue(T const&))),
@@ -27,8 +29,14 @@ namespace hash_n{
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
 	template<class T>
+	hash_t pointer_hash(T*a)noexcept{
+		return{size_t(a)};
+	}
+	template<class T>
 	constexpr_as_auto inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or type_info<T>.can_nothrow_convert_to<hash_t>){
-		if constexpr(is_fundamental_hash<T>)
+		if constexpr(is_pointer<T>)
+			return pointer_hash(a);
+		elseif constexpr(is_fundamental_hash<T>)
 			return{size_t(a)};
 		elseif constexpr(is_unstable_hash<T>)
 			return unstable_hash_t(a);
