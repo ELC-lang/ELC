@@ -26,7 +26,7 @@ namespace function_n{
 	template<typename Ret_t,typename T,typename...Args_t>
 	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)const&>
 	{using type=Ret_t(Args_t...);};
-	
+
 	template<typename Ret_t,typename T,typename...Args_t>
 	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)noexcept>
 	{using type=Ret_t(Args_t...)noexcept;};

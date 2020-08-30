@@ -11,7 +11,7 @@
 
 #define ELC_TEST_ON
 #include"../files/base"
-//#include"../files/core"
+#include"../files/core"
 #include"../files/test"
 
 int ste::stst(){

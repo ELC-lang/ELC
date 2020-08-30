@@ -6,11 +6,16 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #if defined(_MSC_VER)
-#pragma warning(pop)
+	#pragma warning(pop)
 #endif
 //
 
-// #undef use_as_template
+#undef lazy_instantiation
+#undef lazy_instantiation_name
+#undef LIS_ID_t
+#undef LIS_name
+#undef LIS_IS_flag
+#undef LIS_default_value
 
 // #undef often_noexcept
 #undef noexcept_as

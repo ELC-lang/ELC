@@ -16,9 +16,9 @@ template<typename T,enable_if(
 								ptr_t<T,ref_able<T>,true>::check_nothrow&&
 								type_info<T>.has_attribute(gc_n::have_root)
 							)>
-struct root_ptr_t:comn_ptr_t<T,ref_able<T>>,root_of<T>{
-	typedef comn_ptr_t<T,ref_able<T>>base_t;
-	typedef root_ptr_t<T,ref_able<T>>this_t;
+struct root_ptr_t:comn_ptr_t<T>,root_of<T>{
+	typedef comn_ptr_t<T>base_t;
+	typedef root_ptr_t<T>this_t;
 public:
 	using base_t::base_t;
 	template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>

@@ -8,6 +8,7 @@
 */
 //恭喜你找到elc内大部分语法糖所在地
 #include "template_helper.hpp"
+#include "magic_number.hpp"
 #include "using_std.hpp"
 
 #include "adjectival_structs.hpp"

@@ -6,14 +6,19 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #if defined(_MSC_VER)
-#pragma warning(push)
-#pragma warning(disable:4099)//class与struct混用警告diss
-#pragma warning(disable:26812)//enum class安利diss.
-#pragma warning(disable:4584)//重复子类警告diss
+	#pragma warning(push)
+	#pragma warning(disable:4099)//class与struct混用警告diss
+	#pragma warning(disable:26812)//enum class安利diss.
+	#pragma warning(disable:4584)//重复子类警告diss
 #endif
 //
 
-// #define use_as_template template<bool=true>
+#define lazy_instantiation template<int ILD_value>
+#define lazy_instantiation_name(name) typedef LIS_name(name)<LIS_default_value> name
+#define LIS_ID_t(name) LIS_name(name)LIS_IS_flag
+#define LIS_name(name) name ## _LIS_t
+#define LIS_IS_flag <ILD_value>
+#define LIS_default_value magic_number::god
 
 // #define often_noexcept
 #define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto
