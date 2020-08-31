@@ -53,12 +53,5 @@ static void destroy(T*a)noexcept(
 	}
 }
 
-/*
-typedef int64_t elint;
-typedef double elfloat;
-typedef uint64_t eluint;
-static_assert(sizeof(elfloat)==sizeof(elint),"size error");
-*/
-
 //file_end
 

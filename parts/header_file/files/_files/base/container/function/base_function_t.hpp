@@ -13,7 +13,7 @@ namespace function_n{
 	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only,never_in_array<base_func_data_t<Ret_t(Args_t...)>>{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
 
-		virtual ~base_func_data_t()=0;
+		virtual ~base_func_data_t()=default;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept=0;
@@ -23,8 +23,6 @@ namespace function_n{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
 	};
-	template<class Ret_t,class...Args_t>
-	base_func_data_t<Ret_t(Args_t...)>::~base_func_data_t(){nothing};
 
 	template<class T,class Func_t>
 	class func_data_t;
@@ -69,7 +67,7 @@ namespace function_n{
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
-	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+	inline constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(type_info_t<base_func_data_t<Ret_t(Args_t...)>>)noexcept{

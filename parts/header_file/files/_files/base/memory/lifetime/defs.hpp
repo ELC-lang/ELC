@@ -151,6 +151,10 @@ namespace lifetime_n{
 		void operator()([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)while(size--)operator()(begin+size);
 		}
+
+		struct not_t{};
+		/*适用于unget(this,not destruct);*/
+		not_t operator!()const noexcept{return not_t{};}
 	}destruct{};
 
 	constexpr struct re_construct_t{

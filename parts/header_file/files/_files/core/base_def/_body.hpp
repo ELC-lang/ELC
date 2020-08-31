@@ -1,5 +1,5 @@
 //_body.hpp
-//at namespace elc::defs::base
+//at namespace elc::defs::core
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -7,8 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "node_like.hpp"
-#include "setter.hpp"
 #include "ptr.hpp"
+#include "setter.hpp"
 
 //file_end
 

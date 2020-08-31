@@ -10,7 +10,7 @@ struct exception{
 	virtual ~exception()noexcept=0;
 	virtual const char*what()noexcept{return "unknow error.";}
 };
-inline exception::~exception()noexcept{}
+inline constexpr exception::~exception()noexcept{}
 
 //file_end
 

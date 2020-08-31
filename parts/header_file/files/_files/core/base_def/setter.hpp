@@ -1,4 +1,5 @@
 //defs.hpp
+//at namespace elc::defs::core
 /*
 未完成的elc解释器core文件
 由steve02081504与Alex0125设计、编写
@@ -7,7 +8,7 @@
 */
 lazy_instantiation struct LIS_name(setter){
 private:
-	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
+	//typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
 	typedef LIS_ID_t(setter)this_t;
 public:
 	struct base_data_t{
@@ -19,7 +20,18 @@ public:
 	};
 private:
 	base_data_t*_m;
+private:
+	struct constexpr_data_t:base_data_t,alloc_by_pool<constexpr_data_t>{
+		ptr _m;
+		constexpr_data_t(ptr a):_m(a){}
+		virtual ~constexpr_data_t()noexcept override=default;
+		virtual void be_set(ptr)noexcept override{}
+		virtual ptr get_value()override{return _m;}
+		virtual void free_this()noexcept override{unget(this,not destruct);}
+		virtual base_data_t*copy()noexcept override{return get<constexpr_data_t>(_m);}
+	};
 public:
+	explicit LIS_name(setter)(ptr a):_m(get<constexpr_data_t>(a)){}
 	constexpr LIS_name(setter)(base_data_t*a)noexcept:_m(a){}
 	LIS_name(setter)(const this_t&a)noexcept:_m(a._m->copy()){}
 	LIS_name(setter)(this_t&&a)noexcept:_m(a._m){a._m=null_ptr;}
@@ -36,6 +48,7 @@ public:
 	operator ptr()const{
 		return _m->get_value();
 	}
+	explicit operator bool(){return bool(_m->get_value());}
 };
 lazy_instantiation_name(setter);
 

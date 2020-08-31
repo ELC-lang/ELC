@@ -69,6 +69,13 @@ namespace get_n{
 				free(a);
 			}
 		}
+		/*适用于unget(this,not destruct);*/
+		template<typename T,enable_if(able<T>)>
+		void operator()(T*a,decltype(destruct)::not_t)const noexcept(nothrow<T>){
+			if(a!=null_ptr){
+				free(a);
+			}
+		}
 	}unget{};
 
 	constexpr struct get_resize_t{

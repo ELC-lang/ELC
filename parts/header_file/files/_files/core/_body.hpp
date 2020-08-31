@@ -11,8 +11,11 @@
 #endif
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
-
-	#include "base_def/_body.hpp"
+	
+	namespace core{
+		#include "base_def/_body.hpp"
+		#include "special_values/_body.hpp"
+	}
 
 	#if defined(ELC_TEST_ON)
 	namespace core_part_test{

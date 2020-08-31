@@ -18,7 +18,7 @@ class roots_t{
 	typedef root_of<T>*value_t;
 	typedef base_stack_t<value_t> base_t;
 
-	base_stack_t<value_t> _roots;
+	base_stack_t<value_t>_roots;
 public:
 	constexpr roots_t()noexcept=default;
 	~roots_t()noexcept=default;
@@ -51,9 +51,9 @@ public:
 	virtual void map_and_mark()noexcept=0;
 };
 template<typename T>
-T& root_of<T>::get()noexcept{return const_default_value_of<T>;}
+inline T& root_of<T>::get()noexcept{return const_default_value_of<T>;}
 template<typename T>
-void root_of<T>::map_and_mark()noexcept{}
+inline void root_of<T>::map_and_mark()noexcept{}
 
 //file_end
 
