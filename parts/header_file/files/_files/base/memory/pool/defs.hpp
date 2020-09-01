@@ -37,7 +37,7 @@ namespace pool_n{
 		[[nodiscard]]T*get_new()noexcept{
 			auto&uii=_unuse_indexes_index;//缩写
 			auto&ui=_unuse_indexes;//缩写*2
-			if(!uii)return null_ptr;
+			if(!uii)return nullptr;//请勿改为null_ptr:在FLAG1中，使用了值转bool的判断，而null_ptr可能被重载
 			return&data_cast<T>(_data[ui[--uii]]);
 		}
 		[[nodiscard]]bool use_end(T*a)noexcept{
@@ -69,7 +69,7 @@ namespace pool_n{
 				auto i=head(),e=end();
 				while(--e!=i){//从后向前遍历，一般情况下可以加快分配速度😎
 					tmp=e->get_new();
-					if(tmp)return tmp;
+					if(tmp)return tmp;//FLAG1
 				}
 			}
 			auto tmp=get<ment>();//失败，加入新单元

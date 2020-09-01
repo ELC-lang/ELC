@@ -4,6 +4,15 @@
 关于更新缓慢的问题原因请看[这里](https://steve02081504.github.io/about/)  
 [TODO list](./TODO.md)  
 
+### 当前进展  
+- [x] `header_file/base`写完了
+
+- [ ] 正在写`header_file/core`，它基于：
+  * [x] `header_file/base`
+  * [ ] `_share/APIs/so_load`正在构思
+  * [ ] `header_file/base_exception`勉强能用（大致完了）
+  * [ ] `header_file/base_stream`写了一半
+
 ____
 
 ### 快速PR

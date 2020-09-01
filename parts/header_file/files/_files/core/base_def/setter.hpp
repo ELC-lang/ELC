@@ -7,10 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 lazy_instantiation struct LIS_name(setter){
-private:
-	//typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
 	typedef LIS_ID_t(setter)this_t;
-public:
 	struct base_data_t{
 		virtual ~base_data_t()noexcept=default;
 		virtual void be_set(ptr)=0;
@@ -18,10 +15,7 @@ public:
 		virtual void free_this()noexcept=0;
 		virtual base_data_t*copy()noexcept=0;
 	};
-private:
-	base_data_t*_m;
-private:
-	struct constexpr_data_t:base_data_t,alloc_by_pool<constexpr_data_t>{
+	struct constexpr_data_t:base_data_t,alloc_by_pool<constexpr_data_t>,build_by_get_only{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
 		virtual ~constexpr_data_t()noexcept override=default;
@@ -30,6 +24,8 @@ private:
 		virtual void free_this()noexcept override{unget(this,not destruct);}
 		virtual base_data_t*copy()noexcept override{return get<constexpr_data_t>(_m);}
 	};
+private:
+	base_data_t*_m;
 public:
 	explicit LIS_name(setter)(ptr a):_m(get<constexpr_data_t>(a)){}
 	constexpr LIS_name(setter)(base_data_t*a)noexcept:_m(a){}

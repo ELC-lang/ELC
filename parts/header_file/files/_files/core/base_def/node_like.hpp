@@ -14,32 +14,47 @@ node_like*node_list(Args&&...);
 
 lazy_instantiation struct LIS_name(node_like):
 ref_able<LIS_ID_t(node_like)>,weak_ref_able<LIS_ID_t(node_like)>,replace_able<LIS_ID_t(node_like)>{
-private:
-	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr_t;
-	typedef LIS_ID_t(setter)setter_t;
+public:
+	typedef comn_ptr<LIS_ID_t(node_like)>ptr;
+	typedef LIS_ID_t(setter)setter;
 	typedef LIS_ID_t(node_like)this_t;
 protected:
-	[[nodiscard]]virtual const base_type_info_t& get_type_info()const=0;
-	[[nodiscard]]virtual function_t<setter_t()> get_eval_of_this()const{return lambda_with_catch(this)()noexcept{return setter_t(this);};}
-	[[nodiscard]]virtual function_t<setter_t(ptr_t)> get_call_of_this()const{return lambda_with_catch(this)(ptr_t)noexcept{return setter_t(this);};}
-	[[nodiscard]]virtual logical_bool equal_with(ptr_t)const=0;
+	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
+
+	[[nodiscard]]virtual function_t<setter()> get_eval_of_this()const{
+		return lambda_with_catch(this)()noexcept{return setter(this);};
+	}
+	[[nodiscard]]virtual function_t<setter(ptr)> get_call_of_this()const{
+		return lambda_with_catch(this)(ptr)noexcept{return setter(this);};
+	}
+
+	[[nodiscard]]virtual logical_bool equal_with(ptr)const=0;
+	[[nodiscard]]virtual logical_bool eq_with(ptr a)const{return a==this;}
 	[[nodiscard]]virtual constexpr size_t equal_level()const{return 0;}
-	[[nodiscard]]virtual logical_bool eq_with(ptr_t a)const{return a==this;}
 	[[nodiscard]]virtual constexpr size_t eq_level()const{return 0;}
 public:
 	virtual ~LIS_name(node_like)()=default;
 
-	[[nodiscard]]virtual setter_t operator[](ptr_t)=0;
+	[[nodiscard]]virtual setter operator[](ptr)=0;
 
 	virtual void clear()=0;
+
+	[[nodiscard]]virtual explicit operator hash_t()const=0;
+	virtual void destroy(){
+		this->clear();
+		this->be_replace_as(null_ptr);
+	}
+	virtual void be_replace_as(ptr a){
+		replace_able::be_replace_as(a.get());
+	}
 
 	[[nodiscard]]virtual explicit operator logical_bool()const=0;
 	[[nodiscard]]explicit operator bool()const{return this->operator logical_bool();}
 
 	template<typename...Args>
-	inline setter_t operator()(Args&&...rest){return this->get_call_of_this()(node_list(forward<Args>(rest)...));}
+	inline setter operator()(Args&&...rest){return this->get_call_of_this()(node_list(forward<Args>(rest)...));}
 
-	[[nodiscard]]logical_bool eq(ptr_t a){
+	[[nodiscard]]logical_bool eq(ptr a){
 		if(this->eq_level()==a->eq_level())
 			return this->eq_with(a)&&a->eq_with(this);
 		elseif(this->eq_level() _small_than_ a->eq_level())
@@ -47,7 +62,7 @@ public:
 		elseif(this->eq_level() _big_than_ a->eq_level())
 			return this->eq_with(a);
 	}
-	[[nodiscard]]logical_bool equal(ptr_t a){
+	[[nodiscard]]logical_bool equal(ptr a){
 		if(this->equal_level()==a->equal_level())
 			return this->equal_with(a)&&a->equal_with(this);
 		elseif(this->equal_level() _small_than_ a->equal_level())
@@ -56,17 +71,10 @@ public:
 			return this->equal_with(a);
 	}
 
-	virtual void destroy(){
-		this->clear();
-		this->be_replace_as(null_ptr_t);
-	}
-	virtual void be_replace_as(ptr_t a){
-		replace_able::be_replace_as(a.get());
-	}
-	[[nodiscard]]ptr_t operator&(){return this;}
-	[[nodiscard]]virtual explicit operator hash_t()const=0;
+	[[nodiscard]]ptr operator&(){return this;}
 };
 lazy_instantiation_name(node_like);
+
 //base中的类型功能适应器
 [[nodiscard]]logical_bool pointer_to_bool(node_like*a)noexcept{
 	return a->operator logical_bool();
