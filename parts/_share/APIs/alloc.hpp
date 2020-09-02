@@ -10,8 +10,8 @@ APIs说明
 elc依赖的基础函数.
 调整这些,实现快速移植,快速优化与行为自定义.
 */
-#if !defined(ELC_APIS_ALLOC)
-	#define ELC_APIS_ALLOC
+#if !defined(ELC_APIS_alloc)
+	#define ELC_APIS_alloc
 	#include<cstdlib>
 	namespace elc::APIs::alloc{
 		[[nodiscard]]inline void*realloc(void*ptr,size_t nsize)noexcept{

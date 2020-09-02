@@ -8,7 +8,7 @@
 */
 struct exception{
 	virtual ~exception()noexcept=0;
-	virtual const char*what()noexcept{return "unknow error.";}
+	virtual const char_t*what()noexcept{return U"unknow error.";}
 };
 inline constexpr exception::~exception()noexcept{}
 

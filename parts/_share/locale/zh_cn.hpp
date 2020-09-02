@@ -1,4 +1,4 @@
-//using.hpp
+//zh_cn.hpp
 /*
 未完成的elc解释器_share文件
 由steve02081504与Alex0125设计、编写
@@ -10,10 +10,15 @@ locale说明
 elc使用的字符串.
 调整这些,实现快速本地化.
 */
-#if !defined(ELC_LOCALE)
-	#define ELC_LOCALE
-	#include "zh_cn.hpp"
-#endif
+namespace elc::locale::func{
+
+}
+namespace elc::locale::str{
+	const char_t* gc_fail=U"gc失败";
+	const char_t* empty_gc_method=U"gc方法为空时gc被调用";
+	const char_t* setlocale_error=U"setlocale出错";
+	const char_t* code_convert_error=U"编码转换出错";
+}
 
 //file_end
 

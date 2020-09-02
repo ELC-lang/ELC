@@ -5,7 +5,9 @@ __________
 
 ### 正常发展  
 
-- [ ] so_load接口定义  
+- [ ] string_t定义  
+- [ ] str_code_convert定义  
+- [ ] library_load接口定义  
 - [ ] base_stream中，text_stream和data_stream定义  
 - [ ] base_stream中，operator<<与>>定义  
 - [ ] 给node_like加入读写用成员函数  

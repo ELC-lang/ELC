@@ -1,21 +1,15 @@
-//so_load.hpp
+//_undefs.hpp
 /*
 未完成的elc解释器_share文件
 由steve02081504与Alex0125设计、编写
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-/*
-APIs说明
-elc依赖的基础函数.
-调整这些,实现快速移植,快速优化与行为自定义.
-*/
-#if !defined(ELC_APIS_SO_LOAD)
-	#define ELC_APIS_SO_LOAD
-	namespace elc::APIs::so_load{
 
-	}
-#endif
+namespace elc{
+	//ELC内部string同一采用char_t宽字符，setlocale(LC_ALL,"en_US.utf8")下的UTF编码。
+	typedef char_t char_t;//等有char64_t记得叫我
+}
 
 //file_end
 

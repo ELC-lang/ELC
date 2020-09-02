@@ -40,8 +40,11 @@ namespace pool_n{
 			if(!uii)return nullptr;//请勿改为null_ptr:在FLAG1中，使用了值转bool的判断，而null_ptr可能被重载
 			return&data_cast<T>(_data[ui[--uii]]);
 		}
+		[[nodiscard]]bool in_pool(T*a)noexcept{
+			return in_range(a,{_data,note::size(ment_index_max)});
+		}
 		[[nodiscard]]bool use_end(T*a)noexcept{
-			if(in_range(a,{_data,note::size(ment_index_max)})){
+			if(in_pool(a)){
 				_unuse_indexes[_unuse_indexes_index++]=a-reinterpret_cast<T*>(_data);
 				return true;
 			}
@@ -81,6 +84,12 @@ namespace pool_n{
 			while(++i!=e)
 				if(i->use_end(a))return;
 		}
+		[[nodiscard]]bool in_pool(T*a)noexcept{
+			auto i=head(),e=end();
+			while(++i!=e)
+				if(i->in_pool(a))return 1;
+			return 0;
+		}
 		bool shrink()noexcept{
 			bool shrink_success=false;
 			auto i=begin(),e=end(),n;
@@ -111,18 +120,18 @@ namespace pool_n{
 	inline pool_t<T,alloc_by_pool<T>::pool_ment_size>pool{};
 	//为alloc提供方法
 	template<typename T>
-	inline void*alloc_method(type_info_t<T>)noexcept{
+	[[nodiscard]]inline void*alloc_method(type_info_t<T>)noexcept{
 		return pool<T>.get_new();
 	}
 	template<typename T>
-	inline void*alloc_method(type_info_t<T>,size_t a)noexcept{
+	[[nodiscard]]inline void*alloc_method(type_info_t<T>,size_t a)noexcept{
 		if constexpr(pool_s_array_warning(type_info<T>))
 			template_warning("pool can\'t alloc array.");
 		return memory::alloc_n::alloc_method(type_info<T>,a);
 	}
 	template<typename T>
-	constexpr size_t get_size_of_alloc_method(T*arg){
-		return 1;
+	[[nodiscard]]size_t get_size_of_alloc_method(T*arg){
+		return pool<T>.in_pool(arg)?1:memory::alloc_n::get_size_of_alloc_method(arg);
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{

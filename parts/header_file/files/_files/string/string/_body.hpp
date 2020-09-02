@@ -26,11 +26,7 @@ copy
 move
 for_each
 */
-#if defined(ELC_USE_STDLIB)
-	#include "std/_body.hpp"
-#else
-	#include "default/_body.hpp"
-#endif
+
 
 //file_end
 
