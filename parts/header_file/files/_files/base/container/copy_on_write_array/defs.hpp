@@ -74,7 +74,7 @@ namespace copy_on_write_array_n{
 			this_t*_ptr;
 			size_t _size;
 
-			[[nodiscard]]T*get_handle(){
+			[[nodiscard]]T*get_handle()noexcept(check_nothrow){
 				return (*_ptr)[_size];
 			}
 			[[nodiscard]]base_iterator_t next_getter(){
@@ -91,7 +91,7 @@ namespace copy_on_write_array_n{
 			constexpr base_const_iterator_t(const this_t*a,size_t b)noexcept:_ptr(a),_size(b){}
 			constexpr base_const_iterator_t(const base_const_iterator_t&)noexcept=default;
 			constexpr base_const_iterator_t(base_iterator_t&a)noexcept:_ptr(a._ptr),_size(a._size){}
-			[[nodiscard]]const T*get_handle(){
+			[[nodiscard]]const T*get_handle()noexcept{
 				return (*_ptr)[_size];
 			}
 			[[nodiscard]]base_const_iterator_t next_getter(){
@@ -105,17 +105,20 @@ namespace copy_on_write_array_n{
 		typedef iterator_t<T,base_iterator_t>iterator;
 		typedef iterator_t<const T,base_const_iterator_t>const_iterator;
 
+		[[nodiscard]]constexpr iterator get_iterator_at(size_t a)noexcept{
+			return {this,a};
+		}
 		[[nodiscard]]constexpr iterator begin()noexcept{
-			return {this,0};
+			return iteratorget_iterator_at(zero);
 		}
 		[[nodiscard]]iterator end()noexcept{
-			return {this,size()};
+			return iteratorget_iterator_at(size());
 		}
 		[[nodiscard]]const_iterator cbegin()const noexcept{
-			return begin();
+			return const_cast<this_t*>(this)->begin();
 		}
 		[[nodiscard]]const_iterator cend()const noexcept{
-			return end();
+			return const_cast<this_t*>(this)->end();
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))

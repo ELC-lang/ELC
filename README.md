@@ -28,3 +28,6 @@ ____
 ### 快速PR
 [alex to steve](https://github.com/steve02081504/ELC/compare/master...alex0125z:master)  
 [steve to alex](https://github.com/alex0125z/ELC/compare/master...steve02081504:master)  
+  
+[blacktea to steve](https://github.com/steve02081504/ELC/compare/master...BlackTea4771:master)  
+[steve to blacktea](https://github.com/BlackTea4771/ELC/compare/master...steve02081504:master)  

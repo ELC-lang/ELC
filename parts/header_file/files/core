@@ -8,10 +8,10 @@
 */
 #if !defined(ELC_CORE)
 	#define ELC_CORE
-	#include"base"
-	#include"base_exception"
-	#include"base_stream"
-	#include"_files\core\_body.hpp"
+	#include "base"
+	#include "base_exception"
+	#include "base_stream"
+	#include "_files/core/_body.hpp"
 #endif
 
 //file_end

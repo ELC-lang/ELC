@@ -8,8 +8,8 @@
 */
 #if !defined(ELC_LOG)
 	#define ELC_LOG
-	#include"base_stream"
-	#include"_files\log\_body.hpp"
+	#include "base_stream"
+	#include "_files/log/_body.hpp"
 #endif
 
 //file_end

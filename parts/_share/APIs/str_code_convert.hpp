@@ -1,4 +1,4 @@
-//default_str_code.hpp
+//default_data_type.hpp
 /*
 未完成的elc解释器_share文件
 由steve02081504与Alex0125设计、编写
@@ -12,7 +12,8 @@ elc依赖的基础函数.
 */
 #if !defined(ELC_APIS_str_code_convert)
 	#define ELC_APIS_str_code_convert
-	//UF:未写依赖项
+	#include "../default_data_type.hpp"
+	#include "../../header_file/files/string"
 	namespace elc::APIs::str_code_convert{
 		string_t<char> to_char_str(const string_t<char_t> a)
 		{

@@ -8,7 +8,7 @@
 */
 #if !defined(ELC_BASE_STREAM)
 	#define ELC_BASE_STREAM
-	#include"_files\base_stream\_body.hpp"
+	#include "_files/base_stream/_body.hpp"
 #endif
 
 //file_end

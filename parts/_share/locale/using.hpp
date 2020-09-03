@@ -12,6 +12,7 @@ elc使用的字符串.
 */
 #if !defined(ELC_LOCALE)
 	#define ELC_LOCALE
+	#include "../default_data_type.hpp"
 	#include "zh_cn.hpp"
 #endif
 

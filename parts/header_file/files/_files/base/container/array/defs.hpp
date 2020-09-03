@@ -43,17 +43,20 @@ namespace array_n{
 		typedef iterator_t<T>iterator;
 		typedef iterator_t<const T>const_iterator;
 
-		[[nodiscard]]iterator begin()noexcept{
-			return _m;
+		[[nodiscard]]constexpr iterator get_iterator_at(size_t a)noexcept{
+			return _m+a;
+		}
+		[[nodiscard]]constexpr iterator begin()noexcept{
+			return iteratorget_iterator_at(zero);
 		}
 		[[nodiscard]]iterator end()noexcept{
-			return _m+size();
+			return iteratorget_iterator_at(size());
 		}
 		[[nodiscard]]const_iterator cbegin()const noexcept{
-			return begin();
+			return const_cast<this_t*>(this)->begin();
 		}
 		[[nodiscard]]const_iterator cend()const noexcept{
-			return end();
+			return const_cast<this_t*>(this)->end();
 		}
 
 		[[nodiscard]]bool empty()const{

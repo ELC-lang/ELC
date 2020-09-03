@@ -1,16 +1,12 @@
-//stream
-//at namespace ::
+//_body.hpp
+//at namespace elc
 /*
-未完成的elc解释器include文件
+未完成的elc解释器string文件
 由steve02081504与Alex0125设计、编写
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if !defined(ELC_STREAM)
-	#define ELC_STREAM
-	#include "base"
-	#include "_files/stream/_body.hpp"
-#endif
+
 
 //file_end
 

@@ -9,7 +9,7 @@
 enum seek_type{beg,end,cur};
 struct base_stream{
 	virtual ~base_stream()=default;
-	virtual void*seek(seek_type,elint)=0;
+	virtual void*seek(seek_type,int_t)=0;
 	virtual void*tell(){return this->seek(cur,0);}
 	virtual void seek_to(void*)=0;
 	virtual void sync()=0;
@@ -27,7 +27,7 @@ struct base_iostream:virtual base_istream,virtual base_ostream{};
 
 struct noexcept_stream:virtual base_ostream{
 	virtual ~noexcept_stream()noexcept override=default;
-	virtual void*seek(seek_type,elint)noexcept override=0;
+	virtual void*seek(seek_type,int_t)noexcept override=0;
 	virtual void*tell()noexcept override{return this->seek(cur,0);}
 	virtual void seek_to(void*)noexcept override=0;
 	virtual void sync()noexcept override=0;
