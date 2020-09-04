@@ -10,7 +10,12 @@
 	#error "this part cannot be tested."
 #endif
 namespace elc::defs{
-	#include "../_defs.hpp"
+	#include "../_share/_defs.hpp"
+	
+	namespace core{
+		#include "base_def/_body.hpp"
+		#include "special_values/_body.hpp"
+	}
 
 	#if defined(ELC_TEST_ON)
 	namespace core_part_test{
@@ -18,7 +23,7 @@ namespace elc::defs{
 	}
 	#endif
 
-	#include "../_undefs.hpp"
+	#include "../_share/_undefs.hpp"
 }
 namespace elc{
 	#include "_export.hpp"

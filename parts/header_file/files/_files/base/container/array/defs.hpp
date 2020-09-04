@@ -6,6 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+namespace copy_on_write_array_n{
+	template<typename T>
+	class copy_on_write_array_t;
+}
 namespace array_n{
 	template<typename T>
 	class array_t:container_struct{
@@ -16,6 +20,12 @@ namespace array_n{
 		constexpr array_t():_m(null_ptr){}
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
+		}
+		array_t(const ::std::initializer_list<T>&init_list)noexcept(copy_construct.nothrow<T>){
+			_m=alloc<T>[init_list.size()]();//get==alloc+construct
+			size_t index=0;
+			for(const T&v:init_list)
+				copy_construct(note::form(&v),note::to(_m+(index++)));
 		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
@@ -30,12 +40,31 @@ namespace array_n{
 		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
 
+		typedef iterator_t<T>iterator;
+		typedef iterator_t<const T>const_iterator;
+
+		[[nodiscard]]constexpr iterator get_iterator_at(size_t a)noexcept{
+			return _m+a;
+		}
+		[[nodiscard]]constexpr iterator begin()noexcept{
+			return iteratorget_iterator_at(zero);
+		}
+		[[nodiscard]]iterator end()noexcept{
+			return iteratorget_iterator_at(size());
+		}
+		[[nodiscard]]const_iterator cbegin()const noexcept{
+			return const_cast<this_t*>(this)->begin();
+		}
+		[[nodiscard]]const_iterator cend()const noexcept{
+			return const_cast<this_t*>(this)->end();
+		}
+
 		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;
 		}
 
-		void swap(this_t&a)noexcept{
-			using elc::defs::swap;
+		void swap_with(this_t&a)noexcept{
+			using ::elc::defs::swap;
 			swap(_m,a._m);
 		}
 	private:
@@ -44,9 +73,9 @@ namespace array_n{
 			return{copy_get(_m)};
 		}
 	public:
-		array_t(this_t&&a):array_t()noexcept{swap(a);}
+		array_t(this_t&&a)noexcept:array_t(){swap(a);}
 		this_t&operator=(this_t&&a)&noexcept{
-			swap(a);
+			swap_with(a);
 			return*this;
 		}
 		#define expr declvalue(this_t).copy()
@@ -97,7 +126,7 @@ namespace array_n{
 		*/
 	};
 	template<typename T>
-	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 }
 
 //file_end

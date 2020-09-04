@@ -12,9 +12,8 @@ class gc_able{
 		method_marker_t()noexcept{
 			gc.add_gc_method(type_info<T>);
 		}
-	}method_marker;
+	}method_marker{};
 };
-//?
 
 //file_end
 

@@ -14,6 +14,8 @@ template<typename T>
 [[nodiscard]]constexpr logical_bool pointer_equal(T*a,T*b)noexcept{
 	return a==b;
 }
+template<class T>
+inline constexpr bool is_pointer= ::std::is_pointer_v<T>;
 typedef void*pointer;
 typedef const void*const_pointer;
 

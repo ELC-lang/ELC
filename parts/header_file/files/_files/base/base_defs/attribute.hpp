@@ -18,9 +18,5 @@ T*get_handle(T*a){return a;}
 template<class T,typename attribute_name>
 T*get_handle(attribute<T,attribute_name>*a){return get_handle(a->get_handle());}
 
-#define def_attribute_with_nothing(name) \
-template<typename T>\
-class name{}\
-
 //file_end
 

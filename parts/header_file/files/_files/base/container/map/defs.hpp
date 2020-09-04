@@ -20,13 +20,13 @@ namespace map_n{
 				constexpr seek_value_t(const T&a):_m(&a){};
 			}
 
-			bool operator==(const key_t&a)noexcept_as(declvalue(key_t&)==declvalue(const key_t&)){
+			[[nodiscard]]bool operator==(const key_t&a)noexcept_as(declvalue(key_t&)==declvalue(const key_t&)){
 				return _key==a;
 			}
-			bool operator==(const seek_value_t&a)noexcept_as(declvalue(T&)==declvalue(const T&)){
+			[[nodiscard]]bool operator==(const seek_value_t&a)noexcept_as(declvalue(T&)==declvalue(const T&)){
 				return _value==*a._m;
 			}
-			constexpr_as(hash(declvalue(key_t&)))operator hash_t()noexcept_as(hash(declvalue(key_t&))){
+			[[nodiscard]]constexpr_as(hash(declvalue(key_t&)))operator hash_t()noexcept_as(hash(declvalue(key_t&))){
 				return hash(_key);
 			}
 			/* operator T&()noexcept{
@@ -40,9 +40,9 @@ namespace map_n{
 
 		mutable base_t_w _m;//mutable cause shrink.
 
-		base_t_w(const base_t_w&a):_m(a)noexcept{}
+		map_t(const base_t_w&a):_m(a)noexcept{}
 		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
-			return{_m};
+			return{_m};//不用疑惑，这是deep copy
 		}
 	public:
 		map_t()noexcept=default;
@@ -61,7 +61,7 @@ namespace map_n{
 		template<size_t _>
 		void swap(map_t<T,stack_t,_>&a)noexcept{swap(_m,a._m);}
 
-		T&operator[](const key_t&a){
+		[[nodiscard]]T&operator[](const key_t&a){
 			auto tmp=_m.find(a);
 			if(tmp.fail()){
 				_m.add({a,T()});
@@ -69,13 +69,12 @@ namespace map_n{
 			}
 			return tmp.get()._value;
 		}
-		const T&operator[](const key_t&a)const{
+		[[nodiscard]]const T&operator[](const key_t&a)const{
 			auto tmp=_m.find(a);
 			return tmp.fail()?const_default_value_of<T>:tmp.get()._value;
 		}
-		void clear()noexcept(destruct.nothrow<this_t>&&construct<this_t>.nothrow<>){
-			destruct(this);
-			construct<this_t>[this]();
+		void clear()noexcept(re_construct.nothrow<this_t>){
+			re_construct(this);
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))

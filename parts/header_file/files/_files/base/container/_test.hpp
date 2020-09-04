@@ -10,15 +10,21 @@ inline void test(){
 	stest_entryevent(L"container部分测试");
 	array_n::test();
 	copy_on_write_array_n::test();
+	function_n::test();
+	stack_n::test();
 	stest_exitevent();
 }
 inline void test_log_out(){
 	array_n::test_log_out();
 	copy_on_write_array_n::test_log_out();
+	function_n::test_log_out();
+	stack_n::test_log_out();
 }
 inline void test_end(){
 	array_n::test_end();
 	copy_on_write_array_n::test_end();
+	function_n::test_end();
+	stack_n::test_end();
 }
 
 //file_end

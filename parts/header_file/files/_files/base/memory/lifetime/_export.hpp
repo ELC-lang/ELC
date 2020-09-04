@@ -9,12 +9,14 @@
 #define export using lifetime_n::
 export construct;
 export destruct;
+export re_construct;
 export copy_assign;
 export move_assign;
 export move;
 export copy;
 export copy_construct;
 export move_construct;
+export equality_comparable;
 #undef export
 
 //file_end

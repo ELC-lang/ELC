@@ -18,14 +18,21 @@ inline void check_memory_lack()noexcept{
 namespace alloc_n{
 	//BLOCK:for debug
 	inline void test(){
-		using ::std::rand;
 		stest_entryevent(L"alloc部分测试");
+		using ::std::time;
+		using ::std::rand;
+		using ::std::srand;
+		srand(time(nullptr));
 		for(int i=rand()%100+40;i--;){
 			int*p=alloc<int>(50);
+			p[0]=72;
+			stest_accert(get_size_of_alloc(p)==50);
 			p[49]=rand();
 			p[19]=666;
 			realloc(p,20);
+			stest_accert(get_size_of_alloc(p)==20);
 			stest_accert(p[19]==666);
+			stest_accert(p[0]==72);
 			free(p);
 		}
 		check_memory_lack();

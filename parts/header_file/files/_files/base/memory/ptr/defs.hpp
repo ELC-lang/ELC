@@ -8,7 +8,7 @@
 */
 namespace ptr_n{
 	#include "ref/_body.hpp"
-	#include "ptr_t/_body.hpp"
+	#include "ptr/_body.hpp"
 }
 
 //file_end

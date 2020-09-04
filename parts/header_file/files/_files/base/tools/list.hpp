@@ -1,5 +1,5 @@
 //list.hpp
-//at namespace elc::defs::base::list_n
+//at namespace elc::defs::base
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -11,7 +11,6 @@
 	同时，此项目并没有完成
 */
 //copy from old ELC
-//TODO:move to base/container.
 template<typename T>
 class list_t;
 template<typename T>
@@ -19,7 +18,8 @@ struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>,basic_struct,cont
 	typedef cons_t<T> this_t;
 private:
 	friend list_t<T>;
-	typedef attribute<T,this_t> attribute;
+	friend iterator_t<T,this_t*>;
+	typedef attribute<T,this_t> attribute_t;
 
 	mutable this_t*_before;//为了在析构时修改前一项的next，勿删
 	mutable this_t*_next;
@@ -61,33 +61,19 @@ template<typename T>
 struct list_t:container_struct{
 	typedef list_t<T> this_t;
 	typedef cons_t<T> cons;
-	struct iterator{
-		cons*value;
-		constexpr iterator()noexcept=default;
-		constexpr iterator(cons*a)noexcept:value(a){}
-		constexpr bool operator==(cons*a)const noexcept{return value==a;}
-		constexpr bool operator!=(cons*a)const noexcept{return!operator==(a);}
-		constexpr iterator&operator=(cons*a)&noexcept{value=a;return*this;}
-		constexpr iterator&operator++()&noexcept{return*this=value->get_next();}
-		constexpr iterator&operator--()&noexcept{return*this=value->get_before();}
-		constexpr iterator operator++(int)&noexcept{auto a=*this;operator++();return a;}
-		constexpr iterator operator--(int)&noexcept{auto a=*this;operator--();return a;}
-		constexpr T*operator->()noexcept{return value->get_handle();}
-		constexpr T&operator*()noexcept{return*operator->();}
-		constexpr operator T*()noexcept{return operator->();}
-	};
+	typedef iterator_t<T,cons*>iterator;
 private:
-	cons _begin,end_;
+	cons _begin,_end;
 public:
-	constexpr list_t()noexcept{_begin.bind_with(end_);}
+	constexpr list_t()noexcept{_begin.bind_with(_end);}
 	constexpr inline void add(cons*a)noexcept{
-		a->insert_to_before(&end_);
+		a->insert_to_before(&_end);
 	}
 	[[nodiscard]]constexpr iterator begin()noexcept{return _begin.get_next();}//这叫头迭代器
-	[[nodiscard]]constexpr iterator end()noexcept{return&end_;}//这叫超尾迭代器
+	[[nodiscard]]constexpr iterator end()noexcept{return&_end;}//这叫超尾迭代器
 	[[nodiscard]]constexpr iterator head()noexcept{return&_begin;}//。。。。这个大概就是超头迭代器了😂
-	[[nodiscard]]constexpr bool empty()const noexcept{return _begin.get_next()==&end_;}
+	[[nodiscard]]constexpr bool empty()const noexcept{return _begin.get_next()==&_end;}
 };
 
-//fileend_
+//file_end
 

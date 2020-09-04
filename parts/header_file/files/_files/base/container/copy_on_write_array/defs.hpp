@@ -13,7 +13,7 @@ namespace copy_on_write_array_n{
 		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;
 
-		struct data_t:array_t<T>,ref_able<data_t>,build_by_get_only,force_use_default_null_ptr{
+		struct data_t:array_t<T>,ref_able<data_t>,build_by_get_only,never_in_array<data_t>,force_use_default_null_ptr{
 			typedef array_t<T>base_t;
 			using base_t::base_t;
 
@@ -31,6 +31,7 @@ namespace copy_on_write_array_n{
 	public:
 		copy_on_write_array_t()noexcept:_m(get<data_t>()){}
 		explicit copy_on_write_array_t(note::size_t<size_t>size)noexcept(get<data_t>.nothrow<size_t>):_m(get<data_t>(size.value)){}
+		copy_on_write_array_t(const ::std::initializer_list<T>&init_list)noexcept(get<data_t>.nothrow<const ::std::initializer_list<T>&>):_m(get<data_t>(init_list)){}
 		~copy_on_write_array_t()noexcept_as(declvalue(ptr_t).~ptr_t())=default;
 
 		copy_on_write_array_t(const this_t&)noexcept=default;
@@ -38,10 +39,10 @@ namespace copy_on_write_array_n{
 		this_t&operator=(const this_t&)noexcept(ptr_t::reset_nothrow)=default;
 		this_t&operator=(this_t&&)noexcept(ptr_t::reset_nothrow)=default;
 
-		void swap(this_t&a)noexcept{_m.swap(a._m);}
-		void swap(base_t_w&a)noexcept(check_nothrow){
+		void swap_with(this_t&a)noexcept{_m.swap_with(a._m);}
+		void swap_with(base_t_w&a)noexcept(check_nothrow){
 			copy_check();
-			a.swap(*_m);
+			a.swap_with(*_m);
 		}
 		this_t&operator=(const base_t_w&a)&noexcept(check_nothrow){
 			copy_check();
@@ -68,6 +69,58 @@ namespace copy_on_write_array_n{
 			_m->resize(size);
 		}
 
+	private:
+		struct base_iterator_t{
+			this_t*_ptr;
+			size_t _size;
+
+			[[nodiscard]]T*get_handle()noexcept(check_nothrow){
+				return (*_ptr)[_size];
+			}
+			[[nodiscard]]base_iterator_t next_getter(){
+				return {_ptr,_size+1};
+			}
+			[[nodiscard]]base_iterator_t before_getter(){
+				return {_ptr,_size-1};
+			}
+		};
+		struct base_const_iterator_t{
+			const this_t*_ptr;
+			size_t _size;
+
+			constexpr base_const_iterator_t(const this_t*a,size_t b)noexcept:_ptr(a),_size(b){}
+			constexpr base_const_iterator_t(const base_const_iterator_t&)noexcept=default;
+			constexpr base_const_iterator_t(base_iterator_t&a)noexcept:_ptr(a._ptr),_size(a._size){}
+			[[nodiscard]]const T*get_handle()noexcept{
+				return (*_ptr)[_size];
+			}
+			[[nodiscard]]base_const_iterator_t next_getter(){
+				return {_ptr,_size+1};
+			}
+			[[nodiscard]]base_const_iterator_t before_getter(){
+				return {_ptr,_size-1};
+			}
+		};
+	public:
+		typedef iterator_t<T,base_iterator_t>iterator;
+		typedef iterator_t<const T,base_const_iterator_t>const_iterator;
+
+		[[nodiscard]]constexpr iterator get_iterator_at(size_t a)noexcept{
+			return {this,a};
+		}
+		[[nodiscard]]constexpr iterator begin()noexcept{
+			return iteratorget_iterator_at(zero);
+		}
+		[[nodiscard]]iterator end()noexcept{
+			return iteratorget_iterator_at(size());
+		}
+		[[nodiscard]]const_iterator cbegin()const noexcept{
+			return const_cast<this_t*>(this)->begin();
+		}
+		[[nodiscard]]const_iterator cend()const noexcept{
+			return const_cast<this_t*>(this)->end();
+		}
+
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
 		void for_each(func_t&&func)noexcept(check_nothrow&&noexcept(expr)){
@@ -88,11 +141,11 @@ namespace copy_on_write_array_n{
 		#undef expr
 	};
 	template<typename T>
-	inline void swap(copy_on_write_array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(copy_on_write_array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{a.swap_with(b);}
 	template<typename T>
-	inline void swap(array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{b.swap(a);}
+	inline void swap(array_t<T>&a,copy_on_write_array_t<T>&b)noexcept{b.swap_with(a);}
 	template<typename T>
-	inline void swap(copy_on_write_array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(copy_on_write_array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 }
 
 //file_end

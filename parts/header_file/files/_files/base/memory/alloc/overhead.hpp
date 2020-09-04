@@ -9,9 +9,10 @@
 namespace overhead_n{
 	template<class T>
 	struct overhead_helper_t{
-		constexpr static size_t align=max(alignof(T),alignof(size_t));
-		constexpr static size_t _r=size_t(sizeof(size_t)/align)+bool(sizeof(size_t)%align);
-		constexpr static size_t offset_value=_r*align;
+		constexpr static size_t align=max(alignof(T),alignof(size_t));//保证最高对齐需求
+		constexpr static size_t offset_value=(size_t(sizeof(size_t)/align)+bool(sizeof(size_t)%align))*align;//等同于sizeof(size_t)-sizeof(size_t)%align+(sizeof(size_t)%align?align:0)
+		//暨，偏移量既要大于sizeof(size_t)以装下overhead，又要是align的整数倍以保证T实例的对齐被满足
+		static_assert(offset_value >= sizeof(size_t));
 	};
 	template<class T>
 	constexpr overhead_helper_t<T>overhead_helper{};

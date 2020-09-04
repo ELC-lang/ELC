@@ -7,8 +7,14 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace ptr_n{
+	struct tester:ref_able<tester>,weak_ref_able<tester>,build_by_get_only{};
 	inline void test(){
 		stest_entryevent(L"ptr部分测试");
+		{
+			comn_ptr_t a=get<tester>();
+			weak_ptr_t b=a;
+		}
+		check_memory_lack();
 		stest_exitevent();
 	}
 	inline void test_log_out(){

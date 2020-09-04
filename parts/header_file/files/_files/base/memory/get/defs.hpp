@@ -22,6 +22,10 @@ namespace get_n{
 		T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
+		template<class...Args,enable_if(able<Args...>)>
+		T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+			return construct<T>[alloc<T>()].init_list_construct(forward<Args>(rest)...);
+		}
 		struct array_get_t{
 			size_t _size;
 			template<class...Args,enable_if(able<Args...>)>
@@ -29,6 +33,12 @@ namespace get_n{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
+			}
+			template<class...Args,enable_if(able<Args...>)>
+			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t get an array for never_in_array type.");
+				return construct<T>[alloc<T>(_size)][_size].init_list_construct(forward<Args>(rest)...);
 			}
 		};
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
@@ -45,9 +55,24 @@ namespace get_n{
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
-				if constexpr(!destruct.nothrow<T>)
+				if constexpr(!destruct.nothrow<T>){
 					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-				destruct(a,get_size_of_alloc(a));
+					try{
+						destruct(a,get_size_of_alloc(a));
+					}catch(...){
+						free(a);
+						throw;
+					}
+				}else{
+					destruct(a,get_size_of_alloc(a));
+				}
+				free(a);
+			}
+		}
+		/*适用于unget(this,not destruct);*/
+		template<typename T,enable_if(able<T>)>
+		void operator()(T*a,decltype(destruct)::not_t)const noexcept(nothrow<T>){
+			if(a!=null_ptr){
 				free(a);
 			}
 		}
@@ -78,10 +103,16 @@ namespace get_n{
 					if constexpr(move.trivial<T>)
 						realloc(arg,to_size);
 					else{
-						if constexpr(!move.nothrow<T>)
-							template_warning("the move of T was not noexcept,this may cause memory lack.");
 						T*tmp=alloc<T>(to_size);
-						move[from_size](note::from(arg),note::to(tmp));
+						if constexpr(!move.nothrow<T>){
+							template_warning("the move of T was not noexcept,this may cause memory lack.");
+							try{
+								move[from_size](note::from(arg),note::to(tmp));
+							}catch(...){
+								free(tmp);
+								throw;
+							}
+						}
 						free(arg);
 						arg=tmp;
 					}
