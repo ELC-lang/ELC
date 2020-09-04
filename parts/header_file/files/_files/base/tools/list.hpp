@@ -5,16 +5,12 @@
 由steve02081504与Alex0125设计、编写
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
-
-注意：
-	本文件可能使用了cpp20的新支持或语义，而某些编译器可能并没有支持
-	同时，此项目并没有完成
 */
 //copy from old ELC
 template<typename T>
 class list_t;
 template<typename T>
-struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>,basic_struct,container_struct{
+struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>{
 	typedef cons_t<T> this_t;
 private:
 	friend list_t<T>;
@@ -58,7 +54,7 @@ public:
 	}
 };
 template<typename T>
-struct list_t:container_struct{
+struct list_t{
 	typedef list_t<T> this_t;
 	typedef cons_t<T> cons;
 	typedef iterator_t<T,cons*>iterator;

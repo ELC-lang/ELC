@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct logical_bool:data_struct{
+struct logical_bool{
 	typedef byte base_t;
 private:
 	base_t _value;

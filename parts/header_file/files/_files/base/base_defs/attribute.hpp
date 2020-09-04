@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<class T,typename attribute_name>
-struct attribute:basic_struct{
+struct attribute{
 protected:
 	friend T*get_handle(attribute<T,attribute_name>*a);
 	constexpr T*get_handle()noexcept{return static_cast<T*>(static_cast<attribute_name*>(this));}

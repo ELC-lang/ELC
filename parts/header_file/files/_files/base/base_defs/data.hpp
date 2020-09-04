@@ -11,7 +11,7 @@ template<class T>
 [[nodiscard]]constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
 
 template<class...Ts>
-struct data_block:non_copyable,non_moveable,container_struct{
+struct data_block:non_copyable,non_moveable{
 	alignas(max({alignof(Ts)...}))
 	byte _data[max({sizeof(Ts)...})];
 	constexpr operator byte*(){return _data;}

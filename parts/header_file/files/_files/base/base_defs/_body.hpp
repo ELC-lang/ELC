@@ -11,7 +11,6 @@
 #include "magic_number.hpp"
 #include "using_std.hpp"
 
-#include "adjectival_structs.hpp"
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
 #include "equal.hpp"

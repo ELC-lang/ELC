@@ -12,7 +12,7 @@ namespace copy_on_write_array_n{
 }
 namespace array_n{
 	template<typename T>
-	class array_t:container_struct{
+	class array_t{
 		typedef array_t<T>this_t;
 		T*_m;
 		constexpr array_t(T*a):_m(a){}
