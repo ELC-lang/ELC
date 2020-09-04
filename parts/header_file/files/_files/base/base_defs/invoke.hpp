@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-struct invoke_t:constexpr_struct,helper_struct{
+struct invoke_t{
 	template<class...Args>
 	static constexpr bool able= ::std::is_invocable_v<T,Args...>;
 	template<class...Args>

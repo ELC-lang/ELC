@@ -8,7 +8,7 @@
 */
 
 #define defspecflag(name)\
-constexpr struct name##_t:flag_struct{} name{}
+constexpr struct name##_t{} name{}
 
 defspecflag(never_ref_num_zero);
 defspecflag(special_init);

@@ -8,7 +8,7 @@
 */
 namespace iterator_n{
 	template<typename value_t,typename base_t=value_t*>
-	class iterator_t:helper_struct{
+	class iterator_t{
 		template<typename,typename>
 		friend class iterator_t;
 

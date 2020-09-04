@@ -8,7 +8,7 @@
 */
 enum mark_type:bool{marked=true,not_mark=false};
 template<typename T>
-class mark_able:basic_struct,non_copyable,non_moveable{
+class mark_able:non_copyable,non_moveable{
 	mutable flag _m;
 public:
 	explicit constexpr mark_able(mark_type a=not_mark)noexcept:_m(a==not_mark?not_set:seted){};

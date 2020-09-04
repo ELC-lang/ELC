@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-constexpr struct min_t:helper_struct,functionlike_struct,constexpr_struct{
+constexpr struct min_t{
 	template<class...Args,enable_if_not_ill_form(::std::min(declvalue(Args)...))>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::min(rest...);
@@ -16,7 +16,7 @@ constexpr struct min_t:helper_struct,functionlike_struct,constexpr_struct{
 		return ::std::numeric_limits<T>::min();
 	}
 }min{};
-constexpr struct max_t:helper_struct,functionlike_struct,constexpr_struct{
+constexpr struct max_t{
 	template<class...Args,enable_if_not_ill_form(::std::max(declvalue(Args)...))>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::max(rest...);

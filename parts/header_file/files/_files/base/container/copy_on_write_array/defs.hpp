@@ -8,7 +8,7 @@
 */
 namespace copy_on_write_array_n{
 	template<typename T>
-	class copy_on_write_array_t:container_struct{
+	class copy_on_write_array_t{
 		static_assert(copy_construct.able<T>,"this type can\'t copy construct.");
 		typedef array_t<T>base_t_w;
 		typedef copy_on_write_array_t<T>this_t;
@@ -21,6 +21,7 @@ namespace copy_on_write_array_n{
 		};
 		typedef comn_ptr_t<data_t>ptr_t;
 
+	protected:
 		ptr_t _m;
 
 		static constexpr bool check_nothrow=noexcept(declvalue(ptr_t&)=get<data_t>(*declvalue(ptr_t)));
@@ -51,6 +52,9 @@ namespace copy_on_write_array_n{
 		}
 		operator base_t_w&()noexcept(check_nothrow){
 			copy_check();
+			return*_m;
+		}
+		operator const base_t_w&()const noexcept{
 			return*_m;
 		}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}

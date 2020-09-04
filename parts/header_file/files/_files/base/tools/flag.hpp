@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 enum flag_set_type:bool{seted=true,not_set=false};
-class flag:data_struct{
+class flag{
 	bool _m;
 public:
 	explicit constexpr flag(flag_set_type a=not_set)noexcept:_m(a){}
