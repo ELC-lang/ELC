@@ -62,11 +62,35 @@ public:
 	[[nodiscard]]explicit operator hash_t()const noexcept{return hash(*_m);}
 	[[nodiscard]]bool operator==(const this_t&a)const noexcept(unget.nothrow<T>){
 		if(get()==a.get()){
-			const_cast<this_t>(this)->_data=a._data;//合并数据块以减少空间损耗
+			const_cast<this_t>(this)->_m=a._m;//合并数据块以减少空间损耗
 			return true;
 		}else
 			return false;
 	}
+	template<class index_t,enable_if_not_ill_form(declvalue(base_t_w)[declvalue(index_t)])>
+	[[nodiscard]]auto&operator[](index_t index)noexcept(check_nothrow){
+		copy_check();
+		return(*_m)[index];
+	}
+	template<class index_t,enable_if_not_ill_form(declvalue(const base_t_w)[declvalue(index_t)])>
+	[[nodiscard]]auto&operator[](index_t index)const noexcept{
+		return(*_m)[index];
+	}
+	template<enable_if_not_ill_form(declvalue(const base_t_w).size())>
+	auto size()const noexcept_as(declvalue(const base_t_w).size()){
+		return _m->size();
+	}
+	template<class resize_t,enable_if_not_ill_form(declvalue(base_t_w).resize(declvalue(resize_t)))>
+	void resize(resize_t size)noexcept(check_nothrow&&noexcept(declvalue(base_t_w).resize(declvalue(resize_t)))){
+		copy_check();
+		_m->resize(size);
+	}
+	template<typename T>
+	friend inline void swap(this_t&a,this_t&b)noexcept{a.swap_with(b);}
+	template<typename T>
+	inline void swap(base_t_w&a,this_t&b)noexcept{b.swap_with(a);}
+	template<typename T>
+	inline void swap(this_t&a,base_t_w&b)noexcept{a.swap_with(b);}
 }
 
 //file_end
