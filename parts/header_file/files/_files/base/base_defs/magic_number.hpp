@@ -18,23 +18,57 @@ namespace magic_number{
 	template<class T,enable_if(::std::is_integral_v<T>)>
 	[[nodiscard]]constexpr bool is_prime_num(T a)
 	{
+		/*
+		应某人的要求补注释(都是主人的任务罢了).
+		*/
 		if(a/4<1)
 			return 1;//1和0也是prime,我不管.
-		if((a%6-1)%4)
+		/*
+		当x≥1,那么≥5的自然数如下:
+		6x-1 6x 6x+1 6x+2 6x+3 6x+4
+		6(x+1)-1 6(x+1) 6(x+1)+1 ... //这已经是下一周期了.
+		
+		考虑单个周期:
+		6x+2 6x+3 6x+4 是 2(3x+1) 3(2x+1) 2(3x+2),排除.
+		6x,排除.
+		那么,只用考虑6x±1是否是prime.
+		*/
+		if((::std::abs(a%6)-1)%4)
 			return 0;
-		auto b=::std::sqrt(a);
-		for(int c=5;c<=b;c+=6)
+		auto b=::std::sqrt(a);//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
+		/*
+		接下来:
+		设要判定的数n(6x±1的缩写).
+		测试数可以看为6i-1 6i 6i+1 6i+2 6i+3 6i+4的其中之一,同样以6为周期.
+		对于测试数的整个周期,其中:
+			如果n能被6i 6i+2 6i+4整除:则n要是偶数,但±1,排除.
+			如果n能被6i+3整除:则n要是3倍数,但±1,排除.
+		综上,循环中只要考虑6i±1的情况.
+		所以以5起始,前进6(自然选择号,前进4!),逐次判断0与+2.
+		虽然很想写成以6为起始逐次判断±1的对称格式但是这样会加重时空负担.(不甘心.....)
+		*/
+		for(int c=5;c<=b;c+=6)//遍历判断是否能被因数分解——不会有人看不懂吧?
 			if((!(a%c))||(!(a%(c+2))))
 				return 0;
+		/*
+		最后,为什么是6?
+		就结论来说,此数值选择最常出现的两因数(除0或1外.)之积可以最大程度减少时间占用.
+		所以虽然更喜欢7/8/9之类的数不过使用6收益最大.
+		要不是这样早就写成7了.
+		*/
 		return 1;
+		/*
+		因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
+		*/
 	}
 	template<class T,enable_if(::std::is_integral_v<T>)>
-	[[nodiscard]]constexpr size_t get_prime_num_big_or_eq_than(T a){
+	[[nodiscard]]constexpr T get_prime_num_big_or_eq_than(T a){
 		while(!is_prime_num(a))
 			a++;
+		return a;
 	}
 	[[nodiscard]]constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
-		return size_t(get_prime_num_big_or_eq_than(size*magic_number::gold_of_resize));
+		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
 	}
 }
 
