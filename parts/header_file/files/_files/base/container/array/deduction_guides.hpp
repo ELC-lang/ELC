@@ -11,8 +11,6 @@ namespace array_n{
 	array_t(T,U...) -> array_t<T>;
 	template <class T>
 	array_t(array_t<T>) -> array_t<T>;
-	template <class T>
-	array_t(copy_on_write_array_n::copy_on_write_array_t<T>) -> array_t<T>;
 }
 
 //file_end
