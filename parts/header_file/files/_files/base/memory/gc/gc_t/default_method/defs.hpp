@@ -58,15 +58,6 @@ namespace default_gc_for_type{
 			return count_for_success_identify<T> _big_than_ the_number_of(info);
 		}
 	}
-	template<class T>
-	auto have_default_gc_success_identifier_helper(int) -> decltype(
-		default_gc_success_identifier<T>(),
-		::std::true_type{});
-	template<class>
-	auto have_default_gc_success_identifier_helper(...) -> ::std::false_type;
-
-	template<class T>
-	inline constexpr bool have_default_gc_success_identifier = decltype(have_default_gc_success_identifier_helper<T>(0))::value;
 }
 using default_gc_for_type::have_default_gc_success_identifier;
 template<class T,enable_if_not_ill_form(default_gc_for_type::default_gc_method<T>())>
