@@ -23,7 +23,7 @@ namespace hash_table_n{
 		}
 		void bucket_count_grow()noexcept{
 			base_t_w tmp;
-			tmp.resize(size_t(this->_m.size()*magic_number::gold_of_resize));
+			tmp.resize(get_next_gold_size_to_resize_for_hash(this->_m.size()));
 			_m.for_each(lambda_with_catch(&tmp)(bucket_t&a)noexcept{
 				while(!a.empty())
 					a.move_top_to(tmp.find_bucket(a.get_top_hash()));
@@ -35,7 +35,7 @@ namespace hash_table_n{
 			return{_m};
 		}
 	public:
-		hash_table_t():_m(2){}
+		hash_table_t():_m(5){}
 		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
 
 		operator base_t_w&()noexcept{return _m;}

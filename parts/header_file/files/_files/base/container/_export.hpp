@@ -9,7 +9,7 @@
 #define export using container::
 export function_t;
 export array_t;
-export copy_on_write_array_t;
+export copy_on_write_t;
 export auto_stack_t;
 export base_stack_t;
 export hash_table_t;
