@@ -9,6 +9,8 @@
 #include <ala>
 //*/
 
+#include <type_traits>
+#include <cstdlib>
 namespace std{//cpp20还未实现，占位。
 	template<size_t N,class T>
 	[[nodiscard]]constexpr T*assume_aligned(T*ptr){return ptr;}
