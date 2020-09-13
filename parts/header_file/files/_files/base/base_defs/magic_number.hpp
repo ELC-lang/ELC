@@ -74,7 +74,7 @@ namespace magic_number{
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
 		*/
-		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
+		return size_t(get_prime_num_big_or_eq_than(size_t(size*gold_of_resize)));
 	}
 }
 
