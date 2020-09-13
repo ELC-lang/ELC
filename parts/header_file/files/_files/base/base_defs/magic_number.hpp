@@ -16,13 +16,17 @@ namespace magic_number{
 
 	constexpr auto god=72;//神已死,神万岁.
 
-	template<class T,enable_if(::std::is_integral_v<T>)>
-	[[nodiscard]]constexpr bool is_prime_num(T a)
+	template<class T,enable_if(::std::is_arithmetic_v<T>)>
+	[[nodiscard]]inline constexpr bool is_prime_num(T a)
 	{
 		/*
 		应某人的要求补注释(都是主人的任务罢了.).
 		*/
 		a = ::std:abs(a);
+		if constexpr(::std::is_floating_point_v<T>)
+		    if(a%1)
+		        return 0;
+
 		if(a/4<1)
 			return 1;//1和0也是prime,我不管.
 		/*
@@ -63,18 +67,20 @@ namespace magic_number{
 		因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
 		*/
 	}
-	template<class T,enable_if(::std::is_integral_v<T>)>
-	[[nodiscard]]constexpr T get_prime_num_big_or_eq_than(T a){
+	template<class T,enable_if(::std::is_arithmetic_v<T>)>
+	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
+		if constexpr(::std::is_floating_point_v<T>)
+		    a-=a%1;
 		while(!is_prime_num(a))
 			a++;
 		return a;
 	}
-	[[nodiscard]]constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
+	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
 		/*
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
 		*/
-		return size_t(get_prime_num_big_or_eq_than(size_t(size*gold_of_resize)));
+		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
 	}
 }
 
