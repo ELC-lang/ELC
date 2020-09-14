@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 struct logical_bool{
-	typedef byte base_t;
+	typedef unsigned char base_t;
 private:
 	base_t _value;
 	//01:false 10:true 00:neither 11:either

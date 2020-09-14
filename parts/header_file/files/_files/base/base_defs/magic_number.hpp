@@ -16,16 +16,13 @@ namespace magic_number{
 
 	constexpr auto god=72;//神已死,神万岁.
 
-	template<class T,enable_if(::std::is_arithmetic_v<T>)>
+	template<class T,enable_if(::std::is_integral_v<T>)>
 	[[nodiscard]]inline constexpr bool is_prime_num(T a)
 	{
 		/*
 		应某人的要求补注释(都是主人的任务罢了.).
 		*/
-		a = ::std:abs(a);
-		if constexpr(::std::is_floating_point_v<T>)
-		    if(a%1)
-		        return 0;
+		a = ::std::abs(a);
 
 		if(a/4<1)
 			return 1;//1和0也是prime,我不管.
@@ -69,11 +66,13 @@ namespace magic_number{
 	}
 	template<class T,enable_if(::std::is_arithmetic_v<T>)>
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
-		if constexpr(::std::is_floating_point_v<T>)
-		    a-=a%1;
-		while(!is_prime_num(a))
-			a++;
-		return a;
+		//if constexpr(::std::is_floating_point_v<T>)
+		    auto b= ::std::llround(a);
+		//else
+		    //auto&b=a;
+		while(!is_prime_num(b))
+			b++;
+		return b;
 	}
 	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
 		/*
