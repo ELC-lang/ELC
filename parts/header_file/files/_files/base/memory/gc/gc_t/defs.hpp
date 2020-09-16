@@ -52,14 +52,12 @@ public:
 	template<class T>
 	inline void add_gc_method(type_info_t<T>)noexcept{
 		add_gc_method(gc_method_of<T>);
-		if constexpr(have_default_gc_success_identifier<T>)
-			add_gc_success_identifier(gc_success_identifier_of<T>);
+		add_gc_success_identifier(gc_success_identifier_of<T>);
 	}
 	template<class T>
 	inline void remove_gc_method(type_info_t<T>)noexcept{
 		remove_gc_method(gc_method_of<T>);
-		if constexpr(have_default_gc_success_identifier<T>)
-			remove_gc_success_identifier(gc_success_identifier_of<T>);
+		remove_gc_success_identifier(gc_success_identifier_of<T>);
 	}
 };
 

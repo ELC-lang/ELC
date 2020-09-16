@@ -23,6 +23,11 @@ namespace array_n{
 			for(const T&v:init_list)
 				copy_construct(note::form(&v),note::to(_m+(index++)));
 		}
+		template<size_t N>
+		array_t(T[N]&a)noexcept(copy_construct.nothrow<T>){
+			_m=alloc<T>[N]();//get==alloc+construct
+			copy_construct[N](note::form(&v),note::to(_m));
+		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
 		}
@@ -60,7 +65,6 @@ namespace array_n{
 		}
 
 		void swap_with(this_t&a)noexcept{
-			using ::elc::defs::swap;
 			swap(_m,a._m);
 		}
 	private:
@@ -69,17 +73,26 @@ namespace array_n{
 			return{copy_get(_m)};
 		}
 	public:
-		array_t(this_t&&a)noexcept:array_t(){swap(a);}
-		this_t&operator=(this_t&&a)&noexcept{
-			swap_with(a);
-			return*this;
-		}
 		#define expr declvalue(this_t).copy()
 		array_t(const this_t&a)noexcept_as(expr):array_t(a.copy()){}
 		this_t&operator=(const this_t&a)&noexcept_as(expr){
 			return operator=(a.copy());
 		}
 		#undef expr
+		array_t(this_t&&a)noexcept:array_t(){swap(a);}
+		this_t&operator=(this_t&&a)&noexcept{
+			swap_with(a);
+			return*this;
+		}
+		template<typename assign_t,enable_if(construct<this_t>.able<assign_t>)>
+		this_t&operator=(assign_t&&a)noexcept(construct<this_t>.nothrow<assign_t>){
+			re_construct(this,forward<assign_t>(a));
+			return*this;
+		}
+
+		void clear()noexcept(re_construct.nothrow<this_t>){
+			re_construct(this);
+		}
 
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
@@ -98,7 +111,7 @@ namespace array_n{
 				func((*this)[asize]);
 		}
 		#undef expr
-		/*
+	
 		void add(T a){
 			resize(size()+1);
 			operator[](size()-1)=a;
@@ -110,16 +123,15 @@ namespace array_n{
 				size_t i=0;
 				this_t&this_e=*this;
 				while(this_e[i++]!=a && i!=size);
-				destruct(&this_e[--i]);
+				destruct(addressof(this_e[--i]));
 				while(++i!=size){
-					copy_construct(note::from(&this_e[i]),note::to(&this_e[i-1]));
+					copy_construct(note::from(addressof(this_e[i])),note::to(addressof(this_e[i-1])));
 					destruct(&this_e[i]);
 				}
-				construct<T>[&this_e[szie-1]]();
+				construct<T>[addressof(this_e[szie-1])]();
 				resize(size-1);
 			}
 		}
-		*/
 	};
 	template<typename T>
 	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}

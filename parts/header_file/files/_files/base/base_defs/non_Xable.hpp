@@ -22,7 +22,7 @@ struct non_copy_construct_able{
 	constexpr non_copy_construct_able(non_copy_construct_able&)=delete;
 	constexpr non_copy_construct_able(non_copy_construct_able&&)=default;
 };
-struct non_move_construct_able:{
+struct non_move_construct_able{
 	constexpr non_move_construct_able()=default;
 	constexpr non_move_construct_able(non_move_construct_able&)=default;
 	constexpr non_move_construct_able(non_move_construct_able&&)=delete;
