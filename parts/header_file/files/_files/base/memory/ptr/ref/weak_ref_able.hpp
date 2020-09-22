@@ -17,7 +17,7 @@ public:
 			template_error("base on ref_able before base on weak_ref_able,please.");
 		T*this_T=const_cast<T*>(attribute::get_handle());
 		if(base_t::cut_ref())
-			if(ref_num_is_zero(this_T))
+			if(get_ref_num(this_T)==0)
 				destroy_and_free(this_T);
 	}
 };
