@@ -8,7 +8,7 @@
 */
 namespace array_n{
 	template<typename T>
-	class array_t:container_struct{
+	class array_t{
 		typedef array_t<T>this_t;
 		T*_m;
 		constexpr array_t(T*a):_m(a){}
@@ -16,6 +16,17 @@ namespace array_n{
 		constexpr array_t():_m(null_ptr){}
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
+		}
+		array_t(const ::std::initializer_list<T>&init_list)noexcept(copy_construct.nothrow<T>){
+			_m=alloc<T>[init_list.size()]();//get==alloc+construct
+			size_t index=0;
+			for(const T&v:init_list)
+				copy_construct(note::form(&v),note::to(_m+(index++)));
+		}
+		template<size_t N>
+		array_t(T[N]&a)noexcept(copy_construct.nothrow<T>){
+			_m=alloc<T>[N]();//get==alloc+construct
+			copy_construct[N](note::form(&v),note::to(_m));
 		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
@@ -30,12 +41,30 @@ namespace array_n{
 		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m);}
 
+		typedef iterator_t<T>iterator;
+		typedef iterator_t<const T>const_iterator;
+
+		[[nodiscard]]constexpr iterator get_iterator_at(size_t a)noexcept{
+			return _m+a;
+		}
+		[[nodiscard]]constexpr iterator begin()noexcept{
+			return iteratorget_iterator_at(zero);
+		}
+		[[nodiscard]]iterator end()noexcept{
+			return iteratorget_iterator_at(size());
+		}
+		[[nodiscard]]const_iterator cbegin()const noexcept{
+			return const_cast<this_t*>(this)->begin();
+		}
+		[[nodiscard]]const_iterator cend()const noexcept{
+			return const_cast<this_t*>(this)->end();
+		}
+
 		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;
 		}
 
-		void swap(this_t&a)noexcept{
-			using elc::defs::swap;
+		void swap_with(this_t&a)noexcept{
 			swap(_m,a._m);
 		}
 	private:
@@ -44,17 +73,26 @@ namespace array_n{
 			return{copy_get(_m)};
 		}
 	public:
-		array_t(this_t&&a):array_t()noexcept{swap(a);}
-		this_t&operator=(this_t&&a)&noexcept{
-			swap(a);
-			return*this;
-		}
 		#define expr declvalue(this_t).copy()
 		array_t(const this_t&a)noexcept_as(expr):array_t(a.copy()){}
 		this_t&operator=(const this_t&a)&noexcept_as(expr){
 			return operator=(a.copy());
 		}
 		#undef expr
+		array_t(this_t&&a)noexcept:array_t(){swap(a);}
+		this_t&operator=(this_t&&a)&noexcept{
+			swap_with(a);
+			return*this;
+		}
+		template<typename assign_t,enable_if(construct<this_t>.able<assign_t>)>
+		this_t&operator=(assign_t&&a)noexcept(construct<this_t>.nothrow<assign_t>){
+			re_construct(this,forward<assign_t>(a));
+			return*this;
+		}
+
+		void clear()noexcept(re_construct.nothrow<this_t>){
+			re_construct(this);
+		}
 
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t,enable_if_not_ill_form(expr)>
@@ -73,7 +111,7 @@ namespace array_n{
 				func((*this)[asize]);
 		}
 		#undef expr
-		/*
+	
 		void add(T a){
 			resize(size()+1);
 			operator[](size()-1)=a;
@@ -85,19 +123,18 @@ namespace array_n{
 				size_t i=0;
 				this_t&this_e=*this;
 				while(this_e[i++]!=a && i!=size);
-				destruct(&this_e[--i]);
+				destruct(addressof(this_e[--i]));
 				while(++i!=size){
-					copy_construct(note::from(&this_e[i]),note::to(&this_e[i-1]));
+					copy_construct(note::from(addressof(this_e[i])),note::to(addressof(this_e[i-1])));
 					destruct(&this_e[i]);
 				}
-				construct<T>[&this_e[szie-1]]();
+				construct<T>[addressof(this_e[szie-1])]();
 				resize(size-1);
 			}
 		}
-		*/
 	};
 	template<typename T>
-	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap(b);}
+	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 }
 
 //file_end

@@ -56,9 +56,8 @@ public:
 			unget(tmp);
 		}
 	}
-	void clear()noexcept(destruct.nothrow<this_t>&&construct<this_t>.nothrow<>){
-		destruct(this);
-		construct<this_t>[this]();
+	void clear()noexcept(re_construct.nothrow<this_t>){
+		re_construct(this);
 	}
 	[[nodiscard]]bool empty()const noexcept{
 		return _m==null_ptr;
@@ -84,24 +83,21 @@ public:
 	}
 
 	static constexpr bool add_nothrow=noexcept(get<data_t>(declvalue(const T&),declvalue(data_t*)));
-	size_t add(const T&a)noexcept(add_nothrow){
+	void add(const T&a)noexcept(add_nothrow){
 		_m=get<data_t>(a,_m);
 		_size++;
-		return size();
 	}
 
 	static constexpr bool remove_nothrow=unget.nothrow<data_t>;
-	size_t remove(const T&a)noexcept(unget.nothrow<data_t>){
+	bool remove(const T&a)noexcept(remove_nothrow){//返回值：是否成功移除（容器里是否有此T）
 		data_t*tmp=_m,**tmp_=&_m;
-		size_t size=0;
 		while(tmp!=null_ptr){
-			size++;
 			if(a==tmp->_data){
 				_size--;
 				data_t*remove_p=tmp;
 				*tmp_=tmp->_next;
 				unget(tmp);
-				return size;
+				return 1;
 			}
 			tmp_=&tmp->_next;
 			tmp=*tmp_;

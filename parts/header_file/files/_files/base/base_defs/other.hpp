@@ -6,10 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-class empty_type:elc_struct{};
+class empty_type{};
 
 template<typename T>
-inline T&assign(T&a,const T b)noexcept_as(declvalue(T&)=declvalue(const T)){//为绕过条件内赋值时の警告而使用
+inline T&assign(T&a,const T&b)noexcept_as(declvalue(T&)=declvalue(const T&)){//为绕过条件内赋值时の警告而使用
 	a=b;
 	return a;
 }
@@ -36,23 +36,22 @@ public:
 };
 
 template<typename T>
-static void destroy(T*a)noexcept_as(declvalue(T).replace(null_ptr)){//default destroy
+static void destroy(T*a)noexcept(
+									type_info<T>.has_attribute(replace_able)?
+										noexcept(declvalue(T).be_replace_as(null_ptr)):
+									type_info<T>.has_attribute(build_by_get_only)&&
+									type_info<T>.has_attribute(never_in_array)?
+										unget.nothrow<T>:
+								0){//default destroy
 	if constexpr(type_info<T>.has_attribute(replace_able)){
-		//(replace_able<T>*)(a)->replace(null_ptr);//×
-		a->replace(null_ptr);//允许覆写replace方法√
-	}elseif(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array)){
+		//(replace_able<T>*)(a)->be_replace_as(null_ptr);//×
+		a->be_replace_as(null_ptr);//允许覆写replace方法√
+	}elseif constexpr(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array)){
 		unget(a);
 	}else{
-		template_error("Please overload the function special_destroy in the namespace where this type is defined.");
+		template_error("Please overload the function destroy in the namespace where this type is defined.");
 	}
 }
-
-/*
-typedef int64_t elint;
-typedef double elfloat;
-typedef uint64_t eluint;
-static_assert(sizeof(elfloat)==sizeof(elint),"size error");
-*/
 
 //file_end
 

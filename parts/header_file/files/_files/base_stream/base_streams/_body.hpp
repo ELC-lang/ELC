@@ -8,34 +8,30 @@
 */
 enum seek_type{beg,end,cur};
 struct base_stream{
-	virtual ~base_stream()=0;
-	virtual void*seek(seek_type,elint)=0;
+	virtual ~base_stream()=default;
+	virtual void*seek(seek_type,int_t)=0;
 	virtual void*tell(){return this->seek(cur,0);}
 	virtual void seek_to(void*)=0;
 	virtual void sync()=0;
 };
-base_stream::~base_stream(){}
 struct base_ostream:virtual base_stream{
-	virtual ~base_ostream()=0;
+	virtual ~base_ostream()=default;
 	virtual void write(const void*buf,size_t size)=0;
 };
-base_ostream::~base_ostream(){}
 struct base_istream:virtual base_stream{
-	virtual ~base_istream()=0;
+	virtual ~base_istream()=default;
 	virtual size_t read(void*buf,size_t size)=0;
 };
-base_istream::~base_istream(){}
 struct base_iostream:virtual base_istream,virtual base_ostream{};
 
 
 struct noexcept_stream:virtual base_ostream{
-	virtual ~noexcept_stream()noexcept override=0;
-	virtual void*seek(seek_type,elint)noexcept override=0;
+	virtual ~noexcept_stream()noexcept override=default;
+	virtual void*seek(seek_type,int_t)noexcept override=0;
 	virtual void*tell()noexcept override{return this->seek(cur,0);}
 	virtual void seek_to(void*)noexcept override=0;
 	virtual void sync()noexcept override=0;
 };
-noexcept_stream::~noexcept_stream()noexcept{}
 struct noexcept_ostream:virtual base_ostream,virtual noexcept_stream{
 	virtual void write(const void*buf,size_t size)noexcept override=0;
 };

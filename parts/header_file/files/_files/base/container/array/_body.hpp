@@ -7,6 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "defs.hpp"
+#include "deduction_guides.hpp"
 #include "_export.hpp"
 #if defined(ELC_TEST_ON)
 	#include "_test.hpp"

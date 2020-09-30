@@ -12,10 +12,10 @@ void waiting_for_destroy(T*)noexcept{
 }
 template<typename T>
 void destroy_and_free(T*a)noexcept{
-	if constexpr(type_info<T>.base_on<build_by_get_only>)
+	if constexpr(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array))
 		unget(a);
 	else
-		template_error("please overload the function special_destroy in the namespace where this type is defined.");
+		template_error("please overload the function destroy_and_free in the namespace where this type is defined.");
 }
 //
 template<typename T>

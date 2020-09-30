@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-struct mark_able_for_gc:mark_able<T>,helper_struct{};
+struct mark_able_for_gc:mark_able<T>{};
 
 //file_end
 

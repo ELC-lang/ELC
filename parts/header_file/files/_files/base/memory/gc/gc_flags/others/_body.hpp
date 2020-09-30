@@ -6,9 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-def_attribute_with_nothing(can_shrink);
-def_attribute_with_nothing(can_map_all);
-//def_attribute_with_nothing(build_by_get_only);
+def_common_attribute_with_nothing(can_shrink);
+def_common_attribute_with_nothing(can_map_all);
 
 //file_end
 
