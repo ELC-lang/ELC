@@ -22,9 +22,9 @@ namespace magic_number{
 		/*
 		应某人的要求补注释(都是主人的任务罢了.).
 		*/
-		a = ::std::abs(a);
+		a=::std::abs(a);
 
-		if(a/4<1)
+		if(a<4)
 			return 1;//1和0也是prime,我不管.
 		/*
 		当x≥1,那么≥5的自然数如下:
