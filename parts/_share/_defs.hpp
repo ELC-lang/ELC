@@ -28,8 +28,6 @@
 #define noexcept_as_auto MAGIC//哦现在有了
 #define constexpr_as(...) MAGIC constexpr//( •̀ ω •́ )✌
 #define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌
-#define is_not_function(...) (not is_function(__VA_ARGS__))
-#define is_function(...) ::std::is_function_v<__VA_ARGS__>
 
 #define using_method_from_base_t(name) \
 template<class...Args,enable_if_not_ill_form(declvalue(base_t).name(declvalue(Args)...))>\
@@ -84,11 +82,14 @@ class name{}\
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
 /*若参数为病式，那么此模板不会实例化*/
 #define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
+/*用于模板声明*/
 #define enable_flag class enable_state
 
 #define was_an_ill_form(...) MAGIC//这个表达式应当返回一个bool，现在它做到了
 
+/*让lambda定义更加美观*/
 #define lambda []
+/*让lambda定义更加美观*/
 #define lambda_with_catch(...) [__VA_ARGS__]
 
 #define MAGIC//ahh,ko no tenno da!
