@@ -13,8 +13,11 @@
 #endif
 //
 
+/*延迟实例化定义开始*/
 #define lazy_instantiation template<int ILD_value>
+/*延迟实例化定义结束*/
 #define lazy_instantiation_name(name) typedef LIS_name(name)<LIS_default_value> name
+/*延迟实例化定义ID*/
 #define LIS_ID_t(name) LIS_name(name)LIS_IS_flag
 #define LIS_name(name) name ## _LIS_t
 #define LIS_IS_flag <ILD_value>
@@ -49,7 +52,9 @@ auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args
 
 #define declvalue(...) (::std::declval<__VA_ARGS__>())
 
+/*实例化到此将引发错误*/
 #define template_error(reason) static_assert(template_error_helper<T>,reason)
+/*实例化到此将引发警告*/
 #define template_warning(reason) template_warning_helper<T>(reason)
 
 #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
@@ -65,14 +70,19 @@ class name{}\
 #define common_attribute_t template<class>class
 
 /*
+若参数的布尔值为零，那么此模板不会实例化
+
 为什么不用cpp20的constraints？
 1.不能类内定义
 2.不能作为模板参数
 一句话总结：c艹标准会sb
 */
 #define enable_if(...) class enable_state= ::std::enable_if_t<__VA_ARGS__>
+/*默认参与模板候选*/
 #define enabled_by_default class enable_state=void
+/*默认不参与模板候选*/
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
+/*若参数为病式，那么此模板不会实例化*/
 #define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
 #define enable_flag class enable_state
 
@@ -83,10 +93,14 @@ class name{}\
 
 #define MAGIC//ahh,ko no tenno da!
 
-#define nothing//装饰性语法糖
+/*装饰性语法糖*/
+#define nothing
 
+/*aya风格语法糖*/
 #define elseif else if
+/*aya风格语法糖*/
 #define _big_than_  >
+/*aya风格语法糖*/
 #define _small_than_  <
 
 #if defined(_MSC_VER)
@@ -95,7 +109,9 @@ class name{}\
 	#define or ||
 #endif
 
+/*进入名称空间，并不是很美观*/
 #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
+/*退出名称空间，并不是很美观*/
 #define BREAK_NAMESPACE }
 
 //file_end
