@@ -22,8 +22,6 @@
 #undef noexcept_as_auto
 #undef constexpr_as
 #undef constexpr_as_auto
-#undef is_not_function
-#undef is_function
 
 #undef using_method_from_base_t
 #undef using_method_from_value
