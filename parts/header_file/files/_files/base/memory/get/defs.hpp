@@ -19,32 +19,57 @@ namespace get_n{
 		static constexpr bool nothrow=construct<T>.nothrow<Args...>;
 
 		template<class...Args,enable_if(able<Args...>)>
-		T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+		[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
-		template<class...Args,enable_if(able<Args...>)>
-		T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
-			return construct<T>[alloc<T>()].init_list_construct(forward<Args>(rest)...);
-		}
+
 		struct array_get_t{
 			size_t _size;
 			template<class...Args,enable_if(able<Args...>)>
-			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+			[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
 			}
-			template<class...Args,enable_if(able<Args...>)>
-			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
-				if constexpr(type_info<T>.has_attribute(never_in_array))
-					template_error("You can\'t get an array for never_in_array type.");
-				return construct<T>[alloc<T>(_size)][_size].init_list_construct(forward<Args>(rest)...);
-			}
 		};
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
+
+		constexpr struct as_array_t{
+			static constexpr bool able=copy_construct.nothrow<T>&&destruct.able<T>;
+			static constexpr bool nothrow=copy_construct.nothrow<T>;
+
+			[[nodiscard]]T* operator()(const ::std::initializer_list<T>&init_list)const noexcept(nothrow<T>){
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t get an array for never_in_array type.");
+				auto aret=alloc<T>[init_list.size()]();
+				size_t index=0;
+				for(const T&v:init_list)
+					copy_construct(note::form(&v),note::to(aret+(index++)));
+				return aret;
+			}
+
+			template<size_t N>
+			[[nodiscard]]T* operator()(const T[N]&a)const noexcept(nothrow<T>){
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t get an array for never_in_array type.");
+				auto aret=alloc<T>[N]();
+				copy_construct[N](note::form(&v),note::to(aret));
+				return aret;
+			}
+
+			[[nodiscard]]T* operator()(range_t<const T*>a)const noexcept(nothrow<T>){
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t get an array for never_in_array type.");
+				auto size=a._end-a._begin;
+				auto aret=alloc<T>[size]();
+				copy_construct[size](note::form(a._begin),note::to(aret));
+				return aret;
+			}
+		}as_array{};
 	};
 	template<typename T>
 	constexpr get_t<T>get{};
+
 
 	constexpr struct unget_t{
 		template<typename T>
@@ -57,15 +82,7 @@ namespace get_n{
 			if(a!=null_ptr){
 				if constexpr(!destruct.nothrow<T>){
 					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-					try{
-						destruct(a,get_size_of_alloc(a));
-					}catch(...){
-						free(a);
-						throw;
-					}
-				}else{
-					destruct(a,get_size_of_alloc(a));
-				}
+				destruct(a,get_size_of_alloc(a));
 				free(a);
 			}
 		}
@@ -112,6 +129,8 @@ namespace get_n{
 								free(tmp);
 								throw;
 							}
+						}else{
+							move[from_size](note::from(arg),note::to(tmp));
 						}
 						free(arg);
 						arg=tmp;

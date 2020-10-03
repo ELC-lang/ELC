@@ -17,16 +17,9 @@ namespace array_n{
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
 		}
-		array_t(const ::std::initializer_list<T>&init_list)noexcept(copy_construct.nothrow<T>){
-			_m=alloc<T>[init_list.size()]();//get==alloc+construct
-			size_t index=0;
-			for(const T&v:init_list)
-				copy_construct(note::form(&v),note::to(_m+(index++)));
-		}
-		template<size_t N>
-		array_t(T[N]&a)noexcept(copy_construct.nothrow<T>){
-			_m=alloc<T>[N]();//get==alloc+construct
-			copy_construct[N](note::form(&v),note::to(_m));
+		template<class T_,enable_if(get<T>::as_array.able<T_>)>
+		array_t(const T_&&a)noexcept(get<T>::as_array.nothrow<T_>){
+			_m=get<T>::as_array(forward<T_>(a));
 		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
@@ -82,11 +75,6 @@ namespace array_n{
 		array_t(this_t&&a)noexcept:array_t(){swap(a);}
 		this_t&operator=(this_t&&a)&noexcept{
 			swap_with(a);
-			return*this;
-		}
-		template<typename assign_t,enable_if(construct<this_t>.able<assign_t>)>
-		this_t&operator=(assign_t&&a)noexcept(construct<this_t>.nothrow<assign_t>){
-			re_construct(this,forward<assign_t>(a));
 			return*this;
 		}
 

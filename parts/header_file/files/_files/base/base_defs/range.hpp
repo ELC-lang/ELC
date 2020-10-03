@@ -25,7 +25,18 @@ namespace range_n{
 	constexpr bool in_range(const T*a,const range_t<void*>range){
 		return reinterpret_cast<void*>(a)>=range._begin && reinterpret_cast<void*>(a)<=range._end;
 	}
+	template<typename T>
+	constexpr T* in_range(const T&a,const range_t<T*>range){
+		auto tmp=range._begin;
+		while(tmp!=range._end){
+			if(*tmp==a)
+				return tmp;
+			tmp++;
+		}
+		return nullptr;
+	}
 }
+using range_n::range_t;
 using range_n::in_range;
 
 //file_end

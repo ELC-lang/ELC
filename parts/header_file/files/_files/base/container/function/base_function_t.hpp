@@ -46,8 +46,8 @@ namespace function_n{
 		}
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
-		[[nodiscard]]virtual bool equal_with(const void*a)const override{
-			if constexpr(equality_comparable<T>)
+		[[nodiscard]]virtual bool equal_with(const void*a)const override noexcept(equal.nothrow<T>){
+			if constexpr(equal.able<T>)
 				return _value==*reinterpret_cast<const T*>(a);
 			else
 				return false;
