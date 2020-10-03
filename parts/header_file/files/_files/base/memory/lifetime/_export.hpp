@@ -16,7 +16,6 @@ export move;
 export copy;
 export copy_construct;
 export move_construct;
-export equality_comparable;
 #undef export
 
 //file_end

@@ -63,19 +63,6 @@ namespace lifetime_n{
 	template<class T>
 	constexpr bool move_assign_trivial=::std::is_trivially_move_assignable_v<T>;
 	//
-	template<class T>
-	auto equality_comparable_helper(int) -> decltype(
-		void(declvalue(T&) == declvalue(T&)),
-		void(declvalue(T&) == declvalue(T const&)),
-		void(declvalue(T const&) == declvalue(T&)),
-		void(declvalue(T const&) == declvalue(T const&)),
-		::std::true_type{});
-	template<class>
-	auto equality_comparable_helper(...) -> ::std::false_type;
-
-	template<class T>
-	inline constexpr bool equality_comparable = decltype(equality_comparable_helper<T>(0))::value;
-	//
 
 	struct base_construct_t{};
 	template<typename T>

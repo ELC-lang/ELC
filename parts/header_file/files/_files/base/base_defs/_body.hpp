@@ -13,7 +13,6 @@
 
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
-#include "equal.hpp"
 #include "attribute.hpp"
 #include "special_attribute.hpp"
 #include "type_info.hpp"
@@ -27,6 +26,7 @@
 #include "note.hpp"
 #include "count_able.hpp"
 #include "range.hpp"
+#include "equal.hpp"
 #include "invoke.hpp"
 
 #include "other.hpp"
