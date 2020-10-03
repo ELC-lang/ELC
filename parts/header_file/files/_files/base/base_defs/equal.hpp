@@ -32,7 +32,7 @@ constexpr struct equal_t{
 		return true;
 	}
 	template<typename T,size_t N1,size_t N2>
-	inline bool operator()(T[N1]a,T[N2]b)const noexcept(nothrow<T>){
+	inline bool operator()(T(&a)[N1],T(&b)[N2])const noexcept(nothrow<T>){
 		if constexpr(N1==N2)
 			return operator()(a,b,N1);
 		else{

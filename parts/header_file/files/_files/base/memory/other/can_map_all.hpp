@@ -36,5 +36,6 @@ inline void map_all(func_t&a)noexcept_as(expr){
 	}
 }
 #undef expr
+
 //file_end
 

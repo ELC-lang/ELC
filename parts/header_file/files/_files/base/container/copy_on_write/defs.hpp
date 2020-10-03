@@ -38,8 +38,8 @@ public:
 
 	copy_on_write_t(const this_t&)noexcept=default;
 	copy_on_write_t(this_t&&)noexcept=default;
-	this_t&operator=(const this_t&)noexcept(ptr_t::reset_nothrow)=default;
-	this_t&operator=(this_t&&)noexcept(ptr_t::reset_nothrow)=default;
+	this_t&operator=(const this_t&)&noexcept(ptr_t::reset_nothrow)=default;
+	this_t&operator=(this_t&&)&noexcept(ptr_t::reset_nothrow)=default;
 
 	void swap_with(this_t&a)noexcept{_m.swap_with(a._m);}
 	void swap_with(base_t_w&a)noexcept(check_nothrow){
@@ -91,7 +91,7 @@ public:
 	inline void swap(base_t_w&a,this_t&b)noexcept{b.swap_with(a);}
 	template<typename T>
 	inline void swap(this_t&a,base_t_w&b)noexcept{a.swap_with(b);}
-}
+};
 
 //file_end
 

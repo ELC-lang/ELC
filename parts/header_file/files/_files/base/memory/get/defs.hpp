@@ -34,7 +34,7 @@ namespace get_n{
 		};
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
 
-		constexpr struct as_array_t{
+		static constexpr struct as_array_t{
 			static constexpr bool able=copy_construct.nothrow<T>&&destruct.able<T>;
 			static constexpr bool nothrow=copy_construct.nothrow<T>;
 
@@ -49,11 +49,11 @@ namespace get_n{
 			}
 
 			template<size_t N>
-			[[nodiscard]]T* operator()(const T[N]&a)const noexcept(nothrow<T>){
+			[[nodiscard]]T* operator()(const T(&a)[N])const noexcept(nothrow<T>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				auto aret=alloc<T>[N]();
-				copy_construct[N](note::form(&v),note::to(aret));
+				copy_construct[N](note::form(const T*(a)),note::to(aret));
 				return aret;
 			}
 
@@ -80,7 +80,7 @@ namespace get_n{
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
-				if constexpr(!destruct.nothrow<T>){
+				if constexpr(!destruct.nothrow<T>)
 					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
 				destruct(a,get_size_of_alloc(a));
 				free(a);

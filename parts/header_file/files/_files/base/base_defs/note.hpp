@@ -9,7 +9,7 @@
 namespace note_n{
 	#define def_note(name)\
 	template<typename T>\
-	struct name##_t:{\
+	struct name##_t{\
 		T value;\
 		constexpr name##_t(T a):value(a){}\
 		template<class T_>\
