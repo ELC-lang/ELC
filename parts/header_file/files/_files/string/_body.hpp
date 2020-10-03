@@ -12,7 +12,11 @@
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
-	#include "string/_body.hpp"
+	#include "string.hpp"
+}
+#include "../../../../_share/APIs/str_code_convert.hpp"//strings
+namespace elc::defs{
+	#include "literal.hpp"
 
 	#if defined(ELC_TEST_ON)
 	namespace string_part_test{

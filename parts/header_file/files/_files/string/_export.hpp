@@ -7,6 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using defs::
+export string;
+export operator""_elc_string;
 #undef export
 
 //file_end
