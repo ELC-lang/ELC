@@ -59,10 +59,9 @@ namespace default_gc_for_type{
 		}
 	}
 }
-using default_gc_for_type::have_default_gc_success_identifier;
 template<class T,enable_if_not_ill_form(default_gc_for_type::default_gc_method<T>())>
 inline void gc_method_of()noexcept{
-	default_gc_for_type::default_gc_method<T>()
+	default_gc_for_type::default_gc_method<T>();
 }
 template<class T,enable_if_not_ill_form(default_gc_for_type::default_gc_success_identifier<T>())>
 [[nodiscard]]inline bool gc_success_identifier_of()noexcept{

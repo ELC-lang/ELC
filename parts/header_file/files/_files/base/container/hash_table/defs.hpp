@@ -30,7 +30,7 @@ namespace hash_table_n{
 			});
 			swap(tmp,_m);
 		}
-		hash_table_t(const base_t_w&a):_m(a)noexcept{}
+		hash_table_t(const base_t_w&a)noexcept:_m(a){}
 		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
 			return{_m};
 		}
@@ -41,8 +41,8 @@ namespace hash_table_n{
 		operator base_t_w&()noexcept{return _m;}
 		operator const base_t_w&()const noexcept{return _m;}
 
-		hash_table_t(const this_t&a):_m(a._m)noexcept{}
-		hash_table_t(this_t&&a):_m(a._m)noexcept{}
+		hash_table_t(const this_t&a)noexcept:_m(a._m){}
+		hash_table_t(this_t&&a)noexcept:_m(a._m){}
 
 		this_t&operator=(base_t_w&&a)&noexcept{
 			swap(_m,a);
@@ -95,7 +95,7 @@ namespace hash_table_n{
 				}
 			return reference;
 		}
-		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T_>){
+		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T>){
 			return find(a).not_fail();
 		}
 		[[nodiscard]]bool not_in_table(const T&a)noexcept_as(declvalue(this_t).in_table(declvalue(const T&))){

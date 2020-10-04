@@ -1,4 +1,4 @@
-//_export.hpp
+//_test.hpp
 //at namespace elc::defs::container
 /*
 未完成的elc解释器base文件
@@ -6,11 +6,21 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#define export using copy_on_write_n::
-
-export copy_on_write_t;
-
-#undef export
+namespace copy_on_write_n{
+	//BLOCK:for debug
+	inline void test(){
+		stest_entryevent(L"copy_on_write部分测试");
+		{
+			
+		}
+		stest_exitevent();
+	}
+	inline void test_log_out(){
+	}
+	inline void test_end(){
+	}
+	//BLOCK_END
+}
 
 //file_end
 

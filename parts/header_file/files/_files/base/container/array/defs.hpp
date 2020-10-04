@@ -17,9 +17,9 @@ namespace array_n{
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
 		}
-		template<class T_,enable_if(get<T>::as_array.able<T_>)>
-		array_t(const T_&&a)noexcept(get<T>::as_array.nothrow<T_>){
-			_m=get<T>::as_array(forward<T_>(a));
+		template<class T_,enable_if(get<T>.as_array.template able<T_>)>
+		array_t(T_&&a)noexcept(get<T>.as_array.template nothrow<T_>){
+			_m=get<T>.as_array(forward<T_>(a));
 		}
 		~array_t()noexcept(unget.nothrow<T>){
 			unget(_m);
@@ -41,10 +41,10 @@ namespace array_n{
 			return _m+a;
 		}
 		[[nodiscard]]constexpr iterator begin()noexcept{
-			return iteratorget_iterator_at(zero);
+			return get_iterator_at(zero);
 		}
 		[[nodiscard]]iterator end()noexcept{
-			return iteratorget_iterator_at(size());
+			return get_iterator_at(size());
 		}
 		[[nodiscard]]const_iterator cbegin()const noexcept{
 			return const_cast<this_t*>(this)->begin();
@@ -116,7 +116,7 @@ namespace array_n{
 					copy_construct(note::from(addressof(this_e[i])),note::to(addressof(this_e[i-1])));
 					destruct(&this_e[i]);
 				}
-				construct<T>[addressof(this_e[szie-1])]();
+				construct<T>[addressof(this_e[size-1])]();
 				resize(size-1);
 			}
 		}

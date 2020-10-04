@@ -28,7 +28,7 @@ namespace function_n{
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
 	struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
-		static_assert(is_not_function(T));
+		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		T _value;
@@ -46,7 +46,7 @@ namespace function_n{
 		}
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
-		[[nodiscard]]virtual bool equal_with(const void*a)const override noexcept(equal.nothrow<T>){
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.nothrow<T>) override{
 			if constexpr(equal.able<T>)
 				return _value==*reinterpret_cast<const T*>(a);
 			else
@@ -91,7 +91,7 @@ namespace function_n{
 			return *_m==*(a._m);
 		}
 		void operator=(const this_t&a){_m=a._m;}
-		Ret_t call(Args_t...)const{return _m->call(forward<Args_t>(args)...);}
+		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
 	template<class T,bool nothrow,bool promise_nothrow_at_destruct>

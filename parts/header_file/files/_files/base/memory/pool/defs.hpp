@@ -92,7 +92,8 @@ namespace pool_n{
 		}
 		bool shrink()noexcept{
 			bool shrink_success=false;
-			auto i=begin(),e=end(),n;
+			auto i=begin(),e=end();
+			decltype(i)n;
 			while((n=i++)!=e){
 				if(n->empty()){
 					unget(n);
@@ -141,7 +142,7 @@ namespace pool_n{
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		if constexpr(pool_s_array_warning(type_info<T>))
 			template_warning("pool can\'t alloc array.");
-		return memory::alloc_n::realloc_method(type_info<T>,a);
+		return memory::alloc_n::realloc_method(ptr,new_size);
 	}
 }
 

@@ -10,7 +10,7 @@ enum flag_set_type:bool{seted=true,not_set=false};
 class flag{
 	bool _m;
 public:
-	explicit constexpr flag(flag_set_type a=not_set)noexcept:_m(a){}
+	explicit constexpr flag(flag_set_type a=not_set)noexcept:_m(bool(a)){}
 	[[nodiscard]]explicit operator bool()const noexcept{return _m;}
 	flag(flag&a)noexcept:_m((bool)a){}
 	flag(flag&&a)noexcept:_m((bool)a){}

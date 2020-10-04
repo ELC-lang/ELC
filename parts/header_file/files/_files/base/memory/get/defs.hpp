@@ -44,7 +44,7 @@ namespace get_n{
 				auto aret=alloc<T>[init_list.size()]();
 				size_t index=0;
 				for(const T&v:init_list)
-					copy_construct(note::form(&v),note::to(aret+(index++)));
+					copy_construct(note::from(&v),note::to(aret+(index++)));
 				return aret;
 			}
 
@@ -53,7 +53,7 @@ namespace get_n{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				auto aret=alloc<T>[N]();
-				copy_construct[N](note::form(const T*(a)),note::to(aret));
+				copy_construct[N](note::from((const T*)(a)),note::to(aret));
 				return aret;
 			}
 
@@ -62,7 +62,7 @@ namespace get_n{
 					template_error("You can\'t get an array for never_in_array type.");
 				auto size=a._end-a._begin;
 				auto aret=alloc<T>[size]();
-				copy_construct[size](note::form(a._begin),note::to(aret));
+				copy_construct[size](note::from(a._begin),note::to(aret));
 				return aret;
 			}
 		}as_array{};

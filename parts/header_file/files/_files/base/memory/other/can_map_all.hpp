@@ -29,8 +29,8 @@ public:
 #define expr declvalue(func_t)(declvalue(T*))
 template<class T,class func_t,enable_if_not_ill_form(expr)>
 inline void map_all(func_t&a)noexcept_as(expr){
-	auto tmp=type_list.begin();
-	auto end=type_list.end();
+	auto tmp=can_map_all<T>::type_list.begin();
+	auto end=can_map_all<T>::type_list.end();
 	while(tmp!=end){
 		a((tmp++)->get_handle());
 	}

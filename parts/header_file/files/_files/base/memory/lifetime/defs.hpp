@@ -158,9 +158,9 @@ namespace lifetime_n{
 			construct<T>[to](forward<Args>(rest)...);
 		}
 		template<class T,class...Args,enable_if(able<T,Args...>)>
-		void operator()([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
+		void operator()(T*begin,size_t size,Args&&...rest)const noexcept(nothrow<T>){
 			destruct(begin,size);
-			construct<T>[to][size](forward<Args>(rest)...);
+			construct<T>[begin][size](forward<Args>(rest)...);
 		}
 	}re_construct;
 
