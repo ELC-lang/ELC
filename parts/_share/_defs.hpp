@@ -115,5 +115,10 @@ class name{}\
 /*退出名称空间，并不是很美观*/
 #define BREAK_NAMESPACE }
 
+/*防写错宏*/
+#define szie size
+/*防写错宏*/
+#define form from
+
 //file_end
 

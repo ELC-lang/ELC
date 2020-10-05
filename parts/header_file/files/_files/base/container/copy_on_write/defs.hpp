@@ -21,13 +21,13 @@ namespace copy_on_write_n{
 	protected:
 		ptr_t _m;
 
+		base_t_w&get()const noexcept{
+			return static_cast<base_t_w&>(*_m);
+		}
 		static constexpr bool check_nothrow=noexcept(declvalue(ptr_t&)=get<data_t>(*declvalue(ptr_t)));
 		void copy_check()noexcept(check_nothrow){
 			if(!_m.unique())
-				_m=get<data_t>(*_m);
-		}
-		base_t_w&get()const noexcept{
-			return static_cast<base_t_w&>(*_m);
+				_m=get<data_t>(get());
 		}
 	public:
 		copy_on_write_t()noexcept:_m(get<data_t>()){}
@@ -45,7 +45,7 @@ namespace copy_on_write_n{
 		void swap_with(this_t&a)noexcept{_m.swap_with(a._m);}
 		void swap_with(base_t_w&a)noexcept(check_nothrow){
 			copy_check();
-			a.swap_with(*_m);
+			a.swap_with(get());
 		}
 		template<class assign_t,enable_if_not_ill_form(declvalue(base_t_w)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)&noexcept(check_nothrow&noexcept(declvalue(base_t_w)=declvalue(assign_t))){
@@ -55,10 +55,10 @@ namespace copy_on_write_n{
 		}
 		operator base_t_w&()noexcept(check_nothrow){
 			copy_check();
-			return*_m;
+			return get();
 		}
 		operator const base_t_w&()const noexcept{
-			return*_m;
+			return get();
 		}
 		[[nodiscard]]explicit operator hash_t()const noexcept{return hash(*_m);}
 		[[nodiscard]]bool operator==(const this_t&a)const noexcept(unget.nothrow<T>){
@@ -71,20 +71,20 @@ namespace copy_on_write_n{
 		template<class index_t,enable_if_not_ill_form(declvalue(base_t_w)[declvalue(index_t)])>
 		[[nodiscard]]auto&operator[](index_t index)noexcept(check_nothrow){
 			copy_check();
-			return(*_m)[index];
+			return get()[index];
 		}
 		template<class index_t,enable_if_not_ill_form(declvalue(const base_t_w)[declvalue(index_t)])>
 		[[nodiscard]]auto&operator[](index_t index)const noexcept{
-			return(*_m)[index];
+			return get()[index];
 		}
 		template<enable_if_not_ill_form(declvalue(const base_t_w).size())>
 		auto size()const noexcept_as(declvalue(const base_t_w).size()){
-			return _m->size();
+			return get().size();
 		}
 		template<class resize_t,enable_if_not_ill_form(declvalue(base_t_w).resize(declvalue(resize_t)))>
 		void resize(resize_t size)noexcept(check_nothrow&&noexcept(declvalue(base_t_w).resize(declvalue(resize_t)))){
 			copy_check();
-			_m->resize(size);
+			get().resize(size);
 		}
 	};
 	template<typename T>

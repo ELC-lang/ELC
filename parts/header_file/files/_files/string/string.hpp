@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-using string_t=copy_on_write_t<array_t<T>>;
+using string_t=array_t<T>;//本来是copy_on_write_t<array_t<T>>，但貌似没有必要（而且copy_on_write_t貌似越写越丑了）
 
 typedef string_t<char_t>string;
 

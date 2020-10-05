@@ -71,5 +71,10 @@
 #undef INTER_NAMESPACE
 #undef BREAK_NAMESPACE
 
+/*防写错宏*/
+#undef szie
+/*防写错宏*/
+#undef form
+
 //file_end
 
