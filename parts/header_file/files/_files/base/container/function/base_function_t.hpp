@@ -150,7 +150,7 @@ namespace function_n{
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		template<class T,enable_if_not_ill_form(declvalue(this_t).swap_with(this_t(declvalue(T))))>
+		template<class T,enable_if_not_ill_from(declvalue(this_t).swap_with(this_t(declvalue(T))))>
 		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(declvalue(T)))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);

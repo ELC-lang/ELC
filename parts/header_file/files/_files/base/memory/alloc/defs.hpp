@@ -12,8 +12,8 @@ namespace gc_n{
 namespace alloc_n{
 	using ::elc::defs::memory::gc_n::gc_for_alloc;
 	//BLOCK:for debug
-	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize)noexcept{
-		void*p=::elc::APIs::alloc::realloc(ptr,nsize);
+	[[nodiscard]]inline void*base_realloc(void*ptr,size_t osize,size_t nsize)noexcept{
+		void*p=::elc::APIs::alloc::realloc(ptr,osize,nsize);
 		#if defined(ELC_TEST_ON)
 			if(nsize==0)
 				stest_uneventlog(ptr);
@@ -98,8 +98,10 @@ namespace alloc_n{
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效
 		//new_size被保证不为0
+		//align维持不变
+		//但只允许在扩大数据块时可选的移动数据块
 		using namespace overhead_n;
-		void*tmp=base_realloc(recorrect_pointer(ptr),correct_size<T>(sizeof(T)*new_size));
+		void*tmp=base_realloc(recorrect_pointer(ptr),get_size_of_alloc_method(ptr),correct_size<T>(sizeof(T)*new_size));
 		if(tmp){
 			set_overhead(tmp,new_size);
 			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));

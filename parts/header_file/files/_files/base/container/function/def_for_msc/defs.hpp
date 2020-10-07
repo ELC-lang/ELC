@@ -14,7 +14,7 @@ namespace function_n{
 		typedef function_t<Ret_t(Args_t...)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),false,true>base_t;
 		using base_t::base_t;
-		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
+		template<class assign_t,enable_if_not_ill_from(declvalue(base_t)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(forward<assign_t>(a));
 			return*this;
@@ -25,7 +25,7 @@ namespace function_n{
 		typedef function_t<Ret_t(Args_t...)noexcept>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,true>base_t;
 		using base_t::base_t;
-		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
+		template<class assign_t,enable_if_not_ill_from(declvalue(base_t)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(forward<assign_t>(a));
 			return*this;
@@ -44,7 +44,7 @@ namespace function_n{
 		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)>this_t;
 		typedef base_function_t<Ret_t(Args_t...),false,false>base_t;
 		using base_t::base_t;
-		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
+		template<class assign_t,enable_if_not_ill_from(declvalue(base_t)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;
@@ -58,7 +58,7 @@ namespace function_n{
 		typedef may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept>this_t;
 		typedef base_function_t<Ret_t(Args_t...),true,false>base_t;
 		using base_t::base_t;
-		template<class assign_t,enable_if_not_ill_form(declvalue(base_t)=declvalue(assign_t))>
+		template<class assign_t,enable_if_not_ill_from(declvalue(base_t)=declvalue(assign_t))>
 		this_t&operator=(assign_t&&a)&noexcept_as(declvalue(base_t)=declvalue(assign_t)){
 			base_t::operator=(a);
 			return*this;

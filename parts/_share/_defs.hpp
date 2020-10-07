@@ -30,14 +30,14 @@
 #define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌
 
 #define using_method_from_base_t(name) \
-template<class...Args,enable_if_not_ill_form(declvalue(base_t).name(declvalue(Args)...))>\
+template<class...Args,enable_if_not_ill_from(declvalue(base_t).name(declvalue(Args)...))>\
 auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 {\
 	return base_t::name(forward<Args>(rest)...);\
 }\
 
 #define using_method_from_value(name,value_name) \
-template<class...Args,enable_if_not_ill_form(re_declvalue(value_name).name(declvalue(Args)...))>\
+template<class...Args,enable_if_not_ill_from(re_declvalue(value_name).name(declvalue(Args)...))>\
 auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args)...))\
 {\
 	return value_name.name(forward<Args>(rest)...);\
@@ -81,7 +81,7 @@ class name{}\
 /*默认不参与模板候选*/
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
 /*若参数为病式，那么此模板不会实例化*/
-#define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
+#define enable_if_not_ill_from(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
 /*用于模板声明*/
 #define enable_flag class enable_state
 

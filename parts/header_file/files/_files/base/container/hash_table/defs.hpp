@@ -23,7 +23,7 @@ namespace hash_table_n{
 		}
 		void bucket_count_grow()noexcept{
 			base_t_w tmp;
-			tmp.resize(get_next_gold_size_to_resize_for_hash(this->_m.size()));
+			tmp.resize(magic_number::get_next_gold_size_to_resize_for_hash(_m.size()));
 			_m.for_each(lambda_with_catch(&tmp)(bucket_t&a)noexcept{
 				while(!a.empty())
 					a.move_top_to(tmp.find_bucket(a.get_top_hash()));
@@ -70,7 +70,7 @@ namespace hash_table_n{
 			if constexpr(is_unstable_hash<T>)
 				if(not remove_success){
 					for(auto&i:_m){
-						if(eq(i,bucket))
+						if(is_eq(i,bucket))
 							continue;
 						remove_success=i.remove(a);
 						if(remove_success)
@@ -86,7 +86,7 @@ namespace hash_table_n{
 			if constexpr(is_unstable_hash<T>)
 				if(reference.fail()){
 					for(auto&i:_m){
-						if(eq(i,bucket))
+						if(is_eq(i,bucket))
 							continue;
 						re_construct(&reference,i.find(a));
 						if(reference.not_fail())
@@ -107,7 +107,7 @@ namespace hash_table_n{
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))
-		template<typename func_t,enable_if_not_ill_form(expr)>
+		template<typename func_t,enable_if_not_ill_from(expr)>
 		void for_each(func_t&&func)noexcept_as(expr){
 			_m.for_each(lambda_with_catch(&func)(bucket_t&a)noexcept_as(expr){
 				a.for_each(func);
@@ -116,7 +116,7 @@ namespace hash_table_n{
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const T&))
-		template<typename func_t,enable_if_not_ill_form(expr)>
+		template<typename func_t,enable_if_not_ill_from(expr)>
 		void for_each(func_t&&func)const noexcept_as(expr){
 			_m.for_each(lambda(const bucket_t&a)noexcept_as(expr){
 				a.for_each(func);
@@ -125,14 +125,14 @@ namespace hash_table_n{
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(bucket_t&))
-		template<typename func_t,enable_if_not_ill_form(expr)>
+		template<typename func_t,enable_if_not_ill_from(expr)>
 		void for_each_bucket(func_t&&func)noexcept_as(expr){
 			_m.for_each(func);
 		}
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const bucket_t&))
-		template<typename func_t,enable_if_not_ill_form(expr)>
+		template<typename func_t,enable_if_not_ill_from(expr)>
 		void for_each_bucket(func_t&&func)const noexcept_as(expr){
 			_m.for_each(func);
 		}

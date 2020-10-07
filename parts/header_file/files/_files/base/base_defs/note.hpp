@@ -18,7 +18,7 @@ namespace note_n{
 		constexpr T operator()(){return value;}\
 	};\
 	template<typename T>\
-	constexpr name##_t<T>name(T v){return{v};}
+	constexpr name##_t<T>name(T&&v){return{v};}
 
 	def_note(from);
 	def_note(to);

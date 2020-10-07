@@ -11,29 +11,54 @@ namespace range_n{
 	struct range_t{
 		T _begin,_end;
 		//_begin<=_end
-		constexpr range_t(const T begin,const T end):_begin(begin),_end(end){}
-		constexpr range_t(note::from_t<const T>begin,note::to_t<const T>end):_begin(begin),_end(end){}
-		constexpr range_t(note::to_t<const T>end,note::from_t<const T>begin):_begin(begin),_end(end){}
+		constexpr range_t(const T begin,const T end):_begin(begin),_end(end+1){}
+		constexpr range_t(note::from_t<const T>begin,note::to_t<const T>end):_begin(begin),_end(end+1){}
+		constexpr range_t(note::to_t<const T>end,note::from_t<const T>begin):_begin(begin),_end(end+1){}
 		constexpr range_t(const T begin,note::size_t<const T>size):_begin(begin),_end(begin+size()){}
 		constexpr range_t(const T begin,note::size_t<::std::size_t>size):_begin(begin),_end(begin+size()){}
+		
+		constexpr auto size()noexcept{return _end-_begin;}
+		constexpr auto end()noexcept{return _end;}
+		constexpr auto begin()noexcept{return _begin;}
 	};
 	template<typename T>
-	constexpr bool in_range(const T a,const range_t<T>range){
-		return a>=range._begin && a<=range._end;
+	constexpr bool in_range(const T a,const range_t<T>range){//算术类型或指针
+		return a>=range.begin() && a<range.end();
 	}
 	template<typename T>
 	constexpr bool in_range(const T*a,const range_t<void*>range){
-		return reinterpret_cast<void*>(a)>=range._begin && reinterpret_cast<void*>(a)<=range._end;
+		return reinterpret_cast<void*>(a)>=range.begin() && reinterpret_cast<void*>(a)<range.end();
 	}
 	template<typename T>
 	constexpr T* in_range(const T&a,const range_t<T*>range){
-		auto tmp=range._begin;
-		while(tmp!=range._end){
+		auto tmp=range.begin();
+		while(tmp!=range.end()){
 			if(*tmp==a)
 				return tmp;
 			tmp++;
 		}
 		return nullptr;
+	}
+	template<typename T>
+	constexpr T* in_range(const range_t<T*>a,const range_t<T*>range){
+		//数据串匹配by steve02081504.
+		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+		size_t off_set=0;
+		size_t matching_off_set=1;
+		while(1){
+			matching_off_set=1;
+			while(a.end()[-matching_off_set]==range.begin()[off_set+a.size()-matching_off_set])
+				if(matching_off_set==a.size())
+					return address_of(range.begin()[off_set+a.size()-matching_off_set]);
+				else
+					matching_off_set++;
+			auto tmp=in_range(range.begin()[off_set+a.size()],a);
+			if(!tmp)
+				tmp=a.begin();
+			off_set+=a.end()-tmp;
+			if(off_set + a.size() >= range.size())
+				return nullptr;
+		}
 	}
 }
 using range_n::range_t;

@@ -43,6 +43,17 @@ namespace hash_n{
 		else
 			return hash_t(a);
 	}
+	template<class T>
+	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(declvalue(const T))){
+		hash_t aret=0;
+		while(size--)
+			aret=hash(a[size])+aret*13;
+		return aret;
+	}
+	template<class T>
+	[[nodiscard]]inline hash_t hash(range_t<const T*>&a)noexcept_as(hash(declvalue(const T))){
+		return hash(a.begin(),a.size());
+	}
 }
 using hash_n::hash_t;
 using hash_n::unstable_hash_t;

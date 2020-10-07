@@ -105,7 +105,7 @@ public:
 		return 0;
 	}
 	#define expr declvalue(func_t)(declvalue(T&))
-	template<typename func_t,enable_if_not_ill_form(expr)>
+	template<typename func_t,enable_if_not_ill_from(expr)>
 	void for_each(func_t&&func)noexcept_as(expr){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
@@ -116,7 +116,7 @@ public:
 	#undef expr
 
 	#define expr declvalue(func_t)(declvalue(const T&))
-	template<typename func_t,enable_if_not_ill_form(expr)>
+	template<typename func_t,enable_if_not_ill_from(expr)>
 	void for_each(func_t&&func)const noexcept_as(expr){
 		const data_t*tmp=_m;
 		while(tmp!=null_ptr){

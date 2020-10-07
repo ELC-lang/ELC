@@ -181,11 +181,11 @@ namespace compare_n{
 	[[nodiscard]]null_ptr_t&get_p(nullptr_t)noexcept{return null_ptr;}
 
 	#define expr pointer_equal(get_p(declvalue(const T)),get_p(declvalue(const T_)))
-	template<class T,class T_,enable_if_not_ill_form(expr)>
+	template<class T,class T_,enable_if_not_ill_from(expr)>
 	[[nodiscard]]logical_bool operator==(const T&a,const T_&b)noexcept_as(expr){
 		return pointer_equal(get_p(a),get_p(b));
 	}
-	template<class T,class T_,enable_if_not_ill_form(expr)>
+	template<class T,class T_,enable_if_not_ill_from(expr)>
 	[[nodiscard]]logical_bool operator!=(const T&a,const T_&b)noexcept_as(expr){
 		return!pointer_equal(get_p(a),get_p(b));
 	}

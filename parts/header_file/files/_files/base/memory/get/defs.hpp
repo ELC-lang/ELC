@@ -9,6 +9,35 @@
 namespace get_n{
 	//struct build_by_get_only{};已定义于 "../../base_defs/special_attribute.hpp"
 
+	/*减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
+	template<typename T>
+	void alloc_size_cut(T*arg,size_t to_size){
+		realloc(arg,to_size);
+	}
+	/*扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/
+	template<typename T>
+	void alloc_size_grow(T*&arg,size_t to_size){
+		if constexpr(move.trivial<T>)
+			realloc(arg,to_size);
+		else{
+			T*tmp=alloc<T>(to_size);
+			auto from_size=get_size_of_alloc(ptr);
+			if constexpr(!move.nothrow<T>){
+				template_warning("the move of T was not noexcept,this may cause memory lack.");
+				try{
+					move[from_size](note::from(arg),note::to(tmp));
+				}catch(...){
+					free(tmp);
+					throw;
+				}
+			}else{
+				move[from_size](note::from(arg),note::to(tmp));
+			}
+			free(arg);
+			arg=tmp;
+		}
+	}
+
 	struct base_get_t{};
 	template<typename T>
 	struct get_t:base_get_t{
@@ -38,34 +67,51 @@ namespace get_n{
 			static constexpr bool able=copy_construct.nothrow<T>&&destruct.able<T>;
 			static constexpr bool nothrow=copy_construct.nothrow<T>;
 
-			[[nodiscard]]T* operator()(const ::std::initializer_list<T>&init_list)const noexcept(nothrow<T>){
+			template<typename T_,enable_if(able&&is_array_like_for<T,T_>)>
+			[[nodiscard]]T* operator()(T_&&a)const noexcept(nothrow<T>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
-				auto aret=alloc<T>[init_list.size()]();
-				size_t index=0;
-				for(const T&v:init_list)
-					copy_construct(note::from(&v),note::to(aret+(index++)));
-				return aret;
-			}
-
-			template<size_t N>
-			[[nodiscard]]T* operator()(const T(&a)[N])const noexcept(nothrow<T>){
-				if constexpr(type_info<T>.has_attribute(never_in_array))
-					template_error("You can\'t get an array for never_in_array type.");
-				auto aret=alloc<T>[N]();
-				copy_construct[N](note::from((const T*)(a)),note::to(aret));
-				return aret;
-			}
-
-			[[nodiscard]]T* operator()(range_t<const T*>a)const noexcept(nothrow<T>){
-				if constexpr(type_info<T>.has_attribute(never_in_array))
-					template_error("You can\'t get an array for never_in_array type.");
-				auto size=a._end-a._begin;
+				auto size=size_of_array_like<T>(a);
 				auto aret=alloc<T>[size]();
-				copy_construct[size](note::from(a._begin),note::to(aret));
+				copy_construct[size](note::from(begin_of_array_like<T>(a)),note::to(aret));
 				return aret;
 			}
 		}as_array{};
+		
+		static constexpr struct apply_end_t{
+			static constexpr bool able=copy_construct.nothrow<T>&&move.able<T>;
+			static constexpr bool nothrow=copy_construct.nothrow<T>&&move.nothrow<T>;
+
+			template<typename T_,enable_if(able&&is_array_like_for<T,T_>)>
+			T* operator()(note::to_t<T*&> to,T_&&a)const noexcept(nothrow<T>){
+				auto&ptr=to.value;
+				auto from_size=get_size_of_alloc(ptr);
+				auto a_size=size_of_array_like<T>(a);
+				alloc_size_grow(ptr,from_size+a_size);
+				copy_construct(note::from(begin_of_array_like<T>(a)),note::to(ptr+from_size));
+				return ptr;
+			}
+		}apply_end{};
+
+		static constexpr struct remove_t{
+			static constexpr bool able=destruct.nothrow<T>&&move.able<T>;
+			static constexpr bool nothrow=destruct.nothrow<T>&&move.nothrow<T>;
+
+			template<typename T_,enable_if(able&&is_array_like_for<T,T_>)>
+			bool operator()(T_&&a,note::from_t<T*>from)const noexcept(nothrow<T>){
+				auto ptr=from.value;
+				auto from_size=get_size_of_alloc(ptr);
+				T*ptr_to_a=in_range(a,{ptr,note::size(from_size)});
+				auto a_size=size_of_array_like<T>(a);
+				if(!ptr_to_a)
+					return false;
+
+				destruct(ptr_to_a,a_size);
+				move[(ptr+from_size)-(ptr_to_a+a_size)](note::from(ptr_to_a+a_size),note::to(ptr_to_a));
+				alloc_size_cut(ptr,from_size-a_size);
+				return true;
+			}
+		}remove{};
 	};
 	template<typename T>
 	constexpr get_t<T>get{};
@@ -89,9 +135,7 @@ namespace get_n{
 		/*适用于unget(this,not destruct);*/
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a,decltype(destruct)::not_t)const noexcept(nothrow<T>){
-			if(a!=null_ptr){
-				free(a);
-			}
+			free(a);
 		}
 	}unget{};
 
@@ -115,26 +159,9 @@ namespace get_n{
 					return;
 				elseif(from_size > to_size){
 					destruct(arg+to_size-1,from_size-to_size);
-					realloc(arg,to_size);
+					alloc_size_cut(arg,to_size);
 				}elseif(from_size){
-					if constexpr(move.trivial<T>)
-						realloc(arg,to_size);
-					else{
-						T*tmp=alloc<T>(to_size);
-						if constexpr(!move.nothrow<T>){
-							template_warning("the move of T was not noexcept,this may cause memory lack.");
-							try{
-								move[from_size](note::from(arg),note::to(tmp));
-							}catch(...){
-								free(tmp);
-								throw;
-							}
-						}else{
-							move[from_size](note::from(arg),note::to(tmp));
-						}
-						free(arg);
-						arg=tmp;
-					}
+					alloc_size_grow(arg,to_size)
 					construct<T>[arg+from_size-1][to_size-from_size]();
 				}else
 					arg=get<T>[to_size]();

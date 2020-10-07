@@ -79,10 +79,6 @@ namespace lifetime_n{
 		[[nodiscard]]T operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return T(forward<Args>(rest)...);
 		}
-		template<class...Args,enable_if_not_ill_form(T{Args...})>
-		[[nodiscard]]T init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
-			return T{forward<Args>(rest)...};
-		}
 		struct array_construct_t{
 			T*_to;
 			size_t _size;
@@ -92,23 +88,12 @@ namespace lifetime_n{
 				while(tmp--)new(&_to[tmp])T(forward<Args>(rest)...);
 				return _to;
 			}
-			template<class...Args,enable_if_not_ill_form(T{Args...})>
-			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
-				auto tmp=_size;
-				while(tmp--)new(&_to[tmp])T{forward<Args>(rest)...};
-				return _to;
-			}
 		};
 		struct placement_construct_t{
 			T*_to;
 			template<class...Args,enable_if(able<Args...>)>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				new(_to)T(forward<Args>(rest)...);
-				return _to;
-			}
-			template<class...Args,enable_if_not_ill_form(T{Args...})>
-			T* init_list_construct(Args&&...rest)const noexcept(nothrow<Args...>){
-				new(_to)T{forward<Args>(rest)...};
 				return _to;
 			}
 			[[nodiscard]]constexpr array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
@@ -246,11 +231,11 @@ namespace lifetime_n{
 		{return base_call(to,from,size);}
 
 		template<class T,enable_if(able<T>)>
-		T*operator()(note::to_t<T*>to,note::from_t<const T*>from,size_t size)const noexcept(nothrow<T>)
+		T*operator()(note::to_t<T*>to,note::from_t<const T*>from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		template<class T,enable_if(able<T>)>
-		T*operator()(note::from_t<const T*>from,note::to_t<T*>to,size_t size)const noexcept(nothrow<T>)
+		T*operator()(note::from_t<const T*>from,note::to_t<T*>to,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		template<class T,enable_if(able<T>)>
@@ -324,11 +309,11 @@ namespace lifetime_n{
 		{return base_call(to,from,size);}
 
 		template<class T,enable_if(able<T>)>
-		T*operator()(note::to_t<T*>to,note::from_t<T*>from,size_t size)const noexcept(nothrow<T>)
+		T*operator()(note::to_t<T*>to,note::from_t<T*>from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		template<class T,enable_if(able<T>)>
-		T*operator()(note::from_t<T*>from,note::to_t<T*>to,size_t size)const noexcept(nothrow<T>)
+		T*operator()(note::from_t<T*>from,note::to_t<T*>to,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		struct array_move_construct_t{
@@ -369,11 +354,11 @@ namespace lifetime_n{
 		{return base_call(to,from,size);}
 
 		template<class T,enable_if(able<T>)>
-		T*operator()(note::to_t<T*>to,note::from_t<T*>from,size_t size)const noexcept(nothrow<T>)
+		T*operator()(note::to_t<T*>to,note::from_t<T*>from,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		template<class T,enable_if(able<T>)>
-		T*operator()(note::from_t<T*>from,note::to_t<T*>to,size_t size)const noexcept(nothrow<T>)
+		T*operator()(note::from_t<T*>from,note::to_t<T*>to,size_t size=1)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		struct array_move_t{
