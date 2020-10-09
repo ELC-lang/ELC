@@ -64,11 +64,13 @@ namespace get_n{
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
 
 		static constexpr struct as_array_t{
-			static constexpr bool able=copy_construct.nothrow<T>&&destruct.able<T>;
+			template<typename T_>
+			static constexpr bool able=copy_construct.able<T>&&destruct.able<T>&&is_array_like_for<T,T_>;
+			template<typename T_>
 			static constexpr bool nothrow=copy_construct.nothrow<T>;
 
-			template<typename T_,enable_if(able&&is_array_like_for<T,T_>)>
-			[[nodiscard]]T* operator()(T_&&a)const noexcept(nothrow<T>){
+			template<typename T_,enable_if(able<T_>)>
+			[[nodiscard]]T* operator()(T_&&a)const noexcept(nothrow<T_>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				auto size=size_of_array_like<T>(a);
@@ -77,13 +79,15 @@ namespace get_n{
 				return aret;
 			}
 		}as_array{};
-		
+
 		static constexpr struct apply_end_t{
-			static constexpr bool able=copy_construct.nothrow<T>&&move.able<T>;
+			template<typename T_>
+			static constexpr bool able=copy_construct.able<T>&&move.able<T>&&is_array_like_for<T,T_>;
+			template<typename T_>
 			static constexpr bool nothrow=copy_construct.nothrow<T>&&move.nothrow<T>;
 
-			template<typename T_,enable_if(able&&is_array_like_for<T,T_>)>
-			T* operator()(note::to_t<T*&> to,T_&&a)const noexcept(nothrow<T>){
+			template<typename T_,enable_if(able<T_>)>
+			T* operator()(note::to_t<T*&> to,T_&&a)const noexcept(nothrow<T_>){
 				auto&ptr=to.value;
 				auto from_size=get_size_of_alloc(ptr);
 				auto a_size=size_of_array_like<T>(a);
@@ -94,11 +98,13 @@ namespace get_n{
 		}apply_end{};
 
 		static constexpr struct remove_t{
-			static constexpr bool able=destruct.nothrow<T>&&move.able<T>;
+			template<typename T_>
+			static constexpr bool able=destruct.able<T>&&move.able<T>&&is_array_like_for<T,T_>;
+			template<typename T_>
 			static constexpr bool nothrow=destruct.nothrow<T>&&move.nothrow<T>;
 
-			template<typename T_,enable_if(able&&is_array_like_for<T,T_>)>
-			bool operator()(T_&&a,note::from_t<T*>from)const noexcept(nothrow<T>){
+			template<typename T_,enable_if(able<T_>)>
+			bool operator()(T_&&a,note::from_t<T*>from)const noexcept(nothrow<T_>){
 				auto ptr=from.value;
 				auto from_size=get_size_of_alloc(ptr);
 				T*ptr_to_a=in_range(a,{ptr,note::size(from_size)});

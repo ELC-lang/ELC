@@ -13,8 +13,6 @@ namespace array_like_n{
 	inline constexpr size_t size_of_array_like(T(&)[N])noexcept{return N;}
 	template<class T>
 	inline size_t size_of_array_like(::std::initializer_list<T>&a)noexcept{return a.size();}
-	template<class T>
-	inline auto size_of_array_like(range_t<const T*>&a)noexcept{return a.size();}
 
 	template<class T>
 	inline constexpr auto begin_of_array_like(T&&a)noexcept{return address_of(a);}
@@ -22,11 +20,7 @@ namespace array_like_n{
 	inline constexpr auto begin_of_array_like(T(&a)[N])noexcept{return address_of(a[0]);}
 	template<class T>
 	inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
-	template<class T>
-	inline auto begin_of_array_like(range_t<const T*>&a)noexcept{return a.begin();}
-	template<class T>
-	inline auto begin_of_array_like(range_t<T*>&a)noexcept{return a.begin();}
-	
+
 	template<class T>
 	auto is_array_like_helper(int) -> decltype(
 		void(begin_of_array_like(declvalue(T))),
@@ -34,18 +28,18 @@ namespace array_like_n{
 		::std::true_type{});
 	template<class>
 	auto is_array_like_helper(...) -> ::std::false_type;
-	
+
 	template<class T>
 	constexpr bool is_array_like=is_array_like_helper<T>();
-	
-	template<class T_,class T>
+
+	template<class T,class T_>
 	auto is_array_like_for_helper(int) -> decltype(
-		void(begin_of_array_like<T_>(declvalue(T))),
-		void(size_of_array_like<T_>(declvalue(T))),
+		void(begin_of_array_like<T>(declvalue(T_))),
+		void(size_of_array_like<T>(declvalue(T_))),
 		::std::true_type{});
 	template<class,class>
 	auto is_array_like_for_helper(...) -> ::std::false_type;
-	
+
 	template<class T,class T_>
 	constexpr bool is_array_like_for=is_array_like_for_helper<T,T_>();
 }

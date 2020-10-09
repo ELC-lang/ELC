@@ -7,6 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace range_n{
+	//range_t
 	template<typename T>
 	struct range_t{
 		T _begin,_end;
@@ -16,11 +17,23 @@ namespace range_n{
 		constexpr range_t(note::to_t<const T>end,note::from_t<const T>begin):_begin(begin),_end(end+1){}
 		constexpr range_t(const T begin,note::size_t<const T>size):_begin(begin),_end(begin+size()){}
 		constexpr range_t(const T begin,note::size_t<::std::size_t>size):_begin(begin),_end(begin+size()){}
-		
+
 		constexpr auto size()noexcept{return _end-_begin;}
 		constexpr auto end()noexcept{return _end;}
 		constexpr auto begin()noexcept{return _begin;}
 	};
+
+	template<class T>
+	inline auto size_of_array_like(range_t<T*>&a)noexcept{return a.size();}
+	template<class T>
+	inline auto size_of_array_like(range_t<const T*>&a)noexcept{return a.size();}
+
+	template<class T>
+	inline auto begin_of_array_like(range_t<T*>&a)noexcept{return a.begin();}
+	template<class T>
+	inline auto begin_of_array_like(range_t<const T*>&a)noexcept{return a.begin();}
+
+	//in_range
 	template<typename T>
 	constexpr bool in_range(const T a,const range_t<T>range){//算术类型或指针
 		return a>=range.begin() && a<range.end();
