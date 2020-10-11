@@ -48,7 +48,7 @@ public:
 		replace_able::be_replace_as(a.get());
 	}
 
-	[[nodiscard]]virtual explicit operator logical_bool()const=0;
+	[[nodiscard]]virtual explicit operator logical_bool()const{return true;}
 	[[nodiscard]]explicit operator bool()const{return this->operator logical_bool();}
 
 	template<typename...Args>
