@@ -1,4 +1,4 @@
-//nil.hpp
+//t.hpp
 //at namespace elc::defs::core
 /*
 未完成的elc解释器base文件
@@ -18,6 +18,7 @@ protected:
 public:
 	[[nodiscard]]virtual explicit operator logical_bool()const{return true;}
 
+	//nothing is true,everything is permitted.
 	[[noreturn]]virtual void be_replace_as(ptr)noexcept override{::std::exit(0);}
 }t{};
 
