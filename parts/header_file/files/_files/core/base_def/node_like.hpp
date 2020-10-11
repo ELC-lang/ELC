@@ -18,9 +18,9 @@ public:
 	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
 	typedef LIS_ID_t(setter)setter;
 	typedef LIS_ID_t(node_like)this_t;
-protected:
-	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
 
+	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
+protected:
 	[[nodiscard]]virtual function_t<setter()> get_eval_of_this()const{
 		return lambda_with_catch(this)()noexcept{return setter(this);};
 	}

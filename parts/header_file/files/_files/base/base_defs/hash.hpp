@@ -28,8 +28,11 @@ namespace hash_n{
 	inline constexpr bool is_unstable_hash = decltype(is_unstable_hash_helper<T>(0))::value;
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
+	[[nodiscard]]inline constexpr hash_t hash()noexcept{
+		return{size_t(-1)};
+	}
 	template<class T>
-	[[nodiscard]]hash_t pointer_hash(T*a)noexcept{
+	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
 		return{size_t(a)};
 	}
 	template<class T>
@@ -50,7 +53,7 @@ namespace hash_n{
 			aret=hash(a[size])+aret*13;
 		return aret;
 	}
-	template<class T>
+	template<class T,enable_if(is_array_like<T>&&is_not_signal_value_for_array_like<T>)>
 	[[nodiscard]]inline hash_t hash(range_t<const T*>&a)noexcept_as(hash(declvalue(const T))){
 		return hash(a.begin(),a.size());
 	}

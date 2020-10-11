@@ -69,7 +69,7 @@ namespace range_n{
 			matching_off_set=1;
 			while(a_end[-matching_off_set]==range_begin[off_set+a_size-matching_off_set])
 				if(matching_off_set==a_size)
-					return address_of(range_begin[off_set+a_size-matching_off_set]);
+					return addressof(range_begin[off_set+a_size-matching_off_set]);
 				else
 					matching_off_set++;
 			auto tmp=in_range(range_begin[off_set+a_size],a);

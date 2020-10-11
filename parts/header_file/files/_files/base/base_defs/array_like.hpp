@@ -15,9 +15,9 @@ namespace array_like_n{
 	inline size_t size_of_array_like(::std::initializer_list<T>&a)noexcept{return a.size();}
 
 	template<class T>
-	inline constexpr auto begin_of_array_like(T&&a)noexcept{return address_of(a);}
+	inline constexpr auto begin_of_array_like(T&&a)noexcept{return addressof(a);}
 	template<class T,size_t N>
-	inline constexpr auto begin_of_array_like(T(&a)[N])noexcept{return address_of(a[0]);}
+	inline constexpr auto begin_of_array_like(T(&a)[N])noexcept{return addressof(a[0]);}
 	template<class T>
 	inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
 
@@ -35,6 +35,11 @@ namespace array_like_n{
 	template<class T>
 	constexpr bool is_array_like=is_array_like_helper<T>();
 
+	template<class T>
+	constexpr bool is_signal_value_for_array_like=type_info<remove_cvref<decltype(*begin_of_array_like(declvalue(T)))>> == type_info<T>;
+	template<class T>
+	constexpr bool is_not_signal_value_for_array_like=!is_signal_value_for_array_like<T>;
+
 	template<class T,class T_>
 	auto is_array_like_for_helper(int) -> decltype(
 		void(begin_of_array_like<T>(declvalue(T_))),
@@ -50,6 +55,8 @@ using array_like_n::size_of_array_like;
 using array_like_n::begin_of_array_like;
 using array_like_n::end_of_array_like;
 using array_like_n::is_array_like;
+using array_like_n::is_signal_value_for_array_like;
+using array_like_n::is_not_signal_value_for_array_like;
 using array_like_n::is_array_like_for;
 
 //file_end
