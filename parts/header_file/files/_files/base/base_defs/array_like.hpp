@@ -21,6 +21,9 @@ namespace array_like_n{
 	template<class T>
 	inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
 
+	template<class T,class T_>
+	inline auto end_of_array_like(T_&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
+
 	template<class T>
 	auto is_array_like_helper(int) -> decltype(
 		void(begin_of_array_like(declvalue(T))),
@@ -45,6 +48,7 @@ namespace array_like_n{
 }
 using array_like_n::size_of_array_like;
 using array_like_n::begin_of_array_like;
+using array_like_n::end_of_array_like;
 using array_like_n::is_array_like;
 using array_like_n::is_array_like_for;
 

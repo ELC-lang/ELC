@@ -42,34 +42,41 @@ namespace range_n{
 	constexpr bool in_range(const T*a,const range_t<void*>range){
 		return reinterpret_cast<void*>(a)>=range.begin() && reinterpret_cast<void*>(a)<range.end();
 	}
-	template<typename T>
-	constexpr T* in_range(const T&a,const range_t<T*>range){
-		auto tmp=range.begin();
-		while(tmp!=range.end()){
+	template<typename T,typename T_,enable_if(is_array_like_for<T,T_>)>
+	constexpr T* in_range(const T&a,T_&&range){
+		auto tmp=begin_of_array_like(range);
+		auto end=end_of_array_like(range);
+		while(tmp!=end){
 			if(*tmp==a)
 				return tmp;
 			tmp++;
 		}
 		return nullptr;
 	}
-	template<typename T>
-	constexpr T* in_range(const range_t<T*>a,const range_t<T*>range){
+	template<typename T,typename T_,typename T__,enable_if(is_array_like_for<T,T_>&&is_array_like_for<T,T__>)>
+	constexpr T* in_range(T_&&a,T__&&range){
 		//数据串匹配by steve02081504.
 		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
 		size_t off_set=0;
 		size_t matching_off_set=1;
+
+		auto a_begin=begin_of_array_like(a);
+		auto a_size=size_of_array_like(a);
+		auto a_end=end_of_array_like(a);
+		auto range_begin=begin_of_array_like(range);
+		auto range_size=size_of_array_like(range);
 		while(1){
 			matching_off_set=1;
-			while(a.end()[-matching_off_set]==range.begin()[off_set+a.size()-matching_off_set])
-				if(matching_off_set==a.size())
-					return address_of(range.begin()[off_set+a.size()-matching_off_set]);
+			while(a_end[-matching_off_set]==range_begin[off_set+a_size-matching_off_set])
+				if(matching_off_set==a_size)
+					return address_of(range_begin[off_set+a_size-matching_off_set]);
 				else
 					matching_off_set++;
-			auto tmp=in_range(range.begin()[off_set+a.size()],a);
+			auto tmp=in_range(range_begin[off_set+a_size],a);
 			if(!tmp)
-				tmp=a.begin();
-			off_set+=a.end()-tmp;
-			if(off_set + a.size() >= range.size())
+				tmp=a_begin;
+			off_set+=a_end-tmp;
+			if(off_set + a_size >= range_size)
 				return nullptr;
 		}
 	}
