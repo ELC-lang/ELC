@@ -12,6 +12,9 @@
 	#pragma warning(disable:4584)//重复子类警告diss
 #endif
 //
+#if defined(ELC_VOID_NAME)
+	#undef void
+#endif
 
 /*延迟实例化定义开始*/
 #define lazy_instantiation template<int ILD_value>

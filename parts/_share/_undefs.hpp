@@ -9,6 +9,9 @@
 	#pragma warning(pop)
 #endif
 //
+#if defined(ELC_VOID_NAME)
+	#define void the_void
+#endif
 
 #undef lazy_instantiation
 #undef lazy_instantiation_name
