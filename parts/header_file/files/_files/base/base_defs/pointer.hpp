@@ -7,11 +7,11 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-[[nodiscard]]constexpr logical_bool pointer_to_bool(T*a)noexcept{
+[[nodiscard]]constexpr auto pointer_to_bool(T*a)noexcept{
 	return null_ptr!=a;
 }
 template<typename T>
-[[nodiscard]]constexpr logical_bool pointer_equal(T*a,T*b)noexcept{
+[[nodiscard]]constexpr bool pointer_equal(T*a,T*b)noexcept{
 	return a==b;
 }
 template<class T>

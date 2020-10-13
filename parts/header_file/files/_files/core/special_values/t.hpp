@@ -10,10 +10,7 @@ inline struct t_t final:base_constexpr_t{
 protected:
 	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept override{return type_info<t_t>;}
 	[[nodiscard]]virtual logical_bool equal_with(ptr a)const{
-		if(a->get_type_info()==type_info<t_t>)
-			return true;
-		else
-			return false;
+		return this==a;
 	}
 public:
 	[[nodiscard]]virtual constexpr explicit operator hash_t()const{return hash(true);}

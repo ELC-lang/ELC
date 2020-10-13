@@ -10,9 +10,6 @@ template<class T,common_attribute_t ref_type,bool has_check>
 base_ptr_t(T*) -> base_ptr_t<remove_cvref<T>,ref_type<remove_cvref<T>>,has_check>;
 
 template<class T,common_attribute_t ref_type,bool has_check>
-base_ptr_t(convert_interface_t<T>) -> base_ptr_t<T,ref_type<T>,has_check>;
-
-template<class T,common_attribute_t ref_type,bool has_check>
 base_ptr_t(same_ptr_p_t<T>) -> base_ptr_t<T,ref_type<T>,has_check>;
 
 //file_end
