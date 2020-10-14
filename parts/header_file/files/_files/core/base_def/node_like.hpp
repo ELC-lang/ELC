@@ -29,11 +29,13 @@ protected:
 	}
 
 	[[nodiscard]]virtual logical_bool equal_with(ptr)const=0;
-	[[nodiscard]]virtual logical_bool eq_with(ptr a)const{return a==this;}
+	[[nodiscard]]virtual logical_bool eq_with(ptr a)const{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
 	[[nodiscard]]virtual constexpr size_t equal_level()const{return 0;}
 	[[nodiscard]]virtual constexpr size_t eq_level()const{return 0;}
 public:
-	virtual ~LIS_name(node_like)()=default;
+	constexpr LIS_name(node_like)()noexcept=default;
+	constexpr LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<LIS_ID_t(node_like)>(never_ref_num_zero){}
+	constexpr virtual ~LIS_name(node_like)()=default;
 
 	[[nodiscard]]virtual setter operator[](ptr)=0;
 
