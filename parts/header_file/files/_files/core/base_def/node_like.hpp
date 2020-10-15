@@ -7,8 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 lazy_instantiation struct LIS_name(setter);
-lazy_instantiation struct LIS_name(node_like);
-lazy_instantiation_name(node_like);
 
 lazy_instantiation struct LIS_name(node_like):
 ref_able<LIS_ID_t(node_like)>,weak_ref_able<LIS_ID_t(node_like)>,replace_able<LIS_ID_t(node_like)>{
@@ -52,7 +50,7 @@ public:
 	[[nodiscard]]explicit operator bool()const{return this->operator logical_bool();}
 
 	template<typename...Args>
-	inline setter operator()(Args&&...rest){return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
+	inline setter operator()(Args&&...rest);//{return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
 
 	[[nodiscard]]logical_bool eq(ptr a){
 		if(this->eq_level()==a->eq_level())
@@ -72,6 +70,12 @@ public:
 	}
 
 	[[nodiscard]]ptr operator&(){return this;}
+	[[nodiscard]]logical_bool operator ==(this_t&a){
+		return a.equal(*this);
+	}
+	[[nodiscard]]logical_bool operator !=this_t&a){
+		return not operator==(a);
+	}
 };
 lazy_instantiation_name(node_like);
 
