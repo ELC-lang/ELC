@@ -28,18 +28,11 @@ namespace function_n{
 	{using type=Ret_t(Args_t...)noexcept(nothrow);};
 	//BLOCK_END
 
-	//BLOCK:function_t推导指引
-	template<class Ret_t,class...Args_t,bool nothrow>
-	function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->function_t<Ret_t(Args_t...)noexcept(nothrow)>;
-	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type>
-	function_t(T)->function_t<Func_t>;
-	//BLOCK_END
-
-	//BLOCK:may_throw_in_destruct_function_t推导指引
-	template<class Ret_t,class...Args_t,bool nothrow>
-	may_throw_in_destruct_function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->may_throw_in_destruct_function_t<Ret_t(Args_t...)noexcept(nothrow)>;
-	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type>
-	may_throw_in_destruct_function_t(T)->may_throw_in_destruct_function_t<Func_t>;
+	//BLOCK:base_function_t推导指引
+	template<class T,bool promise_nothrow_at_destruct>
+	base_function_t(T)->base_function_t<T,promise_nothrow_at_destruct>;
+	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type,bool promise_nothrow_at_destruct>
+	base_function_t(T)->base_function_t<Func_t,promise_nothrow_at_destruct>;
 	//BLOCK_END
 }
 

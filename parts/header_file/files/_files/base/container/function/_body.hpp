@@ -7,11 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "base_function_t.hpp"
-#if !defined(_MSC_VER)
-	#include "def_for_common/_body.hpp"
-#else
-	#include "def_for_msc/_body.hpp"
-#endif
+#include "defs.hpp"
+#include "deduction_guides.hpp"
 #include "_export.hpp"
 #if defined(ELC_TEST_ON)
 	#include "_test.hpp"

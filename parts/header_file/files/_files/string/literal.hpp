@@ -9,6 +9,8 @@
 inline string operator ""_elc_string(const char_t*a,size_t N)noexcept{
 	return{a,note::size(N-1)};
 }
+
+[[deprecated("run time string code convert and calss string<char> instantiation")]]
 inline string operator ""_elc_string(const char*a,size_t N)noexcept{
 	return ::elc::APIs::str_code_convert::to_char_t_str({a,note::size(N-1)});
 }

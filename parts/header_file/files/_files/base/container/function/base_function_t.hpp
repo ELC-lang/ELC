@@ -90,19 +90,22 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const this_t&a)const noexcept{
 			return *_m==*(a._m);
 		}
+		[[nodiscard]]bool operator!=(const this_t&a)const noexcept{
+			return not operator==(a);
+		}
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
-	template<class T,bool nothrow,bool promise_nothrow_at_destruct>
+	template<class T,bool promise_nothrow_at_destruct>
 	class base_function_t;
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
-	struct base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
+	struct base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
 	protected:
 		typedef function_data_saver_t<Ret_t(Args_t...)>base_t;
-		typedef base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>this_t;
+		typedef base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>this_t;
 
-		template<class,bool,bool>
+		template<class,bool>
 		friend class base_function_t;
 
 		template<class T_>
@@ -116,12 +119,12 @@ namespace function_n{
 		template<class T>
 		static constexpr bool base_on_this_t_or_more_stringent_restrictions=(
 			type_info<T>.base_on<this_t>||
-			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),bool(nothrow+1),promise_nothrow_at_destruct>>||
-			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),nothrow,bool(promise_nothrow_at_destruct+1)>>||
-			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),bool(nothrow+1),bool(promise_nothrow_at_destruct+1)>>
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(bool(nothrow+1)),	promise_nothrow_at_destruct			>>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(nothrow),			bool(promise_nothrow_at_destruct+1)	>>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(bool(nothrow+1)),	bool(promise_nothrow_at_destruct+1)	>>
 		);
 	public:
-		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是有风险的
+		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
 		}
 
@@ -180,6 +183,10 @@ namespace function_n{
 			}
 		*/
 	};
+	template<class T,bool promise_nothrow_at_destruct>
+	void swap(base_function_t<T,promise_nothrow_at_destruct>&a,base_function_t<T,promise_nothrow_at_destruct>&b)noexcept{
+		a.swap_with(b);
+	}
 }
 
 //file_end

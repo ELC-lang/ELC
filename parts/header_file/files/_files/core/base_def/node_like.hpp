@@ -9,8 +9,6 @@
 lazy_instantiation struct LIS_name(setter);
 lazy_instantiation struct LIS_name(node_like);
 lazy_instantiation_name(node_like);
-template<typename...Args>
-node_like*node_list(Args&&...);
 
 lazy_instantiation struct LIS_name(node_like):
 ref_able<LIS_ID_t(node_like)>,weak_ref_able<LIS_ID_t(node_like)>,replace_able<LIS_ID_t(node_like)>{
@@ -54,7 +52,7 @@ public:
 	[[nodiscard]]explicit operator bool()const{return this->operator logical_bool();}
 
 	template<typename...Args>
-	inline setter operator()(Args&&...rest){return this->get_call_of_this()(node_list(forward<Args>(rest)...));}
+	inline setter operator()(Args&&...rest){return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
 
 	[[nodiscard]]logical_bool eq(ptr a){
 		if(this->eq_level()==a->eq_level())
