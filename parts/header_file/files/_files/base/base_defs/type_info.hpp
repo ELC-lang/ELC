@@ -47,9 +47,9 @@ struct type_info_t:base_type_info_t{
 	template<class T_>
 	static constexpr bool can_t_convert_to=!can_convert_to<T_>;
 	template<class T_>
-	static constexpr bool can_nothrow_convert_to=::std::is_convertible_v<T,T_>;
+	static constexpr bool can_nothrow_convert_to=::std::is_nothrow_convertible_v<T,T_>;
 	template<class T_>
-	static constexpr bool can_t_nothrow_convert_to=!can_convert_to<T_>;
+	static constexpr bool can_t_nothrow_convert_to=!can_nothrow_convert_to<T_>;
 };
 
 template<class T>

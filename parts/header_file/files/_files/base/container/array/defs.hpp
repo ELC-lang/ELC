@@ -113,19 +113,23 @@ namespace array_n{
 		void remove(T a){
 			get<T>.remove(a,note::form(_m));
 		}
-		template<typename T_,enable_if(is_array_like_for<T,T_>)>
+		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
 		friend this_t&operator+=(this_t&a,T_&&b)noexcept(get<T>.apply_end.nothrow<T_>){
 			get<T>.apply_end(note::to(a._m),b);
 		}
-		template<typename T_,enable_if(is_array_like_for<T,T_>)>
+		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
 		friend this_t operator+(const this_t&a,T_&&b)noexcept_as(declvalue(this_t).copy()+=declvalue(T_)){
 			return a.copy()+=b;
 		}
-		template<typename T_,enable_if(is_array_like_for<T,T_>)>
+		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
+		friend this_t operator+(T_&&a,const this_t&b)noexcept_as(this_t(declvalue(T_))+=declvalue(this_t)){
+			return this_t(a)+=b;
+		}
+		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
 		iterator find(T_&&a)noexcept{
 			return in_range(*this,a);
 		}
-		template<typename T_,enable_if(is_array_like_for<T,T_>)>
+		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
 		const_iterator find(T_&&a)const noexcept{
 			return in_range(*this,a);
 		}
