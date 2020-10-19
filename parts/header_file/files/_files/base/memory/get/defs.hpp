@@ -92,7 +92,7 @@ namespace get_n{
 				auto from_size=get_size_of_alloc(ptr);
 				auto a_size=size_of_array_like<T>(a);
 				alloc_size_grow(ptr,from_size+a_size);
-				copy_construct(note::from(begin_of_array_like<T>(a)),note::to(ptr+from_size));
+				copy_construct[a_size](note::from(begin_of_array_like<T>(a)),note::to(ptr+from_size));
 				return ptr;
 			}
 		}apply_end{};
@@ -112,7 +112,7 @@ namespace get_n{
 				if(!ptr_to_a)
 					return false;
 
-				destruct(ptr_to_a,a_size);
+				destruct[a_size](ptr_to_a);
 				move[(ptr+from_size)-(ptr_to_a+a_size)](note::from(ptr_to_a+a_size),note::to(ptr_to_a));
 				alloc_size_cut(ptr,from_size-a_size);
 				return true;
@@ -134,7 +134,7 @@ namespace get_n{
 			if(a!=null_ptr){
 				if constexpr(!destruct.nothrow<T>)
 					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-				destruct(a,get_size_of_alloc(a));
+				destruct[get_size_of_alloc(a)](a);
 				free(a);
 			}
 		}
@@ -164,7 +164,7 @@ namespace get_n{
 				if(from_size==to_size)
 					return;
 				elseif(from_size > to_size){
-					destruct(arg+to_size-1,from_size-to_size);
+					destruct[from_size-to_size](arg+to_size-1);
 					alloc_size_cut(arg,to_size);
 				}elseif(from_size){
 					alloc_size_grow(arg,to_size)

@@ -114,21 +114,36 @@ namespace lifetime_n{
 		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
 
 		template<class T,enable_if(able<T>)>
-		void operator()(T*to)const noexcept(nothrow<T>){
+		void base_call(T*to)const noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)
 				if constexpr(::std::is_array_v<T>)
 					for(auto&i : *to)
-						operator()(addressof(i));
+						base_call(addressof(i));
 				else to->~T();
 		}
+
 		template<class T,enable_if(able<T>)>
-		void operator()([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
-			if constexpr(type_info<T>.has_attribute(never_in_array)){
-				template_warning("arg size will not use for never_in_array type.");
-				operator()(begin);
-			}elseif constexpr(!trivial<T>)
-			    while(size--)operator()(begin+size);
+		void base_call([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
+			if constexpr(type_info<T>.has_attribute(never_in_array))
+				template_error("You cannot perform array operations on never_in_array type.");
+			if constexpr(!trivial<T>)
+				while(size--)base_call(begin+size);
 		}
+
+		template<class T,enable_if(able<T>)>
+		void operator()(T*begin)const noexcept(nothrow<T>){
+			base_call(begin);
+		}
+
+		struct array_destruct_t{
+			size_t _size;
+			template<class T,enable_if(able<T>)>
+			void operator()(T*begin)const noexcept(nothrow<T>){
+				base_call(begin,_size);
+			}
+		};
+
+		[[nodiscard]]constexpr array_destruct_t operator[](size_t size)const noexcept{return{size};}
 
 		struct not_t{};
 		/*适用于unget(this,not destruct);*/
@@ -143,21 +158,38 @@ namespace lifetime_n{
 		template<class T,class...Args>
 		static constexpr bool trivial=destruct.trivial<T>&&construct<T>.trivial<Args...>;
 
-		template<class T,class...Args,enable_if(able<T,Args...>)>
-		void operator()(T*to,Args&&...rest)const noexcept(nothrow<T>){
+		template<class T,enable_if(able<T>)>
+		T* operator()(T*to)const noexcept(nothrow<T>){
 			destruct(to);
-			construct<T>[to](forward<Args>(rest)...);
+			construct<T>[to]();
+			return to;
 		}
-		template<class T,class...Args,enable_if(able<T,Args...>)>
-		void operator()(T*begin,size_t size,Args&&...rest)const noexcept(nothrow<T>){
-			if constexpr(type_info<T>.has_attribute(never_in_array)){
-				template_warning("arg size will not use for never_in_array type.");
-				operator()(begin);
-			}else{
-				destruct(begin,size);
+		template<class T>
+		struct array_re_construct_t{
+			T*_to;
+			size_t _size;
+			template<class...Args,enable_if(able<T,Args...>)>
+			T* operator()(Args&&...rest)const noexcept(nothrow<T,Args...>){
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You cannot perform array operations on never_in_array type.");
+				destruct[size](begin);
 				construct<T>[begin][size](forward<Args>(rest)...);
+				return _to;
 			}
-		}
+		};
+		template<class T>
+		struct placement_re_construct_t{
+			T*_to;
+			template<class...Args,enable_if(able<T,Args...>)>
+			T* operator()(Args&&...rest)const noexcept(nothrow<T,Args...>){
+				destruct(to);
+				construct<T>[to](forward<Args>(rest)...);
+				return _to;
+			}
+			[[nodiscard]]constexpr array_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
+		};
+		template<class T>
+		[[nodiscard]]constexpr placement_construct_t<T> operator[](T*p)const noexcept{return{p};}
 	}re_construct;
 
 	constexpr struct copy_assign_t{
@@ -235,19 +267,15 @@ namespace lifetime_n{
 				return to;
 			}
 		}
+
 		template<class T,enable_if(able<T>)>
 		static T*base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
-			if constexpr(type_info<T>.has_attribute(never_in_array)){
-				template_warning("arg size will not use for never_in_array type.");
-				base_call(begin,from);
-			}else{
-				if constexpr(trivial<T>)
-					return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)*size));
-				else{
-					while(size--)
-						base_call(to+size,from+size)
-					return to;
-				}
+			if constexpr(trivial<T>)
+				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)*size));
+			else{
+				while(size--)
+					base_call(to+size,from+size)
+				return to;
 			}
 		}
 
@@ -273,8 +301,11 @@ namespace lifetime_n{
 			}
 			return to;
 		}
+
 		template<class T,enable_if(able<T>)>
 		static T*base_call(T*to,const T&from,size_t size)noexcept(nothrow<T>){
+			if constexpr(type_info<T>.has_attribute(never_in_array))
+				template_error("You cannot perform array operations on never_in_array type.");
 			while(size--)
 				base_call(to+size,from);
 			return to;
@@ -334,6 +365,8 @@ namespace lifetime_n{
 		}
 		template<class T,enable_if(able<T>)>
 		static T*base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
+			if constexpr(type_info<T>.has_attribute(never_in_array))
+				template_error("You cannot perform array operations on never_in_array type.");
 			if constexpr(trivial<T>)
 				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)*size));
 			else{
@@ -392,8 +425,10 @@ namespace lifetime_n{
 		}
 		template<class T,enable_if(able<T>)>
 		static T*base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
+			if constexpr(type_info<T>.has_attribute(never_in_array))
+				template_error("You cannot perform array operations on never_in_array type.");
 			move_construct[size](to,from);
-			destruct(from,size);
+			destruct[size](from);
 			return to;
 		}
 

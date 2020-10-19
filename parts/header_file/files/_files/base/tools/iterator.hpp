@@ -86,7 +86,7 @@ namespace iterator_n{
 	};
 	template<typename value_t,typename base_t_w>
 	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(declvalue(same_base_t<value_t,base_t_w>&).swap_with(declvalue(same_base_t<value_t,base_t_w>&))){a.swap_with(b);}
-	
+
 	template<typename value_t,typename base_t_w,bool is_reverse>
 	struct base_iterator_t:same_base_t<value_t,base_t_w>{
 		typedef base_iterator_t<value_t,base_t_w,is_reverse> this_t;
@@ -128,7 +128,7 @@ namespace iterator_n{
 	base_iterator_t(base_iterator_t<value_t,base_t_w,_>) -> base_iterator_t<value_t,base_t_w,is_reverse>;
 	template<typename value_t,typename base_t_w,bool is_reverse>
 	base_iterator_t(value_t*) -> base_iterator_t<value_t,base_t_w,is_reverse>;
-	
+
 	template<typename value_t,typename base_t_w=value_t*>
 	using iterator_t = base_iterator_t<remove_cvref<value_t>,base_t_w,0>;
 	template<typename value_t,typename base_t_w=value_t*>
