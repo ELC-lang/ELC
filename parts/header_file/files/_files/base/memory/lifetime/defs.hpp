@@ -186,10 +186,10 @@ namespace lifetime_n{
 				construct<T>[to](forward<Args>(rest)...);
 				return _to;
 			}
-			[[nodiscard]]constexpr array_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
+			[[nodiscard]]constexpr array_re_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
 		};
 		template<class T>
-		[[nodiscard]]constexpr placement_construct_t<T> operator[](T*p)const noexcept{return{p};}
+		[[nodiscard]]constexpr placement_re_construct_t<T> operator[](T*p)const noexcept{return{p};}
 	}re_construct;
 
 	constexpr struct copy_assign_t{

@@ -11,88 +11,30 @@ namespace gc_n{
 }
 namespace alloc_n{
 	using ::elc::defs::memory::gc_n::gc_for_alloc;
-	//BLOCK:for debug
-	[[nodiscard]]inline void*base_realloc(void*ptr,size_t osize,size_t nsize)noexcept{
-		void*p=::elc::APIs::alloc::realloc(ptr,osize,nsize);
-		#if defined(ELC_TEST_ON)
-			if(nsize==0)
-				stest_uneventlog(ptr);
-			if(p){
-				stest_entryevent(L"base_realloc调用");
-				if(p!=ptr)
-					stest_uneventlog(ptr);
-				stest_eventlog(p);
-				stest_exitevent();
-			}
-		#endif
-		return p;
-	}
-	[[nodiscard]]inline void*base_aligned_alloc(size_t align,size_t size)noexcept{
-		void*p=::elc::APIs::alloc::aligned_alloc(align,size);
-		#if defined(ELC_TEST_ON)
-			if(p){
-				stest_entryevent(L"base_aligned_alloc调用");
-				stest_eventlog(p);
-				stest_exitevent();
-			}
-		#endif
-		return p;
-	}
-	inline void base_free(void*p,size_t size)noexcept{
-		//传入需释放的数据块起始点与大小（字节）
-		#if defined(ELC_TEST_ON)
-			auto tmp=stest_geteventlistfromlog(p);
-			if(!tmp){
-				stest_putsf(L"释放了已释放或未分配指针%p，当前的事件记录如下：",p);
-				stest_printeventlist(stderr,stest_geteventlist());
-				stest_wait();
-				p=nullptr;
-			}else{
-				stest_deleteevent(tmp);
-				stest_uneventlog(p);
-			}
-		#endif
-		::elc::APIs::alloc::free(p,size);
-	}
-	//BLOCK_END
 
 	//允许自定义对象的alloc/free/realloc/get_size_of_alloc方法：为pool留的后门（大概）
 	//这里是缺省时的默认方法定义
-	#include "overhead.hpp"
+	#include "default_method/defs.hpp"
 
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
-		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)));
-		if(tmp){
-			set_overhead(tmp,1);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
-		}
-		else return nullptr;
+		return default_method::alloc_method(type_info<T>);
 	}
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
 		//size被保证不为0
-		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)*size));
-		if(tmp){
-			set_overhead(tmp,size);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
-		}
-		else return nullptr;
+		return default_method::alloc_method(type_info<T>,size);
 	}
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		//arg保证不与null_ptr相等
-		using namespace overhead_n;
-		return get_overhead(recorrect_pointer(const_cast<T*>(arg)));
+		return default_method::get_size_of_alloc_method(arg);
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
-		using namespace overhead_n;
-		base_free(recorrect_pointer(arg),correct_size<T>(get_overhead(recorrect_pointer(arg))));
+		default_method::free_method(arg);
 	}
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
@@ -100,16 +42,8 @@ namespace alloc_n{
 		//new_size被保证不为0
 		//align维持不变
 		//但只允许在扩大数据块时可选的移动数据块
-		using namespace overhead_n;
-		void*tmp=base_realloc(recorrect_pointer(ptr),get_size_of_alloc_method(ptr),correct_size<T>(sizeof(T)*new_size));
-		if(tmp){
-			set_overhead(tmp,new_size);
-			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));
-			return ptr;
-		}
-		else return nullptr;
+		return default_method::realloc_method(ptr,new_size);
 	}
-	//
 
 	//众所周知,cpp是面向对象语言.
 	struct base_alloc_t{};

@@ -1,9 +1,6 @@
 ### 快速PR
 [alex to steve](https://github.com/steve02081504/ELC/compare/master...alex0125z:master)  
 [steve to alex](https://github.com/alex0125z/ELC/compare/master...steve02081504:master)  
-  
-[翱翔的黑鹰 to steve](https://github.com/steve02081504/ELC/compare/master...AXDHY:master)  
-[steve to 翱翔的黑鹰](https://github.com/AXDHY/ELC/compare/master...steve02081504:master)  
 
 ____
 
