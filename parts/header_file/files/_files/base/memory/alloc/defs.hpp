@@ -91,7 +91,8 @@ namespace alloc_n{
 		template<class T>
 		static void base_call(T*&ptr,size_t nsize)noexcept{
 			if constexpr(type_info<T>.has_attribute(never_in_array))
-				template_warning("For never_in_array type,realloc will free ptr when new_size=0 else do nothing.");
+				template_error("You cannot perform array operations on never_in_array type.");
+				//template_warning("For never_in_array type,realloc will free ptr when new_size=0 else do nothing.");
 			if(nsize){//null_ptr不一定等价于nullptr，请勿删除本行
 				if constexpr(type_info<T>.not_has_attribute(never_in_array))
 					if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
