@@ -178,6 +178,11 @@ namespace get_n{
 		inline void operator()(T*&arg,size_t to_size)const noexcept(nothrow<T>){
 			base_call(arg,to_size);
 		}
+		template<typename T,enable_if(able<T>)>
+		[[nodiscard]]inline T* operator()(T*arg,size_t to_size)const noexcept(nothrow<T>){
+			base_call(arg,to_size);
+			return arg;
+		}
 	}get_resize{};
 
 	template<class T>
