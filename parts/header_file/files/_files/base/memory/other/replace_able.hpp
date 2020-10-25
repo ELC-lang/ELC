@@ -8,7 +8,7 @@
 */
 //此属性配合 "../ptr" 食用
 template<typename T>
-struct replace_able:non_copyable,non_moveable,attribute<T,replace_able<T>>{
+struct replace_able:non_copyable,non_moveable,is_common_attribute(replace_able){
 private:
 	mutable T*_m;
 public:

@@ -58,6 +58,9 @@ auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args
 /*实例化到此将引发警告*/
 #define template_warning(reason) template_warning_helper<T>(reason)
 
+#define is_common_attribute(name) public attribute<T,name<T>>
+#define is_special_attribute(name) public attribute<T,name>
+
 #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
 #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
 

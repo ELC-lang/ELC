@@ -38,6 +38,9 @@
 #undef template_error
 #undef template_warning
 
+#undef is_common_attribute
+#undef is_special_attribute
+
 #undef has_attribute
 #undef not_has_attribute
 

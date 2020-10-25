@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-struct can_map_all:cons_t<can_map_all<T>>,attribute<T,can_map_all<T>>{
+struct can_map_all:cons_t<can_map_all<T>>,is_common_attribute(can_map_all){
 	typedef can_map_all<T> this_t;
 private:
 	inline static list_t<this_t> type_list;

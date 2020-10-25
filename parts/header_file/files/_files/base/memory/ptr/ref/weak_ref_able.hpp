@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-struct weak_ref_able:ref_t,can_t_use_default_null_ptr,attribute<T,weak_ref_able<T>>{
+struct weak_ref_able:ref_t,can_t_use_default_null_ptr,is_common_attribute(weak_ref_able){
 private:
 	typedef ref_t base_t;
 public:

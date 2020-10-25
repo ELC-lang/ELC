@@ -10,7 +10,7 @@
 template<typename T>
 class list_t;
 template<typename T>
-struct cons_t:non_copyable,non_moveable,attribute<T,cons_t<T>>{
+struct cons_t:non_copyable,non_moveable,is_common_attribute(cons_t){
 	typedef cons_t<T> this_t;
 private:
 	friend list_t<T>;
