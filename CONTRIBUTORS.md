@@ -16,7 +16,7 @@ _______
 ### 被采纳的PR提交者  
 ### Adopted PR Submitter  
   
-- [翱翔的黑鹰]( https://github.com/AXDHY )  
+- [翱翔的黑鹰]( https://github.com/AXDHY )——data_t注释完善  
 
 _______
 

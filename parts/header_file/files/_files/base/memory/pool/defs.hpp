@@ -114,7 +114,7 @@ namespace pool_n{
 	template<typename T>
 	constexpr bool pool_s_array_warning(type_info_t<T>){return 1;}
 	template<typename T>
-	struct alloc_by_pool:attribute<T,alloc_by_pool<T>>{
+	struct alloc_by_pool{
 		constexpr static ::std::uint_fast16_t pool_ment_size=get_ment_size(type_info<T>);
 	};
 	template<typename T>

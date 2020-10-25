@@ -10,12 +10,11 @@ template<typename T>
 struct weak_ref_able:ref_t,can_t_use_default_null_ptr,attribute<T,weak_ref_able<T>>{
 private:
 	typedef ref_t base_t;
-	typedef attribute<T,ref_able<T>> attribute;
 public:
 	inline void cut_ref()const noexcept{
 		if constexpr(!was_ref_able<T>)
 			template_error("base on ref_able before base on weak_ref_able,please.");
-		T*this_T=const_cast<T*>(attribute::get_handle());
+		T*this_T=const_cast<T*>(get_handle(this));
 		if(base_t::cut_ref())
 			if(get_ref_num(this_T)==0)
 				destroy_and_free(this_T);

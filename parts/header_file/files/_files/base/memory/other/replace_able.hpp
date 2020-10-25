@@ -11,10 +11,9 @@ template<typename T>
 struct replace_able:non_copyable,non_moveable,attribute<T,replace_able<T>>{
 private:
 	mutable T*_m;
-	typedef attribute<T,replace_able<T>> attribute;
 public:
-	constexpr replace_able()noexcept:_m(attribute::get_handle()){}
-	constexpr bool replaced()const noexcept{return _m!=attribute::get_handle()();}
+	constexpr replace_able()noexcept:_m(get_handle(this)){}
+	constexpr bool replaced()const noexcept{return _m!=get_handle(this);}
 	constexpr T*get_ptr()const noexcept{
 		if(!replaced())
 			return _m;

@@ -10,13 +10,8 @@ template<typename T>
 struct can_map_all:cons_t<can_map_all<T>>,attribute<T,can_map_all<T>>{
 	typedef can_map_all<T> this_t;
 private:
-	typedef attribute<T,this_t> attribute_t;
-
 	inline static list_t<this_t> type_list;
 
-	constexpr T*get_handle(){
-		return attribute_t::get_handle();
-	}
 	#define expr declvalue(func_t)(declvalue(T_*))
 	template<class T_,class func_t,enable_flag>
 	friend inline void map_all(func_t&a)noexcept_as(expr);
@@ -32,7 +27,7 @@ inline void map_all(func_t&a)noexcept_as(expr){
 	auto tmp=can_map_all<T>::type_list.begin();
 	auto end=can_map_all<T>::type_list.end();
 	while(tmp!=end){
-		a((tmp++)->get_handle());
+		a(get_handle(tmp++));
 	}
 }
 #undef expr
