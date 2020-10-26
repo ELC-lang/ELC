@@ -28,8 +28,8 @@ namespace hash_n{
 	inline constexpr bool is_unstable_hash = decltype(is_unstable_hash_helper<T>(0))::value;
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
-	[[nodiscard]]inline constexpr hash_t hash()noexcept{
-		return{size_t(-1)};
+	[[nodiscard]]inline constexpr hash_t hash(nothing)noexcept{
+		return{size_t(nothing)};
 	}
 	template<class T>
 	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{

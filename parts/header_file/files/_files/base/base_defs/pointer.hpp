@@ -18,6 +18,18 @@ template<class T>
 inline constexpr bool is_pointer= ::std::is_pointer_v<T>;
 typedef void*pointer;
 typedef const void*const_pointer;
+typedef decltype(declvalue(byte*)-declvalue(byte*)) ptr_diff_t;
+[[nodiscard]]constexpr ptr_diff_t get_off_set(note::from_t<const_pointer>a,note::to_t<const_pointer>b)noexcept{
+	return cast_to_data(b.value)-cast_to_data(a.value);//b-a == c
+}
+template<class T>
+[[nodiscard]]constexpr auto apply_off_set(T*a,ptr_diff_t c)noexcept{
+	return cast_to_data(a.value)+c;//a+c == b
+}
+template<class T>
+[[nodiscard]]constexpr auto unapply_off_set(T*b,ptr_diff_t c)noexcept{
+	return cast_to_data(b.value)-c;//b-c == a
+}
 
 //file_end
 

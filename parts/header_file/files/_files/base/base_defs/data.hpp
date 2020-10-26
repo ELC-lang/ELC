@@ -14,7 +14,14 @@
 template<class T>
 [[nodiscard]]constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
 /*
-	功能: data_block类模板,接受多个类型参数,实例化为内含最大体积最大对齐的byte数组的结构体
+	功能: T* 指针转换为 byte*，不进行任何检查
+	用法: cast_to_data(T*) -> byte*
+*/
+template<class T>
+[[nodiscard]]constexpr byte*cast_to_data(T*p){return ::std::launder(reinterpret_cast<byte*>(p));}
+
+/*
+	功能: data_block类模板,接受多个类型参数,实例化为内含最大体积最大对齐要求的byte数组的结构体
 			data_block -> byte*
 	用法: data_block<T1,T2,...>value;
 */
