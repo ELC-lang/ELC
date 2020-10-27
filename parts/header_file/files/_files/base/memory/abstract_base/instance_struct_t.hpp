@@ -9,11 +9,11 @@
 template<class T>
 class instance_struct_t:is_common_attribute(instance_struct_t){
 	virtual void abstract_method_unget_this()final{unget(get_handle(this));}
-	virtual T* _abstract_method_copy_get_this()final{
+	virtual void* _abstract_method_copy_get_this()final{
 		is_instance_ptr(this);
 		return copy_get(get_handle(this));
 	}
-	virtual T* _abstract_method_get_resize_this(size_t size)final{
+	virtual void* _abstract_method_get_resize_this(size_t size)final{
 		is_instance_ptr(this);
 		return get_resize(get_handle(this),size);
 	}
