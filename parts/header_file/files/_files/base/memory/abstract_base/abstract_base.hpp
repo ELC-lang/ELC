@@ -22,7 +22,6 @@ class abstract_base{
 	}
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept=0;
 
-	template<typename T>
 	friend class get_n::unget_t;
 	friend class get_n::get_resize_t;
 	friend class get_n::get_size_of_get_t;
