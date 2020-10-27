@@ -46,8 +46,9 @@
 
 #undef def_common_attribute_with_nothing
 #undef def_special_attribute_with_nothing
-#undef common_attribute_t
 
+#undef common_attribute_t
+#undef special_attribute_t
 
 #undef enable_if
 #undef enabled_by_default

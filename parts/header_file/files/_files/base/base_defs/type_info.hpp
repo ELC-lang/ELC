@@ -15,11 +15,11 @@ struct type_info_t:base_type_info_t{
 	template<class T_>
 	static constexpr bool not_base_on=!base_on<T_>;
 
-	template<class attribute_name>
+	template<special_attribute_t attribute_name>
 	static constexpr bool has_attribute_helper(){
 		return ::std::is_base_of_v<attribute_name,remove_cvref<T>>;//防止因子类属性误判，不可用base_on
 	}
-	template<template<class>class attribute_name>
+	template<common_attribute_t attribute_name>
 	static constexpr bool has_attribute_helper(){
 		return has_attribute_helper<attribute_name<remove_cvref<T>>>();
 	}
@@ -30,11 +30,11 @@ struct type_info_t:base_type_info_t{
 	template<typename attribute_name>
 	static constexpr bool not_has_attribute=!has_attribute(attribute_name);
 	*/
-	template<class attribute_name>
+	template<special_attribute_t attribute_name>
 	static constexpr bool not_has_has_attribute_helper(){
 		return!has_attribute_helper<attribute_name>();
 	}
-	template<template<class>class attribute_name>
+	template<common_attribute_t attribute_name>
 	static constexpr bool not_has_has_attribute_helper(){
 		return!has_attribute_helper<attribute_name>();
 	}

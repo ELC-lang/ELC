@@ -72,6 +72,7 @@ class name{}\
 class name{}\
 
 #define common_attribute_t template<class>class
+#define special_attribute_t class
 
 /*
 若参数的布尔值为零，那么此模板不会实例化
