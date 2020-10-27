@@ -20,7 +20,7 @@ class abstract_base{
 		is_base_ptr(this);
 		return reinterpret_cast<T*>(get_ptr_after_off_set(this->_abstract_method_get_resize_this(size)));
 	}
-	virtual size_t abstract_method_get_size_of_get_for_this()=0;
+	virtual size_t abstract_method_get_size_of_get_for_this()noexcept=0;
 
 	template<typename T>
 	friend class get_n::unget_t;

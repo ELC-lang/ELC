@@ -17,7 +17,7 @@ class instance_struct:is_common_attribute(instance_struct){
 		is_instance_ptr(this);
 		return get_resize(get_handle(this),size);
 	}
-	virtual size_t abstract_method_get_size_of_get_for_this()final{return get_size_of_get(get_handle(this));}
+	virtual size_t abstract_method_get_size_of_get_for_this()noexcept final{return get_size_of_get(get_handle(this));}
 };
 
 //file_end
