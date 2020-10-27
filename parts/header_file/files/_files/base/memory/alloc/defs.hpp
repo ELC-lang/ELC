@@ -116,17 +116,41 @@ namespace alloc_n{
 		[[nodiscard]]realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};
 
-	template<class T>
-	inline size_t get_size_of_alloc(const T*arg)noexcept_as(get_size_of_alloc_method(declvalue(const T*))){
-		if(arg==null_ptr)
-			return 0;
-		return get_size_of_alloc_method(arg);
-	}
+	constexpr struct get_size_of_alloc_t{
+		template<typename T>
+		static constexpr bool able=true;
+		template<typename T>
+		static constexpr bool nothrow=noexcept(get_size_of_alloc_method(declvalue(const T*)));
 
-	template<class T>
-	inline T*copy_alloc(const T*arg)noexcept{
-		return alloc<T>(get_size_of_alloc(arg));
-	}
+		template<typename T,enable_if(able<T>)>
+		static size_t base_call(const T*arg)noexcept(nothrow<T>){
+			if(arg==null_ptr)
+				return 0;
+			return get_size_of_alloc_method(arg);
+		}
+
+		template<typename T,enable_if(able<T>)>
+		size_t operator()(const T*arg)const noexcept(nothrow<T>){
+			return base_call(arg);
+		}
+	}get_size_of_alloc{};
+
+	constexpr struct copy_alloc_t{
+		template<typename T>
+		static constexpr bool able=true;
+		template<typename T>
+		static constexpr bool nothrow=get_size_of_alloc.nothrow<T>;
+
+		template<typename T,enable_if(able<T>)>
+		static T*base_call(const T*arg)noexcept(nothrow<T>){
+			return alloc<T>(get_size_of_alloc(arg));
+		}
+
+		template<typename T,enable_if(able<T>)>
+		T*operator()(const T*arg)const noexcept(nothrow<T>){
+			return base_call(arg);
+		}
+	}copy_alloc{};
 }
 
 //file_end

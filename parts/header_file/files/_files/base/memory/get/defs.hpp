@@ -185,10 +185,22 @@ namespace get_n{
 		}
 	}get_resize{};
 
-	template<class T>
-	inline size_t get_size_of_get(const T*arg)noexcept_as(get_size_of_alloc(declvalue(const T*))){
-		return get_size_of_alloc(arg);
-	}
+	constexpr struct get_size_of_get_t{
+		template<typename T>
+		static constexpr bool able=true;
+		template<typename T>
+		static constexpr bool nothrow=noexcept(get_size_of_alloc(declvalue(const T*)));
+
+		template<typename T,enable_if(able<T>)>
+		static size_t base_call(const T*arg)noexcept(nothrow<T>){
+			return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
+		}
+
+		template<typename T,enable_if(able<T>)>
+		size_t operator()(const T*arg)const noexcept(nothrow<T>){
+			return base_call(arg);
+		}
+	}get_size_of_get{};
 
 	constexpr struct copy_get_t{
 		template<typename T>
