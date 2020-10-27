@@ -18,7 +18,7 @@ struct gc_tester:gc_able<gc_tester>,can_shrink<gc_tester>,count_able<gc_tester>,
 	}
 };
 void map_and_mark_for_gc(gc_tester*a){
-	static_cast<mark_able_for_gc<gc_tester>*>(a)->mark();
+	attribute_ptr_cast<mark_able_for_gc>(a)->mark();
 }
 inline void test(){
 	stest_entryevent(L"gc部分测试");

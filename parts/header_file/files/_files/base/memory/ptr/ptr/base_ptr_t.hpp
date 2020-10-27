@@ -26,8 +26,8 @@ struct same_ref_p_t:same_ptr_p_t<T>{
 
 	static constexpr bool cut_nothrow=noexcept(declvalue(ref_type).cut_ref());
 protected:
-	static void cut_ref(T*a)noexcept(cut_nothrow){static_cast<ref_type*>(a)->cut_ref();}
-	static void add_ref(T*a)noexcept{static_cast<ref_type*>(a)->add_ref();}
+	static void cut_ref(T*a)noexcept(cut_nothrow){attribute_ptr_cast<ref_type>(a)->cut_ref();}
+	static void add_ref(T*a)noexcept{attribute_ptr_cast<ref_type>(a)->add_ref();}
 
 	void cut_ref()const noexcept_as(cut_ref(nullptr)){cut_ref(_to);}
 	void add_ref()const noexcept{add_ref(_to);}
@@ -76,7 +76,7 @@ public:
 		check();
 		return base_t::get();
 	}
-	[[nodiscard]]bool unique()const noexcept{return static_cast<ref_able<T>*>(get())->link_num()==1;}
+	[[nodiscard]]bool unique()const noexcept{return attribute_ptr_cast<ref_able>(get())->link_num()==1;}
 	[[nodiscard]]explicit constexpr operator 
 	::std::conditional_t<(replace_check&&type_info<T>.has_attribute(replace_able)),
 						  unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动

@@ -18,7 +18,7 @@ public:
 		if(!replaced())
 			return _m;
 		else
-			return static_cast<replace_able*>(_m)->get_ptr();
+			return attribute_ptr_cast<replace_able>(_m)->get_ptr();
 	}
 	constexpr void be_replace_as(T*new_p)noexcept{_m=new_p;}
 	constexpr void be_replace_as(nullptr_t)noexcept{be_replace_as(null_ptr);}
