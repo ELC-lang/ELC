@@ -1,4 +1,4 @@
-//abstract_base_t.hpp
+//abstract_base.hpp
 //at namespace elc::defs::memory
 /*
 未完成的elc解释器base文件
@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<class T>
-class abstract_base_t{
+class abstract_base{
 	virtual void* _abstract_method_copy_get_this()=0;
 	virtual void* _abstract_method_get_resize_this(size_t size)=0;
 
@@ -24,8 +24,9 @@ class abstract_base_t{
 
 	template<typename T>
 	friend class get_n::unget_t;
-
 	friend class get_n::get_resize_t;
+	friend class get_n::get_size_of_get_t;
+	friend class get_n::copy_get_t;
 };
 
 //file_end
