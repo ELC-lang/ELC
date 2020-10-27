@@ -8,7 +8,11 @@
 */
 //UF
 namespace abstract_base{
-	inline pointer base_ptr;
+	inline thread_local pointer base_ptr;
+	inline thread_local ptr_diff_t off_set;
+	inline void is_base_ptr(void*a)noexcept{base_ptr=a;}
+	inline void is_instance_ptr(void*a)noexcept{off_set=get_off_set(note::from(a),note::to(base_ptr));}
+	inline void*get_ptr_after_off_set(void*a)noexcept{return apply_off_set(a,off_set);}
 	/*
 	ELC的虚基类模块，适用于unget
 	处理虚基类到实例类的偏移与实例化模板差异

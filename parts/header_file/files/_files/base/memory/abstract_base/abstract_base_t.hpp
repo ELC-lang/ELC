@@ -8,10 +8,24 @@
 */
 template<class T>
 class abstract_base_t{
+	virtual void* _abstract_method_copy_get_this()=0;
+	virtual void* _abstract_method_get_resize_this(size_t size)=0;
+
 	virtual void abstract_method_unget_this()=0;
-	virtual T* abstract_method_copy_get_this()=0;
-	virtual T* abstract_method_get_resize_this(size_t size)=0;
+	T* abstract_method_copy_get_this(){
+		is_base_ptr(this);
+		return reinterpret_cast<T*>(get_ptr_after_off_set(this->_abstract_method_copy_get_this()));
+	}
+	T* abstract_method_get_resize_this(size_t size){
+		is_base_ptr(this);
+		return reinterpret_cast<T*>(get_ptr_after_off_set(this->_abstract_method_get_resize_this(size)));
+	}
 	virtual size_t abstract_method_get_size_of_get_for_this()=0;
+
+	template<typename T>
+	friend class get_n::unget_t;
+
+	friend class get_n::get_resize_t;
 };
 
 //file_end
