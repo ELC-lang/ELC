@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 //UF
-namespace abstract_base{
+namespace abstract_base_n{
 	/*
 	ELC的虚基类模块，适用于unget
 	处理虚基类到实例类的偏移与模板实例化差异
@@ -17,8 +17,8 @@ namespace abstract_base{
 	用法：is_common_attribute
 	*/
 	#include "pointer_off_set.hpp"
-	#include "instance_struct.hpp"
 	#include "abstract_base.hpp"
+	#include "instance_struct.hpp"
 }
 
 //file_end
