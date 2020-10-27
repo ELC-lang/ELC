@@ -16,5 +16,24 @@ protected:
 template<class T,typename attribute_name>
 T*get_handle(attribute<T,attribute_name>*a){return get_handle(a->get_handle());}
 
+template<special_attribute_t attribute_name,class T>
+auto attribute_ptr_cast(T*ptr)noexcept{
+	return static_cast<attribute_name*>(ptr);
+}
+template<common_attribute_t attribute_name,class T>
+auto attribute_ptr_cast(T*ptr)noexcept{
+	return attribute_ptr_cast<attribute_name<T>>(ptr);
+}
+
+template<special_attribute_t attribute_name,class T>
+auto attribute_cast(T&t)noexcept{
+	return*attribute_ptr_cast<attribute_name>(&t);
+}
+template<common_attribute_t attribute_name,class T>
+auto attribute_cast(T&t)noexcept{
+	return*attribute_ptr_cast<attribute_name>(&t);
+}
+
+
 //file_end
 
