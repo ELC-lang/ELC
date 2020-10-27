@@ -6,7 +6,19 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+namespace abstract_base_n{
+	/*
+	ELC的虚基类模块，适用于unget
+	处理虚基类到实例类的偏移与模板实例化差异
+	原理：
+		虚函数间接调用以从base_t&转为T&
+		运行时计算偏移以从T*转换base_t*
+	用法：is_common_attribute
+	*/
+	common_attribute_t abstract_base;
+}
 namespace get_n{
+	using abstract_base_n::abstract_base;
 	//struct build_by_get_only{};已定义于 "../../base_defs/special_attribute.hpp"
 
 	/*减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
@@ -127,15 +139,19 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool able=destruct.able<T>;
 		template<typename T>
-		static constexpr bool nothrow=destruct.nothrow<T>;
+		static constexpr bool nothrow=type_info<T>.not_has_attribute(abstract_base)&&destruct.nothrow<T>;
 
 		template<typename T,enable_if(able<T>)>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
-				if constexpr(!destruct.nothrow<T>)
-					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-				destruct[get_size_of_alloc(a)](a);
-				free(a);
+				if constexpr(type_info<T>.has_attribute(abstract_base))
+					attribute_ptr_cast<abstract_base>(a)->abstract_method_unget_this();
+				else{
+					if constexpr(!destruct.nothrow<T>)
+						template_warning("the destructer of T was not noexcept,this may cause memory lack.");
+					destruct[get_size_of_alloc(a)](a);
+					free(a);
+				}
 			}
 		}
 		/*适用于unget(this,not destruct);*/
@@ -149,7 +165,7 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool able=construct<T>.able<>&&destruct.able<T>&&move.able<T>;
 		template<typename T>
-		static constexpr bool nothrow=construct<T>.nothrow<>&&destruct.nothrow<T>&&move.nothrow<T>;
+		static constexpr bool nothrow=type_info<T>.not_has_attribute(abstract_base)&&construct<T>.nothrow<>&&destruct.nothrow<T>&&move.nothrow<T>;
 
 		template<typename T,enable_if(able<T>)>
 		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
@@ -159,6 +175,8 @@ namespace get_n{
 					return;
 				unget(arg);
 				arg=null_ptr;
+			}elseif constexpr(type_info<T>.has_attribute(abstract_base)){
+				arg=attribute_ptr_cast<abstract_base>(arg)->abstract_method_get_resize_this(to_size);
 			}else{
 				const size_t from_size=get_size_of_alloc(arg);
 				if(from_size==to_size)
@@ -193,7 +211,10 @@ namespace get_n{
 
 		template<typename T,enable_if(able<T>)>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
-			return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
+			if constexpr(type_info<T>.has_attribute(abstract_base))
+				return attribute_ptr_cast<abstract_base>(arg)->abstract_method_get_size_of_get_for_this();
+			else
+				return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
 		}
 
 		template<typename T,enable_if(able<T>)>
@@ -210,7 +231,10 @@ namespace get_n{
 
 		template<typename T,enable_if(able<T>)>
 		static T*base_call(const T*arg)noexcept(nothrow<T>){
-			return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
+			if constexpr(type_info<T>.has_attribute(abstract_base))
+				return attribute_ptr_cast<abstract_base>(arg)->abstract_method_copy_get_this();
+			else
+				return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
 		}
 
 		template<typename T,enable_if(able<T>)>
