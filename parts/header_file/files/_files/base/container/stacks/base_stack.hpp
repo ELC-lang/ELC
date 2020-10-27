@@ -97,12 +97,12 @@ public:
 				data_t*remove_p=tmp;
 				*tmp_=tmp->_next;
 				unget(tmp);
-				return 1;
+				return true;
 			}
 			tmp_=&tmp->_next;
 			tmp=*tmp_;
 		}
-		return 0;
+		return false;
 	}
 	#define expr declvalue(func_t)(declvalue(T&))
 	template<typename func_t,enable_if_not_ill_from(expr)>

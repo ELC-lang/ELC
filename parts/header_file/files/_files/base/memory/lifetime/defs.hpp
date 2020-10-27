@@ -196,9 +196,9 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool r_able=copy_assign_able<T>?
 									 copy_assign_trivial<T>||!(copy_construct_trivial<T>&&destruct.trivial<T>)
-									 :0;//trivial操作优先考虑
+									 :false;//trivial操作优先考虑
 		template<class T>
-		static constexpr bool able=r_able<T>?1:(copy_construct_able<T>&&destruct.able<T>);
+		static constexpr bool able=r_able<T>?true:(copy_construct_able<T>&&destruct.able<T>);
 		template<class T>
 		static constexpr bool nothrow=r_able<T>?copy_assign_nothrow<T>:
 											(copy_construct_nothrow<T>&&destruct.nothrow<T>);
@@ -222,7 +222,7 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool r_able=move_assign_able<T>;
 		template<class T>
-		static constexpr bool able=r_able<T>?1:copy_assign.able<T>;
+		static constexpr bool able=r_able<T>?true:copy_assign.able<T>;
 		template<class T>
 		static constexpr bool nothrow=r_able<T>?move_assign_nothrow<T>:copy_assign.nothrow<T>;
 		template<class T>
@@ -243,9 +243,9 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool r_able=copy_construct_able<T>?
 									 copy_construct_trivial<T>||!(construct<T>.trivial<>&&copy_assign_trivial<T>)
-									 :0;//trivial操作优先考虑
+									 :false;//trivial操作优先考虑
 		template<class T>
-		static constexpr bool able=r_able<T>?1:(construct<T>.able<>&&copy_assign_able<T>);
+		static constexpr bool able=r_able<T>?true:(construct<T>.able<>&&copy_assign_able<T>);
 		template<class T>
 		static constexpr bool nothrow=r_able<T>?copy_construct_nothrow<T>:
 										(construct<T>.nothrow<>&&copy_assign_nothrow<T>);
@@ -341,9 +341,9 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool r_able=move_construct_able<T>?
 									 move_construct_trivial<T>||!copy_construct.trivial<T>
-									 :0;//trivial操作优先考虑
+									 :false;//trivial操作优先考虑
 		template<class T>
-		static constexpr bool able=r_able<T>?1:copy_construct.able<T>;
+		static constexpr bool able=r_able<T>?true:copy_construct.able<T>;
 		template<class T>
 		static constexpr bool nothrow=r_able<T>?move_construct_nothrow<T>:
 												copy_construct.nothrow<T>;
@@ -470,7 +470,7 @@ namespace lifetime_n{
 
 	constexpr struct copy_t{
 		//特殊使用
-		template<class T,enable_if(copy_construct_able<T>?1:(construct<T>.able<>&&copy_assign_able<T>))>
+		template<class T,enable_if(copy_construct_able<T>?true:(construct<T>.able<>&&copy_assign_able<T>))>
 		[[nodiscard]]constexpr T operator()(const T&a)const noexcept{
 			if constexpr(copy_construct_able<T>)
 				return construct<T>(a);

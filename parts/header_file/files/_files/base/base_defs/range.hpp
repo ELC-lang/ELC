@@ -65,7 +65,7 @@ namespace range_n{
 		auto a_end=end_of_array_like(a);
 		auto range_begin=begin_of_array_like(range);
 		auto range_size=size_of_array_like(range);
-		while(1){
+		while(true){
 			matching_off_set=1;
 			while(a_end[-matching_off_set]==range_begin[off_set+a_size-matching_off_set])
 				if(matching_off_set==a_size)

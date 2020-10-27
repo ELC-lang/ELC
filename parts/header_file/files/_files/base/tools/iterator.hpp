@@ -18,7 +18,7 @@ namespace iterator_n{
 		//
 		constexpr bool is_handle_getter_noexcept()noexcept{
 			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
-				return 1;
+				return true;
 			elseif constexpr(is_pointer<base_t_w>)
 				return noexcept(declvalue(base_t_w)->get_handle());
 			else
@@ -35,7 +35,7 @@ namespace iterator_n{
 		//
 		constexpr bool is_next_getter_noexcept()noexcept{
 			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
-				return 1;
+				return true;
 			elseif constexpr(is_pointer<base_t_w>)
 				return noexcept(declvalue(base_t_w)->get_next());
 			else
@@ -52,7 +52,7 @@ namespace iterator_n{
 		//
 		constexpr bool is_before_getter_noexcept()noexcept{
 			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
-				return 1;
+				return true;
 			elseif constexpr(is_pointer<base_t_w>)
 				return noexcept(declvalue(base_t_w)->get_before());
 			else
@@ -130,13 +130,13 @@ namespace iterator_n{
 	base_iterator_t(value_t*) -> base_iterator_t<value_t,base_t_w,is_reverse>;
 
 	template<typename value_t,typename base_t_w=value_t*>
-	using iterator_t = base_iterator_t<remove_cvref<value_t>,base_t_w,0>;
+	using iterator_t = base_iterator_t<remove_cvref<value_t>,base_t_w,false>;
 	template<typename value_t,typename base_t_w=value_t*>
-	using const_iterator_t = base_iterator_t<const remove_cvref<value_t>,base_t_w,0>;
+	using const_iterator_t = base_iterator_t<const remove_cvref<value_t>,base_t_w,false>;
 	template<typename value_t,typename base_t_w=value_t*>
-	using reverse_iterator_t = base_iterator_t<remove_cvref<value_t>,base_t_w,1>;
+	using reverse_iterator_t = base_iterator_t<remove_cvref<value_t>,base_t_w,true>;
 	template<typename value_t,typename base_t_w=value_t*>
-	using reverse_const_iterator_t = base_iterator_t<const remove_cvref<value_t>,base_t_w,1>;
+	using reverse_const_iterator_t = base_iterator_t<const remove_cvref<value_t>,base_t_w,true>;
 }
 using iterator_n::base_iterator_t;
 using iterator_n::iterator_t;

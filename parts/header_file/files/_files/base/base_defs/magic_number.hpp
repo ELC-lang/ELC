@@ -32,7 +32,7 @@ namespace magic_number{
 		a=::std::abs(a);
 
 		if(a<4)
-			return 1;//1和0也是prime,我不管.
+			return true;//1和0也是prime,我不管.
 		/*
 		当x≥1,那么≥5的自然数如下:
 		6x-1 6x 6x+1 6x+2 6x+3 6x+4
@@ -44,7 +44,7 @@ namespace magic_number{
 		那么,只用考虑6x±1是否是prime.
 		*/
 		if((a%6-1)%4)
-			return 0;
+			return false;
 		T b=static_cast<T>(::std::sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
 		/*
 		接下来:
@@ -59,14 +59,14 @@ namespace magic_number{
 		*/
 		for(T c=5;c<=b;c+=6)//遍历判断是否能被因数分解——不会有人看不懂吧?
 			if((!(a%c))||(!(a%(c+2))))
-				return 0;
+				return false;
 		/*
 		最后,为什么是6?
 		就结论来说,此数值选择最常出现的两因数(除0或1外.)之积可以最大程度减少时间占用.
 		所以虽然更喜欢7/8/9之类的数不过使用6收益最大.
 		要不是这样早就写成7了.
 		*/
-		return 1;
+		return true;
 		/*
 		因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
 		*/

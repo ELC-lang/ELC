@@ -87,8 +87,8 @@ namespace pool_n{
 		[[nodiscard]]bool in_pool(T*a)noexcept{
 			auto i=head(),e=end();
 			while(++i!=e)
-				if(i->in_pool(a))return 1;
-			return 0;
+				if(i->in_pool(a))return true;
+			return false;
 		}
 		bool shrink()noexcept{
 			bool shrink_success=false;

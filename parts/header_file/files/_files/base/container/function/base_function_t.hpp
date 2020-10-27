@@ -148,7 +148,7 @@ namespace function_n{
 			//BLOCK_END
 			_m=get<func_data_t<remove_cvref<T>>>(a);
 		}
-		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(1)的参数可自动转为noexcept(0)的，不用再次考虑
+		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
 			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;

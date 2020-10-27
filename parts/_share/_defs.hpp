@@ -47,7 +47,7 @@ auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args
 }\
 
 
-// #define floop while(1)
+// #define floop while(true)
 #define re_declvalue(...) (declvalue(decltype(__VA_ARGS__)))
 #define re_decltype(...) (decltype(declvalue(__VA_ARGS__)))
 
