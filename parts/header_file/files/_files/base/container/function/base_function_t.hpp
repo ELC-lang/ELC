@@ -10,7 +10,7 @@ namespace function_n{
 	template<class T>
 	class base_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only,never_in_array<base_func_data_t<Ret_t(Args_t...)>>{
+	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only,never_in_array<base_func_data_t<Ret_t(Args_t...)>>,abstract_base<base_func_data_t<Ret_t(Args_t...)>>{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
 
 		virtual ~base_func_data_t()=default;
@@ -27,7 +27,7 @@ namespace function_n{
 	template<class T,class Func_t>
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
-	struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
+	struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>,instance_struct<func_data_t<T,Ret_t(Args_t...)>>{
 		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 

@@ -20,6 +20,7 @@ namespace abstract_base_n{
 	#include "abstract_base.hpp"
 	#include "instance_struct.hpp"
 }
+#include "_export.hpp"
 
 //file_end
 
