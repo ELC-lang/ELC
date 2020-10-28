@@ -34,6 +34,17 @@ auto attribute_cast(T&t)noexcept{
 	return*attribute_ptr_cast<attribute_name>(&t);
 }
 
+template<special_attribute_t... attribute_names>
+struct special_attribute_pack:virtual attribute_names...{
+	/*兼容用*/
+	template<class T>
+	struct on_type:special_attribute_pack<attribute_names>...{};
+};
+template<common_attribute_t... attribute_names>
+struct common_attribute_pack{
+	template<class T>
+	struct on_type:attribute_names<T>...{};
+};
 
 //file_end
 

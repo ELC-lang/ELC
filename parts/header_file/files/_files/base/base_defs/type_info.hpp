@@ -15,14 +15,15 @@ struct type_info_t:base_type_info_t{
 	template<class T_>
 	static constexpr bool not_base_on=!base_on<T_>;
 
-	template<special_attribute_t attribute_name>
-	static constexpr bool has_attribute_helper(){
-		return ::std::is_base_of_v<attribute_name,remove_cvref<T>>;//防止因子类属性误判，不可用base_on
-	}
-	template<common_attribute_t attribute_name>
-	static constexpr bool has_attribute_helper(){
-		return has_attribute_helper<attribute_name<remove_cvref<T>>>();
-	}
+	template<class T_>
+	static constexpr bool can_convert_to=::std::is_convertible_v<T,T_>;
+	template<class T_>
+	static constexpr bool can_t_convert_to=!can_convert_to<T_>;
+	template<class T_>
+	static constexpr bool can_nothrow_convert_to=::std::is_nothrow_convertible_v<T,T_>;
+	template<class T_>
+	static constexpr bool can_t_nothrow_convert_to=!can_nothrow_convert_to<T_>;
+
 	/*
 	//没有重载变量模板一说
 	template<typename attribute_name>
@@ -30,6 +31,14 @@ struct type_info_t:base_type_info_t{
 	template<typename attribute_name>
 	static constexpr bool not_has_attribute=!has_attribute(attribute_name);
 	*/
+	template<special_attribute_t attribute_name>
+	static constexpr bool has_attribute_helper(){
+		return base_on<attribute_name>;
+	}
+	template<common_attribute_t attribute_name>
+	static constexpr bool has_attribute_helper(){
+		return has_attribute_helper<attribute_name<remove_cvref<T>>>();
+	}
 	template<special_attribute_t attribute_name>
 	static constexpr bool not_has_has_attribute_helper(){
 		return!has_attribute_helper<attribute_name>();
@@ -41,15 +50,16 @@ struct type_info_t:base_type_info_t{
 	// defed at defs.
 	// #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
 	// #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
-
-	template<class T_>
-	static constexpr bool can_convert_to=::std::is_convertible_v<T,T_>;
-	template<class T_>
-	static constexpr bool can_t_convert_to=!can_convert_to<T_>;
-	template<class T_>
-	static constexpr bool can_nothrow_convert_to=::std::is_nothrow_convertible_v<T,T_>;
-	template<class T_>
-	static constexpr bool can_t_nothrow_convert_to=!can_nothrow_convert_to<T_>;
+	template<common_attribute_t... common_attribute_names>
+	struct with_common_attribute:common_attribute_pack<common_attribute_names...>::template on_type<T>{
+		template<special_attribute_t... special_attribute_names>
+		struct and_special_attribute:with_common_attribute<common_attribute_names...>,special_attribute_pack<special_attribute_names...>::template on_type<T>{};
+	};
+	template<special_attribute_t... special_attribute_names>
+	struct with_special_attribute:special_attribute_pack<special_attribute_names...>::template on_type<T>{
+		template<common_attribute_t... common_attribute_names>
+		struct and_common_attribute:with_special_attribute<special_attribute_names...>,common_attribute_pack<common_attribute_names...>::template on_type<T>{};
+	};
 };
 
 template<class T>
