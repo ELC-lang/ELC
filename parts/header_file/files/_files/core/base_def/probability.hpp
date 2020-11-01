@@ -8,14 +8,16 @@
 */
 lazy_instantiation struct LIS_name(probability){
 	typedef LIS_ID_t(probability)this_t;
-	struct base_probability_t{
+	struct base_probability_t:type_info_t<tester>::template
+	with_common_attribute<abstract_base>{
 		virtual ~base_probability_t()noexcept=default;
 		virtual void be_set(ptr)=0;
 		virtual ptr get_value()=0;
 		virtual void free_this()const noexcept=0;
 		virtual base_probability_t*copy()const noexcept=0;
 	};
-	struct no_probability_t:base_probability_t,alloc_by_pool<no_probability_t>,build_by_get_only,never_in_array{
+	struct no_probability_t:type_info_t<tester>::template
+	with_common_attribute<instance_struct,alloc_by_pool>,base_probability_t,build_by_get_only,never_in_array{
 		ptr _m;
 		no_probability_t(ptr a):_m(a){}
 		virtual ~no_probability_t()noexcept override=default;
@@ -24,7 +26,8 @@ lazy_instantiation struct LIS_name(probability){
 		virtual void free_this()const noexcept override{unget(this,not destruct);}
 		virtual base_probability_t*copy()const noexcept override{return get<no_probability_t>(_m);}
 	};
-	struct arec_probability_t:base_probability_t,alloc_by_pool<arec_probability_t>,build_by_get_only,never_in_array{
+	struct arec_probability_t:type_info_t<tester>::template
+	with_common_attribute<instance_struct,alloc_by_pool>,base_probability_t,build_by_get_only,never_in_array{
 		ptr _m;
 		LIS_ID_t(probability) _index;
 		arec_probability_t(ptr a):_m(a){}

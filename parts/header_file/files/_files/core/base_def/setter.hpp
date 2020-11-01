@@ -8,14 +8,16 @@
 */
 lazy_instantiation struct LIS_name(setter){
 	typedef LIS_ID_t(setter)this_t;
-	struct base_data_t{
+	struct base_data_t:type_info_t<tester>::template
+	with_common_attribute<abstract_base>{
 		virtual ~base_data_t()noexcept=default;
 		virtual void be_set(ptr)=0;
 		virtual ptr get_value()=0;
 		virtual void free_this()const noexcept=0;
 		virtual base_data_t*copy()const noexcept=0;
 	};
-	struct constexpr_data_t:base_data_t,alloc_by_pool<constexpr_data_t>,build_by_get_only,never_in_array{
+	struct constexpr_data_t:type_info_t<tester>::template
+	with_common_attribute<instance_struct,alloc_by_pool>,base_data_t,build_by_get_only,never_in_array{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
 		virtual ~constexpr_data_t()noexcept override=default;

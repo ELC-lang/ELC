@@ -8,8 +8,8 @@
 */
 lazy_instantiation struct LIS_name(setter);
 
-lazy_instantiation struct LIS_name(node_like):
-ref_able<LIS_ID_t(node_like)>,weak_ref_able<LIS_ID_t(node_like)>,replace_able<LIS_ID_t(node_like)>,abstract_base<LIS_ID_t(node_like)>{
+lazy_instantiation struct LIS_name(node_like):type_info_t<LIS_ID_t(node_like)>::template
+with_common_attribute<abstract_base,ref_able,weak_ref_able,replace_able>{
 public:
 	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
 	typedef LIS_ID_t(setter)setter;
