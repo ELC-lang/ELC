@@ -19,6 +19,7 @@
 #undef LIS_name
 #undef LIS_IS_flag
 #undef LIS_default_value
+#undef using_LIS_name
 
 // #undef often_noexcept
 #undef noexcept_as

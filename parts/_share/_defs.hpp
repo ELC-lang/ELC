@@ -25,6 +25,7 @@
 #define LIS_name(name) name ## _LIS_t
 #define LIS_IS_flag <ILD_value>
 #define LIS_default_value magic_number::god
+#define using_LIS_name(name) typedef LIS_ID_t(name)name
 
 // #define often_noexcept
 #define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto

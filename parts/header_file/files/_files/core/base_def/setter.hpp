@@ -8,23 +8,23 @@
 */
 lazy_instantiation struct LIS_name(setter){
 	typedef LIS_ID_t(setter)this_t;
-	struct base_data_t:type_info_t<tester>::template
-	with_common_attribute<abstract_base>{
+	struct base_data_t{
 		virtual ~base_data_t()noexcept=default;
 		virtual void be_set(ptr)=0;
 		virtual ptr get_value()=0;
-		virtual void free_this()const noexcept=0;
+		virtual void delete_this()const noexcept=0;
 		virtual base_data_t*copy()const noexcept=0;
 	};
 	struct constexpr_data_t:type_info_t<tester>::template
-	with_common_attribute<instance_struct,alloc_by_pool>,base_data_t,build_by_get_only,never_in_array{
+	with_common_attribute<alloc_by_pool>,base_data_t,build_by_get_only,never_in_array{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
+		constexpr_data_t(const constexpr_data_t&)=default;
 		virtual ~constexpr_data_t()noexcept override=default;
 		virtual void be_set(ptr)noexcept override{}
 		virtual ptr get_value()override{return _m;}
-		virtual void free_this()const noexcept override{unget(this,not destruct);}
-		virtual base_data_t*copy()const noexcept override{return get<constexpr_data_t>(_m);}
+		virtual void delete_this()const noexcept override{unget(this);}
+		virtual base_data_t*copy()const noexcept override{return copy_get(this);}
 	};
 private:
 	mutable base_data_t*_m;
@@ -35,8 +35,7 @@ public:
 	LIS_name(setter)(this_t&&a)noexcept:_m(a._m){a._m=null_ptr;}
 	~LIS_name(setter)()noexcept{
 		if(_m!=null_ptr){
-			destruct(_m);
-			_m->free_this();
+			_m->delete_this();
 		}
 	}
 	this_t&operator=(ptr a)&{

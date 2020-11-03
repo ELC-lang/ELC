@@ -6,13 +6,15 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+lazy_instantiation struct LIS_name(probability);
 lazy_instantiation struct LIS_name(setter);
 
 lazy_instantiation struct LIS_name(node_like):type_info_t<LIS_ID_t(node_like)>::template
 with_common_attribute<abstract_base,ref_able,weak_ref_able,replace_able>{
 public:
 	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
-	typedef LIS_ID_t(setter)setter;
+	using_LIS_name(setter)setter;
+	using_LIS_name(probability)probability;
 	typedef LIS_ID_t(node_like)this_t;
 
 	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
@@ -30,7 +32,7 @@ protected:
 	[[nodiscard]]virtual constexpr size_t eq_level()const{return 0;}
 public:
 	constexpr LIS_name(node_like)()noexcept=default;
-	constexpr LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<LIS_ID_t(node_like)>(never_ref_num_zero){}
+	constexpr LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
 	constexpr virtual ~LIS_name(node_like)()=default;
 
 	[[nodiscard]]virtual setter arec(const probability)=0;
@@ -48,7 +50,7 @@ public:
 		this->be_replace_as(null_ptr);
 	}
 	virtual void be_replace_as(ptr a){
-		replace_able::be_replace_as(a.get());
+		replace_able<this_t>::be_replace_as(a.get());
 	}
 
 	[[nodiscard]]virtual explicit operator logical_bool()const{return true;}
