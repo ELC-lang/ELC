@@ -15,11 +15,11 @@ lazy_instantiation struct LIS_name(setter){
 		virtual void delete_this()const noexcept=0;
 		virtual base_data_t*copy()const noexcept=0;
 	};
-	struct constexpr_data_t:type_info_t<tester>::template
+	struct constexpr_data_t:type_info_t<constexpr_data_t>::template
 	with_common_attribute<alloc_by_pool>,base_data_t,build_by_get_only,never_in_array{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
-		constexpr_data_t(const constexpr_data_t&)=default;
+		constexpr_data_t(const constexpr_data_t&)noexcept=default;
 		virtual ~constexpr_data_t()noexcept override=default;
 		virtual void be_set(ptr)noexcept override{}
 		virtual ptr get_value()override{return _m;}
@@ -34,9 +34,8 @@ public:
 	LIS_name(setter)(const this_t&a)noexcept:_m(a._m->copy()){}
 	LIS_name(setter)(this_t&&a)noexcept:_m(a._m){a._m=null_ptr;}
 	~LIS_name(setter)()noexcept{
-		if(_m!=null_ptr){
+		if(_m!=null_ptr)
 			_m->delete_this();
-		}
 	}
 	this_t&operator=(ptr a)&{
 		_m->be_set(a);

@@ -10,14 +10,17 @@ lazy_instantiation struct LIS_name(probability){
 	typedef LIS_ID_t(probability)this_t;
 	struct base_probability_t{
 		virtual ~base_probability_t()noexcept=default;
+		virtual setter be_watch()=0;
 		virtual void delete_this()const noexcept=0;
 		virtual base_probability_t*copy()const noexcept=0;
 	};
-	struct no_probability_t:type_info_t<tester>::template
+	struct no_probability_t:type_info_t<no_probability_t>::template
 	with_common_attribute<alloc_by_pool>,base_probability_t,build_by_get_only,never_in_array{
 		ptr _m;
 		no_probability_t(ptr a):_m(a){}
+		no_probability_t(const no_probability_t&)noexcept=default;
 		virtual ~no_probability_t()noexcept override=default;
+		virtual setter be_watch()=0;
 		virtual void delete_this()const noexcept override{unget(this);}
 		virtual base_probability_t*copy()const noexcept override{return copy_get(this);}
 	};
@@ -29,22 +32,16 @@ public:
 	LIS_name(probability)(const this_t&a)noexcept:_m(a._m->copy()){}
 	LIS_name(probability)(this_t&&a)noexcept:_m(a._m){a._m=null_ptr;}
 	~LIS_name(probability)()noexcept{
-		if(_m!=null_ptr){
-			destruct(_m);
+		if(_m!=null_ptr)
 			_m->delete_this();
-		}
 	}
-	this_t&operator=(ptr a)&{
-		_m->be_set(a);
-		return*this;
+	operator setter(){
+		return _m->be_watch();
 	}
-	operator ptr(){
-		return _m->get_value();
+	operator const setter()const{
+		return _m->be_watch();
 	}
-	operator const_ptr()const{
-		return _m->get_value();
-	}
-	explicit operator bool()const{return bool(_m->get_value());}
+	explicit operator bool()const{return bool(_m->be_watch());}
 };
 lazy_instantiation_name(probability);
 
