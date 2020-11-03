@@ -64,7 +64,16 @@ namespace lifetime_n{
 	constexpr bool move_assign_trivial=::std::is_trivially_move_assignable_v<T>;
 	//
 
+	/*
+	lifetime_n的一部分
+	所有的construct_t实例都派生于此
+	*/
 	struct base_construct_t{};
+	/*
+	lifetime_n的一部分
+	用于构造实例
+	用法详见变量模板construct
+	*/
 	template<typename T>
 	struct construct_t:base_construct_t{
 		typedef base_construct_t base_t;
@@ -102,9 +111,30 @@ namespace lifetime_n{
 		};
 		[[nodiscard]]constexpr placement_construct_t operator[](T*p)const noexcept{return{p};}
 	};
+	/*
+	lifetime_n的一部分
+	constexpr变量模板，用于构造实例
+	用法：
+	construct<类型>.able<构造参数类型>      ->  bool
+	construct<类型>.nothrow<构造参数类型>   ->  bool
+	construct<T>(参数)                      -> T     （以参数构建T类型实例）
+
+	construct<T>[T*ptr](参数)               -> T*     （以参数在ptr地址处构建T类型实例，返回ptr）
+	construct<T>[T*ptr][size_t size](参数)  -> T*     （以参数在ptr地址处构建size个T类型实例，返回ptr）
+	*/
 	template<typename T>
 	constexpr construct_t<T>construct{};
 
+	/*
+	lifetime_n的一部分
+	用于销毁实例
+	用法：
+	destruct.able<类型>     ->  bool
+	destruct.nothrow<类型>  ->  bool
+
+	destruct(T*ptr)               -> void     （在ptr地址处析构T类型实例，T可为数组）
+	destruct[size_t size](T*ptr)  -> void     （析构以ptr地址起始共size个T类型实例，T可为数组）
+	*/
 	constexpr struct destruct_t{
 		template<class T>
 		static constexpr bool able=destruct_able<T>||(::std::is_array_v<T>&&able<::std::remove_extent_t<T>>);
@@ -150,6 +180,19 @@ namespace lifetime_n{
 		not_t operator!()const noexcept{return not_t{};}
 	}destruct{};
 
+	/*
+	lifetime_n的一部分
+	用于重新构造实例：先摧毁，再原地构建
+	用法：
+	re_construct.able<类型>     ->  bool
+	re_construct.nothrow<类型>  ->  bool
+	
+	re_construct(T*ptr)                     -> T*     （以无参数在ptr地址处重新构建T类型实例，返回ptr）
+	re_construct[T*ptr](参数)               -> T*     （以参数在ptr地址处重新构建T类型实例，返回ptr）
+	re_construct[T*ptr][size_t size](参数)  -> T*     （以参数在ptr地址处重新构建size个T类型实例，返回ptr）
+	常见用法：
+	re_construct(this)
+	*/
 	constexpr struct re_construct_t{
 		template<class T,class...Args>
 		static constexpr bool able=destruct.able<T>&&construct<T>.able<Args...>;
