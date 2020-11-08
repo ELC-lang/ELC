@@ -59,12 +59,17 @@ auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args
 /*实例化到此将引发警告*/
 #define template_warning(reason) template_warning_helper<T>(reason)
 
+//for type_info
+#define type_info_of(...) base_type_info_t(typeid(__VA_ARGS__))
+#define type_name_of(...) (type_info_of(__VA_ARGS__).name())
+
 #define is_common_attribute(name) public attribute<T,name<T>>
 #define is_special_attribute(name) public attribute<T,name>
 
 #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
 #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
 
+//for attribute
 #define def_common_attribute_with_nothing(name) \
 template<typename T>\
 class name{}\
@@ -127,6 +132,11 @@ class name{}\
 #define szie size
 /*防写错宏*/
 #define form from
+
+/*template说明符*/
+#define template_name template
+/*template说明符*/
+#define type_name class
 
 //file_end
 

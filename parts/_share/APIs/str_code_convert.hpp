@@ -24,7 +24,8 @@ elc依赖的基础函数.
 			char r[MB_LEN_MAX];
 			size_t s;
 			for(auto c:a){
-				if((s=::std::c32rtomb(r,c,&stat)) < 0)//-1
+				s=::std::c32rtomb(r,c,&stat);
+				if(s < 0)//-1
 					die_with(::elc::locale::str::code_convert_error);
 				ret+={(char*)r,note::size(s)};
 			}
@@ -41,7 +42,8 @@ elc依赖的基础函数.
 			size_t s;
 			auto i=a.cbegin(),e=a.cend();
 			while(i!=e){
-				if((s=::std::mbrtoc32(&c,i,MB_LEN_MAX,&stat)) < 0)//-3 或 -1
+				s=::std::mbrtoc32(&c,i,MB_LEN_MAX,&stat);
+				if(s < 0)//-3 或 -1
 					die_with(::elc::locale::str::code_convert_error);
 				i+=s;
 				ret+=c;
@@ -50,7 +52,7 @@ elc依赖的基础函数.
 			return ret;
 		}
 	}
-	namespace elc{
+	namespace elc::defs{
 		using namespace elc::APIs::str_code_convert;
 	}
 #endif

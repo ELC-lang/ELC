@@ -39,6 +39,9 @@
 #undef template_error
 #undef template_warning
 
+#undef type_info_of
+#undef type_name_of
+
 #undef is_common_attribute
 #undef is_special_attribute
 
@@ -79,10 +82,11 @@
 #undef INTER_NAMESPACE
 #undef BREAK_NAMESPACE
 
-/*防写错宏*/
 #undef szie
-/*防写错宏*/
 #undef form
+
+#undef template_name
+#undef type_name
 
 //file_end
 

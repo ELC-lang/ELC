@@ -19,7 +19,7 @@ elc依赖的基础函数.
 			::std::exit(1);
 		}
 	}
-	namespace elc{
+	namespace elc::defs{
 		using namespace elc::APIs::die;
 	}
 #endif

@@ -6,7 +6,35 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct base_type_info_t{};
+struct base_type_info_t{
+private:
+	struct type_id_t{
+		const ::std::type_info* _m;
+
+		constexpr type_id_t(const ::std::type_info&a)noexcept:_m(&a){}
+		constexpr type_id_t(const type_id_t&a)noexcept=default;
+		[[nodiscard]]const char*get_name()const noexcept{//UF：对于gcc和clang应使用abi::__cxa_demangle重整
+			return _m->name();
+		}
+		[[nodiscard]]size_t get_hash()const noexcept{
+			return _m->hash_code();
+		}
+		[[nodiscard]]bool operator==(const type_id_t&a)const noexcept{return *_m==*a._m;}
+	};
+
+	type_id_t _tid;
+public:
+	constexpr base_type_info_t(const ::std::type_info&a)noexcept:_tid(a){}
+	constexpr base_type_info_t(const base_type_info_t&)noexcept=default;
+	[[nodiscard]]const char*get_name()const noexcept{
+		return _tid.get_name();
+	}
+	[[nodiscard]]size_t get_hash()const noexcept{
+		return _tid.get_hash();
+	}
+	[[nodiscard]]bool operator==(const base_type_info_t&a)const noexcept{return _tid==a._tid;}
+	[[nodiscard]]bool operator!=(const base_type_info_t&a)const noexcept{return!(*this==a);}
+};
 template<class T>
 struct type_info_t:base_type_info_t{
 	typedef T type;
@@ -60,13 +88,20 @@ struct type_info_t:base_type_info_t{
 		template<common_attribute_t... common_attribute_names>
 		struct and_common_attribute:with_special_attribute<special_attribute_names...>,common_attribute_pack<common_attribute_names...>::template on_type<T>{};
 	};
+	
+	constexpr type_info_t()noexcept:base_type_info_t(typeid(T)){}
+	constexpr type_info_t(const type_info_t&)noexcept=default;
 };
 
 template<class T>
-constexpr type_info_t<T>type_info{};
+inline const type_info_t<T>type_info{};
 
-[[nodiscard]]constexpr bool operator==(const base_type_info_t&a,const base_type_info_t&b){return &a==&b;}
-[[nodiscard]]constexpr bool operator!=(const base_type_info_t&a,const base_type_info_t&b){return!(a==b);}
+template<class T>
+[[nodiscard]]constexpr bool operator==(const type_info_t<T>&,const type_info_t<T>&){return true;}
+template<class T1,class T2>
+[[nodiscard]]constexpr bool operator==(const type_info_t<T1>&,const type_info_t<T2>&){return false;}
+template<class T1,class T2>
+[[nodiscard]]constexpr bool operator!=(const type_info_t<T1>&a,const type_info_t<T2>&b){return!(a==b);}
 
 //file_end
 

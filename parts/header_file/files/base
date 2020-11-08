@@ -15,6 +15,7 @@
 	#include <new>//operator new(T*)
 	#include <algorithm>//max、min
 	#include <type_traits>//enable_if等
+	#include <typeinfo>//RTTI
 	#if defined(ELC_TEST_ON)
 		#include <ctime>//time
 		#include <cstdlib>//rand

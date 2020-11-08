@@ -31,6 +31,9 @@ namespace hash_n{
 	[[nodiscard]]inline constexpr hash_t hash(nothing)noexcept{
 		return{size_t(nothing)};
 	}
+	[[nodiscard]]inline hash_t hash(base_type_info_t&a)noexcept{
+		return{a.get_hash()};
+	}
 	template<class T>
 	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
 		return{size_t(a)};
