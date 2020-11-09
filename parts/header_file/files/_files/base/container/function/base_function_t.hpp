@@ -10,7 +10,7 @@ namespace function_n{
 	template<class T>
 	class base_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct base_func_data_t<Ret_t(Args_t...)>:ref_able<base_func_data_t<Ret_t(Args_t...)>>,build_by_get_only,never_in_array<base_func_data_t<Ret_t(Args_t...)>>{
+	struct base_func_data_t<Ret_t(Args_t...)>:type_info_t<base_func_data_t<Ret_t(Args_t...)>>::template with_common_attribute<abstract_base,ref_able,never_in_array>,build_by_get_only{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
 
 		virtual ~base_func_data_t()=default;
@@ -27,8 +27,8 @@ namespace function_n{
 	template<class T,class Func_t>
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
-	struct func_data_t<T,Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
-		static_assert(is_not_function(T));
+	struct func_data_t<T,Ret_t(Args_t...)>:type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template with_common_attribute<instance_struct>,base_func_data_t<Ret_t(Args_t...)>{
+		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		T _value;
@@ -46,7 +46,7 @@ namespace function_n{
 		}
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
-		[[nodiscard]]virtual bool equal_with(const void*a)const override noexcept(equal.nothrow<T>){
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.nothrow<T>) override{
 			if constexpr(equal.able<T>)
 				return _value==*reinterpret_cast<const T*>(a);
 			else
@@ -90,19 +90,22 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const this_t&a)const noexcept{
 			return *_m==*(a._m);
 		}
+		[[nodiscard]]bool operator!=(const this_t&a)const noexcept{
+			return not operator==(a);
+		}
 		void operator=(const this_t&a){_m=a._m;}
-		Ret_t call(Args_t...)const{return _m->call(forward<Args_t>(args)...);}
+		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
-	template<class T,bool nothrow,bool promise_nothrow_at_destruct>
+	template<class T,bool promise_nothrow_at_destruct>
 	class base_function_t;
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
-	struct base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
+	struct base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
 	protected:
 		typedef function_data_saver_t<Ret_t(Args_t...)>base_t;
-		typedef base_function_t<Ret_t(Args_t...),nothrow,promise_nothrow_at_destruct>this_t;
+		typedef base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>this_t;
 
-		template<class,bool,bool>
+		template<class,bool>
 		friend class base_function_t;
 
 		template<class T_>
@@ -116,12 +119,12 @@ namespace function_n{
 		template<class T>
 		static constexpr bool base_on_this_t_or_more_stringent_restrictions=(
 			type_info<T>.base_on<this_t>||
-			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),bool(nothrow+1),promise_nothrow_at_destruct>>||
-			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),nothrow,bool(promise_nothrow_at_destruct+1)>>||
-			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),bool(nothrow+1),bool(promise_nothrow_at_destruct+1)>>
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(bool(nothrow+1)),	promise_nothrow_at_destruct			>>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(nothrow),			bool(promise_nothrow_at_destruct+1)	>>||
+			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(bool(nothrow+1)),	bool(promise_nothrow_at_destruct+1)	>>
 		);
 	public:
-		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是有风险的
+		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
 		}
 
@@ -145,12 +148,12 @@ namespace function_n{
 			//BLOCK_END
 			_m=get<func_data_t<remove_cvref<T>>>(a);
 		}
-		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(1)的参数可自动转为noexcept(0)的，不用再次考虑
+		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
 			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		template<class T,enable_if_not_ill_form(declvalue(this_t).swap_with(this_t(declvalue(T))))>
+		template<class T,enable_if_not_ill_from(declvalue(this_t).swap_with(this_t(declvalue(T))))>
 		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(declvalue(T)))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);
@@ -180,6 +183,10 @@ namespace function_n{
 			}
 		*/
 	};
+	template<class T,bool promise_nothrow_at_destruct>
+	void swap(base_function_t<T,promise_nothrow_at_destruct>&a,base_function_t<T,promise_nothrow_at_destruct>&b)noexcept{
+		a.swap_with(b);
+	}
 }
 
 //file_end

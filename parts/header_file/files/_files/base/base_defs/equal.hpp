@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//equal：值相等
 constexpr struct equal_t{
 	template<class T>
 	auto equality_comparable_helper(int) -> decltype(
@@ -32,7 +33,7 @@ constexpr struct equal_t{
 		return true;
 	}
 	template<typename T,size_t N1,size_t N2>
-	inline bool operator()(T[N1]a,T[N2]b)const noexcept(nothrow<T>){
+	inline bool operator()(T(&a)[N1],T(&b)[N2])const noexcept(nothrow<T>){
 		if constexpr(N1==N2)
 			return operator()(a,b,N1);
 		else{
@@ -49,6 +50,15 @@ constexpr struct equal_t{
 	}
 }equal{};
 
+//eq：同一对象
+template<typename T>
+inline auto is_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
+	return &a==&b;
+}
+template<typename T>
+inline auto is_not_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
+	return!is_eq(a,b);
+}
 
 //file_end
 

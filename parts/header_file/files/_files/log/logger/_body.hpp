@@ -10,7 +10,7 @@ enum log_type{error,warning,info,note};
 struct logger:noexcept_ostream{
 private:
 	noexcept_ostream*_tie_with=nullptr;
-	bool _has_info=1;
+	bool _has_info=true;
 	void(*_destroyer)(noexcept_ostream*)noexcept=nullptr;
 public:
 	constexpr logger()noexcept=default;
@@ -42,7 +42,7 @@ public:
 		}
 	}
 	virtual void write(const void*buf,size_t size)noexcept override final{
-		_has_info=1;
+		_has_info=true;
 		if(_tie_with)
 			_tie_with->write(buf,size);
 	}

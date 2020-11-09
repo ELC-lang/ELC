@@ -36,21 +36,8 @@ public:
 };
 
 template<typename T>
-static void destroy(T*a)noexcept(
-									type_info<T>.has_attribute(replace_able)?
-										noexcept(declvalue(T).be_replace_as(null_ptr)):
-									type_info<T>.has_attribute(build_by_get_only)&&
-									type_info<T>.has_attribute(never_in_array)?
-										unget.nothrow<T>:
-								0){//default destroy
-	if constexpr(type_info<T>.has_attribute(replace_able)){
-		//(replace_able<T>*)(a)->be_replace_as(null_ptr);//×
-		a->be_replace_as(null_ptr);//允许覆写replace方法√
-	}elseif constexpr(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array)){
-		unget(a);
-	}else{
-		template_error("Please overload the function destroy in the namespace where this type is defined.");
-	}
+static void destroy(T*a)noexcept{
+	template_error("Please overload the function destroy in the namespace where this type is defined.");
 }
 
 //file_end

@@ -1,23 +1,22 @@
 ### 主要作者  
 ### The main author  
-[steve](https://steve02081504.github.io/about) & [alex](https://github.com/alex0125z)  
+[steve]( https://steve02081504.github.io/about ) & [alex]( https://github.com/alex0125z )  
 
 _______
 
 ### 提过建议  
 ### advised  
   
-- [xhe](https://github.com/xhebox)  
-- [Natsu](https://github.com/akemimadoka)  
-- [Enyala](https://github.com/BearJean)  
+- [xhe]( https://github.com/xhebox )  
+- [Natsu]( https://github.com/akemimadoka )  
+- [Enyala]( https://github.com/BearJean )  
 
 _______
 
 ### 被采纳的PR提交者  
 ### Adopted PR Submitter  
   
-- 无  
-- none  
+- [翱翔的黑鹰]( https://github.com/AXDHY )——data_t注释完善  
 
 _______
 

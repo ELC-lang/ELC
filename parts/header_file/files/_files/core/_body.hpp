@@ -11,7 +11,7 @@
 #endif
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
-	
+
 	namespace core{
 		#include "base_def/_body.hpp"
 		#include "special_values/_body.hpp"

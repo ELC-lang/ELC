@@ -8,18 +8,17 @@
 */
 //此属性配合 "../ptr" 食用
 template<typename T>
-struct replace_able:non_copyable,non_moveable,attribute<T,replace_able<T>>{
+struct replace_able:non_copyable,non_moveable,is_common_attribute(replace_able){
 private:
 	mutable T*_m;
-	typedef attribute<T,replace_able<T>> attribute;
 public:
-	constexpr replace_able()noexcept:_m(attribute::get_handle()){}
-	constexpr bool replaced()const noexcept{return _m!=attribute::get_handle()();}
+	constexpr replace_able()noexcept:_m(get_handle(this)){}
+	constexpr bool replaced()const noexcept{return _m!=get_handle(this);}
 	constexpr T*get_ptr()const noexcept{
 		if(!replaced())
 			return _m;
 		else
-			return static_cast<replace_able*>(_m)->get_ptr();
+			return attribute_ptr_cast<replace_able>(_m)->get_ptr();
 	}
 	constexpr void be_replace_as(T*new_p)noexcept{_m=new_p;}
 	constexpr void be_replace_as(nullptr_t)noexcept{be_replace_as(null_ptr);}

@@ -1,5 +1,5 @@
 //_body.hpp
-//at namespace elc::defs::container
+//at namespace elc::defs::core
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -8,6 +8,10 @@
 */
 #include "defs.hpp"
 #include "deduction_guides.hpp"
+#include "_export.hpp"
+#if defined(ELC_TEST_ON)
+	#include "_test.hpp"
+#endif
 
 //file_end
 

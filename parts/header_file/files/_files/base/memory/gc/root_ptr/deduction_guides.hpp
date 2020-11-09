@@ -9,8 +9,5 @@
 template<class T>
 root_ptr_t(T*) -> root_ptr_t<T>;
 
-template<class T>
-root_ptr_t(convert_interface_t<T>) -> root_ptr_t<T>;
-
 //file_end
 

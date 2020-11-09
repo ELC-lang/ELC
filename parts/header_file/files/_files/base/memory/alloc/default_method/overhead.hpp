@@ -1,5 +1,5 @@
 //overhead.hpp
-//at namespace elc::defs::memory::alloc_n
+//at namespace elc::defs::memory::alloc_n::default_method
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
@@ -27,11 +27,11 @@ namespace overhead_n{
 	}
 	template<class T>
 	inline T*correct_pointer(pointer a)noexcept{
-		return reinterpret_cast<T*>(reinterpret_cast<byte*>(a)+overhead_helper<T>.offset_value);
+		return reinterpret_cast<T*>(apply_off_set(a,overhead_helper<T>.offset_value));
 	}
 	template<class T>
 	inline pointer recorrect_pointer(T*a)noexcept{
-		return reinterpret_cast<pointer>(reinterpret_cast<byte*>(a)-overhead_helper<T>.offset_value);
+		return reinterpret_cast<pointer>(unapply_off_set(a,overhead_helper<T>.offset_value));
 	}
 	inline void set_overhead(pointer a,size_t size){
 		*reinterpret_cast<size_t*>(a)=size;

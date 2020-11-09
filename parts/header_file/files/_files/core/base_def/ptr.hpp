@@ -8,6 +8,8 @@
 */
 typedef comn_ptr_t<node_like>ptr;
 typedef weak_ptr_t<node_like>weak_ptr;
+typedef comn_ptr_t<const node_like>const_ptr;
+typedef weak_ptr_t<const node_like>const_weak_ptr;
 
 //file_end
 

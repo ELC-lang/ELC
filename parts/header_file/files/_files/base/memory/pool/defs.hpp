@@ -87,12 +87,13 @@ namespace pool_n{
 		[[nodiscard]]bool in_pool(T*a)noexcept{
 			auto i=head(),e=end();
 			while(++i!=e)
-				if(i->in_pool(a))return 1;
-			return 0;
+				if(i->in_pool(a))return true;
+			return false;
 		}
 		bool shrink()noexcept{
 			bool shrink_success=false;
-			auto i=begin(),e=end(),n;
+			auto i=begin(),e=end();
+			decltype(i)n;
 			while((n=i++)!=e){
 				if(n->empty()){
 					unget(n);
@@ -113,7 +114,7 @@ namespace pool_n{
 	template<typename T>
 	constexpr bool pool_s_array_warning(type_info_t<T>){return 1;}
 	template<typename T>
-	struct alloc_by_pool:attribute<T,alloc_by_pool<T>>{
+	struct alloc_by_pool{
 		constexpr static ::std::uint_fast16_t pool_ment_size=get_ment_size(type_info<T>);
 	};
 	template<typename T>
@@ -141,7 +142,7 @@ namespace pool_n{
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		if constexpr(pool_s_array_warning(type_info<T>))
 			template_warning("pool can\'t alloc array.");
-		return memory::alloc_n::realloc_method(type_info<T>,a);
+		return memory::alloc_n::realloc_method(ptr,new_size);
 	}
 }
 

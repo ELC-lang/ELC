@@ -40,7 +40,7 @@ namespace default_gc_for_type{
 						if constexpr(info.has_attribute(can_shrink))
 							a.shrink();
 						if constexpr(info.has_attribute(mark_able_for_gc)&&info.has_attribute(have_root)){
-							auto&b=static_cast<mark_able_for_gc<T>&>(a)
+							auto&b=attribute_cast<mark_able_for_gc>(a)
 							if(b.not_mark())
 								destory(a);
 							else
@@ -59,12 +59,11 @@ namespace default_gc_for_type{
 		}
 	}
 }
-using default_gc_for_type::have_default_gc_success_identifier;
-template<class T,enable_if_not_ill_form(default_gc_for_type::default_gc_method<T>())>
+template<class T,enable_if_not_ill_from(default_gc_for_type::default_gc_method<T>())>
 inline void gc_method_of()noexcept{
-	default_gc_for_type::default_gc_method<T>()
+	default_gc_for_type::default_gc_method<T>();
 }
-template<class T,enable_if_not_ill_form(default_gc_for_type::default_gc_success_identifier<T>())>
+template<class T,enable_if_not_ill_from(default_gc_for_type::default_gc_success_identifier<T>())>
 [[nodiscard]]inline bool gc_success_identifier_of()noexcept{
 	return default_gc_for_type::default_gc_success_identifier<T>();
 }

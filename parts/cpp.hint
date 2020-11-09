@@ -1,5 +1,25 @@
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+//cpp.hint
+/*
+未完成的elc解释器_share文件
+由steve02081504与Alex0125设计、编写
+转载时请在不对此文件做任何修改的同时注明出处
+项目地址：https://github.com/steve02081504/ELC
+*/
+
+// 提示文件帮助IDE解释标识符
+// 如函数和宏的名称
+// 详细信息参见 https://go.microsoft.com/fwlink/?linkid=865984
+
+/*宏定义中的"..."将在此处展开*/
+#define __VA_ARGS__ MAGIC
+
+/*此标识符将被替换为当前编译的文件名*/
+#define __FILE__ "MAGIC"
+
+/*此标识符将被替换为当前编译的文件行数*/
+#define __LINE__ 0
 
 #include "_share/_defs.hpp"
+
+//file_end
+

@@ -40,12 +40,12 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		char_t*get_load_error(){
+		string_t<char_t> get_load_error(){
 			return
 			#if SYSTEM_TYPE == linux
 				(char*)dlerror()
 			#elif SYSTEM_TYPE == windows
-				(DWORD)GetLastError()
+				"ERROR CODE:"+to_string((DWORD)GetLastError());
 			#endif
 			;
 		}
@@ -57,6 +57,12 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
+		void* get_symbol()
+		void *dlsym(void *handle, const char *symbol);
+		FARPROC GetProcAddress(
+		  HMODULE hModule,
+		  LPCSTR  lpProcName
+		);
 	}
 	#include "_tools/undef_decl_system_type.hpp"
 #endif

@@ -32,13 +32,13 @@ template<typename T>
 [[nodiscard]]link_num_t get_ref_num(const T*a)noexcept{
 	if constexpr(!was_ref_able<T>)
 		template_error("hey.");
-	return static_cast<const ref_able<T>*>(a)->link_num();
+	return attribute_ptr_cast<const ref_able>(a)->link_num();
 }
 template<typename T>
 [[nodiscard]]link_num_t get_weak_ref_num(const T*a)noexcept{
 	if constexpr(!was_weak_ref_able<T>)
 		template_error("hey.");
-	return static_cast<const weak_ref_able<T>*>(a)->link_num();
+	return attribute_ptr_cast<const weak_ref_able>(a)->link_num();
 }
 
 //file_end

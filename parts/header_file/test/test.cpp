@@ -1,8 +1,8 @@
 //*
 #define STEVE_H_TEST
-#include<evest.h>
+#include <evest.h>
 #define STEST_ON
-#include<steve.h>
+#include <steve.h>
 /*/
 #define al_adapt_steve_h
 #define STEST_ON
@@ -36,9 +36,9 @@ namespace std{//cpp20还未实现，占位。
 }
 
 #define ELC_TEST_ON
-#include"../files/base"
-#include"../files/core"
-#include"../files/test"
+#include "../files/base"
+#include "../files/core"
+#include "../files/test"
 
 int ste::stst(){
 	elc::test();

@@ -9,6 +9,9 @@
 	#pragma warning(pop)
 #endif
 //
+#if defined(ELC_VOID_NAME)
+	#define void the_void
+#endif
 
 #undef lazy_instantiation
 #undef lazy_instantiation_name
@@ -16,14 +19,13 @@
 #undef LIS_name
 #undef LIS_IS_flag
 #undef LIS_default_value
+#undef using_LIS_name
 
 // #undef often_noexcept
 #undef noexcept_as
 #undef noexcept_as_auto
 #undef constexpr_as
 #undef constexpr_as_auto
-#undef is_not_function
-#undef is_function
 
 #undef using_method_from_base_t
 #undef using_method_from_value
@@ -37,18 +39,25 @@
 #undef template_error
 #undef template_warning
 
+#undef type_info_of
+#undef type_name_of
+
+#undef is_common_attribute
+#undef is_special_attribute
+
 #undef has_attribute
 #undef not_has_attribute
 
 #undef def_common_attribute_with_nothing
 #undef def_special_attribute_with_nothing
-#undef common_attribute_t
 
+#undef common_attribute_t
+#undef special_attribute_t
 
 #undef enable_if
 #undef enabled_by_default
 #undef disabled_by_default
-#undef enable_if_not_ill_form
+#undef enable_if_not_ill_from
 #undef enable_flag
 
 #undef was_an_ill_form
@@ -72,6 +81,12 @@
 
 #undef INTER_NAMESPACE
 #undef BREAK_NAMESPACE
+
+#undef szie
+#undef form
+
+#undef template_name
+#undef type_name
 
 //file_end
 

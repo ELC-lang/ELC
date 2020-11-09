@@ -26,12 +26,17 @@ struct same_ref_p_t:same_ptr_p_t<T>{
 
 	static constexpr bool cut_nothrow=noexcept(declvalue(ref_type).cut_ref());
 protected:
-	static void cut_ref(T*a)noexcept(cut_nothrow){static_cast<ref_type*>(a)->cut_ref();}
-	static void add_ref(T*a)noexcept{static_cast<ref_type*>(a)->add_ref();}
+	static void cut_ref(T*a)noexcept(cut_nothrow){attribute_ptr_cast<ref_type>(a)->cut_ref();}
+	static void add_ref(T*a)noexcept{attribute_ptr_cast<ref_type>(a)->add_ref();}
 
 	void cut_ref()const noexcept_as(cut_ref(nullptr)){cut_ref(_to);}
 	void add_ref()const noexcept{add_ref(_to);}
 };
+
+template<class T,typename ref_type>
+inline void swap(same_ref_p_t<T,ref_type>&a,same_ref_p_t<T,ref_type>&b)noexcept{
+	a.swap_with(b);
+}
 
 template<class T,typename ref_type,bool replace_check>
 struct ptr_t:same_ref_p_t<T,ref_type>{
@@ -71,29 +76,59 @@ public:
 		check();
 		return base_t::get();
 	}
-	[[nodiscard]]bool unique()const noexcept{return static_cast<ref_able<T>*>(get())->link_num()==1;}
-	[[nodiscard]]explicit constexpr operator unstable_hash_t()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
+	[[nodiscard]]bool unique()const noexcept{return attribute_ptr_cast<ref_able>(get())->link_num()==1;}
+	[[nodiscard]]explicit constexpr operator 
+	::std::conditional_t<(replace_check&&type_info<T>.has_attribute(replace_able)),
+						  unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
 };
 
-template<class T>
-using convert_interface_t=ptr_t<remove_cvref<T>,ref_able<remove_cvref<T>>,true>;
-
-namespace compare_n{
-	template<class T,class T_>
-	class compare_interface_t;
+template <class T,typename ref_type,bool replace_check>
+[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type,replace_check>&a,const T*b)
+noexcept_as(pointer_equal(declvalue(const ptr_t<T,ref_type,replace_check>&).get(),declvalue(const T*))){
+	return pointer_equal(a.get(),b);
 }
-using compare_n::compare_interface_t;
+template <class T,typename ref_type,bool replace_check>
+[[nodiscard]]inline auto operator==(const T*a,const ptr_t<T,ref_type,replace_check>&b)
+noexcept_as(pointer_equal(declvalue(const T*),declvalue(const ptr_t<T,ref_type,replace_check>&).get())){
+	return pointer_equal(a,b.get());
+}
+template <class T,typename ref_type,bool replace_check>
+[[nodiscard]]inline auto operator!=(const ptr_t<T,ref_type,replace_check>&a,const T*b)
+noexcept_as(not(declvalue(const ptr_t<T,ref_type,replace_check>&)==declvalue(const T*))){
+	return not(a==b);
+}
+template <class T,typename ref_type,bool replace_check>
+[[nodiscard]]inline auto operator!=(const T*a,const ptr_t<T,ref_type,replace_check>&b)
+noexcept_as(not(declvalue(const T*)==declvalue(const ptr_t<T,ref_type,replace_check>&))){
+	return not(a==b);
+}
+template <class T,typename ref_type_1,bool replace_check_1,
+				  typename ref_type_2,bool replace_check_2>
+[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_1,replace_check_1>&a,
+							 const ptr_t<T,ref_type_2,replace_check_2>&b)
+noexcept_as(pointer_equal(
+		declvalue(const ptr_t<T,ref_type_1,replace_check_1>&).get(),
+		declvalue(const ptr_t<T,ref_type_2,replace_check_2>&).get())
+){
+	return pointer_equal(a.get(),b.get());
+}
+template <class T,typename ref_type_1,bool replace_check_1,
+				  typename ref_type_2,bool replace_check_2>
+[[nodiscard]]inline auto operator!=(const ptr_t<T,ref_type_1,replace_check_1>&a,
+							 const ptr_t<T,ref_type_2,replace_check_2>&b)
+noexcept_as(not(declvalue(const ptr_t<T,ref_type_1,replace_check_1>&) ==
+				declvalue(const ptr_t<T,ref_type_2,replace_check_2>&))
+){
+	return not(a == b);
+}
 
 template<class T,typename ref_type,bool replace_check>
-struct base_ptr_t:ptr_t<T,ref_type,replace_check>,compare_interface_t<T,base_ptr_t<T,ref_type,replace_check>>{
+struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
 	static_assert(type_info<T>.base_on<ref_type>);
 	typedef ptr_t<T,ref_type,replace_check>base_t;
-	typedef convert_interface_t<T>convert_interface;
 	typedef base_ptr_t<T,ref_type,replace_check>this_t;
-	template<class T_>
-	using compare_interface=compare_interface_t<T,T_>;
 	using typename base_t::same_ref;
 	using typename base_t::same_ptr;
 	using base_t::reset;
@@ -121,15 +156,6 @@ struct base_ptr_t:ptr_t<T,ref_type,replace_check>,compare_interface_t<T,base_ptr
 	base_ptr_t&operator=(same_ref&&a)&noexcept{swap_with(a);return*this;}
 	base_ptr_t&operator=(nullptr_t)&noexcept(reset_nothrow){reset(null_ptr);return*this;}
 
-	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>&&type_info<T_>.not_base_on<this_t>)>
-	base_ptr_t&operator=(T_&&a)&noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>&&reset_nothrow){
-		reset(static_cast<convert_interface>(forward<T_>(a))._to);
-		return*this;
-	}
-
-	template<class T_,enable_if(type_info<T_>.can_convert_to<convert_interface>)>
-	base_ptr_t(T_&&a)noexcept(type_info<T_>.can_nothrow_convert_to<convert_interface>):base_ptr_t(static_cast<convert_interface>(forward<T_>(a))._to){}
-
 private:
 	static constexpr class for_delete_t{
 		T*_m;
@@ -148,49 +174,6 @@ public:
 	template<typename...Args,enable_if(invoke<T>.able<Args...>)>
 	inline auto operator()(Args&&... rest)noexcept(invoke<T>.nothrow<Args...>){return(operator*())(forward<Args>(rest)...);}
 };
-
-template<class T,typename ref_type,bool replace_check>
-inline void swap(base_ptr_t<T,ref_type,replace_check>&a,base_ptr_t<T,ref_type,replace_check>&b)noexcept{
-	a.swap_with(b);
-}
-template<class T,typename ref_type,bool replace_check_a,bool replace_check_b>
-inline void swap(base_ptr_t<T,ref_type,replace_check_a>&a,base_ptr_t<T,ref_type,replace_check_b>&b)noexcept{
-	a.swap_with(b);
-}
-
-namespace compare_n{
-	template<class T,class T_>
-	class compare_interface_t:attribute<T_,compare_interface_t<T,T_>>{
-		typedef compare_interface_t<T,T_> this_t;
-		typedef convert_interface_t<T> convert_interface;
-		typedef attribute<T_,this_t> attribute;
-
-		static constexpr bool nothrow=::std::is_nothrow_convertible_v<T_,convert_interface>&&convert_interface::get_nothrow;
-
-		[[nodiscard]]T*get()const noexcept(nothrow){
-			return static_cast<const convert_interface>(*attribute::get_handle()).get();
-		}
-		template<class T1,class T1_>
-		friend [[nodiscard]]T*get_p(const compare_interface_t<T1,T1_>&a)noexcept(compare_interface_t<T1,T1_>::nothrow);
-	};
-
-	template<class T,class T_>
-	[[nodiscard]]T*get_p(const compare_interface_t<T,T_>&a)noexcept(compare_interface_t<T,T_>::nothrow){return a.get();}
-	template<class T>
-	[[nodiscard]]T*get_p(T*a)noexcept{return a;}
-	[[nodiscard]]null_ptr_t&get_p(nullptr_t)noexcept{return null_ptr;}
-
-	#define expr pointer_equal(get_p(declvalue(const T)),get_p(declvalue(const T_)))
-	template<class T,class T_,enable_if_not_ill_form(expr)>
-	[[nodiscard]]logical_bool operator==(const T&a,const T_&b)noexcept_as(expr){
-		return pointer_equal(get_p(a),get_p(b));
-	}
-	template<class T,class T_,enable_if_not_ill_form(expr)>
-	[[nodiscard]]logical_bool operator!=(const T&a,const T_&b)noexcept_as(expr){
-		return!pointer_equal(get_p(a),get_p(b));
-	}
-	#undef expr
-}
 
 //file_end
 
