@@ -115,12 +115,12 @@ namespace lifetime_n{
 	lifetime_n的一部分
 	constexpr变量模板，用于构造实例
 	用法：
-	construct<类型>.able<构造参数类型>	  ->  bool
-	construct<类型>.nothrow<构造参数类型>   ->  bool
-	construct<T>(参数)					  -> T	 （以参数构建T类型实例）
+	construct<类型>.able<构造参数类型>		->	bool
+	construct<类型>.nothrow<构造参数类型>	->	bool
+	construct<T>(参数)						->	T		（以参数构建T类型实例）
 
-	construct<T>[T*ptr](参数)			   -> T*	 （以参数在ptr地址处构建T类型实例，返回ptr）
-	construct<T>[T*ptr][size_t size](参数)  -> T*	 （以参数在ptr地址处构建size个T类型实例，返回ptr）
+	construct<T>[T*ptr](参数)				->	T*		（以参数在ptr地址处构建T类型实例，返回ptr）
+	construct<T>[T*ptr][size_t size](参数)	->	T*		（以参数在ptr地址处构建size个T类型实例，返回ptr）
 	*/
 	template<typename T>
 	constexpr construct_t<T>construct{};
@@ -129,11 +129,11 @@ namespace lifetime_n{
 	lifetime_n的一部分
 	用于销毁实例
 	用法：
-	destruct.able<类型>	 ->  bool
-	destruct.nothrow<类型>  ->  bool
+	destruct.able<类型>		->	bool
+	destruct.nothrow<类型>	->	bool
 
-	destruct(T*ptr)			   -> void	 （在ptr地址处析构T类型实例，T可为数组）
-	destruct[size_t size](T*ptr)  -> void	 （析构以ptr地址起始共size个T类型实例，T可为数组）
+	destruct(T*ptr)					-> void		（在ptr地址处析构T类型实例，T可为数组）
+	destruct[size_t size](T*ptr)	-> void		（析构以ptr地址起始共size个T类型实例，T可为数组）
 	*/
 	constexpr struct destruct_t{
 		template<class T>
@@ -184,12 +184,12 @@ namespace lifetime_n{
 	lifetime_n的一部分
 	用于重新构造实例：先摧毁，再原地构建
 	用法：
-	re_construct.able<类型>	 ->  bool
-	re_construct.nothrow<类型>  ->  bool
+	re_construct.able<类型>		->	bool
+	re_construct.nothrow<类型>	->	bool
 
-	re_construct(T*ptr)					 -> T*	 （以无参数在ptr地址处重新构建T类型实例，返回ptr）
-	re_construct[T*ptr](参数)			   -> T*	 （以参数在ptr地址处重新构建T类型实例，返回ptr）
-	re_construct[T*ptr][size_t size](参数)  -> T*	 （以参数在ptr地址处重新构建size个T类型实例，返回ptr）
+	re_construct(T*ptr)						->	T*		（以无参数在ptr地址处重新构建T类型实例，返回ptr）
+	re_construct[T*ptr](参数)				->	T*		（以参数在ptr地址处重新构建T类型实例，返回ptr）
+	re_construct[T*ptr][size_t size](参数)	->	T*		（以参数在ptr地址处重新构建size个T类型实例，返回ptr）
 	常见用法：
 	re_construct(this)
 	*/
