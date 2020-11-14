@@ -18,6 +18,7 @@
 #include "type_info.hpp"
 #include "min_max.hpp"
 #include "null_ptr.hpp"
+#include "equal.hpp"
 #include "note.hpp"
 #include "array_like.hpp"
 #include "range.hpp"
@@ -27,7 +28,6 @@
 #include "pointer.hpp"
 #include "zero.hpp"
 #include "count_able.hpp"
-#include "equal.hpp"
 #include "invoke.hpp"
 
 #include "other.hpp"
