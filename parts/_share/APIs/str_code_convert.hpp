@@ -22,7 +22,7 @@ elc依赖的基础函数.
 
 		inline string_t<char> to_char_str(const string_t<char_t> a){
 			string_t<char>ret;
-			std::mbstate_t stat{};
+			::std::mbstate_t stat{};
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
 				die_with(::elc::locale::str::setlocale_error);
 			char r[MB_LEN_MAX];
@@ -38,7 +38,7 @@ elc依赖的基础函数.
 		}
 		inline string_t<char_t> to_char_t_str(const string_t<char> a){
 			string_t<char_t>ret;
-			std::mbstate_t stat{};
+			::std::mbstate_t stat{};
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
 				die_with(::elc::locale::str::setlocale_error);
 			char_t c;

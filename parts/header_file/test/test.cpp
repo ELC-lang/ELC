@@ -1,7 +1,5 @@
 //*
 #define STEVE_H_TEST
-#include <evest.h>
-#define STEST_ON
 #include <steve.h>
 /*/
 #define al_adapt_steve_h
@@ -40,9 +38,8 @@ namespace std{//cpp20还未实现，占位。
 #include "../files/core"
 #include "../files/test"
 
-int ste::stst(){
+void ste::stst(){
 	elc::test();
 	elc::test_log_out();
 	elc::test_end();
-	ret 0;
 }
