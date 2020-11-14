@@ -65,7 +65,6 @@ namespace array_like_n{
 		constexpr auto begin()noexcept{return _begin;}
 		constexpr auto size()noexcept{return _size;}
 		constexpr auto end()noexcept{return begin()+size();}
-		bool operator==()
 	};
 }
 using array_like_n::size_of_array_like;
