@@ -28,7 +28,7 @@
 #define using_LIS_name(name) typedef LIS_ID_t(name)name
 
 // #define often_noexcept
-#define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto
+#define noexcept_as(...) noexcept(noexcept((__VA_ARGS__)))//dnmd C艹标准就是没有noexcept_as_auto
 #define noexcept_as_auto MAGIC//哦现在有了
 #define constexpr_as(...) MAGIC constexpr//( •̀ ω •́ )✌
 #define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌

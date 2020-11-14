@@ -88,7 +88,7 @@ struct type_info_t:base_type_info_t{
 		template<common_attribute_t... common_attribute_names>
 		struct and_common_attribute:with_special_attribute<special_attribute_names...>,common_attribute_pack<common_attribute_names...>::template on_type<T>{};
 	};
-	
+
 	constexpr type_info_t()noexcept:base_type_info_t(typeid(T)){}
 	constexpr type_info_t(const type_info_t&)noexcept=default;
 };
