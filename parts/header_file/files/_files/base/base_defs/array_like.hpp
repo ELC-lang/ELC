@@ -21,8 +21,8 @@ namespace array_like_n{
 	template<class T>
 	inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
 
-	template<class T,class T_>
-	inline auto end_of_array_like(T_&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
+	template<class T>
+	inline auto end_of_array_like(T&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
 
 	template<class T>
 	auto is_array_like_helper(int) -> decltype(
@@ -50,6 +50,23 @@ namespace array_like_n{
 
 	template<class T,class T_>
 	constexpr bool is_array_like_for=is_array_like_for_helper<T,T_>();
+
+	template<class T>
+	struct array_like_view_t{
+		T*_begin;
+		size_t _size;
+
+		template<class T_,enable_if(is_array_like_for<T,T_>)>
+		constexpr_as_auto array_like_view_t(T_&&a)noexcept_as(begin_of_array_like<T>(declvalue(T_)),size_of_array_like<T>(declvalue(T_))){
+			_begin=begin_of_array_like<T>(a);
+			_size=size_of_array_like<T>(a);
+		}
+		constexpr array_like_view_t(const array_like_view_t&)noexcept=default;
+		constexpr auto begin()noexcept{return _begin;}
+		constexpr auto size()noexcept{return _size;}
+		constexpr auto end()noexcept{return begin()+size();}
+		bool operator==()
+	};
 }
 using array_like_n::size_of_array_like;
 using array_like_n::begin_of_array_like;
@@ -58,6 +75,7 @@ using array_like_n::is_array_like;
 using array_like_n::is_signal_value_for_array_like;
 using array_like_n::is_not_signal_value_for_array_like;
 using array_like_n::is_array_like_for;
+using array_like_n::array_like_view_t;
 
 //file_end
 
