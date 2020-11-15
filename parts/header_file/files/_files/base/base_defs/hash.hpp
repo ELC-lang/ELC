@@ -17,15 +17,9 @@ namespace hash_n{
 	struct unstable_hash_t:hash_t{
 		using hash_t::hash_t;
 	};
-	template<class T>
-	auto is_unstable_hash_helper(int) -> decltype(
-		void((struct unstable_hash_t)(declvalue(T const&))),
-		::std::true_type{});
-	template<class>
-	auto is_unstable_hash_helper(...) -> ::std::false_type;
 
 	template<class T>
-	inline constexpr bool is_unstable_hash = decltype(is_unstable_hash_helper<T>(0))::value;
+	inline constexpr bool is_unstable_hash = was_not_an_ill_form({declvalue(T const&)} -> unstable_hash_t);
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
 	[[nodiscard]]inline constexpr hash_t hash(nothing)noexcept{
@@ -46,8 +40,11 @@ namespace hash_n{
 			return{size_t(a)};
 		elseif constexpr(is_unstable_hash<T>)
 			return unstable_hash_t(a);
-		else
+		elseif constexpr(was_not_an_ill_form(declvalue(const T&).hash()))
+			return a.hash();
+		elseif constexpr(was_not_an_ill_form(hash_t(declvalue(const T&))))
 			return hash_t(a);
+		else template_error("Please overload the function hash in the namespace where this type is defined.");
 	}
 	template<class T>
 	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(declvalue(const T))){

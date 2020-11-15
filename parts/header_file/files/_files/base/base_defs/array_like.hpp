@@ -25,15 +25,12 @@ namespace array_like_n{
 	inline auto end_of_array_like(T&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
 
 	template<class T>
-	auto is_array_like_helper(int) -> decltype(
-		void(begin_of_array_like(declvalue(T))),
-		void(size_of_array_like(declvalue(T))),
-		::std::true_type{});
-	template<class>
-	auto is_array_like_helper(...) -> ::std::false_type;
-
-	template<class T>
-	constexpr bool is_array_like=is_array_like_helper<T>();
+	constexpr bool is_array_like=was_not_an_ill_form_with_parameter(
+									(T v){
+										begin_of_array_like(v);
+										size_of_array_like(v);
+									}
+								);
 
 	template<class T>
 	constexpr bool is_signal_value_for_array_like=type_info<remove_cvref<decltype(*begin_of_array_like(declvalue(T)))>> == type_info<T>;
@@ -41,15 +38,12 @@ namespace array_like_n{
 	constexpr bool is_not_signal_value_for_array_like=!is_signal_value_for_array_like<T>;
 
 	template<class T,class T_>
-	auto is_array_like_for_helper(int) -> decltype(
-		void(begin_of_array_like<T>(declvalue(T_))),
-		void(size_of_array_like<T>(declvalue(T_))),
-		::std::true_type{});
-	template<class,class>
-	auto is_array_like_for_helper(...) -> ::std::false_type;
-
-	template<class T,class T_>
-	constexpr bool is_array_like_for=is_array_like_for_helper<T,T_>();
+	constexpr bool is_array_like_for=was_not_an_ill_form_with_parameter(
+										(T_ v){
+											begin_of_array_like<T>(v);
+											size_of_array_like<T>(v);
+										}
+									);
 
 	template<class T>
 	struct array_like_view_t{

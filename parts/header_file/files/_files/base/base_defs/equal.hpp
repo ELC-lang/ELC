@@ -9,14 +9,7 @@
 //equal：值相等
 constexpr struct equal_t{
 	template<class T>
-	auto equality_comparable_helper(int) -> decltype(
-		void(declvalue(T&) == declvalue(T&)),
-		::std::true_type{});
-	template<class>
-	auto equality_comparable_helper(...) -> ::std::false_type;
-
-	template<class T>
-	static constexpr bool able= decltype(equality_comparable_helper<T>(0))::value;
+	static constexpr bool able= was_not_an_ill_form(declvalue(T&)==declvalue(T&));
 	template<class T>
 	static constexpr bool nothrow= noexcept(declvalue(T&)==declvalue(T&));
 
@@ -63,22 +56,18 @@ inline auto is_not_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
 //compare：三路比较
 constexpr struct compare_t{
 	template<class T>
-	auto comparable_helper(int) -> decltype(
-		void(declvalue(T&) <=> declvalue(T&)),
-		::std::true_type{});
-	template<class>
-	auto comparable_helper(...) -> ::std::false_type;
-
-	template<class T>
-	static constexpr bool able= decltype(comparable_helper<T>(0))::value;
+	static constexpr bool able= was_not_an_ill_form(declvalue(T&)<=>declvalue(T&));
 	template<class T>
 	static constexpr bool nothrow= noexcept(declvalue(T&)<=>declvalue(T&));
 
+	//UF
+	/*
 	template<class T, class U>
 	constexpr auto base_call(const T& a,const U& b){
 		//compare_3way 在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
 		return ::std::compare_3way(a,b);
 	}
+	*/
 
 	template<typename T>
 	inline auto operator()(T&&a,T&&b)const noexcept(nothrow<T>){
@@ -87,7 +76,7 @@ constexpr struct compare_t{
 	template<typename T>
 	inline auto operator()(T*a,T*b,size_t size)const noexcept(nothrow<T>){
 		while(size--){
-			if(auto tmp=*(a++)<=>*(b++); tmp=!=0)
+			if(auto tmp=*(a++)<=>*(b++); tmp!=0)
 				return tmp;
 		}
 		return 0<=>0;

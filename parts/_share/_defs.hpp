@@ -98,7 +98,10 @@ class name{}\
 /*用于模板声明*/
 #define enable_flag class enable_state
 
-#define was_an_ill_form(...) MAGIC//这个表达式应当返回一个bool，现在它做到了
+#define was_an_ill_form(...) (!was_not_an_ill_form(__VA_ARGS__))
+#define was_an_ill_form_with_parameter(...) (!was_not_an_ill_form_with_parameter(__VA_ARGS__))
+#define was_not_an_ill_form(...) (bool(requires{(__VA_ARGS__);}))
+#define was_not_an_ill_form_with_parameter(...) (bool(requires __VA_ARGS__ ))
 
 /*让lambda定义更加美观*/
 #define lambda []

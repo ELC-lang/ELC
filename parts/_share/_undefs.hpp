@@ -61,6 +61,9 @@
 #undef enable_flag
 
 #undef was_an_ill_form
+#undef was_an_ill_form_with_parameter
+#undef was_not_an_ill_form
+#undef was_not_an_ill_form_with_parameter
 
 #undef lambda
 #undef lambda_with_catch

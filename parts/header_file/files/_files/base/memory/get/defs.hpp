@@ -81,7 +81,7 @@ namespace get_n{
 			template<typename T_>
 			static constexpr bool nothrow=copy_construct.nothrow<T>;
 
-			[[nodiscard]]T* operator()(array_like_view_t<const T>a)const noexcept(nothrow<T_>){
+			[[nodiscard]]T* operator()(array_like_view_t<const T>a)const noexcept(nothrow<void>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				auto size=a.size();
@@ -97,7 +97,7 @@ namespace get_n{
 			template<typename T_>
 			static constexpr bool nothrow=copy_construct.nothrow<T>&&move.nothrow<T>;
 
-			T* operator()(note::to_t<T*&> to,array_like_view_t<const T>a)const noexcept(nothrow<T_>){
+			T* operator()(note::to_t<T*&> to,array_like_view_t<const T>a)const noexcept(nothrow<void>){
 				auto&ptr=to.value;
 				auto from_size=get_size_of_alloc(ptr);
 				auto a_size=a.size();
@@ -113,7 +113,7 @@ namespace get_n{
 			template<typename T_>
 			static constexpr bool nothrow=destruct.nothrow<T>&&move.nothrow<T>;
 
-			bool operator()(array_like_view_t<const T>a,note::from_t<T*>from)const noexcept(nothrow<T_>){
+			bool operator()(array_like_view_t<const T>a,note::from_t<T*>from)const noexcept(nothrow<void>){
 				auto ptr=from.value;
 				auto from_size=get_size_of_alloc(ptr);
 				T*ptr_to_a=in_range(a,{ptr,note::size(from_size)});
