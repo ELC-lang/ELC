@@ -53,18 +53,32 @@ namespace array_like_n{
 
 	template<class T>
 	struct array_like_view_t{
+		typedef T* iterator;
+		typedef const T* const_iterator;
+		typedef array_like_view_t<T>this_t;
+	private:
 		T*_begin;
 		size_t _size;
-
+	public:
 		template<class T_,enable_if(is_array_like_for<T,T_>)>
 		constexpr_as_auto array_like_view_t(T_&&a)noexcept_as(begin_of_array_like<T>(declvalue(T_)),size_of_array_like<T>(declvalue(T_))){
 			_begin=begin_of_array_like<T>(a);
 			_size=size_of_array_like<T>(a);
 		}
-		constexpr array_like_view_t(const array_like_view_t&)noexcept=default;
-		constexpr auto begin()noexcept{return _begin;}
-		constexpr auto size()noexcept{return _size;}
-		constexpr auto end()noexcept{return begin()+size();}
+		constexpr array_like_view_t(const this_t&)noexcept=default;
+
+		[[nodiscard]]constexpr size_t size()noexcept{return _size;}
+
+		[[nodiscard]]constexpr iterator begin()noexcept{return _begin;}
+		[[nodiscard]]constexpr iterator end()noexcept{return begin()+size();}
+
+		[[nodiscard]]constexpr const_iterator cbegin()const noexcept{return const_cast<this_t*>(this)->begin();}
+		[[nodiscard]]constexpr const_iterator cend()const noexcept{return const_cast<this_t*>(this)->end();}
+
+		[[nodiscard]]constexpr bool empty()const noexcept{return size();}
+
+		[[nodiscard]]constexpr T&operator[](size_t pos)noexcept{return begin()[pos];}
+		[[nodiscard]]constexpr const T&operator[](size_t pos)const noexcept{return const_cast<this_t&>(*this)[pos];}
 	};
 }
 using array_like_n::size_of_array_like;
