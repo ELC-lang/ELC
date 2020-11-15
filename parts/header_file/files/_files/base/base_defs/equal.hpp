@@ -60,5 +60,56 @@ inline auto is_not_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
 	return!is_eq(a,b);
 }
 
+//compare：三路比较
+constexpr struct compare_t{
+	template<class T>
+	auto comparable_helper(int) -> decltype(
+		void(declvalue(T&) <=> declvalue(T&)),
+		::std::true_type{});
+	template<class>
+	auto comparable_helper(...) -> ::std::false_type;
+
+	template<class T>
+	static constexpr bool able= decltype(comparable_helper<T>(0))::value;
+	template<class T>
+	static constexpr bool nothrow= noexcept(declvalue(T&)<=>declvalue(T&));
+
+	template<class T, class U>
+	constexpr auto base_call(const T& a,const U& b){
+		//compare_3way 在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
+		return ::std::compare_3way(a,b);
+	}
+
+	template<typename T>
+	inline auto operator()(T&&a,T&&b)const noexcept(nothrow<T>){
+		return a<=>b;
+	}
+	template<typename T>
+	inline auto operator()(T*a,T*b,size_t size)const noexcept(nothrow<T>){
+		while(size--){
+			if(auto tmp=*(a++)<=>*(b++); tmp=!=0)
+				return tmp;
+		}
+		return 0<=>0;
+	}
+	template<typename T,size_t N1,size_t N2>
+	inline auto operator()(T(&a)[N1],T(&b)[N2])const noexcept(nothrow<T>){
+		if constexpr(N1==N2)
+			return operator()(a,b,N1);
+		else{
+			template_warning("N1!=N2");
+			return N1<=>N2;
+		}
+	}
+	template<typename T>
+	inline auto operator()(T*a,size_t size1,T*b,size_t size2)const noexcept(nothrow<T>){
+		decltype(declvalue(T&)<=>declvalue(T&)) tmp = size1<=>size2;
+		if(tmp!=0)
+			return tmp;
+		else
+			return operator()(a,b,size1);
+	}
+}compare{};
+
 //file_end
 
