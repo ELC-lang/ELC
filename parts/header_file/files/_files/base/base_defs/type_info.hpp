@@ -94,7 +94,7 @@ struct type_info_t:base_type_info_t{
 };
 
 template<class T>
-inline const type_info_t<T>type_info{};
+constexpr type_info_t<T>type_info{};
 
 template<class T>
 [[nodiscard]]constexpr bool operator==(const type_info_t<T>&,const type_info_t<T>&){return true;}
