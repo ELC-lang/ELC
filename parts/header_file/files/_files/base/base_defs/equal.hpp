@@ -110,7 +110,7 @@ constexpr struct compare_t{
 	}
 	template<typename T,typename U>
 	constexpr auto operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
-		decltype(base_call(*a,*b)) tmp = size1<=>size2;
+		decltype(operator()(a,b,size1)) tmp = size1<=>size2;
 		if(tmp!=0)
 			return tmp;
 		else
