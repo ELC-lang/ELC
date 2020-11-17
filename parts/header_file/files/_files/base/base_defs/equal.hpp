@@ -45,11 +45,11 @@ constexpr struct equal_t{
 
 //eq：同一对象
 template<typename T>
-inline auto is_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
+inline auto is_eq(T&&a,T&&b)noexcept_as(&a==&b){
 	return &a==&b;
 }
 template<typename T>
-inline auto is_not_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
+inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 	return!is_eq(a,b);
 }
 

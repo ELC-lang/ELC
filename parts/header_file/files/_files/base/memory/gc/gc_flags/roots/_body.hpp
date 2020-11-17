@@ -30,7 +30,7 @@ public:
 
 	void map_and_mark()noexcept_as(declvalue(value_t)->map_and_mark()){
 		base_t::for_each(
-			lambda(value_t a)noexcept_as(declvalue(value_t)->map_and_mark())
+			lambda(value_t&a)noexcept_as(a->map_and_mark())
 			{
 				a->map_and_mark();
 			}

@@ -63,7 +63,7 @@ public:
 		return _m==null_ptr;
 	}
 	template<typename T_>
-	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==declvalue(T_)){
+	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==a){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
 			if(tmp->_data==a)

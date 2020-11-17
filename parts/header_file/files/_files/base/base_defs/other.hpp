@@ -9,7 +9,7 @@
 class empty_type{};
 
 template<typename T,typename U>
-inline auto&assign(T&&a,U&&b)noexcept_as(declvalue(T)=declvalue(U)){//为绕过条件内赋值时の警告而使用
+inline auto&assign(T&&a,U&&b)noexcept_as(a=b){//为绕过条件内赋值时の警告而使用
 	a=b;
 	return a;
 }

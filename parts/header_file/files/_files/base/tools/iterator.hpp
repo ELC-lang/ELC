@@ -83,7 +83,8 @@ namespace iterator_n{
 		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept(is_handle_getter_noexcept()&&noexcept(pointer_equal(declvalue(value_t*),declvalue(value_t*)))){return pointer_equal(handle_getter(),a);}
 	};
 	template<typename value_t,typename base_t_w>
-	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(declvalue(same_base_t<value_t,base_t_w>&).swap_with(declvalue(same_base_t<value_t,base_t_w>&))){a.swap_with(b);}
+	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(a.swap_with(b))
+	{a.swap_with(b);}
 
 	template<typename value_t,typename base_t_w,bool is_reverse>
 	struct base_iterator_t:same_base_t<value_t,base_t_w>{

@@ -55,7 +55,7 @@ namespace array_like_n{
 		size_t _size;
 	public:
 		template<class T_,enable_if(is_array_like_for<T,T_>)>
-		constexpr_as_auto array_like_view_t(T_&&a)noexcept_as(begin_of_array_like<T>(declvalue(T_)),size_of_array_like<T>(declvalue(T_))){
+		constexpr_as_auto array_like_view_t(T_&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)){
 			_begin=begin_of_array_like<T>(a);
 			_size=size_of_array_like<T>(a);
 		}

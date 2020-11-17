@@ -125,11 +125,11 @@ namespace array_n{
 			get<T>.apply_end(note::to(a._m),b);
 		}
 		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t operator+(const this_t&a,T_&&b)noexcept_as(declvalue(this_t).copy()+=declvalue(T_)){
+		friend this_t operator+(const this_t&a,T_&&b)noexcept_as(a.copy()+=b){
 			return a.copy()+=b;
 		}
 		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t operator+(T_&&a,const this_t&b)noexcept_as(this_t(declvalue(T_))+=declvalue(this_t)){
+		friend this_t operator+(T_&&a,const this_t&b)noexcept_as(this_t(a)+=b){
 			return this_t(a)+=b;
 		}
 		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
