@@ -80,9 +80,6 @@ namespace array_like_n{
 		friend[[nodiscard]]constexpr auto operator==(this_t a,this_t b)noexcept(equal.nothrow<T>){
 			return equal(a._begin,a._size,b._begin,b._size);
 		}
-		friend[[nodiscard]]constexpr auto operator!=(this_t a,this_t b)noexcept(equal.nothrow<T>){
-			return!(a==b);
-		}
 	};
 }
 using array_like_n::size_of_array_like;

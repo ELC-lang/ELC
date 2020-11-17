@@ -77,12 +77,10 @@ namespace iterator_n{
 		constexpr same_base_t(const same_base_t<other_T,other_base_t>&a)noexcept(construct<base_t_w>.nothrow<other_base_t>):_m(a._m){}
 		~same_base_t()noexcept(destruct.nothrow<base_t_w>)=default;
 		[[nodiscard]]constexpr bool operator==(this_t a)const noexcept_as(declvalue(base_t_w)==declvalue(base_t_w)){return _m==a._m;}
-		[[nodiscard]]constexpr bool operator!=(this_t a)const noexcept_as(declvalue(this_t)==declvalue(this_t)){return!operator==(a);}
 		[[nodiscard]]constexpr value_t*operator->()noexcept(is_handle_getter_noexcept()){return handle_getter();}
 		[[nodiscard]]constexpr value_t&operator*()noexcept_as(declvalue(this_t).operator->()){return*operator->();}
 		[[nodiscard]]constexpr operator value_t*()noexcept_as(declvalue(this_t).operator->()){return operator->();}
 		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept(is_handle_getter_noexcept()&&noexcept(pointer_equal(declvalue(value_t*),declvalue(value_t*)))){return pointer_equal(handle_getter(),a);}
-		[[nodiscard]]constexpr bool operator!=(value_t*a)const noexcept_as(declvalue(this_t)==declvalue(value_t*)){return!operator==(a);}
 	};
 	template<typename value_t,typename base_t_w>
 	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(declvalue(same_base_t<value_t,base_t_w>&).swap_with(declvalue(same_base_t<value_t,base_t_w>&))){a.swap_with(b);}

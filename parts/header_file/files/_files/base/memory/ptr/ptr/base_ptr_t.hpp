@@ -94,16 +94,6 @@ template <class T,typename ref_type,bool replace_check>
 noexcept_as(pointer_equal(declvalue(const T*),declvalue(const ptr_t<T,ref_type,replace_check>&).get())){
 	return pointer_equal(a,b.get());
 }
-template <class T,typename ref_type,bool replace_check>
-[[nodiscard]]inline auto operator!=(const ptr_t<T,ref_type,replace_check>&a,const T*b)
-noexcept_as(not(declvalue(const ptr_t<T,ref_type,replace_check>&)==declvalue(const T*))){
-	return not(a==b);
-}
-template <class T,typename ref_type,bool replace_check>
-[[nodiscard]]inline auto operator!=(const T*a,const ptr_t<T,ref_type,replace_check>&b)
-noexcept_as(not(declvalue(const T*)==declvalue(const ptr_t<T,ref_type,replace_check>&))){
-	return not(a==b);
-}
 template <class T,typename ref_type_1,bool replace_check_1,
 				  typename ref_type_2,bool replace_check_2>
 [[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_1,replace_check_1>&a,
@@ -113,15 +103,6 @@ noexcept_as(pointer_equal(
 		declvalue(const ptr_t<T,ref_type_2,replace_check_2>&).get())
 ){
 	return pointer_equal(a.get(),b.get());
-}
-template <class T,typename ref_type_1,bool replace_check_1,
-				  typename ref_type_2,bool replace_check_2>
-[[nodiscard]]inline auto operator!=(const ptr_t<T,ref_type_1,replace_check_1>&a,
-							 const ptr_t<T,ref_type_2,replace_check_2>&b)
-noexcept_as(not(declvalue(const ptr_t<T,ref_type_1,replace_check_1>&) ==
-				declvalue(const ptr_t<T,ref_type_2,replace_check_2>&))
-){
-	return not(a == b);
 }
 
 template<class T,typename ref_type,bool replace_check>

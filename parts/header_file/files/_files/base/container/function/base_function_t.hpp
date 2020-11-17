@@ -90,9 +90,6 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const this_t&a)const noexcept{
 			return *_m==*(a._m);
 		}
-		[[nodiscard]]bool operator!=(const this_t&a)const noexcept{
-			return not operator==(a);
-		}
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};

@@ -33,7 +33,6 @@ public:
 		return _tid.get_hash();
 	}
 	[[nodiscard]]bool operator==(const base_type_info_t&a)const noexcept{return _tid==a._tid;}
-	[[nodiscard]]bool operator!=(const base_type_info_t&a)const noexcept{return!(*this==a);}
 };
 template<class T>
 struct type_info_t:base_type_info_t{
@@ -100,8 +99,6 @@ template<class T>
 [[nodiscard]]constexpr bool operator==(const type_info_t<T>&,const type_info_t<T>&){return true;}
 template<class T1,class T2>
 [[nodiscard]]constexpr bool operator==(const type_info_t<T1>&,const type_info_t<T2>&){return false;}
-template<class T1,class T2>
-[[nodiscard]]constexpr bool operator!=(const type_info_t<T1>&a,const type_info_t<T2>&b){return!(a==b);}
 
 //file_end
 
