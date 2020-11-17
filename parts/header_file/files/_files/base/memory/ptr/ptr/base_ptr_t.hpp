@@ -87,17 +87,14 @@ public:
 		return pointer_equal(get(),a);
 	}
 	template <class T,typename ref_type_,bool replace_check_>
-	[[nodiscard]]inline auto operator==(const this_t&a,const ptr_t<T,ref_type_,replace_check_>&b)const
+	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,replace_check_>&b)const
 	noexcept_as(pointer_equal(
 			declvalue(const this_t&).get(),
-			declvalue(const ptr_t<T,ref_type_,replace_check_>&).get())
+			b.get())
 	){
-		return pointer_equal(a.get(),b.get());
+		return pointer_equal(get(),b.get());
 	}
 };
-
-template <class T,typename ref_type,bool replace_check>
-
 
 template<class T,typename ref_type,bool replace_check>
 struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
