@@ -20,13 +20,13 @@ namespace map_n{
 				constexpr seek_value_t(const T&a):_m(&a){};
 			}
 
-			[[nodiscard]]bool operator==(const key_t&a)noexcept_as(declvalue(key_t&)==declvalue(const key_t&)){
+			[[nodiscard]]bool operator==(const key_t&a)noexcept_as(_key==a){
 				return _key==a;
 			}
-			[[nodiscard]]bool operator==(const seek_value_t&a)noexcept_as(declvalue(T&)==declvalue(const T&)){
+			[[nodiscard]]bool operator==(const seek_value_t&a)noexcept_as(_value==*a._m){
 				return _value==*a._m;
 			}
-			[[nodiscard]]constexpr_as(hash(declvalue(key_t&)))operator hash_t()noexcept_as(hash(declvalue(key_t&))){
+			[[nodiscard]]constexpr_as(hash(_key))operator hash_t()noexcept_as(hash(_key)){
 				return hash(_key);
 			}
 			/* operator T&()noexcept{

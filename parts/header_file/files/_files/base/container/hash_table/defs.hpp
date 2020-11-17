@@ -95,10 +95,10 @@ namespace hash_table_n{
 				}
 			return reference;
 		}
-		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T>){
+		[[nodiscard]]bool in_table(const T&a)noexcept_as(declvalue(this_t).find(a).not_fail()){
 			return find(a).not_fail();
 		}
-		[[nodiscard]]bool not_in_table(const T&a)noexcept_as(declvalue(this_t).in_table(declvalue(const T&))){
+		[[nodiscard]]bool not_in_table(const T&a)noexcept_as(declvalue(this_t).in_table(a)){
 			return not in_table(a);
 		}
 

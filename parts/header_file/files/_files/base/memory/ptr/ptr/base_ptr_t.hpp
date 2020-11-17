@@ -83,10 +83,10 @@ public:
 		return hash(get());
 	}
 	
-	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),declvalue(const T*))){
+	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),a)){
 		return pointer_equal(get(),a);
 	}
-	template <class T,typename ref_type_,bool replace_check_>
+	template <typename ref_type_,bool replace_check_>
 	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,replace_check_>&b)const
 	noexcept_as(pointer_equal(
 			declvalue(const this_t&).get(),

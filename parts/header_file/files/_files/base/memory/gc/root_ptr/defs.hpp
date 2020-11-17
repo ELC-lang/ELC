@@ -22,7 +22,7 @@ struct root_ptr_t:comn_ptr_t<T>,root_of<T>{
 public:
 	using base_t::base_t;
 	template<class assign_t,enable_if_not_ill_from(declvalue(base_t)=declvalue(assign_t))>
-	this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
+	this_t&operator=(assign_t&&a)noexcept_as(base_t::operator=(forward<assign_t>(a))){
 		base_t::operator=(forward<assign_t>(a));
 		return*this;
 	}
