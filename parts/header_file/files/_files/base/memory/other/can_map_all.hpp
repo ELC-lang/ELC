@@ -12,8 +12,8 @@ struct can_map_all:cons_t<can_map_all<T>>,is_common_attribute(can_map_all){
 private:
 	inline static list_t<this_t> type_list;
 
-	#define expr declvalue(func_t)(declvalue(T_*))
-	template<class T_,class func_t,enable_flag>
+	#define expr declvalue(func_t)(declvalue(U*))
+	template<class U,class func_t,enable_flag>
 	friend inline void map_all(func_t&a)noexcept_as(expr);
 	#undef expr
 public:

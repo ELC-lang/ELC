@@ -35,9 +35,9 @@ namespace array_n{
 		/*
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
 		*/
-		template<class T_,enable_if(get<T>.as_array.able<T_>)>
-		array_t(T_&&a)noexcept(get<T>.as_array.nothrow){
-			_m=get<T>.as_array(forward<T_>(a));
+		template<class U,enable_if(get<T>.as_array.able<U>)>
+		array_t(U&&a)noexcept(get<T>.as_array.nothrow){
+			_m=get<T>.as_array(forward<U>(a));
 		}
 
 		//复制和移动函数
@@ -120,24 +120,24 @@ namespace array_n{
 		void remove(T a){
 			get<T>.remove(a,note::form(_m));
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t&operator+=(this_t&a,T_&&b)noexcept(get<T>.apply_end.nothrow<T_>){
+		template<typename U,enable_if(get<T>.apply_end.able<U>)>
+		friend this_t&operator+=(this_t&a,U&&b)noexcept(get<T>.apply_end.nothrow<U>){
 			get<T>.apply_end(note::to(a._m),b);
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t operator+(const this_t&a,T_&&b)noexcept_as(a.copy()+=b){
+		template<typename U,enable_if(get<T>.apply_end.able<U>)>
+		friend this_t operator+(const this_t&a,U&&b)noexcept_as(a.copy()+=b){
 			return a.copy()+=b;
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t operator+(T_&&a,const this_t&b)noexcept_as(this_t(a)+=b){
+		template<typename U,enable_if(get<T>.apply_end.able<U>)>
+		friend this_t operator+(U&&a,const this_t&b)noexcept_as(this_t(a)+=b){
 			return this_t(a)+=b;
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		iterator find(T_&&a)noexcept{
+		template<typename U,enable_if(get<T>.apply_end.able<U>)>
+		iterator find(U&&a)noexcept{
 			return in_range(*this,a);
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		const_iterator find(T_&&a)const noexcept{
+		template<typename U,enable_if(get<T>.apply_end.able<U>)>
+		const_iterator find(U&&a)const noexcept{
 			return in_range(*this,a);
 		}
 	};

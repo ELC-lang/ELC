@@ -53,10 +53,10 @@ namespace hash_table_n{
 			return*this;
 		}
 
-		template<typename T_>
-		static constexpr bool hash_nothrow=noexcept(hash(declvalue(T_)));
-		template<typename T_>
-		static constexpr bool find_nothrow=hash_nothrow<T_>&&noexcept(declvalue(bucket_t).find(declvalue(T_)));
+		template<typename U>
+		static constexpr bool hash_nothrow=noexcept(hash(declvalue(U)));
+		template<typename U>
+		static constexpr bool find_nothrow=hash_nothrow<U>&&noexcept(declvalue(bucket_t).find(declvalue(U)));
 
 		void add(const T&a)noexcept(hash_nothrow<const T&>&&bucket_t::add_nothrow){
 			auto&bucket=find_bucket(hash(a));
@@ -79,8 +79,8 @@ namespace hash_table_n{
 				}
 			return remove_success;
 		}
-		template<typename T_>
-		[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept(find_nothrow<T_>){
+		template<typename U>
+		[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept(find_nothrow<U>){
 			auto&bucket=find_bucket(hash(a));
 			auto reference=bucket.find(a);
 			if constexpr(is_unstable_hash<T>)

@@ -76,9 +76,9 @@ namespace get_n{
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
 
 		static constexpr struct as_array_t{
-			template<typename T_>
-			static constexpr bool able=copy_construct.able<T>&&destruct.able<T>&&is_array_like_for<T,T_>;
-			template<typename T_>
+			template<typename U>
+			static constexpr bool able=copy_construct.able<T>&&destruct.able<T>&&is_array_like_for<T,U>;
+			template<typename U>
 			static constexpr bool nothrow=copy_construct.nothrow<T>;
 
 			[[nodiscard]]T* operator()(array_like_view_t<const T>a)const noexcept(nothrow<void>){
@@ -92,9 +92,9 @@ namespace get_n{
 		}as_array{};
 
 		static constexpr struct apply_end_t{
-			template<typename T_>
-			static constexpr bool able=copy_construct.able<T>&&move.able<T>&&is_array_like_for<T,T_>;
-			template<typename T_>
+			template<typename U>
+			static constexpr bool able=copy_construct.able<T>&&move.able<T>&&is_array_like_for<T,U>;
+			template<typename U>
 			static constexpr bool nothrow=copy_construct.nothrow<T>&&move.nothrow<T>;
 
 			T* operator()(note::to_t<T*&> to,array_like_view_t<const T>a)const noexcept(nothrow<void>){
@@ -108,9 +108,9 @@ namespace get_n{
 		}apply_end{};
 
 		static constexpr struct remove_t{
-			template<typename T_>
-			static constexpr bool able=destruct.able<T>&&move.able<T>&&is_array_like_for<T,T_>;
-			template<typename T_>
+			template<typename U>
+			static constexpr bool able=destruct.able<T>&&move.able<T>&&is_array_like_for<T,U>;
+			template<typename U>
 			static constexpr bool nothrow=destruct.nothrow<T>&&move.nothrow<T>;
 
 			bool operator()(array_like_view_t<const T>a,note::from_t<T*>from)const noexcept(nothrow<void>){

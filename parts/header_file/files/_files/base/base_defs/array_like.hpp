@@ -37,9 +37,9 @@ namespace array_like_n{
 	template<class T>
 	constexpr bool is_not_signal_value_for_array_like=!is_signal_value_for_array_like<T>;
 
-	template<class T,class T_>
+	template<class T,class U>
 	constexpr bool is_array_like_for=was_not_an_ill_form_with_parameter(
-										(T_ v){
+										(U v){
 											begin_of_array_like<T>(v);
 											size_of_array_like<T>(v);
 										}
@@ -54,8 +54,8 @@ namespace array_like_n{
 		T*_begin;
 		size_t _size;
 	public:
-		template<class T_,enable_if(is_array_like_for<T,T_>)>
-		constexpr_as_auto array_like_view_t(T_&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)){
+		template<class U,enable_if(is_array_like_for<T,U>)>
+		constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)){
 			_begin=begin_of_array_like<T>(a);
 			_size=size_of_array_like<T>(a);
 		}

@@ -20,8 +20,8 @@ public:
 	auto_stack_t(base_t&&a)noexcept_as(base_t(a)):base_t(a){}
 
 	this_t&operator=(this_t&&a)&noexcept{base_t::operator=(move(a));return*this;}
-	template<typename T_>
-	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==a){
+	template<typename U>
+	[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept_as(declvalue(T&)==a){
 		data_t*tmp=_m,**tmp_=&_m;
 		while(tmp!=null_ptr){
 			if(tmp->_data==a){

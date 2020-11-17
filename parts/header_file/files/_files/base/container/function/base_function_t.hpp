@@ -115,8 +115,8 @@ namespace function_n{
 		template<class,bool>
 		friend class base_function_t;
 
-		template<class T_>
-		using func_data_t=function_n::func_data_t<T_,Ret_t(Args_t...)>;
+		template<class U>
+		using func_data_t=function_n::func_data_t<U,Ret_t(Args_t...)>;
 
 		typedef Ret_t(*func_ptr_t)(Args_t...)noexcept(nothrow);
 

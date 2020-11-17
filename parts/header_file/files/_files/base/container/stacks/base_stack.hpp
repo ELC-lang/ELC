@@ -62,8 +62,8 @@ public:
 	[[nodiscard]]bool empty()const noexcept{
 		return _m==null_ptr;
 	}
-	template<typename T_>
-	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==a){
+	template<typename U>
+	[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept_as(declvalue(T&)==a){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
 			if(tmp->_data==a)
