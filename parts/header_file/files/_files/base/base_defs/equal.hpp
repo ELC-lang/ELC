@@ -77,9 +77,9 @@ constexpr struct compare_t{
 
 
 	template<class T, class U>
-	constexpr auto base_call(const T& a,const U& b)const noexcept(nothrow<T,U>){
+	constexpr auto base_call(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
-		if constexpr(was_not_an_ill_form(a<=>b))
+		if constexpr(r_able<T,U>)
 			return a<=>b;
 		else return a == b	? 1.5==1.5	:
 					a < b	? 1.5<1.7	:
