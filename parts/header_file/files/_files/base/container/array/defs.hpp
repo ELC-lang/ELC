@@ -66,8 +66,8 @@ namespace array_n{
 		void clear()noexcept(re_construct.nothrow<this_t>){
 			re_construct(this);
 		}
-		[[nodiscard]]T&operator[](size_t size)noexcept{return _m[size];}
-		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
+		[[nodiscard]]T&operator[](size_t pos)noexcept{return _m[pos];}
+		[[nodiscard]]const T&operator[](size_t pos)const noexcept{return _m[pos];}
 		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m,size());}
 
 		typedef iterator_t<T>iterator;
@@ -87,6 +87,13 @@ namespace array_n{
 		}
 		[[nodiscard]]const_iterator cend()const noexcept{
 			return const_cast<this_t*>(this)->end();
+		}
+
+		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)noexcept(compare.nothrow<array_like_view_t<T>>){
+			return compare(array_like_view_t<T>(*this),a);
+		}
+		[[nodiscard]]constexpr auto operator==(array_like_view_t<const T> a)noexcept(equal.nothrow<array_like_view_t<T>>){
+			return equal(array_like_view_t<T>(*this),a);
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))

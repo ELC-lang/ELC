@@ -22,6 +22,10 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const this_t&a)const{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
+		template<typename T>
+		[[nodiscard]]bool operator==(T&&a)const{
+			return this->get_type_info()==type_info<T>&&this->equal_with(addressof(a));
+		}
 	};
 
 	template<class T,class Func_t>
@@ -80,15 +84,21 @@ namespace function_n{
 	class function_data_saver_t<Ret_t(Args_t...)>{
 	protected:
 		typedef function_data_saver_t<Ret_t(Args_t...)>this_t;
-		typedef comn_ptr_t<base_func_data_t<Ret_t(Args_t...)>>ptr_t;
+		typedef base_func_data_t<Ret_t(Args_t...)> base_t_w;
+		typedef comn_ptr_t<base_t_w>ptr_t;
+
 		ptr_t _m;
 		void swap_with(this_t&a)noexcept{swap(_m,a._m);}
 	public:
 		function_data_saver_t()noexcept=default;
 		function_data_saver_t(const this_t&a)noexcept:_m(a._m){}
 		function_data_saver_t(this_t&&a)noexcept{swap_with(a);}
-		[[nodiscard]]bool operator==(const this_t&a)const noexcept{
+		[[nodiscard]]bool operator==(const this_t&a)const{
 			return *_m==*(a._m);
+		}
+		template<typename T,enable_if(equal.able<base_t_w,T>)>
+		[[nodiscard]]bool operator==(T&&a)const noexcept(equal.nothrow<base_t_w,T>){
+			return *_m==a;
 		}
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}

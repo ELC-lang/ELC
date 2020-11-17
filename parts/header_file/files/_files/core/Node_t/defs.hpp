@@ -22,9 +22,6 @@ namespace Node_n{
 		[[nodiscard]]logical_bool operator ==(node_like&a){
 			return a.equal(*_value);
 		}
-		[[nodiscard]]logical_bool operator !=(node_like&a)const{
-			return not operator==(a);
-		}
 		[[nodiscard]]ptr operator &()noexcept{
 			return _value;
 		}
