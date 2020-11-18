@@ -68,7 +68,9 @@ namespace array_n{
 		}
 		[[nodiscard]]T&operator[](size_t pos)noexcept{return _m[pos];}
 		[[nodiscard]]const T&operator[](size_t pos)const noexcept{return _m[pos];}
-		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m,size());}
+		[[nodiscard]]explicit operator hash_t()const noexcept(hash.nothrow<T>){return hash(_m,size());}
+		[[nodiscard]]explicit operator T*()noexcept{return _m;}
+		[[nodiscard]]explicit operator const T*()const noexcept{return _m;}
 
 		typedef iterator_t<T>iterator;
 		typedef iterator_t<const T>const_iterator;

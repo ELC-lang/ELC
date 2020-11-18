@@ -16,11 +16,8 @@ elc依赖的基础函数.
 	#define ELC_APIS_str_code_convert
 	namespace elc::APIs::str_code_convert{
 		using namespace ::elc::defs;//get def
-		//UF
-		inline str_code_convert_ret_t<char> to_char_str(const char_t* a)
-		inline str_code_convert_ret_t<char_t> to_char_t_str(const char* a)
 
-		inline string_t<char> to_char_str(const string_t<char_t> a){
+		inline string_t<char> to_char_str(string_view_t<const char_t> a){
 			string_t<char>ret;
 			::std::mbstate_t stat{};
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
@@ -36,7 +33,7 @@ elc依赖的基础函数.
 			::std::setlocale(LC_ALL,"C");
 			return ret;
 		}
-		inline string_t<char_t> to_char_t_str(const string_t<char> a){
+		inline string_t<char_t> to_char_t_str(string_view_t<const char> a){
 			string_t<char_t>ret;
 			::std::mbstate_t stat{};
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
@@ -53,6 +50,12 @@ elc依赖的基础函数.
 			}
 			::std::setlocale(LC_ALL,"C");
 			return ret;
+		}
+		inline string_t<char> to_char_str(const char_t*a){
+			return to_char_str(array_end_by_zero_t(a));
+		}
+		inline string_t<char_t> to_char_t_str(const char*a){
+			return to_char_t_str(array_end_by_zero_t(a));
 		}
 	}
 	namespace elc::defs{

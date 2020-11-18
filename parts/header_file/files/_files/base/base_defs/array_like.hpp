@@ -54,11 +54,9 @@ namespace array_like_n{
 		T*_begin;
 		size_t _size;
 	public:
+		explicit constexpr array_like_view_t(T*a,size_t b)noexcept:_begin(a),_size(b){}
 		template<class U,enable_if(is_array_like_for<T,U>)>
-		constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)){
-			_begin=begin_of_array_like<T>(a);
-			_size=size_of_array_like<T>(a);
-		}
+		constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)):array_like_view_t(begin_of_array_like<T>(a),size_of_array_like<T>(a)){}
 		constexpr array_like_view_t(const this_t&)noexcept=default;
 
 		[[nodiscard]]constexpr size_t size()noexcept{return _size;}
@@ -80,6 +78,17 @@ namespace array_like_n{
 		[[nodiscard]]constexpr auto operator==(this_t a)noexcept(equal.nothrow<T>){
 			return equal(_begin,_size,a._begin,a._size);
 		}
+	};
+	template<typename T>
+	struct array_end_by_zero_t:array_like_view_t<T>{
+		typedef array_like_view_t<T>base_t;
+
+		constexpr static size_t get_length_of(T*ptr){
+			if(*ptr)return get_length_of(ptr+1)+1;
+			else return 0;
+		}
+
+		constexpr array_end_by_zero_t(T*ptr):base_t(ptr,get_length_of(ptr)){}
 	};
 }
 using array_like_n::size_of_array_like;

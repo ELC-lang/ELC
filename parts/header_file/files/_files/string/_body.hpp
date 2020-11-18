@@ -12,7 +12,7 @@
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
-	#include "string.hpp"
+	#include "defs.hpp"
 }
 #include "../../../../_share/APIs/str_code_convert.hpp"//strings
 namespace elc::defs{

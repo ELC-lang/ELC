@@ -8,25 +8,25 @@
 */
 //equal：值相等
 constexpr struct equal_t{
-	template<class T>
-	static constexpr bool able= was_not_an_ill_form(declvalue(T&)==declvalue(T&));
-	template<class T>
-	static constexpr bool nothrow= noexcept(declvalue(T&)==declvalue(T&));
+	template<class T,class U=T>
+	static constexpr bool able= was_not_an_ill_form(declvalue(T&)==declvalue(U&));
+	template<class T,class U=T>
+	static constexpr bool nothrow= noexcept(declvalue(T&)==declvalue(U&));
 
-	template<typename T>
-	inline auto operator()(T&&a,T&&b)const noexcept(nothrow<T>){
+	template<typename T,typename U>
+	inline auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		return a==b;
 	}
-	template<typename T>
-	inline bool operator()(T*a,T*b,size_t size)const noexcept(nothrow<T>){
+	template<typename T,typename U>
+	inline bool operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
 		while(size--){
 			if(*(a++)!=*(b++))
 				return false;
 		}
 		return true;
 	}
-	template<typename T,size_t N1,size_t N2>
-	inline bool operator()(T(&a)[N1],T(&b)[N2])const noexcept(nothrow<T>){
+	template<typename T,typename U,size_t N1,size_t N2>
+	inline bool operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
 		if constexpr(N1==N2)
 			return operator()(a,b,N1);
 		else{
@@ -34,8 +34,8 @@ constexpr struct equal_t{
 			return false;
 		}
 	}
-	template<typename T>
-	inline bool operator()(T*a,size_t size1,T*b,size_t size2)const noexcept(nothrow<T>){
+	template<typename T,typename U>
+	inline bool operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(size1==size2)
 			return false;
 		else
@@ -55,10 +55,10 @@ inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 
 //compare：三路比较
 constexpr struct compare_t{
-	template<class T, class U=T>
+	template<class T,class U=T>
 	static constexpr bool r_able= was_not_an_ill_form(declvalue(T&)<=>declvalue(U&));
 	
-	template<class T, class U=T>
+	template<class T,class U=T>
 	static constexpr bool able= r_able<T,U> ||
 								was_not_an_ill_form(
 														declvalue(T&)==declvalue(U&),
@@ -66,7 +66,7 @@ constexpr struct compare_t{
 														declvalue(U&)<declvalue(T&),
 													);
 	
-	template<class T, class U=T>
+	template<class T,class U=T>
 	static constexpr bool nothrow=  r_able<T,U> ?
 									noexcept(declvalue(T&)<=>declvalue(U&)):
 									noexcept(
@@ -76,7 +76,7 @@ constexpr struct compare_t{
 											);
 
 
-	template<class T, class U>
+	template<class T,class U>
 	constexpr auto base_call(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
 		if constexpr(r_able<T,U>)

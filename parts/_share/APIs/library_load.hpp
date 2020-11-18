@@ -30,7 +30,7 @@ elc依赖的基础函数.
 			HMODULE
 		#endif
 		library_handle;
-		library_handle load_library(char_t*file_name){
+		library_handle base_load_library(const char*file_name){
 			//可返回bool意义为空的值表示失败
 			return
 			#if SYSTEM_TYPE == linux
@@ -40,29 +40,46 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		string_t<char_t> get_load_error(){
+		const char* base_get_load_error(){
 			return
 			#if SYSTEM_TYPE == linux
 				(char*)dlerror()
 			#elif SYSTEM_TYPE == windows
-				"ERROR CODE:"+to_string((DWORD)GetLastError());
+				"unknown error."//"ERROR CODE:"+to_string((DWORD)GetLastError());//傻逼微软设计的jb端口，再您妈的见
 			#endif
 			;
 		}
-		void free_library(library_handle a){
+		void base_free_library(library_handle handle){
 			#if SYSTEM_TYPE == linux
-				dlclose(a)
+				dlclose(handle)
 			#elif SYSTEM_TYPE == windows
-				FreeLibrary(a)
+				FreeLibrary(handle)
 			#endif
 			;
 		}
-		void* get_symbol()
-		void *dlsym(void *handle, const char *symbol);
-		FARPROC GetProcAddress(
-		  HMODULE hModule,
-		  LPCSTR  lpProcName
-		);
+		void* base_get_symbol(library_handle handle,const char*symbol_name){
+			//可返回bool意义为空的值表示失败
+			#if SYSTEM_TYPE == linux
+				dlsym(handle,symbol_name)
+			#elif SYSTEM_TYPE == windows
+				(void*)GetProcAddress(handle,(LPCSTR)symbol_name)
+			#endif
+			;
+		}
+
+		library_handle load_library(char_t*file_name){
+			//可返回bool意义为空的值表示失败
+			return base_load_library((char*)to_char_str(file_name));
+		}
+		string_t<char_t> get_load_error(){
+			return to_char_t_str(base_get_load_error());
+		}
+		void free_library(library_handle handle){
+			return base_free_library(handle);
+		}
+		void* get_symbol(library_handle handle,char_t*symbol_name){
+			return base_get_symbol(handle,(char*)to_char_str(symbol_name));
+		}
 	}
 	#include "_tools/undef_decl_system_type.hpp"
 #endif

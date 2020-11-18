@@ -22,15 +22,17 @@ namespace hash_n{
 	inline constexpr bool is_unstable_hash = was_not_an_ill_form({declvalue(T const&)} -> unstable_hash_t);
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
+
+	template<class T>
+	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
+		return{size_t(a)};
+	}
+
 	[[nodiscard]]inline constexpr hash_t hash(nothing)noexcept{
 		return{size_t(nothing)};
 	}
 	[[nodiscard]]inline hash_t hash(base_type_info_t&a)noexcept{
 		return{a.get_hash()};
-	}
-	template<class T>
-	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
-		return{size_t(a)};
 	}
 	template<class T>
 	[[nodiscard]]constexpr_as_auto inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or type_info<T>.can_nothrow_convert_to<hash_t>){
