@@ -8,8 +8,9 @@
 */
 //恭喜你找到elc内大部分语法糖所在地
 #include "template_helper.hpp"
-#include "magic_number.hpp"
 #include "using_std.hpp"
+#include "concept.hpp"
+#include "magic_number.hpp"
 
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
