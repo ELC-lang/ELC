@@ -176,19 +176,21 @@ namespace function_n{
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
 			return base_t::call(forward<Args_t>(args)...);
 		}
+	private:
+		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
+		static ptr_t _func_ptr_data;
+		static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
+			return _func_ptr_data->call(forward<Args_t>(args)...);
+		}
+	public:
 		/*
-		private:
-			//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-			static ptr_t _func_ptr_data;
-			static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
-				return _func_ptr_data->call(forward<Args_t>(args)...);
-			}
-		public:
-			[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
-				_func_ptr_data=base_t::_m;
-				return _func_ptr_value;
-			}
+			不鼓励使用
+			应当注意的是强转后必须马上调用，否则可能失效
 		*/
+		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
+			_func_ptr_data=base_t::_m;
+			return _func_ptr_value;
+		}
 	};
 	template<class T,bool promise_nothrow_at_destruct>
 	void swap(base_function_t<T,promise_nothrow_at_destruct>&a,base_function_t<T,promise_nothrow_at_destruct>&b)noexcept{
