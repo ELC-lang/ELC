@@ -82,7 +82,7 @@ public:
 						  unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
-	
+
 	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),a)){
 		return pointer_equal(get(),a);
 	}

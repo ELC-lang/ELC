@@ -11,7 +11,7 @@ struct Arg_Node:Comn_Node{
 	typedef Arg_Node this_t;
 	typedef Comn_Node base_t;
 	using base_t::_value;
-	
+
 }
 template<typename...Args>
 add_args_to(Comn_Node&a,node_pair&b,Args&&...rest){
@@ -24,7 +24,7 @@ add_args_to(Comn_Node&a,ptr&b,Args&&...rest){
 template<typename...Args>
 ptr make_arg_list(Args&&...rest){
 	Arg_Node aret;
-	
+
 }
 
 

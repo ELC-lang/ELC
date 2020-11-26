@@ -119,9 +119,9 @@ class name{}\
 /*aya风格语法糖*/
 #define elseif else if
 /*aya风格语法糖*/
-#define _big_than_  >
+#define _big_than_ >
 /*aya风格语法糖*/
-#define _small_than_  <
+#define _small_than_ <
 
 #if defined(_MSC_VER)
 	#define not !

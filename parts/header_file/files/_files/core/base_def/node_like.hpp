@@ -38,7 +38,7 @@ public:
 	[[nodiscard]]virtual setter arec(const probability)=0;
 
 	[[nodiscard]]probability operator[](const probability){
-		
+
 	}
 	[[nodiscard]]const probability operator[](const probability)const=0;
 

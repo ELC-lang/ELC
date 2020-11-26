@@ -9,10 +9,10 @@
 constexpr struct min_t{
 	template<class...Args>
 	static constexpr bool able=was_not_an_ill_form(::std::min(declvalue(Args)...));
-	
+
 	template<typename T>
 	static constexpr bool get_limit_able=was_not_an_ill_form(::std::numeric_limits<T>::min());
-	
+
 	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::min(rest...);
@@ -25,10 +25,10 @@ constexpr struct min_t{
 constexpr struct max_t{
 	template<class...Args>
 	static constexpr bool able=was_not_an_ill_form(::std::max(declvalue(Args)...));
-	
+
 	template<typename T>
 	static constexpr bool get_limit_able=was_not_an_ill_form(::std::numeric_limits<T>::max());
-	
+
 	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::max(rest...);

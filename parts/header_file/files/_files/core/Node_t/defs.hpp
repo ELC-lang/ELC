@@ -14,7 +14,7 @@ namespace Node_n{
 	public:
 		typedef Node_t<T> this_t;
 	private:
-		
+
 	public:
 		[[nodiscard]]operator T&()noexcept(ptr::get_nothrow){
 			return static_cast<T*>(_value.get())
