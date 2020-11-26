@@ -59,14 +59,14 @@ namespace get_n{
 		template<class...Args>
 		static constexpr bool nothrow=construct<T>.nothrow<Args...>;
 
-		template<class...Args,enable_if(able<Args...>)>
+		template<class...Args> requires able<Args...>
 		[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
 
 		struct array_get_t{
 			size_t _size;
-			template<class...Args,enable_if(able<Args...>)>
+			template<class...Args> requires able<Args...>
 			[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
@@ -138,7 +138,7 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool nothrow=type_info<T>.not_has_attribute(abstract_base)&&destruct.nothrow<T>;
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
 				if constexpr(type_info<T>.has_attribute(abstract_base))
@@ -152,7 +152,7 @@ namespace get_n{
 			}
 		}
 		/*适用于unget(this,not destruct);*/
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		void operator()(T*a,decltype(destruct)::not_t)const noexcept(nothrow<T>){
 			free(a);
 		}
@@ -164,7 +164,7 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool nothrow=type_info<T>.not_has_attribute(abstract_base)&&construct<T>.nothrow<>&&destruct.nothrow<T>&&move.nothrow<T>;
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array)){
 				template_warning("For never_in_array type,get_resize will unget ptr when new_size=0 else do nothing.");
@@ -189,11 +189,11 @@ namespace get_n{
 			}
 		}
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		inline void operator()(T*&arg,size_t to_size)const noexcept(nothrow<T>){
 			base_call(arg,to_size);
 		}
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		[[nodiscard]]inline T* operator()(T*&&arg,size_t to_size)const noexcept(nothrow<T>){
 			base_call(arg,to_size);
 			return arg;
@@ -206,7 +206,7 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool nothrow=noexcept(get_size_of_alloc(declvalue(const T*)));
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(abstract_base))
 				return attribute_ptr_cast<abstract_base>(arg)->abstract_method_get_size_of_get_for_this();
@@ -214,7 +214,7 @@ namespace get_n{
 				return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
 		}
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		size_t operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}
@@ -226,7 +226,7 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool nothrow=copy_construct.nothrow<T>;
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		static T*base_call(const T*arg)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(abstract_base))
 				return attribute_ptr_cast<abstract_base>(arg)->abstract_method_copy_get_this();
@@ -234,7 +234,7 @@ namespace get_n{
 				return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
 		}
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		T*operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}

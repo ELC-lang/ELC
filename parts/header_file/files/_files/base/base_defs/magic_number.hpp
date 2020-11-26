@@ -23,7 +23,7 @@ namespace magic_number{
 
 	constexpr auto god=72;//神已死,神万岁.
 
-	template<class T,enable_if(::std::is_integral_v<T>)>
+	template<class T> requires ::std::is_integral_v<T>
 	[[nodiscard]]inline constexpr bool is_prime_num(T a)
 	{
 		/*
@@ -71,7 +71,7 @@ namespace magic_number{
 		因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
 		*/
 	}
-	template<class T,enable_if(::std::is_arithmetic_v<T>)>
+	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
 		//if constexpr(::std::is_floating_point_v<T>)
 			auto b= ::std::llround(a);

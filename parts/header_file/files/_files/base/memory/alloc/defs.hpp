@@ -122,14 +122,14 @@ namespace alloc_n{
 		template<typename T>
 		static constexpr bool nothrow=noexcept(get_size_of_alloc_method(declvalue(const T*)));
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
 			if(arg==null_ptr)
 				return 0;
 			return get_size_of_alloc_method(arg);
 		}
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		size_t operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}
@@ -141,12 +141,12 @@ namespace alloc_n{
 		template<typename T>
 		static constexpr bool nothrow=get_size_of_alloc.nothrow<T>;
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		static T*base_call(const T*arg)noexcept(nothrow<T>){
 			return alloc<T>(get_size_of_alloc(arg));
 		}
 
-		template<typename T,enable_if(able<T>)>
+		template<typename T> requires able<T>
 		T*operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}

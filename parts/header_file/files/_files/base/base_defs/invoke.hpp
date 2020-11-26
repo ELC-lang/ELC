@@ -13,7 +13,7 @@ struct invoke_t{
 	template<class...Args>
 	static constexpr bool nothrow= ::std::is_nothrow_invocable_v<T,Args...>;
 
-	template<class...Args,enable_if(able<Args...>)>
+	template<class...Args> requires able<Args...>
 	auto _as(Args&&...rest)const noexcept(nothrow<Args...>){//invoke<T>._as(...)
 		return lambda_with_catch(rest...)(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
 	}
