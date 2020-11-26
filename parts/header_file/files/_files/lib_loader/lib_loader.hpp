@@ -6,21 +6,21 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-namespace lib_loader_n {
-	struct library_info_t:ref_able<library_info_t> {
+namespace lib_loader_n{
+	struct library_info_t:ref_able<library_info_t>{
 	private:
 		library_handle _m;
 		string _name;
 		string _error;
 	public:
-		explicit library_info_t(string lib_name)noexcept {
+		explicit library_info_t(string lib_name)noexcept{
 			_name=move(name);
 			_m=load_library(name);
 
 			if(_m)
 				error=get_load_error();
 		}
-		~library_info_t()noexcept {
+		~library_info_t()noexcept{
 			free_library(_m);
 		}
 		const string&get_error()noexcept{

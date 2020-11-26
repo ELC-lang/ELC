@@ -5,11 +5,11 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-inline void test() {
+inline void test(){
     stest_entryevent("lib_loader部分测试");
     stest_exitevent();
 }
-inline void test_log_out() {}
-inline void test_end {}
+inline void test_log_out(){}
+inline void test_end{}
 
 //file_end

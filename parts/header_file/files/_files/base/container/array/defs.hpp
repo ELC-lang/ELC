@@ -12,7 +12,7 @@ namespace array_n{
 		typedef array_t<T>this_t;
 		T*_m;
 
-		/*return {ptr};*/
+		/*return{ptr};*/
 		constexpr array_t(T*a):_m(a){}
 		/*返回一个自身的副本*/
 		[[nodiscard]]this_t&& copy()const noexcept(copy_get.nothrow<T>) requires as_concept<copy_get.able>{
