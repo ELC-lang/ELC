@@ -55,7 +55,7 @@ namespace array_like_n{
 		size_t _size;
 	public:
 		explicit constexpr array_like_view_t(T*a,size_t b)noexcept:_begin(a),_size(b){}
-		template<class U,enable_if(is_array_like_for<T,U>)>
+		template<class U> requires is_array_like_for<T,U>
 		constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)):array_like_view_t(begin_of_array_like<T>(a),size_of_array_like<T>(a)){}
 		constexpr array_like_view_t(const this_t&)noexcept=default;
 

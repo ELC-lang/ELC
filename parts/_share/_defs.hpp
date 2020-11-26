@@ -5,6 +5,9 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+
+//undefs at "_undefs.hpp"
+
 #if defined(_MSC_VER)
 	#pragma warning(push)
 	#pragma warning(disable:4099)//class与struct混用警告diss
@@ -34,14 +37,14 @@
 #define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌
 
 #define using_method_from_base_t(name) \
-template<class...Args,enable_if_not_ill_from(declvalue(base_t).name(declvalue(Args)...))>\
+template<class...Args> requires was_not_an_ill_form(declvalue(base_t).name(declvalue(Args)...))\
 auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 {\
 	return base_t::name(forward<Args>(rest)...);\
 }\
 
 #define using_method_from_value(name,value_name) \
-template<class...Args,enable_if_not_ill_from(re_declvalue(value_name).name(declvalue(Args)...))>\
+template<class...Args> requires was_not_an_ill_form(re_declvalue(value_name).name(declvalue(Args)...))\
 auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args)...))\
 {\
 	return value_name.name(forward<Args>(rest)...);\

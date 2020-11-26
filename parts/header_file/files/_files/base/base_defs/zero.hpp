@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 constexpr struct zero_t{
-	template<class T,enable_if(type_info<decltype(0)>.can_convert_to<T>)>
+	template<class T> requires type_info<decltype(0)>.can_convert_to<T>
 	operator T()const noexcept(type_info<decltype(0)>.can_nothrow_convert_to<T>){return 0;}
 }zero{};
 

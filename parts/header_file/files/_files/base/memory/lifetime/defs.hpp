@@ -84,14 +84,14 @@ namespace lifetime_n{
 		template<class...Args>
 		static constexpr bool trivial=construct_trivial<T,Args...>;
 
-		template<class...Args,enable_if(able<Args...>)>
+		template<class...Args> requires able<Args...>
 		[[nodiscard]]T operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return T(forward<Args>(rest)...);
 		}
 		struct array_construct_t{
 			T*_to;
 			size_t _size;
-			template<class...Args,enable_if(able<Args...>)>
+			template<class...Args> requires able<Args...>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t construct an array for never_in_array type.");
@@ -102,7 +102,7 @@ namespace lifetime_n{
 		};
 		struct placement_construct_t{
 			T*_to;
-			template<class...Args,enable_if(able<Args...>)>
+			template<class...Args> requires able<Args...>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				new(_to)T(forward<Args>(rest)...);
 				return _to;
@@ -143,7 +143,7 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		void base_call(T*to)const noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)
 				if constexpr(::std::is_array_v<T>)
@@ -152,7 +152,7 @@ namespace lifetime_n{
 				else to->~T();
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		void base_call([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
@@ -160,14 +160,14 @@ namespace lifetime_n{
 				while(size--)base_call(begin+size);
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		void operator()(T*begin)const noexcept(nothrow<T>){
 			base_call(begin);
 		}
 
 		struct array_destruct_t{
 			size_t _size;
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			void operator()(T*begin)const noexcept(nothrow<T>){
 				base_call(begin,_size);
 			}
@@ -201,7 +201,7 @@ namespace lifetime_n{
 		template<class T,class...Args>
 		static constexpr bool trivial=destruct.trivial<T>&&construct<T>.trivial<Args...>;
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T* operator()(T*to)const noexcept(nothrow<T>){
 			destruct(to);
 			construct<T>[to]();
@@ -211,7 +211,7 @@ namespace lifetime_n{
 		struct array_re_construct_t{
 			T*_to;
 			size_t _size;
-			template<class...Args,enable_if(able<T,Args...>)>
+			template<class...Args> requires able<T,Args...>
 			T* operator()(Args&&...rest)const noexcept(nothrow<T,Args...>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You cannot perform array operations on never_in_array type.");
@@ -223,7 +223,7 @@ namespace lifetime_n{
 		template<class T>
 		struct placement_re_construct_t{
 			T*_to;
-			template<class...Args,enable_if(able<T,Args...>)>
+			template<class...Args> requires able<T,Args...>
 			T* operator()(Args&&...rest)const noexcept(nothrow<T,Args...>){
 				destruct(_to);
 				construct<T>[_to](forward<Args>(rest)...);
@@ -249,7 +249,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=r_able<T>?copy_assign_trivial<T>:
 											(copy_construct_trivial<T>&&destruct.trivial<T>);
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T& base_call(T&a,const T&b)const noexcept(nothrow<T>){
 			if constexpr(r_able<T>)
 				a=b;
@@ -259,7 +259,7 @@ namespace lifetime_n{
 			}
 			return a;
 		}
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T* base_call(T*to,const T*from,size_t size)const noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				memcpy(to,from,size*sizeof(T));
@@ -270,22 +270,22 @@ namespace lifetime_n{
 			return to;
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T& operator()(T&a,const T&b)const noexcept(nothrow<T>){
 			return base_call(a,b);
 		}
 
 		struct array_copy_assign_t{
 			size_t _size;
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
@@ -303,7 +303,7 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool trivial=r_able<T>?move_assign_trivial<T>:copy_assign.trivial<T>;
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T& base_call(T&a,T&&b)const noexcept(nothrow<T>){
 			if constexpr(r_able<T>)
 				a=b;
@@ -312,7 +312,7 @@ namespace lifetime_n{
 			}
 			return a;
 		}
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T* base_call(T*to,T*from,size_t size)const noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				memcpy(to,from,size*sizeof(T));
@@ -323,22 +323,22 @@ namespace lifetime_n{
 			return to;
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T& operator()(T&a,T&&b)const noexcept(nothrow<T>){
 			return base_call(a,b);
 		}
 
 		struct array_move_assign_t{
 			size_t _size;
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
@@ -360,7 +360,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=r_able<T>?copy_construct_trivial<T>:
 										(construct<T>.trivial<>&&copy_assign_trivial<T>);
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,const T*from)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)));
@@ -375,7 +375,7 @@ namespace lifetime_n{
 			}
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)*size));
@@ -386,19 +386,19 @@ namespace lifetime_n{
 			}
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(T*to,const T*from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,const T&from)noexcept(nothrow<T>){
 			if constexpr(r_able<T>)
 				construct<T>[to](from);
@@ -409,7 +409,7 @@ namespace lifetime_n{
 			return to;
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,const T&from,size_t size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
@@ -418,25 +418,25 @@ namespace lifetime_n{
 			return to;
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(T*to,const T&from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
 		struct array_copy_construct_t{
 			size_t _size;
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(T*to,const T&from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
@@ -458,7 +458,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=r_able<T>?move_construct_trivial<T>:
 												copy_construct.trivial<T>;
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,T*from)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)));
@@ -470,7 +470,7 @@ namespace lifetime_n{
 					return copy_construct(to,from);
 			}
 		}
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
@@ -486,29 +486,29 @@ namespace lifetime_n{
 			}
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(T*to,T*from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		struct array_move_construct_t{
 			size_t _size;
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
@@ -524,13 +524,13 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool trivial=move_construct.trivial<T>&&destruct.trivial<T>;
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,T*from)noexcept(nothrow<T>){
 			move_construct(to,from);
 			destruct(from);
 			return to;
 		}
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		static T*base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
@@ -539,29 +539,29 @@ namespace lifetime_n{
 			return to;
 		}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(T*to,T*from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
-		template<class T,enable_if(able<T>)>
+		template<class T> requires able<T>
 		T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		struct array_move_t{
 			size_t _size;
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
-			template<class T,enable_if(able<T>)>
+			template<class T> requires able<T>
 			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
@@ -577,12 +577,10 @@ namespace lifetime_n{
 
 	constexpr struct copy_t{
 		//特殊使用
-		template<class T,enable_if(copy_construct_able<T>?true:(construct<T>.able<>&&copy_assign_able<T>))>
+		//UF
+		template<class T> requires copy_construct.able<T>
 		[[nodiscard]]constexpr T operator()(const T&a)const noexcept{
-			if constexpr(copy_construct_able<T>)
-				return construct<T>(a);
-			else
-				return construct<T>()=a;
+			return copy_construct<T>(a);
 		}
 	}copy{};
 }

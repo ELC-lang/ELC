@@ -55,7 +55,7 @@ namespace hash_n{
 			aret=hash(a[size])+aret._value*13;
 		return aret;
 	}
-	template<class T,enable_if(is_not_signal_value_for_array_like<T>)>
+	template<class T> requires is_not_signal_value_for_array_like<T>
 	[[nodiscard]]inline hash_t hash(array_like_view_t<T>a)noexcept_as(hash(declvalue(T))){
 		return hash(a.begin(),a.size());
 	}
