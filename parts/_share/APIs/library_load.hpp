@@ -78,6 +78,7 @@ elc依赖的基础函数.
 			return base_free_library(handle);
 		}
 		void* get_symbol(library_handle handle,char_t*symbol_name){
+			//可返回bool意义为空的值表示失败
 			return base_get_symbol(handle,(char*)to_char_str(symbol_name));
 		}
 	}

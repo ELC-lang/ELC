@@ -7,22 +7,21 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #if defined(ELC_TEST)
-	#error "this part cannot be tested."
+#error "this part cannot be tested."
 #endif
-namespace elc::defs{
+namespace elc::defs {
 	#include "../_defs.hpp"
 
 	#if defined(ELC_TEST_ON)
-	namespace template_part_test{
+	namespace lib_loader_part_test {
 		#include "_test.hpp"
 	}
 	#endif
 
 	#include "../_undefs.hpp"
 }
-namespace elc{
+namespace elc {
 	#include "_export.hpp"
 }
 
 //file_end
-
