@@ -158,6 +158,12 @@ namespace function_n{
 		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
 			_m=get<func_data_t<func_ptr_t>>(a);
 		}
+		explicit base_function_t(::std::same_as<void*>auto p)noexcept{
+			if(p)
+				re_construct[this]((func_ptr_t)a);
+			else
+				re_construct[this](null_ptr);
+		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T,enable_if_not_ill_from(declvalue(this_t).swap_with(this_t(declvalue(T))))>
