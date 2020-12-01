@@ -25,7 +25,7 @@ struct base_istream:virtual base_stream{
 struct base_iostream:virtual base_istream,virtual base_ostream{};
 
 
-struct noexcept_stream:virtual base_ostream{
+struct noexcept_stream:virtual base_stream{
 	virtual ~noexcept_stream()noexcept override=default;
 	virtual void*seek(seek_type,int_t)noexcept override=0;
 	virtual void*tell()noexcept override{return this->seek(cur,0);}
