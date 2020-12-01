@@ -31,30 +31,25 @@ namespace function_n{
 	template<class T,class Func_t>
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
-	struct func_data_t<T,Ret_t(Args_t...)>:type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template with_common_attribute<instance_struct>,base_func_data_t<Ret_t(Args_t...)>{
+	struct func_data_t<T,Ret_t(Args_t...)>:
+	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template with_common_attribute<instance_struct>,
+	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<Ret_t(Args_t...),T>{
 		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
+		typedef function_data_warpper_t<Ret_t(Args_t...),T>data_t;
 
-		T _value;
-
-		func_data_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
-		virtual ~func_data_t()noexcept(destruct.nothrow<T>)override=default;
-		virtual Ret_t call(Args_t...args)override{
-			//BLOCK:constexpr checks
-			if constexpr(!invoke<T>.able<Args_t...>)
-				template_error("this T can\'t becall as args.");
-			if constexpr(type_info<decltype(declvalue(T)(declvalue(Args_t)...))> != type_info<Ret_t>)
-				template_error("the return type of T was wrong.");
-			//BLOCK_END
-			return _value(forward<Args_t>(args)...);
-		}
+		using data_t::data_t;
+		virtual ~func_data_t()override=default;
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return reinterpret_cast<const void*>(&_value);}
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.nothrow<T>) override{
 			if constexpr(equal.able<T>)
 				return _value==*reinterpret_cast<const T*>(a);
 			else
 				return false;
+		}
+		[[nodiscard]]virtual Ret_t call(Args_t...args)override{
+			return data_t::operator()(forward<Args_t>(rest)...);
 		}
 	};
 
@@ -67,7 +62,7 @@ namespace function_n{
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>

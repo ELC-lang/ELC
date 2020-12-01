@@ -30,7 +30,8 @@ elc依赖的基础函数.
 			HMODULE
 		#endif
 		library_handle;
-		library_handle base_load_library(const char*file_name){
+
+		[[nodiscard]]library_handle base_load_library(const char*file_name){
 			//可返回bool意义为空的值表示失败
 			return
 			#if SYSTEM_TYPE == linux
@@ -40,7 +41,7 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		const char* base_get_load_error(){
+		[[nodiscard]]const char* base_get_load_error(){
 			return
 			#if SYSTEM_TYPE == linux
 				(char*)dlerror()
@@ -57,7 +58,7 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		void* base_get_symbol(library_handle handle,const char*symbol_name){
+		[[nodiscard]]void* base_get_symbol(library_handle handle,const char*symbol_name){
 			//可返回bool意义为空的值表示失败
 			#if SYSTEM_TYPE == linux
 				dlsym(handle,symbol_name)
@@ -67,17 +68,17 @@ elc依赖的基础函数.
 			;
 		}
 
-		library_handle load_library(char_t*file_name){
+		[[nodiscard]]library_handle load_library(char_t*file_name){
 			//可返回bool意义为空的值表示失败
 			return base_load_library((char*)to_char_str(file_name));
 		}
-		string_t<char_t> get_load_error(){
+		[[nodiscard]]string_t<char_t> get_load_error(){
 			return to_char_t_str(base_get_load_error());
 		}
 		void free_library(library_handle handle){
 			return base_free_library(handle);
 		}
-		void* get_symbol(library_handle handle,char_t*symbol_name){
+		[[nodiscard]]void* get_symbol(library_handle handle,char_t*symbol_name){
 			//可返回bool意义为空的值表示失败
 			return base_get_symbol(handle,(char*)to_char_str(symbol_name));
 		}
