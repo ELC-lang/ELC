@@ -58,13 +58,9 @@ namespace lib_loader_n{
 			容纳一个library_handle_t以引用计数lib资源
 			*/
 			struct call_t:function_data_warpper_t<Func_t>{
-				typedef function_data_warpper_t<Func_t>base_t;
-				library_handle_t _m;
-				call_t(library_info_t*a,Func_t*b)noexcept:_m(a),base_t(b){}
-				call_t(const call_t&)noexcept=default;
-				call_t(call_t&&)noexcept=default;
+				library_handle_t;
 			} f =
-			{this,func_p};
+			{func_p,this};
 
 			return static_cast<function_t<Func_t>>(f);
 		}
