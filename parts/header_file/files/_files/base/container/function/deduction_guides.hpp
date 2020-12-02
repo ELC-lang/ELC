@@ -30,7 +30,7 @@ namespace function_n{
 
 	//BLOCK:base_function_t推导指引
 	template<typename Ret_t,typename...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
-    base_function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->function<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>;
+	base_function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>;
 	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type,bool promise_nothrow_at_destruct>
 	base_function_t(T)->base_function_t<Func_t,promise_nothrow_at_destruct>;
 	//BLOCK_END
