@@ -14,7 +14,7 @@ typedef string_t<char_t>string;
 template<typename T>
 using string_view_t=array_like_view_t<T>;
 
-typedef string_view_t<char_t>string_view;
+typedef string_view_t<const char_t>string_view;
 
 //file_end
 
