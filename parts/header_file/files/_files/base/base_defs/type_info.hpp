@@ -37,6 +37,8 @@ public:
 template<class T>
 struct type_info_t:base_type_info_t{
 	typedef T type;
+
+
 	template<class U>
 	static constexpr bool base_on=::std::is_convertible_v<remove_cvref<T>*,remove_cvref<U>*>;
 	template<class U>
@@ -74,9 +76,11 @@ struct type_info_t:base_type_info_t{
 	static constexpr bool not_has_has_attribute_helper(){
 		return!has_attribute_helper<attribute_name>();
 	}
+
 	// defed at defs.
 	// #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
 	// #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
+
 	template<common_attribute_t... common_attribute_names>
 	struct with_common_attribute:common_attribute_pack<common_attribute_names...>::template on_type<T>{
 		template<special_attribute_t... special_attribute_names>
