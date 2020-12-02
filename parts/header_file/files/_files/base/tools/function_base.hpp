@@ -39,12 +39,16 @@ namespace function_base_n{
 				> type;
 	};
 
+	/*
+	获取一个callable类型的“函数类型”
+	如T(int)返回char，其函数类型便是char(int)
+	*/
 	template<typename T>
 	using get_function_type=function_type_getter<T>::type;
 
 	/*
-	用处：从任何callable类型（除过函数类型，但可以是其指针）提供operator()
-	小包装工具，能在意想不到的地方发挥效果（比如要额外携带数据的callable类型定义！见lib_loader.hpp）
+	用处：容纳一个callable类型（除过函数类型，但可以是其指针）并提供operator()
+	小包装工具，能在意想不到的地方发挥效果（比如要额外携带数据的callable类型定义！见"../../lib_loader/lib_loader.hpp"）
 	*/
 	template<class T,class Func_t=get_function_type<T>>
 	class function_data_warpper_t;
