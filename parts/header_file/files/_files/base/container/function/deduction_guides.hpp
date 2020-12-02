@@ -7,33 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace function_n{
-	//BLOCK:推导指引助手
-	template<typename>
-	struct function_t_guide_helper{};
-
-	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
-	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)noexcept(nothrow)>
-	{using type=Ret_t(Args_t...)noexcept(nothrow);};
-
-	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
-	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)&noexcept(nothrow)>
-	{using type=Ret_t(Args_t...)noexcept(nothrow);};
-
-	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
-	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)const noexcept(nothrow)>
-	{using type=Ret_t(Args_t...)noexcept(nothrow);};
-
-	template<typename Ret_t,typename T,typename...Args_t,bool nothrow>
-	struct function_t_guide_helper<Ret_t(T::*)(Args_t...)const&noexcept(nothrow)>
-	{using type=Ret_t(Args_t...)noexcept(nothrow);};
-	//BLOCK_END
-
-	//BLOCK:base_function_t推导指引
-	template<typename Ret_t,typename...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
-	base_function_t(Ret_t(*)(Args_t...)noexcept(nothrow))->base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>;
-	template<typename T,typename Func_t=typename function_t_guide_helper<decltype(&T::operator())>::type,bool promise_nothrow_at_destruct>
+	template<typename T,typename Func_t=get_function_type<T>,bool promise_nothrow_at_destruct>
 	base_function_t(T)->base_function_t<Func_t,promise_nothrow_at_destruct>;
-	//BLOCK_END
 }
 
 //file_end

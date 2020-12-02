@@ -57,7 +57,7 @@ namespace lib_loader_n{
 			继承function_data_warpper_t的operator()以可转换为function_t
 			容纳一个library_handle_t以引用计数lib资源
 			*/
-			struct call_t:function_data_warpper_t<Func_t>{
+			struct call_t:function_data_warpper_t<Func_t*>{
 				library_handle_t;
 			} f =
 			{func_p,this};

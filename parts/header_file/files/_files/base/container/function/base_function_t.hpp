@@ -33,10 +33,10 @@ namespace function_n{
 	template<class T,class Ret_t,class...Args_t>
 	struct func_data_t<T,Ret_t(Args_t...)>:
 	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template with_common_attribute<instance_struct>,
-	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<Ret_t(Args_t...),T>{
+	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<T,Ret_t(Args_t...)>{
 		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
-		typedef function_data_warpper_t<Ret_t(Args_t...),T>data_t;
+		typedef function_data_warpper_t<T,Ret_t(Args_t...)>data_t;
 
 		using data_t::data_t;
 		virtual ~func_data_t()override=default;
