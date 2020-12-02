@@ -104,5 +104,20 @@ template<class T>
 template<class T,class U>
 [[nodiscard]]constexpr bool operator==(const type_info_t<T>&,const type_info_t<U>&){return false;}
 
+/*
+template<class T,class U>
+consteval auto operator?:(auto a,const type_info_t<T>&b,const type_info_t<U>&c){
+	if(a)
+		return b;
+	else
+		if(!a)
+			return c;
+		else
+			return b && c;
+	else
+		return void();
+}
+*/
+
 //file_end
 

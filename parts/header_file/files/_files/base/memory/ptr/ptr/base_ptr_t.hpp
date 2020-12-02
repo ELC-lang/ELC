@@ -78,8 +78,8 @@ public:
 	}
 	[[nodiscard]]bool unique()const noexcept{return attribute_ptr_cast<ref_able>(get())->link_num()==1;}
 	[[nodiscard]]explicit constexpr operator 
-	::std::conditional_t<(replace_check&&type_info<T>.has_attribute(replace_able)),
-						  unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
+	conditional<replace_check&&type_info<T>.has_attribute(replace_able),
+				unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
 
