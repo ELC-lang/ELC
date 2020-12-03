@@ -32,8 +32,8 @@ namespace function_base_n{
 					::std::is_function_v<T>,
 					T,
 					conditional<
-						is_pointer<T>&&::std::is_function_v<*T>,//不支持多级函数指针：懒得写，而且function_t若支持多级函数指针的推导指引会很不安全
-						type_name function_type_getter<*T>::type,
+						is_pointer<T>&&::std::is_function_v<::std::remove_pointer_t<T>>,//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
+						type_name function_type_getter<::std::remove_pointer_t<T>>::type,
 						type_name function_type_getter_helper<decltype(&T::operator())>::type
 					>
 				> type;
