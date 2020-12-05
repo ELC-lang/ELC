@@ -1,4 +1,4 @@
-//deduction_guides.hpp
+//_test.hpp
 //at namespace elc::defs::container
 /*
 未完成的elc解释器base文件
@@ -6,9 +6,20 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-namespace function_n{
-	template<typename T,typename Func_t=get_function_type<T>,bool promise_nothrow_at_destruct>
-	base_function_t(T)->base_function_t<Func_t,promise_nothrow_at_destruct>;
+namespace copy_on_write_n{
+	//BLOCK:for debug
+	inline void test(){
+		stest_entryevent(L"copy_on_write部分测试");
+		{
+			
+		}
+		stest_exitevent();
+	}
+	inline void test_log_out(){
+	}
+	inline void test_end(){
+	}
+	//BLOCK_END
 }
 
 //file_end

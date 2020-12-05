@@ -20,13 +20,13 @@ namespace map_n{
 				constexpr seek_value_t(const T&a):_m(&a){};
 			}
 
-			[[nodiscard]]bool operator==(const key_t&a)noexcept_as(declvalue(key_t&)==declvalue(const key_t&)){
+			[[nodiscard]]bool operator==(const key_t&a)noexcept_as(_key==a){
 				return _key==a;
 			}
-			[[nodiscard]]bool operator==(const seek_value_t&a)noexcept_as(declvalue(T&)==declvalue(const T&)){
+			[[nodiscard]]bool operator==(const seek_value_t&a)noexcept_as(_value==*a._m){
 				return _value==*a._m;
 			}
-			[[nodiscard]]constexpr_as(hash(declvalue(key_t&)))operator hash_t()noexcept_as(hash(declvalue(key_t&))){
+			[[nodiscard]]constexpr_as(hash(_key))operator hash_t()noexcept_as(hash(_key)){
 				return hash(_key);
 			}
 			/* operator T&()noexcept{
@@ -78,7 +78,7 @@ namespace map_n{
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)noexcept_as(expr){
 			_m.for_each(lambda(data_t&a)noexcept_as(expr){
 				func(a->_value);
@@ -87,7 +87,7 @@ namespace map_n{
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const T&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)const noexcept_as(expr){
 			_m.for_each(lambda(data_t&a)noexcept_as(expr){
 				func(const_cast<const T&>(a->_value));

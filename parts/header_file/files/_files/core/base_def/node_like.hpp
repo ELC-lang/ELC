@@ -38,7 +38,7 @@ public:
 	[[nodiscard]]virtual setter arec(const probability)=0;
 
 	[[nodiscard]]probability operator[](const probability){
-		
+
 	}
 	[[nodiscard]]const probability operator[](const probability)const=0;
 
@@ -78,11 +78,8 @@ public:
 
 	[[nodiscard]]ptr operator&(){return this;}
 	[[nodiscard]]const_ptr operator&()const{return this;}
-	[[nodiscard]]logical_bool operator ==(const this_t&a)const{
+	[[nodiscard]]logical_bool operator==(const this_t&a)const{
 		return a.equal(*this);
-	}
-	[[nodiscard]]logical_bool operator !=(const this_t&a)const{
-		return not operator==(a);
 	}
 };
 lazy_instantiation_name(node_like);

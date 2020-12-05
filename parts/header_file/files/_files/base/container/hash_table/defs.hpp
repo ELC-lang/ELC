@@ -53,10 +53,10 @@ namespace hash_table_n{
 			return*this;
 		}
 
-		template<typename T_>
-		static constexpr bool hash_nothrow=noexcept(hash(declvalue(T_)));
-		template<typename T_>
-		static constexpr bool find_nothrow=hash_nothrow<T_>&&noexcept(declvalue(bucket_t).find(declvalue(T_)));
+		template<typename U>
+		static constexpr bool hash_nothrow=noexcept(hash(declvalue(U)));
+		template<typename U>
+		static constexpr bool find_nothrow=hash_nothrow<U>&&noexcept(declvalue(bucket_t).find(declvalue(U)));
 
 		void add(const T&a)noexcept(hash_nothrow<const T&>&&bucket_t::add_nothrow){
 			auto&bucket=find_bucket(hash(a));
@@ -79,8 +79,8 @@ namespace hash_table_n{
 				}
 			return remove_success;
 		}
-		template<typename T_>
-		[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept(find_nothrow<T_>){
+		template<typename U>
+		[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept(find_nothrow<U>){
 			auto&bucket=find_bucket(hash(a));
 			auto reference=bucket.find(a);
 			if constexpr(is_unstable_hash<T>)
@@ -95,10 +95,10 @@ namespace hash_table_n{
 				}
 			return reference;
 		}
-		[[nodiscard]]bool in_table(const T&a)noexcept(find_nothrow<T>){
+		[[nodiscard]]bool in_table(const T&a)noexcept_as(declvalue(this_t).find(a).not_fail()){
 			return find(a).not_fail();
 		}
-		[[nodiscard]]bool not_in_table(const T&a)noexcept_as(declvalue(this_t).in_table(declvalue(const T&))){
+		[[nodiscard]]bool not_in_table(const T&a)noexcept_as(declvalue(this_t).in_table(a)){
 			return not in_table(a);
 		}
 
@@ -107,7 +107,7 @@ namespace hash_table_n{
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)noexcept_as(expr){
 			_m.for_each(lambda_with_catch(&func)(bucket_t&a)noexcept_as(expr){
 				a.for_each(func);
@@ -116,7 +116,7 @@ namespace hash_table_n{
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const T&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)const noexcept_as(expr){
 			_m.for_each(lambda(const bucket_t&a)noexcept_as(expr){
 				a.for_each(func);
@@ -125,14 +125,14 @@ namespace hash_table_n{
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(bucket_t&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each_bucket(func_t&&func)noexcept_as(expr){
 			_m.for_each(func);
 		}
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const bucket_t&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each_bucket(func_t&&func)const noexcept_as(expr){
 			_m.for_each(func);
 		}

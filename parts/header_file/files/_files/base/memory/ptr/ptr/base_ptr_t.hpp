@@ -78,51 +78,23 @@ public:
 	}
 	[[nodiscard]]bool unique()const noexcept{return attribute_ptr_cast<ref_able>(get())->link_num()==1;}
 	[[nodiscard]]explicit constexpr operator 
-	::std::conditional_t<(replace_check&&type_info<T>.has_attribute(replace_able)),
-						  unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
+	conditional<replace_check&&type_info<T>.has_attribute(replace_able),
+				unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
-};
 
-template <class T,typename ref_type,bool replace_check>
-[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type,replace_check>&a,const T*b)
-noexcept_as(pointer_equal(declvalue(const ptr_t<T,ref_type,replace_check>&).get(),declvalue(const T*))){
-	return pointer_equal(a.get(),b);
-}
-template <class T,typename ref_type,bool replace_check>
-[[nodiscard]]inline auto operator==(const T*a,const ptr_t<T,ref_type,replace_check>&b)
-noexcept_as(pointer_equal(declvalue(const T*),declvalue(const ptr_t<T,ref_type,replace_check>&).get())){
-	return pointer_equal(a,b.get());
-}
-template <class T,typename ref_type,bool replace_check>
-[[nodiscard]]inline auto operator!=(const ptr_t<T,ref_type,replace_check>&a,const T*b)
-noexcept_as(not(declvalue(const ptr_t<T,ref_type,replace_check>&)==declvalue(const T*))){
-	return not(a==b);
-}
-template <class T,typename ref_type,bool replace_check>
-[[nodiscard]]inline auto operator!=(const T*a,const ptr_t<T,ref_type,replace_check>&b)
-noexcept_as(not(declvalue(const T*)==declvalue(const ptr_t<T,ref_type,replace_check>&))){
-	return not(a==b);
-}
-template <class T,typename ref_type_1,bool replace_check_1,
-				  typename ref_type_2,bool replace_check_2>
-[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_1,replace_check_1>&a,
-							 const ptr_t<T,ref_type_2,replace_check_2>&b)
-noexcept_as(pointer_equal(
-		declvalue(const ptr_t<T,ref_type_1,replace_check_1>&).get(),
-		declvalue(const ptr_t<T,ref_type_2,replace_check_2>&).get())
-){
-	return pointer_equal(a.get(),b.get());
-}
-template <class T,typename ref_type_1,bool replace_check_1,
-				  typename ref_type_2,bool replace_check_2>
-[[nodiscard]]inline auto operator!=(const ptr_t<T,ref_type_1,replace_check_1>&a,
-							 const ptr_t<T,ref_type_2,replace_check_2>&b)
-noexcept_as(not(declvalue(const ptr_t<T,ref_type_1,replace_check_1>&) ==
-				declvalue(const ptr_t<T,ref_type_2,replace_check_2>&))
-){
-	return not(a == b);
-}
+	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),a)){
+		return pointer_equal(get(),a);
+	}
+	template <typename ref_type_,bool replace_check_>
+	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,replace_check_>&b)const
+	noexcept_as(pointer_equal(
+			declvalue(const this_t&).get(),
+			b.get())
+	){
+		return pointer_equal(get(),b.get());
+	}
+};
 
 template<class T,typename ref_type,bool replace_check>
 struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
@@ -171,7 +143,7 @@ private:
 	}for_delete{};
 public:
 	[[nodiscard]]operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
-	template<typename...Args,enable_if(invoke<T>.able<Args...>)>
+	template<typename...Args> requires invoke<T>.able<Args...>
 	inline auto operator()(Args&&... rest)noexcept(invoke<T>.nothrow<Args...>){return(operator*())(forward<Args>(rest)...);}
 };
 

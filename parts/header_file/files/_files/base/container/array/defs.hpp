@@ -12,11 +12,10 @@ namespace array_n{
 		typedef array_t<T>this_t;
 		T*_m;
 
-		/*return {ptr};*/
+		/*return{ptr};*/
 		constexpr array_t(T*a):_m(a){}
 		/*返回一个自身的副本*/
-		template<enable_if(copy_get.able<T>)>
-		[[nodiscard]]this_t&& copy()const noexcept(copy_get.nothrow<T>){
+		[[nodiscard]]this_t&& copy()const noexcept(copy_get.nothrow<T>) requires copy_get.able<T>{
 			return{copy_get(_m)};
 		}
 	public:
@@ -35,9 +34,9 @@ namespace array_n{
 		/*
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
 		*/
-		template<class T_,enable_if(get<T>.as_array.able<T_>)>
-		array_t(T_&&a)noexcept(get<T>.as_array.nothrow){
-			_m=get<T>.as_array(forward<T_>(a));
+		template<as_concept<get<T>.as_array.able> U>
+		array_t(U&&a)noexcept(get<T>.as_array.nothrow){
+			_m=get<T>.as_array(forward<U>(a));
 		}
 
 		//复制和移动函数
@@ -66,9 +65,11 @@ namespace array_n{
 		void clear()noexcept(re_construct.nothrow<this_t>){
 			re_construct(this);
 		}
-		[[nodiscard]]T&operator[](size_t size)noexcept{return _m[size];}
-		[[nodiscard]]const T&operator[](size_t size)const noexcept{return _m[size];}
-		[[nodiscard]]explicit operator hash_t()noexcept{return hash(_m,size());}
+		[[nodiscard]]T&operator[](size_t pos)noexcept{return _m[pos];}
+		[[nodiscard]]const T&operator[](size_t pos)const noexcept{return _m[pos];}
+		[[nodiscard]]explicit operator hash_t()const noexcept(hash.nothrow<T>){return hash(_m,size());}
+		[[nodiscard]]explicit operator T*()noexcept{return _m;}
+		[[nodiscard]]explicit operator const T*()const noexcept{return _m;}
 
 		typedef iterator_t<T>iterator;
 		typedef iterator_t<const T>const_iterator;
@@ -89,8 +90,15 @@ namespace array_n{
 			return const_cast<this_t*>(this)->end();
 		}
 
+		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)noexcept(compare.nothrow<array_like_view_t<T>>){
+			return compare(array_like_view_t<T>(*this),a);
+		}
+		[[nodiscard]]constexpr auto operator==(array_like_view_t<const T> a)noexcept(equal.nothrow<array_like_view_t<T>>){
+			return equal(array_like_view_t<T>(*this),a);
+		}
+
 		#define expr declvalue(func_t)(declvalue(T&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)noexcept_as(expr){
 			auto asize=size();
 			while(asize--)
@@ -99,7 +107,7 @@ namespace array_n{
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const T&))
-		template<typename func_t,enable_if_not_ill_from(expr)>
+		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)const noexcept_as(expr){
 			auto asize=size();
 			while(asize--)
@@ -113,24 +121,24 @@ namespace array_n{
 		void remove(T a){
 			get<T>.remove(a,note::form(_m));
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t&operator+=(this_t&a,T_&&b)noexcept(get<T>.apply_end.nothrow<T_>){
+		template<as_concept<get<T>.apply_end.able> U>
+		friend this_t&operator+=(this_t&a,U&&b)noexcept(get<T>.apply_end.nothrow<U>){
 			get<T>.apply_end(note::to(a._m),b);
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t operator+(const this_t&a,T_&&b)noexcept_as(declvalue(this_t).copy()+=declvalue(T_)){
+		template<typename U>
+		friend this_t operator+(const this_t&a,U&&b)noexcept_as(a.copy()+=b) requires was_not_an_ill_form(a.copy()+=b){
 			return a.copy()+=b;
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		friend this_t operator+(T_&&a,const this_t&b)noexcept_as(this_t(declvalue(T_))+=declvalue(this_t)){
+		template<typename U>
+		friend this_t operator+(U&&a,const this_t&b)noexcept_as(this_t(a)+=b) requires was_not_an_ill_form(this_t(a)+=b){
 			return this_t(a)+=b;
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		iterator find(T_&&a)noexcept{
+		template<typename U>
+		iterator find(U&&a)noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
 			return in_range(*this,a);
 		}
-		template<typename T_,enable_if(get<T>.apply_end.able<T_>)>
-		const_iterator find(T_&&a)const noexcept{
+		template<typename U>
+		const_iterator find(U&&a)const noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
 			return in_range(*this,a);
 		}
 	};

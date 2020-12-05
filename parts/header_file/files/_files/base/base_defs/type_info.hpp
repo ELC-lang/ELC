@@ -13,7 +13,7 @@ private:
 
 		constexpr type_id_t(const ::std::type_info&a)noexcept:_m(&a){}
 		constexpr type_id_t(const type_id_t&a)noexcept=default;
-		[[nodiscard]]const char*get_name()const noexcept{//UF：对于gcc和clang应使用abi::__cxa_demangle重整
+		[[nodiscard]]const char*get_name()const noexcept{//-UF:对于gcc和clang应使用abi::__cxa_demangle重整//重整几把，麻烦死了，懒得管。
 			return _m->name();
 		}
 		[[nodiscard]]size_t get_hash()const noexcept{
@@ -33,24 +33,25 @@ public:
 		return _tid.get_hash();
 	}
 	[[nodiscard]]bool operator==(const base_type_info_t&a)const noexcept{return _tid==a._tid;}
-	[[nodiscard]]bool operator!=(const base_type_info_t&a)const noexcept{return!(*this==a);}
 };
 template<class T>
 struct type_info_t:base_type_info_t{
 	typedef T type;
-	template<class T_>
-	static constexpr bool base_on=::std::is_convertible_v<remove_cvref<T>*,remove_cvref<T_>*>;
-	template<class T_>
-	static constexpr bool not_base_on=!base_on<T_>;
 
-	template<class T_>
-	static constexpr bool can_convert_to=::std::is_convertible_v<T,T_>;
-	template<class T_>
-	static constexpr bool can_t_convert_to=!can_convert_to<T_>;
-	template<class T_>
-	static constexpr bool can_nothrow_convert_to=::std::is_nothrow_convertible_v<T,T_>;
-	template<class T_>
-	static constexpr bool can_t_nothrow_convert_to=!can_nothrow_convert_to<T_>;
+
+	template<class U>
+	static constexpr bool base_on=::std::is_convertible_v<remove_cvref<T>*,remove_cvref<U>*>;
+	template<class U>
+	static constexpr bool not_base_on=!base_on<U>;
+
+	template<class U>
+	static constexpr bool can_convert_to=::std::is_convertible_v<T,U>;
+	template<class U>
+	static constexpr bool can_t_convert_to=!can_convert_to<U>;
+	template<class U>
+	static constexpr bool can_nothrow_convert_to=::std::is_nothrow_convertible_v<T,U>;
+	template<class U>
+	static constexpr bool can_t_nothrow_convert_to=!can_nothrow_convert_to<U>;
 
 	/*
 	//没有重载变量模板一说
@@ -75,9 +76,11 @@ struct type_info_t:base_type_info_t{
 	static constexpr bool not_has_has_attribute_helper(){
 		return!has_attribute_helper<attribute_name>();
 	}
+
 	// defed at defs.
 	// #define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
 	// #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
+
 	template<common_attribute_t... common_attribute_names>
 	struct with_common_attribute:common_attribute_pack<common_attribute_names...>::template on_type<T>{
 		template<special_attribute_t... special_attribute_names>
@@ -88,20 +91,33 @@ struct type_info_t:base_type_info_t{
 		template<common_attribute_t... common_attribute_names>
 		struct and_common_attribute:with_special_attribute<special_attribute_names...>,common_attribute_pack<common_attribute_names...>::template on_type<T>{};
 	};
-	
+
 	constexpr type_info_t()noexcept:base_type_info_t(typeid(T)){}
 	constexpr type_info_t(const type_info_t&)noexcept=default;
 };
 
 template<class T>
-inline const type_info_t<T>type_info{};
+constexpr type_info_t<T>type_info{};
 
 template<class T>
 [[nodiscard]]constexpr bool operator==(const type_info_t<T>&,const type_info_t<T>&){return true;}
-template<class T1,class T2>
-[[nodiscard]]constexpr bool operator==(const type_info_t<T1>&,const type_info_t<T2>&){return false;}
-template<class T1,class T2>
-[[nodiscard]]constexpr bool operator!=(const type_info_t<T1>&a,const type_info_t<T2>&b){return!(a==b);}
+template<class T,class U>
+[[nodiscard]]constexpr bool operator==(const type_info_t<T>&,const type_info_t<U>&){return false;}
+
+/*
+template<class T,class U>
+consteval auto operator?:(auto a,const type_info_t<T>&b,const type_info_t<U>&c){
+	if(a)
+		return b;
+	else
+		if(!a)
+			return c;
+		else
+			return b && c;
+	else
+		return void();
+}
+*/
 
 //file_end
 

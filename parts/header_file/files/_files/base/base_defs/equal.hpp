@@ -8,32 +8,25 @@
 */
 //equal：值相等
 constexpr struct equal_t{
-	template<class T>
-	auto equality_comparable_helper(int) -> decltype(
-		void(declvalue(T&) == declvalue(T&)),
-		::std::true_type{});
-	template<class>
-	auto equality_comparable_helper(...) -> ::std::false_type;
+	template<class T,class U=T>
+	static constexpr bool able= was_not_an_ill_form(declvalue(T&)==declvalue(U&));
+	template<class T,class U=T>
+	static constexpr bool nothrow= noexcept(declvalue(T&)==declvalue(U&));
 
-	template<class T>
-	static constexpr bool able= decltype(equality_comparable_helper<T>(0))::value;
-	template<class T>
-	static constexpr bool nothrow= noexcept(declvalue(T&)==declvalue(T&));
-
-	template<typename T>
-	inline auto operator()(T&&a,T&&b)const noexcept(nothrow<T>){
+	template<typename T,typename U>
+	inline auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		return a==b;
 	}
-	template<typename T>
-	inline bool operator()(T*a,T*b,size_t size)const noexcept(nothrow<T>){
+	template<typename T,typename U>
+	inline bool operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
 		while(size--){
 			if(*(a++)!=*(b++))
 				return false;
 		}
 		return true;
 	}
-	template<typename T,size_t N1,size_t N2>
-	inline bool operator()(T(&a)[N1],T(&b)[N2])const noexcept(nothrow<T>){
+	template<typename T,typename U,size_t N1,size_t N2>
+	inline bool operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
 		if constexpr(N1==N2)
 			return operator()(a,b,N1);
 		else{
@@ -41,8 +34,8 @@ constexpr struct equal_t{
 			return false;
 		}
 	}
-	template<typename T>
-	inline bool operator()(T*a,size_t size1,T*b,size_t size2)const noexcept(nothrow<T>){
+	template<typename T,typename U>
+	inline bool operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(size1==size2)
 			return false;
 		else
@@ -52,13 +45,78 @@ constexpr struct equal_t{
 
 //eq：同一对象
 template<typename T>
-inline auto is_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
+inline auto is_eq(T&&a,T&&b)noexcept_as(&a==&b){
 	return &a==&b;
 }
 template<typename T>
-inline auto is_not_eq(T&&a,T&&b)noexcept_as(&declvalue(T)==&declvalue(T)){
+inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 	return!is_eq(a,b);
 }
+
+//compare：三路比较
+constexpr struct compare_t{
+	template<class T,class U=T>
+	static constexpr bool r_able= was_not_an_ill_form(declvalue(T&)<=>declvalue(U&));
+
+	template<class T,class U=T>
+	static constexpr bool able= r_able<T,U> ||
+								was_not_an_ill_form(
+														declvalue(T&)==declvalue(U&),
+														declvalue(T&)<declvalue(U&),
+														declvalue(U&)<declvalue(T&),
+													);
+
+	template<class T,class U=T>
+	static constexpr bool nothrow=  r_able<T,U> ?
+									noexcept(declvalue(T&)<=>declvalue(U&)):
+									noexcept(
+												declvalue(T&)==declvalue(U&),
+												declvalue(T&)<declvalue(U&),
+												declvalue(U&)<declvalue(T&),
+											);
+
+
+	template<class T,class U>
+	constexpr auto base_call(T&&a,U&&b)const noexcept(nothrow<T,U>){
+		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
+		if constexpr(r_able<T,U>)
+			return a<=>b;
+		else return a == b	? 1.3==1.3	:
+					a < b	? 1.3<1.7	:
+					b < a	? 1.7>1.3	:
+							  NAN==NAN	;
+	}
+
+	template<typename T,typename U>
+	constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
+		return base_call(a,b);
+	}
+	template<typename T,typename U>
+	constexpr auto operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
+		while(size--){
+			if(auto tmp=base_call(*(a++),*(b++)); tmp!=0)
+				return tmp;
+		}
+		return 0<=>0;
+	}
+	template<typename T,typename U,size_t N1,size_t N2>
+	constexpr auto operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
+		if constexpr(N1==N2)
+			return operator()(a,b,N1);
+		else{
+			template_warning("N1!=N2");
+			return N1<=>N2;
+		}
+	}
+	template<typename T,typename U>
+	constexpr auto operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
+		decltype(operator()(a,b,size1)) tmp = size1<=>size2;
+		if(tmp!=0)
+			return tmp;
+		else
+			return operator()(a,b,size1);
+	}
+}compare{};
 
 //file_end
 

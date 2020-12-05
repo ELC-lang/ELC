@@ -7,21 +7,33 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 constexpr struct min_t{
-	template<class...Args,enable_if_not_ill_from(::std::min(declvalue(Args)...))>
+	template<class...Args>
+	static constexpr bool able=was_not_an_ill_form(::std::min(declvalue(Args)...));
+
+	template<typename T>
+	static constexpr bool get_limit_able=was_not_an_ill_form(::std::numeric_limits<T>::min());
+
+	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::min(rest...);
 	}
-	template<typename T,enable_if_not_ill_from(::std::numeric_limits<T>::min())>
+	template<typename T> requires get_limit_able<T>
 	constexpr auto operator()(type_info_t<T>)const{
 		return ::std::numeric_limits<T>::min();
 	}
 }min{};
 constexpr struct max_t{
-	template<class...Args,enable_if_not_ill_from(::std::max(declvalue(Args)...))>
+	template<class...Args>
+	static constexpr bool able=was_not_an_ill_form(::std::max(declvalue(Args)...));
+
+	template<typename T>
+	static constexpr bool get_limit_able=was_not_an_ill_form(::std::numeric_limits<T>::max());
+
+	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::max(rest...);
 	}
-	template<typename T,enable_if_not_ill_from(::std::numeric_limits<T>::max())>
+	template<typename T> requires get_limit_able<T>
 	constexpr auto operator()(type_info_t<T>)const{
 		return ::std::numeric_limits<T>::max();
 	}

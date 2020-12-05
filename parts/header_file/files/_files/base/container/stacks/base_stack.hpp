@@ -62,8 +62,8 @@ public:
 	[[nodiscard]]bool empty()const noexcept{
 		return _m==null_ptr;
 	}
-	template<typename T_>
-	[[nodiscard]]maybe_fail_reference<T>find(T_&&a)noexcept_as(declvalue(T&)==declvalue(T_)){
+	template<typename U>
+	[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept_as(declvalue(T&)==a){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
 			if(tmp->_data==a)
@@ -72,10 +72,10 @@ public:
 		}
 		return note::fail;
 	}
-	[[nodiscard]]bool in_stack(const T&a)const noexcept_as(declvalue(const T&)==declvalue(T&)){
+	[[nodiscard]]bool in_stack(const T&a)const noexcept_as(declvalue(this_t).find(a).not_fail()){
 		return const_cast<this_t*>(this)->find(a).not_fail();
 	}
-	[[nodiscard]]bool not_in_stack(const T&a)const noexcept_as(declvalue(this_t).in_stack(declvalue(const T&))){
+	[[nodiscard]]bool not_in_stack(const T&a)const noexcept_as(declvalue(this_t).in_stack(a)){
 		return not in_stack(a);
 	}
 	[[nodiscard]]size_t size()const noexcept{
@@ -105,7 +105,7 @@ public:
 		return false;
 	}
 	#define expr declvalue(func_t)(declvalue(T&))
-	template<typename func_t,enable_if_not_ill_from(expr)>
+	template<typename func_t> requires was_not_an_ill_form(expr)
 	void for_each(func_t&&func)noexcept_as(expr){
 		data_t*tmp=_m;
 		while(tmp!=null_ptr){
@@ -116,7 +116,7 @@ public:
 	#undef expr
 
 	#define expr declvalue(func_t)(declvalue(const T&))
-	template<typename func_t,enable_if_not_ill_from(expr)>
+	template<typename func_t> requires was_not_an_ill_form(expr)
 	void for_each(func_t&&func)const noexcept_as(expr){
 		const data_t*tmp=_m;
 		while(tmp!=null_ptr){

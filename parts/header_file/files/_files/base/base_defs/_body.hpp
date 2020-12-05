@@ -8,8 +8,9 @@
 */
 //恭喜你找到elc内大部分语法糖所在地
 #include "template_helper.hpp"
-#include "magic_number.hpp"
 #include "using_std.hpp"
+#include "concept.hpp"
+#include "magic_number.hpp"
 
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
@@ -18,6 +19,7 @@
 #include "type_info.hpp"
 #include "min_max.hpp"
 #include "null_ptr.hpp"
+#include "equal.hpp"
 #include "note.hpp"
 #include "array_like.hpp"
 #include "range.hpp"
@@ -27,7 +29,6 @@
 #include "pointer.hpp"
 #include "zero.hpp"
 #include "count_able.hpp"
-#include "equal.hpp"
 #include "invoke.hpp"
 
 #include "other.hpp"

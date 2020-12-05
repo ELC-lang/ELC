@@ -41,7 +41,7 @@ setter func_throw(prt){
 	}
 }
 setter jump(ptr)noexcept{
-	
+
 }
 
 //file_end

@@ -1,4 +1,4 @@
-//string.hpp
+//defs.hpp
 //at namespace elc::defs
 /*
 未完成的elc解释器string文件
@@ -10,6 +10,11 @@ template<typename T>
 using string_t=array_t<T>;//本来是copy_on_write_t<array_t<T>>，但貌似没有必要（而且copy_on_write_t貌似越写越丑了）
 
 typedef string_t<char_t>string;
+
+template<typename T>
+using string_view_t=array_like_view_t<T>;
+
+typedef string_view_t<const char_t>string_view;
 
 //file_end
 

@@ -29,6 +29,8 @@ template<class T>
 using remove_cvref= ::std::remove_cvref_t<T>;
 template<class T>
 using remove_cv= ::std::remove_cv_t<T>;
+template<bool B,class T,class F>
+using conditional= ::std::conditional_t<B,T,F>;
 // using ::std::move;//新move定义于 "../memory/lifetime/defs.hpp"
 
 // using ::std::max;

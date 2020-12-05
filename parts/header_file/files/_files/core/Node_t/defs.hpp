@@ -14,16 +14,13 @@ namespace Node_n{
 	public:
 		typedef Node_t<T> this_t;
 	private:
-		
+
 	public:
 		[[nodiscard]]operator T&()noexcept(ptr::get_nothrow){
 			return static_cast<T*>(_value.get())
 		}
 		[[nodiscard]]logical_bool operator ==(node_like&a){
 			return a.equal(*_value);
-		}
-		[[nodiscard]]logical_bool operator !=(node_like&a)const{
-			return not operator==(a);
 		}
 		[[nodiscard]]ptr operator &()noexcept{
 			return _value;

@@ -5,6 +5,9 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+
+//undefs at "_undefs.hpp"
+
 #if defined(_MSC_VER)
 	#pragma warning(push)
 	#pragma warning(disable:4099)//class与struct混用警告diss
@@ -28,20 +31,20 @@
 #define using_LIS_name(name) typedef LIS_ID_t(name)name
 
 // #define often_noexcept
-#define noexcept_as(...) noexcept(noexcept(__VA_ARGS__))//dnmd C艹标准就是没有noexcept_as_auto
+#define noexcept_as(...) noexcept(noexcept((__VA_ARGS__)))//dnmd C艹标准就是没有noexcept_as_auto
 #define noexcept_as_auto MAGIC//哦现在有了
 #define constexpr_as(...) MAGIC constexpr//( •̀ ω •́ )✌
 #define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌
 
 #define using_method_from_base_t(name) \
-template<class...Args,enable_if_not_ill_from(declvalue(base_t).name(declvalue(Args)...))>\
+template<class...Args> requires was_not_an_ill_form(declvalue(base_t).name(declvalue(Args)...))\
 auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
 {\
 	return base_t::name(forward<Args>(rest)...);\
 }\
 
 #define using_method_from_value(name,value_name) \
-template<class...Args,enable_if_not_ill_from(re_declvalue(value_name).name(declvalue(Args)...))>\
+template<class...Args> requires was_not_an_ill_form(re_declvalue(value_name).name(declvalue(Args)...))\
 auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args)...))\
 {\
 	return value_name.name(forward<Args>(rest)...);\
@@ -98,7 +101,10 @@ class name{}\
 /*用于模板声明*/
 #define enable_flag class enable_state
 
-#define was_an_ill_form(...) MAGIC//这个表达式应当返回一个bool，现在它做到了
+#define was_an_ill_form(...) (!was_not_an_ill_form(__VA_ARGS__))
+#define was_an_ill_form_with_parameter(...) (!was_not_an_ill_form_with_parameter(__VA_ARGS__))
+#define was_not_an_ill_form(...) (bool(requires{(__VA_ARGS__);}))
+#define was_not_an_ill_form_with_parameter(...) (bool(requires __VA_ARGS__ ))
 
 /*让lambda定义更加美观*/
 #define lambda []
@@ -113,9 +119,9 @@ class name{}\
 /*aya风格语法糖*/
 #define elseif else if
 /*aya风格语法糖*/
-#define _big_than_  >
+#define _big_than_ >
 /*aya风格语法糖*/
-#define _small_than_  <
+#define _small_than_ <
 
 #if defined(_MSC_VER)
 	#define not !

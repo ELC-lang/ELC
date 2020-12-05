@@ -17,26 +17,22 @@ namespace hash_n{
 	struct unstable_hash_t:hash_t{
 		using hash_t::hash_t;
 	};
-	template<class T>
-	auto is_unstable_hash_helper(int) -> decltype(
-		void((struct unstable_hash_t)(declvalue(T const&))),
-		::std::true_type{});
-	template<class>
-	auto is_unstable_hash_helper(...) -> ::std::false_type;
 
 	template<class T>
-	inline constexpr bool is_unstable_hash = decltype(is_unstable_hash_helper<T>(0))::value;
+	inline constexpr bool is_unstable_hash = was_not_an_ill_form({declvalue(T const&)} -> unstable_hash_t);
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
+
+	template<class T>
+	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
+		return{size_t(a)};
+	}
+
 	[[nodiscard]]inline constexpr hash_t hash(nothing)noexcept{
 		return{size_t(nothing)};
 	}
 	[[nodiscard]]inline hash_t hash(base_type_info_t&a)noexcept{
 		return{a.get_hash()};
-	}
-	template<class T>
-	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
-		return{size_t(a)};
 	}
 	template<class T>
 	[[nodiscard]]constexpr_as_auto inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or type_info<T>.can_nothrow_convert_to<hash_t>){
@@ -46,18 +42,21 @@ namespace hash_n{
 			return{size_t(a)};
 		elseif constexpr(is_unstable_hash<T>)
 			return unstable_hash_t(a);
-		else
+		elseif constexpr(was_not_an_ill_form(declvalue(const T&).hash()))
+			return a.hash();
+		elseif constexpr(was_not_an_ill_form(hash_t(declvalue(const T&))))
 			return hash_t(a);
+		else template_error("Please overload the function hash in the namespace where this type is defined.");
 	}
 	template<class T>
-	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(declvalue(const T))){
+	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(*a)){
 		hash_t aret=0;
 		while(size--)
-			aret=hash(a[size])+aret*13;
+			aret=hash(a[size])+aret._value*13;
 		return aret;
 	}
-	template<class T,enable_if(is_array_like<T>&&is_not_signal_value_for_array_like<T>)>
-	[[nodiscard]]inline hash_t hash(range_t<const T*>&a)noexcept_as(hash(declvalue(const T))){
+	template<class T> requires is_not_signal_value_for_array_like<T>
+	[[nodiscard]]inline hash_t hash(array_like_view_t<T>a)noexcept_as(hash(declvalue(T))){
 		return hash(a.begin(),a.size());
 	}
 }

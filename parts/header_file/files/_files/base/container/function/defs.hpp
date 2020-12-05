@@ -8,11 +8,11 @@
 */
 namespace function_n{
 	template<class T>
-	using function_t=base_function_t<T,false>;
+	using function_t=base_function_t<T,true>;
 
 	//[[deprecated("not safe")]]//用这么长名字的人大概知道自己在干啥
 	template<class T>
-	using may_throw_in_destruct_function_t=base_function_t<T,true>;
+	using may_throw_in_destruct_function_t=base_function_t<T,false>;
 }
 
 //file_end

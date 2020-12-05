@@ -11,18 +11,17 @@ void map_and_mark_for_gc(T*)noexcept{
 	template_error("this function should not be instantiated,please overload the function map_and_mark_for_gc in the namespace where this type is defined");
 }
 using ::elc::defs::memory::gc_n::root_of;
-template<typename T,enable_if(
-								was_ref_able<T>&&
-								ptr_t<T,ref_able<T>,true>::check_nothrow&&
+template<as_concept<was_ref_able> T> requires
+								comn_ptr_t<T>::check_nothrow &&
 								type_info<T>.has_attribute(gc_n::have_root)
-							)>
+
 struct root_ptr_t:comn_ptr_t<T>,root_of<T>{
 	typedef comn_ptr_t<T>base_t;
 	typedef root_ptr_t<T>this_t;
 public:
 	using base_t::base_t;
-	template<class assign_t,enable_if_not_ill_from(declvalue(base_t)=declvalue(assign_t))>
-	this_t&operator=(assign_t&&a)noexcept_as(declvalue(base_t)=declvalue(assign_t)){
+	template<class assign_t> requires was_not_an_ill_form(declvalue(base_t)=declvalue(assign_t))
+	this_t&operator=(assign_t&&a)noexcept_as(base_t::operator=(forward<assign_t>(a))){
 		base_t::operator=(forward<assign_t>(a));
 		return*this;
 	}

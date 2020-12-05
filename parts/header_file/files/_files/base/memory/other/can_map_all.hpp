@@ -12,8 +12,8 @@ struct can_map_all:cons_t<can_map_all<T>>,is_common_attribute(can_map_all){
 private:
 	inline static list_t<this_t> type_list;
 
-	#define expr declvalue(func_t)(declvalue(T_*))
-	template<class T_,class func_t,enable_flag>
+	#define expr declvalue(func_t)(declvalue(U*))
+	template<class U,class func_t,enable_flag>
 	friend inline void map_all(func_t&a)noexcept_as(expr);
 	#undef expr
 public:
@@ -22,7 +22,7 @@ public:
 	}
 };
 #define expr declvalue(func_t)(declvalue(T*))
-template<class T,class func_t,enable_if_not_ill_from(expr)>
+template<class T,class func_t> requires was_not_an_ill_form(expr) && type_info<T>.has_attribute(can_map_all)
 inline void map_all(func_t&a)noexcept_as(expr){
 	auto tmp=can_map_all<T>::type_list.begin();
 	auto end=can_map_all<T>::type_list.end();

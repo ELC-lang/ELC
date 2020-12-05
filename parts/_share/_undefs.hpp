@@ -5,6 +5,9 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+
+//defs at "_defs.hpp"
+
 #if defined(_MSC_VER)
 	#pragma warning(pop)
 #endif
@@ -61,6 +64,9 @@
 #undef enable_flag
 
 #undef was_an_ill_form
+#undef was_an_ill_form_with_parameter
+#undef was_not_an_ill_form
+#undef was_not_an_ill_form_with_parameter
 
 #undef lambda
 #undef lambda_with_catch

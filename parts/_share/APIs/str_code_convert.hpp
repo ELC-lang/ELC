@@ -16,13 +16,10 @@ elc依赖的基础函数.
 	#define ELC_APIS_str_code_convert
 	namespace elc::APIs::str_code_convert{
 		using namespace ::elc::defs;//get def
-		//UF
-		inline str_code_convert_ret_t<char> to_char_str(const char_t* a)
-		inline str_code_convert_ret_t<char_t> to_char_t_str(const char* a)
 
-		inline string_t<char> to_char_str(const string_t<char_t> a){
-			string_t<char>ret;
-			std::mbstate_t stat{};
+		inline string_t<char> to_char_str(string_view_t<const char_t> a){
+			string_t<char>aret;
+			::std::mbstate_t stat{};
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
 				die_with(::elc::locale::str::setlocale_error);
 			char r[MB_LEN_MAX];
@@ -31,14 +28,14 @@ elc依赖的基础函数.
 				s=::std::c32rtomb(r,c,&stat);
 				if(s < 0)//-1
 					die_with(::elc::locale::str::code_convert_error);
-				ret+=range_t<char*>{(char*)r,s};
+				aret+=range_t<char*>{(char*)r,s};
 			}
 			::std::setlocale(LC_ALL,"C");
-			return ret;
+			return aret;
 		}
-		inline string_t<char_t> to_char_t_str(const string_t<char> a){
-			string_t<char_t>ret;
-			std::mbstate_t stat{};
+		inline string_t<char_t> to_char_t_str(string_view_t<const char> a){
+			string_t<char_t>aret;
+			::std::mbstate_t stat{};
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
 				die_with(::elc::locale::str::setlocale_error);
 			char_t c;
@@ -49,10 +46,16 @@ elc依赖的基础函数.
 				if(s < 0)//-3 或 -1
 					die_with(::elc::locale::str::code_convert_error);
 				i+=s;
-				ret+=c;
+				aret+=c;
 			}
 			::std::setlocale(LC_ALL,"C");
-			return ret;
+			return aret;
+		}
+		inline string_t<char> to_char_str(const char_t*a){
+			return to_char_str(array_end_by_zero_t(a))+char(0);
+		}
+		inline string_t<char_t> to_char_t_str(const char*a){
+			return to_char_t_str(array_end_by_zero_t(a))+char_t(0);
 		}
 	}
 	namespace elc::defs{
