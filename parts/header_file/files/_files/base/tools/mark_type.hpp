@@ -6,7 +6,13 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+/*
+表明是否被标记的enum字面量.
+*/
 enum mark_type:bool{marked=true,not_mark=false};
+/*
+用于gc的可达性分析的普通模板式elc属性.
+*/
 template<typename T>
 class mark_able:non_copyable,non_moveable{
 	mutable flag _m;
