@@ -6,7 +6,13 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+/*
+表示flag是否被设置的enum字面量.
+*/
 enum flag_set_type:bool{seted=true,not_set=false};
+/*
+bool的简易包装以表示『是否被设置』,无法使用operator=,因为不应如此.
+*/
 class flag{
 	bool _m;
 public:
