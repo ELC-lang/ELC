@@ -9,6 +9,9 @@
 //copy from old ELC
 template<typename T>
 class list_t;
+/*
+common attribute,表明这是对于list_t可加入的cons.
+*/
 template<typename T>
 struct cons_t:non_copyable,non_moveable,is_common_attribute(cons_t){
 	typedef cons_t<T> this_t;
@@ -53,6 +56,15 @@ public:
 		remove_from_list();
 	}
 };
+/*
+T类型的有序双向list.
+方法有:
+constexpr void add(cons*a)noexcept;
+constexpr iterator begin()noexcept;
+constexpr iterator end()noexcept;
+constexpr iterator head()noexcept;
+constexpr bool empty()const noexcept;
+*/
 template<typename T>
 struct list_t{
 	typedef list_t<T> this_t;
