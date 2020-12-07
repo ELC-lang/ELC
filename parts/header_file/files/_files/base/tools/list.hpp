@@ -59,7 +59,7 @@ public:
 /*
 T类型的有序双向list.
 方法有:
-constexpr void add(cons*a)noexcept;
+constexpr void add(cons_t<T>*a)noexcept;
 constexpr iterator begin()noexcept;
 constexpr iterator end()noexcept;
 constexpr iterator head()noexcept;
