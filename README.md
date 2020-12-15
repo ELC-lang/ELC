@@ -1,9 +1,3 @@
-### 快速PR
-[alex to steve](https://github.com/steve02081504/ELC/compare/master...alex0125z:master)  
-[steve to alex](https://github.com/alex0125z/ELC/compare/master...steve02081504:master)  
-
-____
-
 [![996.icu]( https://img.shields.io/badge/link-996.icu-red.svg )]( https://996.icu )
 本项目支持anti-996，请所有国产浏览器拉黑并禁止访问，谢谢  
 ### 公告  
