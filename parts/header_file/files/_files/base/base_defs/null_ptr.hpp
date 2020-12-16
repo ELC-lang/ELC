@@ -7,13 +7,22 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace null_ptr_n{
-	struct can_t_use_default_null_ptr{};
-	struct force_use_default_null_ptr:can_t_use_default_null_ptr{};
 	/*
-	force_use_default_null_ptr ：
-	可不定义get_null_ptr
+	提醒子类定义者重载get_null_ptr.
+	*/
+	struct can_t_use_default_null_ptr{};
+
+	/*
+	force_use_default_null_ptr :
+	可不重载get_null_ptr
 	在此类ref_able或weak_ref_able时，意味着使用者**保证**所有指向此类的实例的ptr都不可为null_ptr
 	否则将内存访问错误
+	*/
+	struct force_use_default_null_ptr:can_t_use_default_null_ptr{};
+	
+
+	/*
+	重载此函数来使null_ptr表现为自己想要的值!
 	*/
 	template<typename T>
 	[[nodiscard]]constexpr T*get_null_ptr(type_info_t<T>)noexcept{
@@ -21,6 +30,11 @@ namespace null_ptr_n{
 			template_error("please overload the function get_null_ptr in the namespace where this type is defined.");
 		return nullptr;
 	}
+
+
+	/*
+	字面量null_ptr，如同nullptr使用即可.
+	*/
 	constexpr struct __null_ptr_t__{//sb c++ 标准
 		template<typename T>
 		constexpr_as(get_null_ptr(type_info<remove_cvref<T>>))operator T*()const noexcept{return get_null_ptr(type_info<remove_cvref<T>>);}
