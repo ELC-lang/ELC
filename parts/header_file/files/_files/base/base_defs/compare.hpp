@@ -70,7 +70,7 @@ inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 	compare(T1[N1],T2[N2])
 	compare(T1*,size1,T2*,size2)
 	compare(T1*,T2*,size)
-	返回类型语义上是三路比较的结果类型,视情况而定.
+	返回类型语义上是三路比较的结果类型,具体类型视情况而定.
 */
 constexpr struct compare_t{
 	template<class T,class U=T>
