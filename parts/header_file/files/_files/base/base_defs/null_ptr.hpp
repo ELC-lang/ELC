@@ -35,10 +35,10 @@ namespace null_ptr_n{
 	/*
 	字面量null_ptr，如同nullptr使用即可.
 	*/
-	constexpr struct __null_ptr_t__{//sb c++ 标准
+	constexpr struct _{
 		template<typename T>
 		constexpr_as(get_null_ptr(type_info<remove_cvref<T>>))operator T*()const noexcept{return get_null_ptr(type_info<remove_cvref<T>>);}
-		//constexpr operator decltype(nullptr)(){return nullptr;}//防止重载多重路线
+		constexpr operator decltype(nullptr)()const noexcept{return nullptr;}//提醒接口设计者注意null_ptr的重载版本.
 	}null_ptr{};
 }
 using null_ptr_n::can_t_use_default_null_ptr;
