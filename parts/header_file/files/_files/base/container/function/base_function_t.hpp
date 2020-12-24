@@ -10,7 +10,7 @@ namespace function_n{
 	template<class T>
 	class base_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct base_func_data_t<Ret_t(Args_t...)>:type_info_t<base_func_data_t<Ret_t(Args_t...)>>::template with_common_attribute<abstract_base,ref_able,never_in_array>,build_by_get_only{
+	struct base_func_data_t<Ret_t(Args_t...)>:type_info_t<base_func_data_t<Ret_t(Args_t...)>>::template_name with_common_attribute<abstract_base,ref_able,never_in_array>,build_by_get_only{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
 
 		virtual ~base_func_data_t()=default;
@@ -32,7 +32,7 @@ namespace function_n{
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
 	struct func_data_t<T,Ret_t(Args_t...)>:
-	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template with_common_attribute<instance_struct>,
+	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template_name with_common_attribute<instance_struct>,
 	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<T,Ret_t(Args_t...)>{
 		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;

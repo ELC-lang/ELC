@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//UF:利用制约使其更加优雅，返修后记得将string_t改为copy_on_write的
 namespace copy_on_write_n{
 	template<class T>
 	class copy_on_write_t{

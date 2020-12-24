@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace ptr_n{
-	struct tester:type_info_t<tester>::template
+	struct tester:type_info_t<tester>::template_name
 	with_common_attribute<ref_able,weak_ref_able>,build_by_get_only{};
 	inline void test(){
 		stest_entryevent(L"ptr部分测试");

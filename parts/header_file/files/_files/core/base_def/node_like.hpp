@@ -6,23 +6,21 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-lazy_instantiation struct LIS_name(probability);
 lazy_instantiation struct LIS_name(setter);
 
-lazy_instantiation struct LIS_name(node_like):type_info_t<LIS_ID_t(node_like)>::template
+lazy_instantiation struct LIS_name(node_like):type_info_t<LIS_ID_t(node_like)>::template_name
 with_common_attribute<abstract_base,ref_able,weak_ref_able,replace_able>{
 public:
 	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
 	using_LIS_name(setter)setter;
-	using_LIS_name(probability)probability;
 	typedef LIS_ID_t(node_like)this_t;
 
 	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
 protected:
-	[[nodiscard]]virtual function_t<probability()> get_eval_of_this()const{
+	[[nodiscard]]virtual function_t<setter()> get_eval_of_this()const{
 		return lambda_with_catch(this)()noexcept{return this;};
 	}
-	[[nodiscard]]virtual function_t<probability(ptr)> get_call_of_this()const{
+	[[nodiscard]]virtual function_t<setter(ptr)> get_call_of_this()const{
 		return lambda_with_catch(this)(ptr)noexcept{return this;};
 	}
 
@@ -35,12 +33,12 @@ public:
 	constexpr LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
 	constexpr virtual ~LIS_name(node_like)()=default;
 
-	[[nodiscard]]virtual setter arec(const probability)=0;
+	[[nodiscard]]virtual setter arec(const setter)=0;
 
-	[[nodiscard]]probability operator[](const probability){
-
+	[[nodiscard]]setter operator[](const setter index){
+		return arec(index);
 	}
-	[[nodiscard]]const probability operator[](const probability)const=0;
+	[[nodiscard]]const setter operator[](const setter)const=0;
 
 	virtual void clear()=0;
 

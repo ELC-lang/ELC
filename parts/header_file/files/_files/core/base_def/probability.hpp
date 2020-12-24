@@ -6,6 +6,21 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//DC:已被废弃的代码，在早期架构中probability是elc core的核心机制之一，现在它通过使用core机制进行可选拓展而提供
+//原因：elc已有完备的node操作体系，不需要在提供probability操作机制，而可以通过node拓展
+/*
+	[[nodiscard]]virtual function_t<probability()> get_eval_of_this()const{
+		return lambda_with_catch(this)()noexcept{return this;};
+	}
+	[[nodiscard]]virtual function_t<probability(ptr)> get_call_of_this()const{
+		return lambda_with_catch(this)(ptr)noexcept{return this;};
+	}
+
+	[[nodiscard]]virtual setter arec(const probability)=0;
+
+	[[nodiscard]]probability operator[](const probability);
+	[[nodiscard]]const probability operator[](const probability)const=0;
+*/
 lazy_instantiation struct LIS_name(probability){
 	typedef LIS_ID_t(probability)this_t;
 	struct base_probability_t{
@@ -14,7 +29,7 @@ lazy_instantiation struct LIS_name(probability){
 		virtual void delete_this()const noexcept=0;
 		virtual base_probability_t*copy()const noexcept=0;
 	};
-	struct no_probability_t:type_info_t<no_probability_t>::template
+	struct no_probability_t:type_info_t<no_probability_t>::template_name
 	with_common_attribute<alloc_by_pool>,base_probability_t,build_by_get_only,never_in_array{
 		ptr _m;
 		no_probability_t(ptr a):_m(a){}

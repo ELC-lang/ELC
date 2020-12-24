@@ -82,14 +82,14 @@ struct type_info_t:base_type_info_t{
 	// #define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
 
 	template<common_attribute_t... common_attribute_names>
-	struct with_common_attribute:common_attribute_pack<common_attribute_names...>::template on_type<T>{
+	struct with_common_attribute:common_attribute_pack<common_attribute_names...>::template_name on_type<T>{
 		template<special_attribute_t... special_attribute_names>
-		struct and_special_attribute:with_common_attribute<common_attribute_names...>,special_attribute_pack<special_attribute_names...>::template on_type<T>{};
+		struct and_special_attribute:with_common_attribute<common_attribute_names...>,special_attribute_pack<special_attribute_names...>::template_name on_type<T>{};
 	};
 	template<special_attribute_t... special_attribute_names>
-	struct with_special_attribute:special_attribute_pack<special_attribute_names...>::template on_type<T>{
+	struct with_special_attribute:special_attribute_pack<special_attribute_names...>::template_name on_type<T>{
 		template<common_attribute_t... common_attribute_names>
-		struct and_common_attribute:with_special_attribute<special_attribute_names...>,common_attribute_pack<common_attribute_names...>::template on_type<T>{};
+		struct and_common_attribute:with_special_attribute<special_attribute_names...>,common_attribute_pack<common_attribute_names...>::template_name on_type<T>{};
 	};
 
 	constexpr type_info_t()noexcept:base_type_info_t(typeid(T)){}
