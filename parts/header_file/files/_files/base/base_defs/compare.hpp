@@ -1,4 +1,4 @@
-//equal.hpp
+//compare.hpp
 //at namespace elc::defs::base
 /*
 未完成的elc解释器base文件
@@ -6,7 +6,16 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-//equal：值相等
+//equal：值相等.
+/*
+	相等比较任意支持比较的类型或其数组——简易封装.
+	用法:
+	equal(T1,T2)
+	equal(T1[N1],T2[N2])
+	equal(T1*,size1,T2*,size2)
+	equal(T1*,T2*,size)
+	通通返回bool.
+*/
 constexpr struct equal_t{
 	template<class T,class U=T>
 	static constexpr bool able= was_not_an_ill_form(declvalue(T&)==declvalue(U&));
@@ -54,6 +63,15 @@ inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 }
 
 //compare：三路比较
+/*
+	以字典序三路比较任意支持比较的类型或其数组,并在 <=> 不可用时以 < 和 == 为后备.
+	用法:
+	compare(T1,T2)
+	compare(T1[N1],T2[N2])
+	compare(T1*,size1,T2*,size2)
+	compare(T1*,T2*,size)
+	返回类型语义上是三路比较的结果类型,具体类型视情况而定.
+*/
 constexpr struct compare_t{
 	template<class T,class U=T>
 	static constexpr bool r_able= was_not_an_ill_form(declvalue(T&)<=>declvalue(U&));
