@@ -69,7 +69,7 @@ elc依赖的基础函数.
 
 		[[nodiscard]]library_handle load_library(char_t*file_name){
 			//可返回bool意义为空的值表示失败
-			return base_load_library((const char*)to_char_str(file_name));
+			return base_load_library((const char*)(to_char_str(file_name)+zero));
 		}
 		[[nodiscard]]string_t<char_t> get_load_error(){
 			return to_char_t_str(base_get_load_error());
@@ -79,7 +79,7 @@ elc依赖的基础函数.
 		}
 		[[nodiscard]]void* get_symbol(library_handle handle,char_t*symbol_name){
 			//可返回bool意义为空的值表示失败
-			return base_get_symbol(handle,(const char*)to_char_str(symbol_name));
+			return base_get_symbol(handle,(const char*)(to_char_str(symbol_name)+zero));
 		}
 	}
 	#include "_tools/undef_decl_system_type.hpp"

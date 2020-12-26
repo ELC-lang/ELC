@@ -28,7 +28,7 @@ elc依赖的基础函数.
 				s=::std::c32rtomb(r,c,&stat);
 				if(s < 0)//-1
 					die_with(::elc::locale::str::code_convert_error);
-				aret+=range_t<char*>{(char*)r,s};
+				aret+=range_t<char*>{(char*)r,note::size(s)};
 			}
 			::std::setlocale(LC_ALL,"C");
 			return aret;
@@ -52,10 +52,10 @@ elc依赖的基础函数.
 			return aret;
 		}
 		inline string_t<char> to_char_str(const char_t*a){
-			return to_char_str(array_end_by_zero_t(a))+char(0);
+			return to_char_str(array_end_by_zero_t(a));
 		}
 		inline string_t<char_t> to_char_t_str(const char*a){
-			return to_char_t_str(array_end_by_zero_t(a))+char_t(0);
+			return to_char_t_str(array_end_by_zero_t(a));
 		}
 	}
 	namespace elc::defs{

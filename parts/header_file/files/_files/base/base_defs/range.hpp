@@ -12,7 +12,7 @@ namespace range_n{
 	struct range_t{
 		T _begin,_end;
 		//_begin<=_end
-		constexpr range_t(const T begin,const T end):_begin(begin),_end(end+1){}
+		constexpr range_t(const T begin,const T end):_begin(begin),_end(end){}
 		constexpr range_t(note::from_t<const T>begin,note::to_t<const T>end):_begin(begin),_end(end+1){}
 		constexpr range_t(note::to_t<const T>end,note::from_t<const T>begin):_begin(begin),_end(end+1){}
 		constexpr range_t(const T begin,note::size_t<const T>size):_begin(begin),_end(begin+size()){}
@@ -21,6 +21,11 @@ namespace range_n{
 		constexpr auto size()noexcept{return _end-_begin;}
 		constexpr auto end()noexcept{return _end;}
 		constexpr auto begin()noexcept{return _begin;}
+
+		template <class U> requires type_info<T>.can_convert_to<U>
+		constexpr operator range_t<U>()const noexcept(type_info<T>.can_nothrow_convert_to<U>){
+			return {_begin,_end};
+		}
 	};
 
 	template<class T>

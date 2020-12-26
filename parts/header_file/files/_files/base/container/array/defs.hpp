@@ -124,6 +124,10 @@ namespace array_n{
 		template<as_concept<get<T>.apply_end.able> U>
 		friend this_t&operator+=(this_t&a,U&&b)noexcept(get<T>.apply_end.nothrow<U>){
 			get<T>.apply_end(note::to(a._m),b);
+			return a;
+		}
+		friend this_t&operator+=(this_t&a,zero_t b)noexcept(get<T>.apply_end.nothrow<T>){
+			return a+=T(0);
 		}
 		template<typename U>
 		friend this_t operator+(const this_t&a,U&&b)noexcept_as(a.copy()+=b) requires was_not_an_ill_form(a.copy()+=b){
@@ -133,12 +137,19 @@ namespace array_n{
 		friend this_t operator+(U&&a,const this_t&b)noexcept_as(this_t(a)+=b) requires was_not_an_ill_form(this_t(a)+=b){
 			return this_t(a)+=b;
 		}
+
 		template<typename U>
-		iterator find(U&&a)noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
+		friend this_t&&operator+(this_t&&a,U&&b)noexcept_as(a+=b) requires was_not_an_ill_form(a+=b){//对右值的operator+优化为operator+=
+			return a+=b;
+		}
+
+
+		template<typename U>
+		[[nodiscard]]iterator find(U&&a)noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
 			return in_range(*this,a);
 		}
 		template<typename U>
-		const_iterator find(U&&a)const noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
+		[[nodiscard]]const_iterator find(U&&a)const noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
 			return in_range(*this,a);
 		}
 	};

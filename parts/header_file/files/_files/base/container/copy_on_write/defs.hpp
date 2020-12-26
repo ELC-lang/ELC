@@ -64,7 +64,7 @@ namespace copy_on_write_n{
 		[[nodiscard]]explicit operator hash_t()const noexcept{return hash(*_m);}
 		[[nodiscard]]bool operator==(const this_t&a)const noexcept(unget.nothrow<T>){
 			if(get()==a.get()){
-				const_cast<this_t>(this)->_m=a._m;//合并数据块以减少空间损耗
+				const_cast<this_t*>(this)->_m=a._m;//合并数据块以减少空间损耗
 				return true;
 			}else
 				return false;

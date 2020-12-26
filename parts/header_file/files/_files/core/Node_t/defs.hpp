@@ -17,10 +17,13 @@ namespace Node_n{
 
 	public:
 		[[nodiscard]]operator T&()noexcept(ptr::get_nothrow){
-			return static_cast<T*>(_value.get())
+			return*static_cast<T*>(_value.get());
+		}
+		[[nodiscard]]operator node_like&()noexcept(ptr::get_nothrow){
+			return operator T&();
 		}
 		[[nodiscard]]logical_bool operator ==(node_like&a){
-			return a.equal(*_value);
+			return _value->equal(a);
 		}
 		[[nodiscard]]ptr operator &()noexcept{
 			return _value;
