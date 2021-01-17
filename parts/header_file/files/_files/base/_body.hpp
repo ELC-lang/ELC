@@ -23,7 +23,7 @@ namespace elc::defs{ //在elc::defs中定义内容
 		#include "base_defs/_body.hpp"
 		#include "tools/_body.hpp"
 	}
-	using namespace base;//导出内容
+	using namespace base;//导出内容：defs内的名称空间只起到大体名称分组的作用，不进行名称阻拦
 
 	namespace memory{
 		#include "memory/_body.hpp"//依赖list
@@ -35,7 +35,7 @@ namespace elc::defs{ //在elc::defs中定义内容
 	}
 	using namespace container;
 
-	namespace memory::gc_n{
+	namespace memory::gc_n{//gc定义，依赖container（但container依赖memory的其他部分）
 		#include "memory/gc/_body.hpp"//依赖container
 	}
 	using namespace memory;//只是强迫症
