@@ -18,9 +18,9 @@
 */
 constexpr struct equal_t{
 	template<class T,class U=T>
-	static constexpr bool able= was_not_an_ill_form(declvalue(T&)==declvalue(U&));
+	static constexpr bool able= was_not_an_ill_form(declvalue(T)==declvalue(U));
 	template<class T,class U=T>
-	static constexpr bool nothrow= noexcept(declvalue(T&)==declvalue(U&));
+	static constexpr bool nothrow= noexcept(declvalue(T)==declvalue(U));
 
 	template<typename T,typename U>
 	inline auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
