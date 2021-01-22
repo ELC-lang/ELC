@@ -74,23 +74,23 @@ inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 */
 constexpr struct compare_t{
 	template<class T,class U=T>
-	static constexpr bool r_able= was_not_an_ill_form(declvalue(T&)<=>declvalue(U&));
+	static constexpr bool r_able= was_not_an_ill_form(declvalue(T)<=>declvalue(U));
 
 	template<class T,class U=T>
 	static constexpr bool able= r_able<T,U> ||
 								was_not_an_ill_form(
-														declvalue(T&)==declvalue(U&),
-														declvalue(T&)<declvalue(U&),
-														declvalue(U&)<declvalue(T&),
+														declvalue(T)==declvalue(U),
+														declvalue(T)<declvalue(U),
+														declvalue(U)<declvalue(T),
 													);
 
 	template<class T,class U=T>
 	static constexpr bool nothrow=  r_able<T,U> ?
-									noexcept(declvalue(T&)<=>declvalue(U&)):
+									noexcept(declvalue(T)<=>declvalue(U)):
 									noexcept(
-												declvalue(T&)==declvalue(U&),
-												declvalue(T&)<declvalue(U&),
-												declvalue(U&)<declvalue(T&),
+												declvalue(T)==declvalue(U),
+												declvalue(T)<declvalue(U),
+												declvalue(U)<declvalue(T),
 											);
 
 
