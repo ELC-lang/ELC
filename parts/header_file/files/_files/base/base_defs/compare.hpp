@@ -100,10 +100,10 @@ constexpr struct compare_t{
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
 		if constexpr(r_able<T,U>)
 			return a<=>b;
-		else return a == b	? 1.3==1.3	:
-					a < b	? 1.3<1.7	:
-					b < a	? 1.7>1.3	:
-							  NAN==NAN	;
+		else return a == b	? 1.3<=>1.3	:
+					a < b	? 1.3<=>1.7	:
+					b < a	? 1.7<=>1.3	:
+							  NAN<=>NAN	;
 	}
 
 	template<typename T,typename U>
