@@ -11,6 +11,7 @@
 	相等比较任意支持比较的类型或其数组——简易封装.
 	用法:
 	equal(T1,T2)
+	返回类型自动推断
 	equal(T1[N1],T2[N2])
 	equal(T1*,size1,T2*,size2)
 	equal(T1*,T2*,size)
