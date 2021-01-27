@@ -23,11 +23,11 @@ constexpr struct equal_t{
 	static constexpr bool nothrow= noexcept(declvalue(T)==declvalue(U));
 
 	template<typename T,typename U>
-	inline auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		return a==b;
 	}
 	template<typename T,typename U>
-	inline bool operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
 		while(size--){
 			if(*(a++)!=*(b++))
 				return false;
@@ -35,7 +35,7 @@ constexpr struct equal_t{
 		return true;
 	}
 	template<typename T,typename U,size_t N1,size_t N2>
-	inline bool operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
 		if constexpr(N1==N2)
 			return operator()(a,b,N1);
 		else{
@@ -44,11 +44,11 @@ constexpr struct equal_t{
 		}
 	}
 	template<typename T,typename U>
-	inline bool operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(size1==size2)
-			return false;
-		else
 			return operator()(a,b,size1);
+		else
+			return false;
 	}
 }equal{};
 
