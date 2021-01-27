@@ -55,11 +55,11 @@ constexpr struct equal_t{
 
 //eq：同一对象
 template<typename T>
-inline auto is_eq(T&&a,T&&b)noexcept_as(&a==&b){
+[[nodiscard]]constexpr auto is_eq(T&&a,T&&b)noexcept_as(&a==&b){
 	return &a==&b;
 }
 template<typename T>
-inline auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
+[[nodiscard]]constexpr auto is_not_eq(T&&a,T&&b)noexcept_as(!is_eq(a,b)){
 	return!is_eq(a,b);
 }
 
@@ -96,7 +96,7 @@ constexpr struct compare_t{
 
 
 	template<class T,class U>
-	constexpr auto base_call(T&&a,U&&b)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto base_call(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
 		if constexpr(r_able<T,U>)
 			return a<=>b;
@@ -107,11 +107,11 @@ constexpr struct compare_t{
 	}
 
 	template<typename T,typename U>
-	constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
 		return base_call(a,b);
 	}
 	template<typename T,typename U>
-	constexpr auto operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
 		while(size--){
 			if(auto tmp=base_call(*(a++),*(b++)); tmp!=0)
 				return tmp;
@@ -119,7 +119,7 @@ constexpr struct compare_t{
 		return 0<=>0;
 	}
 	template<typename T,typename U,size_t N1,size_t N2>
-	constexpr auto operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
 		if constexpr(N1==N2)
 			return operator()(a,b,N1);
 		else{
@@ -128,7 +128,7 @@ constexpr struct compare_t{
 		}
 	}
 	template<typename T,typename U>
-	constexpr auto operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		decltype(operator()(a,b,size1)) tmp = size1<=>size2;
 		if(tmp!=0)
 			return tmp;
