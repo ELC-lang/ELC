@@ -82,7 +82,7 @@ constexpr struct compare_t{
 								was_not_an_ill_form(
 														declvalue(T)==declvalue(U),
 														declvalue(T)<declvalue(U),
-														declvalue(U)<declvalue(T),
+														declvalue(U)<declvalue(T)
 													);
 
 	template<class T,class U=T>
@@ -91,7 +91,7 @@ constexpr struct compare_t{
 									noexcept(
 												declvalue(T)==declvalue(U),
 												declvalue(T)<declvalue(U),
-												declvalue(U)<declvalue(T),
+												declvalue(U)<declvalue(T)
 											);
 
 
