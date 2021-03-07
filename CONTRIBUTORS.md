@@ -25,3 +25,5 @@ _______
   
 - 谢谢Visual Studio客服对我三番五次提出我以为是编译器问题的问题进行分析然后告诉我我的代码该如何改（？  
 - Thanks to Visual Studio Customer Service for analyze the problems I thought were compiler problems and tell me how to fix my code(?  
+- [NanaKhz]( https://github.com/NanaKhz )——一点小bug修复  
+
