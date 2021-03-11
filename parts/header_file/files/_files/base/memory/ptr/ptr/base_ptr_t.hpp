@@ -143,7 +143,7 @@ private:
 	}for_delete{};
 public:
 	[[nodiscard]]operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
-	template<typename...Args> requires invoke<T>.able<Args...>
+	template<typename...Args> requires(invoke<T>.able<Args...>)
 	inline auto operator()(Args&&... rest)noexcept(invoke<T>.nothrow<Args...>){return(operator*())(forward<Args>(rest)...);}
 };
 

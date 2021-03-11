@@ -578,7 +578,7 @@ namespace lifetime_n{
 	constexpr struct copy_t{
 		//特殊使用
 		//UF
-		template<class T> requires copy_construct.able<T>
+		template<class T> requires(copy_construct.able<T>)
 		[[nodiscard]]constexpr T operator()(const T&a)const noexcept{
 			return copy_construct<T>(a);
 		}

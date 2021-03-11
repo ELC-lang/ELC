@@ -73,7 +73,7 @@ namespace iterator_n{
 		constexpr same_base_t(base_t_w a)noexcept(construct<base_t_w>.nothrow<base_t_w>):_m(a){}
 		constexpr same_base_t(const this_t&a)noexcept(construct<base_t_w>.nothrow<const base_t_w>):_m(a._m){}
 		constexpr same_base_t(this_t&&a)noexcept_as(declvalue(this_t).swap_with(a)){swap_with(a);}
-		template<typename other_T,typename other_base_t> requires construct<base_t_w>.able<other_base_t>
+		template<typename other_T,typename other_base_t> requires(construct<base_t_w>.able<other_base_t>)
 		constexpr same_base_t(const same_base_t<other_T,other_base_t>&a)noexcept(construct<base_t_w>.nothrow<other_base_t>):_m(a._m){}
 		~same_base_t()noexcept(destruct.nothrow<base_t_w>)=default;
 		[[nodiscard]]constexpr bool operator==(this_t a)const noexcept_as(declvalue(base_t_w)==declvalue(base_t_w)){return _m==a._m;}

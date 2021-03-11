@@ -22,7 +22,7 @@ namespace alloc_n{
 		using ::std::time;
 		using ::std::rand;
 		using ::std::srand;
-		srand(time(nullptr));
+		srand((unsigned int)time(nullptr));
 		for(int i=rand()%100+40;i--;){
 			int*p=alloc<int>(50);
 			p[0]=72;

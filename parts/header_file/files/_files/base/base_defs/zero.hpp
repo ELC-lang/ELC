@@ -10,7 +10,7 @@
 没什么用的语法糖,等价于字面量0.
 */
 constexpr struct zero_t{
-	template<class T> requires type_info<decltype(0)>.can_convert_to<T>
+	template<class T> requires(type_info<decltype(0)>.can_convert_to<T>)
 	operator T()const noexcept(type_info<decltype(0)>.can_nothrow_convert_to<T>){return 0;}
 }zero{};
 

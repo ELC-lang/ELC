@@ -91,7 +91,7 @@ namespace function_n{
 		[[nodiscard]]bool operator==(const this_t&a)const{
 			return *_m==*(a._m);
 		}
-		template<typename T> requires equal.able<base_t_w,T>
+		template<typename T> requires(equal.able<base_t_w,T>)
 		[[nodiscard]]bool operator==(T&&a)const noexcept(equal.nothrow<base_t_w,T>){
 			return *_m==a;
 		}
@@ -139,7 +139,7 @@ namespace function_n{
 		}
 		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
-		template<class T> requires invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>
+		template<class T> requires(invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>)
 		base_function_t(T&&a)noexcept(get<func_data_t<remove_cvref<T>>>.nothrow<T>){
 			//BLOCK:constexpr checks
 			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
