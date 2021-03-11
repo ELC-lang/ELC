@@ -19,7 +19,7 @@ namespace hash_n{
 	};
 
 	template<class T>
-	inline constexpr bool is_unstable_hash = was_not_an_ill_form({declvalue(T const&)} -> unstable_hash_t);
+	inline constexpr bool is_unstable_hash = type_info<T const>.can_convert_to<unstable_hash_t>;
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
 
