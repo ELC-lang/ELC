@@ -11,13 +11,41 @@ string to_string(nothing){
 	return "nothing"_elc_string;
 }
 
-template<typename T> requires ::std::is_integral_v<T>
-string to_string(T num,size_t radix=10,string radix_table="0123456789abcdefghigklmnopqrstuvwxyz"_elc_string){
-	string aret;
-	while(num){
-		aret=radix_table[num%radix]+aret;
+namespace to_string_n{
+	template<typename T>
+	string num_base(T num,size_t radix,const string&radix_table){
+		auto first_char_index=num%radix;
+		if constexpr(::std::is_floating_point_v<T>)
+			num-=first_char_index;
 		num/=radix;
+		if(first_char_index)
+			return radix_table[first_char_index]+num_base(num,radix,radix_table);
+		else
+			return ""_elc_string;
 	}
+}
+template<typename T> requires ::std::is_integral_v<T>
+string to_string(T num,size_t radix=10,const string&radix_table="0123456789abcdefghigklmnopqrstuvwxyz"_elc_string){
+	string aret;
+	if constexpr(::std::is_floating_point_v<T>){
+		if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
+			if(num==::std::numeric_limits<T>::signaling_NaN)
+				return "signaling_NaN"_elc_string;
+		}
+		if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
+			if(num==::std::numeric_limits<T>::quiet_NaN)
+				return "quiet_NaN"_elc_string;
+		}
+		if constexpr(::std::numeric_limits<T>::has_infinity){
+			if(num==::std::numeric_limits<T>::infinity)
+				return "infinity"_elc_string;
+		}
+		if(auto t=num%1){
+			aret='.'+to_string::num_base(t,radix,radix_table)
+			num-=t;
+		}
+	}
+	aret=to_string::num_base(num,radix,radix_table)+aret;
 	if constexpr(!::std::is_unsigned_v<T>)
 		if(num < 0)
 			aret='-'+aret;
