@@ -24,7 +24,7 @@ namespace to_string_n{
 			return ""_elc_string;
 	}
 }
-template<typename T> requires ::std::is_integral_v<T>
+template<typename T> requires ::std::is_arithmetic_v<T>
 string to_string(T num,size_t radix=10,const string&radix_table="0123456789abcdefghigklmnopqrstuvwxyz"_elc_string){
 	string aret;
 	if constexpr(::std::is_floating_point_v<T>){
