@@ -18,10 +18,8 @@ void destroy_and_free(T*a)noexcept{
 		template_error("please overload the function destroy_and_free in the namespace where this type is defined.");
 }
 //
-template<typename T>
-class ref_able;
-template<typename T>
-class weak_ref_able;
+common_attribute_t ref_able;
+common_attribute_t weak_ref_able;
 
 template<typename T>
 constexpr bool was_ref_able=type_info<T>.has_attribute(ref_able);

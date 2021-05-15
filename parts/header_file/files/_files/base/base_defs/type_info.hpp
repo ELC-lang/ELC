@@ -40,6 +40,10 @@ struct type_info_t:base_type_info_t{
 
 
 	template<class U>
+	static constexpr bool same=::std::is_same_v<T,U>;
+	template<class U>
+	static constexpr bool not_same=!same<U>;
+	template<class U>
 	static constexpr bool base_on=::std::is_convertible_v<remove_cvref<T>*,remove_cvref<U>*>;
 	template<class U>
 	static constexpr bool not_base_on=!base_on<U>;
