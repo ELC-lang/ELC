@@ -12,8 +12,8 @@ namespace iterator_n{
 		typedef reverse_base_t<base_t> this_t;
 		typedef base_t base_t;
 	protected:
-		[[nodiscard]]this_t*get_before()noexcept_as(){return base_t::get_next();}
-		[[nodiscard]]this_t*get_next()noexcept_as(){return base_t::get_before();}
+		[[nodiscard]]auto get_before()noexcept_as(declvalue(base_t).get_next()){return base_t::get_next();}
+		[[nodiscard]]auto get_next()noexcept_as(declvalue(base_t).get_before()){return base_t::get_before();}
 		using base_t::get_handle;
 	};
 
