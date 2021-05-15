@@ -15,7 +15,7 @@ template<typename T> requires ::std::is_integral_v<T>
 string to_string(T num,size_t radix=10,string radix_table="0123456789abcdefghigklmnopqrstuvwxyz"_elc_string){
 	string aret;
 	while(num){
-		aret+=radix_table[num%radix];
+		aret=radix_table[num%radix]+aret;
 		num/=radix;
 	}
 	if constexpr(!::std::is_unsigned_v<T>)
