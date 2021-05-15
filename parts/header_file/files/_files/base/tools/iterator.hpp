@@ -10,7 +10,7 @@ namespace iterator_n{
 	template<typename base_t>
 	struct reverse_base_t:base_t{
 		typedef reverse_base_t<base_t> this_t;
-		typedef base_t base_t;
+		//typedef base_t base_t;
 	protected:
 		[[nodiscard]]auto get_before()noexcept_as(declvalue(base_t).get_next()){return base_t::get_next();}
 		[[nodiscard]]auto get_next()noexcept_as(declvalue(base_t).get_before()){return base_t::get_before();}
