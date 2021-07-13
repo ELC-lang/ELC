@@ -34,7 +34,8 @@ namespace array_n{
 		/*
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
 		*/
-		template<as_concept<get<T>.as_array.able> U>
+		//template<as_concept<get<T>.as_array.able> U>
+		template<class U,enable_if(get<T>.as_array.able)>
 		array_t(U&&a)noexcept(get<T>.as_array.nothrow){
 			_m=get<T>.as_array(forward<U>(a));
 		}
@@ -121,7 +122,8 @@ namespace array_n{
 		void remove(T a){
 			get<T>.remove(a,note::form(_m));
 		}
-		template<as_concept<get<T>.apply_end.able> U>
+		//template<as_concept<get<T>.apply_end.able> U>
+		template<class U,enable_if(get<T>.apply_end.able)>
 		friend this_t&operator+=(this_t&a,U&&b)noexcept(get<T>.apply_end.nothrow<U>){
 			get<T>.apply_end(note::to(a._m),b);
 			return a;
