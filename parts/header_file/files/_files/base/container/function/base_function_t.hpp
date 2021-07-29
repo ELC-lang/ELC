@@ -157,7 +157,7 @@ namespace function_n{
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with(this_t(a))){
+		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(a))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);
 			return*this;
@@ -338,7 +338,7 @@ namespace function_n{
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with(this_t(a))){
+		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(a))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);
 			return*this;
@@ -421,7 +421,7 @@ namespace function_n{
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with(this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with(this_t(a))){
+		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);
 			return*this;
