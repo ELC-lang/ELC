@@ -16,9 +16,9 @@
 	#include <algorithm>//max、min
 	#include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
+	#include <cmath>//sqrt
 	#if defined(ELC_TEST_ON)
 		#include <ctime>//time
-		#include <cstdlib>//rand
 	#endif
 	#include "_files/base/_body.hpp"
 #endif
