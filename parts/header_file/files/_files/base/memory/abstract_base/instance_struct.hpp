@@ -8,16 +8,16 @@
 */
 template<class T>
 class instance_struct:is_common_attribute(instance_struct){
-	virtual void abstract_method_unget_this()final{unget(get_handle(this));}
-	virtual void* _abstract_method_copy_get_this()final{
+	virtual void abstract_method_unget_this()override final{unget(get_handle(this));}
+	virtual void* _abstract_method_copy_get_this()override final{
 		is_instance_ptr(this);
 		return copy_get(get_handle(this));
 	}
-	virtual void* _abstract_method_get_resize_this(size_t size)final{
+	virtual void* _abstract_method_get_resize_this(size_t size)override final{
 		is_instance_ptr(this);
 		return get_resize(get_handle(this),size);
 	}
-	virtual size_t abstract_method_get_size_of_get_for_this()noexcept final{return get_size_of_get(get_handle(this));}
+	virtual size_t abstract_method_get_size_of_get_for_this()noexcept override final{return get_size_of_get(get_handle(this));}
 };
 
 //file_end
