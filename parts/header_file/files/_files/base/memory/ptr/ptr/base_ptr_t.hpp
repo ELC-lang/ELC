@@ -57,6 +57,7 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	ptr_t(ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(nullptr_t=nullptr)noexcept:ptr_t((T*)(null_ptr)){}
+	ptr_t(null_ptr_t)noexcept:ptr_t((T*)(null_ptr)){}
 	~ptr_t()noexcept(cut_nothrow){cut_ref();}
 
 	static constexpr bool reset_nothrow=cut_nothrow;
@@ -66,9 +67,9 @@ public:
 	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute(replace_able))||reset_nothrow;
 protected:
 	inline void check()const noexcept(check_nothrow){
-		if constexpr(replace_check&&type_info<T>.has_attribute(replace_able))
-			if((replace_able<T>*)(_to)->replaced())
-				reset((replace_able<T>*)(_to)->get_ptr());
+		if constexpr(replace_check&&type_info<remove_cvref<T>>.has_attribute(replace_able))
+			if(attribute_ptr_cast<replace_able>(_to)->replaced())
+				reset(attribute_ptr_cast<replace_able>(_to)->get_ptr());
 	}
 public:
 	static constexpr bool get_nothrow=check_nothrow;

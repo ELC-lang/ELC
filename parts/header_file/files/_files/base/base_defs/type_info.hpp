@@ -35,7 +35,7 @@ public:
 	[[nodiscard]]bool operator==(const base_type_info_t&a)const noexcept{return _tid==a._tid;}
 };
 template<class T>
-struct type_info_t:base_type_info_t{
+struct type_info_t{
 	typedef T type;
 
 
@@ -102,8 +102,9 @@ struct type_info_t:base_type_info_t{
 			{};
 	};
 
-	constexpr type_info_t()noexcept:base_type_info_t(typeid(T)){}
+	constexpr type_info_t()noexcept{}
 	constexpr type_info_t(const type_info_t&)noexcept=default;
+	constexpr operator base_type_info_t()const noexcept{return base_type_info_t(typeid(T));}
 };
 
 template<class T>

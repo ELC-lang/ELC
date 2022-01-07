@@ -13,6 +13,7 @@
 	#pragma warning(disable:4099)//class与struct混用警告diss
 	#pragma warning(disable:26812)//enum class安利diss.
 	#pragma warning(disable:4584)//重复子类警告diss
+	#pragma warning(disable:4250)//域控制继承警告diss
 #endif
 //
 #if defined(ELC_VOID_NAME)

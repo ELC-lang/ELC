@@ -40,7 +40,7 @@ lazy_instantiation struct LIS_name(setter){
 	};
 
 	struct constexpr_data_t:type_info_t<constexpr_data_t>::template_name
-	with_common_attribute<alloc_by_pool,never_in_array>,base_data_t,build_by_get_only{
+	with_common_attribute<alloc_by_pool,never_in_array,instance_struct>,base_data_t,build_by_get_only{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
 		constexpr_data_t(const constexpr_data_t&)noexcept=default;
@@ -48,13 +48,14 @@ lazy_instantiation struct LIS_name(setter){
 
 		virtual void be_set(ptr)noexcept override{}
 		[[nodiscard]]virtual ptr get_value()override{return _m;}
-		[[nodiscard]]virtual base_data_t*copy()const noexcept override{return copy_get(this);}
+		[[nodiscard]]virtual base_data_t*copy()const noexcept override{return get<constexpr_data_t>(_m);}
 		[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept override{return type_info<constexpr_data_t>;}
 	};
 private:
 	mutable base_data_t*_m;
 public:
 	explicit LIS_name(setter)(ptr a):_m(get<constexpr_data_t>(a)){}
+	explicit LIS_name(setter)(node_like* a):LIS_name(setter)(ptr(a)){}
 	constexpr LIS_name(setter)(base_data_t*a)noexcept:_m(a){}
 
 	LIS_name(setter)(const this_t&a)noexcept=default;

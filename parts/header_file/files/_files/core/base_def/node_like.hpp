@@ -16,23 +16,23 @@ public:
 	using_LIS_name(setter);
 	typedef LIS_ID_t(node_like)this_t;
 
-	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
+	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 protected:
-	[[nodiscard]]virtual function_t<setter()> get_eval_of_this()const{
-		return lambda_with_catch(this)()noexcept{return this;};
+	[[nodiscard]]virtual function_t<setter()> get_eval_of_this(){
+		return lambda_with_catch(this)()noexcept{return setter(this);};
 	}
-	[[nodiscard]]virtual function_t<setter(ptr)> get_call_of_this()const{
-		return lambda_with_catch(this)(ptr)noexcept{return this;};
+	[[nodiscard]]virtual function_t<setter(ptr)> get_call_of_this(){
+		return lambda_with_catch(this)(ptr)noexcept{return setter(this);};
 	}
 
-	[[nodiscard]]virtual logical_bool equal_with(ptr)const=0;
-	[[nodiscard]]virtual logical_bool eq_with(ptr a)const{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const=0;
+	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
 	[[nodiscard]]virtual constexpr size_t equal_level()const{return 36;}
 	[[nodiscard]]virtual constexpr size_t eq_level()const{return 36;}
 public:
-	constexpr LIS_name(node_like)()noexcept=default;
-	constexpr LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
-	constexpr virtual ~LIS_name(node_like)()=default;
+	LIS_name(node_like)()noexcept=default;
+	LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
+	virtual ~LIS_name(node_like)()=default;
 
 	[[nodiscard]]virtual setter arec(const setter)=0;
 

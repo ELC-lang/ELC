@@ -21,7 +21,14 @@ constexpr struct equal_t{
 	template<class T,class U=T>
 	static constexpr bool able= was_not_an_ill_form(declvalue(T)==declvalue(U));
 	template<class T,class U=T>
-	static constexpr bool nothrow= noexcept(declvalue(T)==declvalue(U));
+	static constexpr bool nothrow_helper(){
+		if constexpr(able<T,U>)
+			return noexcept(declvalue(T)==declvalue(U));
+		else
+			return false;
+	}
+	template<class T,class U=T>
+	static constexpr bool nothrow= nothrow_helper<T,U>();
 
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){

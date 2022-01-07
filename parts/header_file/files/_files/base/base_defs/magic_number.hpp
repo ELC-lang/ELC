@@ -79,7 +79,7 @@ namespace magic_number{
 			//auto&b=a;
 		while(!is_prime_num(b))
 			b++;
-		return b;
+		return (T)b;
 	}
 	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
 		/*

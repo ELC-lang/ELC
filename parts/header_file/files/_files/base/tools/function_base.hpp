@@ -177,6 +177,7 @@ namespace function_base_n{
 			return _value(forward<Args_t>(args)...);
 		}
 		[[nodiscard]]auto&get_data()noexcept{return _value;}
+		[[nodiscard]]const auto&get_data()const noexcept{return _value;}
 	};
 	#endif
 

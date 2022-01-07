@@ -19,6 +19,12 @@ template<class T>
 */
 template<class T>
 [[nodiscard]]constexpr byte*cast_to_data(T*p){return ::std::launder(reinterpret_cast<byte*>(p));}
+/*
+	功能: const T* 指针转换为 const byte*，不进行任何检查
+	用法: cast_to_data(const T*) -> const byte*
+*/
+template<class T>
+[[nodiscard]]constexpr const byte*cast_to_data(const T*p){return ::std::launder(reinterpret_cast<const byte*>(p));}
 
 /*
 	功能: data_block类模板,接受多个类型参数,实例化为内含最大体积最大对齐要求的byte数组的结构体

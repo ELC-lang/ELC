@@ -9,10 +9,10 @@
 //DC:已被废弃的代码，在早期架构中probability是elc core的核心机制之一，现在它通过使用core机制进行可选拓展而提供
 //原因：elc已有完备的node操作体系，不需要在提供probability操作机制，而可以通过node拓展
 /*
-	[[nodiscard]]virtual function_t<probability()> get_eval_of_this()const{
+	[[nodiscard]]virtual function_t<probability()> get_eval_of_this(){
 		return lambda_with_catch(this)()noexcept{return this;};
 	}
-	[[nodiscard]]virtual function_t<probability(ptr)> get_call_of_this()const{
+	[[nodiscard]]virtual function_t<probability(ptr)> get_call_of_this(){
 		return lambda_with_catch(this)(ptr)noexcept{return this;};
 	}
 

@@ -43,7 +43,7 @@ namespace function_n{
 		virtual ~func_data_t()override=default;
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.nothrow<T>) override{
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true) override{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
 			else
@@ -227,7 +227,7 @@ namespace function_n{
 		virtual ~func_data_t()override=default;
 		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.nothrow<T>) override{
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true) override{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
 			else

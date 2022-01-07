@@ -17,6 +17,7 @@ namespace abstract_base_n{
 	用法：is_common_attribute
 	*/
 	#include "pointer_off_set.hpp"
+	#include "abstract_base_vtable.hpp"
 	#include "abstract_base.hpp"
 	#include "instance_struct.hpp"
 }

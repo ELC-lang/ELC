@@ -35,7 +35,7 @@ namespace null_ptr_n{
 	/*
 	字面量null_ptr，如同nullptr使用即可.
 	*/
-	constexpr struct _{
+	constexpr struct null_ptr_t{
 		template<typename T>
 		constexpr_as(get_null_ptr(type_info<remove_cvref<T>>))operator T*()const noexcept{return get_null_ptr(type_info<remove_cvref<T>>);}
 		constexpr operator decltype(nullptr)()const noexcept{return nullptr;}//提醒接口设计者注意null_ptr的重载版本.
