@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-using comn_ptr_t=base_ptr_t<T,ref_able<T>,true>;
+using comn_ptr_t=base_ptr_t<T,ref_able<remove_cvref<T>>,true>;
 
 //file_end
 

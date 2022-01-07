@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-using weak_ptr_t=base_ptr_t<T,weak_ref_able<T>,true>;
+using weak_ptr_t=base_ptr_t<T,weak_ref_able<remove_cvref<T>>,true>;
 
 //file_end
 

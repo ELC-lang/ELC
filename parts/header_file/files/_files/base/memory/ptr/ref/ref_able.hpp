@@ -11,6 +11,7 @@ struct ref_able:ref_t,can_t_use_default_null_ptr,is_common_attribute(ref_able){
 private:
 	typedef ref_t base_t;
 public:
+	using base_t::base_t;
 	inline void cut_ref()const noexcept{
 		T*this_T=const_cast<T*>(get_handle(this));
 		if(base_t::cut_ref())

@@ -96,6 +96,11 @@ public:
 	}
 };
 
+template <typename T_,typename T,typename ref_type,bool replace_check,enable_if(type_info<T_>.base_on<T>)>
+[[nodiscard]]inline auto operator==(const T_*a,ptr_t<T,ref_type,replace_check>&b)noexcept_as(b.operator==(a)){
+	return b.operator==(static_cast<const T*>(a));
+}
+
 template<class T,typename ref_type,bool replace_check>
 struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
 	static_assert(type_info<T>.base_on<ref_type>);

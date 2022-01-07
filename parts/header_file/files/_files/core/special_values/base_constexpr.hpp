@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct base_constexpr_t:node_like{
+struct base_constexpr_t:node_like,instance_struct<base_constexpr_t>{
 protected:
 	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept override{return type_info<base_constexpr_t>;}
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept override{return magic_number::god;}
@@ -15,7 +15,7 @@ public:
 	constexpr base_constexpr_t()noexcept:node_like(never_ref_num_zero){}
 	constexpr virtual ~base_constexpr_t()noexcept override=default;
 
-	[[nodiscard]]virtual setter operator[](ptr)noexcept override{return setter(this);}
+	[[nodiscard]]virtual setter arec(const setter)noexcept override{return setter(this);}
 
 	virtual void clear()noexcept override final{nothing}
 

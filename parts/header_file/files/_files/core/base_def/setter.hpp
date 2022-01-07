@@ -40,7 +40,7 @@ lazy_instantiation struct LIS_name(setter){
 	};
 
 	struct constexpr_data_t:type_info_t<constexpr_data_t>::template_name
-	with_common_attribute<alloc_by_pool>,base_data_t,build_by_get_only,never_in_array{
+	with_common_attribute<alloc_by_pool,never_in_array>,base_data_t,build_by_get_only{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
 		constexpr_data_t(const constexpr_data_t&)noexcept=default;

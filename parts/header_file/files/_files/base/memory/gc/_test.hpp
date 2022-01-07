@@ -26,7 +26,7 @@ inline void test(){
 	using ::std::time;
 	using ::std::rand;
 	using ::std::srand;
-	srand(time(nullptr));
+	srand((unsigned)time(nullptr));
 	for(int t=rand()%7;t--;)
 	{
 		int i;

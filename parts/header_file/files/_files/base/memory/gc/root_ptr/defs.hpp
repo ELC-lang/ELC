@@ -11,10 +11,11 @@ void map_and_mark_for_gc(T*)noexcept{
 	template_error("this function should not be instantiated,please overload the function map_and_mark_for_gc in the namespace where this type is defined");
 }
 using ::elc::defs::memory::gc_n::root_of;
-template<as_concept<was_ref_able> T> requires
+template<class T,enable_if	(
+								was_ref_able<T> &&
 								comn_ptr_t<T>::check_nothrow &&
 								type_info<T>.has_attribute(gc_n::have_root)
-
+							)>
 struct root_ptr_t:comn_ptr_t<T>,root_of<T>{
 	typedef comn_ptr_t<T>base_t;
 	typedef root_ptr_t<T>this_t;
@@ -26,7 +27,7 @@ public:
 		return*this;
 	}
 	virtual T& get()noexcept override{
-		return operator*();
+		return base_t::operator*();
 	}
 	virtual void map_and_mark()noexcept override{
 		map_and_mark_for_gc(&**this);

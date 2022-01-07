@@ -6,6 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+#if defined(_MSC_VER)
+	#pragma warning(push)
+	#pragma warning(disable:4250)
+#endif
 enum seek_type{beg,end,cur};
 struct base_stream{
 	virtual ~base_stream()=default;
@@ -41,6 +45,9 @@ struct noexcept_istream:virtual base_istream,virtual noexcept_stream{
 struct noexcept_iostream:virtual base_iostream,virtual noexcept_ostream,virtual noexcept_istream{};
 static_assert(noexcept(((noexcept_iostream*)(nullptr))->~noexcept_iostream()));
 static_assert(noexcept(((noexcept_iostream*)(nullptr))->sync()));
+#if defined(_MSC_VER)
+	#pragma warning(pop)
+#endif
 
 //file_end
 

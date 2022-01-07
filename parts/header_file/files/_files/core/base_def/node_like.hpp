@@ -9,10 +9,11 @@
 lazy_instantiation struct LIS_name(setter);
 
 lazy_instantiation struct LIS_name(node_like):type_info_t<LIS_ID_t(node_like)>::template_name
-with_common_attribute<abstract_base,ref_able,weak_ref_able,replace_able>{
+with_common_attribute<abstract_base,weak_ref_able,replace_able>,ref_able<LIS_ID_t(node_like)>{
 public:
 	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
-	using_LIS_name(setter)setter;
+	typedef comn_ptr_t<const LIS_ID_t(node_like)>const_ptr;
+	using_LIS_name(setter);
 	typedef LIS_ID_t(node_like)this_t;
 
 	[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;
@@ -38,7 +39,9 @@ public:
 	[[nodiscard]]setter operator[](const setter index){
 		return arec(index);
 	}
-	[[nodiscard]]const setter operator[](const setter)const=0;
+	[[nodiscard]]const setter operator[](const setter index)const{
+		return arec(index);
+	}
 
 	virtual void clear()=0;
 
@@ -57,7 +60,7 @@ public:
 	template<typename...Args>
 	inline setter operator()(Args&&...rest);//{return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
 
-	[[nodiscard]]logical_bool eq(ptr a)const{
+	[[nodiscard]]logical_bool eq(const_ptr a)const{
 		if(this->eq_level()==a->eq_level())
 			return this->eq_with(a)&&a->eq_with(this);
 		elseif(this->eq_level() _small_than_ a->eq_level())
@@ -65,7 +68,7 @@ public:
 		elseif(this->eq_level() _big_than_ a->eq_level())
 			return this->eq_with(a);
 	}
-	[[nodiscard]]logical_bool equal(ptr a)const{
+	[[nodiscard]]logical_bool equal(const_ptr a)const{
 		if(this->equal_level()==a->equal_level())
 			return this->equal_with(a)&&a->equal_with(this);
 		elseif(this->equal_level() _small_than_ a->equal_level())
