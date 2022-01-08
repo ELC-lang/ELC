@@ -95,7 +95,7 @@ lazy_instantiation_name(node_like);
 [[nodiscard]]logical_bool pointer_equal(const node_like*a,const node_like*b)noexcept{
 	return a->eq(b);
 }
-[[nodiscard]]constexpr node_like*get_null_ptr(type_info_t<node_like>)noexcept;//{return&nil;}
+[[nodiscard]]constexpr node_like*get_null_ptr(node_like*)noexcept;//{return&nil;}
 [[nodiscard]]hash_t pointer_hash(const node_like*a)noexcept{
 	return a->operator hash_t();
 }
@@ -105,6 +105,11 @@ void waiting_for_destroy(node_like*a)noexcept{
 }
 void destroy_and_free(node_like*a)noexcept{
 	unget(a);
+}
+
+//gc中的类型功能适应器
+void destroy(node_like*a)noexcept{
+	a->destroy();
 }
 
 //file_end

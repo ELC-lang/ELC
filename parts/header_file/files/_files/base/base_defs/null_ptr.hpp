@@ -21,14 +21,14 @@ namespace null_ptr_n{
 	special_attribute_t force_use_default_null_ptr:can_t_use_default_null_ptr{};
 	
 
-	/*
-	重载此函数来使null_ptr表现为自己想要的值!
-	*/
 	template<typename T>
-	[[nodiscard]]constexpr T*get_null_ptr(type_info_t<T>)noexcept{
-		if constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
+	[[nodiscard]]constexpr auto the_get_null_ptr()noexcept{
+		if constexpr(was_not_an_ill_form(get_null_ptr((T*)nullptr)))
+			return get_null_ptr((T*)nullptr);
+		else if constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
 			template_error("please overload the function get_null_ptr in the namespace where this type is defined.");
-		return nullptr;
+		else
+			return (T*)nullptr;
 	}
 
 
@@ -36,8 +36,8 @@ namespace null_ptr_n{
 	字面量null_ptr，如同nullptr使用即可.
 	*/
 	constexpr struct null_ptr_t{
-		template<typename T>
-		constexpr_as(get_null_ptr(type_info<remove_cvref<T>>))operator T*()const noexcept{return get_null_ptr(type_info<remove_cvref<T>>);}
+		template<typename T> requires was_not_an_ill_form(get_null_ptr((T*)nullptr)) || !(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
+		constexpr_as(the_get_null_ptr<remove_cvref<T>>())operator auto()const noexcept{return the_get_null_ptr<remove_cvref<T>>();}
 		constexpr operator decltype(nullptr)()const noexcept{return nullptr;}//提醒接口设计者注意null_ptr的重载版本.
 	}null_ptr{};
 }

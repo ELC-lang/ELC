@@ -14,7 +14,7 @@ public:
 	[[nodiscard]]virtual constexpr explicit operator logical_bool()const{return false;}
 }nil{};
 
-[[nodiscard]]constexpr node_like*get_null_ptr(type_info_t<node_like>)noexcept{return addressof((node_like&)nil);}
+[[nodiscard]]constexpr node_like*get_null_ptr(node_like*)noexcept{return addressof((node_like&)nil);}
 
 //file_end
 

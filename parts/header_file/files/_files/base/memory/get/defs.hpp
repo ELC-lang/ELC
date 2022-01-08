@@ -146,7 +146,10 @@ namespace get_n{
 				else{
 					if constexpr(!destruct.nothrow<T>)
 						template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-					destruct[get_size_of_alloc(a)](a);
+					if constexpr(type_info<T>.has_attribute(never_in_array))
+						destruct(a);
+					else
+						destruct[get_size_of_alloc(a)](a);
 					free(a);
 				}
 			}

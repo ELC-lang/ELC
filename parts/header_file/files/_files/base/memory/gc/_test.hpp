@@ -21,6 +21,9 @@ with_common_attribute<gc_able,can_shrink,count_able,can_map_all,mark_able_for_gc
 void map_and_mark_for_gc(gc_tester*a){
 	attribute_ptr_cast<mark_able_for_gc>(a)->mark();
 }
+void destroy(gc_tester*a){
+	a->~gc_tester();
+}
 inline void test(){
 	stest_entryevent(L"gc部分测试");
 	using ::std::time;

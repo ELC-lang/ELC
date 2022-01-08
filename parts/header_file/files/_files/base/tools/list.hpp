@@ -73,7 +73,7 @@ struct list_t{
 private:
 	cons _begin,_end;
 public:
-	constexpr list_t()noexcept{_begin.bind_with(_end);}
+	constexpr list_t()noexcept{_begin.bind_with(&_end);}
 	inline constexpr void add(cons*a)noexcept{
 		a->insert_to_before(&_end);
 	}
