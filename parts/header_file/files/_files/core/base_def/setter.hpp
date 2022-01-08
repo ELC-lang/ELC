@@ -40,8 +40,8 @@ lazy_instantiation struct LIS_name(setter){
 	};
 
 	struct constexpr_data_t:type_info_t<constexpr_data_t>::template_name
-	with_common_attribute<alloc_by_pool,never_in_array,instance_struct>,build_by_get_only,
-	base_data_t{
+	with_common_attribute<alloc_by_pool,never_in_array,instance_struct>,build_by_get_only,force_use_default_null_ptr
+	,base_data_t{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
 		constexpr_data_t(const constexpr_data_t&)noexcept=default;
@@ -55,6 +55,7 @@ lazy_instantiation struct LIS_name(setter){
 private:
 	mutable base_data_t*_m;
 public:
+	explicit LIS_name(setter)():_m(get<constexpr_data_t>(null_ptr)){}
 	explicit LIS_name(setter)(ptr a):_m(get<constexpr_data_t>(a)){}
 	explicit LIS_name(setter)(node_like* a):LIS_name(setter)(ptr(a)){}
 	constexpr LIS_name(setter)(base_data_t*a)noexcept:_m(a){}

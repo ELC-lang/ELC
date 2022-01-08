@@ -70,7 +70,7 @@ namespace function_n{
 	inline constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
-	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(base_func_data_t<Ret_t(Args_t...)>*)noexcept{
+	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(const base_func_data_t<Ret_t(Args_t...)>*)noexcept{
 		return&default_func_data<Ret_t,Args_t...>;
 	}
 
@@ -254,7 +254,7 @@ namespace function_n{
 	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
-	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(base_func_data_t<Ret_t(Args_t...)>*)noexcept{
+	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(const base_func_data_t<Ret_t(Args_t...)>*)noexcept{
 		return&default_func_data<Ret_t,Args_t...>;
 	}
 

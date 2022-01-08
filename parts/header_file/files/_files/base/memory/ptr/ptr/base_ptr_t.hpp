@@ -56,7 +56,7 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	ptr_t(const same_ptr&a)noexcept:same_ref(a){add_ref();}
 	ptr_t(ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){}
-	ptr_t(nullptr_t=nullptr)noexcept:ptr_t((T*)(null_ptr)){}
+	ptr_t(nullptr_t=nullptr)noexcept:ptr_t(null_ptr){}
 	ptr_t(null_ptr_t)noexcept:ptr_t((T*)(null_ptr)){}
 	~ptr_t()noexcept(cut_nothrow){cut_ref();}
 

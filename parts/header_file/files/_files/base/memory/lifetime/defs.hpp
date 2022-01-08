@@ -583,8 +583,8 @@ namespace lifetime_n{
 
 		//特殊使用
 		template<class T>
-		[[nodiscard]]constexpr ::std::remove_reference_t<T>&& operator()(T&&a)const noexcept{
-			return static_cast<::std::remove_reference_t<T>&&>(a);
+		[[nodiscard]]constexpr remove_ref<T>&& operator()(T&&a)const noexcept{
+			return static_cast<remove_ref<T>&&>(a);
 		}
 	}move{};
 

@@ -25,7 +25,7 @@ namespace null_ptr_n{
 	[[nodiscard]]constexpr auto the_get_null_ptr()noexcept{
 		if constexpr(was_not_an_ill_form(get_null_ptr((T*)nullptr)))
 			return get_null_ptr((T*)nullptr);
-		else if constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
+		elseif constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
 			template_error("please overload the function get_null_ptr in the namespace where this type is defined.");
 		else
 			return (T*)nullptr;
@@ -36,10 +36,29 @@ namespace null_ptr_n{
 	字面量null_ptr，如同nullptr使用即可.
 	*/
 	constexpr struct null_ptr_t{
-		template<typename T> requires was_not_an_ill_form(get_null_ptr((T*)nullptr)) || !(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
-		constexpr_as(the_get_null_ptr<remove_cvref<T>>())operator auto()const noexcept{return the_get_null_ptr<remove_cvref<T>>();}
-		constexpr operator decltype(nullptr)()const noexcept{return nullptr;}//提醒接口设计者注意null_ptr的重载版本.
+		template<typename T>
+		constexpr_as(the_get_null_ptr<remove_cvref<T>>())auto base_get()const noexcept{return the_get_null_ptr<remove_cvref<T>>();}
+		template<typename T>
+		constexpr_as(base_get<T>())operator T*()const noexcept{ return base_get<T>(); }
+		//constexpr operator decltype(nullptr)()const noexcept{return nullptr;}//提醒接口设计者注意null_ptr的重载版本.
 	}null_ptr{};
+
+	template<typename T,typename U=decltype(*the_get_null_ptr<remove_cvref<T>>())>
+	auto operator==(T*a,null_ptr_t){
+		return null_ptr.base_get<T>()==(const remove_ref<U>*)a;
+	}
+	template<typename T>
+	auto operator!=(T*a,null_ptr_t){
+		return !(a==null_ptr);
+	}
+	template<typename T>
+	auto operator==(null_ptr_t,T*a){
+		return a==null_ptr;
+	}
+	template<typename T>
+	auto operator!=(null_ptr_t,T*a){
+		return !(null_ptr==a);
+	}
 }
 using null_ptr_n::can_t_use_default_null_ptr;
 using null_ptr_n::force_use_default_null_ptr;
