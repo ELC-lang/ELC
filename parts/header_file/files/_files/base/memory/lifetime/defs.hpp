@@ -144,7 +144,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
 
 		template<class T> requires able<T>
-		void base_call(T*to)const noexcept(nothrow<T>){
+		static void base_call(T*to)noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)
 				if constexpr(::std::is_array_v<T>)
 					for(auto&i : *to)
@@ -153,7 +153,7 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		void base_call([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)const noexcept(nothrow<T>){
+		static void base_call([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
 			if constexpr(!trivial<T>)
@@ -397,6 +397,19 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
+
+		
+		template<class T> requires able<T>
+		T*operator()(T*to,const T*from,size_t size)const noexcept(nothrow<T>)
+		{return base_call(to,from,size);}
+
+		template<class T> requires able<T>
+		T*operator()(note::to_t<T*>to,note::from_t<const T*>from,size_t size)const noexcept(nothrow<T>)
+		{return base_call(to(),from(),size);}
+
+		template<class T> requires able<T>
+		T*operator()(note::from_t<const T*>from,note::to_t<T*>to,size_t size)const noexcept(nothrow<T>)
+		{return base_call(to(),from(),size);}
 
 		template<class T> requires able<T>
 		static T*base_call(T*to,const T&from)noexcept(nothrow<T>){

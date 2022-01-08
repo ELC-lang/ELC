@@ -241,7 +241,7 @@ namespace function_n{
 	template<class T>
 	class default_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
+	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>,instance_struct<default_func_data_t<Ret_t(Args_t...)>>{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		virtual ~default_func_data_t()noexcept override{}
@@ -251,7 +251,7 @@ namespace function_n{
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
-	inline constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*get_null_ptr(type_info_t<base_func_data_t<Ret_t(Args_t...)>>)noexcept{

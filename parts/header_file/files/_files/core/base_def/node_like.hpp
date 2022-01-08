@@ -82,6 +82,9 @@ public:
 	[[nodiscard]]logical_bool operator==(const this_t&a)const{
 		return a.equal(*this);
 	}
+protected:
+	friend void waiting_for_destroy(LIS_ID_t(node_like)* a)noexcept;
+	virtual void waiting_for_destroy()noexcept=0;
 };
 lazy_instantiation_name(node_like);
 
@@ -95,6 +98,13 @@ lazy_instantiation_name(node_like);
 [[nodiscard]]constexpr node_like*get_null_ptr(type_info_t<node_like>)noexcept;//{return&nil;}
 [[nodiscard]]hash_t pointer_hash(const node_like*a)noexcept{
 	return a->operator hash_t();
+}
+//ptr中的类型功能适应器
+void waiting_for_destroy(node_like*a)noexcept{
+	a->waiting_for_destroy();
+}
+void destroy_and_free(node_like*a)noexcept{
+	unget(a);
 }
 
 //file_end

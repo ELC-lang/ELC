@@ -33,11 +33,11 @@ auto attribute_ptr_cast(T*ptr)noexcept{
 }
 
 template<special_attribute_t attribute_name,class T>
-auto attribute_cast(T&t)noexcept{
+auto& attribute_cast(T&t)noexcept{
 	return*attribute_ptr_cast<attribute_name>(&t);
 }
 template<common_attribute_t attribute_name,class T>
-auto attribute_cast(T&t)noexcept{
+auto& attribute_cast(T&t)noexcept{
 	return*attribute_ptr_cast<attribute_name>(&t);
 }
 

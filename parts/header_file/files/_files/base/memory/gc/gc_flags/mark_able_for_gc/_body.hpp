@@ -7,7 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename T>
-struct mark_able_for_gc:mark_able<T>{};
+struct mark_able_for_gc:mark_able<T>{
+	mark_able_for_gc()noexcept:mark_able<T>(not_mark){}
+	mark_able_for_gc(const mark_able_for_gc&)noexcept{}
+};
 
 //file_end
 

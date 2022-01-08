@@ -43,10 +43,10 @@ namespace default_gc_for_type{
 							a.shrink();
 						if constexpr(info.has_attribute(mark_able_for_gc)&&info.has_attribute(have_root)){
 							auto& b=attribute_cast<mark_able_for_gc>(a);
-							if(b.not_mark())
-								destory(a);
-							else
+							if(b.was_marked())
 								b.unmark();
+							else
+								destory(a);
 						}
 					}
 				);

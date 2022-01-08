@@ -208,10 +208,7 @@ namespace get_n{
 
 		template<typename T> requires able<T>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
-			if constexpr(type_info<T>.has_attribute(abstract_base))
-				return attribute_ptr_cast<abstract_base>(arg)->abstract_method_get_size_of_get_for_this();
-			else
-				return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
+			return get_size_of_alloc(arg);
 		}
 
 		template<typename T> requires able<T>

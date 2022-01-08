@@ -79,10 +79,11 @@ namespace pool_n{
 			list::add(tmp);
 			return tmp->get_new();
 		}
-		void use_end(T*a)noexcept{
+		bool use_end(T*a)noexcept{
 			auto i=head(),e=end();
 			while(++i!=e)
-				if(i->use_end(a))return;
+				if(i->use_end(a))return 1;
+			return 0;
 		}
 		[[nodiscard]]bool in_pool(T*a)noexcept{
 			auto i=head(),e=end();
@@ -128,21 +129,22 @@ namespace pool_n{
 	[[nodiscard]]inline void*alloc_method(type_info_t<T>,size_t a)noexcept{
 		if constexpr(pool_s_array_warning(type_info<T>))
 			template_warning("pool can\'t alloc array.");
-		return memory::alloc_n::alloc_method(type_info<T>,a);
+		return memory::alloc_n::default_method::alloc_method(type_info<T>,a);
 	}
 	template<typename T>
 	[[nodiscard]]size_t get_size_of_alloc_method(T*arg){
-		return pool<T>.in_pool(arg)?1:memory::alloc_n::get_size_of_alloc_method(arg);
+		return pool<T>.in_pool(arg)?1:memory::alloc_n::default_method::get_size_of_alloc_method(arg);
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
-		pool<T>.use_end(arg);
+		if(!pool<T>.use_end(arg))
+			memory::alloc_n::default_method::free_method(arg);
 	}
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		if constexpr(pool_s_array_warning(type_info<T>))
 			template_warning("pool can\'t alloc array.");
-		return memory::alloc_n::realloc_method(ptr,new_size);
+		return memory::alloc_n::default_method::realloc_method(ptr,new_size);
 	}
 }
 

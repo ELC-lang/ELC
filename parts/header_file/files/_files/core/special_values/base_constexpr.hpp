@@ -11,6 +11,7 @@ protected:
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<base_constexpr_t>;}
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept override{return magic_number::god;}
 	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept override{return magic_number::god;}
+	virtual void waiting_for_destroy()noexcept override{ return; }
 public:
 	base_constexpr_t()noexcept:node_like(never_ref_num_zero){}
 	constexpr virtual ~base_constexpr_t()noexcept override=default;
