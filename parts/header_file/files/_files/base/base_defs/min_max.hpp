@@ -25,6 +25,10 @@ constexpr struct min_t{
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::min(rest...);
 	}
+	template<class T> requires able<::std::initializer_list<T>>
+	constexpr auto operator()(::std::initializer_list<T>l)const{
+		return ::std::min(l);
+	}
 	template<typename T> requires get_limit_able<T>
 	constexpr auto operator()(type_info_t<T>)const{
 		return ::std::numeric_limits<T>::min();
@@ -48,6 +52,10 @@ constexpr struct max_t{
 	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
 		return ::std::max(rest...);
+	}
+	template<class T> requires able<::std::initializer_list<T>>
+	constexpr auto operator()(::std::initializer_list<T>l)const{
+		return ::std::max(l);
 	}
 	template<typename T> requires get_limit_able<T>
 	constexpr auto operator()(type_info_t<T>)const{

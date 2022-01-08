@@ -36,7 +36,7 @@ lazy_instantiation struct LIS_name(setter){
 		virtual void be_set(ptr)=0;
 		[[nodiscard]]virtual ptr get_value()=0;
 		[[nodiscard]]virtual base_data_t*copy()const noexcept=0;
-		[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept=0;//为什么要加这个？我不知道，万一将来有人用上了呢？
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;//为什么要加这个？我不知道，万一将来有人用上了呢？
 	};
 
 	struct constexpr_data_t:type_info_t<constexpr_data_t>::template_name
@@ -50,7 +50,7 @@ lazy_instantiation struct LIS_name(setter){
 		virtual void be_set(ptr)noexcept override{}
 		[[nodiscard]]virtual ptr get_value()override{return _m;}
 		[[nodiscard]]virtual base_data_t*copy()const noexcept override{return get<constexpr_data_t>(_m);}
-		[[nodiscard]]virtual const base_type_info_t& get_type_info()const noexcept override{return type_info<constexpr_data_t>;}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<constexpr_data_t>;}
 	};
 private:
 	mutable base_data_t*_m;

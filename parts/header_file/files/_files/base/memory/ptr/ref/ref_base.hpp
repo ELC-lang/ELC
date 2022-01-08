@@ -8,7 +8,7 @@
 */
 template<typename T>
 void waiting_for_destroy(T*)noexcept{
-	template_error("this function should not be instantiated,please overload the function waiting_for_destroy in the namespace where this type is defined");
+	template_error("this function should not be instantiated,please overload the function waiting_for_destroy in the namespace where this type is defined.");
 }
 template<typename T>
 void destroy_and_free(T*a)noexcept{

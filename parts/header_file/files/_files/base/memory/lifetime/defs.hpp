@@ -235,117 +235,6 @@ namespace lifetime_n{
 		[[nodiscard]]constexpr placement_re_construct_t<T> operator[](T*p)const noexcept{return{p};}
 	}re_construct;
 
-	constexpr struct copy_assign_t{
-		template<class T>
-		static constexpr bool r_able=copy_assign_able<T>?
-									 copy_assign_trivial<T>||!(copy_construct_trivial<T>&&destruct.trivial<T>)
-									 :false;//trivial操作优先考虑
-		template<class T>
-		static constexpr bool able=r_able<T>?true:(copy_construct_able<T>&&destruct.able<T>);
-		template<class T>
-		static constexpr bool nothrow=r_able<T>?copy_assign_nothrow<T>:
-											(copy_construct_nothrow<T>&&destruct.nothrow<T>);
-		template<class T>
-		static constexpr bool trivial=r_able<T>?copy_assign_trivial<T>:
-											(copy_construct_trivial<T>&&destruct.trivial<T>);
-
-		template<class T> requires able<T>
-		T& base_call(T&a,const T&b)const noexcept(nothrow<T>){
-			if constexpr(r_able<T>)
-				a=b;
-			else{
-				destruct(&a);
-				construct<T>[&a](b);
-			}
-			return a;
-		}
-		template<class T> requires able<T>
-		T* base_call(T*to,const T*from,size_t size)const noexcept(nothrow<T>){
-			if constexpr(trivial<T>)
-				memcpy(to,from,size*sizeof(T));
-			else{
-				while(size--)
-					base_call(to[size],from[size]);
-			}
-			return to;
-		}
-
-		template<class T> requires able<T>
-		T& operator()(T&a,const T&b)const noexcept(nothrow<T>){
-			return base_call(a,b);
-		}
-
-		struct array_copy_assign_t{
-			size_t _size;
-			template<class T> requires able<T>
-			T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
-				return base_call(to,from,_size);
-			}
-			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
-				return operator()(to(),from());
-			}
-			template<class T> requires able<T>
-			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
-				return operator()(to(),from());
-			}
-		};
-		[[nodiscard]]array_copy_assign_t operator[](size_t a)const noexcept{return{a};}
-	}copy_assign{};
-
-	constexpr struct move_assign_t{
-		template<class T>
-		static constexpr bool r_able=move_assign_able<T>;
-		template<class T>
-		static constexpr bool able=r_able<T>?true:copy_assign.able<T>;
-		template<class T>
-		static constexpr bool nothrow=r_able<T>?move_assign_nothrow<T>:copy_assign.nothrow<T>;
-		template<class T>
-		static constexpr bool trivial=r_able<T>?move_assign_trivial<T>:copy_assign.trivial<T>;
-
-		template<class T> requires able<T>
-		T& base_call(T&a,T&&b)const noexcept(nothrow<T>){
-			if constexpr(r_able<T>)
-				a=b;
-			else{
-				copy_assign(a,b);
-			}
-			return a;
-		}
-		template<class T> requires able<T>
-		T* base_call(T*to,T*from,size_t size)const noexcept(nothrow<T>){
-			if constexpr(trivial<T>)
-				memcpy(to,from,size*sizeof(T));
-			else{
-				while(size--)
-					base_call(to[size],from[size]);
-			}
-			return to;
-		}
-
-		template<class T> requires able<T>
-		T& operator()(T&a,T&&b)const noexcept(nothrow<T>){
-			return base_call(a,b);
-		}
-
-		struct array_move_assign_t{
-			size_t _size;
-			template<class T> requires able<T>
-			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
-				return base_call(to,from,_size);
-			}
-			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
-				return operator()(to(),from());
-			}
-			template<class T> requires able<T>
-			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
-				return operator()(to(),from());
-			}
-		};
-		[[nodiscard]]array_move_assign_t operator[](size_t a)const noexcept{return{a};}
-	}move_assign{};
-
 	constexpr struct copy_construct_t{
 		template<class T>
 		static constexpr bool r_able=copy_construct_able<T>?
@@ -596,6 +485,117 @@ namespace lifetime_n{
 			return copy_construct<T>(a);
 		}
 	}copy{};
+
+	constexpr struct copy_assign_t{
+		template<class T>
+		static constexpr bool r_able=copy_assign_able<T>?
+									 copy_assign_trivial<T>||!(copy_construct_trivial<T>&&destruct.trivial<T>)
+									 :false;//trivial操作优先考虑
+		template<class T>
+		static constexpr bool able=r_able<T>?true:(copy_construct_able<T>&&destruct.able<T>);
+		template<class T>
+		static constexpr bool nothrow=r_able<T>?copy_assign_nothrow<T>:
+											(copy_construct_nothrow<T>&&destruct.nothrow<T>);
+		template<class T>
+		static constexpr bool trivial=r_able<T>?copy_assign_trivial<T>:
+											(copy_construct_trivial<T>&&destruct.trivial<T>);
+
+		template<class T> requires able<T>
+		T& base_call(T&a,const T&b)const noexcept(nothrow<T>){
+			if constexpr(r_able<T>)
+				a=b;
+			else{
+				destruct(&a);
+				construct<T>[&a](b);
+			}
+			return a;
+		}
+		template<class T> requires able<T>
+		T* base_call(T*to,const T*from,size_t size)const noexcept(nothrow<T>){
+			if constexpr(trivial<T>)
+				memcpy(to,from,size*sizeof(T));
+			else{
+				while(size--)
+					base_call(to[size],from[size]);
+			}
+			return to;
+		}
+
+		template<class T> requires able<T>
+		T& operator()(T&a,const T&b)const noexcept(nothrow<T>){
+			return base_call(a,b);
+		}
+
+		struct array_copy_assign_t{
+			size_t _size;
+			template<class T> requires able<T>
+			T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
+				return base_call(to,from,_size);
+			}
+			template<class T> requires able<T>
+			T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
+				return operator()(to(),from());
+			}
+			template<class T> requires able<T>
+			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+				return operator()(to(),from());
+			}
+		};
+		[[nodiscard]]array_copy_assign_t operator[](size_t a)const noexcept{return{a};}
+	}copy_assign{};
+
+	constexpr struct move_assign_t{
+		template<class T>
+		static constexpr bool r_able=move_assign_able<T>;
+		template<class T>
+		static constexpr bool able=r_able<T>?true:copy_assign.able<T>;
+		template<class T>
+		static constexpr bool nothrow=r_able<T>?move_assign_nothrow<T>:copy_assign.nothrow<T>;
+		template<class T>
+		static constexpr bool trivial=r_able<T>?move_assign_trivial<T>:copy_assign.trivial<T>;
+
+		template<class T> requires able<T>
+		T& base_call(T&a,T&&b)const noexcept(nothrow<T>){
+			if constexpr(r_able<T>)
+				a=move(b);
+			else{
+				copy_assign(a,b);
+			}
+			return a;
+		}
+		template<class T> requires able<T>
+		T* base_call(T*to,T*from,size_t size)const noexcept(nothrow<T>){
+			if constexpr(trivial<T>)
+				memcpy(to,from,size*sizeof(T));
+			else{
+				while(size--)
+					base_call(to[size],from[size]);
+			}
+			return to;
+		}
+
+		template<class T> requires able<T>
+		T& operator()(T&a,T&b)const noexcept(nothrow<T>){
+			return base_call(a,move(b));
+		}
+
+		struct array_move_assign_t{
+			size_t _size;
+			template<class T> requires able<T>
+			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
+				return base_call(to,from,_size);
+			}
+			template<class T> requires able<T>
+			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
+				return operator()(to(),from());
+			}
+			template<class T> requires able<T>
+			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+				return operator()(to(),from());
+			}
+		};
+		[[nodiscard]]array_move_assign_t operator[](size_t a)const noexcept{return{a};}
+	}move_assign{};
 }
 
 //file_end

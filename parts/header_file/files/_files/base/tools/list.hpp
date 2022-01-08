@@ -17,7 +17,7 @@ struct cons_t:non_copyable,non_moveable,is_common_attribute(cons_t){
 	typedef cons_t<T> this_t;
 private:
 	friend list_t<T>;
-	friend iterator_t<T,this_t*>;
+	friend iterator_t<T,this_t*>::base_t;
 	typedef attribute<T,this_t> attribute_t;
 
 	mutable this_t*_before;//为了在析构时修改前一项的next，勿删
@@ -48,7 +48,7 @@ private:
 		_before->set_next(_next);
 	}
 	constexpr T*get_handle(){
-		return attribute::get_handle();
+		return attribute_t::get_handle();
 	}
 public:
 	constexpr cons_t()=default;

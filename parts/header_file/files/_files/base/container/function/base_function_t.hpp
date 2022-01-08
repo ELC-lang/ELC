@@ -17,7 +17,7 @@ namespace function_n{
 		virtual ~base_func_data_t()=default;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept=0;
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
 		[[nodiscard]]virtual bool equal_with(const void*)const=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
@@ -41,7 +41,7 @@ namespace function_n{
 
 		using data_t::data_t;
 		virtual ~func_data_t()override=default;
-		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true) override{
 			if constexpr(equal.able<T>)
@@ -62,7 +62,7 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
-		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
@@ -201,7 +201,7 @@ namespace function_n{
 		virtual ~base_func_data_t()=default;
 		virtual Ret_t call(Args_t...)=0;
 		//for equal:
-		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept=0;
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
 		[[nodiscard]]virtual bool equal_with(const void*)const=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
@@ -225,7 +225,7 @@ namespace function_n{
 
 		using data_t::data_t;
 		virtual ~func_data_t()override=default;
-		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<T>;}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true) override{
 			if constexpr(equal.able<T>)
@@ -246,7 +246,7 @@ namespace function_n{
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)override{return Ret_t();}
-		[[nodiscard]]virtual const base_type_info_t&get_type_info()const noexcept override{return type_info<void>;}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};

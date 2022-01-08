@@ -16,7 +16,6 @@ class roots_t{
 	typedef roots_t<T>this_t;
 	typedef root_of<T>root_t;
 	typedef root_of<T>*value_t;
-	typedef base_stack_t<value_t> base_t;
 
 	base_stack_t<value_t>_roots;
 public:
@@ -29,7 +28,7 @@ public:
 	using_method_from_value(for_each,_roots);
 
 	void map_and_mark()noexcept_as(declvalue(value_t)->map_and_mark()){
-		base_t::for_each(
+		_roots.for_each(
 			lambda(value_t&a)noexcept_as(a->map_and_mark())
 			{
 				a->map_and_mark();

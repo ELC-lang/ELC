@@ -7,6 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace iterator_n{
+	using namespace memory;//copy_assign、move_assign
 	template<typename base_t>
 	struct reverse_base_t:base_t{
 		typedef reverse_base_t<base_t> this_t;
@@ -26,7 +27,7 @@ namespace iterator_n{
 		//
 		base_t_w _m;
 		//
-		[[nodiscard]]constexpr bool is_handle_getter_noexcept()noexcept{
+		[[nodiscard]]static constexpr bool is_handle_getter_noexcept()noexcept{
 			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
 				return true;
 			elseif constexpr(is_pointer<base_t_w>)
@@ -43,7 +44,7 @@ namespace iterator_n{
 				return _m.get_handle();
 		}
 		//
-		[[nodiscard]]constexpr bool is_next_getter_noexcept()noexcept{
+		[[nodiscard]]static constexpr bool is_next_getter_noexcept()noexcept{
 			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
 				return true;
 			elseif constexpr(is_pointer<base_t_w>)
@@ -60,7 +61,7 @@ namespace iterator_n{
 				return _m.get_next();
 		}
 		//
-		[[nodiscard]]constexpr bool is_before_getter_noexcept()noexcept{
+		[[nodiscard]]static constexpr bool is_before_getter_noexcept()noexcept{
 			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
 				return true;
 			elseif constexpr(is_pointer<base_t_w>)
@@ -107,6 +108,8 @@ namespace iterator_n{
 		using base_t::next_getter;
 	public:
 		using base_t::base_t;
+		constexpr this_t&operator=(const base_t_w&a)&noexcept(copy_assign.nothrow<base_t_w>){copy_assign(base_t::_m,a);return*this;}
+		constexpr this_t&operator=(base_t_w&&a)&noexcept(move_assign.nothrow<base_t_w>){move_assign(base_t::_m,a);return*this;}
 		constexpr this_t&operator++()&noexcept(is_next_getter_noexcept()){return*this=next_getter();}
 		constexpr this_t&operator--()&noexcept(is_before_getter_noexcept()){return*this=before_getter();}
 		constexpr this_t operator++(int)&noexcept_as(this_t(++declvalue(this_t))){auto a=*this;operator++();return a;}

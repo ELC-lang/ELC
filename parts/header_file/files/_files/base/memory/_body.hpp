@@ -7,7 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "alloc/_body.hpp"
-#include "lifetime/_body.hpp"
 #include "get/_body.hpp"
 #include "abstract_base/_body.hpp"
 

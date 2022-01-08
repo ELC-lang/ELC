@@ -26,6 +26,11 @@ namespace default_gc_for_type{
 		)
 	);
 
+	template<class T>
+	void destory_by_gc(T*){
+		template_error("this function should not be instantiated,please overload the function destory_by_gc in the namespace where this type is defined.");
+	}
+
 	template<class T> requires use_default_gc_able<T>
 	inline void default_gc_method()noexcept{
 		constexpr auto&info=type_info<T>;
@@ -46,7 +51,7 @@ namespace default_gc_for_type{
 							if(b.was_marked())
 								b.unmark();
 							else
-								destory(a);
+								destory_by_gc(a);
 						}
 					}
 				);

@@ -47,10 +47,6 @@ namespace null_ptr_n{
 	auto operator==(T*a,null_ptr_t){
 		return null_ptr.base_get<T>()==(const remove_ref<U>*)a;
 	}
-	template<typename T>
-	auto operator==(null_ptr_t,T*a){
-		return a==null_ptr;
-	}
 }
 using null_ptr_n::can_t_use_default_null_ptr;
 using null_ptr_n::force_use_default_null_ptr;
