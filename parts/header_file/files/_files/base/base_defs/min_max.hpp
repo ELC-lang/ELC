@@ -23,7 +23,7 @@ constexpr struct min_t{
 
 	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
-		return ::std::min(rest...);
+		return ::std::min(forward<Args>(rest)...);
 	}
 	template<class T> requires able<::std::initializer_list<T>>
 	constexpr auto operator()(::std::initializer_list<T>l)const{
@@ -51,7 +51,7 @@ constexpr struct max_t{
 
 	template<class...Args> requires able<Args...>
 	constexpr auto operator()(Args&&...rest)const{
-		return ::std::max(rest...);
+		return ::std::max(forward<Args>(rest)...);
 	}
 	template<class T> requires able<::std::initializer_list<T>>
 	constexpr auto operator()(::std::initializer_list<T>l)const{

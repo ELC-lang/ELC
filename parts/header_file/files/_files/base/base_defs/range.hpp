@@ -21,6 +21,8 @@ namespace range_n{
 		constexpr auto size()noexcept{return _end-_begin;}
 		constexpr auto end()noexcept{return _end;}
 		constexpr auto begin()noexcept{return _begin;}
+		constexpr auto end()const noexcept{ return _end; }
+		constexpr auto begin()const noexcept{ return _begin; }
 
 		template <class U> requires(type_info<T>.can_convert_to<U>)
 		constexpr operator range_t<U>()const noexcept(type_info<T>.can_nothrow_convert_to<U>){
@@ -44,8 +46,8 @@ namespace range_n{
 		return a>=range.begin() && a<range.end();
 	}
 	template<typename T>
-	constexpr bool in_range(const T*a,const range_t<void*>range){
-		return reinterpret_cast<void*>(a)>=range.begin() && reinterpret_cast<void*>(a)<range.end();
+	constexpr bool in_range(const T*a,const range_t<byte*>range){
+		return reinterpret_cast<const void*>(a)>=range.begin() && reinterpret_cast<const void*>(a)<range.end();
 	}
 	template<typename T>
 	constexpr T* in_range(const T&a,array_like_view_t<const T>range){

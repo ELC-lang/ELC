@@ -78,7 +78,7 @@ namespace iterator_n{
 				return _m.get_before();
 		}
 	public:
-		constexpr void swap_with(this_t&a)noexcept_as(swap(declvalue(base_t_w),declvalue(base_t_w))){swap(_m,a._m);}
+		constexpr void swap_with(this_t&a)noexcept_as(swap(declvalue(base_t_w&),declvalue(base_t_w&))){swap(_m,a._m);}
 		//
 		constexpr same_base_t()noexcept=default;
 		constexpr same_base_t(base_t_w a)noexcept(construct<base_t_w>.nothrow<base_t_w>):_m(a){}
@@ -112,8 +112,8 @@ namespace iterator_n{
 		constexpr this_t&operator=(base_t_w&&a)&noexcept(move_assign.nothrow<base_t_w>){move_assign(base_t::_m,a);return*this;}
 		constexpr this_t&operator++()&noexcept(is_next_getter_noexcept()){return*this=next_getter();}
 		constexpr this_t&operator--()&noexcept(is_before_getter_noexcept()){return*this=before_getter();}
-		constexpr this_t operator++(int)&noexcept_as(this_t(++declvalue(this_t))){auto a=*this;operator++();return a;}
-		constexpr this_t operator--(int)&noexcept_as(this_t(--declvalue(this_t))){auto a=*this;operator--();return a;}
+		constexpr this_t operator++(int)&noexcept_as(this_t(++declvalue(this_t&))){auto a=*this;operator++();return a;}
+		constexpr this_t operator--(int)&noexcept_as(this_t(--declvalue(this_t&))){auto a=*this;operator--();return a;}
 	};
 	template<typename value_t,typename base_t_w>
 	base_iterator_t(base_iterator_t<value_t,base_t_w>) -> base_iterator_t<value_t,base_t_w>;

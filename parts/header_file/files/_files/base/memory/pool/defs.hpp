@@ -41,7 +41,7 @@ namespace pool_n{
 			return&data_cast<T>(_data[ui[--uii]]);
 		}
 		[[nodiscard]]bool in_pool(T*a)noexcept{
-			return in_range(a,{_data,note::size(ment_index_max)});
+			return in_range(a,{(byte*)_data,note::size(ment_index_max)});
 		}
 		[[nodiscard]]bool use_end(T*a)noexcept{
 			if(in_pool(a)){
@@ -64,7 +64,7 @@ namespace pool_n{
 		~pool_t()noexcept{
 			auto i=begin(),e=end();
 			while(i!=e)
-				unget(i++);
+				unget((ment*)i++);
 		}
 		[[nodiscard]]T*get_new()noexcept{
 			{
@@ -111,15 +111,19 @@ namespace pool_n{
 		}
 	};
 	template<typename T>
-	constexpr ::std::uint_fast16_t get_ment_size(type_info_t<T>){return 2048;}
+	constexpr ::std::uint_fast16_t get_ment_size(type_info_t<T>){
+		#if defined(_MSC_VER)
+			return min(size_t(2048),size_t(0x7fffffff)/sizeof(T));
+		#else
+			return 2048;
+		#endif
+	}
 	template<typename T>
 	constexpr bool pool_s_array_warning(type_info_t<T>){return 1;}
 	template<typename T>
-	struct alloc_by_pool{
-		constexpr static ::std::uint_fast16_t pool_ment_size=get_ment_size(type_info<T>);
-	};
+	struct alloc_by_pool{};
 	template<typename T>
-	inline pool_t<T,alloc_by_pool<T>::pool_ment_size>pool{};
+	inline pool_t<T,get_ment_size(type_info<T>)>pool{};
 	//为alloc提供方法
 	template<typename T>
 	[[nodiscard]]inline void*alloc_method(type_info_t<T>)noexcept{

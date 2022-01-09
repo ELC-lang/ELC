@@ -255,7 +255,7 @@ namespace lifetime_n{
 				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)));
 			else{
 				if constexpr(r_able<T>)
-					new(to)T(from);
+					new(to)T(*from);
 				else{
 					construct<T>[to]();
 					*to=*from;
@@ -381,7 +381,7 @@ namespace lifetime_n{
 			else{
 				if constexpr(r_able<T>){
 					while(size--)
-						construct<T>[to+size](::std::move(from+size));
+						construct<T>[to+size](::std::move(from[size]));
 					return to;
 				}else
 					return copy_construct[size](to,from);

@@ -6,8 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct gc_tester:type_info_t<gc_tester>::template_name
-with_common_attribute<gc_able,can_shrink,count_able,can_map_all,mark_able_for_gc,never_in_array,ref_able>,have_root,build_by_get_only,force_use_default_null_ptr{
+struct gc_tester:can_map_all<gc_tester>,type_info_t<gc_tester>::template_name
+with_common_attribute<can_shrink,count_able,mark_able_for_gc,never_in_array,ref_able>,have_root,build_by_get_only,force_use_default_null_ptr{
 	static inline int shrink_time=0;
 	static inline int destroy_time=0;
 	~gc_tester()noexcept{destroy_time++;}
@@ -21,7 +21,7 @@ with_common_attribute<gc_able,can_shrink,count_able,can_map_all,mark_able_for_gc
 void map_and_mark_for_gc(gc_tester*a){
 	attribute_ptr_cast<mark_able_for_gc>(a)->mark();
 }
-void destroy(gc_tester*a){
+void destory_by_gc(gc_tester*a){
 	a->~gc_tester();
 }
 inline void test(){
@@ -30,6 +30,7 @@ inline void test(){
 	using ::std::rand;
 	using ::std::srand;
 	srand((unsigned)time(nullptr));
+	gc.add_gc_method(type_info<gc_tester>);
 	for(int t=rand()%7;t--;)
 	{
 		int i;
