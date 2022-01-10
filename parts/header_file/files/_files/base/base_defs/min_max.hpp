@@ -22,15 +22,15 @@ constexpr struct min_t{
 	static constexpr bool get_limit_able=was_not_an_ill_form(::std::numeric_limits<T>::min());
 
 	template<class...Args> requires able<Args...>
-	constexpr auto operator()(Args&&...rest)const{
+	[[nodiscard]]constexpr auto operator()(Args&&...rest)const{
 		return ::std::min(forward<Args>(rest)...);
 	}
 	template<class T> requires able<::std::initializer_list<T>>
-	constexpr auto operator()(::std::initializer_list<T>l)const{
+	[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const{
 		return ::std::min(l);
 	}
 	template<typename T> requires get_limit_able<T>
-	constexpr auto operator()(type_info_t<T>)const{
+	[[nodiscard]]constexpr auto operator()(type_info_t<T>)const{
 		return ::std::numeric_limits<T>::min();
 	}
 }min{};
@@ -50,15 +50,15 @@ constexpr struct max_t{
 	static constexpr bool get_limit_able=was_not_an_ill_form(::std::numeric_limits<T>::max());
 
 	template<class...Args> requires able<Args...>
-	constexpr auto operator()(Args&&...rest)const{
+	[[nodiscard]]constexpr auto operator()(Args&&...rest)const{
 		return ::std::max(forward<Args>(rest)...);
 	}
 	template<class T> requires able<::std::initializer_list<T>>
-	constexpr auto operator()(::std::initializer_list<T>l)const{
+	[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const{
 		return ::std::max(l);
 	}
 	template<typename T> requires get_limit_able<T>
-	constexpr auto operator()(type_info_t<T>)const{
+	[[nodiscard]]constexpr auto operator()(type_info_t<T>)const{
 		return ::std::numeric_limits<T>::max();
 	}
 }max{};

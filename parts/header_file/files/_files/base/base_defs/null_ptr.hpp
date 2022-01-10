@@ -37,14 +37,14 @@ namespace null_ptr_n{
 	*/
 	constexpr struct null_ptr_t{
 		template<typename T>
-		constexpr_as(the_get_null_ptr<remove_cvref<T>>())auto base_get()const noexcept{return the_get_null_ptr<remove_cvref<T>>();}
+		[[nodiscard]]constexpr_as(the_get_null_ptr<remove_cvref<T>>())auto base_get()const noexcept{return the_get_null_ptr<remove_cvref<T>>();}
 		template<typename T>
-		constexpr_as(base_get<T>())operator T*()const noexcept{ return base_get<T>(); }
+		[[nodiscard]]constexpr_as(base_get<T>())operator T*()const noexcept{ return base_get<T>(); }
 		//constexpr operator decltype(nullptr)()const noexcept{return nullptr;}//提醒接口设计者注意null_ptr的重载版本.
 	}null_ptr{};
 
 	template<typename T,typename U=decltype(*null_ptr.base_get<T>())>
-	auto operator==(T*a,null_ptr_t){
+	[[nodiscard]]auto operator==(T*a,null_ptr_t){
 		return null_ptr.base_get<T>()==(const remove_ref<U>*)a;
 	}
 }
