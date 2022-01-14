@@ -28,53 +28,53 @@ namespace iterator_n{
 		base_t_w _m;
 		//
 		[[nodiscard]]static constexpr bool is_handle_getter_noexcept()noexcept{
-			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return true;
-			elseif constexpr(is_pointer<base_t_w>)
+			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_handle()))
 				return noexcept(declvalue(base_t_w)->get_handle());
-			else
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_handle()))
 				return noexcept(declvalue(base_t_w).get_handle());
 		}
 		[[nodiscard]]inline value_t*handle_getter()noexcept(is_handle_getter_noexcept()){
-			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return _m;
-			elseif constexpr(is_pointer<base_t_w>)
+			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_handle()))
 				return _m->get_handle();
-			else
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_handle()))
 				return _m.get_handle();
 		}
 		//
 		[[nodiscard]]static constexpr bool is_next_getter_noexcept()noexcept{
-			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return true;
-			elseif constexpr(is_pointer<base_t_w>)
+			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_next()))
 				return noexcept(declvalue(base_t_w)->get_next());
-			else
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_next()))
 				return noexcept(declvalue(base_t_w).get_next());
 		}
 		[[nodiscard]]inline base_t_w next_getter()noexcept(is_next_getter_noexcept()){
-			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return _m+1;
-			elseif constexpr(is_pointer<base_t_w>)
+			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_next()))
 				return _m->get_next();
-			else
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_next()))
 				return _m.get_next();
 		}
 		//
 		[[nodiscard]]static constexpr bool is_before_getter_noexcept()noexcept{
-			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return true;
-			elseif constexpr(is_pointer<base_t_w>)
+			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_before()))
 				return noexcept(declvalue(base_t_w)->get_before());
-			else
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_before()))
 				return noexcept(declvalue(base_t_w).get_before());
 		}
 		[[nodiscard]]inline base_t_w before_getter()noexcept(is_before_getter_noexcept()){
-			if constexpr(type_info<decltype(*declvalue(base_t_w))> == type_info<value_t>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return _m-1;
-			elseif constexpr(is_pointer<base_t_w>)
+			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_before()))
 				return _m->get_before();
-			else
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_before()))
 				return _m.get_before();
 		}
 	public:
