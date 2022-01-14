@@ -15,7 +15,7 @@ namespace array_n{
 		/*return{ptr};*/
 		constexpr array_t(T*a):_m(a){}
 		/*返回一个自身的副本*/
-		[[nodiscard]]this_t&& copy()const noexcept(copy_get.nothrow<T>) requires(copy_get.able<T>){
+		[[nodiscard]]this_t copy()const noexcept(copy_get.nothrow<T>) requires(copy_get.able<T>){
 			return{copy_get(_m)};
 		}
 	public:

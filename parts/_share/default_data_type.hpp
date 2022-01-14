@@ -7,7 +7,7 @@
 */
 namespace elc{
 	/*ELC内部string统一采用char_t宽字符，使用setlocale(LC_ALL,"en_US.utf8")下的UTF编码。*/
-	typedef char32_t char_t;//等有char64_t记得叫我
+	typedef char8_t char_t;
 	/*ELC内部钦定int_t类型*/
 	typedef int64_t int_t;
 	/*ELC内部钦定uint_t类型*/

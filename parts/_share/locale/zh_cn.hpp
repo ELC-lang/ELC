@@ -10,14 +10,14 @@ locale说明
 elc使用的字符串.
 调整这些,实现快速本地化.
 */
-namespace elc::locale::func{
+namespace elc::defs::locale::func{
 
 }
-namespace elc::locale::str{
-	const char_t* gc_fail=U"gc失败";
-	const char_t* empty_gc_method=U"gc方法为空时gc被调用";
-	const char_t* setlocale_error=U"setlocale出错";
-	const char_t* code_convert_error=U"编码转换出错";
+namespace elc::defs::locale::str{
+	const char_t* gc_fail=u8"gc失败";
+	const char_t* empty_gc_method=u8"gc方法为空时gc被调用";
+	const char_t* setlocale_error=u8"setlocale出错";
+	const char_t* code_convert_error=u8"编码转换出错";
 }
 
 //file_end
