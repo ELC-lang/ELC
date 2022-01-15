@@ -18,9 +18,9 @@ namespace pool_n{
 	//		pool接入get模块的原理是重载此类所用的elc::memory::base_alloc方法，这意味着当你直接（或间接）使用**任何**elc提供的数组性质的内存管理机制，此部分实例仍然会不使用pool进行内存管理。同时，这将引起一个警告：我们认为alloc_by_pool的类会被大量使用，使用这种类的传统数组意味着大量的内存碎片与缓慢的内存分配。为了关闭此警告，你可以将pool_s_array_warning函数模板重载为0，亦或使用非elc提供的内存管理机制：如std::malloc、std::new等。当然，这意味着当这些机制遇见内存用尽的情况时，你可能需要手动调用elc::memory::gc。
 	//		get/unget模块定义见 "../get/defs.hpp"
 	//		（elc的）alloc/free模块定义见 "../alloc/defs.hpp"
-	template<class T,::std::uint_fast16_t ment_size>
+	template<class T,::std::uint_fast64_t ment_size>
 	struct ment final:cons_t<ment<T,ment_size>>,non_copyable,non_moveable{
-		typedef ::std::uint_fast16_t uint;
+		typedef ::std::uint_fast64_t uint;
 		typedef cons_t<ment<T,ment_size>> cons;
 		static_assert(ment_size!=0,"are you crazy?");
 		static_assert(ment_size!=1,"SB");//嘿，或许这个类不需要使用pool :)
@@ -52,7 +52,7 @@ namespace pool_n{
 		}
 		[[nodiscard]]bool empty()const noexcept{return _unuse_indexes_index==ment_size;}
 	};
-	template<class T,::std::uint_fast16_t ment_size>
+	template<class T,::std::uint_fast64_t ment_size>
 	class pool_t final:list_t<ment<T,ment_size>>,non_copyable,non_moveable{
 		typedef ment<T,ment_size> ment;
 		typedef list_t<ment> list;
@@ -111,9 +111,9 @@ namespace pool_n{
 		}
 	};
 	template<typename T>
-	constexpr ::std::uint_fast16_t get_ment_size(type_info_t<T>){
+	constexpr ::std::uint_fast64_t get_ment_size(type_info_t<T>){
 		#if defined(_MSC_VER)
-			return min(size_t(2048),size_t(0x7fffffff)/sizeof(T));
+			return (::std::uint_fast64_t)min(size_t(2048),size_t(0x7fffffff)/sizeof(T));
 		#else
 			return 2048;
 		#endif
