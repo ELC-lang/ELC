@@ -125,7 +125,7 @@ struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
 	[[nodiscard]]T*operator->()const noexcept(get_nothrow){return get();}
 	[[nodiscard]]T&operator*()const noexcept(get_nothrow){return*get();}
 	[[nodiscard]]explicit operator bool()const noexcept(get_nothrow){return pointer_to_bool(get());}
-	[[nodiscard]]logical_bool operator!()const noexcept(get_nothrow){return!pointer_to_bool(get());}
+	[[nodiscard]]auto operator!()const noexcept(get_nothrow){return!pointer_to_bool(get());}
 	[[nodiscard]]explicit operator T*()const noexcept(get_nothrow){return get();}
 
 	base_ptr_t&operator=(T*a)&noexcept(reset_nothrow){reset(a);return*this;}
