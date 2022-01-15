@@ -51,7 +51,8 @@ namespace elc::defs{
 								_symbol_name.push_back(*arg);
 							elseif(*(arg+1)==ec('`')){
 								_symbol_name.push_back(*arg);
-								arg++;
+								if(*(arg+1))
+									arg++;
 							}
 							else{
 								arg++;
@@ -63,8 +64,10 @@ namespace elc::defs{
 					}
 					else{
 						while(*arg){
-							if(isspace(*arg))
+							if(isspace(*arg)){
+								arg++;
 								return;
+							}
 							else
 								_symbol_name.push_back(*arg);
 							arg++;
@@ -86,8 +89,10 @@ namespace elc::defs{
 						}
 						elseif(*arg!=ec(')'))
 							_members.push_back(base_read_AST(arg));
-						else
+						else{
+							arg++;
 							return;
+						}
 					}
 					throw base_read_error(locale::str::base_read::expr_incomplete);
 				}
