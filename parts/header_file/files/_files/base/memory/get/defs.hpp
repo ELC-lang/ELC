@@ -105,6 +105,20 @@ namespace get_n{
 				copy_construct[a_size](note::from(a.begin()),note::to(ptr+from_size));
 				return ptr;
 			}
+			T* operator()(note::to_t<T*&> to,const T&a)const noexcept(nothrow<void>){
+				auto&ptr=to.value;
+				auto from_size=get_size_of_alloc(ptr);
+				alloc_size_grow(ptr,from_size+1);
+				copy_construct(note::from(&a),note::to(ptr+from_size));
+				return ptr;
+			}
+			T* operator()(note::to_t<T*&> to,T&&a)const noexcept(nothrow<void>){
+				auto&ptr=to.value;
+				auto from_size=get_size_of_alloc(ptr);
+				alloc_size_grow(ptr,from_size+1);
+				move_construct(note::from(&a),note::to(ptr+from_size));
+				return ptr;
+			}
 		}apply_end{};
 
 		static constexpr struct remove_t{

@@ -94,5 +94,7 @@
 #undef template_name
 #undef type_name
 
+#undef not_in_debug
+
 //file_end
 

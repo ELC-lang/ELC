@@ -145,5 +145,11 @@ class name{}\
 /*template说明符*/
 #define type_name class
 
+#if defined(DEBUG) || defined(_DEBUG)
+	#define not_in_debug 0
+#else
+	#define not_in_debug 1
+#endif
+
 //file_end
 

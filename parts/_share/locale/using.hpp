@@ -17,7 +17,9 @@ elc使用的字符串.
 	#include "../default_data_type.hpp"
 	#include "_char.hpp"
 	//
+	#define es U""
 	#include "zh_cn.hpp"
+	#undef es
 	//
 #endif
 

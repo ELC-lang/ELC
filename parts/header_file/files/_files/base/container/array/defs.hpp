@@ -116,8 +116,11 @@ namespace array_n{
 		}
 		#undef expr
 
-		void add(T a){
-			get<T>.apply_end(note::to(_m),a);
+		void push_back(const T&a){
+			get<T>.apply_end(note::to<T*&>(_m),a);
+		}
+		void push_back(T&&a){
+			get<T>.apply_end(note::to<T*&>(_m),move(a));
 		}
 		void remove(T a){
 			get<T>.remove(a,note::form(_m));
