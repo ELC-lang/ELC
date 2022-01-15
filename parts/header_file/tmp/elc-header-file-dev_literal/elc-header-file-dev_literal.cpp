@@ -129,7 +129,7 @@ namespace elc::defs{
 					aret=get<list_AST>();
 					aret->build_up(arg);
 				}
-				elseif(*arg==ec('`')||isalpha(*arg)||*arg==ec('_')){
+				elseif(*arg==ec('`')||isprint(*arg)||*arg==ec('_')){
 					aret=get<symbol_AST>();
 					aret->build_up(arg);
 				}
