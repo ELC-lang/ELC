@@ -61,19 +61,23 @@ public:
 	inline setter operator()(Args&&...rest);//{return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
 
 	[[nodiscard]]logical_bool eq(const_ptr a)const{
-		if(this->eq_level()==a->eq_level())
+		auto this_eqlv=this->eq_level();
+		auto arg_eqlv=a->eq_level();
+		if(this_eqlv==arg_eqlv)
 			return this->eq_with(a)&&a->eq_with(this);
-		elseif(this->eq_level() _small_than_ a->eq_level())
+		elseif(this_eqlv _small_than_ arg_eqlv)
 			return a->eq_with(this);
-		elseif(this->eq_level() _big_than_ a->eq_level())
+		else//if(this_eqlv _big_than_ arg_eqlv)
 			return this->eq_with(a);
 	}
 	[[nodiscard]]logical_bool equal(const_ptr a)const{
-		if(this->equal_level()==a->equal_level())
+		auto this_equlv=this->equal_level();
+		auto arg_equlv=a->equal_level();
+		if(this_equlv==arg_equlv)
 			return this->equal_with(a)&&a->equal_with(this);
-		elseif(this->equal_level() _small_than_ a->equal_level())
+		elseif(this_equlv _small_than_ arg_equlv)
 			return a->equal_with(this);
-		elseif(this->equal_level() _big_than_ a->equal_level())
+		else//if(this_equlv _big_than_ arg_equlv)
 			return this->equal_with(a);
 	}
 
