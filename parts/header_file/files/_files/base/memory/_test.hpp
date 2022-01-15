@@ -11,20 +11,20 @@ inline void test(){
 	alloc_n::test();
 	lifetime_n::test();
 	get_n::test();
-	pool_n::test();
+	//pool_n::test();
 	stest_exitevent();
 }
 inline void test_log_out(){
 	alloc_n::test_log_out();
 	lifetime_n::test_log_out();
 	get_n::test_log_out();
-	pool_n::test_log_out();
+	//pool_n::test_log_out();
 }
 inline void test_end(){
 	alloc_n::test_end();
 	lifetime_n::test_end();
 	get_n::test_end();
-	pool_n::test_end();
+	//pool_n::test_end();
 }
 
 //file_end

@@ -29,8 +29,7 @@ lazy_instantiation struct LIS_name(probability){
 		virtual void delete_this()const noexcept=0;
 		virtual base_probability_t*copy()const noexcept=0;
 	};
-	struct no_probability_t:type_info_t<no_probability_t>::template_name
-	with_common_attribute<alloc_by_pool>,base_probability_t,build_by_get_only,never_in_array{
+	struct no_probability_t:base_probability_t,build_by_get_only,never_in_array{
 		ptr _m;
 		no_probability_t(ptr a):_m(a){}
 		no_probability_t(const no_probability_t&)noexcept=default;
