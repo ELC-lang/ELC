@@ -102,6 +102,11 @@ template <typename T_,typename T,typename ref_type,bool replace_check,enable_if(
 	return b.operator==(static_cast<const T*>(a));
 }
 
+template <typename T,typename T_>
+[[nodiscard]]inline auto operator!=(T&&a,T_&&b)noexcept_as(!(b==a)){
+	return !(a==b);
+}
+
 template<class T,typename ref_type,bool replace_check>
 struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
 	static_assert(type_info<T>.base_on<ref_type>);

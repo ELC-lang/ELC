@@ -7,37 +7,29 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 struct logical_bool{
-	typedef unsigned char base_t;
 private:
-	base_t _value;
-	//01:false 10:true 00:neither 11:either
-	constexpr logical_bool(base_t a):_value(a){}
+	bool _is_true;
+	bool _is_false;
+	bool _is_unknown;
 public:
-	constexpr logical_bool(special_init_t,base_t a):_value(a){}
-	constexpr logical_bool(bool a):_value(a?0b10:0b01){}
+	constexpr logical_bool(special_init_t,bool is_true,bool is_false,bool is_unknown=0):_is_true(is_true),_is_false(is_false),_is_unknown(is_unknown){}
+	constexpr logical_bool(bool a):_is_true(a),_is_false(!a),_is_unknown(0){}
 	constexpr logical_bool(const logical_bool&)=default;
 	constexpr logical_bool&operator=(const logical_bool&)& =default;
-	constexpr explicit operator bool()const{return _value&0b10;}
+	constexpr explicit operator bool()const{return _is_true && !_is_unknown;}
 	constexpr logical_bool operator!()const{
-		base_t aret=0b00;
-		if(_value&0b10)
-			aret&=0b01;
-		if(_value&0b01)
-			aret&=0b10;
+		logical_bool aret=*this;
+		swap(aret._is_true,aret._is_false);
 		return aret;
 	}
-
-	[[nodiscard]]explicit constexpr operator hash_t(){
-		return hash(_value);
-	}
 	friend logical_bool operator&&(logical_bool a,logical_bool b)noexcept{
-		return logical_bool{special_init,logical_bool::base_t(a._value&b._value)};
+		return logical_bool{special_init,a._is_true && b._is_true,a._is_false && b._is_false,a._is_unknown || b._is_unknown};
 	}
 	friend logical_bool operator||(logical_bool a,logical_bool b)noexcept{
-		return logical_bool{special_init,logical_bool::base_t(a._value|b._value)};
+		return logical_bool{special_init,a._is_true || b._is_true,a._is_false || b._is_false,a._is_unknown || b._is_unknown};
 	}
 };
-constexpr logical_bool neither{special_init,0b00},either{special_init,0b11};
+constexpr logical_bool neither{special_init,0,0},either{special_init,1,1};
 
 //file_end
 

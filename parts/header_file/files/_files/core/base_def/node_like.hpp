@@ -39,8 +39,8 @@ public:
 	[[nodiscard]]setter operator[](const setter index){
 		return arec(index);
 	}
-	[[nodiscard]]const setter operator[](const setter index)const{
-		return arec(index);
+	[[nodiscard]]setter operator[](ptr index){
+		return arec(setter(index));
 	}
 
 	virtual void clear()=0;
@@ -63,28 +63,28 @@ public:
 	[[nodiscard]]logical_bool eq(const_ptr a)const{
 		auto this_eqlv=this->eq_level();
 		auto arg_eqlv=a->eq_level();
-		if(this_eqlv==arg_eqlv)
-			return this->eq_with(a)&&a->eq_with(this);
-		elseif(this_eqlv _small_than_ arg_eqlv)
+		if(this_eqlv _small_than_ arg_eqlv)
 			return a->eq_with(this);
-		else//if(this_eqlv _big_than_ arg_eqlv)
+		elseif(this_eqlv _big_than_ arg_eqlv)
 			return this->eq_with(a);
+		else
+			return this->eq_with(a)&&a->eq_with(this);
 	}
 	[[nodiscard]]logical_bool equal(const_ptr a)const{
 		auto this_equlv=this->equal_level();
 		auto arg_equlv=a->equal_level();
-		if(this_equlv==arg_equlv)
-			return this->equal_with(a)&&a->equal_with(this);
-		elseif(this_equlv _small_than_ arg_equlv)
+		if(this_equlv _small_than_ arg_equlv)
 			return a->equal_with(this);
-		else//if(this_equlv _big_than_ arg_equlv)
+		elseif(this_equlv _big_than_ arg_equlv)
 			return this->equal_with(a);
+		else
+			return this->equal_with(a)&&a->equal_with(this);
 	}
 
 	[[nodiscard]]ptr operator&(){return this;}
 	[[nodiscard]]const_ptr operator&()const{return this;}
 	[[nodiscard]]logical_bool operator==(const this_t&a)const{
-		return a.equal(*this);
+		return a.equal(this);
 	}
 protected:
 	friend void waiting_for_destroy(LIS_ID_t(node_like)* a)noexcept;

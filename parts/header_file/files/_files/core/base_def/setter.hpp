@@ -68,13 +68,19 @@ public:
 		_m->be_set(a);
 		return*this;
 	}
-	operator ptr(){
+	[[nodiscard]]operator ptr(){
 		return _m->get_value();
 	}
-	operator const_ptr()const{
+	[[nodiscard]]operator const_ptr()const{
 		return _m->get_value();
 	}
-	explicit operator bool()const{return bool(_m->get_value());}
+	[[nodiscard]]ptr operator&(){
+		return operator ptr();
+	}
+	[[nodiscard]]const_ptr operator&()const{
+		return operator const_ptr();
+	}
+	[[nodiscard]]explicit operator bool()const{return bool(_m->get_value());}
 };
 lazy_instantiation_name(setter);
 
