@@ -6,9 +6,16 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#include <iostream>
+#include "../../files/base"
+#include "../../files/base_exception"
+
+
+#include "../../files/_files/_share/_defs.hpp"
+namespace elc::defs{}
+namespace elc{}
+#include "../../files/_files/_share/_undefs.hpp"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+
 }
