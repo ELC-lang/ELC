@@ -18,7 +18,14 @@ public:
 	constexpr logical_bool(const logical_bool&)=default;
 	constexpr logical_bool&operator=(const logical_bool&)& =default;
 	constexpr explicit operator bool()const{return _value&0b10;}
-	constexpr logical_bool operator!()const{return base_t(~_value);}
+	constexpr logical_bool operator!()const{
+		base_t aret=0b00;
+		if(_value&0b10)
+			aret&=0b01;
+		if(_value&0b01)
+			aret&=0b10;
+		return aret;
+	}
 
 	[[nodiscard]]explicit constexpr operator hash_t(){
 		return hash(_value);
