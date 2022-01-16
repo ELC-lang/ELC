@@ -11,7 +11,24 @@
 
 
 #include "../../files/_files/_share/_defs.hpp"
-namespace elc::defs{}
+namespace elc::defs{
+	template<typename char_T>
+	struct base_string_data_t,ref_able<base_string_data_t<char_T>>{
+		typedef base_string_data_t<char_T> this_t;
+		typedef comn_ptr_t<this_t> ptr_t;
+
+		virtual size_t get_c_str(ptr_t&)=0;
+		virtual size_t get_size()=0;
+		virtual ptr_t get_substr_data(size_t begin,size_t end)=0;
+		virtual ptr_t get_data_after_apply_str_to_begin(char_T*str,size_t size)=0;
+		virtual ptr_t get_data_after_apply_str_to_end(char_T*str,size_t size)=0;
+
+		virtual ptr_t get_data_after_insert(size_t pos,char_T*str,size_t size)=0;
+		virtual ptr_t get_data_after_insert(size_t pos,ptr_t str)=0;
+		virtual ptr_t get_data_after_erase(size_t pos,char_T*str,size_t size)=0;
+		virtual ptr_t get_data_after_erase(size_t pos,ptr_t str)=0;
+	};
+}
 namespace elc{}
 #include "../../files/_files/_share/_undefs.hpp"
 
