@@ -7,6 +7,14 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using defs::core::
+export node_like;
+export ptr;
+export const_ptr;
+export setter;
+
+export nil;
+export t;
+export the_void;
 #undef export
 
 //file_end
