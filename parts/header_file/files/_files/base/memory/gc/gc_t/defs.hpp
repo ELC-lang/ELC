@@ -51,7 +51,7 @@ public:
 
 	template<class T>
 	inline void add_gc_method(type_info_t<T>)noexcept{
-		add_gc_method(gc_method_of<T>);
+		add_gc_method((void(*)()noexcept)gc_method_of<T>);
 		add_gc_success_identifier(gc_success_identifier_of<T>);
 	}
 	template<class T>
