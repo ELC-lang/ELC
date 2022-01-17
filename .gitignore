@@ -9,6 +9,4 @@
 Makefile.win
 temp_tool
 *.vs
-*.sln
-*.vcxproj*
 Debug
