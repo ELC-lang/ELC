@@ -501,7 +501,7 @@ namespace lifetime_n{
 											(copy_construct_trivial<T>&&destruct.trivial<T>);
 
 		template<class T> requires able<T>
-		T& base_call(T&a,const T&b)const noexcept(nothrow<T>){
+		static T& base_call(T&a,const T&b)noexcept(nothrow<T>){
 			if constexpr(r_able<T>)
 				a=b;
 			else{
@@ -511,7 +511,7 @@ namespace lifetime_n{
 			return a;
 		}
 		template<class T> requires able<T>
-		T* base_call(T*to,const T*from,size_t size)const noexcept(nothrow<T>){
+		static T* base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				memcpy(to,from,size*sizeof(T));
 			else{
@@ -555,7 +555,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=r_able<T>?move_assign_trivial<T>:copy_assign.trivial<T>;
 
 		template<class T> requires able<T>
-		T& base_call(T&a,T&&b)const noexcept(nothrow<T>){
+		static T& base_call(T&a,T&&b)noexcept(nothrow<T>){
 			if constexpr(r_able<T>)
 				a=move(b);
 			else{
@@ -564,7 +564,7 @@ namespace lifetime_n{
 			return a;
 		}
 		template<class T> requires able<T>
-		T* base_call(T*to,T*from,size_t size)const noexcept(nothrow<T>){
+		static T* base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				memcpy(to,from,size*sizeof(T));
 			else{

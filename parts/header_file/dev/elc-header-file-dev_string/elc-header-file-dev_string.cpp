@@ -19,12 +19,12 @@ namespace std{//cpp20还未实现，占位。
 #include "../../files/_files/_share/_defs.hpp"
 namespace elc::defs{
 	namespace string_n{
-		namespace string_data_n{
+		inline namespace string_data_n{
 			template<typename char_T>
-			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<ref_able,abstract_base>{
+			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<ref_able,abstract_base,never_in_array>,build_by_get_only,force_use_default_null_ptr{
 				typedef base_string_data_t<char_T> this_t;
 				typedef comn_ptr_t<this_t> ptr_t;
-				typedef array_like_view_t<char_T> string_view_t;
+				typedef array_like_view_t<const char_T> string_view_t;
 
 				bool is_unique()noexcept{ return get_ref_num(this)==1; }
 
@@ -38,8 +38,8 @@ namespace elc::defs{
 				virtual ptr_t apply_str_to_end(string_view_t str);
 				virtual ptr_t apply_str_to_end(ptr_t str);
 
-				virtual ptr_t do_insert(size_t pos,string_view_t str);
-				virtual ptr_t do_insert(size_t pos,ptr_t str);
+				//virtual ptr_t do_insert(size_t pos,string_view_t str);
+				//virtual ptr_t do_insert(size_t pos,ptr_t str);
 				virtual ptr_t do_erase(size_t pos,size_t size);
 
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
@@ -55,16 +55,16 @@ namespace elc::defs{
 
 				array_t<char_T> _m;
 
-				comn_string_data_t(const char_T* str,size_t size):_m(note::size(size+1)){
-					copy_assign[size](note::form(str),note::to((char_T*)_m));
+				comn_string_data_t(string_view_t str):_m(note::size(str.size()+1)){
+					copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m));
 				}
-				comn_string_data_t(ptr_t str):_m(note::size(str->size()+1)){
-					str->copy_part_data_to((char_T*)_m,0,this->size());
+				comn_string_data_t(ptr_t str):_m(note::size(str->get_size()+1)){
+					str->copy_part_data_to((char_T*)_m,0,this->get_size());
 				}
 
 				virtual char_T* get_c_str(ptr_t&)override{ return (char_T*)_m; }
 				virtual size_t get_size()override{ return _m.size()-1; }
-				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{ copy_assign[size](note::form((char_T*)_m),note::to(to)); }
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{ copy_assign[size](note::form((const char_T*)_m),note::to(to)); }
 				virtual char_T& arec(size_t index)override{ return _m[index]; }
 			};
 			template<typename char_T>
@@ -112,7 +112,7 @@ namespace elc::defs{
 				end_apply_string_data_t(ptr_t str,string_view_t end):
 					_to_size(str->get_size()),
 					_used_size(end.size()),
-					_m(note::size((_to_size+_used_size)*magic_number::gold_of_resize)),
+					_m(note::size(size_t((_to_size+_used_size)*magic_number::gold_of_resize))),
 					_to(str)
 				{
 					copy_assign[_used_size](note::form(end.begin()),note::to((char_T*)_m));
@@ -132,7 +132,7 @@ namespace elc::defs{
 						}
 						else
 							pos-=_to_size;
-						copy_assign[size](note::form((char_T*)_m+pos),note::to(to));
+						copy_assign[size](note::form((const char_T*)_m+pos),note::to(to));
 					}
 				}
 				virtual char_T& arec(size_t index)override{
@@ -146,7 +146,7 @@ namespace elc::defs{
 					if(this->is_unique()){
 						if(_m.size()-_used_size < str.size()){
 							auto size_now=this->get_size()+str.size();
-							auto size_new=size_now*magic_number::gold_of_resize;
+							auto size_new=size_t(size_now*magic_number::gold_of_resize);
 							_m.resize(size_new);
 						}
 						copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m+_used_size));
@@ -182,9 +182,9 @@ namespace elc::defs{
 				size_t _used_size;
 
 				head_apply_string_data_t(ptr_t str,string_view_t head):
-					_to_size(str->size()),
+					_to_size(str->get_size()),
 					_used_size(head.size()),
-					_m(note::size((_to_size+_used_size)*magic_number::gold)),
+					_m(note::size(size_t((_to_size+_used_size)*magic_number::gold))),
 					_to(str)
 				{
 					copy_assign[_used_size](note::form(head.begin()),note::to((char_T*)_m));
@@ -193,10 +193,10 @@ namespace elc::defs{
 				virtual size_t get_size()override{ return _used_size+_to_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{
 					if(pos<_used_size){
-						char_T* head_begin=_m.end()-_used_size;
-						char_T* head_end=_m.end();
-						char_T* copy_begin=pos+head_begin;
-						size_t size_of_copy_from_head=min(head_end-copy_begin,size);
+						const char_T* head_begin=_m.end()-_used_size;
+						const char_T* head_end=_m.end();
+						const char_T* copy_begin=pos+head_begin;
+						size_t size_of_copy_from_head=min(size_t(head_end-copy_begin),size);
 
 						copy_assign[size_of_copy_from_head](note::form(copy_begin),note::to(to));
 						if(size!=size_of_copy_from_head){
@@ -218,7 +218,7 @@ namespace elc::defs{
 					if(this->is_unique()){
 						if(_m.size()-_used_size<str.size()){
 							auto size_now=this->get_size()+str.size();
-							auto size_new=size_now*magic_number::gold_of_resize;
+							auto size_new=size_t(size_now*magic_number::gold_of_resize);
 							_m.forward_resize(size_new);
 						}
 						copy_assign[str.size()](note::form(str.begin()),note::to(_m.end()-_used_size-str.size()));
@@ -322,8 +322,7 @@ namespace elc::defs{
 							return this;
 						}
 					}
-					else
-						return base_t::do_erase(pos,size);
+					return base_t::do_erase(pos,size);
 				}
 				virtual char_T& arec(size_t index)override{
 					if(index>_erase_pos)
@@ -337,18 +336,27 @@ namespace elc::defs{
 				return get<erased_string_data_t<char_T>>(this,pos,size);
 			}
 		}
-		namespace string_n{
-			template<typename char_T>
-			struct string_t{
+		template<typename char_T>
+		struct string_t{
+			typedef base_string_data_t<char_T> base_t_w;
+			typedef base_t_w::ptr_t ptr_t;
+			typedef base_t_w::string_view_t string_view_t;
 
-			};
-		}
+			ptr_t _m;
+
+			template<size_t N>
+			string_t(const char_T(&a)[N]){
+				_m=get<comn_string_data_t<char_T>>(string_view_t(a));
+			}
+		};
 	}
 }
-namespace elc{}
+namespace elc{
+	using defs::string_n::string_t;
+}
 #include "../../files/_files/_share/_undefs.hpp"
 
 int main()
 {
-
+	elc::string_t<char> a="";
 }

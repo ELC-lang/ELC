@@ -42,6 +42,7 @@ namespace elc::defs{
 				virtual void build_up(const char_t*& arg)=0;
 			};
 			inline struct NULL_AST:base_AST,instance_struct<NULL_AST>{
+				NULL_AST()noexcept:ref_able<base_AST>(never_ref_num_zero){}
 				virtual void build_up(const char_t*& arg){ throw base_read_error(es"build up NULL_AST"); }
 				virtual string_t get_code_struct()override{ throw base_read_error(es"code struct NULL_AST"); }
 			}NULL_ASTP;
