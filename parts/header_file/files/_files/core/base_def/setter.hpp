@@ -39,18 +39,18 @@ lazy_instantiation struct LIS_name(setter){
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;//为什么要加这个？我不知道，万一将来有人用上了呢？
 	};
 
-	struct constexpr_data_t:type_info_t<constexpr_data_t>::template_name
+	struct constexpr_data_t final:type_info_t<constexpr_data_t>::template_name
 	with_common_attribute<never_in_array,instance_struct>,build_by_get_only,force_use_default_null_ptr
 	,base_data_t{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
 		constexpr_data_t(const constexpr_data_t&)noexcept=default;
-		virtual ~constexpr_data_t()noexcept override=default;
+		virtual ~constexpr_data_t()noexcept override final=default;
 
-		virtual void be_set(ptr)noexcept override{}
-		[[nodiscard]]virtual ptr get_value()override{return _m;}
-		[[nodiscard]]virtual base_data_t*copy()const noexcept override{return get<constexpr_data_t>(_m);}
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<constexpr_data_t>;}
+		virtual void be_set(ptr)noexcept override final{}
+		[[nodiscard]]virtual ptr get_value()override final{return _m;}
+		[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<constexpr_data_t>(_m);}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<constexpr_data_t>;}
 	};
 private:
 	mutable base_data_t*_m;

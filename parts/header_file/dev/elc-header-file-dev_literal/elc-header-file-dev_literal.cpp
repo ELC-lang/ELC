@@ -41,18 +41,18 @@ namespace elc::defs{
 				virtual string_t get_code_struct()=0;
 				virtual void build_up(const char_t*& arg)=0;
 			};
-			inline struct NULL_AST:base_AST,instance_struct<NULL_AST>{
+			inline struct NULL_AST final:base_AST,instance_struct<NULL_AST>{
 				NULL_AST()noexcept:ref_able<base_AST>(never_ref_num_zero){}
-				virtual void build_up(const char_t*& arg){ throw base_read_error(es"build up NULL_AST"); }
-				virtual string_t get_code_struct()override{ throw base_read_error(es"code struct NULL_AST"); }
+				virtual void build_up(const char_t*& arg)override final{ throw base_read_error(es"build up NULL_AST"); }
+				virtual string_t get_code_struct()override final{ throw base_read_error(es"code struct NULL_AST"); }
 			}NULL_ASTP;
 			base_AST* get_null_ptr(const base_AST*){ return&NULL_ASTP; }
 		}
 		comn_ptr_t<AST_n::base_AST> base_read_AST(const char_t*& arg);
 		namespace AST_n{
-			struct symbol_AST:base_AST,instance_struct<symbol_AST>{
+			struct symbol_AST final:base_AST,instance_struct<symbol_AST>{
 				string_t _symbol_name;
-				virtual void build_up(const char_t*& arg){
+				virtual void build_up(const char_t*& arg)override final{
 					if(*arg==ec('`')){
 						while(*arg){
 							if(*arg!=ec('`'))
@@ -82,13 +82,13 @@ namespace elc::defs{
 						}
 					}
 				}
-				virtual string_t get_code_struct()override{
+				virtual string_t get_code_struct()override final{
 					return es"symbol: "+_symbol_name;
 				}
 			};
-			struct list_AST:base_AST,instance_struct<list_AST>{
+			struct list_AST final:base_AST,instance_struct<list_AST>{
 				array_t<comn_ptr_t<base_AST>>_members;
-				virtual void build_up(const char_t*& arg){
+				virtual void build_up(const char_t*& arg)override final{
 					arg++;//"("
 					while(*arg){
 						if(isspace(*arg)){
@@ -104,7 +104,7 @@ namespace elc::defs{
 					}
 					throw base_read_error(locale::str::base_read::expr_incomplete);
 				}
-				virtual string_t get_code_struct()override{
+				virtual string_t get_code_struct()override final{
 					string_t aret=es"list: ( ";
 					for(const auto& a:_members){
 						aret+=a->get_code_struct();
