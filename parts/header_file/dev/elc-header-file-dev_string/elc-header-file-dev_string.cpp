@@ -38,9 +38,9 @@ namespace elc::defs{
 				virtual ptr_t apply_str_to_end(string_view_t str);
 				virtual ptr_t apply_str_to_end(ptr_t str);
 
-				virtual ptr_t get_data_after_insert(size_t pos,string_view_t str);
-				virtual ptr_t get_data_after_insert(size_t pos,ptr_t str);
-				virtual ptr_t get_data_after_erase(size_t pos,size_t size);
+				virtual ptr_t do_insert(size_t pos,string_view_t str);
+				virtual ptr_t do_insert(size_t pos,ptr_t str);
+				virtual ptr_t do_erase(size_t pos,size_t size);
 
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
 				virtual char_T& arec(size_t index)=0;
@@ -285,6 +285,56 @@ namespace elc::defs{
 			template<typename char_T>
 			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(ptr_t str){
 				return get<sum_string_data_t<char_T>>(str,this);
+			}
+
+			template<typename char_T>
+			struct erased_string_data_t:base_string_data_t<char_T>,instance_struct<erased_string_data_t<char_T>>{
+				typedef erased_string_data_t<char_T> this_t;
+				typedef base_string_data_t<char_T> base_t;
+				using base_t::ptr_t;
+				using base_t::string_view_t;
+
+				ptr_t _to;
+				size_t _to_size;
+				size_t _erase_pos;
+				size_t _erase_size;
+
+				erased_string_data_t(ptr_t str,size_t erase_pos,size_t erase_size):_to(str),_to_size(_to->get_size()),_erase_pos(erase_pos),_erase_size(erase_size){}
+
+				virtual size_t get_size()override{ return _to_size-_erase_size; }
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{
+					if(pos+size<_erase_pos)
+						_to->copy_part_data_to(to,pos,size);
+					elseif(pos>_erase_pos)
+						_to->copy_part_data_to(to,pos+_erase_size,size);
+					else{
+						auto size_defore_erase_pos=_erase_pos-pos;
+						auto size_after_erase_pos=size-size_defore_erase_pos;
+						_to->copy_part_data_to(to,pos,size_defore_erase_pos);
+						_to->copy_part_data_to(to+size_defore_erase_pos,_erase_pos+_erase_size,size_after_erase_pos);
+					}
+				}
+				virtual ptr_t do_erase(size_t pos,size_t size)override{
+					if(this->is_unique()){
+						if(pos<=_erase_pos && pos+size>=_erase_size){
+							_erase_pos=pos;
+							_erase_size+=size;
+							return this;
+						}
+					}
+					else
+						return base_t::do_erase(pos,size);
+				}
+				virtual char_T& arec(size_t index)override{
+					if(index>_erase_pos)
+						return _to->arec(index+_erase_size);
+					else
+						return _to->arec(index);
+				}
+			};
+			template<typename char_T>
+			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_erase(size_t pos,size_t size){
+				return get<erased_string_data_t<char_T>>(this,pos,size);
 			}
 		}
 		namespace string_n{
