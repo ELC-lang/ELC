@@ -21,7 +21,7 @@ namespace elc::defs{
 	namespace string_n{
 		inline namespace string_data_n{
 			template<typename char_T>
-			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<abstract_base,never_in_array>,ref_able<base_string_data_t<char_T>>,build_by_get_only{
+			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<abstract_base,never_in_array,replace_able>,ref_able<base_string_data_t<char_T>>,build_by_get_only{
 				typedef base_string_data_t<char_T> this_t;
 				typedef comn_ptr_t<this_t> ptr_t;
 				typedef array_like_view_t<const char_T> string_view_t;
@@ -30,10 +30,11 @@ namespace elc::defs{
 				base_string_data_t(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
 
 				[[nodiscard]]bool is_unique()noexcept{ return get_ref_num(this)==1; }
+				virtual void be_replace_as(ptr_t a)=0;
 
 				virtual ~base_string_data_t()=default;
 
-				[[nodiscard]]virtual char_T* get_c_str(ptr_t&);
+				[[nodiscard]]virtual char_T* get_c_str();
 				[[nodiscard]]virtual size_t get_size()=0;
 				[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size);
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str);
@@ -48,6 +49,10 @@ namespace elc::defs{
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
 				[[nodiscard]]virtual char_T& arec(size_t index)=0;
 			};
+			template<typename char_T>
+			void base_string_data_t<char_T>::be_replace_as(ptr_t a){
+				replace_able<this_t>::be_replace_as(a.get());
+			}
 
 			template<typename char_T>
 			struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_string_data_t<char_T>>{
@@ -65,16 +70,20 @@ namespace elc::defs{
 					str->copy_part_data_to((char_T*)_m,0,this->get_size());
 				}
 
-				[[nodiscard]]virtual char_T* get_c_str(ptr_t&)override final{ return (char_T*)_m; }
+				virtual void be_replace_as(ptr_t a)override final{
+					_m.clear();
+					base_t::be_replace_as(a);
+				}
+				[[nodiscard]]virtual char_T* get_c_str()override final{ return (char_T*)_m; }
 				[[nodiscard]]virtual size_t get_size()override final{ return _m.size()-1; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m),note::to(to)); }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _m[index]; }
 			};
 			template<typename char_T>
-			[[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(ptr_t& a){
-				auto comn_data=get<comn_string_data_t<char_T>>(a);
-				a=comn_data;
-				return comn_data->get_c_str(a);
+			[[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(){
+				auto comn_data=get<comn_string_data_t<char_T>>(this);
+				this->be_replace_as(comn_data);
+				return comn_data->get_c_str();
 			}
 
 			template<typename char_T>
@@ -86,7 +95,8 @@ namespace elc::defs{
 
 				null_string_data_t()noexcept:base_t(never_ref_num_zero){}
 
-				[[nodiscard]]virtual char_T* get_c_str(ptr_t&)override final{
+				virtual void be_replace_as(ptr_t a)override final{nothing;}
+				[[nodiscard]]virtual char_T* get_c_str()override final{
 					static char_T data[1]{};
 					return data;
 				}
@@ -122,7 +132,11 @@ namespace elc::defs{
 
 				substr_string_data_t(ptr_t str,size_t sub_begin,size_t sub_size):_to(str),_sub_begin(sub_begin),_sub_size(sub_size){}
 
-				[[nodiscard]]virtual char_T* get_c_str(ptr_t&)override final{ return _to->get_c_str(_to)+_sub_begin; }
+				virtual void be_replace_as(ptr_t a)override final{
+					_to.reset();
+					base_t::be_replace_as(a);
+				}
+				[[nodiscard]]virtual char_T* get_c_str()override final{ return _to->get_c_str()+_sub_begin; }
 				[[nodiscard]]virtual size_t get_size()override final{ return _sub_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _to->arec(index+_sub_begin); }
@@ -153,6 +167,11 @@ namespace elc::defs{
 					copy_assign[_used_size](note::form(end.begin()),note::to((char_T*)_m));
 				}
 
+				virtual void be_replace_as(ptr_t a)override final{
+					_m.clear();
+					_to.reset();
+					base_t::be_replace_as(a);
+				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _used_size+_to_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
 					if(pos+size<_to_size)
@@ -225,6 +244,11 @@ namespace elc::defs{
 					copy_assign[_used_size](note::form(head.begin()),note::to((char_T*)_m));
 				}
 
+				virtual void be_replace_as(ptr_t a)override final{
+					_m.clear();
+					_to.reset();
+					base_t::be_replace_as(a);
+				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _used_size+_to_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
 					if(pos<_used_size){
@@ -290,6 +314,11 @@ namespace elc::defs{
 
 				sum_string_data_t(ptr_t defore,ptr_t after):_defore(defore),_after(after),_defore_size(_defore->get_size()),_after_size(_after->get_size()){}
 
+				virtual void be_replace_as(ptr_t a)override final{
+					_defore.reset();
+					_after.reset();
+					base_t::be_replace_as(a);
+				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _defore_size+_after_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
 					if(pos<_defore_size){
@@ -336,6 +365,10 @@ namespace elc::defs{
 
 				erased_string_data_t(ptr_t str,size_t erase_pos,size_t erase_size):_to(str),_to_size(_to->get_size()),_erase_pos(erase_pos),_erase_size(erase_size){}
 
+				virtual void be_replace_as(ptr_t a)override final{
+					_to.reset();
+					base_t::be_replace_as(a);
+				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _to_size-_erase_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
 					if(pos+size<_erase_pos)
@@ -429,7 +462,7 @@ namespace elc::defs{
 			}
 
 			[[nodiscard]]string_t substr(size_t begin,size_t size){ return _m->get_substr_data(begin,size); }
-			[[nodiscard]]char_T* c_str(){ return _m->get_c_str(_m); }
+			[[nodiscard]]char_T* c_str(){ return _m->get_c_str(); }
 			[[nodiscard]]size_t size(){ return _m->get_size(); }
 			[[nodiscard]]constexpr auto operator<=>(const string_t& a)noexcept(compare.nothrow<char_T>){
 				return compare(c_str(),size(),a.c_str(),a.size());
@@ -473,6 +506,6 @@ void ste::stst()
 	stest_accert(a.size()==3);
 	a+="asd";
 	stest_accert(a.size()==6);
-	stest_accert("asd"+a=="asdasdasd");
-	a.c_str();
+	a+="asd";
+	stest_accert("asd"+a=="asdasdasdasd");
 }

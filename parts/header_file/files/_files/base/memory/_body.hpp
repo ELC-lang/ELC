@@ -12,8 +12,8 @@
 
 //#include "pool/_body.hpp"//依赖list
 
-#include "other/_body.hpp"//依赖list
 #include "ptr/_body.hpp"
+#include "other/_body.hpp"//依赖list
 
 //#include "gc/_body.hpp"//NOTE:gc不在此处定义，因为它依赖container
 
