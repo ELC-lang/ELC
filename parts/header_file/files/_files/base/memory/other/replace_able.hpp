@@ -14,7 +14,8 @@ private:
 public:
 	constexpr replace_able()noexcept:_m(get_handle(this)){}
 	constexpr ~replace_able()noexcept{
-		if(replaced())attribute_ptr_cast<ref_able>(_m)->cut_ref();
+		if(replaced())
+			attribute_ptr_cast<ref_able>(_m)->cut_ref();
 	}
 	constexpr bool replaced()const noexcept{return _m!=get_handle(this);}
 	constexpr T*get_ptr()const noexcept{
@@ -24,11 +25,11 @@ public:
 			return attribute_ptr_cast<replace_able>(_m)->get_ptr();
 	}
 	constexpr void be_replace_as(T*new_p)noexcept{
-		if(replaced()){
+		if(replaced())
 			attribute_ptr_cast<ref_able>(_m)->cut_ref();
-		}
 		_m=new_p;
-		attribute_ptr_cast<ref_able>(_m)->add_ref();
+		if(replaced())
+			attribute_ptr_cast<ref_able>(_m)->add_ref();
 	}
 	constexpr void be_replace_as(nullptr_t)noexcept{be_replace_as(null_ptr);}
 };
