@@ -99,6 +99,7 @@ using array_like_n::is_signal_value_for_array_like;
 using array_like_n::is_not_signal_value_for_array_like;
 using array_like_n::is_array_like_for;
 using array_like_n::array_like_view_t;
+using array_like_n::array_end_by_zero_t;
 
 //file_end
 

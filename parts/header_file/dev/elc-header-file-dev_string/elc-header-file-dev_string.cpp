@@ -21,10 +21,13 @@ namespace elc::defs{
 	namespace string_n{
 		inline namespace string_data_n{
 			template<typename char_T>
-			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<ref_able,abstract_base,never_in_array>,build_by_get_only,force_use_default_null_ptr{
+			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<abstract_base,never_in_array>,ref_able<base_string_data_t<char_T>>,build_by_get_only{
 				typedef base_string_data_t<char_T> this_t;
 				typedef comn_ptr_t<this_t> ptr_t;
 				typedef array_like_view_t<const char_T> string_view_t;
+
+				base_string_data_t()noexcept=default;
+				base_string_data_t(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
 
 				bool is_unique()noexcept{ return get_ref_num(this)==1; }
 
@@ -73,6 +76,38 @@ namespace elc::defs{
 				a=comn_data;
 				return comn_data->get_c_str(a);
 			}
+
+			template<typename char_T>
+			struct null_string_data_t:base_string_data_t<char_T>,instance_struct<null_string_data_t<char_T>>{
+				typedef null_string_data_t<char_T> this_t;
+				typedef base_string_data_t<char_T> base_t;
+				using base_t::ptr_t;
+				using base_t::string_view_t;
+
+				null_string_data_t()noexcept:base_t(never_ref_num_zero){}
+
+				virtual char_T* get_c_str(ptr_t&)override{
+					static char_T data[1]{};
+					return data;
+				}
+				virtual size_t get_size()override{ return 0; }
+				virtual ptr_t get_substr_data(size_t begin,size_t size)override{ return this; }
+				virtual ptr_t apply_str_to_begin(string_view_t str)override{ return get<comn_string_data_t<char_T>>(str); }
+				virtual ptr_t apply_str_to_begin(ptr_t str)override{ return str; }
+				virtual ptr_t apply_str_to_end(string_view_t str)override{ return get<comn_string_data_t<char_T>>(str); }
+				virtual ptr_t apply_str_to_end(ptr_t str)override{ return str; }
+
+				//virtual ptr_t do_insert(size_t pos,string_view_t str);
+				//virtual ptr_t do_insert(size_t pos,ptr_t str);
+				virtual ptr_t do_erase(size_t pos,size_t size)override{ return this; }
+
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{ return; }
+				virtual char_T& arec(size_t index)override{ return*(char_T*)null_ptr; }
+			};
+			template<typename char_T>
+			inline null_string_data_t<char_T> null_string_data{};
+			template<typename char_T>
+			base_string_data_t<char_T>* get_null_ptr(const base_string_data_t<char_T>*){ return&null_string_data<char_T>; }
 
 			template<typename char_T>
 			struct substr_string_data_t:base_string_data_t<char_T>,instance_struct<substr_string_data_t<char_T>>{
@@ -341,13 +376,33 @@ namespace elc::defs{
 			typedef base_string_data_t<char_T> base_t_w;
 			typedef base_t_w::ptr_t ptr_t;
 			typedef base_t_w::string_view_t string_view_t;
-
+		private:
 			ptr_t _m;
 
-			template<size_t N>
-			string_t(const char_T(&a)[N]){
-				_m=get<comn_string_data_t<char_T>>(string_view_t(a));
+			string_t(ptr_t str):_m(ptr_t){}
+		public:
+			string_t(string_view_t str):_m(get<comn_string_data_t<char_T>>(str)){}
+			string_t(array_end_by_zero_t<const char_T> str):string_t((string_view_t)(str)){}
+			string_t(const char_T* str):string_t(array_end_by_zero_t<const char_T>(str)){}
+			string_t(const string_t& str)=default;
+			string_t(string_t&&str)=default;
+
+			string_t& operator=(const string_t& str)=default;
+			string_t& operator=(string_t&&str)=default;
+
+			string_t& operator+=(string_t str){
+				_m=_m->apply_str_to_end(str._m);
+				return*this;
 			}
+			string_t& operator+=(string_view_t str){
+				_m=_m->apply_str_to_end(str);
+				return*this;
+			}
+			string_t& operator+=(const char_T* str){
+				return *this+=array_end_by_zero_t<const char_T>(str);
+			}
+
+			size_t size(){ return _m->get_size(); }
 		};
 	}
 }
@@ -356,7 +411,13 @@ namespace elc{
 }
 #include "../../files/_files/_share/_undefs.hpp"
 
-int main()
+#include <steve.h>
+
+void ste::stst()
 {
 	elc::string_t<char> a="";
+	a="asd";
+	stest_accert(a.size()==3);
+	a+="asd";
+	stest_accert(a.size()==6);
 }
