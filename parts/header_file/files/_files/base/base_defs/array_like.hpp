@@ -8,21 +8,21 @@
 */
 namespace array_like_n{
 	template<class T>
-	inline constexpr size_t size_of_array_like(T&&)noexcept{return 1;}
+	[[nodiscard]]inline constexpr size_t size_of_array_like(T&&)noexcept{return 1;}
 	template<class T,size_t N>
-	inline constexpr size_t size_of_array_like(T(&)[N])noexcept{return N;}
+	[[nodiscard]]inline constexpr size_t size_of_array_like(T(&)[N])noexcept{return N;}
 	template<class T>
-	inline size_t size_of_array_like(::std::initializer_list<T>&a)noexcept{return a.size();}
+	[[nodiscard]]inline size_t size_of_array_like(::std::initializer_list<T>&a)noexcept{return a.size();}
 
 	template<class T>
-	inline constexpr auto begin_of_array_like(T&&a)noexcept{return addressof(a);}
+	[[nodiscard]]inline constexpr auto begin_of_array_like(T&&a)noexcept{return addressof(a);}
 	template<class T,size_t N>
-	inline constexpr auto begin_of_array_like(T(&a)[N])noexcept{return addressof(a[0]);}
+	[[nodiscard]]inline constexpr auto begin_of_array_like(T(&a)[N])noexcept{return addressof(a[0]);}
 	template<class T>
-	inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
+	[[nodiscard]]inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
 
 	template<class T>
-	inline auto end_of_array_like(T&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
+	[[nodiscard]]inline auto end_of_array_like(T&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
 
 	template<class T>
 	constexpr bool is_array_like=was_not_an_ill_form_with_parameter(
@@ -83,7 +83,7 @@ namespace array_like_n{
 	struct array_end_by_zero_t:array_like_view_t<T>{
 		typedef array_like_view_t<T>base_t;
 
-		constexpr static size_t get_length_of(T*ptr){
+		[[nodiscard]]constexpr static size_t get_length_of(T*ptr){
 			if(*ptr)return get_length_of(ptr+1)+1;
 			else return 0;
 		}

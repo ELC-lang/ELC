@@ -31,26 +31,26 @@ namespace range_n{
 	};
 
 	template<class T>
-	inline auto size_of_array_like(range_t<T*>&a)noexcept{return a.size();}
+	[[nodiscard]]inline auto size_of_array_like(range_t<T*>&a)noexcept{return a.size();}
 	template<class T>
-	inline auto size_of_array_like(range_t<const T*>&a)noexcept{return a.size();}
+	[[nodiscard]]inline auto size_of_array_like(range_t<const T*>&a)noexcept{return a.size();}
 
 	template<class T>
-	inline auto begin_of_array_like(range_t<T*>&a)noexcept{return a.begin();}
+	[[nodiscard]]inline auto begin_of_array_like(range_t<T*>&a)noexcept{return a.begin();}
 	template<class T>
-	inline auto begin_of_array_like(range_t<const T*>&a)noexcept{return a.begin();}
+	[[nodiscard]]inline auto begin_of_array_like(range_t<const T*>&a)noexcept{return a.begin();}
 
 	//in_range
 	template<typename T>
-	constexpr bool in_range(const T a,const range_t<T>range){//算术类型或指针
+	[[nodiscard]]constexpr bool in_range(const T a,const range_t<T>range){//算术类型或指针
 		return a>=range.begin() && a<range.end();
 	}
 	template<typename T>
-	constexpr bool in_range(const T*a,const range_t<byte*>range){
+	[[nodiscard]]constexpr bool in_range(const T*a,const range_t<byte*>range){
 		return reinterpret_cast<const void*>(a)>=range.begin() && reinterpret_cast<const void*>(a)<range.end();
 	}
 	template<typename T>
-	constexpr T* in_range(const T&a,array_like_view_t<const T>range){
+	[[nodiscard]]constexpr T* in_range(const T&a,array_like_view_t<const T>range){
 		for(auto&i : range){
 			if(i==a)
 				return addressof(i);
@@ -58,7 +58,7 @@ namespace range_n{
 		return nullptr;
 	}
 	template<typename T>
-	constexpr T* in_range(array_like_view_t<const T>a,array_like_view_t<const T>range){
+	[[nodiscard]]constexpr T* in_range(array_like_view_t<const T>a,array_like_view_t<const T>range){
 		//数据串匹配by steve02081504.
 		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
 		size_t off_set=0;

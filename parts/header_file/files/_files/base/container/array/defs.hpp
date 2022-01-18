@@ -147,8 +147,8 @@ namespace array_n{
 		}
 
 		template<typename U>
-		friend this_t&&operator+(this_t&&a,U&&b)noexcept_as(a+=b) requires was_not_an_ill_form(a+=b){//对右值的operator+优化为operator+=
-			return a+=b;
+		this_t&& operator+(U&& b)&&noexcept_as(*this+=b) requires was_not_an_ill_form(*this+=b){//对右值的operator+优化为operator+=
+			return *this+=b;
 		}
 
 
@@ -165,9 +165,9 @@ namespace array_n{
 	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 
 	template<class T>
-	inline auto size_of_array_like(array_t<T>&a)noexcept{return a.size();}
+	[[nodiscard]]inline auto size_of_array_like(array_t<T>&a)noexcept{return a.size();}
 	template<class T>
-	inline auto begin_of_array_like(array_t<T>&a)noexcept{return(T*)a.begin();}
+	[[nodiscard]]inline auto begin_of_array_like(array_t<T>&a)noexcept{return(T*)a.begin();}
 }
 
 //file_end
