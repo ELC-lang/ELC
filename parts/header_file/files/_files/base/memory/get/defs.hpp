@@ -21,12 +21,12 @@ namespace get_n{
 	using abstract_base_n::abstract_base;
 	//struct build_by_get_only{};已定义于 "../../base_defs/special_attribute.hpp"
 
-	/*减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
+	/*向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
 	template<typename T>
 	void alloc_size_cut(T*arg,size_t to_size){
 		realloc(arg,to_size);
 	}
-	/*扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/
+	/*向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/
 	template<typename T>
 	void alloc_size_grow(T*&arg,size_t to_size){
 		if constexpr(move.trivial<T>)
@@ -44,6 +44,58 @@ namespace get_n{
 				}
 			}else{
 				move[from_size](note::from(arg),note::to(tmp));
+			}
+			free(arg);
+			arg=tmp;
+		}
+	}
+	/*向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
+	template<typename T>
+	void forward_alloc_size_cut(T*&arg,size_t to_size){
+		auto from_size=get_size_of_alloc(arg);
+		auto cut_size=from_size-to_size;
+		if constexpr(move.trivial<T>){
+			::std::memmove(arg+cut_size,arg,to_size*sizeof(T));
+			realloc(arg,to_size);
+		}
+		else{
+			T*tmp=alloc<T>(to_size);
+			if constexpr(!move.nothrow<T>){
+				template_warning("the move of T was not noexcept,this may cause memory lack.");
+				try{
+					move[to_size](note::from(arg+cut_size),note::to(tmp));
+				}catch(...){
+					free(tmp);
+					throw;
+				}
+			}else{
+				move[to_size](note::from(arg+cut_size),note::to(tmp));
+			}
+			free(arg);
+			arg=tmp;
+		}
+	}
+	/*向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/
+	template<typename T>
+	void forward_alloc_size_grow(T*&arg,size_t to_size){
+		auto from_size=get_size_of_alloc(arg);
+		auto grow_size=to_size-from_size;
+		if constexpr(move.trivial<T>){
+			realloc(arg,to_size);
+			::std::memmove(arg,arg+grow_size,from_size*sizeof(T));
+		}
+		else{
+			T*tmp=alloc<T>(to_size);
+			if constexpr(!move.nothrow<T>){
+				template_warning("the move of T was not noexcept,this may cause memory lack.");
+				try{
+					move[from_size](note::from(arg),note::to(tmp+grow_size));
+				}catch(...){
+					free(tmp);
+					throw;
+				}
+			}else{
+				move[from_size](note::from(arg),note::to(tmp+grow_size));
 			}
 			free(arg);
 			arg=tmp;
@@ -216,6 +268,48 @@ namespace get_n{
 			return arg;
 		}
 	}get_resize{};
+
+	constexpr struct get_forward_resize_t{
+		template<typename T>
+		static constexpr bool able=construct<T>.able<>&&destruct.able<T>&&move.able<T>;
+		template<typename T>
+		static constexpr bool nothrow=type_info<T>.not_has_attribute(abstract_base)&&construct<T>.nothrow<>&&destruct.nothrow<T>&&move.nothrow<T>;
+
+		template<typename T> requires able<T>
+		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
+			if constexpr(type_info<T>.has_attribute(never_in_array)){
+				template_warning("For never_in_array type,get_forward_resize will unget ptr when new_size=0 else do nothing.");
+				if(to_size)
+					return;
+				unget(arg);
+				arg=null_ptr;
+			}elseif constexpr(type_info<T>.has_attribute(abstract_base)){
+				arg=attribute_ptr_cast<abstract_base>(arg)->abstract_method_get_forward_resize_this(to_size);
+			}else{
+				const size_t from_size=get_size_of_alloc(arg);
+				if(from_size==to_size)
+					return;
+				elseif(from_size > to_size){
+					destruct[from_size-to_size](arg);
+					forward_alloc_size_cut(arg,to_size);
+				}elseif(from_size){
+					forward_alloc_size_grow(arg,to_size);
+					construct<T>[arg][to_size-from_size]();
+				}else
+					arg=get<T>[to_size]();
+			}
+		}
+
+		template<typename T> requires able<T>
+		inline void operator()(T*&arg,size_t to_size)const noexcept(nothrow<T>){
+			base_call(arg,to_size);
+		}
+		template<typename T> requires able<T>
+		[[nodiscard]]inline T* operator()(T*&&arg,size_t to_size)const noexcept(nothrow<T>){
+			base_call(arg,to_size);
+			return arg;
+		}
+	}get_forward_resize{};
 
 	constexpr struct get_size_of_get_t{
 		template<typename T>

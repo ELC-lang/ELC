@@ -27,6 +27,15 @@ class instance_struct:is_common_attribute(instance_struct),virtual public abstra
 			return get_handle(this);
 		}
 	}
+	virtual void* _abstract_method_get_forward_resize_this(size_t size)override final{
+		if constexpr(get_forward_resize.able<T>){
+			is_instance_ptr(this);
+			return get_forward_resize(get_handle(this),size);
+		}
+		else{
+			return get_handle(this);
+		}
+	}
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept override final{return get_size_of_get(get_handle(this));}
 };
 

@@ -9,6 +9,7 @@
 #define export using get_n::
 export get;
 export get_resize;
+export get_forward_resize;
 export unget;
 export get_size_of_get;
 export copy_get;

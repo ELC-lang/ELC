@@ -9,6 +9,7 @@
 class abstract_base_vtable{
 	virtual void* _abstract_method_copy_get_this()=0;
 	virtual void* _abstract_method_get_resize_this(size_t size)=0;
+	virtual void* _abstract_method_get_forward_resize_this(size_t size)=0;
 
 	virtual void abstract_method_unget_this()=0;
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept=0;

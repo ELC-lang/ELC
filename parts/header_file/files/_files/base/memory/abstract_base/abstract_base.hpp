@@ -16,6 +16,10 @@ class abstract_base:virtual public abstract_base_vtable{
 		is_base_ptr(this);
 		return reinterpret_cast<T*>(get_ptr_after_off_set(this->_abstract_method_get_resize_this(size)));
 	}
+	T* abstract_method_get_forward_resize_this(size_t size){
+		is_base_ptr(this);
+		return reinterpret_cast<T*>(get_ptr_after_off_set(this->_abstract_method_get_forward_resize_this(size)));
+	}
 
 	friend class get_n::unget_t;
 	friend class get_n::get_resize_t;

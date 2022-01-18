@@ -60,6 +60,9 @@ namespace array_n{
 		void resize(size_t size)noexcept(get_resize.nothrow<T>){
 			get_resize(_m,size);
 		}
+		void forward_resize(size_t size)noexcept(get_forward_resize.nothrow<T>){
+			get_forward_resize(_m,size);
+		}
 		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;
 		}
