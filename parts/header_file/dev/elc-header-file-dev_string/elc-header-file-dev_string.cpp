@@ -195,6 +195,7 @@ namespace elc::defs{
 						char_T* head_end=_m.end();
 						char_T* copy_begin=pos+head_begin;
 						size_t size_of_copy_from_head=min(head_end-copy_begin,size);
+
 						copy_assign[size_of_copy_from_head](note::form(copy_begin),note::to(to));
 						if(size!=size_of_copy_from_head){
 							size_t size_left=size-size_of_copy_from_head;
