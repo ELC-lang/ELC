@@ -33,10 +33,10 @@ namespace elc::defs{
 				virtual char_T* get_c_str(ptr_t&);
 				virtual size_t get_size()=0;
 				virtual ptr_t get_substr_data(size_t begin,size_t size);
-				virtual ptr_t get_data_after_apply_str_to_begin(string_view_t str);
-				virtual ptr_t get_data_after_apply_str_to_begin(ptr_t str);
-				virtual ptr_t get_data_after_apply_str_to_end(string_view_t str);
-				virtual ptr_t get_data_after_apply_str_to_end(ptr_t str);
+				virtual ptr_t apply_str_to_begin(string_view_t str);
+				virtual ptr_t apply_str_to_begin(ptr_t str);
+				virtual ptr_t apply_str_to_end(string_view_t str);
+				virtual ptr_t apply_str_to_end(ptr_t str);
 
 				virtual ptr_t get_data_after_insert(size_t pos,string_view_t str);
 				virtual ptr_t get_data_after_insert(size_t pos,ptr_t str);
@@ -98,6 +98,78 @@ namespace elc::defs{
 			}
 
 			template<typename char_T>
+			struct end_apply_string_data_t:base_string_data_t<char_T>,instance_struct<end_apply_string_data_t<char_T>>{
+				typedef end_apply_string_data_t<char_T> this_t;
+				typedef base_string_data_t<char_T> base_t;
+				using base_t::ptr_t;
+				using base_t::string_view_t;
+
+				array_t<char_T> _m;
+				ptr_t _to;
+				size_t _to_size;
+				size_t _used_size;
+
+				end_apply_string_data_t(ptr_t str,string_view_t end):
+					_to_size(str->get_size()),
+					_to(str),
+					_m(note::size((_to_size+end.size())*magic_number::gold_of_resize)),
+					_used_size(end.size())
+				{
+					copy_assign[_used_size](note::form(end.begin()),note::to((char_T*)_m));
+				}
+
+				virtual size_t get_size()override{ return _used_size+_to->get_size(); }
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{
+					if(pos+size<_to_size)
+						_to->copy_part_data_to(to,pos,size);
+					else{
+						if(pos<_to_size){
+							_to->copy_part_data_to(to,pos,_to_size-pos);
+							auto copied_size=_to_size-pos;
+							pos=0;
+							size-=copied_size;
+							to+=copied_size;
+						}
+						else
+							pos-=_to_size;
+						copy_assign[size](note::form((char_T*)_m+pos),note::to(to));
+					}
+				}
+				virtual char_T& arec(size_t index)override{
+					if(index<_to_size)
+						return _to->arec(index);
+					else
+						return _m[index-_to_size];
+				}
+
+				virtual ptr_t apply_str_to_end(string_view_t str)override{
+					if(this->is_unique()){
+						if(_m.size()-_used_size < str.size()){
+							auto size_now=this->get_size()+str.size();
+							auto size_new=size_now*magic_number::gold_of_resize;
+							_m.resize(size_new);
+						}
+						copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m+_used_size));
+						_used_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				virtual ptr_t apply_str_to_end(ptr_t str)override{
+					this->shrink();
+					return base_t::apply_str_to_end(str);
+				}
+				void shrink(){
+					_m.resize(_used_size);
+				}
+			};
+			template<typename char_T>
+			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_end(string_view_t str){
+				return get<end_apply_string_data_t<char_T>>(this,str);
+			}
+
+			template<typename char_T>
 			struct head_apply_string_data_t:base_string_data_t<char_T>,instance_struct<head_apply_string_data_t<char_T>>{
 				typedef head_apply_string_data_t<char_T> this_t;
 				typedef base_string_data_t<char_T> base_t;
@@ -107,8 +179,6 @@ namespace elc::defs{
 				array_t<char_T> _m;//意义为向前延续的数组：当需要向前附加内容时向前拓展以避免重新分配内存
 				ptr_t _to;
 				size_t _used_size;
-
-				
 
 				head_apply_string_data_t(ptr_t str,string_view_t head):
 					_m(note::size(max(str->size()* magic_number::gold ,head.size()))),
@@ -121,11 +191,11 @@ namespace elc::defs{
 				virtual size_t get_size()override{ return _used_size+_to->get_size(); }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override{
 					if(pos<_used_size){
-						char_T* head_begin=(char_T*)_m;
-						char_T* _head_end=_used_size+head_begin-1;
-						char_T* _copy_begin=pos+head_begin;
-						size_t size_of_copy_from_head=min(_head_end-_copy_begin,size);
-						copy_assign[size_of_copy_from_head](note::form(_copy_begin),note::to(to));
+						char_T* head_begin=_m.end()-_used_size;
+						char_T* head_end=_m.end();
+						char_T* copy_begin=pos+head_begin;
+						size_t size_of_copy_from_head=min(head_end-copy_begin,size);
+						copy_assign[size_of_copy_from_head](note::form(copy_begin),note::to(to));
 						if(size!=size_of_copy_from_head){
 							size_t size_left=size-size_of_copy_from_head;
 							char_T* next_copy_begin_pos=to+size_of_copy_from_head;
@@ -141,7 +211,32 @@ namespace elc::defs{
 					else
 						return _to->arec(index-_used_size);
 				}
+				virtual ptr_t apply_str_to_begin(string_view_t str)override{
+					if(this->is_unique()){
+						if(_m.size()-_used_size<str.size()){
+							auto size_now=this->get_size()+str.size();
+							auto size_new=size_now*magic_number::gold_of_resize;
+							_m.forward_resize(size_new);
+						}
+						copy_assign[str.size()](note::form(str.begin()),note::to(_m.end()-_used_size-str.size()));
+						_used_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				virtual ptr_t apply_str_to_begin(ptr_t str)override{
+					this->shrink();
+					return base_t::apply_str_to_begin(str);
+				}
+				void shrink(){
+					_m.forward_resize(_used_size);
+				}
 			};
+			template<typename char_T>
+			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(string_view_t str){
+				return get<head_apply_string_data_t<char_T>>(this,str);
+			}
 		}
 	}
 }
