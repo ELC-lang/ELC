@@ -216,6 +216,24 @@ namespace elc::defs{
 					this->shrink();
 					return base_t::apply_str_to_end(str);
 				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_begin(str);
+						_to_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_begin(str);
+						_to_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
 				void shrink(){
 					_m.resize(_used_size);
 				}
@@ -296,6 +314,24 @@ namespace elc::defs{
 				void shrink(){
 					_m.forward_resize(_used_size);
 				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_end(str);
+						_to_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_end(str);
+						_to_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
 			};
 			template<typename char_T>
 			[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(string_view_t str){
@@ -342,6 +378,42 @@ namespace elc::defs{
 						return _defore->arec(index);
 					else
 						return _after->arec(index-_defore_size);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+					if(this->is_unique()){
+						_defore=_defore->apply_str_to_begin(str);
+						_defore_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+					if(this->is_unique()){
+						_defore=_defore->apply_str_to_begin(str);
+						_defore_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+					if(this->is_unique()){
+						_after=_after->apply_str_to_end(str);
+						_after_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+					if(this->is_unique()){
+						_after=_after->apply_str_to_end(str);
+						_after_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
 				}
 			};
 			template<typename char_T>
@@ -399,6 +471,46 @@ namespace elc::defs{
 						return _to->arec(index+_erase_size);
 					else
 						return _to->arec(index);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_begin(str);
+						auto strsize=str.size();
+						_to_size+=strsize;
+						_erase_pos+=strsize;
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+					if(this->is_unique()){
+						_to = _to->apply_str_to_begin(str);
+						auto strsize=str->get_size();
+						_to_size+=strsize;
+						_erase_pos+=strsize;
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_end(str);
+						_to_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+					if(this->is_unique()){
+						_to=_to->apply_str_to_end(str);
+						_to_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
 				}
 			};
 			template<typename char_T>
