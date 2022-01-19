@@ -698,6 +698,8 @@ namespace elc::defs{
 
 		private:
 			char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
+			char_T& arec(size_t index){ return _m->arec(index); }
+			void arec_set(size_t index,char_T a){ return _m->arec_set(_index,a,_m); }
 			class arec_t:non_copyable,non_moveable{
 				string_t* _to;
 				size_t _index;
@@ -705,23 +707,20 @@ namespace elc::defs{
 				friend class string_t;
 				arec_t(string_t*to,size_t index):_to(_to),_index(index){}
 			public:
-				[[nodiscard]]operator char_T()const noexcept{ return _to->_m->arec(_index); }
-				arec_t&operator=(char_T a)noexcept{ _to->_m->arec_set(_index,a,_to->_m); return*this; }
-				const arec_t&operator=(char_T a)const noexcept{ _to->_m->arec_set(_index,a,_to->_m); return*this; }
+				[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
+				arec_t&operator=(char_T a)noexcept{ _to->arec_set(_index,a); return*this; }
 				[[nodiscard]]char_T*operator&()noexcept{ return _to->unique_c_str()+_index; }
-				[[nodiscard]]const char_T*operator&()const noexcept{ return _to->c_str()+_index; }
+				[[nodiscard]]const char_T*operator&()const noexcept{ return ((const string_t*)(_to))->c_str()+_index; }
 			};
 		public:
 			[[nodiscard]]arec_t operator[](size_t index){ return{this,index}; }
 			[[nodiscard]]const arec_t operator[](size_t index)const{ return{this,index}; }
 			
-			[[nodiscard]]string_t substr(size_t begin,size_t size){ return _m->get_substr_data(begin,size); }
+			[[nodiscard]]string_t substr(size_t begin,size_t size)const{ return _m->get_substr_data(begin,size); }
 			[[nodiscard]]char_T* c_str(){ return unique_c_str(); }
 			[[nodiscard]]const char_T* c_str()const{ return _m->get_c_str(); }
-			[[nodiscard]]size_t size(){ return _m->get_size(); }
-			void clear(){
-				_m=null_ptr;
-			}
+			[[nodiscard]]size_t size()const{ return _m->get_size(); }
+			void clear(){ _m=null_ptr; }
 		};
 		template<typename T>
 		inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
