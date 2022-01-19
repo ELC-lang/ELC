@@ -9,7 +9,7 @@
 lazy_instantiation struct LIS_name(setter);
 
 lazy_instantiation struct LIS_name(node_like):type_info_t<LIS_ID_t(node_like)>::template_name
-with_common_attribute<abstract_base,weak_ref_able,replace_able>,ref_able<LIS_ID_t(node_like)>{
+with_common_attribute<abstract_base,weak_ref_able,replace_able,ref_able>{
 public:
 	typedef comn_ptr_t<LIS_ID_t(node_like)>ptr;
 	typedef comn_ptr_t<const LIS_ID_t(node_like)>const_ptr;
@@ -31,7 +31,7 @@ protected:
 	[[nodiscard]]virtual constexpr size_t eq_level()const{return 36;}
 public:
 	LIS_name(node_like)()noexcept=default;
-	LIS_name(node_like)(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
+	LIS_name(node_like)(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->never_ref_num_zero(); }
 	virtual ~LIS_name(node_like)()=default;
 
 	[[nodiscard]]virtual setter arec(const setter)=0;

@@ -21,13 +21,14 @@ namespace elc::defs{
 	namespace string_n{
 		inline namespace string_data_n{
 			template<typename char_T>
-			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name with_common_attribute<abstract_base,never_in_array,replace_able>,ref_able<base_string_data_t<char_T>>,build_by_get_only{
+			struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name
+			with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_by_get_only{
 				typedef base_string_data_t<char_T> this_t;
 				typedef comn_ptr_t<this_t> ptr_t;
 				typedef array_like_view_t<const char_T> string_view_t;
 
 				base_string_data_t()noexcept=default;
-				base_string_data_t(never_ref_num_zero_t)noexcept:ref_able<this_t>(never_ref_num_zero){}
+				base_string_data_t(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->never_ref_num_zero(); }
 
 				[[nodiscard]]bool is_unique()noexcept{ return get_ref_num(this)==1; }
 				virtual void be_replace_as(ptr_t a)=0;

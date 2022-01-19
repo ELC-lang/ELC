@@ -16,6 +16,7 @@ public:
 	[[nodiscard]]inline bool cut_ref()const noexcept{return!--_ref_num;}
 	//[[nodiscard]]operator bool()const noexcept{return _ref_num;}
 	inline void set_zero()noexcept{_ref_num=0;}
+	inline void never_ref_num_zero()noexcept{add_ref();}
 	[[nodiscard]]link_num_t link_num()const{return _ref_num;}
 };
 
