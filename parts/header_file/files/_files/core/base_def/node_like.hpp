@@ -31,7 +31,7 @@ protected:
 	[[nodiscard]]virtual constexpr size_t eq_level()const{return 36;}
 public:
 	LIS_name(node_like)()noexcept=default;
-	LIS_name(node_like)(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->never_ref_num_zero(); }
+	LIS_name(node_like)(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero(); }
 	virtual ~LIS_name(node_like)()=default;
 
 	[[nodiscard]]virtual setter arec(const setter)=0;

@@ -32,7 +32,7 @@ namespace elc::defs{
 				typedef array_like_view_t<const char_T> string_view_t;
 
 				base_string_data_t()noexcept=default;
-				base_string_data_t(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->never_ref_num_zero(); }
+				base_string_data_t(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero(); }
 
 				[[nodiscard]]bool is_unique()noexcept{ return get_ref_num(this)==1; }
 				virtual void be_replace_as(ptr_t a)=0;
