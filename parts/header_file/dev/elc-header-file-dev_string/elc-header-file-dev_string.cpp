@@ -40,6 +40,7 @@ namespace elc::defs{
 				virtual ~base_string_data_t()=default;
 
 				[[nodiscard]]virtual char_T* get_c_str();
+				[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&);
 				[[nodiscard]]virtual size_t get_size()=0;
 				[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size);
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str);
@@ -53,6 +54,7 @@ namespace elc::defs{
 
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
 				[[nodiscard]]virtual char_T& arec(size_t index)=0;
+				virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
 			};
 			template<typename char_T>
 			void base_string_data_t<char_T>::be_replace_as(ptr_t a){
@@ -83,12 +85,28 @@ namespace elc::defs{
 				[[nodiscard]]virtual size_t get_size()override final{ return _m.size()-1; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m),note::to(to)); }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _m[index]; }
+				virtual void arec_set(size_t index,char_T a,ptr_t&p)override final{
+					if(this->is_unique())
+						_m[index]=a;
+					else
+						base_t::arec_set(index,a,p);
+				}
 			};
 			template<typename char_T>
 			[[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(){
 				auto comn_data=get<comn_string_data_t<char_T>>(this);
 				this->be_replace_as(comn_data);
 				return comn_data->get_c_str();
+			}
+			template<typename char_T>
+			[[nodiscard]]char_T* base_string_data_t<char_T>::get_unique_c_str(ptr_t&a){
+				auto comn_data=get<comn_string_data_t<char_T>>(this);
+				a=comn_data;
+				return comn_data->get_c_str();
+			}
+			template<typename char_T>
+			void elc::defs::string_n::string_data_n::base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p){
+				this->get_unique_c_str(p)[index]=a;
 			}
 
 			template<typename char_T>
@@ -118,6 +136,7 @@ namespace elc::defs{
 
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ return; }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return*(char_T*)null_ptr; }
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{ nothing; }
 			};
 			template<typename char_T>
 			inline null_string_data_t<char_T> null_string_data{};
@@ -146,6 +165,48 @@ namespace elc::defs{
 				[[nodiscard]]virtual size_t get_size()override final{ return _sub_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _to->arec(index+_sub_begin); }
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+					if(this->is_unique())
+						_to->arec_set(index+_sub_begin,a,_to);
+					else
+						base_t::arec_set(index,a,p);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+					if(this->is_unique() && _sub_begin==0){
+						_to=_to->apply_str_to_begin(str);
+						_sub_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+					if(this->is_unique() && _sub_begin==0){
+						_to=_to->apply_str_to_begin(str);
+						_sub_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+					if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
+						_to=_to->apply_str_to_end(str);
+						_sub_size+=str.size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+					if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
+						_to=_to->apply_str_to_end(str);
+						_sub_size+=str->get_size();
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
 			};
 			template<typename char_T>
 			[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::get_substr_data(size_t begin,size_t size){
@@ -200,6 +261,15 @@ namespace elc::defs{
 						return _to->arec(index);
 					else
 						return _m[index-_to_size];
+				}
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+					if(this->is_unique())
+						if(index<_to_size)
+							_to->arec_set(index,a,_to);
+						else
+							_m[index-_to_size]=a; 
+					else
+						base_t::arec_set(index,a,p);
 				}
 
 				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
@@ -297,6 +367,15 @@ namespace elc::defs{
 					else
 						return _to->arec(index-_used_size);
 				}
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+					if(this->is_unique())
+						if(index<_used_size)
+							_m[index]=a;
+						else
+							_to->arec_set(index-_used_size,a,_to);
+					else
+						base_t::arec_set(index,a,p);
+				}
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
 					if(this->is_unique()){
 						if(_m.size()-_used_size<str.size()){
@@ -382,6 +461,15 @@ namespace elc::defs{
 						return _defore->arec(index);
 					else
 						return _after->arec(index-_defore_size);
+				}
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+					if(this->is_unique())
+						if(index<_defore_size)
+							_defore->arec_set(index,a,_defore);
+						else
+							_after->arec_set(index-_defore_size,a,_after);
+					else
+						base_t::arec_set(index,a,p);
 				}
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
 					if(this->is_unique()){
@@ -476,6 +564,16 @@ namespace elc::defs{
 					else
 						return _to->arec(index);
 				}
+
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+					if(this->is_unique())
+						if(index>_erase_pos)
+							return _to->arec_set(index+_erase_size,a,_to);
+						else
+							return _to->arec_set(index,a,_to);
+					else
+						base_t::arec_set(index,a,p);
+				}
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
 					if(this->is_unique()){
 						_to=_to->apply_str_to_begin(str);
@@ -562,7 +660,7 @@ namespace elc::defs{
 			friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2){
 				return array_end_by_zero_t<const char_T>(str1)+str2;
 			}
-			
+
 			string_t& operator+=(string_t str)&{
 				_m=_m->apply_str_to_end(str._m);
 				return*this;
@@ -579,9 +677,6 @@ namespace elc::defs{
 				return *this+=b;
 			}
 
-			[[nodiscard]]string_t substr(size_t begin,size_t size){ return _m->get_substr_data(begin,size); }
-			[[nodiscard]]char_T* c_str(){ return _m->get_c_str(); }
-			[[nodiscard]]size_t size(){ return _m->get_size(); }
 			[[nodiscard]]constexpr auto operator<=>(const string_t& a)noexcept(compare.nothrow<char_T>){
 				return compare(c_str(),size(),a.c_str(),a.size());
 			}
@@ -599,6 +694,31 @@ namespace elc::defs{
 			}
 			[[nodiscard]]constexpr auto operator==(const char_T* a)noexcept(equal.nothrow<char_T>){
 				return operator==(array_end_by_zero_t<const char_T>(a));
+			}
+
+		private:
+			char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
+			class arec_t{
+				string_t* _to;
+				size_t _index;
+			public:
+				arec_t(string_t*to,size_t index):_to(_to),_index(index){}
+				[[nodiscard]]operator char_T()const noexcept{ return _to->_m->arec(_index); }
+				arec_t&operator=(char_T a)noexcept{ _to->_m->arec_set(_index,a,_to->_m); return*this; }
+				const arec_t&operator=(char_T a)const noexcept{ _to->_m->arec_set(_index,a,_to->_m); return*this; }
+				[[nodiscard]]char_T*operator&()noexcept{ return _to->unique_c_str()+_index; }
+				[[nodiscard]]const char_T*operator&()const noexcept{ return _to->c_str()+_index; }
+			};
+		public:
+			[[nodiscard]]arec_t operator[](size_t index){ return{this,index}; }
+			[[nodiscard]]const arec_t operator[](size_t index)const{ return{this,index}; }
+			
+			[[nodiscard]]string_t substr(size_t begin,size_t size){ return _m->get_substr_data(begin,size); }
+			[[nodiscard]]char_T* c_str(){ return unique_c_str(); }
+			[[nodiscard]]const char_T* c_str()const{ return _m->get_c_str(); }
+			[[nodiscard]]size_t size(){ return _m->get_size(); }
+			void clear(){
+				_m=null_ptr;
 			}
 		};
 		template<typename T>
