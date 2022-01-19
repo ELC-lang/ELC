@@ -698,11 +698,13 @@ namespace elc::defs{
 
 		private:
 			char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
-			class arec_t{
+			class arec_t:non_copyable,non_moveable{
 				string_t* _to;
 				size_t _index;
-			public:
+
+				friend class string_t;
 				arec_t(string_t*to,size_t index):_to(_to),_index(index){}
+			public:
 				[[nodiscard]]operator char_T()const noexcept{ return _to->_m->arec(_index); }
 				arec_t&operator=(char_T a)noexcept{ _to->_m->arec_set(_index,a,_to->_m); return*this; }
 				const arec_t&operator=(char_T a)const noexcept{ _to->_m->arec_set(_index,a,_to->_m); return*this; }
@@ -749,6 +751,7 @@ void ste::stst()
 		a[1]='e';
 		stest_accert(a.substr(0,3)=="aed");
 		stest_accert(a[2]=='d');
+		auto b=a[1];
 		a.clear();
 		stest_accert(a.size()==0);
 	}
