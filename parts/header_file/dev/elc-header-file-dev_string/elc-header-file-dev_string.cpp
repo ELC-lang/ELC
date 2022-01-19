@@ -626,13 +626,15 @@ namespace elc::defs{
 			typedef base_t_w::ptr_t ptr_t;
 			typedef base_t_w::string_view_t string_view_t;
 			typedef string_t<char_T> this_t;
+			static constexpr size_t npos=-1;
+
 		private:
 			mutable ptr_t _m;
 
 			string_t(ptr_t str):_m(str){}
 			[[nodiscard]]string_t copy()const{ return*this; }
 		public:
-			void swap_with(this_t& a){
+			void swap_with(this_t& a)noexcept{
 				swap(_m,a._m);
 			}
 
@@ -677,35 +679,36 @@ namespace elc::defs{
 				return *this+=b;
 			}
 
-			[[nodiscard]]constexpr auto operator<=>(const string_t& a)noexcept(compare.nothrow<char_T>){
+			[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
 				return compare(c_str(),size(),a.c_str(),a.size());
 			}
-			[[nodiscard]]constexpr auto operator==(const string_t& a)noexcept(equal.nothrow<char_T>){
+			[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
 				return equal(c_str(),size(),a.c_str(),a.size());
 			}
-			[[nodiscard]]constexpr auto operator<=>(string_view_t a)noexcept(compare.nothrow<char_T>){
+			[[nodiscard]]constexpr auto operator<=>(string_view_t a)const noexcept(compare.nothrow<char_T>){
 				return compare(c_str(),size(),a.begin(),a.size());
 			}
-			[[nodiscard]]constexpr auto operator==(string_view_t a)noexcept(equal.nothrow<char_T>){
+			[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
 				return equal(c_str(),size(),a.begin(),a.size());
 			}
-			[[nodiscard]]constexpr auto operator<=>(const char_T* a)noexcept(compare.nothrow<char_T>){
+			[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
 				return operator<=>(array_end_by_zero_t<const char_T>(a));
 			}
-			[[nodiscard]]constexpr auto operator==(const char_T* a)noexcept(equal.nothrow<char_T>){
+			[[nodiscard]]constexpr auto operator==(const char_T* a)const noexcept(equal.nothrow<char_T>){
 				return operator==(array_end_by_zero_t<const char_T>(a));
 			}
 
 		private:
 			char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
 			char_T& arec(size_t index){ return _m->arec(index); }
-			void arec_set(size_t index,char_T a){ return _m->arec_set(_index,a,_m); }
+			void arec_set(size_t index,char_T a){ return _m->arec_set(index,a,_m); }
+			
 			class arec_t:non_copyable,non_moveable{
 				string_t* _to;
 				size_t _index;
 
 				friend class string_t;
-				arec_t(string_t*to,size_t index):_to(_to),_index(index){}
+				arec_t(string_t*to,size_t index):_to(to),_index(index){}
 			public:
 				[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
 				arec_t&operator=(char_T a)noexcept{ _to->arec_set(_index,a); return*this; }
@@ -715,9 +718,12 @@ namespace elc::defs{
 		public:
 			[[nodiscard]]arec_t operator[](size_t index){ return{this,index}; }
 			[[nodiscard]]const arec_t operator[](size_t index)const{ return{this,index}; }
-			
-			[[nodiscard]]string_t substr(size_t begin,size_t size)const{ return _m->get_substr_data(begin,size); }
-			[[nodiscard]]char_T* c_str(){ return unique_c_str(); }
+
+			[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
+				size=min(size,this->size()); 
+				return _m->get_substr_data(begin,size);
+			}
+			[[nodiscard]]char_T* c_str(){ return this->unique_c_str(); }
 			[[nodiscard]]const char_T* c_str()const{ return _m->get_c_str(); }
 			[[nodiscard]]size_t size()const{ return _m->get_size(); }
 			void clear(){ _m=null_ptr; }
@@ -749,8 +755,8 @@ void ste::stst()
 		stest_accert("asd"+a=="asdasdasdasd");
 		a[1]='e';
 		stest_accert(a.substr(0,3)=="aed");
+		stest_accert(a.substr(3).size()==9);
 		stest_accert(a[2]=='d');
-		auto b=a[1];
 		a.clear();
 		stest_accert(a.size()==0);
 	}
