@@ -8,7 +8,7 @@
 */
 #include "defs.hpp"
 #include "_export.hpp"
-#if defined(ELC_TEST_ON)
+#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 	#include "_test.hpp"
 #endif
 

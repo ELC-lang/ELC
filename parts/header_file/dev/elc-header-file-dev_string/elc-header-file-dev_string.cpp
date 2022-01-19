@@ -12,6 +12,10 @@ namespace std{//cpp20还未实现，占位。
 	[[nodiscard]]inline void* aligned_alloc([[maybe_unused]] std::size_t alignment,std::size_t size){ return malloc(size); }
 	#endif
 }
+
+#include <steve.h>
+
+#define ELC_TEST_CHECK_MEMORY_LACK
 #include "../../files/base"
 #include "../../files/base_exception"
 
@@ -611,15 +615,22 @@ namespace elc{
 }
 #include "../../files/_files/_share/_undefs.hpp"
 
-#include <steve.h>
-
 void ste::stst()
 {
-	elc::string_t<char> a="";
-	a="asd";
-	stest_accert(a.size()==3);
-	a+="asd";
-	stest_accert(a.size()==6);
-	a+="asd";
-	stest_accert("asd"+a=="asdasdasdasd");
+	{
+		elc::string_t<char> a="";
+		stest_accert(a.size()==0);
+		a="asd";
+		stest_accert(a.size()==3);
+		a="asd"+a;
+		stest_accert(a.size()==6);
+		a+="asd";
+		stest_accert("asd"+a=="asdasdasdasd");
+		a[1]='e';
+		stest_accert(a.substr(0,3)=="aed");
+		stest_accert(a[2]=='d');
+		a.clear();
+		stest_accert(a.size()==0);
+	}
+	elc::defs::memory::check_memory_lack();
 }

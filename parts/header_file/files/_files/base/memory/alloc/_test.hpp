@@ -15,35 +15,37 @@ inline void check_memory_lack()noexcept{
 		stest_wait();
 	});
 }
-namespace alloc_n{
-	//BLOCK:for debug
-	inline void test(){
-		stest_entryevent(L"alloc部分测试");
-		using ::std::time;
-		using ::std::rand;
-		using ::std::srand;
-		srand((unsigned int)time(nullptr));
-		for(int i=rand()%100+40;i--;){
-			int*p=alloc<int>(50);
-			p[0]=72;
-			stest_accert(get_size_of_alloc(p)==50);
-			p[49]=rand();
-			p[19]=666;
-			realloc(p,20);
-			stest_accert(get_size_of_alloc(p)==20);
-			stest_accert(p[19]==666);
-			stest_accert(p[0]==72);
-			free(p);
+#if defined(ELC_TEST_ON)
+	namespace alloc_n{
+		//BLOCK:for debug
+		inline void test(){
+			stest_entryevent(L"alloc部分测试");
+			using ::std::time;
+			using ::std::rand;
+			using ::std::srand;
+			srand((unsigned int)time(nullptr));
+			for(int i=rand()%100+40;i--;){
+				int*p=alloc<int>(50);
+				p[0]=72;
+				stest_accert(get_size_of_alloc(p)==50);
+				p[49]=rand();
+				p[19]=666;
+				realloc(p,20);
+				stest_accert(get_size_of_alloc(p)==20);
+				stest_accert(p[19]==666);
+				stest_accert(p[0]==72);
+				free(p);
+			}
+			check_memory_lack();
+			stest_exitevent();
 		}
-		check_memory_lack();
-		stest_exitevent();
+		inline void test_log_out(){
+		}
+		inline void test_end(){
+		}
+		//BLOCK_END
 	}
-	inline void test_log_out(){
-	}
-	inline void test_end(){
-	}
-	//BLOCK_END
-}
+#endif
 
 //file_end
 

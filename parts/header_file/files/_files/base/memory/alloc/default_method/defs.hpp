@@ -10,7 +10,7 @@ namespace default_method{
 	//BLOCK:for debug
 	[[nodiscard]]inline void*base_realloc(void*ptr,size_t osize,size_t nsize)noexcept{
 		void*p=::elc::APIs::alloc::realloc(ptr,osize,nsize);
-		#if defined(ELC_TEST_ON)
+		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(nsize==0)
 				stest_uneventlog(ptr);
 			if(p){
@@ -25,7 +25,7 @@ namespace default_method{
 	}
 	[[nodiscard]]inline void*base_aligned_alloc(size_t align,size_t size)noexcept{
 		void*p=::elc::APIs::alloc::aligned_alloc(align,size);
-		#if defined(ELC_TEST_ON)
+		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(p){
 				stest_entryevent(L"base_aligned_alloc调用");
 				stest_eventlog(p);
@@ -36,7 +36,7 @@ namespace default_method{
 	}
 	inline void base_free(void*p,size_t size)noexcept{
 		//传入需释放的数据块起始点与大小（字节）
-		#if defined(ELC_TEST_ON)
+		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			auto tmp=stest_geteventlistfromlog(p);
 			if(!tmp){
 				stest_putsf(L"释放了已释放或未分配指针%p，当前的事件记录如下：",p);
