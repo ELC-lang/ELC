@@ -520,6 +520,26 @@ namespace lifetime_n{
 			}
 			return to;
 		}
+		template<class T> requires able<T>
+		static T* base_call(T* to,const T& from,size_t size)noexcept(nothrow<T>){
+			if constexpr(trivial<T>){
+				if constexpr(sizeof(T)==sizeof(unsigned char))
+					::std::memset(to,(unsigned char)from,size);
+				elseif constexpr(sizeof(T)==sizeof(wchar_t))
+					::std::wmemset(to,(wchar_t)from,size);
+				else{
+					if(is_all_byte_zero(from)){
+						::std::memset(to,zero,size*sizeof(T));
+						return to;
+					}
+				}
+			}
+			{
+				while(size--)
+					base_call(to[size],from);
+			}
+			return to;
+		}
 
 		template<class T> requires able<T>
 		T& operator()(T&a,const T&b)const noexcept(nothrow<T>){
@@ -539,6 +559,14 @@ namespace lifetime_n{
 			template<class T> requires able<T>
 			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
+			}
+			template<class T> requires able<T>
+			T*operator()(const T&from,note::to_t<T*>to)const noexcept(nothrow<T>){
+				return base_call(to(),from,_size);
+			}
+			template<class T> requires able<T>
+			T*operator()(note::to_t<T*>to,const T&from)const noexcept(nothrow<T>){
+				return base_call(to(),from,_size);
 			}
 		};
 		[[nodiscard]]array_copy_assign_t operator[](size_t a)const noexcept{return{a};}

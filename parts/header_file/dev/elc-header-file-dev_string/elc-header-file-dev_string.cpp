@@ -82,6 +82,12 @@ namespace elc::defs{
 					base_t::be_replace_as(a);
 				}
 				[[nodiscard]]virtual char_T* get_c_str()override final{ return (char_T*)_m; }
+				[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&a)override final{
+					if(this->is_unique())
+						return (char_T*)_m;
+					else
+						return base_t::get_unique_c_str(a);
+				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _m.size()-1; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m),note::to(to)); }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _m[index]; }
@@ -232,6 +238,14 @@ namespace elc::defs{
 					_to(str)
 				{
 					copy_assign[_used_size](note::form(end.begin()),note::to((char_T*)_m));
+				}
+				end_apply_string_data_t(ptr_t str,size_t count,char_T ch):
+					_to_size(str->get_size()),
+					_used_size(count),
+					_m(note::size(size_t((_to_size+_used_size)*magic_number::gold_of_resize))),
+					_to(str)
+				{
+					copy_assign[_used_size](ch,note::to((char_T*)_m));
 				}
 
 				virtual void be_replace_as(ptr_t a)override final{
@@ -717,7 +731,7 @@ namespace elc::defs{
 			};
 		public:
 			[[nodiscard]]arec_t operator[](size_t index){ return{this,index}; }
-			[[nodiscard]]const arec_t operator[](size_t index)const{ return{this,index}; }
+			[[nodiscard]]const arec_t operator[](size_t index)const{ return{(string_t*)this,index}; }
 
 			[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
 				size=min(size,this->size()); 
@@ -726,15 +740,51 @@ namespace elc::defs{
 			[[nodiscard]]char_T* c_str(){ return this->unique_c_str(); }
 			[[nodiscard]]const char_T* c_str()const{ return _m->get_c_str(); }
 			[[nodiscard]]size_t size()const{ return _m->get_size(); }
+			void resize(size_t count,char_T ch={}){
+				auto size=this->size();
+				if(size>count)
+					*this=substr(0,count);
+				elseif(size==count)
+					return;
+				else
+					_m=get<end_apply_string_data_t<char_T>>(_m,count-size,ch);
+			}
 			void clear(){ _m=null_ptr; }
+		private:
+			struct iterator_base_t{
+				string_t* _to;
+				size_t _index;
+
+				[[nodiscard]]constexpr iterator_base_t get_before()const noexcept{ return {_to,_index-1}; }
+				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
+				[[nodiscard]]char_T* get_handle()noexcept{ return &(*_to)[_index]; }
+				[[nodiscard]]const char_T* get_handle()const noexcept{ return &(*(const string_t*)_to)[_index]; }
+				constexpr bool operator==(const iterator_base_t& a)const noexcept{
+					return _to==a._to&&_index==a._index;
+				}
+			};
+		public:
+			typedef iterator_t<char_T,iterator_base_t>iterator;
+			typedef const_iterator_t<char_T,const iterator_base_t>const_iterator;
+
+			iterator get_iterator_at(size_t index){ return iterator_base_t{this,index}; }
+			const_iterator get_iterator_at(size_t index)const{ return iterator_base_t{(string_t*)this,index}; }
+			iterator begin(){ return get_iterator_at(0); }
+			const_iterator begin()const{ return get_iterator_at(0); }
+			const_iterator cbegin()const{ return begin(); }
+			iterator end(){ return get_iterator_at(size()); }
+			const_iterator end()const{ return get_iterator_at(size()); }
+			const_iterator cend()const{ return end(); }
 		};
 		template<typename T>
 		inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 
 		template<class T>
-		[[nodiscard]]inline auto size_of_array_like(string_t<T>& a)noexcept{ return a.size(); }
+		[[nodiscard]]inline auto size_of_array_like(const string_t<T>& a)noexcept{ return a.size(); }
 		template<class T>
 		[[nodiscard]]inline auto begin_of_array_like(string_t<T>& a)noexcept{ return(T*)a.c_str(); }
+		template<class T>
+		[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return(const T*)a.c_str(); }
 	}
 }
 namespace elc{
@@ -759,6 +809,11 @@ void ste::stst()
 		stest_accert(a[2]=='d');
 		a.clear();
 		stest_accert(a.size()==0);
+		a.resize(3,'d');
+		stest_accert(a=="ddd");
+		stest_accert(a.begin()==a.cbegin());
+		for(const char&c:a)
+			stest_accert(c=='d');
 	}
 	elc::defs::memory::check_memory_lack();
 }

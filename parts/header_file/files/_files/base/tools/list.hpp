@@ -47,7 +47,7 @@ private:
 	constexpr void remove_from_list()noexcept{
 		_before->set_next(_next);
 	}
-	constexpr T*get_handle(){
+	[[nodiscard]]constexpr T*get_handle(){
 		return attribute_t::get_handle();
 	}
 public:

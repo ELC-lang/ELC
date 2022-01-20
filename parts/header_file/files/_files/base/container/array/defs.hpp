@@ -168,6 +168,8 @@ namespace array_n{
 	[[nodiscard]]inline auto size_of_array_like(array_t<T>&a)noexcept{return a.size();}
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(array_t<T>&a)noexcept{return(T*)a.begin();}
+	template<class T>
+	[[nodiscard]]inline auto begin_of_array_like(const array_t<remove_cv<T>>&a)noexcept{return(const T*)a.begin();}
 }
 
 //file_end

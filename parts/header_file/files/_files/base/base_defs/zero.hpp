@@ -14,5 +14,11 @@ constexpr struct zero_t{
 	operator T()const noexcept(type_info<decltype(0)>.can_nothrow_convert_to<T>){return 0;}
 }zero{};
 
+template<class T>
+constexpr inline bool is_all_byte_zero(T&&a){
+	static constexpr byte all_byte_zero_v[sizeof(T)]={};
+	return equal(cast_to_data(addressof(a)),all_byte_zero_v,sizeof(T));
+}
+
 //file_end
 
