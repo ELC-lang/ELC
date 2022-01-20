@@ -9,14 +9,18 @@
 namespace iterator_n{
 	using namespace memory;//copy_assign、move_assign
 	template<typename base_t>
-	struct reverse_base_t:base_t{
+	struct reverse_base_t:remove_cv<base_t>{
 		typedef reverse_base_t<base_t> this_t;
 		//typedef base_t base_t;
 	protected:
-		[[nodiscard]]auto get_before()noexcept_as(declvalue(base_t).get_next()){return base_t::get_next();}
-		[[nodiscard]]auto get_next()noexcept_as(declvalue(base_t).get_before()){return base_t::get_before();}
+		[[nodiscard]]auto get_before()noexcept_as(declvalue(base_t).get_next()){return ((base_t*)this)->get_next();}
+		[[nodiscard]]auto get_next()noexcept_as(declvalue(base_t).get_before()){return ((base_t*)this)->get_before();}
 		using base_t::get_handle;
 	};
+	template<typename base_t> requires(compare.able<base_t>)
+	[[nodiscard]]auto operator<=>(const reverse_base_t<base_t>&a,const reverse_base_t<base_t>&b)noexcept(compare.nothrow<base_t>){
+		return compare((const base_t&)b,(const base_t&)a);
+	}
 
 	template<typename value_t,typename base_t_w>
 	class same_base_t{
@@ -94,6 +98,8 @@ namespace iterator_n{
 		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept(is_handle_getter_noexcept()&&noexcept(pointer_equal(declvalue(value_t*),declvalue(value_t*)))){return pointer_equal(handle_getter(),a);}
 		template<typename other_value_t,typename other_base_t_w> requires(equal.able<base_t_w,other_base_t_w>)
 		[[nodiscard]]constexpr bool operator==(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(equal.nothrow<base_t_w,other_base_t_w>){ return equal(_m,a._m); }
+		template<typename other_value_t,typename other_base_t_w> requires(compare.able<base_t_w,other_base_t_w>)
+		[[nodiscard]]constexpr bool operator<=>(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(compare.nothrow<base_t_w,other_base_t_w>){ return compare(_m,a._m); }
 	};
 	template<typename value_t,typename base_t_w>
 	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(a.swap_with(b))

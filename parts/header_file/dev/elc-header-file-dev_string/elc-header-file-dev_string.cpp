@@ -234,17 +234,17 @@ namespace elc::defs{
 				end_apply_string_data_t(ptr_t str,string_view_t end):
 					_to_size(str->get_size()),
 					_used_size(end.size()),
-					_m(note::size(size_t((_to_size+_used_size)*magic_number::gold_of_resize))),
 					_to(str)
 				{
+					_m.resize(size_t((_to_size+_used_size)*magic_number::gold_of_resize));
 					copy_assign[_used_size](note::form(end.begin()),note::to((char_T*)_m));
 				}
 				end_apply_string_data_t(ptr_t str,size_t count,char_T ch):
 					_to_size(str->get_size()),
 					_used_size(count),
-					_m(note::size(size_t((_to_size+_used_size)*magic_number::gold_of_resize))),
 					_to(str)
 				{
+					_m.resize(size_t((_to_size+_used_size)*magic_number::gold_of_resize));
 					copy_assign[_used_size](ch,note::to((char_T*)_m));
 				}
 
@@ -346,10 +346,10 @@ namespace elc::defs{
 				head_apply_string_data_t(ptr_t str,string_view_t head):
 					_to_size(str->get_size()),
 					_used_size(head.size()),
-					_m(note::size(size_t((_to_size+_used_size)*magic_number::gold))),
 					_to(str)
 				{
-					copy_assign[_used_size](note::form(head.begin()),note::to((char_T*)_m));
+					_m.resize(size_t((_to_size+_used_size)*magic_number::gold));
+					copy_assign[_used_size](note::form(head.begin()),note::to(_m.end()-_used_size));
 				}
 
 				virtual void be_replace_as(ptr_t a)override final{
@@ -734,7 +734,7 @@ namespace elc::defs{
 			[[nodiscard]]const arec_t operator[](size_t index)const{ return{(string_t*)this,index}; }
 
 			[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
-				size=min(size,this->size()); 
+				size=min(size,this->size()-begin);
 				return _m->get_substr_data(begin,size);
 			}
 			[[nodiscard]]char_T* c_str(){ return this->unique_c_str(); }
@@ -759,9 +759,7 @@ namespace elc::defs{
 				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
 				[[nodiscard]]char_T* get_handle()noexcept{ return &(*_to)[_index]; }
 				[[nodiscard]]const char_T* get_handle()const noexcept{ return &(*(const string_t*)_to)[_index]; }
-				constexpr bool operator==(const iterator_base_t& a)const noexcept{
-					return _to==a._to&&_index==a._index;
-				}
+				constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to&&_index==a._index; }
 			};
 		public:
 			typedef iterator_t<char_T,iterator_base_t>iterator;
@@ -795,25 +793,25 @@ namespace elc{
 void ste::stst()
 {
 	{
-		elc::string_t<char> a="";
+		elc::string_t a=L"";
 		stest_accert(a.size()==0);
-		a="asd";
+		a=L"asd";
 		stest_accert(a.size()==3);
-		a="asd"+a;
+		a=L"asd"+a;
 		stest_accert(a.size()==6);
-		a+="asd";
-		stest_accert("asd"+a=="asdasdasdasd");
-		a[1]='e';
-		stest_accert(a.substr(0,3)=="aed");
-		stest_accert(a.substr(3).size()==9);
-		stest_accert(a[2]=='d');
+		a+=L"asd";
+		stest_accert(L"asd"+a==L"asdasdasdasd");
+		a[1]=L'e';
+		stest_accert(a.substr(0,3)==L"aed");
+		stest_accert(a.substr(3).size()==6);
+		stest_accert(a[2]==L'd');
 		a.clear();
 		stest_accert(a.size()==0);
-		a.resize(3,'d');
-		stest_accert(a=="ddd");
+		a.resize(3,L'd');
+		stest_accert(a==L"ddd");
 		stest_accert(a.begin()==a.cbegin());
-		for(const char&c:a)
-			stest_accert(c=='d');
+		for(const wchar_t&c:a)
+			stest_accert(c==L'd');
 	}
 	elc::defs::memory::check_memory_lack();
 }
