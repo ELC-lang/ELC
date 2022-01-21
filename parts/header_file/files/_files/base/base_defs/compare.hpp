@@ -93,13 +93,18 @@ constexpr struct compare_t{
 													);
 
 	template<class T,class U=T>
-	static constexpr bool nothrow=  r_able<T,U> ?
-									noexcept(declvalue(T)<=>declvalue(U)):
-									noexcept(
-												declvalue(T)==declvalue(U),
-												declvalue(T)<declvalue(U),
-												declvalue(U)<declvalue(T)
-											);
+	static constexpr bool nothrow_helper(){
+		if constexpr(r_able<T,U>)
+			return noexcept(declvalue(T)<=>declvalue(U));
+		else
+			return noexcept(
+							declvalue(T)==declvalue(U),
+							declvalue(T)<declvalue(U),
+							declvalue(U)<declvalue(T)
+							);
+	}
+	template<class T,class U=T>
+	static constexpr bool nothrow= nothrow_helper<T,U>();
 
 
 	template<class T,class U>

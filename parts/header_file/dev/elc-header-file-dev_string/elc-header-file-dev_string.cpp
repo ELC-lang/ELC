@@ -13,6 +13,7 @@ namespace std{//cpp20还未实现，占位。
 	#endif
 }
 
+#define STEVE_H_TEST
 #include <steve.h>
 
 #define ELC_TEST_CHECK_MEMORY_LACK
