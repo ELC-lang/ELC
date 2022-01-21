@@ -791,11 +791,33 @@ namespace elc::defs{
 			[[nodiscard]]reverse_const_iterator rend()const{ return get_reverse_iterator_at(-1); }
 			[[nodiscard]]reverse_const_iterator rcend()const{ return rend(); }
 
+			void push_back(const string_t& str){
+				_m=_m->apply_str_to_end(str._m);
+			}
+			void push_back(string_view_t str){
+				_m=_m->apply_str_to_end(str);
+			}
+			void push_back(char_T ch){
+				push_back({&ch,1});
+			}
+			void push_back(const char_T* str){
+				push_back(array_end_by_zero_t<const char_T>(str));
+			}
+			void push_front(const string_t& str){
+				_m=_m->apply_str_to_begin(str._m);
+			}
+			void push_front(string_view_t str){
+				_m=_m->apply_str_to_begin(str);
+			}
+			void push_front(char_T ch){
+				push_front({&ch,1});
+			}
+			void push_front(const char_T* str){
+				push_front(array_end_by_zero_t<const char_T>(str));
+			}
 			/*
 			TODO:
 
-			push_back
-			push_front
 			pop_back
 			pop_front
 
