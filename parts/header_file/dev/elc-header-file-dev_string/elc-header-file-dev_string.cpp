@@ -758,38 +758,64 @@ namespace elc::defs{
 
 				[[nodiscard]]constexpr iterator_base_t get_before()const noexcept{ return {_to,_index-1}; }
 				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
-				[[nodiscard]]auto get_value()noexcept{ return (*_to)[_index]; }
-				[[nodiscard]]const auto get_value()const noexcept{ return (*(const string_t*)_to)[_index]; }
+				[[nodiscard]]arec_t get_value()noexcept{ return (*_to)[_index]; }
+				[[nodiscard]]const arec_t get_value()const noexcept{ return (*(const string_t*)_to)[_index]; }
 				[[nodiscard]]char_T* get_handle()noexcept{ return &get_value(); }
 				[[nodiscard]]const char_T* get_handle()const noexcept{ return &get_value(); }
 				constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to&&_index==a._index; }
 				constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to?_index<=>a._index:NAN<=>NAN; }
 			};
-			iterator_base_t get_iterator_data_at(ptrdiff_t index)const{ return iterator_base_t{(string_t*)this,index}; }
+			[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const{ return iterator_base_t{(string_t*)this,index}; }
 		public:
 			typedef iterator_t<char_T,iterator_base_t>iterator;
 			typedef const_iterator_t<char_T,const iterator_base_t>const_iterator;
 
-			iterator get_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
-			const_iterator get_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
-			iterator begin(){ return get_iterator_at(0); }
-			const_iterator begin()const{ return get_iterator_at(0); }
-			const_iterator cbegin()const{ return begin(); }
-			iterator end(){ return get_iterator_at(size()); }
-			const_iterator end()const{ return get_iterator_at(size()); }
-			const_iterator cend()const{ return end(); }
+			[[nodiscard]]iterator get_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
+			[[nodiscard]]const_iterator get_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
+			[[nodiscard]]iterator begin(){ return get_iterator_at(0); }
+			[[nodiscard]]const_iterator begin()const{ return get_iterator_at(0); }
+			[[nodiscard]]const_iterator cbegin()const{ return begin(); }
+			[[nodiscard]]iterator end(){ return get_iterator_at(size()); }
+			[[nodiscard]]const_iterator end()const{ return get_iterator_at(size()); }
+			[[nodiscard]]const_iterator cend()const{ return end(); }
 
 			typedef reverse_iterator_t<char_T,iterator_base_t>reverse_iterator;
 			typedef reverse_const_iterator_t<char_T,const iterator_base_t>reverse_const_iterator;
 
-			reverse_iterator get_reverse_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
-			reverse_const_iterator get_reverse_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
-			reverse_iterator rbegin(){ return get_reverse_iterator_at(size()-1); }
-			reverse_const_iterator rbegin()const{ return get_reverse_iterator_at(size()-1); }
-			reverse_const_iterator rcbegin()const{ return rbegin(); }
-			reverse_iterator rend(){ return get_reverse_iterator_at(-1); }
-			reverse_const_iterator rend()const{ return get_reverse_iterator_at(-1); }
-			reverse_const_iterator rcend()const{ return rend(); }
+			[[nodiscard]]reverse_iterator get_reverse_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
+			[[nodiscard]]reverse_const_iterator get_reverse_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
+			[[nodiscard]]reverse_iterator rbegin(){ return get_reverse_iterator_at(size()-1); }
+			[[nodiscard]]reverse_const_iterator rbegin()const{ return get_reverse_iterator_at(size()-1); }
+			[[nodiscard]]reverse_const_iterator rcbegin()const{ return rbegin(); }
+			[[nodiscard]]reverse_iterator rend(){ return get_reverse_iterator_at(-1); }
+			[[nodiscard]]reverse_const_iterator rend()const{ return get_reverse_iterator_at(-1); }
+			[[nodiscard]]reverse_const_iterator rcend()const{ return rend(); }
+
+			/*
+			TODO:
+
+			push_back
+			push_front
+			pop_back
+			pop_front
+
+			find
+			rfind
+			find_first_of
+			find_first_not_of
+			find_last_of
+			find_last_not_of
+			[[nodiscard]]string_t operator[](size_t index,char_T delimiter)const
+			[[nodiscard]]string_t operator[](size_t index,string_t delimiter_str)const
+
+			erase
+			insert
+			compare
+			starts_with
+			ends_with
+			contains
+			replace
+			*/
 		};
 		template<typename T>
 		inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
