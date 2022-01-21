@@ -350,7 +350,7 @@ namespace elc::defs{
 					_to(str)
 				{
 					_m.resize(size_t((_to_size+_used_size)*magic_number::gold));
-					copy_assign[_used_size](note::form(&*head.begin()),note::to(&*_m.end()-_used_size));
+					copy_assign[_used_size](note::form((const char_T*)head.begin()),note::to((char_T*)_m.end()-_used_size));
 				}
 
 				virtual void be_replace_as(ptr_t a)override final{
@@ -361,8 +361,8 @@ namespace elc::defs{
 				[[nodiscard]]virtual size_t get_size()override final{ return _used_size+_to_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
 					if(pos<_used_size){
-						const char_T* head_begin=&*_m.end()-_used_size;
-						const char_T* head_end=&*_m.end();
+						const char_T* head_begin=_m.end()-_used_size;
+						const char_T* head_end=_m.end();
 						const char_T* copy_begin=pos+head_begin;
 						size_t size_of_copy_from_head=min(size_t(head_end-copy_begin),size);
 
@@ -398,7 +398,7 @@ namespace elc::defs{
 							auto size_new=size_t(size_now*magic_number::gold_of_resize);
 							_m.forward_resize(size_new);
 						}
-						copy_assign[str.size()](note::form(&*str.begin()),note::to(&*_m.end()-_used_size-str.size()));
+						copy_assign[str.size()](note::form((const char_T*)str.begin()),note::to((char_T*)_m.end()-_used_size-str.size()));
 						_used_size+=str.size();
 						return this;
 					}
@@ -443,8 +443,8 @@ namespace elc::defs{
 				using base_t::ptr_t;
 				using base_t::string_view_t;
 
-				ptr_t _defore;
-				ptr_t _after;
+				ptr_t  _defore;
+				ptr_t  _after;
 				size_t _defore_size;
 				size_t _after_size;
 
@@ -539,7 +539,7 @@ namespace elc::defs{
 				using base_t::ptr_t;
 				using base_t::string_view_t;
 
-				ptr_t _to;
+				ptr_t  _to;
 				size_t _to_size;
 				size_t _erase_pos;
 				size_t _erase_size;
@@ -638,10 +638,10 @@ namespace elc::defs{
 		template<typename char_T>
 		struct string_t{
 			typedef base_string_data_t<char_T> base_t_w;
-			typedef base_t_w::ptr_t ptr_t;
-			typedef base_t_w::string_view_t string_view_t;
-			typedef string_t<char_T> this_t;
-			static constexpr size_t npos=-1;
+			typedef base_t_w::ptr_t			   ptr_t;
+			typedef base_t_w::string_view_t	   string_view_t;
+			typedef string_t<char_T>		   this_t;
+			static constexpr size_t			   npos = -1;
 
 		private:
 			mutable ptr_t _m;
@@ -653,168 +653,160 @@ namespace elc::defs{
 				swap(_m,a._m);
 			}
 
-			string_t(string_view_t str):_m(get<comn_string_data_t<char_T>>(str)){}
-			string_t(array_end_by_zero_t<const char_T> str):string_t((string_view_t)(str)){}
-			string_t(const char_T* str):string_t(array_end_by_zero_t<const char_T>(str)){}
-			string_t(const string_t& str)=default;
-			string_t(string_t&&str)=default;
+			string_t(string_view_t str):_m(get<comn_string_data_t<char_T>>(str)) {}
+			string_t(array_end_by_zero_t<const char_T> str):string_t((string_view_t)(str)) {}
+			string_t(const char_T* str):string_t(array_end_by_zero_t<const char_T>(str)) {}
+			string_t(const string_t& str) = default;
+			string_t(string_t&& str)	  = default;
 
-			string_t& operator=(const string_t& str)=default;
-			string_t& operator=(string_t&&str)=default;
+			string_t& operator=(const string_t& str) = default;
+			string_t& operator=(string_t&& str) = default;
 
-			[[nodiscard]]string_t operator+(const string_t& str)const&{
+			[[nodiscard]] string_t operator+(const string_t& str) const& {
 				return copy()._m->apply_str_to_end(str._m);
 			}
-			[[nodiscard]]string_t operator+(string_view_t str)const&{
+			[[nodiscard]] string_t operator+(string_view_t str) const& {
 				return copy()._m->apply_str_to_end(str);
 			}
-			[[nodiscard]]string_t operator+(const char_T* str)const&{
-				return *this+array_end_by_zero_t<const char_T>(str);
+			[[nodiscard]] string_t operator+(const char_T* str) const& {
+				return *this + array_end_by_zero_t<const char_T>(str);
 			}
-			friend [[nodiscard]]string_t operator+(string_view_t str1,const string_t& str2){
+			friend [[nodiscard]] string_t operator+(string_view_t str1, const string_t& str2) {
 				return str2.copy()._m->apply_str_to_begin(str1);
 			}
-			friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2){
-				return array_end_by_zero_t<const char_T>(str1)+str2;
+			friend [[nodiscard]] string_t operator+(const char_T* str1, const string_t& str2) {
+				return array_end_by_zero_t<const char_T>(str1) + str2;
 			}
 
-			string_t& operator+=(string_t str)&{
-				_m=_m->apply_str_to_end(str._m);
-				return*this;
+			string_t& operator+=(string_t str) & {
+				_m = _m->apply_str_to_end(str._m);
+				return *this;
 			}
-			string_t& operator+=(string_view_t str)&{
-				_m=_m->apply_str_to_end(str);
-				return*this;
+			string_t& operator+=(string_view_t str) & {
+				_m = _m->apply_str_to_end(str);
+				return *this;
 			}
-			string_t& operator+=(const char_T* str)&{
-				return *this+=array_end_by_zero_t<const char_T>(str);
+			string_t& operator+=(const char_T* str) & {
+				return *this += array_end_by_zero_t<const char_T>(str);
 			}
 			template<typename U>
-			[[nodiscard]]string_t&& operator+(U&& b)&&noexcept_as(*this+=b) requires was_not_an_ill_form(*this+=b){//对右值的operator+优化为operator+=
-				return *this+=b;
+			[[nodiscard]] string_t&& operator+(U&& b) && noexcept_as(*this += b) requires was_not_an_ill_form(*this += b) {		  //对右值的operator+优化为operator+=
+				return *this += b;
 			}
 
-			[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
-				return compare(c_str(),size(),a.c_str(),a.size());
+			[[nodiscard]] constexpr auto operator<=>(const string_t& a) const noexcept(compare.nothrow<char_T>) {
+				return compare(c_str(), size(), a.c_str(), a.size());
 			}
-			[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
-				return equal(c_str(),size(),a.c_str(),a.size());
+			[[nodiscard]] constexpr auto operator==(const string_t& a) const noexcept(equal.nothrow<char_T>) {
+				return equal(c_str(), size(), a.c_str(), a.size());
 			}
-			[[nodiscard]]constexpr auto operator<=>(string_view_t a)const noexcept(compare.nothrow<char_T>){
-				return compare(c_str(),size(),a.begin(),a.size());
+			[[nodiscard]] constexpr auto operator<=>(string_view_t a) const noexcept(compare.nothrow<char_T>) {
+				return compare(c_str(), size(), a.begin(), a.size());
 			}
-			[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
-				return equal(c_str(),size(),a.begin(),a.size());
+			[[nodiscard]] constexpr auto operator==(string_view_t a) const noexcept(equal.nothrow<char_T>) {
+				return equal(c_str(), size(), a.begin(), a.size());
 			}
-			[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
+			[[nodiscard]] constexpr auto operator<=>(const char_T* a) const noexcept(compare.nothrow<char_T>) {
 				return operator<=>(array_end_by_zero_t<const char_T>(a));
 			}
-			[[nodiscard]]constexpr auto operator==(const char_T* a)const noexcept(equal.nothrow<char_T>){
+			[[nodiscard]] constexpr auto operator==(const char_T* a) const noexcept(equal.nothrow<char_T>) {
 				return operator==(array_end_by_zero_t<const char_T>(a));
 			}
 
 		private:
-			char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
-			char_T& arec(size_t index){ return _m->arec(index); }
-			void arec_set(size_t index,char_T a){ return _m->arec_set(index,a,_m); }
+			char_T* unique_c_str() { return _m->get_unique_c_str(_m); }
+			char_T& arec(size_t index) { return _m->arec(index); }
+			void	arec_set(size_t index, char_T a) { return _m->arec_set(index, a, _m); }
 
-			class arec_t:non_copyable,non_moveable{
+			class arec_t: non_copyable, non_moveable {
 				string_t* _to;
-				size_t _index;
+				size_t	  _index;
 
 				friend class string_t;
-				arec_t(string_t*to,size_t index):_to(to),_index(index){}
-			public:
-				[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
-				arec_t&operator=(char_T a)noexcept{ _to->arec_set(_index,a); return*this; }
-				[[nodiscard]]char_T*operator&()noexcept{ return _to->unique_c_str()+_index; }
-				[[nodiscard]]const char_T*operator&()const noexcept{ return ((const string_t*)(_to))->c_str()+_index; }
-			};
-		public:
-			[[nodiscard]]arec_t operator[](size_t index){ return{this,index}; }
-			[[nodiscard]]const arec_t operator[](size_t index)const{ return{(string_t*)this,index}; }
+				arec_t(string_t* to, size_t index):_to(to),_index(index) {}
 
-			[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
-				size=min(size,this->size()-begin);
-				return _m->get_substr_data(begin,size);
+			public:
+				[[nodiscard]] operator char_T() const noexcept { return _to->arec(_index); }
+				arec_t&		  operator=(char_T a) noexcept {
+					_to->arec_set(_index, a);
+					return *this;
+				}
+				[[nodiscard]] char_T*		operator&() noexcept { return _to->unique_c_str() + _index; }
+				[[nodiscard]] const char_T* operator&() const noexcept { return ((const string_t*)(_to))->c_str() + _index; }
+			};
+
+		public:
+			[[nodiscard]] arec_t	   operator[](size_t index) { return {this, index}; }
+			[[nodiscard]] const arec_t operator[](size_t index) const { return {(string_t*)this, index}; }
+
+			[[nodiscard]] string_t substr(size_t begin, size_t size = npos) const {
+				size = min(size, this->size() - begin);
+				return _m->get_substr_data(begin, size);
 			}
-			[[nodiscard]]char_T* c_str(){ return this->unique_c_str(); }
-			[[nodiscard]]const char_T* c_str()const{ return _m->get_c_str(); }
-			[[nodiscard]]size_t size()const{ return _m->get_size(); }
-			void resize(size_t count,char_T ch={}){
-				auto size=this->size();
-				if(size>count)
-					*this=substr(0,count);
-				elseif(size==count)
+			[[nodiscard]] char_T*		c_str() { return this->unique_c_str(); }
+			[[nodiscard]] const char_T* c_str() const { return _m->get_c_str(); }
+			[[nodiscard]] size_t		size() const { return _m->get_size(); }
+			void resize(size_t count, char_T ch = {}) {
+				auto size = this->size();
+				if(size > count)
+					*this = substr(0, count);
+				elseif(size == count)
 					return;
 				else
-					_m=get<end_apply_string_data_t<char_T>>(_m,count-size,ch);
+					_m = get<end_apply_string_data_t<char_T>>(_m, count - size, ch);
 			}
-			void clear(){ _m=null_ptr; }
+			void clear() { _m = null_ptr; }
 		private:
-			struct iterator_base_t{
+			struct iterator_base_t {
 				string_t* _to;
-				ptrdiff_t _index;//rend: -1，使用size_t也不是不可以（标准允许无符号整数溢出），但是operator<=>会出问题
+				ptrdiff_t _index;		//rend: -1，使用size_t也不是不可以（标准允许无符号整数溢出），但是operator<=>会出问题
 
-				[[nodiscard]]constexpr iterator_base_t get_before()const noexcept{ return {_to,_index-1}; }
-				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
-				[[nodiscard]]arec_t get_value()noexcept{ return (*_to)[_index]; }
-				[[nodiscard]]const arec_t get_value()const noexcept{ return (*(const string_t*)_to)[_index]; }
-				[[nodiscard]]char_T* get_handle()noexcept{ return &get_value(); }
-				[[nodiscard]]const char_T* get_handle()const noexcept{ return &get_value(); }
-				constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to&&_index==a._index; }
-				constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to?_index<=>a._index:NAN<=>NAN; }
+				[[nodiscard]] constexpr iterator_base_t get_before() const noexcept { return {_to, _index - 1}; }
+				[[nodiscard]] constexpr iterator_base_t get_next() const noexcept { return {_to, _index + 1}; }
+				[[nodiscard]] arec_t					get_value() noexcept { return (*_to)[_index]; }
+				[[nodiscard]] const arec_t				get_value() const noexcept { return (*(const string_t*)_to)[_index]; }
+				[[nodiscard]] char_T*					get_handle() noexcept { return &get_value(); }
+				[[nodiscard]] const char_T*				get_handle() const noexcept { return &get_value(); }
+				constexpr bool							operator==(const iterator_base_t& a) const noexcept { return _to == a._to && _index == a._index; }
+				constexpr auto							operator<=>(const iterator_base_t& a) const noexcept { return _to == a._to ? _index <=> a._index : NAN <=> NAN; }
 			};
-			[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const{ return iterator_base_t{(string_t*)this,index}; }
+			[[nodiscard]] iterator_base_t get_iterator_data_at(ptrdiff_t index) const { return iterator_base_t{(string_t*)this, index}; }
 		public:
-			typedef iterator_t<char_T,iterator_base_t>iterator;
-			typedef const_iterator_t<char_T,const iterator_base_t>const_iterator;
+			typedef iterator_t<char_T, iterator_base_t>				iterator;
+			typedef const_iterator_t<char_T, const iterator_base_t> const_iterator;
 
-			[[nodiscard]]iterator get_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
-			[[nodiscard]]const_iterator get_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
-			[[nodiscard]]iterator begin(){ return get_iterator_at(0); }
-			[[nodiscard]]const_iterator begin()const{ return get_iterator_at(0); }
-			[[nodiscard]]const_iterator cbegin()const{ return begin(); }
-			[[nodiscard]]iterator end(){ return get_iterator_at(size()); }
-			[[nodiscard]]const_iterator end()const{ return get_iterator_at(size()); }
-			[[nodiscard]]const_iterator cend()const{ return end(); }
+			[[nodiscard]] iterator		 get_iterator_at(ptrdiff_t index) { return get_iterator_data_at(index); }
+			[[nodiscard]] const_iterator get_iterator_at(ptrdiff_t index) const { return get_iterator_data_at(index); }
+			[[nodiscard]] iterator		 begin() { return get_iterator_at(0); }
+			[[nodiscard]] const_iterator begin() const { return get_iterator_at(0); }
+			[[nodiscard]] const_iterator cbegin() const { return begin(); }
+			[[nodiscard]] iterator		 end() { return get_iterator_at(size()); }
+			[[nodiscard]] const_iterator end() const { return get_iterator_at(size()); }
+			[[nodiscard]] const_iterator cend() const { return end(); }
 
-			typedef reverse_iterator_t<char_T,iterator_base_t>reverse_iterator;
-			typedef reverse_const_iterator_t<char_T,const iterator_base_t>reverse_const_iterator;
+			typedef reverse_iterator_t<char_T, iterator_base_t>				reverse_iterator;
+			typedef reverse_const_iterator_t<char_T, const iterator_base_t> reverse_const_iterator;
 
-			[[nodiscard]]reverse_iterator get_reverse_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
-			[[nodiscard]]reverse_const_iterator get_reverse_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
-			[[nodiscard]]reverse_iterator rbegin(){ return get_reverse_iterator_at(size()-1); }
-			[[nodiscard]]reverse_const_iterator rbegin()const{ return get_reverse_iterator_at(size()-1); }
-			[[nodiscard]]reverse_const_iterator rcbegin()const{ return rbegin(); }
-			[[nodiscard]]reverse_iterator rend(){ return get_reverse_iterator_at(-1); }
-			[[nodiscard]]reverse_const_iterator rend()const{ return get_reverse_iterator_at(-1); }
-			[[nodiscard]]reverse_const_iterator rcend()const{ return rend(); }
+			[[nodiscard]] reverse_iterator		 get_reverse_iterator_at(ptrdiff_t index) { return get_iterator_data_at(index); }
+			[[nodiscard]] reverse_const_iterator get_reverse_iterator_at(ptrdiff_t index) const { return get_iterator_data_at(index); }
+			[[nodiscard]] reverse_iterator		 rbegin() { return get_reverse_iterator_at(size() - 1); }
+			[[nodiscard]] reverse_const_iterator rbegin() const { return get_reverse_iterator_at(size() - 1); }
+			[[nodiscard]] reverse_const_iterator rcbegin() const { return rbegin(); }
+			[[nodiscard]] reverse_iterator		 rend() { return get_reverse_iterator_at(-1); }
+			[[nodiscard]] reverse_const_iterator rend() const { return get_reverse_iterator_at(-1); }
+			[[nodiscard]] reverse_const_iterator rcend() const { return rend(); }
 
-			void push_back(const string_t& str){
-				_m=_m->apply_str_to_end(str._m);
-			}
-			void push_back(string_view_t str){
-				_m=_m->apply_str_to_end(str);
-			}
-			void push_back(char_T ch){
-				push_back({&ch,1});
-			}
-			void push_back(const char_T* str){
-				push_back(array_end_by_zero_t<const char_T>(str));
-			}
-			void push_front(const string_t& str){
-				_m=_m->apply_str_to_begin(str._m);
-			}
-			void push_front(string_view_t str){
-				_m=_m->apply_str_to_begin(str);
-			}
-			void push_front(char_T ch){
-				push_front({&ch,1});
-			}
-			void push_front(const char_T* str){
-				push_front(array_end_by_zero_t<const char_T>(str));
-			}
+			//
+
+			void push_back(const string_t& str) { _m = _m->apply_str_to_end(str._m); }
+			void push_back(string_view_t str) { _m = _m->apply_str_to_end(str); }
+			void push_back(char_T ch) { push_back({&ch, 1}); }
+			void push_back(const char_T* str) { push_back(array_end_by_zero_t<const char_T>(str)); }
+
+			void push_front(const string_t& str) { _m = _m->apply_str_to_begin(str._m); }
+			void push_front(string_view_t str) { _m = _m->apply_str_to_begin(str); }
+			void push_front(char_T ch) { push_front({&ch, 1}); }
+			void push_front(const char_T* str) { push_front(array_end_by_zero_t<const char_T>(str)); }
 			/*
 			TODO:
 

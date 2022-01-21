@@ -146,7 +146,7 @@ namespace iterator_n{
 		[[nodiscard]]constexpr bool operator==(const this_t& a)const noexcept_as(declvalue(base_t_rw)==declvalue(base_t_rw)){return _m==a._m;}
 		[[nodiscard]]constexpr value_t*operator->()noexcept(is_handle_getter_noexcept()){return handle_getter();}
 		[[nodiscard]]constexpr value_type operator*()noexcept_as(is_value_getter_noexcept()){return value_getter();}
-		[[nodiscard]]constexpr explicit operator value_t*()noexcept_as(declvalue(this_t).operator->()){return operator->();}
+		[[nodiscard]]constexpr operator value_t*()noexcept_as(declvalue(this_t).operator->()){return operator->();}
 		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept(is_handle_getter_noexcept()&&noexcept(pointer_equal(declvalue(value_t*),declvalue(value_t*)))){return pointer_equal(handle_getter(),a);}
 		template<typename other_value_t,typename other_base_t_w> requires(equal.able<base_t_rw,other_base_t_w>)
 		[[nodiscard]]constexpr bool operator==(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(equal.nothrow<base_t_rw,other_base_t_w>){ return equal(_m,a._m); }
