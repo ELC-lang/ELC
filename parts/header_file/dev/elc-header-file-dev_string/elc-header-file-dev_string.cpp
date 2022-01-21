@@ -350,7 +350,7 @@ namespace elc::defs{
 					_to(str)
 				{
 					_m.resize(size_t((_to_size+_used_size)*magic_number::gold));
-					copy_assign[_used_size](note::form(head.begin()),note::to(_m.end()-_used_size));
+					copy_assign[_used_size](note::form(&*head.begin()),note::to(&*_m.end()-_used_size));
 				}
 
 				virtual void be_replace_as(ptr_t a)override final{
@@ -361,8 +361,8 @@ namespace elc::defs{
 				[[nodiscard]]virtual size_t get_size()override final{ return _used_size+_to_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
 					if(pos<_used_size){
-						const char_T* head_begin=_m.end()-_used_size;
-						const char_T* head_end=_m.end();
+						const char_T* head_begin=&*_m.end()-_used_size;
+						const char_T* head_end=&*_m.end();
 						const char_T* copy_begin=pos+head_begin;
 						size_t size_of_copy_from_head=min(size_t(head_end-copy_begin),size);
 
@@ -398,7 +398,7 @@ namespace elc::defs{
 							auto size_new=size_t(size_now*magic_number::gold_of_resize);
 							_m.forward_resize(size_new);
 						}
-						copy_assign[str.size()](note::form(str.begin()),note::to(_m.end()-_used_size-str.size()));
+						copy_assign[str.size()](note::form(&*str.begin()),note::to(&*_m.end()-_used_size-str.size()));
 						_used_size+=str.size();
 						return this;
 					}
@@ -824,10 +824,15 @@ void ste::stst()
 		stest_accert(a.size()==0);
 		a.resize(3,L'd');
 		stest_accert(a==L"ddd");
-		stest_accert(a.begin()==a.cbegin());
-		stest_accert(a.begin()<=a.cend());
 		for(const wchar_t&c:a)
 			stest_accert(c==L'd');
+		a=L"abc";
+		stest_accert(a.begin()==a.cbegin());
+		stest_accert(*a.begin()==L'a');
+		stest_accert(a.begin()<=a.cend());
+		stest_accert(*a.rbegin()==L'c');
+		stest_accert(a.rbegin()<=a.rend());
+		stest_accert(a.rbegin()==a.end()-1);
 	}
 	elc::defs::memory::check_memory_lack();
 }

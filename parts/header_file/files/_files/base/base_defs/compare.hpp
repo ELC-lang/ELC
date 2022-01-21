@@ -96,12 +96,14 @@ constexpr struct compare_t{
 	static constexpr bool nothrow_helper(){
 		if constexpr(r_able<T,U>)
 			return noexcept(declvalue(T)<=>declvalue(U));
-		else
+		elseif constexpr(able<T,U>)
 			return noexcept(
 							declvalue(T)==declvalue(U),
 							declvalue(T)<declvalue(U),
 							declvalue(U)<declvalue(T)
 							);
+		else
+			return false;
 	}
 	template<class T,class U=T>
 	static constexpr bool nothrow= nothrow_helper<T,U>();
