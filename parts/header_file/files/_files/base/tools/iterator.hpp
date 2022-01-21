@@ -53,7 +53,7 @@ namespace iterator_n{
 		[[nodiscard]]static constexpr bool is_handle_getter_noexcept()noexcept{
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return true;
-			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_handle()))
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_handle()))
 				return noexcept(declvalue(base_t_w)->get_handle());
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_handle()))
 				return noexcept(declvalue(base_t_w).get_handle());
@@ -61,16 +61,48 @@ namespace iterator_n{
 		[[nodiscard]]inline value_t*handle_getter()const noexcept(is_handle_getter_noexcept()){
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return ((base_t_w)_m);
-			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_handle()))
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_handle()))
 				return ((base_t_w)_m)->get_handle();
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_handle()))
 				return ((base_t_w)_m).get_handle();
 		}
 		//
+		[[nodiscard]]static constexpr bool is_value_getter_noexcept()noexcept{
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
+				return true;
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_value()))
+				return noexcept(declvalue(base_t_w)->get_value());
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_value()))
+				return noexcept(declvalue(base_t_w).get_value());
+		}
+
+		[[nodiscard]]static constexpr auto value_type_getter(){
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
+				return type_info<decltype(*((base_t_w)_m))>;
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_value()))
+				return type_info<decltype(((base_t_w)_m)->get_value())>;
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_value()))
+				return type_info<decltype(((base_t_w)_m).get_value())>;
+			else
+				return type_info<decltype(*declvalue(value_t*))>;
+		}
+		typedef decltype(value_type_getter())::template_name type value_type;
+
+		[[nodiscard]]inline value_type value_getter()const noexcept(is_handle_getter_noexcept()){
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
+				return *((base_t_w)_m);
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_value()))
+				return ((base_t_w)_m)->get_value();
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_value()))
+				return ((base_t_w)_m).get_value();
+			else
+				return *handle_getter();
+		}
+		//
 		[[nodiscard]]static constexpr bool is_next_getter_noexcept()noexcept{
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return true;
-			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_next()))
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_next()))
 				return noexcept(declvalue(base_t_w)->get_next());
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_next()))
 				return noexcept(declvalue(base_t_w).get_next());
@@ -78,7 +110,7 @@ namespace iterator_n{
 		[[nodiscard]]inline base_t_w next_getter()const noexcept(is_next_getter_noexcept()){
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return ((base_t_w)_m)+1;
-			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_next()))
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_next()))
 				return ((base_t_w)_m)->get_next();
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_next()))
 				return ((base_t_w)_m).get_next();
@@ -87,7 +119,7 @@ namespace iterator_n{
 		[[nodiscard]]static constexpr bool is_before_getter_noexcept()noexcept{
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return true;
-			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_before()))
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_before()))
 				return noexcept(declvalue(base_t_w)->get_before());
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_before()))
 				return noexcept(declvalue(base_t_w).get_before());
@@ -95,7 +127,7 @@ namespace iterator_n{
 		[[nodiscard]]inline base_t_w before_getter()const noexcept(is_before_getter_noexcept()){
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return ((base_t_w)_m)-1;
-			elseif constexpr(is_pointer<base_t_w> && was_not_an_ill_form(declvalue(base_t_w)->get_before()))
+			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_before()))
 				return ((base_t_w)_m)->get_before();
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w).get_before()))
 				return ((base_t_w)_m).get_before();
@@ -113,7 +145,7 @@ namespace iterator_n{
 		~same_base_t()noexcept(destruct.nothrow<base_t_rw>)=default;
 		[[nodiscard]]constexpr bool operator==(const this_t& a)const noexcept_as(declvalue(base_t_rw)==declvalue(base_t_rw)){return _m==a._m;}
 		[[nodiscard]]constexpr value_t*operator->()noexcept(is_handle_getter_noexcept()){return handle_getter();}
-		[[nodiscard]]constexpr value_t&operator*()noexcept_as(declvalue(this_t).operator->()){return*operator->();}
+		[[nodiscard]]constexpr value_type operator*()noexcept_as(is_value_getter_noexcept()){return value_getter();}
 		[[nodiscard]]constexpr explicit operator value_t*()noexcept_as(declvalue(this_t).operator->()){return operator->();}
 		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept(is_handle_getter_noexcept()&&noexcept(pointer_equal(declvalue(value_t*),declvalue(value_t*)))){return pointer_equal(handle_getter(),a);}
 		template<typename other_value_t,typename other_base_t_w> requires(equal.able<base_t_rw,other_base_t_w>)
@@ -147,14 +179,14 @@ namespace iterator_n{
 		constexpr this_t operator++(int)&noexcept_as(this_t(++declvalue(this_t&))){auto a=*this;operator++();return a;}
 		constexpr this_t operator--(int)&noexcept_as(this_t(--declvalue(this_t&))){auto a=*this;operator--();return a;}
 		constexpr this_t operator+(ptrdiff_t num)const noexcept_as(this_t(--declvalue(this_t&)),++declvalue(this_t&)){
-			auto a=*this; 
+			auto a=*this;
 			if(num>0)
 				while(num--)
 					++a;
 			else
 				while(num++)
 					--a;
-			return a; 
+			return a;
 		}
 		constexpr this_t operator-(ptrdiff_t num)const noexcept_as(declvalue(this_t&)+0){ return *this+(-num); }
 	};

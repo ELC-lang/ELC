@@ -282,7 +282,7 @@ namespace elc::defs{
 						if(index<_to_size)
 							_to->arec_set(index,a,_to);
 						else
-							_m[index-_to_size]=a; 
+							_m[index-_to_size]=a;
 					else
 						base_t::arec_set(index,a,p);
 				}
@@ -717,7 +717,7 @@ namespace elc::defs{
 			char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
 			char_T& arec(size_t index){ return _m->arec(index); }
 			void arec_set(size_t index,char_T a){ return _m->arec_set(index,a,_m); }
-			
+
 			class arec_t:non_copyable,non_moveable{
 				string_t* _to;
 				size_t _index;
@@ -758,8 +758,10 @@ namespace elc::defs{
 
 				[[nodiscard]]constexpr iterator_base_t get_before()const noexcept{ return {_to,_index-1}; }
 				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
-				[[nodiscard]]char_T* get_handle()noexcept{ return &(*_to)[_index]; }
-				[[nodiscard]]const char_T* get_handle()const noexcept{ return &(*(const string_t*)_to)[_index]; }
+				[[nodiscard]]auto get_value()noexcept{ return (*_to)[_index]; }
+				[[nodiscard]]const auto get_value()const noexcept{ return (*(const string_t*)_to)[_index]; }
+				[[nodiscard]]char_T* get_handle()noexcept{ return &get_value(); }
+				[[nodiscard]]const char_T* get_handle()const noexcept{ return &get_value(); }
 				constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to&&_index==a._index; }
 				constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to?_index<=>a._index:NAN<=>NAN; }
 			};
