@@ -753,7 +753,7 @@ namespace elc::defs{
 		private:
 			struct iterator_base_t{
 				string_t* _to;
-				size_t _index;
+				ptrdiff_t _index;
 
 				[[nodiscard]]constexpr iterator_base_t get_before()const noexcept{ return {_to,_index-1}; }
 				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
@@ -762,18 +762,31 @@ namespace elc::defs{
 				constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to&&_index==a._index; }
 				constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to?_index<=>a._index:NAN<=>NAN; }
 			};
+			iterator_base_t get_iterator_data_at(ptrdiff_t index)const{ return iterator_base_t{(string_t*)this,index}; }
 		public:
 			typedef iterator_t<char_T,iterator_base_t>iterator;
 			typedef const_iterator_t<char_T,const iterator_base_t>const_iterator;
 
-			iterator get_iterator_at(size_t index){ return iterator_base_t{this,index}; }
-			const_iterator get_iterator_at(size_t index)const{ return iterator_base_t{(string_t*)this,index}; }
+			iterator get_iterator_at(size_t index){ return get_iterator_data_at(index); }
+			const_iterator get_iterator_at(size_t index)const{ return get_iterator_data_at(index); }
 			iterator begin(){ return get_iterator_at(0); }
 			const_iterator begin()const{ return get_iterator_at(0); }
 			const_iterator cbegin()const{ return begin(); }
 			iterator end(){ return get_iterator_at(size()); }
 			const_iterator end()const{ return get_iterator_at(size()); }
 			const_iterator cend()const{ return end(); }
+
+			typedef reverse_iterator_t<char_T,iterator_base_t>reverse_iterator;
+			typedef reverse_const_iterator_t<char_T,const iterator_base_t>reverse_const_iterator;
+
+			reverse_iterator get_reverse_iterator_at(size_t index){ return get_iterator_data_at(index); }
+			reverse_const_iterator get_reverse_iterator_at(size_t index)const{ return get_iterator_data_at(index); }
+			reverse_iterator rbegin(){ return get_reverse_iterator_at(size()-1); }
+			reverse_const_iterator rbegin()const{ return get_reverse_iterator_at(size()-1); }
+			reverse_const_iterator rcbegin()const{ return rbegin(); }
+			reverse_iterator rend(){ return get_reverse_iterator_at(-1); }
+			reverse_const_iterator rend()const{ return get_reverse_iterator_at(-1); }
+			reverse_const_iterator rcend()const{ return rend(); }
 		};
 		template<typename T>
 		inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
