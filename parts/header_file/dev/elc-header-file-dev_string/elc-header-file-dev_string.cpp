@@ -753,7 +753,7 @@ namespace elc::defs{
 		private:
 			struct iterator_base_t{
 				string_t* _to;
-				ptrdiff_t _index;//rend: -1
+				ptrdiff_t _index;//rend: -1，使用size_t也不是不可以（标准允许无符号整数溢出），但是operator<=>会出问题
 
 				[[nodiscard]]constexpr iterator_base_t get_before()const noexcept{ return {_to,_index-1}; }
 				[[nodiscard]]constexpr iterator_base_t get_next()const noexcept{ return {_to,_index+1}; }
