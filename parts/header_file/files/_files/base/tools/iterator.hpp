@@ -99,7 +99,7 @@ namespace iterator_n{
 		template<typename other_value_t,typename other_base_t_w> requires(equal.able<base_t_w,other_base_t_w>)
 		[[nodiscard]]constexpr bool operator==(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(equal.nothrow<base_t_w,other_base_t_w>){ return equal(_m,a._m); }
 		template<typename other_value_t,typename other_base_t_w> requires(compare.able<base_t_w,other_base_t_w>)
-		[[nodiscard]]constexpr bool operator<=>(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(compare.nothrow<base_t_w,other_base_t_w>){ return compare(_m,a._m); }
+		[[nodiscard]]constexpr auto operator<=>(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(compare.nothrow<base_t_w,other_base_t_w>){ return compare(_m,a._m); }
 	};
 	template<typename value_t,typename base_t_w>
 	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(a.swap_with(b))

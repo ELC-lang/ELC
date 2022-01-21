@@ -760,6 +760,7 @@ namespace elc::defs{
 				[[nodiscard]]char_T* get_handle()noexcept{ return &(*_to)[_index]; }
 				[[nodiscard]]const char_T* get_handle()const noexcept{ return &(*(const string_t*)_to)[_index]; }
 				constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to&&_index==a._index; }
+				constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to?_index<=>a._index:NAN<=>NAN; }
 			};
 		public:
 			typedef iterator_t<char_T,iterator_base_t>iterator;
@@ -810,6 +811,7 @@ void ste::stst()
 		a.resize(3,L'd');
 		stest_accert(a==L"ddd");
 		stest_accert(a.begin()==a.cbegin());
+		stest_accert(a.begin()<=a.cend());
 		for(const wchar_t&c:a)
 			stest_accert(c==L'd');
 	}
