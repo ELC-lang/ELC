@@ -14,10 +14,10 @@ namespace iterator_n{
 		typedef remove_cv<base_t_w> base_t_rw;
 		base_t_rw _m;
 		template<typename build_base_t_T> requires(construct<base_t_rw>.able<build_base_t_T>)
-		constexpr reverse_base_t(build_base_t_T&& a)noexcept(construct<base_t_rw>.nothrow<build_base_t_T>):_m(a){}
-		[[nodiscard]]auto get_before()noexcept_as(declvalue(base_t_w).get_next()){return ((base_t_w&)_m).get_next();}
-		[[nodiscard]]auto get_next()noexcept_as(declvalue(base_t_w).get_before()){return ((base_t_w&)_m).get_before();}
-		[[nodiscard]]auto get_handle()noexcept_as(declvalue(base_t_w).get_handle()){return ((base_t_w&)_m).get_handle();}
+		constexpr reverse_base_t(build_base_t_T&& a) noexcept(construct<base_t_rw>.nothrow<build_base_t_T>):_m(a) {}
+		[[nodiscard]] auto get_before() noexcept_as(declvalue(base_t_w).get_next()) { return ((base_t_w&)_m).get_next(); }
+		[[nodiscard]] auto get_next() noexcept_as(declvalue(base_t_w).get_before()) { return ((base_t_w&)_m).get_before(); }
+		[[nodiscard]] auto get_handle() noexcept_as(declvalue(base_t_w).get_handle()) { return ((base_t_w&)_m).get_handle(); }
 	};
 	template<typename base_t> requires(compare.able<base_t>)
 	[[nodiscard]]auto operator<=>(const reverse_base_t<base_t>&a,const reverse_base_t<base_t>&b)noexcept(compare.nothrow<base_t>){
@@ -143,17 +143,19 @@ namespace iterator_n{
 		template<typename other_T,typename other_base_t> requires(construct<base_t_rw>.able<other_base_t>)
 		constexpr same_base_t(const same_base_t<other_T,other_base_t>&a)noexcept(construct<base_t_rw>.nothrow<other_base_t>):_m(a._m){}
 		~same_base_t()noexcept(destruct.nothrow<base_t_rw>)=default;
-		[[nodiscard]]constexpr bool operator==(const this_t& a)const noexcept_as(declvalue(base_t_rw)==declvalue(base_t_rw)){return _m==a._m;}
-		[[nodiscard]]constexpr value_t*operator->()noexcept(is_handle_getter_noexcept()){return handle_getter();}
-		[[nodiscard]]constexpr value_type operator*()noexcept_as(is_value_getter_noexcept()){return value_getter();}
-		[[nodiscard]]constexpr operator value_t*()noexcept_as(declvalue(this_t).operator->()){return operator->();}
-		[[nodiscard]]constexpr bool operator==(value_t*a)const noexcept(is_handle_getter_noexcept()&&noexcept(pointer_equal(declvalue(value_t*),declvalue(value_t*)))){return pointer_equal(handle_getter(),a);}
-		template<typename other_value_t,typename other_base_t_w> requires(equal.able<base_t_rw,other_base_t_w>)
-		[[nodiscard]]constexpr bool operator==(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(equal.nothrow<base_t_rw,other_base_t_w>){ return equal(_m,a._m); }
-		template<typename other_value_t,typename other_base_t_w>
-		[[nodiscard]]constexpr auto operator<=>(const same_base_t<other_value_t,other_base_t_w>& a)const noexcept(compare.nothrow<base_t_rw,other_base_t_w>){
-			if constexpr(compare.able<base_t_rw,other_base_t_w>)
-				return compare(_m,a._m);
+		[[nodiscard]] constexpr bool	   operator==(const this_t& a) const noexcept_as(declvalue(base_t_rw) == declvalue(base_t_rw)) { return _m == a._m; }
+		[[nodiscard]] constexpr value_t*   operator->() noexcept(is_handle_getter_noexcept()) { return handle_getter(); }
+		[[nodiscard]] constexpr value_type operator*() noexcept_as(is_value_getter_noexcept()) { return value_getter(); }
+		[[nodiscard]] constexpr			   operator value_t*() noexcept_as(declvalue(this_t).operator->()) { return operator->(); }
+		[[nodiscard]] constexpr bool	   operator==(value_t* a) const noexcept(is_handle_getter_noexcept() && noexcept(pointer_equal(declvalue(value_t*), declvalue(value_t*)))) { return pointer_equal(handle_getter(), a); }
+		template<typename other_value_t, typename other_base_t_w> requires(equal.able<base_t_rw, other_base_t_w>)
+		[[nodiscard]] constexpr bool operator==(const same_base_t<other_value_t, other_base_t_w>& a) const noexcept(equal.nothrow<base_t_rw, other_base_t_w>) {
+			return equal(_m, a._m);
+		}
+		template<typename other_value_t, typename other_base_t_w>
+		[[nodiscard]] constexpr auto operator<=>(const same_base_t<other_value_t, other_base_t_w>& a) const noexcept(compare.nothrow<base_t_rw, other_base_t_w>) {
+			if constexpr(compare.able<base_t_rw, other_base_t_w>)
+				return compare(_m, a._m);
 		}
 	};
 	template<typename value_t,typename base_t_w>
