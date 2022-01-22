@@ -800,12 +800,12 @@ namespace elc::defs{
 
 			void push_back(const string_t& str) { _m = _m->apply_str_to_end(str._m); }
 			void push_back(string_view_t str) { _m = _m->apply_str_to_end(str); }
-			void push_back(char_T ch) { push_back({&ch, 1}); }
+			void push_back(char_T ch) { push_back(string_view_t{&ch, 1}); }
 			void push_back(const char_T* str) { push_back(array_end_by_zero_t<const char_T>(str)); }
 
 			void push_front(const string_t& str) { _m = _m->apply_str_to_begin(str._m); }
 			void push_front(string_view_t str) { _m = _m->apply_str_to_begin(str); }
-			void push_front(char_T ch) { push_front({&ch, 1}); }
+			void push_front(char_T ch) { push_front(string_view_t{&ch, 1}); }
 			void push_front(const char_T* str) { push_front(array_end_by_zero_t<const char_T>(str)); }
 			/*
 			TODO:
@@ -891,6 +891,9 @@ void ste::stst()
 		stest_accert(*a.rbegin()==L'c');
 		stest_accert(a.rbegin()<=a.rend());
 		stest_accert(a.rbegin()==a.end()-1);
+		a.push_back(L"as");
+		a.push_front(L'p');
+		stest_accert(a == L"pabcas");
 	}
 	elc::defs::memory::check_memory_lack();
 }
