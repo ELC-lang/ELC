@@ -14,7 +14,7 @@ elc依赖的基础函数.
 	#define ELC_APIS_die
 	#include "../default_data_type.hpp"
 	namespace elc::APIs::die{
-		[[noreturn]]void die_with(const char_t*err_msg){
+		[[noreturn]]void die_with([[maybe_unused]]const char_t*err_msg){
 			//UF
 			::std::exit(1);
 		}

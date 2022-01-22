@@ -94,7 +94,6 @@ public:
 		while(tmp!=null_ptr){
 			if(a==tmp->_data){
 				_size--;
-				data_t*remove_p=tmp;
 				*tmp_=tmp->_next;
 				unget(tmp);
 				return true;

@@ -14,7 +14,7 @@ elc依赖的基础函数.
 	#define ELC_APIS_alloc
 	#include<cstdlib>
 	namespace elc::APIs::alloc{
-		[[nodiscard]]inline void*realloc(void*ptr,size_t osize,size_t nsize)noexcept{
+		[[nodiscard]]inline void*realloc(void*ptr,[[maybe_unused]]size_t osize,size_t nsize)noexcept{
 			//return空指针被允许，但ptr值必须保持有效以保证gc后再次realloc有效
 			//new_size被保证不为0
 			//align维持不变

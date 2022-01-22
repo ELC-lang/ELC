@@ -151,7 +151,7 @@ namespace elc::defs{
 					return data;
 				}
 				[[nodiscard]]virtual size_t get_size()override final{ return 0; }
-				[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{ return this; }
+				[[nodiscard]]virtual ptr_t get_substr_data([[maybe_unused]]size_t begin,[[maybe_unused]]size_t size)override final{ return this; }
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{ return get<comn_string_data_t<char_T>>(str); }
 				[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{ return str; }
 				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{ return get<comn_string_data_t<char_T>>(str); }
@@ -159,11 +159,11 @@ namespace elc::defs{
 
 				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str);
 				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str);
-				[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)override final{ return this; }
+				[[nodiscard]]virtual ptr_t do_erase([[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return this; }
 
-				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ return; }
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return*(char_T*)null_ptr; }
-				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{ nothing; }
+				virtual void copy_part_data_to([[maybe_unused]]char_T* to,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return; }
+				[[nodiscard]]virtual char_T& arec([[maybe_unused]]size_t index)override final{ return*(char_T*)null_ptr; }
+				virtual void arec_set([[maybe_unused]]size_t index,[[maybe_unused]]char_T a,[[maybe_unused]]ptr_t& p)override final{ nothing; }
 			};
 			template<typename char_T>
 			inline null_string_data_t<char_T> null_string_data{};
@@ -661,7 +661,7 @@ namespace elc::defs{
 			typedef base_t_w::ptr_t			   ptr_t;
 			typedef base_t_w::string_view_t	   string_view_t;
 			typedef string_t<char_T>		   this_t;
-			static constexpr size_t			   npos = -1;
+			static constexpr size_t			   npos = size_t(-1);
 
 		private:
 			mutable ptr_t _m;
