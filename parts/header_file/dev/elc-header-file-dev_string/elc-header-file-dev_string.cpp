@@ -53,9 +53,20 @@ namespace elc::defs{
 				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str);
 				[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size);
 
-				//[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self);
-				//[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self);
-
+				[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self){
+					auto pos	= this->get_size() - size;
+					auto defore = get_substr_data(0, pos);
+					auto after	= get_substr_data(pos, size);
+					self		= defore;
+					return after;
+				}
+				[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self){
+					auto pos	= size;
+					auto defore = get_substr_data(0, pos);
+					auto after	= get_substr_data(pos, this->get_size() - size);
+					self		= after;
+					return defore;
+				}
 				/*
 				TODO:
 
@@ -96,6 +107,9 @@ namespace elc::defs{
 				}
 				comn_string_data_t(ptr_t str):_m(note::size(str->get_size()+1)){
 					str->copy_part_data_to((char_T*)_m,0,this->get_size());
+				}
+				comn_string_data_t(ptr_t str,size_t pos,size_t size):_m(note::size(size+1)){
+					str->copy_part_data_to((char_T*)_m,pos,size);
 				}
 
 				virtual void be_replace_as(ptr_t a)override final{
@@ -164,6 +178,8 @@ namespace elc::defs{
 				virtual void copy_part_data_to([[maybe_unused]]char_T* to,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return; }
 				[[nodiscard]]virtual char_T& arec([[maybe_unused]]size_t index)override final{ return*(char_T*)null_ptr; }
 				virtual void arec_set([[maybe_unused]]size_t index,[[maybe_unused]]char_T a,[[maybe_unused]]ptr_t& p)override final{ nothing; }
+				[[nodiscard]]virtual ptr_t do_pop_back([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)override final{ return this; }
+				[[nodiscard]]virtual ptr_t do_pop_front([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)override final{ return this; }
 			};
 			template<typename char_T>
 			inline null_string_data_t<char_T> null_string_data{};
@@ -233,6 +249,24 @@ namespace elc::defs{
 					}
 					else
 						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_front(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _sub_begin==0) {
+						auto aret = _to->do_pop_front(size,_to);
+						_sub_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_front(size, self);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_back(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()) {
+						auto aret = _to->do_pop_back(size,_to);
+						_sub_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_back(size,self);
 				}
 			};
 			template<typename char_T>
@@ -343,6 +377,23 @@ namespace elc::defs{
 					else
 						return base_t::apply_str_to_begin(str);
 				}
+				[[nodiscard]] virtual ptr_t do_pop_front(size_t size, ptr_t& self) override final {
+					if(this->is_unique()) {
+						auto aret = _to->do_pop_front(size, _to);
+						_to_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_front(size, self);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_back(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _used_size>=size) {
+						_used_size -= size;
+						return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m + _used_size,size});
+					}
+					else
+						return base_t::do_pop_back(size, self);
+				}
 				void shrink(){
 					_m.resize(_used_size);
 				}
@@ -418,8 +469,8 @@ namespace elc::defs{
 							auto size_new=size_t(size_now*magic_number::gold_of_resize);
 							_m.forward_resize(size_new);
 						}
-						copy_assign[str.size()](note::form((const char_T*)str.begin()),note::to((char_T*)_m.end()-_used_size-str.size()));
 						_used_size+=str.size();
+						copy_assign[str.size()](note::form((const char_T*)str.begin()),note::to((char_T*)_m.end()-_used_size));
 						return this;
 					}
 					else
@@ -449,6 +500,23 @@ namespace elc::defs{
 					}
 					else
 						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_front(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _used_size>=size) {
+						_used_size -= size;
+						return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m.end() - _used_size - size, size});
+					}
+					else
+						return base_t::do_pop_front(size, self);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_back(size_t size, ptr_t& self) override final {
+					if(this->is_unique()) {
+						auto aret = _to->do_pop_back(size, _to);
+						_to_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_back(size, self);
 				}
 			};
 			template<typename char_T>
@@ -541,6 +609,24 @@ namespace elc::defs{
 					}
 					else
 						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_front(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _defore_size>=size) {
+						auto aret = _defore->do_pop_front(size, _defore);
+						_defore_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_front(size, self);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_back(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _after_size>=size) {
+						auto aret = _after->do_pop_back(size, _after);
+						_after_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_back(size, self);
 				}
 			};
 			template<typename char_T>
@@ -648,6 +734,25 @@ namespace elc::defs{
 					}
 					else
 						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_front(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _erase_pos > size){
+						auto aret = _to->do_pop_front(size, _to);
+						_to_size -= size;
+						_erase_pos -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_front(size, self);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_back(size_t size, ptr_t& self) override final {
+					if(this->is_unique() && _erase_pos+_erase_size <= _to_size-size) {
+						auto aret = _to->do_pop_back(size, _to);
+						_to_size -= size;
+						return aret;
+					}
+					else
+						return base_t::do_pop_back(size, self);
 				}
 			};
 			template<typename char_T>
@@ -827,11 +932,22 @@ namespace elc::defs{
 			void push_front(string_view_t str) { _m = _m->apply_str_to_begin(str); }
 			void push_front(char_T ch) { push_front(string_view_t{&ch, 1}); }
 			void push_front(const char_T* str) { push_front(array_end_by_zero_t<const char_T>(str)); }
+
+			
+			string_t pop_back(size_t size) {
+				return _m->do_pop_back(size, _m);
+			}
+			string_t pop_front(size_t size) {
+				return _m->do_pop_front(size, _m);
+			}
+			char_T pop_back() {
+				return pop_back(1)[0];
+			}
+			char_T pop_front() {
+				return pop_front(1)[0];
+			}
 			/*
 			TODO:
-
-			pop_back
-			pop_front
 
 			find
 			rfind
@@ -920,6 +1036,13 @@ void ste::stst()
 		a.erase(1, 3);
 		a.erase(1);
 		stest_accert(a == L"ps");
+		stest_accert(a.pop_front() == L'p');
+		stest_accert(a.pop_back() == L's');
+		stest_accert(a.size() == 0);
+		a = L"abc";
+		stest_accert(a.pop_back(2) == L"bc");
+		stest_accert(a.size() == 1);
 	}
 	elc::defs::memory::check_memory_lack();
+	stest_puts(L"测试完了");
 }
