@@ -1237,10 +1237,11 @@ void ste::stst()
 		a.insert(0, L"123");
 		a.insert(a.size(), L"123");
 		stest_accert(a[2] == L'3');
+		a[5] = L'6';
 		a[6] = L'6';
 		a[7] = L'6';
 		a[8] = L'6';
-		stest_accert(a == L"123wq1666ra123");
+		stest_accert(a == L"123wq6666ra123");
 		for(wchar_t& c: a)
 			c ='7';
 		stest_accert(a == L"77777777777777");
