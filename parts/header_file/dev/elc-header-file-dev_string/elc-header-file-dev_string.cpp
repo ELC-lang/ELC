@@ -819,8 +819,24 @@ namespace elc::defs{
 			find_first_not_of
 			find_last_of
 			find_last_not_of
-			[[nodiscard]]string_t operator[](size_t index,char_T delimiter)const
-			[[nodiscard]]string_t operator[](size_t index,string_t delimiter_str)const
+			[[nodiscard]] string_t operator[](size_t index, char_T delimiter) const {
+				auto pos = find(delimiter);
+				auto end = find(delimiter,pos);
+				while(index--) {
+					pos = end;
+					end = find(delimiter, pos);
+				}
+				return substr(pos, end - pos);
+			}
+			[[nodiscard]] string_t operator[](size_t index, string_t delimiter_str) const {
+				auto pos = find(delimiter_str);
+				auto end = find(delimiter_str, pos);
+				while(index--) {
+					pos = end;
+					end = find(delimiter_str, pos);
+				}
+				return substr(pos, end - pos);
+			}
 
 			erase
 			insert
