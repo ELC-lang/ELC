@@ -53,6 +53,26 @@ namespace elc::defs{
 				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str);
 				[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size);
 
+				//[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self);
+				//[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self);
+
+				/*
+				TODO:
+
+				find
+				rfind
+				find_first_of
+				find_first_not_of
+				find_last_of
+				find_last_not_of
+
+				compare
+				starts_with
+				ends_with
+				contains
+				replace
+				*/
+
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
 				[[nodiscard]]virtual char_T& arec(size_t index)=0;
 				virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
@@ -90,7 +110,7 @@ namespace elc::defs{
 						return base_t::get_unique_c_str(a);
 				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _m.size()-1; }
-				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m),note::to(to)); }
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m+pos),note::to(to)); }
 				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _m[index]; }
 				virtual void arec_set(size_t index,char_T a,ptr_t&p)override final{
 					if(this->is_unique())
@@ -837,8 +857,11 @@ namespace elc::defs{
 				}
 				return substr(pos, end - pos);
 			}
-
-			erase
+			*/
+			void erase(size_t pos,size_t size=1){
+				_m = _m->do_erase(pos, size);
+			}
+			/*
 			insert
 			compare
 			starts_with
@@ -894,6 +917,9 @@ void ste::stst()
 		a.push_back(L"as");
 		a.push_front(L'p');
 		stest_accert(a == L"pabcas");
+		a.erase(1, 3);
+		a.erase(1);
+		stest_accert(a == L"ps");
 	}
 	elc::defs::memory::check_memory_lack();
 }
