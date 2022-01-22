@@ -49,8 +49,8 @@ namespace elc::defs{
 				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str);
 				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str);
 
-				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str);
-				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str);
+				[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str);
+				[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str);
 				[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size);
 
 				[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self){
@@ -171,8 +171,8 @@ namespace elc::defs{
 				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{ return get<comn_string_data_t<char_T>>(str); }
 				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{ return str; }
 
-				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str);
-				//[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str);
+				[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]string_view_t str)override final{ return get<comn_string_data_t<char_T>>(str); }
+				[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]ptr_t str)override final{ return str; }
 				[[nodiscard]]virtual ptr_t do_erase([[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return this; }
 
 				virtual void copy_part_data_to([[maybe_unused]]char_T* to,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return; }
@@ -671,7 +671,7 @@ namespace elc::defs{
 				}
 				[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)override final{
 					if(this->is_unique()){
-						if(pos<=_erase_pos && pos+size>=_erase_size){
+						if(pos<=_erase_pos && pos+size>=_erase_pos+_erase_size){
 							_erase_pos=pos;
 							_erase_size+=size;
 							return this;
@@ -758,6 +758,182 @@ namespace elc::defs{
 			template<typename char_T>
 			[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_erase(size_t pos,size_t size){
 				return get<erased_string_data_t<char_T>>(this,pos,size);
+			}
+
+			template<typename char_T>
+			struct inserted_string_data_t final: base_string_data_t<char_T>, instance_struct<inserted_string_data_t<char_T>> {
+				typedef inserted_string_data_t<char_T> this_t;
+				typedef base_string_data_t<char_T> base_t;
+				using base_t::ptr_t;
+				using base_t::string_view_t;
+
+				ptr_t  _to;
+				ptr_t  _insert_data;
+				size_t _to_size;
+				size_t _insert_pos;
+				size_t _insert_size;
+
+				inserted_string_data_t(ptr_t to, ptr_t insert_data, size_t insert_pos):_to(to),_insert_data(insert_data),_insert_pos(insert_pos),_to_size(to->get_size()),_insert_size(insert_data->get_size()) {}
+
+				virtual void be_replace_as(ptr_t a)override final{
+					_to.reset();
+					_insert_data.reset();
+					base_t::be_replace_as(a);
+				}
+				[[nodiscard]]virtual size_t get_size()override final{ return _to_size+_insert_size; }
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
+					if(pos+size<_insert_pos)
+						_to->copy_part_data_to(to,pos,size);
+					elseif(pos>_insert_pos+_insert_size)
+						_to->copy_part_data_to(to,pos-_insert_size,size);
+					else{
+						if(_insert_pos>pos){
+							auto size_defore_insert_pos=_insert_pos-pos;
+							_to->copy_part_data_to(to,pos,size_defore_insert_pos);
+							to+=size_defore_insert_pos;
+							size-=size_defore_insert_pos;
+						}
+						auto size_defore_insert_end=min(size,_insert_size);
+						_insert_data->copy_part_data_to(to,0,size_defore_insert_end);
+						to+=size_defore_insert_end;
+						size-=size_defore_insert_end;
+						if(size)
+							_to->copy_part_data_to(to,_insert_pos,size);
+					}
+				}
+				[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)override final{
+					if(this->is_unique()){
+						if(pos>=_insert_pos && pos+size<=_insert_pos+_insert_size){
+							_insert_data=_insert_data->do_erase(pos-_insert_pos,size);
+							_insert_size-=size;
+							return this;
+						}
+						elseif(pos+size<_insert_pos){
+							_to=_to->do_erase(pos,size);
+						}
+						elseif(pos>_insert_pos+_insert_size) {
+							_to=_to->do_erase(pos-_insert_size,size);
+						}
+					}
+					return base_t::do_erase(pos,size);
+				}
+				[[nodiscard]]virtual char_T& arec(size_t index)override final{
+					if(index>=_insert_pos && index<_insert_pos+_insert_size)
+						return _insert_data->arec(index-_insert_pos);
+					elseif(index>=_insert_pos+_insert_size)
+						return _to->arec(index-_insert_size);
+					else
+						return _to->arec(index);
+				}
+
+				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+					if(this->is_unique())
+						if(index>=_insert_pos && index<_insert_pos+_insert_size)
+							_insert_data->arec_set(index-_insert_pos,a,p);
+						elseif(index>=_insert_pos+_insert_size)
+							_to->arec_set(index-_insert_size,a,p);
+						else
+							_to->arec_set(index,a,p);
+					else
+						base_t::arec_set(index,a,p);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+					if(this->is_unique()){
+						if(_insert_pos==0){
+							_insert_data=_insert_data->apply_str_to_begin(str);
+							_insert_size+=str.size();
+						}
+						else{
+							_to=_to->apply_str_to_begin(str);
+							_to_size+=str.size();
+						}
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+					if(this->is_unique()){
+						if(_insert_pos==0){
+							_insert_data=_insert_data->apply_str_to_begin(str);
+							_insert_size+=str->get_size();
+						}
+						else{
+							_to=_to->apply_str_to_begin(str);
+							_to_size+=str->get_size();
+						}
+						return this;
+					}
+					else
+						return base_t::apply_str_to_begin(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+					if(this->is_unique()){
+						if(_insert_pos==_to_size){
+							_insert_data=_insert_data->apply_str_to_end(str);
+							_insert_size+=str.size();
+						}
+						else{
+							_to=_to->apply_str_to_end(str);
+							_to_size+=str.size();
+						}
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+					if(this->is_unique()){
+						if(_insert_pos==_to_size){
+							_insert_data=_insert_data->apply_str_to_end(str);
+							_insert_size+=str->get_size();
+						}
+						else{
+							_to=_to->apply_str_to_end(str);
+							_to_size+=str->get_size();
+						}
+						return this;
+					}
+					else
+						return base_t::apply_str_to_end(str);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_front(size_t size, ptr_t& self) override final {
+					if(this->is_unique()) {
+						if(_insert_pos > size) {
+							auto aret = _to->do_pop_front(size, _to);
+							_to_size -= size;
+							_insert_pos -= size;
+							return aret;
+						}
+						elseif(_insert_pos==0 && _insert_size>=size){
+							auto aret = _insert_data->do_pop_front(size, _insert_data);
+							_insert_size -= size;
+						}
+					}
+					return base_t::do_pop_front(size, self);
+				}
+				[[nodiscard]] virtual ptr_t do_pop_back(size_t size, ptr_t& self) override final {
+					if(this->is_unique()) {
+						if(_insert_pos+_insert_size <= _to_size-size) {
+							auto aret = _to->do_pop_back(size, _to);
+							_to_size -= size;
+							return aret;
+						}
+						elseif(_insert_pos==_to_size && _insert_size>=size) {
+							auto aret = _insert_data->do_pop_front(size, _insert_data);
+							_insert_size -= size;
+						}
+					}
+					return base_t::do_pop_back(size, self);
+				}
+			};
+			template<typename char_T>
+			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos, ptr_t str) {
+				return get<inserted_string_data_t<char_T>>(this,str,pos);
+			}
+			template<typename char_T>
+			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos, string_view_t str) {
+				return this->do_insert(pos,get<comn_string_data_t<char_T>>(str));
 			}
 		}
 		template<typename char_T>
@@ -858,6 +1034,8 @@ namespace elc::defs{
 				}
 				[[nodiscard]] char_T*		operator&() noexcept { return _to->unique_c_str() + _index; }
 				[[nodiscard]] const char_T* operator&() const noexcept { return ((const string_t*)(_to))->c_str() + _index; }
+				[[nodiscard]] operator char_T&() noexcept { return *operator&(); }
+				[[nodiscard]] operator const char_T&() const noexcept { return *operator&(); }
 			};
 
 		public:
@@ -977,8 +1155,19 @@ namespace elc::defs{
 			void erase(size_t pos,size_t size=1){
 				_m = _m->do_erase(pos, size);
 			}
+			void insert(size_t pos,string_t str) {
+				_m = _m->do_insert(pos, str);
+			}
+			void insert(size_t pos,string_view_t str) {
+				_m = _m->do_insert(pos, str);
+			}
+			void insert(size_t pos,const char_T* str) {
+				insert(pos,array_end_by_zero_t<const char_T>(str));
+			}
+			void insert(size_t pos,char_T ch) {
+				insert(pos,string_view_t{&ch,1});
+			}
 			/*
-			insert
 			compare
 			starts_with
 			ends_with
@@ -1042,6 +1231,19 @@ void ste::stst()
 		a = L"abc";
 		stest_accert(a.pop_back(2) == L"bc");
 		stest_accert(a.size() == 1);
+		a.push_front(L"wqer");
+		stest_accert(a==L"wqera");
+		a.insert(2, L"123");
+		a.insert(0, L"123");
+		a.insert(a.size(), L"123");
+		stest_accert(a[2] == L'3');
+		a[6] = L'6';
+		a[7] = L'6';
+		a[8] = L'6';
+		stest_accert(a == L"123wq1666ra123");
+		for(wchar_t& c: a)
+			c ='7';
+		stest_accert(a == L"77777777777777");
 	}
 	elc::defs::memory::check_memory_lack();
 	stest_puts(L"测试完了");
