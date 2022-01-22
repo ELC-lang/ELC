@@ -87,6 +87,18 @@ namespace elc::defs{
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
 				[[nodiscard]]virtual char_T& arec(size_t index)=0;
 				virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
+
+				//for gc:
+				/*
+				[[nodiscard]]virtual size_t get_memory_cost()=0;
+				[[nodiscard]]virtual ptrdiff_t get_gc_profit()=0;//comn_string_data_t(self).memory_cost-self.memory_cost
+				[[nodiscard]]virtual bool gc()=0{
+					bool need_be_replace=get_gc_profit()>=0
+					if(need_be_replace)
+						this->be_replace_as(get<comn_string_data_t>(this));
+					return need_be_replace;
+				}
+				*/
 			};
 			template<typename char_T>
 			void base_string_data_t<char_T>::be_replace_as(ptr_t a){
@@ -949,6 +961,7 @@ namespace elc::defs{
 
 			string_t(ptr_t str):_m(str){}
 			[[nodiscard]]string_t copy()const{ return*this; }
+			[[nodiscard]]ptr_t ptr_copy()const{ return _m; }
 		public:
 			void swap_with(this_t& a)noexcept{
 				swap(_m,a._m);
@@ -964,16 +977,16 @@ namespace elc::defs{
 			string_t& operator=(string_t&& str) = default;
 
 			[[nodiscard]] string_t operator+(const string_t& str) const& {
-				return copy()._m->apply_str_to_end(str._m);
+				return ptr_copy()->apply_str_to_end(str._m);
 			}
 			[[nodiscard]] string_t operator+(string_view_t str) const& {
-				return copy()._m->apply_str_to_end(str);
+				return ptr_copy()->apply_str_to_end(str);
 			}
 			[[nodiscard]] string_t operator+(const char_T* str) const& {
 				return *this + array_end_by_zero_t<const char_T>(str);
 			}
 			friend [[nodiscard]] string_t operator+(string_view_t str1, const string_t& str2) {
-				return str2.copy()._m->apply_str_to_begin(str1);
+				return str2.ptr_copy()->apply_str_to_begin(str1);
 			}
 			friend [[nodiscard]] string_t operator+(const char_T* str1, const string_t& str2) {
 				return array_end_by_zero_t<const char_T>(str1) + str2;
