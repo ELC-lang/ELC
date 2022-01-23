@@ -287,7 +287,7 @@ namespace lifetime_n{
 		T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
-		
+
 		template<class T> requires able<T>
 		T*operator()(T*to,const T*from,size_t size)const noexcept(nothrow<T>)
 		{return base_call(to,from,size);}

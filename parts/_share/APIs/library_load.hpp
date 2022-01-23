@@ -22,7 +22,7 @@ elc依赖的基础函数.
 		#error ERROR_MSG_UNABLE_OS
 	#endif
 	namespace elc::APIs::library_load{
-		typedef 
+		typedef
 		#if SYSTEM_TYPE == linux
 			void*
 		#elif SYSTEM_TYPE == windows

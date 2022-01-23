@@ -75,7 +75,7 @@ namespace range_n{
 			if(!tmp)
 				tmp=a.begin();
 			off_set+=a.end()-tmp;
-			if(off_set + a.size() >= range.size())
+			if(off_set+a.size() >= range.size())
 				return nullptr;
 		}
 	}

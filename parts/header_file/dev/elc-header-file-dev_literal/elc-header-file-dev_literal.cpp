@@ -15,7 +15,7 @@
 #endif
 namespace std{//cpp20还未实现，占位。
 	#if defined(_MSC_VER)||defined(__clang__)
-	[[nodiscard]]inline void* aligned_alloc([[maybe_unused]] std::size_t alignment,std::size_t size){ return malloc(size); }
+	[[nodiscard]]inline void* aligned_alloc([[maybe_unused]]std::size_t alignment,std::size_t size){ return malloc(size); }
 	#endif
 }
 
@@ -182,7 +182,7 @@ int main()
 {
 	#ifdef _WIN32
 		void(_setmode(_fileno(stdout),_O_U8TEXT));
-		void(_setmode(_fileno(stdin), _O_U8TEXT));
+		void(_setmode(_fileno(stdin),_O_U8TEXT));
 	#else
 		cin.imbue(locale(""));
 		cout.imbue(locale(""));

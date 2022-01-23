@@ -11,9 +11,9 @@ namespace for_each_n{
 	template<class T,class Func>requires was_not_an_ill_form(a(b))
 	[[nodiscard]]constexpr_as_auto inline auto for_each(
 		range_t<T>a,
-		
+
 	)noexcept(){
-		
+
 	}
 	template<class T>
 	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(*a)){

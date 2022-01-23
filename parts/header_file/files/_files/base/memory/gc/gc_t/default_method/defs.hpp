@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace default_gc_for_type{
-	template<class T,enable_if(type_info<T>.has_attribute(count_able))> 
+	template<class T,enable_if(type_info<T>.has_attribute(count_able))>
 	inline size_t count_for_success_identify;
 
 	template<class T>

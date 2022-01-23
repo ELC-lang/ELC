@@ -11,7 +11,7 @@ namespace copy_on_write_n{
 	inline void test(){
 		stest_entryevent(L"copy_on_write部分测试");
 		{
-			
+
 		}
 		stest_exitevent();
 	}

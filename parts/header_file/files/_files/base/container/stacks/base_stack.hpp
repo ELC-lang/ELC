@@ -28,7 +28,7 @@ private:
 			p_=&(**p_)._next;
 			p=p->_next;
 		}
-		tmp._size = size();
+		tmp._size=size();
 		return tmp;
 	}
 public:

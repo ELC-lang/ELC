@@ -19,7 +19,7 @@ namespace null_ptr_n{
 	否则将内存访问错误
 	*/
 	special_attribute_t force_use_default_null_ptr:can_t_use_default_null_ptr{};
-	
+
 
 	template<typename T>
 	[[nodiscard]]constexpr auto the_get_null_ptr()noexcept{
