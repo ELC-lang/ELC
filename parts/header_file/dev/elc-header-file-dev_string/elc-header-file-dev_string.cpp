@@ -85,7 +85,7 @@ namespace elc::defs{
 				*/
 
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)=0;
-				[[nodiscard]]virtual char_T& arec(size_t index)=0;
+				[[nodiscard]]virtual char_T arec(size_t index)=0;
 				virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
 
 				//for gc:
@@ -137,7 +137,7 @@ namespace elc::defs{
 				}
 				[[nodiscard]]virtual size_t get_size()override final{ return _m.size()-1; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m+pos),note::to(to)); }
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _m[index]; }
+				[[nodiscard]]virtual char_T arec(size_t index)override final{ return _m[index]; }
 				virtual void arec_set(size_t index,char_T a,ptr_t&p)override final{
 					if(this->is_unique())
 						_m[index]=a;
@@ -158,7 +158,7 @@ namespace elc::defs{
 				return comn_data->get_c_str();
 			}
 			template<typename char_T>
-			void elc::defs::string_n::string_data_n::base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p){
+			void base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p){
 				this->get_unique_c_str(p)[index]=a;
 			}
 
@@ -188,7 +188,7 @@ namespace elc::defs{
 				[[nodiscard]]virtual ptr_t do_erase([[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return this; }
 
 				virtual void copy_part_data_to([[maybe_unused]]char_T* to,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)override final{ return; }
-				[[nodiscard]]virtual char_T& arec([[maybe_unused]]size_t index)override final{ return*(char_T*)null_ptr; }
+				[[nodiscard]]virtual char_T arec([[maybe_unused]]size_t index)override final{ return*(char_T*)null_ptr; }
 				virtual void arec_set([[maybe_unused]]size_t index,[[maybe_unused]]char_T a,[[maybe_unused]]ptr_t& p)override final{ nothing; }
 				[[nodiscard]]virtual ptr_t do_pop_back([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)override final{ return this; }
 				[[nodiscard]]virtual ptr_t do_pop_front([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)override final{ return this; }
@@ -219,7 +219,7 @@ namespace elc::defs{
 				[[nodiscard]]virtual char_T* get_c_str()override final{ return _to->get_c_str()+_sub_begin; }
 				[[nodiscard]]virtual size_t get_size()override final{ return _sub_size; }
 				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{ return _to->arec(index+_sub_begin); }
+				[[nodiscard]]virtual char_T arec(size_t index)override final{ return _to->arec(index+_sub_begin); }
 				virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
 					if(this->is_unique())
 						_to->arec_set(index+_sub_begin,a,_to);
@@ -337,7 +337,7 @@ namespace elc::defs{
 						copy_assign[size](note::form((const char_T*)_m+pos),note::to(to));
 					}
 				}
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{
+				[[nodiscard]]virtual char_T arec(size_t index)override final{
 					if(index<_to_size)
 						return _to->arec(index);
 					else
@@ -459,7 +459,7 @@ namespace elc::defs{
 					else
 						_to->copy_part_data_to(to,pos-_used_size,size);
 				}
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{
+				[[nodiscard]]virtual char_T arec(size_t index)override final{
 					if(index<_used_size)
 						return _m[index];
 					else
@@ -571,7 +571,7 @@ namespace elc::defs{
 					else
 						_after->copy_part_data_to(to,pos-_defore_size,size);
 				}
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{
+				[[nodiscard]]virtual char_T arec(size_t index)override final{
 					if(index<_defore_size)
 						return _defore->arec(index);
 					else
@@ -691,7 +691,7 @@ namespace elc::defs{
 					}
 					return base_t::do_erase(pos,size);
 				}
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{
+				[[nodiscard]]virtual char_T arec(size_t index)override final{
 					if(index>_erase_pos)
 						return _to->arec(index+_erase_size);
 					else
@@ -829,7 +829,7 @@ namespace elc::defs{
 					}
 					return base_t::do_erase(pos,size);
 				}
-				[[nodiscard]]virtual char_T& arec(size_t index)override final{
+				[[nodiscard]]virtual char_T arec(size_t index)override final{
 					if(index>=_insert_pos && index<_insert_pos+_insert_size)
 						return _insert_data->arec(index-_insert_pos);
 					elseif(index>=_insert_pos+_insert_size)
@@ -947,6 +947,26 @@ namespace elc::defs{
 			base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos, string_view_t str) {
 				return this->do_insert(pos,get<comn_string_data_t<char_T>>(str));
 			}
+
+			template<typename char_T>
+			struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<constexpr_string_data_t<char_T>>{
+				typedef constexpr_string_data_t<char_T> this_t;
+				typedef base_string_data_t<char_T> base_t;
+				using base_t::ptr_t;
+				using base_t::string_view_t;
+
+				const char_T* _m;
+				size_t _size;
+
+				constexpr_string_data_t(string_view_t str){
+					_m = str.begin();
+					_size = str.size();
+				}
+
+				[[nodiscard]]virtual size_t get_size()override final{ return _size; }
+				virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
+				[[nodiscard]]virtual char_T arec(size_t index)override final{ return _m[index]; }
+			};
 		}
 		template<typename char_T>
 		struct string_t{
@@ -960,7 +980,6 @@ namespace elc::defs{
 			mutable ptr_t _m;
 
 			string_t(ptr_t str):_m(str){}
-			[[nodiscard]]string_t copy()const{ return*this; }
 			[[nodiscard]]ptr_t ptr_copy()const{ return _m; }
 		public:
 			void swap_with(this_t& a)noexcept{
@@ -1029,7 +1048,7 @@ namespace elc::defs{
 
 		private:
 			char_T* unique_c_str() { return _m->get_unique_c_str(_m); }
-			char_T& arec(size_t index) { return _m->arec(index); }
+			char_T arec(size_t index) { return _m->arec(index); }
 			void	arec_set(size_t index, char_T a) { return _m->arec_set(index, a, _m); }
 
 			class arec_t: non_copyable, non_moveable {
