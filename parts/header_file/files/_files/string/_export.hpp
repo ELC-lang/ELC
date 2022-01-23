@@ -7,7 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using defs::
+export string_t;
 export string;
+export string_view_t;
+export string_view;
 export operator""_elc_string;
 #undef export
 
