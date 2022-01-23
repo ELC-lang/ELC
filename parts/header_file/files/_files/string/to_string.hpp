@@ -15,16 +15,16 @@ namespace to_string_n{
 	string num_base(T num,size_t radix,const string&radix_table){
 		if constexpr(::std::is_floating_point_v<T>)
 			num=num%1;
-		string aret;//注意：string的头部插入没有尾部追加速度快，所以最后return时再反转
+		string aret;
 		do{//do while，在num为0时也有返值
 			auto first_char_index=num%radix;
 			if constexpr(::std::is_floating_point_v<T>)
 				num-=first_char_index;
 			num/=radix;
-			aret+=radix_table[first_char_index];
+			aret.push_front(radix_table[first_char_index]);
 		}
 		while(num);
-		return aret.reserve();
+		return aret;
 	}
 	template<typename T>
 	string num_base_mantissa(T num,size_t radix,const string&radix_table){
