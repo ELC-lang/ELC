@@ -21,14 +21,7 @@ constexpr struct equal_t{
 	template<class T,class U=T>
 	static constexpr bool able= was_not_an_ill_form(declvalue(T)==declvalue(U));
 	template<class T,class U=T>
-	static constexpr bool nothrow_helper(){
-		if constexpr(able<T,U>)
-			return noexcept(declvalue(T)==declvalue(U));
-		else
-			return false;
-	}
-	template<class T,class U=T>
-	static constexpr bool nothrow= nothrow_helper<T,U>();
+	static constexpr bool nothrow= was_not_an_ill_form_and_noexcept(declvalue(T)==declvalue(U));
 
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){
@@ -91,22 +84,13 @@ constexpr struct compare_t{
 														declvalue(T)<declvalue(U),
 														declvalue(U)<declvalue(T)
 													);
-
 	template<class T,class U=T>
-	static constexpr bool nothrow_helper(){
-		if constexpr(r_able<T,U>)
-			return noexcept(declvalue(T)<=>declvalue(U));
-		elseif constexpr(able<T,U>)
-			return noexcept(
-							declvalue(T)==declvalue(U),
-							declvalue(T)<declvalue(U),
-							declvalue(U)<declvalue(T)
-							);
-		else
-			return false;
-	}
-	template<class T,class U=T>
-	static constexpr bool nothrow= nothrow_helper<T,U>();
+	static constexpr bool nothrow= was_not_an_ill_form_and_noexcept(declvalue(T)<=>declvalue(U)) ||
+								   was_not_an_ill_form_and_noexcept(
+														declvalue(T)==declvalue(U),
+														declvalue(T)<declvalue(U),
+														declvalue(U)<declvalue(T)
+													);
 
 
 	template<class T,class U>
