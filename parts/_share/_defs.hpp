@@ -152,5 +152,8 @@ class name{}\
 	#define not_in_debug 1
 #endif
 
+#define es U""
+#define ec(ch) U ## ch
+
 //file_end
 

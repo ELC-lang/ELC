@@ -24,12 +24,12 @@ elc依赖的基础函数.
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
 				die_with(locale::str::setlocale_error);
 			char r[MB_LEN_MAX];
-			size_t s;
+			ptrdiff_t s;
 			for(auto c:a){
 				s=::std::c32rtomb(r,c,&stat);
 				if(s < 0)//-1
 					die_with(locale::str::code_convert_error);
-				aret+=string_view_t<char>{(char*)r,note::size(s)};
+				aret+=string_view_t<char>{(char*)r,note::size((size_t)s)};
 			}
 			::std::setlocale(LC_ALL,"C");
 			return aret;
@@ -40,7 +40,7 @@ elc依赖的基础函数.
 			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
 				die_with(locale::str::setlocale_error);
 			char_t c;
-			size_t s;
+			ptrdiff_t s;
 			auto i=a.cbegin(),e=a.cend();
 			while(i!=e){
 				s=::std::mbrtoc32(&c,i,MB_LEN_MAX,&stat);

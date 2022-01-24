@@ -97,5 +97,8 @@
 
 #undef not_in_debug
 
+#undef es
+#undef ec
+
 //file_end
 

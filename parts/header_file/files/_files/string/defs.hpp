@@ -32,6 +32,7 @@ namespace string_n{
 		string_t(string_view_t str):_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str):string_t((string_view_t)(str)){}
 		string_t(const char_T* str):string_t(string_view_end_by_zero_t(str)){}
+		string_t(char_T ch):string_t(string_view_t{&ch,1}){}
 		string_t(const string_t& str)=default;
 		string_t(string_t&& str)=default;
 
@@ -52,6 +53,9 @@ namespace string_n{
 		}
 		friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2){
 			return string_view_end_by_zero_t(str1)+str2;
+		}
+		friend [[nodiscard]]string_t operator+(char_T ch,const string_t& str){
+			return string_view_t{&ch,1}+str;
 		}
 
 		string_t& operator+=(string_t str) &{
@@ -106,14 +110,14 @@ namespace string_n{
 
 		public:
 			[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
-			arec_t&		  operator=(char_T a)noexcept{
+			arec_t&		 operator=(char_T a)noexcept{
 				_to->arec_set(_index,a);
 				return *this;
 			}
 			[[nodiscard]]char_T*		operator&()noexcept{ return _to->unique_c_str()+_index; }
 			[[nodiscard]]const char_T*	operator&()const noexcept{ return ((const string_t*)(_to))->c_str()+_index; }
-			[[nodiscard]]operator char_T&()noexcept{ return *operator&(); }
-			[[nodiscard]]operator const char_T&()const noexcept{ return *operator&(); }
+			[[nodiscard]]explicit operator char_T&()noexcept{ return *operator&(); }
+			[[nodiscard]]explicit operator const char_T&()const noexcept{ return *operator&(); }
 		};
 
 	public:
@@ -189,19 +193,14 @@ namespace string_n{
 		void push_front(char_T ch){ push_front(string_view_t{&ch,1}); }
 		void push_front(const char_T* str){ push_front(string_view_end_by_zero_t(str)); }
 
-
-		string_t pop_back(size_t size){
-			return _m->do_pop_back(size,_m);
-		}
-		string_t pop_front(size_t size){
-			return _m->do_pop_front(size,_m);
-		}
-		char_T pop_back(){
-			return pop_back(1)[0];
-		}
-		char_T pop_front(){
-			return pop_front(1)[0];
-		}
+		string_t pop_back(size_t size){ return _m->do_pop_back(size,_m); }
+		string_t pop_front(size_t size){ return _m->do_pop_front(size,_m); }
+		char_T pop_back(){ return pop_back(1)[0]; }
+		char_T pop_front(){ return pop_front(1)[0]; }
+		
+		//
+		
+		operator string_view_t()const&{ return string_view_t{c_str(),size()}; }
 		/*
 		TODO:
 
@@ -255,6 +254,8 @@ namespace string_n{
 	};
 	template<typename T>
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
+	template<typename T>
+	decltype(auto)operator<<(auto&stream,const string_t<T>&str){ return(stream<<str.c_str()); }
 
 	template<class T>
 	[[nodiscard]]inline auto size_of_array_like(const string_t<T>& a)noexcept{ return a.size(); }
