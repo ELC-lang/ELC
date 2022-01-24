@@ -15,7 +15,17 @@ namespace std{//cpp20还未实现，占位。
 
 #include "../../files/string"
 
+using namespace elc;
+
+#include "../../../_share/_defs.hpp"
+
+
+
+#include <iostream>
+
 int main()
 {
-	elc::string_t a = "";
+	std::cout << elc::APIs::str_code_convert::to_char_str(es"114514.191980")<<std::fflush;
 }
+
+#include "../../../_share/_undefs.hpp"
