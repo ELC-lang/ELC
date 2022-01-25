@@ -90,7 +90,7 @@ namespace map_n{
 		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)const noexcept_as(expr){
 			_m.for_each(lambda(data_t&a)noexcept_as(expr){
-				func(const_cast<const T&>(a->_value));
+				func(add_const<T&>(a->_value));
 			});
 		}
 		#undef expr

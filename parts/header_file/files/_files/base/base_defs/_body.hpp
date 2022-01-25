@@ -12,6 +12,7 @@
 #include "concept.hpp"
 #include "magic_number.hpp"
 
+#include "cast.hpp"
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
 #include "attribute.hpp"

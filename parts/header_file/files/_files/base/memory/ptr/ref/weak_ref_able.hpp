@@ -14,7 +14,7 @@ public:
 	inline void cut_ref()const noexcept{
 		if constexpr(!was_ref_able<T>)
 			template_error("base on ref_able before base on weak_ref_able,please.");
-		T*this_T=const_cast<T*>(get_handle(this));
+		T*this_T=remove_const(get_handle(this));
 		if(base_t::cut_ref())
 			if(get_ref_num(this_T)==0)
 				destroy_and_free(this_T);

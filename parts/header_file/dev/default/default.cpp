@@ -25,7 +25,7 @@ using namespace elc;
 
 int main()
 {
-	std::cout << elc::APIs::str_code_convert::to_char_str(es"114514.191980")<<std::fflush;
+	std::cout << elc::APIs::str_code_convert::to_char_str(es"114514.191980");
 }
 
 #include "../../../_share/_undefs.hpp"

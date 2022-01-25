@@ -64,13 +64,13 @@ namespace array_like_n{
 		[[nodiscard]]constexpr iterator begin()noexcept{return _begin;}
 		[[nodiscard]]constexpr iterator end()noexcept{return begin()+size();}
 
-		[[nodiscard]]constexpr const_iterator cbegin()const noexcept{return const_cast<this_t*>(this)->begin();}
-		[[nodiscard]]constexpr const_iterator cend()const noexcept{return const_cast<this_t*>(this)->end();}
+		[[nodiscard]]constexpr const_iterator cbegin()const noexcept{return remove_const(this)->begin();}
+		[[nodiscard]]constexpr const_iterator cend()const noexcept{return remove_const(this)->end();}
 
 		[[nodiscard]]constexpr bool empty()const noexcept{return size();}
 
 		[[nodiscard]]constexpr T&operator[](size_t pos)noexcept{return begin()[pos];}
-		[[nodiscard]]constexpr const T&operator[](size_t pos)const noexcept{return const_cast<this_t&>(*this)[pos];}
+		[[nodiscard]]constexpr const T&operator[](size_t pos)const noexcept{return remove_const<this_t&>(*this)[pos];}
 
 		[[nodiscard]]constexpr auto operator<=>(this_t a)noexcept(compare.nothrow<T>){
 			return compare(_begin,_size,a._begin,a._size);

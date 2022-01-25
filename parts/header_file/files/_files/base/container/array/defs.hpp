@@ -88,10 +88,10 @@ namespace array_n{
 			return get_iterator_at(size());
 		}
 		[[nodiscard]]const_iterator cbegin()const noexcept{
-			return const_cast<this_t*>(this)->begin();
+			return remove_const(this)->begin();
 		}
 		[[nodiscard]]const_iterator cend()const noexcept{
-			return const_cast<this_t*>(this)->end();
+			return remove_const(this)->end();
 		}
 
 		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)noexcept(compare.nothrow<array_like_view_t<T>>){

@@ -10,7 +10,7 @@ inline void check_memory_lack()noexcept{
 	stest_mapeventlogwith(lambda(const void*p,steventlist*a){
 		stest_putsf(L"内存泄露于%p,分配自:",p);
 		stest_printeventlist(stdout,stest_copyeventlist(a));
-		//alloc_n::base_free(const_cast<void*>(p));
+		//alloc_n::base_free(remove_const(p));
 		//stest_puts(L"已释放");
 		stest_wait();
 	});

@@ -13,7 +13,7 @@ private:
 public:
 	using base_t::base_t;
 	inline void cut_ref()const noexcept{
-		T*this_T=const_cast<T*>(get_handle(this));
+		T*this_T=remove_const(get_handle(this));
 		if(base_t::cut_ref())
 			if constexpr(was_weak_ref_able<T>)
 				if(get_weak_ref_num(this_T)!=0)

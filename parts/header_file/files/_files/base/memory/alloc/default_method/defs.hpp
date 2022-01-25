@@ -90,7 +90,7 @@ namespace default_method{
 			return 1;
 		else{
 			using namespace overhead_n;
-			return get_overhead(recorrect_pointer(const_cast<T*>(arg)));
+			return get_overhead(recorrect_pointer(remove_const(arg)));
 		}
 	}
 	template<typename T>

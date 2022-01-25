@@ -252,7 +252,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T*base_call(T*to,const T*from)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)));
+				return reinterpret_cast<T*>(::std::memcpy(to,add_const(from),sizeof(T)));
 			else{
 				if constexpr(r_able<T>)
 					new(to)T(*from);
@@ -267,7 +267,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T*base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)*size));
+				return reinterpret_cast<T*>(::std::memcpy(to,add_const(from),sizeof(T)*size));
 			else{
 				while(size--)
 					base_call(to+size,from+size);
@@ -363,7 +363,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T*base_call(T*to,T*from)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)));
+				return reinterpret_cast<T*>(::std::memcpy(to,add_const(from),sizeof(T)));
 			else{
 				if constexpr(r_able<T>){
 					construct<T>[to](::std::move(*from));
@@ -377,7 +377,7 @@ namespace lifetime_n{
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
 			if constexpr(trivial<T>)
-				return reinterpret_cast<T*>(::std::memcpy(to,from,sizeof(T)*size));
+				return reinterpret_cast<T*>(::std::memcpy(to,add_const(from),sizeof(T)*size));
 			else{
 				if constexpr(r_able<T>){
 					while(size--)
@@ -513,7 +513,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T* base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				::std::memcpy(to,from,size*sizeof(T));
+				::std::memcpy(to,add_const(from),size*sizeof(T));
 			else{
 				while(size--)
 					base_call(to[size],from[size]);
@@ -594,7 +594,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T* base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				::std::memcpy(to,from,size*sizeof(T));
+				::std::memcpy(to,add_const(from),size*sizeof(T));
 			else{
 				while(size--)
 					base_call(to[size],from[size]);

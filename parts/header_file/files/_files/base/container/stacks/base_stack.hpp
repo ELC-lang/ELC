@@ -73,7 +73,7 @@ public:
 		return note::fail;
 	}
 	[[nodiscard]]bool in_stack(const T&a)const noexcept_as(declvalue(this_t).find(a).not_fail()){
-		return const_cast<this_t*>(this)->find(a).not_fail();
+		return remove_const(this)->find(a).not_fail();
 	}
 	[[nodiscard]]bool not_in_stack(const T&a)const noexcept_as(declvalue(this_t).in_stack(a)){
 		return not in_stack(a);
