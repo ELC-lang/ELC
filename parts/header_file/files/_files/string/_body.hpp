@@ -17,6 +17,7 @@ namespace elc::defs{
 #include "../../../../_share/APIs/str_code_convert.hpp"//strings
 namespace elc::defs{
 	#include "literal.hpp"
+	#include "to_string.hpp"
 
 	#if defined(ELC_TEST_ON)
 	namespace string_part_test{

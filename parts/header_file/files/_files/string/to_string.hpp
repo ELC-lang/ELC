@@ -6,7 +6,6 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-//UF
 namespace to_string_n{
 	string to_string(nothing){
 		return es"nothing"_elc_string;
@@ -57,22 +56,31 @@ namespace to_string_n{
 					return es"-infinity"_elc_string;
 			}
 		}
+		typedef decltype(lambda{
+			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
+				return T();
+			else
+				return::std::make_unsigned_t<T>();
+		}()) UT;
+		//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
+		UT unum=UT(num);
 		string aret;
 		if constexpr(!::std::is_unsigned_v<T>)
 			if(num < 0){
 				aret=ec('-');
-				num=-num;
+				unum=UT(-num);
 			}
 		if constexpr(::std::is_floating_point_v<T>){
-			T num_fractional=::std::modf(num,&num); 
+			UT num_fractional=::std::modf(unum,&unum);
 			if(num_fractional){
 				aret+=ec('.')+num_base_mantissa(num_fractional,radix,radix_table);
 			}
 		}
-		aret.push_front(num_base(num,radix,radix_table));
+		aret.push_front(num_base(unum,radix,radix_table));
 		return aret;
 	}
 }
+using to_string_n::to_string;
 
 //file_end
 
