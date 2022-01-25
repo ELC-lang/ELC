@@ -68,19 +68,27 @@ string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abc
 				return es"-infinity"_elc_string;
 		}
 	}
+	typedef decltype(lambda{
+		if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
+			return T();
+		else
+			return::std::make_unsigned_t<T>();
+	}()) UT;
+	//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
+	UT unum=UT(num);
 	string aret;
 	if constexpr(!::std::is_unsigned_v<T>)
 		if(num < 0){
 			aret=ec('-');
-			num=-num;
+			unum=UT(-num);
 		}
 	if constexpr(::std::is_floating_point_v<T>){
-		T num_fractional=::std::modf(num,&num); 
+		UT num_fractional=::std::modf(unum,&unum);
 		if(num_fractional){
 			aret+=ec('.')+num_base_mantissa(num_fractional,radix,radix_table);
 		}
 	}
-	aret.push_front(num_base(num,radix,radix_table));
+	aret.push_front(num_base(unum,radix,radix_table));
 	return aret;
 }
 
@@ -88,7 +96,7 @@ string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abc
 
 int main()
 {
-	std::cout << elc::APIs::str_code_convert::to_char_str(to_string(114514.191980));
+	std::cout << elc::APIs::str_code_convert::to_char_str(to_string(1.2));
 }
 
 #include "../../../_share/_undefs.hpp"
