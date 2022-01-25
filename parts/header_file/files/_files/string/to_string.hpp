@@ -32,8 +32,9 @@ namespace to_string_n{
 	string num_base_mantissa(T num,size_t radix,const string radix_table){
 		string aret;
 		while(num){
-			auto first_char_index=::std::modf(num,&num);
 			num*=radix;
+			T first_char_index;
+			num=::std::modf(num,&first_char_index);
 			aret+=radix_table[(size_t)first_char_index];
 		}
 		return aret;
