@@ -82,7 +82,7 @@ namespace get_n{
 		auto grow_size=to_size-from_size;
 		if constexpr(move.trivial<T>){
 			realloc(arg,to_size);
-			::std::memmove(arg,arg+grow_size,from_size*sizeof(T));
+			::std::memmove(arg+grow_size,arg,from_size*sizeof(T));
 		}
 		else{
 			T*tmp=alloc<T>(to_size);
@@ -248,11 +248,11 @@ namespace get_n{
 				if(from_size==to_size)
 					return;
 				elseif(from_size > to_size){
-					destruct[from_size-to_size](arg+to_size-1);
+					destruct[from_size-to_size](arg+to_size);
 					alloc_size_cut(arg,to_size);
 				}elseif(from_size){
 					alloc_size_grow(arg,to_size);
-					construct<T>[arg+from_size-1][to_size-from_size]();
+					construct<T>[arg+from_size][to_size-from_size]();
 				}else
 					arg=get<T>[to_size]();
 			}

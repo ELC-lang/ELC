@@ -152,8 +152,8 @@ namespace string_n{
 			[[nodiscard]]const arec_t				get_value()const noexcept{ return (*(const string_t*)_to)[_index]; }
 			[[nodiscard]]char_T*					get_handle()noexcept{ return &get_value(); }
 			[[nodiscard]]const char_T*				get_handle()const noexcept{ return &get_value(); }
-			constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to == a._to && _index == a._index; }
-			constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to == a._to ? _index <=> a._index : NAN <=> NAN; }
+			constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to && _index==a._index; }
+			constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to ? _index<=>a._index : NAN<=>NAN; }
 		};
 		[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const{ return iterator_base_t{(string_t*)this,index}; }
 	public:

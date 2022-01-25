@@ -513,7 +513,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T* base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				memcpy(to,from,size*sizeof(T));
+				::std::memcpy(to,from,size*sizeof(T));
 			else{
 				while(size--)
 					base_call(to[size],from[size]);
@@ -594,7 +594,7 @@ namespace lifetime_n{
 		template<class T> requires able<T>
 		static T* base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
-				memcpy(to,from,size*sizeof(T));
+				::std::memcpy(to,from,size*sizeof(T));
 			else{
 				while(size--)
 					base_call(to[size],from[size]);
