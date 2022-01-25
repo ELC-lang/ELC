@@ -8,8 +8,8 @@
 */
 namespace default_method{
 	//BLOCK:for debug
-	[[nodiscard]]inline void*base_realloc(void*ptr,size_t osize,size_t nsize,[[maybe_unused]]size_t align)noexcept{
-		void*p=::elc::APIs::alloc::realloc(ptr,osize,nsize,align);
+	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize,size_t align)noexcept{
+		void*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(nsize==0)
 				stest_uneventlog(ptr);
@@ -34,7 +34,7 @@ namespace default_method{
 		#endif
 		return p;
 	}
-	inline void base_free(void*p,size_t size,[[maybe_unused]]size_t align)noexcept{
+	inline void base_free(void*p,size_t align)noexcept{
 		//传入需释放的数据块起始点与大小（字节）
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			auto tmp=stest_geteventlistfromlog(p);
@@ -48,26 +48,14 @@ namespace default_method{
 				stest_uneventlog(p);
 			}
 		#endif
-		::elc::APIs::alloc::free(p,size,align);
+		::elc::APIs::alloc::free(p,align);
 	}
 	//BLOCK_END
-
-	#include "overhead.hpp"
 
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
-		if constexpr(type_info<T>.has_attribute(never_in_array))
-			return ::std::assume_aligned<alignof(T)>(base_aligned_alloc(alignof(T),sizeof(T)));
-		else{
-			using namespace overhead_n;
-			void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)));
-			if(tmp){
-				set_overhead(tmp,1);
-				return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
-			}
-			else return nullptr;
-		}
+		return ::std::assume_aligned<alignof(T)>(base_aligned_alloc(alignof(T),sizeof(T)));
 	}
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
@@ -75,32 +63,16 @@ namespace default_method{
 		//size被保证不为0
 		if constexpr(type_info<T>.has_attribute(never_in_array))
 			template_error("You cannot perform array operations on never_in_array type.");
-		using namespace overhead_n;
-		void*tmp=base_aligned_alloc(correct_align(type_info<T>),correct_size<T>(sizeof(T)*size));
-		if(tmp){
-			set_overhead(tmp,size);
-			return ::std::assume_aligned<alignof(T)>(correct_pointer<T>(tmp));
-		}
-		else return nullptr;
+		return ::std::assume_aligned<alignof(T)>(base_aligned_alloc(alignof(T),sizeof(T)*size));
 	}
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		//arg保证不与null_ptr相等
-		if constexpr(type_info<T>.has_attribute(never_in_array))
-			return 1;
-		else{
-			using namespace overhead_n;
-			return get_overhead(recorrect_pointer(remove_const(arg)));
-		}
+		return ::elc::APIs::alloc::get_size_of_alloc(arg,alignof(T))/sizeof(T);
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
-		if constexpr(type_info<T>.has_attribute(never_in_array))
-			base_free(arg,sizeof(T));
-		else{
-			using namespace overhead_n;
-			base_free(recorrect_pointer(arg),correct_size<T>(get_overhead(recorrect_pointer(arg))),alignof(T));
-		}
+		base_free(arg,alignof(T));
 	}
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
@@ -110,14 +82,7 @@ namespace default_method{
 		//但只允许在扩大数据块时可选的移动数据块
 		if constexpr(type_info<T>.has_attribute(never_in_array))
 			template_error("You cannot perform array operations on never_in_array type.");
-		using namespace overhead_n;
-		void*tmp=base_realloc(recorrect_pointer(ptr),get_size_of_alloc_method(ptr),correct_size<T>(sizeof(T)*new_size),alignof(T));
-		if(tmp){
-			set_overhead(tmp,new_size);
-			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));
-			return ptr;
-		}
-		else return nullptr;
+		return ptr=(T*)base_realloc(ptr,sizeof(T)*new_size,alignof(T));
 	}
 }
 

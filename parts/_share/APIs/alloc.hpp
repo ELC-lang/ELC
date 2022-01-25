@@ -13,22 +13,43 @@ elc依赖的基础函数.
 #if !defined(ELC_APIS_alloc)
 	#define ELC_APIS_alloc
 	#include<cstdlib>
+	#include "../../header_file/files/base_defs"
 	namespace elc::APIs::alloc{
-		[[nodiscard]]inline void*realloc(void*ptr,[[maybe_unused]]size_t osize,size_t nsize,[[maybe_unused]]size_t align)noexcept{
+		#include "alloc/default_method/overhead.hpp"
+		using namespace elc::defs;
+		[[nodiscard]]inline void*aligned_alloc(size_t align,size_t size)noexcept{
+			//return空指针被允许
+			//size被保证不为0
+			using namespace overhead_n;
+			void*tmp=::std::aligned_alloc(correct_align(align),correct_size(size,align));
+			if(tmp){
+				set_overhead(tmp,size);
+				return correct_pointer(tmp,align);
+			}
+			else return nullptr;
+		}
+		[[nodiscard]]inline void*realloc(void*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
 			//return空指针被允许，但ptr值必须保持有效以保证gc后再次realloc有效
 			//new_size被保证不为0
 			//align维持不变
 			//但只允许在扩大数据块时可选的移动数据块
-			return::std::realloc(ptr,nsize);
+			using namespace overhead_n;
+			void*tmp=::std::realloc(recorrect_pointer(ptr,align),correct_size(nsize,align));
+			if(tmp){
+				set_overhead(tmp,nsize);
+				return correct_pointer(tmp,align);
+			}
+			else return nullptr;
 		}
-		[[nodiscard]]inline void*aligned_alloc(size_t align,size_t size)noexcept{
-			//return空指针被允许
-			//size被保证不为0
-			return::std::aligned_alloc(align,size);
+		inline void free(void*p,[[maybe_unused]]size_t align)noexcept{
+			//传入需释放的数据块起始点与大小（字节）与对齐
+			using namespace overhead_n;
+			::std::free(recorrect_pointer(p,align));
 		}
-		inline void free(void*p,[[maybe_unused]]size_t size,[[maybe_unused]]size_t align)noexcept{
-			//传入需释放的数据块起始点与大小（字节）
-			::std::free(p);
+		inline size_t get_size_of_alloc(const void*p,[[maybe_unused]]size_t align)noexcept{
+			//传入需获取大小的数据块起始点与对齐
+			using namespace overhead_n;
+			return get_overhead(recorrect_pointer(p,align));
 		}
 	}
 #endif

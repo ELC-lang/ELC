@@ -8,15 +8,7 @@
 */
 #if !defined(ELC_BASE)
 	#define ELC_BASE
-	#include <cstdint>//u64int、64int
-	#include <cstddef>//nullptr_t
-	#include <cstdlib>//exit、size_t
-	#include <cstring>//memcpy、memmove
-	#include <new>//operator new(T*)
-	#include <algorithm>//max、min
-	#include <type_traits>//enable_if等
-	#include <typeinfo>//RTTI
-	#include <cmath>//sqrt
+	#include "base_defs"//原base的一小部分，但由于过于底层，底层到API定义都需要使用。。
 	#if defined(ELC_TEST_ON)
 		#include <ctime>//time
 	#endif

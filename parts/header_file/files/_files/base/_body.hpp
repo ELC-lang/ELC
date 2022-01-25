@@ -19,12 +19,6 @@
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
-	namespace base{}
-	using namespace base;//导出内容：defs内的名称空间只起到大体名称分组的作用，不进行名称阻拦
-
-	namespace base{
-		#include "base_defs/_body.hpp"
-	}
 	namespace memory{
 		#include "memory/lifetime/_body.hpp"
 	}
