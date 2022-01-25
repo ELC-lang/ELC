@@ -197,9 +197,9 @@ namespace string_n{
 		string_t pop_front(size_t size){ return _m->do_pop_front(size,_m); }
 		char_T pop_back(){ return pop_back(1)[0]; }
 		char_T pop_front(){ return pop_front(1)[0]; }
-		
+
 		//
-		
+
 		operator string_view_t()const&{ return string_view_t{c_str(),size()}; }
 		/*
 		TODO:
