@@ -15,41 +15,62 @@ elc依赖的基础函数.
 	#include<cstdlib>
 	#include "../../header_file/files/base_defs"
 	namespace elc::APIs::alloc{
-		#include "alloc/default_method/overhead.hpp"
-		using namespace elc::defs;
+		#include "_tools/decl_system_type.hpp"
+		#if SYSTEM_TYPE == windows
+			#include <malloc.h>
+			using namespace elc::defs;
+		#else
+			#include "alloc/default_method/overhead.hpp"
+		#endif
 		[[nodiscard]]inline void*aligned_alloc(size_t align,size_t size)noexcept{
 			//return空指针被允许
 			//size被保证不为0
-			using namespace overhead_n;
-			void*tmp=::std::aligned_alloc(correct_align(align),correct_size(size,align));
-			if(tmp){
-				set_overhead(tmp,size);
-				return correct_pointer(tmp,align);
-			}
-			else return nullptr;
+			#if SYSTEM_TYPE == windows
+				return _aligned_malloc(size,align);
+			#else
+				using namespace overhead_n;
+				void*tmp=::std::aligned_alloc(correct_align(align),correct_size(size,align));
+				if(tmp){
+					set_overhead(tmp,size);
+					return correct_pointer(tmp,align);
+				}
+				else return nullptr;
+			#endif
 		}
 		[[nodiscard]]inline void*realloc(void*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
 			//return空指针被允许，但ptr值必须保持有效以保证gc后再次realloc有效
 			//new_size被保证不为0
 			//align维持不变
 			//但只允许在扩大数据块时可选的移动数据块
-			using namespace overhead_n;
-			void*tmp=::std::realloc(recorrect_pointer(ptr,align),correct_size(nsize,align));
-			if(tmp){
-				set_overhead(tmp,nsize);
-				return correct_pointer(tmp,align);
-			}
-			else return nullptr;
+			#if SYSTEM_TYPE == windows
+				return _aligned_realloc(ptr,nsize,align);
+			#else
+				using namespace overhead_n;
+				void*tmp=::std::realloc(recorrect_pointer(ptr,align),correct_size(nsize,align));
+				if(tmp){
+					set_overhead(tmp,nsize);
+					return correct_pointer(tmp,align);
+				}
+				else return nullptr;
+			#endif
 		}
 		inline void free(void*p,[[maybe_unused]]size_t align)noexcept{
 			//传入需释放的数据块起始点与大小（字节）与对齐
-			using namespace overhead_n;
-			::std::free(recorrect_pointer(p,align));
+			#if SYSTEM_TYPE == windows
+				_aligned_free(p);
+			#else
+				using namespace overhead_n;
+				::std::free(recorrect_pointer(p,align));
+			#endif
 		}
 		inline size_t get_size_of_alloc(const void*p,[[maybe_unused]]size_t align)noexcept{
 			//传入需获取大小的数据块起始点与对齐
-			using namespace overhead_n;
-			return get_overhead(recorrect_pointer(p,align));
+			#if SYSTEM_TYPE == windows
+				return _aligned_msize(remove_const(p),align,0);
+			#else
+				using namespace overhead_n;
+				return get_overhead(recorrect_pointer(p,align));
+			#endif
 		}
 	}
 #endif
