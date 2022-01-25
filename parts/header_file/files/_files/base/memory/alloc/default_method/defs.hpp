@@ -8,8 +8,8 @@
 */
 namespace default_method{
 	//BLOCK:for debug
-	[[nodiscard]]inline void*base_realloc(void*ptr,size_t osize,size_t nsize)noexcept{
-		void*p=::elc::APIs::alloc::realloc(ptr,osize,nsize);
+	[[nodiscard]]inline void*base_realloc(void*ptr,size_t osize,size_t nsize,[[maybe_unused]]size_t align)noexcept{
+		void*p=::elc::APIs::alloc::realloc(ptr,osize,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(nsize==0)
 				stest_uneventlog(ptr);
@@ -34,7 +34,7 @@ namespace default_method{
 		#endif
 		return p;
 	}
-	inline void base_free(void*p,size_t size)noexcept{
+	inline void base_free(void*p,size_t size,[[maybe_unused]]size_t align)noexcept{
 		//传入需释放的数据块起始点与大小（字节）
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			auto tmp=stest_geteventlistfromlog(p);
@@ -48,7 +48,7 @@ namespace default_method{
 				stest_uneventlog(p);
 			}
 		#endif
-		::elc::APIs::alloc::free(p,size);
+		::elc::APIs::alloc::free(p,size,align);
 	}
 	//BLOCK_END
 
@@ -99,7 +99,7 @@ namespace default_method{
 			base_free(arg,sizeof(T));
 		else{
 			using namespace overhead_n;
-			base_free(recorrect_pointer(arg),correct_size<T>(get_overhead(recorrect_pointer(arg))));
+			base_free(recorrect_pointer(arg),correct_size<T>(get_overhead(recorrect_pointer(arg))),alignof(T));
 		}
 	}
 	template<typename T>
@@ -111,7 +111,7 @@ namespace default_method{
 		if constexpr(type_info<T>.has_attribute(never_in_array))
 			template_error("You cannot perform array operations on never_in_array type.");
 		using namespace overhead_n;
-		void*tmp=base_realloc(recorrect_pointer(ptr),get_size_of_alloc_method(ptr),correct_size<T>(sizeof(T)*new_size));
+		void*tmp=base_realloc(recorrect_pointer(ptr),get_size_of_alloc_method(ptr),correct_size<T>(sizeof(T)*new_size),alignof(T));
 		if(tmp){
 			set_overhead(tmp,new_size);
 			ptr=reinterpret_cast<T*>(correct_pointer<T>(tmp));
