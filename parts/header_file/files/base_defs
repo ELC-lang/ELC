@@ -8,13 +8,11 @@
 */
 #if !defined(ELC_BASE_DEFS)
 	#define ELC_BASE_DEFS
-	// #include <cstdint>//u64int、64int
-	// #include <cstddef>//nullptr_t
-	// #include <cstdlib>//exit、size_t
-	// #include <cstring>//memcpy、memmove
+	#include <cstddef>//nullptr_t
+	#include <cstdlib>//exit、size_t
 	#include <new>//operator new(T*)、launder
 	#include <algorithm>//max、min
-	// #include <type_traits>//enable_if等
+	#include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
 	#include <cmath>//sqrt
 	#include "_files/base_defs/_body.hpp"
