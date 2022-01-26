@@ -38,6 +38,9 @@ namespace string_n{
 
 		string_t& operator=(const string_t& str)=default;
 		string_t& operator=(string_t&& str)=default;
+		string_t& operator=(null_ptr_t p){clear();return*this;}
+		string_t& operator=(nullptr_t p){return*this=null_ptr;}
+
 
 		[[nodiscard]]string_t operator+(const string_t& str)const&{
 			return ptr_copy()->apply_str_to_end(str._m);
@@ -151,20 +154,23 @@ namespace string_n{
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
 			size=min(size,this->size()-begin);
-			return _m->get_substr_data(begin,size);
+			if(size)
+				return _m->get_substr_data(begin,size);
+			else
+				return {};
 		}
 		[[nodiscard]]const char_T*	data()const{ return _m->get_data(); }
 		[[nodiscard]]char_T*		c_str(){ return this->unique_c_str(); }
 		[[nodiscard]]const char_T*	c_str()const{ return _m->get_c_str(); }
 		[[nodiscard]]size_t			size()const{ return _m->get_size(); }
-		void resize(size_t count,char_T ch ={}){
+		void resize(size_t nsize,char_T ch ={}){
 			auto size=this->size();
-			if(size > count)
-				*this=substr(0,count);
-			elseif(size == count)
+			if(size > nsize)
+				*this=substr(0,nsize);
+			elseif(size == nsize)
 				return;
 			else
-				_m=get<end_apply_string_data_t<char_T>>(_m,count-size,ch);
+				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size,ch);
 		}
 		void clear(){ _m=null_ptr; }
 	private:
