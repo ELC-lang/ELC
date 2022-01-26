@@ -122,6 +122,10 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::do_pop_back(size,self);
 	}
+
+	[[nodiscard]]virtual size_t get_memory_cost()override final{
+		return sizeof(*this)+_to->get_memory_cost();
+	}
 };
 template<typename char_T>
 [[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_erase(size_t pos,size_t size){

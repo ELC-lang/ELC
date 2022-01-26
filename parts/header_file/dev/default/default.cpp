@@ -11,9 +11,14 @@
 using namespace elc;
 
 #include <iostream>
+#include <steve.h>
 
-int main()
+void ste::stst()
 {
-	std::cout << elc::APIs::str_code_convert::to_char_str(elc::to_string(1.2));
+	elc::string_t a = U"123";
+	elc::string_t b = U"123"_elc_string;
+	stest_accert(a.memory_cost() > b.memory_cost());
+	stest_accert(a == b);
+	stest_accert(a.memory_cost() == b.memory_cost());
 }
 

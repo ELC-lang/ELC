@@ -22,6 +22,7 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	virtual ~base_string_data_t()=default;
 
 	[[nodiscard]]virtual char_T* get_c_str();
+	[[nodiscard]]virtual char_T* get_data(){return get_c_str();}//不要求以0结尾
 	[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&);
 	[[nodiscard]]virtual size_t get_size()=0;
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size);
@@ -69,9 +70,9 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	[[nodiscard]]virtual char_T arec(size_t index)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
 
+	[[nodiscard]]virtual size_t get_memory_cost()=0;
 	//for gc:
 	/*
-	[[nodiscard]]virtual size_t get_memory_cost()=0;
 	[[nodiscard]]virtual ptrdiff_t get_gc_profit()=0;//comn_string_data_t(self).memory_cost-self.memory_cost
 	[[nodiscard]]virtual bool gc()=0{
 		bool need_be_replace=get_gc_profit()>=0

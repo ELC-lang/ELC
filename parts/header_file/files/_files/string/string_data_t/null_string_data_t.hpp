@@ -36,6 +36,8 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	virtual void arec_set([[maybe_unused]]size_t index,[[maybe_unused]]char_T a,[[maybe_unused]]ptr_t& p)override final{ nothing; }
 	[[nodiscard]]virtual ptr_t do_pop_back([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)override final{ return this; }
 	[[nodiscard]]virtual ptr_t do_pop_front([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)override final{ return this; }
+
+	[[nodiscard]]virtual size_t get_memory_cost()override final{return 0;}
 };
 template<typename char_T>
 inline null_string_data_t<char_T> null_string_data{};

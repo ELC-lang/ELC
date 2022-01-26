@@ -27,6 +27,10 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 
 	virtual void be_replace_as(ptr_t a)override final{base_t::be_replace_as(a);}
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)override final{base_t::arec_set(index,a,p);}
+
+	[[nodiscard]]virtual size_t get_memory_cost()override final{
+		return sizeof(*this);
+	}
 };
 
 //file_end

@@ -110,6 +110,10 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			return base_t::do_pop_back(size,self);
 	}
+
+	[[nodiscard]]virtual size_t get_memory_cost()override final{
+		return sizeof(*this)+_defore->get_memory_cost()+_after->get_memory_cost();
+	}
 };
 template<typename char_T>
 [[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_end(ptr_t str){

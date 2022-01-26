@@ -45,6 +45,10 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		else
 			base_t::arec_set(index,a,p);
 	}
+
+	[[nodiscard]]virtual size_t get_memory_cost()override final{
+		return sizeof(*this)+_m.size()*sizeof(char_T);
+	}
 };
 template<typename char_T>
 [[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(){

@@ -77,17 +77,42 @@ namespace string_n{
 			return *this+=b;
 		}
 
+		size_t memory_cost()const noexcept{return _m->get_memory_cost();}
+	private:
+		void equivalent_optimization(const string_t& a)const{
+			if(this->memory_cost() >= a.memory_cost())
+				_m=a._m;
+			else
+				a._m=_m;
+		}
+	public:
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
-			return compare(c_str(),size(),a.c_str(),a.size());
+			auto ssize = size();
+			auto scom = compare(ssize,a.size());
+			if(!scom){//大小相等
+				auto aret = compare(data(),a.data(),ssize);
+				if(!aret)//相等
+					equivalent_optimization(a);
+				return aret;
+			}
+			return scom;
 		}
 		[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
-			return equal(c_str(),size(),a.c_str(),a.size());
+			auto ssize = size();
+			auto seq = equal(ssize,a.size());
+			if(seq){
+				auto aret = equal(data(),a.data(),ssize);
+				if(aret)
+					equivalent_optimization(a);
+				return aret;
+			}
+			return seq;
 		}
 		[[nodiscard]]constexpr auto operator<=>(string_view_t a)const noexcept(compare.nothrow<char_T>){
-			return compare(c_str(),size(),a.begin(),a.size());
+			return compare(data(),size(),a.begin(),a.size());
 		}
 		[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
-			return equal(c_str(),size(),a.begin(),a.size());
+			return equal(data(),size(),a.begin(),a.size());
 		}
 		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
 			return operator<=>(string_view_end_by_zero_t(a));
@@ -128,6 +153,7 @@ namespace string_n{
 			size=min(size,this->size()-begin);
 			return _m->get_substr_data(begin,size);
 		}
+		[[nodiscard]]const char_T*	data()const{ return _m->get_data(); }
 		[[nodiscard]]char_T*		c_str(){ return this->unique_c_str(); }
 		[[nodiscard]]const char_T*	c_str()const{ return _m->get_c_str(); }
 		[[nodiscard]]size_t			size()const{ return _m->get_size(); }
