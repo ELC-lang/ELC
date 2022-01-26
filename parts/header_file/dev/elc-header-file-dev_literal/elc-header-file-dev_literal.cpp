@@ -14,16 +14,14 @@
 	#include <io.h>
 #endif
 
-#include "../../files/base"
 #include "../../files/base_exception"
 #include "../../files/core"
+#include "../../files/string"
 
 
 #include "../../files/_files/_share/_defs.hpp"
-#define es U""
-#define ec(...) U ## __VA_ARGS__
+
 namespace elc::defs{
-	typedef ::std::u32string string_t;//临时使用，后期换回elc::string_t
 	namespace base_read_n{
 		struct base_read_error:exception{
 			const char_t* _why;
@@ -32,21 +30,23 @@ namespace elc::defs{
 		};
 		namespace AST_n{
 			struct base_AST:abstract_base<base_AST>,ref_able<base_AST>,build_by_get_only,never_in_array<base_AST>{
+				base_AST(never_ref_num_zero_t):ref_able<base_AST>(never_ref_num_zero){}
+				base_AST()=default;
 				virtual ~base_AST()noexcept=default;
-				virtual string_t get_code_struct()=0;
+				virtual string get_code_struct()=0;
 				virtual void build_up(const char_t*& arg)=0;
 			};
 			inline struct NULL_AST final:base_AST,instance_struct<NULL_AST>{
-				NULL_AST()noexcept:ref_able<base_AST>(never_ref_num_zero){}
+				NULL_AST()noexcept:base_AST(never_ref_num_zero){}
 				virtual void build_up(const char_t*& arg)override final{ throw base_read_error(es"build up NULL_AST"); }
-				virtual string_t get_code_struct()override final{ throw base_read_error(es"code struct NULL_AST"); }
+				virtual string get_code_struct()override final{ throw base_read_error(es"code struct NULL_AST"); }
 			}NULL_ASTP;
 			base_AST* get_null_ptr(const base_AST*){ return&NULL_ASTP; }
 		}
 		comn_ptr_t<AST_n::base_AST> base_read_AST(const char_t*& arg);
 		namespace AST_n{
 			struct symbol_AST final:base_AST,instance_struct<symbol_AST>{
-				string_t _symbol_name;
+				string _symbol_name;
 				virtual void build_up(const char_t*& arg)override final{
 					if(*arg==ec('`')){
 						while(*arg){
@@ -77,7 +77,7 @@ namespace elc::defs{
 						}
 					}
 				}
-				virtual string_t get_code_struct()override final{
+				virtual string get_code_struct()override final{
 					return es"symbol: "+_symbol_name;
 				}
 			};
@@ -99,7 +99,7 @@ namespace elc::defs{
 					}
 					throw base_read_error(locale::str::base_read::expr_incomplete);
 				}
-				virtual string_t get_code_struct()override final{
+				virtual string get_code_struct()override final{
 					string_t aret=es"list: ( ";
 					for(const auto& a:_members){
 						aret+=a->get_code_struct();
@@ -112,7 +112,7 @@ namespace elc::defs{
 		}
 		struct AST_tree_t{
 			comn_ptr_t<AST_n::base_AST> _m;
-			string_t get_code_struct(){
+			string get_code_struct(){
 				return _m->get_code_struct();
 			}
 		};
@@ -163,30 +163,16 @@ namespace elc{
 }
 
 #include "../../files/_files/_share/_undefs.hpp"
-#undef es
-#undef ec
 
 #define GET_CODE_STRUCT(...) ((__VA_ARGS__).get_code_struct())
 
-#include <codecvt>
-std::string to_utf8(std::u32string str32){
-	return std::wstring_convert< std::codecvt_utf8<char32_t>,char32_t >{}.to_bytes(str32);
-}
-
 int main()
 {
-	#ifdef _WIN32
-		void(_setmode(_fileno(stdout),_O_U8TEXT));
-		void(_setmode(_fileno(stdin),_O_U8TEXT));
-	#else
-		cin.imbue(locale(""));
-		cout.imbue(locale(""));
-	#endif
 	using namespace elc;
 	try{
-		std::cout << to_utf8(GET_CODE_STRUCT(U"( test)!4 )"_elc_AST));
+		std::cout << elc::APIs::str_code_convert::to_char_str(GET_CODE_STRUCT(U"( test)!4 )"_elc_AST));
 	}
 	catch(base_read_error& a){
-		std::cerr << to_utf8(a.what());
+		std::cerr << elc::APIs::str_code_convert::to_char_str(a.what());
 	}
 }
