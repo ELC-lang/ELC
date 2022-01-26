@@ -18,7 +18,7 @@ elc依赖的基础函数.
 		#include "_tools/decl_system_type.hpp"
 		#if SYSTEM_TYPE == windows
 			#include <malloc.h>
-			using namespace elc::defs;
+			using namespace elc::defs;//remove_const
 		#else
 			#include "alloc/default_method/overhead.hpp"
 		#endif
