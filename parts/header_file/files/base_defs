@@ -16,7 +16,7 @@
 	#include <algorithm>//max、min
 	// #include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
-	// #include <cmath>//sqrt
+	#include <cmath>//sqrt
 	#include "_files/base_defs/_body.hpp"
 #endif
 

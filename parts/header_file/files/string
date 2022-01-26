@@ -8,7 +8,6 @@
 */
 #if !defined(ELC_STRING)
 	#define ELC_STRING
-	#include <cmath>//modf、fmod in to_string
 	#include "base"
 	#include "_files/string/_body.hpp"
 #endif
