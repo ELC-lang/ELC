@@ -21,6 +21,12 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_size=str.size();
 	}
 
+	[[nodiscard]]virtual const char_T* get_const_c_str(){
+		if(!_m[_size])
+			return _m;
+		else
+			return base_t::get_const_c_str();
+	}
 	[[nodiscard]]virtual size_t get_size()override final{ return _size; }
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
 	[[nodiscard]]virtual char_T arec(size_t index)override final{ return _m[index]; }

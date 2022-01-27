@@ -161,7 +161,8 @@ namespace string_n{
 		}
 		[[nodiscard]]const char_T*	data()const{ return _m->get_data(); }
 		[[nodiscard]]char_T*		c_str(){ return this->unique_c_str(); }
-		[[nodiscard]]const char_T*	c_str()const{ return _m->get_c_str(); }
+		[[nodiscard]]const char_T*	const_c_str()const{ return _m->get_const_c_str(); }
+		[[nodiscard]]const char_T*	c_str()const{ return const_c_str(); }
 		[[nodiscard]]size_t			size()const{ return _m->get_size(); }
 		void resize(size_t nsize,char_T ch ={}){
 			auto size=this->size();
@@ -287,7 +288,7 @@ namespace string_n{
 	template<typename T>
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 	template<typename T>
-	decltype(auto)operator<<(auto&stream,const string_t<T>&str){ return(stream<<str.c_str()); }
+	decltype(auto)operator<<(auto&stream,const string_t<T>&str){ return(stream<<str.const_c_str()); }
 
 	template<class T>
 	[[nodiscard]]inline auto size_of_array_like(const string_t<T>& a)noexcept{ return a.size(); }
