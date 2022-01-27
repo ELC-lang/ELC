@@ -84,9 +84,9 @@ namespace string_n{
 	private:
 		void equivalent_optimization(const string_t& a)const{
 			if(this->memory_cost() >= a.memory_cost())
-				_m=a._m;
+				_m.do_replace(a._m);
 			else
-				a._m=_m;
+				a._m.do_replace(_m);
 		}
 	public:
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){

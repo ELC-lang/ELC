@@ -38,9 +38,9 @@ inline void swap(same_ref_p_t<T,ref_type>&a,same_ref_p_t<T,ref_type>&b)noexcept{
 	a.swap_with(b);
 }
 
-template<class T,typename ref_type,bool replace_check>
+template<class T,typename ref_type,bool do_replace_check>
 struct ptr_t:same_ref_p_t<T,ref_type>{
-	typedef ptr_t<T,ref_type,replace_check>this_t;
+	typedef ptr_t<T,ref_type,do_replace_check>this_t;
 
 	typedef same_ref_p_t<T,ref_type>base_t;
 	typedef same_ref_p_t<T,ref_type>same_ref;
@@ -64,22 +64,30 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	void reset(T*a)const noexcept(reset_nothrow){auto tmp=_to;add_ref(_to=a);cut_ref(tmp);}
 	void reset(nullptr_t=nullptr)const noexcept(reset_nothrow){reset(null_ptr);}
 public:
-	static constexpr bool check_nothrow=(type_info<T>.not_has_attribute(replace_able))||reset_nothrow;
-protected:
-	inline void check()const noexcept(check_nothrow){
-		if constexpr(replace_check&&type_info<remove_cvref<T>>.has_attribute(replace_able))
+	static constexpr bool replace_check_nothrow=(type_info<T>.not_has_attribute(replace_able))||reset_nothrow;
+	inline void replace_check()const noexcept(replace_check_nothrow){
+		if constexpr(do_replace_check&&type_info<remove_cvref<T>>.has_attribute(replace_able))
 			if(attribute_ptr_cast<replace_able>(_to)->replaced())
 				reset(attribute_ptr_cast<replace_able>(_to)->get_ptr());
 	}
-public:
-	static constexpr bool get_nothrow=check_nothrow;
+	inline void do_replace(T*p)const noexcept(replace_check_nothrow&&reset_nothrow){
+		if constexpr(type_info<remove_cvref<T>>.has_attribute(replace_able)){
+			attribute_ptr_cast<replace_able>(_to)->be_replace_as(p);
+			reset(p);
+		}
+	}
+	template <typename ref_type_,bool do_replace_check_>
+	inline void do_replace(const ptr_t<T,ref_type_,do_replace_check_>&p)const noexcept(replace_check_nothrow&&reset_nothrow){
+		do_replace(p.get());
+	}
+	static constexpr bool get_nothrow=replace_check_nothrow;
 	[[nodiscard]]T*get()const noexcept(get_nothrow){
-		check();
+		replace_check();
 		return base_t::get();
 	}
 	[[nodiscard]]bool unique()const noexcept{return attribute_ptr_cast<ref_able>(get())->link_num()==1;}
 	[[nodiscard]]explicit constexpr operator
-	conditional<replace_check&&type_info<T>.has_attribute(replace_able),
+	conditional<do_replace_check&&type_info<T>.has_attribute(replace_able),
 				unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
 		return hash(get());
 	}
@@ -87,8 +95,8 @@ public:
 	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),a)){
 		return pointer_equal(get(),a);
 	}
-	template <typename ref_type_,bool replace_check_>
-	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,replace_check_>&b)const
+	template <typename ref_type_,bool do_replace_check_>
+	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,do_replace_check_>&b)const
 	noexcept_as(pointer_equal(
 			declvalue(const this_t&).get(),
 			b.get())
@@ -97,8 +105,8 @@ public:
 	}
 };
 
-template <typename T_,typename T,typename ref_type,bool replace_check,enable_if(type_info<T_>.base_on<T>)>
-[[nodiscard]]inline auto operator==(const T_*a,ptr_t<T,ref_type,replace_check>&b)noexcept_as(b.operator==(a)){
+template <typename T_,typename T,typename ref_type,bool do_replace_check,enable_if(type_info<T_>.base_on<T>)>
+[[nodiscard]]inline auto operator==(const T_*a,ptr_t<T,ref_type,do_replace_check>&b)noexcept_as(b.operator==(a)){
 	return b.operator==(static_cast<const T*>(a));
 }
 
@@ -107,11 +115,11 @@ template <typename T,typename T_>
 	return !(a==b);
 }
 
-template<class T,typename ref_type,bool replace_check>
-struct base_ptr_t:ptr_t<T,ref_type,replace_check>{
+template<class T,typename ref_type,bool do_replace_check>
+struct base_ptr_t:ptr_t<T,ref_type,do_replace_check>{
 	static_assert(type_info<T>.base_on<ref_type>);
-	typedef ptr_t<T,ref_type,replace_check>base_t;
-	typedef base_ptr_t<T,ref_type,replace_check>this_t;
+	typedef ptr_t<T,ref_type,do_replace_check>base_t;
+	typedef base_ptr_t<T,ref_type,do_replace_check>this_t;
 	using typename base_t::same_ref;
 	using typename base_t::same_ptr;
 	using base_t::reset;

@@ -13,7 +13,7 @@ void map_and_mark_for_gc(T*)noexcept{
 using ::elc::defs::memory::gc_n::root_of;
 template<class T,enable_if	(
 								was_ref_able<T> &&
-								comn_ptr_t<T>::check_nothrow &&
+								comn_ptr_t<T>::replace_check_nothrow &&
 								type_info<T>.has_attribute(gc_n::have_root)
 							)>
 struct root_ptr_t:comn_ptr_t<T>,root_of<T>{
