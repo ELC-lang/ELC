@@ -54,7 +54,8 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	explicit ptr_t(T*a,special_init_t)noexcept:same_ref(a){}
 	ptr_t(T*a)noexcept:same_ref(a){add_ref();}
 	ptr_t(const same_ptr&a)noexcept:same_ref(a){add_ref();}
-	ptr_t(ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
+	ptr_t(const ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
+	ptr_t(const ptr_t<remove_cv<T>,ref_type,do_replace_check>&a)noexcept requires(type_info<remove_cv<T>>!=type_info<T>):ptr_t(a.get()){}
 	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(nullptr_t=nullptr)noexcept:ptr_t(null_ptr){}
 	ptr_t(null_ptr_t)noexcept:ptr_t((T*)(null_ptr)){}
