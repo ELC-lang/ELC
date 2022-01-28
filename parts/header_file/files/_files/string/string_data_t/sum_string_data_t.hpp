@@ -21,6 +21,15 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	sum_string_data_t(ptr_t defore,ptr_t after):_defore(defore),_after(after),_defore_size(_defore->get_size()),_after_size(_after->get_size()){}
 
 	virtual void be_replace_as(ptr_t a)override final{
+		if(type_info<this_t> == typeid(*a)){
+			auto p=static_cast<this_t*>(a.get());
+			if(_defore_size==p->_defore_size){
+				if(_defore!=p->_defore)
+					base_t::equivalent_optimization(_defore, p->_defore);
+				if(_after!=p->_after)
+					base_t::equivalent_optimization(_after, p->_after);
+			}
+		}
 		_defore.reset();
 		_after.reset();
 		base_t::be_replace_as(a);

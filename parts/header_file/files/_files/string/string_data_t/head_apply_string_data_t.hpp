@@ -28,6 +28,11 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	}
 
 	virtual void be_replace_as(ptr_t a)override final{
+		if(type_info<this_t> == typeid(*a)){
+			auto p=static_cast<this_t*>(a.get());
+			if(_used_size==p->_used_size && _to!=p->_to)
+				base_t::equivalent_optimization(_to, p->_to);
+		}
 		_m.clear();
 		_to.reset();
 		base_t::be_replace_as(a);

@@ -21,6 +21,11 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 	erased_string_data_t(ptr_t str,size_t erase_pos,size_t erase_size):_to(str),_to_size(_to->get_size()),_erase_pos(erase_pos),_erase_size(erase_size){}
 
 	virtual void be_replace_as(ptr_t a)override final{
+		if(type_info<this_t> == typeid(*a)){
+			auto p=static_cast<this_t*>(a.get());
+			if(_erase_pos==p->_erase_pos && _erase_size==p->_erase_size && _to!=p->_to)
+				base_t::equivalent_optimization(_to, p->_to);
+		}
 		_to.reset();
 		base_t::be_replace_as(a);
 	}

@@ -22,6 +22,15 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	inserted_string_data_t(ptr_t to,ptr_t insert_data,size_t insert_pos):_to(to),_insert_data(insert_data),_insert_pos(insert_pos),_to_size(to->get_size()),_insert_size(insert_data->get_size()){}
 
 	virtual void be_replace_as(ptr_t a)override final{
+		if(type_info<this_t> == typeid(*a)){
+			auto p=static_cast<this_t*>(a.get());
+			if(_insert_pos==p->_insert_pos && _insert_size==p->_insert_size){
+				if(_to!=p->_to)
+					base_t::equivalent_optimization(_to, p->_to);
+				if(_insert_data!=p->_insert_data)
+					base_t::equivalent_optimization(_insert_data, p->_insert_data);
+			}
+		}
 		_to.reset();
 		_insert_data.reset();
 		base_t::be_replace_as(a);

@@ -82,6 +82,12 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 		return need_be_replace;
 	}
 	*/
+	static inline void equivalent_optimization(ptr_t& a,ptr_t& b){
+		if(a->get_memory_cost() >= b->get_memory_cost())
+			a.do_replace(b);
+		else
+			b.do_replace(a);
+	}
 };
 template<typename char_T>
 void base_string_data_t<char_T>::be_replace_as(ptr_t a){
