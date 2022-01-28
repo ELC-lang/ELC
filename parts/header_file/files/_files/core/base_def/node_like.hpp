@@ -55,7 +55,7 @@ public:
 	}
 
 	[[nodiscard]]virtual explicit operator logical_bool()const{return true;}
-	[[nodiscard]]explicit operator bool()const{return this->operator logical_bool();}
+	[[nodiscard]]explicit operator bool()const{return(bool)this->operator logical_bool();}
 
 	template<typename...Args>
 	inline setter operator()(Args&&...rest);//{return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
