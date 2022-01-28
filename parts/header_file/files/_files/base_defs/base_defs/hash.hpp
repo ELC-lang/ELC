@@ -25,7 +25,10 @@ namespace hash_n{
 
 	template<class T>
 	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
-		return{size_t(a)};
+		if constexpr(was_not_an_ill_form(the_pointer_hash(a)))
+			return the_pointer_hash(a);
+		else
+			return{size_t(a)};
 	}
 
 	[[nodiscard]]inline constexpr hash_t hash(nothing)noexcept{

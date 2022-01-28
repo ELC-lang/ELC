@@ -17,45 +17,45 @@ namespace alloc_n{
 	#include "default_method/defs.hpp"
 
 	template<typename T>
-	inline void*the_alloc_method(type_info_t<T>)noexcept{
+	inline void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
-		if constexpr(was_not_an_ill_form(alloc_method(type_info<T>)))
-			return alloc_method(type_info<T>);
+		if constexpr(was_not_an_ill_form(the_alloc_method(type_info<T>)))
+			return the_alloc_method(type_info<T>);
 		else
 			return default_method::alloc_method(type_info<T>);
 	}
 	template<typename T>
-	inline void*the_alloc_method(type_info_t<T>,size_t size)noexcept{
+	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
 		//size被保证不为0
-		if constexpr(was_not_an_ill_form(alloc_method(type_info<T>,size)))
-			return alloc_method(type_info<T>,size);
+		if constexpr(was_not_an_ill_form(the_alloc_method(type_info<T>,size)))
+			return the_alloc_method(type_info<T>,size);
 		else
 			return default_method::alloc_method(type_info<T>,size);
 	}
 	template<typename T>
-	inline size_t the_get_size_of_alloc_method(const T*arg)noexcept{
+	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		//arg保证不与null_ptr相等
-		if constexpr(was_not_an_ill_form(get_size_of_alloc_method(arg)))
-			return get_size_of_alloc_method(arg);
+		if constexpr(was_not_an_ill_form(the_get_size_of_alloc_method(arg)))
+			return the_get_size_of_alloc_method(arg);
 		else
 			return default_method::get_size_of_alloc_method(arg);
 	}
 	template<typename T>
-	inline void the_free_method(T*arg)noexcept{
-		if constexpr(was_not_an_ill_form(free_method(arg)))
-			free_method(arg);
+	inline void free_method(T*arg)noexcept{
+		if constexpr(was_not_an_ill_form(the_free_method(arg)))
+			the_free_method(arg);
 		else
 			default_method::free_method(arg);
 	}
 	template<typename T>
-	inline void*the_realloc_method(T*&ptr,size_t new_size)noexcept{
+	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效
 		//new_size被保证不为0
 		//align维持不变
 		//但只允许在扩大数据块时可选的移动数据块
-		if constexpr(was_not_an_ill_form(realloc_method(ptr,new_size)))
-			return realloc_method(ptr,new_size);
+		if constexpr(was_not_an_ill_form(the_realloc_method(ptr,new_size)))
+			return the_realloc_method(ptr,new_size);
 		else
 			return default_method::realloc_method(ptr,new_size);
 	}
@@ -67,7 +67,7 @@ namespace alloc_n{
 		typedef base_alloc_t base_t;
 		[[nodiscard]]static T*base_call()noexcept{
 			void*tmp;
-			while(!assign(tmp,the_alloc_method(type_info<T>)))gc_for_alloc();
+			while(!assign(tmp,alloc_method(type_info<T>)))gc_for_alloc();
 			return reinterpret_cast<T*>(tmp);
 		}
 		[[nodiscard]]static T*base_call(size_t size)noexcept{
@@ -75,7 +75,7 @@ namespace alloc_n{
 				template_error("You can\'t alloc an array for never_in_array type.");
 			if(size){//null_ptr不一定等价于nullptr，请勿删除本行
 				void*tmp;
-				while(!assign(tmp,the_alloc_method(type_info<T>,size)))gc_for_alloc();
+				while(!assign(tmp,alloc_method(type_info<T>,size)))gc_for_alloc();
 				return reinterpret_cast<T*>(tmp);
 			}else return null_ptr;
 		}
@@ -95,7 +95,7 @@ namespace alloc_n{
 		template<class T>
 		static void base_call(T*p)noexcept{
 			if(p!=null_ptr)//null_ptr不一定等价于nullptr，请勿删除本行
-				the_free_method(p);
+				free_method(p);
 		}
 		template<class T>
 		/*static*/void operator()(T*p)const noexcept{base_call(p);}
@@ -111,7 +111,7 @@ namespace alloc_n{
 			if(nsize){//null_ptr不一定等价于nullptr，请勿删除本行
 				if constexpr(type_info<T>.not_has_attribute(never_in_array))
 					if(ptr!=null_ptr){//null_ptr不一定等价于nullptr，请勿删除本行
-						while(!the_realloc_method(ptr,nsize))gc_for_alloc();
+						while(!realloc_method(ptr,nsize))gc_for_alloc();
 					}else
 						ptr=alloc<T>(nsize);
 			}else{
@@ -135,13 +135,13 @@ namespace alloc_n{
 		template<typename T>
 		static constexpr bool able=true;
 		template<typename T>
-		static constexpr bool nothrow=noexcept(the_get_size_of_alloc_method(declvalue(const T*)));
+		static constexpr bool nothrow=noexcept(get_size_of_alloc_method(declvalue(const T*)));
 
 		template<typename T> requires able<T>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
 			if(arg==null_ptr)
 				return 0;
-			return the_get_size_of_alloc_method(arg);
+			return get_size_of_alloc_method(arg);
 		}
 
 		template<typename T> requires able<T>

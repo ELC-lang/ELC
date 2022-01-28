@@ -36,11 +36,11 @@ public:
 };
 
 template<typename T>
-static void the_destroy(T*a)noexcept{
-	if constexpr(was_not_an_ill_form(destroy(a)))
-		destroy(a);
+static void destroy(T*a)noexcept{
+	if constexpr(was_not_an_ill_form(the_destroy(a)))
+		the_destroy(a);
 	else
-		template_error("Please overload the function destroy in the namespace where this type is defined.");
+		template_error("Please overload the function the_destroy in the namespace where this type is defined.");
 }
 
 //file_end

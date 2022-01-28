@@ -42,8 +42,7 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 template<typename char_T>
 inline null_string_data_t<char_T> null_string_data{};
 template<typename char_T>
-base_string_data_t<char_T>* get_null_ptr(const base_string_data_t<char_T>*){ return&null_string_data<char_T>; }
-
+base_string_data_t<char_T>* the_get_null_ptr(const base_string_data_t<char_T>*){ return&null_string_data<char_T>; }
 
 //file_end
 

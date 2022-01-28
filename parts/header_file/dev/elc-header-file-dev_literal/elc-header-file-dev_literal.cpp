@@ -41,7 +41,7 @@ namespace elc::defs{
 				virtual void build_up(const char_t*& arg)override final{ throw base_read_error(es"build up NULL_AST"); }
 				virtual string get_code_struct()override final{ throw base_read_error(es"code struct NULL_AST"); }
 			}NULL_ASTP;
-			base_AST* get_null_ptr(const base_AST*){ return&NULL_ASTP; }
+			base_AST* the_get_null_ptr(const base_AST*){ return&NULL_ASTP; }
 		}
 		comn_ptr_t<AST_n::base_AST> base_read_AST(const char_t*& arg);
 		namespace AST_n{

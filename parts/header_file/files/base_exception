@@ -8,7 +8,7 @@
 */
 #if !defined(ELC_BASE_EXCEPTION)
 	#define ELC_BASE_EXCEPTION
-	#include "../../../_share/locale/using.hpp"
+	#include "../../_share/locale/using.hpp"
 	#include "_files/base_exception/_body.hpp"
 #endif
 

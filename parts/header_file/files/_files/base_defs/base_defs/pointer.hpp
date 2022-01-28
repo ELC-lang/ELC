@@ -8,11 +8,17 @@
 */
 template<typename T>
 [[nodiscard]]constexpr auto pointer_to_bool(T*a)noexcept{
-	return null_ptr!=a;
+	if constexpr(was_not_an_ill_form(the_pointer_to_bool(a)))
+		return the_pointer_to_bool(a);
+	else
+		return null_ptr!=a;
 }
 template<typename T>
-[[nodiscard]]constexpr bool pointer_equal(T*a,T*b)noexcept{
-	return a==b;
+[[nodiscard]]constexpr auto pointer_equal(T*a,T*b)noexcept{
+	if constexpr(was_not_an_ill_form(the_pointer_equal(a,b)))
+		return the_pointer_equal(a,b);
+	else
+		return a==b;
 }
 template<class T>
 inline constexpr bool is_pointer= ::std::is_pointer_v<T>;

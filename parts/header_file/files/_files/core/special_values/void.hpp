@@ -26,7 +26,7 @@ public:
 	[[nodiscard]]virtual constexpr explicit operator logical_bool()const{return neither;}//void 应当不真不假
 }the_void{};
 
-[[nodiscard]]constexpr node_like*get_null_ptr(const node_like*)noexcept{return addressof((node_like&)the_void);}
+[[nodiscard]]constexpr node_like*the_get_null_ptr(const node_like*)noexcept{return addressof((node_like&)the_void);}
 
 //file_end
 
