@@ -6,8 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-lazy_instantiation struct LIS_name(setter){
-	typedef LIS_ID_t(setter)this_t;
+struct setter{
+	typedef setter this_t;
 	struct base_data_t:type_info_t<base_data_t>::template_name
 	with_common_attribute<abstract_base,ref_able>{
 		/*//COMMIT:
@@ -55,14 +55,14 @@ lazy_instantiation struct LIS_name(setter){
 private:
 	mutable base_data_t*_m;
 public:
-	explicit LIS_name(setter)():_m(get<constexpr_data_t>(null_ptr)){}
-	explicit LIS_name(setter)(ptr a):_m(get<constexpr_data_t>(a)){}
-	explicit LIS_name(setter)(node_like* a):LIS_name(setter)(ptr(a)){}
-	constexpr LIS_name(setter)(base_data_t*a)noexcept:_m(a){}
+	explicit setter():_m(get<constexpr_data_t>(null_ptr)){}
+	explicit setter(ptr a):_m(get<constexpr_data_t>(a)){}
+	explicit setter(node_like* a):setter(ptr(a)){}
+	constexpr setter(base_data_t*a)noexcept:_m(a){}
 
-	LIS_name(setter)(const this_t&a)noexcept=default;
-	LIS_name(setter)(this_t&&a)noexcept=default;
-	~LIS_name(setter)()noexcept=default;
+	setter(const this_t&a)noexcept=default;
+	setter(this_t&&a)noexcept=default;
+	~setter()noexcept=default;
 
 	this_t&operator=(ptr a)&{
 		_m->be_set(a);
@@ -82,7 +82,6 @@ public:
 	}
 	[[nodiscard]]explicit operator bool()const{return bool(_m->get_value());}
 };
-lazy_instantiation_name(setter);
 
 //file_end
 

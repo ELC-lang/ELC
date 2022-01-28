@@ -10,5 +10,7 @@
 #include "ptr.hpp"
 #include "setter.hpp"
 
+#include "node_like_using_setter_func_defs.hpp"
+
 //file_end
 
