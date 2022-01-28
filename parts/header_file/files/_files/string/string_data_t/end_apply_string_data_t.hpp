@@ -35,6 +35,12 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		copy_assign[_used_size](ch,note::to((char_T*)_m));
 	}
 
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+		if(begin+size<=_to_size)
+			return _to->get_substr_data(begin,size);
+		else
+			return base_t::get_substr_data(begin,size);
+	}
 	virtual void be_replace_as(ptr_t a)override final{
 		if(type_info<this_t> == typeid(*a)){
 			auto p=static_cast<this_t*>(a.get());
@@ -47,7 +53,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	}
 	[[nodiscard]]virtual size_t get_size()override final{ return _used_size+_to_size; }
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
-		if(pos+size<_to_size)
+		if(pos+size<=_to_size)
 			_to->copy_part_data_to(to,pos,size);
 		else{
 			if(pos<_to_size){

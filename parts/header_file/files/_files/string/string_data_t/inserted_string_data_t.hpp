@@ -21,6 +21,16 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 
 	inserted_string_data_t(ptr_t to,ptr_t insert_data,size_t insert_pos):_to(to),_insert_data(insert_data),_insert_pos(insert_pos),_to_size(to->get_size()),_insert_size(insert_data->get_size()){}
 
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+		if(begin+size<_insert_pos)
+			return _to->get_substr_data(begin,size);
+		elseif(begin>_insert_pos+_insert_size)
+			return _to->get_substr_data(begin-_insert_size,size);
+		elseif(begin>=_insert_pos && begin+size<=_insert_pos+_insert_size)
+			return _insert_data->get_substr_data(begin-_insert_pos,size);
+		else
+			return base_t::get_substr_data(begin,size);
+	}
 	virtual void be_replace_as(ptr_t a)override final{
 		if(type_info<this_t> == typeid(*a)){
 			auto p=static_cast<this_t*>(a.get());

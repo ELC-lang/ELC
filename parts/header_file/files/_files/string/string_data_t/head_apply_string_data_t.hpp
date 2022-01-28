@@ -27,6 +27,12 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		copy_assign[_used_size](note::form((const char_T*)head.begin()),note::to((char_T*)_m.end()-_used_size));
 	}
 
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+		if(begin>=_used_size)
+			return _to->get_substr_data(begin-_used_size,size);
+		else
+			return base_t::get_substr_data(begin,size);
+	}
 	virtual void be_replace_as(ptr_t a)override final{
 		if(type_info<this_t> == typeid(*a)){
 			auto p=static_cast<this_t*>(a.get());

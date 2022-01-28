@@ -21,6 +21,9 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_size=str.size();
 	}
 
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+		return get<this_t>(string_view_t{_m+begin,size});
+	}
 	[[nodiscard]]virtual const char_T* get_data(){return _m;}
 	[[nodiscard]]virtual const char_T* get_const_c_str(){
 		if(!_m[_size])

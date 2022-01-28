@@ -20,6 +20,14 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 
 	sum_string_data_t(ptr_t defore,ptr_t after):_defore(defore),_after(after),_defore_size(_defore->get_size()),_after_size(_after->get_size()){}
 
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+		if(begin+size<=_defore_size)
+			return _defore->get_substr_data(begin,size);
+		elseif(begin>=_defore_size)
+			return _after->get_substr_data(begin-_defore_size,size);
+		else
+			return base_t::get_substr_data(begin,size);
+	}
 	virtual void be_replace_as(ptr_t a)override final{
 		if(type_info<this_t> == typeid(*a)){
 			auto p=static_cast<this_t*>(a.get());

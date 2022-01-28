@@ -20,6 +20,14 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 
 	erased_string_data_t(ptr_t str,size_t erase_pos,size_t erase_size):_to(str),_to_size(_to->get_size()),_erase_pos(erase_pos),_erase_size(erase_size){}
 
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+		if(begin+size<_erase_pos)
+			return _to->get_substr_data(begin,size);
+		elseif(begin>_erase_pos)
+			return _to->get_substr_data(begin+_erase_size,size);
+		else
+			return base_t::get_substr_data(begin,size);
+	}
 	virtual void be_replace_as(ptr_t a)override final{
 		if(type_info<this_t> == typeid(*a)){
 			auto p=static_cast<this_t*>(a.get());
