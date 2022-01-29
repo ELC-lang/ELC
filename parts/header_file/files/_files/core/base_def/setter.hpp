@@ -9,7 +9,8 @@
 struct setter{
 	typedef setter this_t;
 	struct base_data_t:type_info_t<base_data_t>::template_name
-	with_common_attribute<abstract_base,ref_able>{
+	with_common_attribute<abstract_base,ref_able,never_in_array>,
+	build_by_get_only,force_use_default_null_ptr{
 		/*//COMMIT:
 		是否应当支持setter data的引用计数？
 		否的原因：
@@ -40,7 +41,7 @@ struct setter{
 	};
 
 	struct constexpr_data_t final:type_info_t<constexpr_data_t>::template_name
-	with_common_attribute<never_in_array,instance_struct>,build_by_get_only,force_use_default_null_ptr
+	with_common_attribute<instance_struct>
 	,base_data_t{
 		ptr _m;
 		constexpr_data_t(ptr a):_m(a){}
@@ -53,12 +54,12 @@ struct setter{
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<constexpr_data_t>;}
 	};
 private:
-	mutable base_data_t*_m;
+	mutable comn_ptr_t<base_data_t> _m;
 public:
 	explicit setter():_m(get<constexpr_data_t>(null_ptr)){}
 	explicit setter(ptr a):_m(get<constexpr_data_t>(a)){}
 	explicit setter(node_like* a):setter(ptr(a)){}
-	constexpr setter(base_data_t*a)noexcept:_m(a){}
+	setter(base_data_t*a)noexcept:_m(a){}
 
 	setter(const this_t&a)noexcept=default;
 	setter(this_t&&a)noexcept=default;
@@ -81,6 +82,13 @@ public:
 		return operator const_ptr();
 	}
 	[[nodiscard]]explicit operator bool()const{return bool(_m->get_value());}
+
+	template<typename T>
+	[[nodiscard]]auto operator[](T&&index){
+		return (*operator&())[forward<T>(index)];
+	}
+	template<typename...Args> requires(invoke<node_like>.able<Args...>)
+	inline auto operator()(Args&&... rest)noexcept(invoke<node_like>.nothrow<Args...>){return(*operator&())(forward<Args>(rest)...);}
 };
 
 //file_end

@@ -13,13 +13,12 @@
 #include <ala>
 //*/
 
-#define ELC_TEST_ON
-#include "../files/base"
 #include "../files/core"
-#include "../files/test"
+#include "../files/void_name"
 
 void ste::stst(){
-	elc::test();
-	elc::test_log_out();
-	elc::test_end();
+	using namespace elc;
+	using elc::void;
+	if(nil[t][void])
+		stest_now();
 }

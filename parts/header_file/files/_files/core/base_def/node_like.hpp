@@ -11,8 +11,6 @@ struct setter;
 struct node_like:type_info_t<node_like>::template_name
 with_common_attribute<abstract_base,weak_ref_able,replace_able,ref_able>{
 public:
-	typedef comn_ptr_t<node_like>ptr;
-	typedef comn_ptr_t<const node_like>const_ptr;
 	typedef node_like this_t;
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
@@ -32,7 +30,10 @@ public:
 	[[nodiscard]]virtual setter arec(const setter)=0;
 
 	[[nodiscard]]setter operator[](const setter index);
-	[[nodiscard]]setter operator[](ptr index);
+	template<typename T>
+	[[nodiscard]]setter operator[](T&&index){
+		return operator[](as_setter(forward<T>(index)));
+	}
 
 	virtual void clear()=0;
 

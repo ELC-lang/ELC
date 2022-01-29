@@ -16,9 +16,6 @@
 [[nodiscard]]setter node_like::operator[](const setter index){
 	return arec(index);
 }
-[[nodiscard]]setter node_like::operator[](ptr index){
-	return arec(setter(index));
-}
 
 //file_end
 
