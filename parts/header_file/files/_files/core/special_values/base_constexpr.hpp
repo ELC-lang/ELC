@@ -18,6 +18,7 @@ public:
 
 	[[nodiscard]]virtual setter arec(const setter)noexcept override{return setter(this);}
 
+	virtual void destroy()noexcept override final{nothing}
 	virtual void clear()noexcept override final{nothing}
 
 	virtual void be_replace_as(ptr)noexcept override{nothing}

@@ -147,7 +147,7 @@ struct base_ptr_t:ptr_t<T,ref_type,do_replace_check>{
 	base_ptr_t&operator=(base_ptr_t&a)&noexcept(reset_nothrow&&get_nothrow){reset(a.get());return*this;}
 	base_ptr_t&operator=(same_ref&&a)&noexcept{swap_with(a);return*this;}
 	base_ptr_t&operator=(nullptr_t)&noexcept(reset_nothrow){return*this=null_ptr;}
-	/*
+
 private:
 	static inline class for_delete_t{
 		T*_m;
@@ -158,12 +158,13 @@ private:
 		}
 	public:
 		static void operator delete(void*a)noexcept_as(destroy(declvalue(T*))){
-			the_destroy(reinterpret_cast<for_delete_t*>(a)->_m);
+			destroy(reinterpret_cast<for_delete_t*>(a)->_m);
 		}
 	}for_delete{};
 public:
+	[[nodiscard]]explicit operator bool()noexcept(get_nothrow){return add_const(this)->operator bool();}
 	[[nodiscard]]operator for_delete_t*()noexcept(get_nothrow){return for_delete(get());}
-	*/
+
 	template<typename...Args> requires(invoke<T>.able<Args...>)
 	inline auto operator()(Args&&... rest)noexcept(invoke<T>.nothrow<Args...>){return(operator*())(forward<Args>(rest)...);}
 };

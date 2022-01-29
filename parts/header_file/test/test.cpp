@@ -21,4 +21,5 @@ void ste::stst(){
 	using elc::void;
 	if(nil[t][void])
 		stest_now();
+	delete &nil;
 }

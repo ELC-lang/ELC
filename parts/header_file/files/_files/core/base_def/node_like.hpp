@@ -6,7 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct setter;
+template<typename...Args>
+[[nodiscard]]inline ptr make_list(Args&&...rest)noexcept;
 
 struct node_like:type_info_t<node_like>::template_name
 with_common_attribute<abstract_base,weak_ref_able,replace_able,ref_able>{
@@ -50,7 +51,7 @@ public:
 	[[nodiscard]]explicit operator bool()const{return(bool)this->operator logical_bool();}
 
 	template<typename...Args>
-	inline setter operator()(Args&&...rest);//{return this->get_call_of_this()(make_arg_list(forward<Args>(rest)...));}
+	inline setter operator()(Args&&...rest){return this->get_call_of_this()(make_list(forward<Args>(rest)...));}
 
 	[[nodiscard]]logical_bool eq(const_ptr a)const{
 		auto this_eqlv=this->eq_level();
