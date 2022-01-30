@@ -54,23 +54,23 @@ struct value:non_copy_assign_able{
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<constexpr_data_t>;}
 	};
 
-	struct value_data_t final:type_info_t<value_data_t>::template_name
+	struct variable_data_t final:type_info_t<variable_data_t>::template_name
 	with_common_attribute<instance_struct>
 	,base_data_t{
 		ptr _m;
-		value_data_t(ptr a):_m(a){}
-		value_data_t(const value_data_t&)noexcept=default;
-		virtual ~value_data_t()noexcept override final=default;
+		variable_data_t(ptr a):_m(a){}
+		variable_data_t(const variable_data_t&)noexcept=default;
+		virtual ~variable_data_t()noexcept override final=default;
 
 		virtual void be_set(ptr a)noexcept override final{_m=a;}
 		[[nodiscard]]virtual ptr get_value()override final{return _m;}
-		[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<value_data_t>(_m);}
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<value_data_t>;}
+		[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<variable_data_t>(_m);}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<variable_data_t>;}
 	};
 private:
 	mutable comn_ptr_t<base_data_t> _m;
 public:
-	explicit value():_m(get<value_data_t>(null_ptr)){}
+	explicit value():_m(get<variable_data_t>(null_ptr)){}
 	explicit value(ptr a):_m(get<constexpr_data_t>(a)){}
 	explicit value(node_like* a):value(ptr(a)){}
 	value(base_data_t*a)noexcept:_m(a){}
