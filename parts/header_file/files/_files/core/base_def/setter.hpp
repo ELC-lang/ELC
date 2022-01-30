@@ -70,7 +70,7 @@ struct setter:non_copy_assign_able{
 private:
 	mutable comn_ptr_t<base_data_t> _m;
 public:
-	explicit setter():_m(get<constexpr_data_t>(null_ptr)){}
+	explicit setter():_m(get<value_data_t>(null_ptr)){}
 	explicit setter(ptr a):_m(get<constexpr_data_t>(a)){}
 	explicit setter(node_like* a):setter(ptr(a)){}
 	setter(base_data_t*a)noexcept:_m(a){}

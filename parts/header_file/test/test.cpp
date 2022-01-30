@@ -13,6 +13,7 @@
 #include <ala>
 //*/
 
+#define ELC_TEST_CHECK_MEMORY_LACK
 #include "../files/core"
 #include "../files/void_name"
 
@@ -25,6 +26,7 @@ void ste::stst(){
 		(*a)[nil] = t;
 		stest_accert((*a)[nil] == t);
 		delete a;
-		stest_accert(a == &nil);
+		stest_accert(a == &void);
 	}
+	elc::defs::memory::check_memory_lack();
 }
