@@ -53,7 +53,16 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 
 	explicit ptr_t(T*a,special_init_t)noexcept:same_ref(a){}
 	ptr_t(T*a)noexcept:same_ref(a){add_ref();}
-	ptr_t(const same_ptr&a)noexcept:same_ref(a){add_ref();}
+	ptr_t(const same_ptr&a)noexcept:same_ref(a){
+		if constexpr(type_info<T>.has_attribute(weak_ref_able) && type_info<ref_type> == type_info<ref_able<remove_cv<T>>>)
+			if(get_ref_num(_to))
+				add_ref();
+			else
+				add_ref(_to=null_ptr);
+		else
+			add_ref();
+	}
+	ptr_t(const same_ref&a)noexcept:same_ref(a){add_ref();}
 	ptr_t(const ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(const ptr_t<remove_cv<T>,ref_type,do_replace_check>&a)noexcept requires(type_info<remove_cv<T>>!=type_info<T>):ptr_t(a.get()){}
 	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){}
@@ -93,9 +102,15 @@ public:
 		using elc::defs::hash;
 		return hash(get());
 	}
-
-	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),a)){
-		return pointer_equal(get(),a);
+	
+	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(add_const(declvalue(const this_t&).get()),a)){
+		return pointer_equal(add_const(get()),a);
+	}
+	[[nodiscard]]inline auto operator==(nullptr_t)const noexcept_as(operator==(null_ptr)){
+		return operator==(null_ptr);
+	}
+	[[nodiscard]]inline auto operator==(null_ptr_t)const noexcept_as(operator==((T*)null_ptr)){
+		return operator==((T*)null_ptr);
 	}
 	template<typename ref_type_,bool do_replace_check_>
 	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,do_replace_check_>&b)const

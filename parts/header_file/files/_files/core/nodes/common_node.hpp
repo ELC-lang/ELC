@@ -11,18 +11,18 @@ struct common_node final:node_like,instance_struct<common_node>{
 
 	map_t<value,const_weak_ptr> _m;
 
-	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept{return type_info<this_t>;}
+	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<this_t>;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const{
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const override{
 		if(a->get_type_info() != this->get_type_info())
 			return false;
 		const this_t*p=static_cast<const this_t*>(a.get());
 		return _m==p->_m;
 	}
 public:
-	[[nodiscard]]virtual value arec(const value index){return _m[&index];}
+	[[nodiscard]]virtual value arec(const value index)override{return _m[&index];}
 
-	virtual void clear(){_m.clear();}
+	virtual void clear()override{_m.clear();}
 };
 
 //file_end

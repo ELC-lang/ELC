@@ -10,6 +10,8 @@
 export node_like;
 export ptr;
 export const_ptr;
+export weak_ptr;
+export const_weak_ptr;
 export value;
 
 export nil;

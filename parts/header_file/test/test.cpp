@@ -22,11 +22,27 @@ void ste::stst(){
 	using elc::void;
 	{
 		ptr a = defs::get<defs::core::common_node>();
+		ptr b = defs::get<defs::core::common_node>();
 		stest_accert((*a)[nil] == void);
 		(*a)[nil] = t;
 		stest_accert((*a)[nil] == t);
+		stest_accert((*b)[t] == void);
+		(*b)[t].ref_to( (*a)[nil] );
+		stest_accert((*b)[t] == t);
+		(*a)[nil] = a;
+		stest_accert((*b)[t] == a);
+		weak_ptr wk;
+		{
+			ptr c = defs::get<defs::core::common_node>();
+			wk = c;
+			(*a)[c] = t;
+			stest_accert((*a)[c] == t);
+		}
+		stest_accert((*a)[wk] == void);
 		delete a;
 		stest_accert(a == &void);
+		stest_accert((*b)[t] == void);
+		stestb(a==nullptr);
 	}
 	elc::defs::memory::check_memory_lack();
 }
