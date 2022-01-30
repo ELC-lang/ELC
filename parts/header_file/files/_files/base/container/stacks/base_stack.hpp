@@ -135,6 +135,8 @@ public:
 	[[nodiscard]]hash_t get_top_hash()noexcept_as(hash(declvalue(T&))){
 		if(_m)
 			return hash(_m->_data);
+		else
+			return hash(_m);
 	}
 	void move_top_to(this_t&a)noexcept{
 		_size--;
