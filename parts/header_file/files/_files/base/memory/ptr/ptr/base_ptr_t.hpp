@@ -128,6 +128,14 @@ public:
 	){
 		return pointer_equal(get(),b.get());
 	}
+	template<typename ref_type_,bool do_replace_check_> requires(type_info<remove_cv<T>>!=type_info<T>)
+	[[nodiscard]]inline auto operator==(const ptr_t<remove_cv<T>,ref_type_,do_replace_check_>&b)const
+	noexcept_as(pointer_equal(
+			declvalue(const this_t&).get(),
+			add_const(b.get()))
+	){
+		return pointer_equal(get(),add_const(b.get()));
+	}
 };
 
 template <typename T_,typename T,typename ref_type,bool do_replace_check,enable_if(type_info<T_>.base_on<T>)>

@@ -7,6 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "common_node.hpp"
+#include "cons.hpp"
 
 //file_end
 

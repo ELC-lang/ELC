@@ -6,8 +6,9 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-template<typename...Args>
-[[nodiscard]]inline ptr make_list(Args&&...rest)noexcept;
+[[nodiscard]]inline ptr make_list()noexcept;
+template<typename T,typename...Args>
+[[nodiscard]]inline ptr make_list(T&&first,Args&&...rest);
 
 struct node_like:type_info_t<node_like>::template_name
 with_common_attribute<abstract_base,weak_ref_able,replace_able,ref_able>{
