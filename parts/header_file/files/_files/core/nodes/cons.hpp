@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct cons final:node_like,instance_struct<cons>{
+struct cons:node_like,instance_struct<cons>{
 	typedef cons this_t;
 
 	value _car;

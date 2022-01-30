@@ -8,6 +8,7 @@
 */
 #include "common_node.hpp"
 #include "cons.hpp"
+#include "expr.hpp"
 
 //file_end
 

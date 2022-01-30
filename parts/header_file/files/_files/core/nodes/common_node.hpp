@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct common_node final:node_like,instance_struct<common_node>{
+struct common_node:node_like,instance_struct<common_node>{
 	typedef common_node this_t;
 
 	map_t<value,const_weak_ptr> _m;

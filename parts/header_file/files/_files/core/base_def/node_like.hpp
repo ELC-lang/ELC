@@ -16,10 +16,10 @@ public:
 	typedef node_like this_t;
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
-protected:
+
 	[[nodiscard]]virtual function_t<value()> get_eval_of_this();
 	[[nodiscard]]virtual function_t<value(ptr)> get_call_of_this();
-
+protected:
 	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const=0;
 	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
 	[[nodiscard]]virtual constexpr size_t equal_level()const{return 36;}

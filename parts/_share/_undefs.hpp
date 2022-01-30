@@ -94,5 +94,7 @@
 
 #undef ELC_TEST_EVENTNAME
 
+#undef override_instance_struct
+
 //file_end
 
