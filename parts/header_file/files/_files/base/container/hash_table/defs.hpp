@@ -16,19 +16,18 @@ namespace hash_table_n{
 	private:
 		base_t_w _m;
 	public:
-		void swap(base_t_w&a)noexcept{swap(_m,a);}
+		void swap(base_t_w&a)noexcept{_m.swap_with(a);}
 	private:
 		[[nodiscard]]bucket_t&find_bucket(hash_t a)noexcept{
 			return _m[a%_m.size()];
 		}
 		void bucket_count_grow()noexcept{
-			base_t_w tmp;
-			tmp.resize(magic_number::get_next_gold_size_to_resize_for_hash(_m.size()));
-			_m.for_each(lambda_with_catch(&tmp)(bucket_t&a)noexcept{
+			this_t tmp(special_init,magic_number::get_next_gold_size_to_resize_for_hash(_m.size()));
+			for(bucket_t&a:_m){
 				while(!a.empty())
 					a.move_top_to(tmp.find_bucket(a.get_top_hash()));
-			});
-			swap(tmp,_m);
+			}
+			swap(tmp);
 		}
 		hash_table_t(const base_t_w&a)noexcept:_m(a){}
 		this_t copy()noexcept(copy_construct.nothrow<base_t_w>){
@@ -36,6 +35,7 @@ namespace hash_table_n{
 		}
 	public:
 		hash_table_t():_m(5){}
+		hash_table_t(special_init_t,size_t bucket_size):_m(bucket_size){}
 		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
 
 		operator base_t_w&()noexcept{return _m;}
@@ -102,6 +102,14 @@ namespace hash_table_n{
 			return not in_table(a);
 		}
 
+		size_t size()noexcept{
+			size_t aret=0;
+			for(bucket_t&a:_m){
+				aret+=a.size();
+			}
+			return aret;
+		}
+
 		void clear()noexcept(re_construct.nothrow<this_t>){
 			re_construct(this);
 		}
@@ -109,18 +117,18 @@ namespace hash_table_n{
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)noexcept_as(expr){
-			_m.for_each(lambda_with_catch(&func)(bucket_t&a)noexcept_as(expr){
+			for(bucket_t&a:_m){
 				a.for_each(func);
-			});
+			}
 		}
 		#undef expr
 
 		#define expr declvalue(func_t)(declvalue(const T&))
 		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)const noexcept_as(expr){
-			_m.for_each(lambda(const bucket_t&a)noexcept_as(expr){
+			for(bucket_t&a:_m){
 				a.for_each(func);
-			});
+			}
 		}
 		#undef expr
 

@@ -26,16 +26,16 @@
 #define constexpr_as(...) MAGIC constexpr//( •̀ ω •́ )✌
 #define constexpr_as_auto MAGIC MAGIC constexpr//✌( •̀ ω •́ )✌
 
-#define using_method_from_base_t(name) \
+#define using_method_from_base_t(name,...) \
 template<class...Args> requires was_not_an_ill_form(declvalue(base_t).name(declvalue(Args)...))\
-auto name(Args&&...rest)noexcept_as(base_t::name(declvalue(Args)...))\
+auto name(Args&&...rest)__VA_ARGS__ noexcept_as(base_t::name(declvalue(Args)...))\
 {\
 	return base_t::name(forward<Args>(rest)...);\
 }\
 
-#define using_method_from_value(name,value_name) \
+#define using_method_from_value(name,value_name,...) \
 template<class...Args> requires was_not_an_ill_form(re_declvalue(value_name).name(declvalue(Args)...))\
-auto name(Args&&...rest)noexcept_as(re_declvalue(value_name).name(declvalue(Args)...))\
+auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(declvalue(Args)...))\
 {\
 	return value_name.name(forward<Args>(rest)...);\
 }\

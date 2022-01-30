@@ -77,7 +77,7 @@ public:
 			reset(p);
 		}
 	}
-	template <typename ref_type_,bool do_replace_check_>
+	template<typename ref_type_,bool do_replace_check_>
 	inline void do_replace(const ptr_t<T,ref_type_,do_replace_check_>&p)const noexcept(replace_check_nothrow&&reset_nothrow){
 		do_replace(p.get());
 	}
@@ -87,17 +87,26 @@ public:
 		return base_t::get();
 	}
 	[[nodiscard]]bool unique()const noexcept{return attribute_ptr_cast<ref_able>(get())->link_num()==1;}
-	[[nodiscard]]explicit constexpr operator
+	[[nodiscard]]constexpr
 	conditional<do_replace_check&&type_info<T>.has_attribute(replace_able),
-				unstable_hash_t,hash_t>()noexcept_as(hash(declvalue(this_t).get())){//注意：当T可replace时，同一ptr的hash可能变动
+				unstable_hash_t,hash_t> hash()const noexcept_as(elc::defs::hash(get())){//注意：当T可replace时，同一ptr的hash可能变动
+		using elc::defs::hash;
 		return hash(get());
 	}
 
 	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(declvalue(const this_t&).get(),a)){
 		return pointer_equal(get(),a);
 	}
-	template <typename ref_type_,bool do_replace_check_>
+	template<typename ref_type_,bool do_replace_check_>
 	[[nodiscard]]inline auto operator==(const ptr_t<T,ref_type_,do_replace_check_>&b)const
+	noexcept_as(pointer_equal(
+			declvalue(const this_t&).get(),
+			b.get())
+	){
+		return pointer_equal(get(),b.get());
+	}
+	template<typename ref_type_,bool do_replace_check_> requires(type_info<remove_cv<T>>!=type_info<T>)
+	[[nodiscard]]inline auto operator==(const ptr_t<const T,ref_type_,do_replace_check_>&b)const
 	noexcept_as(pointer_equal(
 			declvalue(const this_t&).get(),
 			b.get())

@@ -89,7 +89,8 @@ public:
 	}
 
 	static constexpr bool remove_nothrow=unget.nothrow<data_t>;
-	bool remove(const T&a)noexcept(remove_nothrow){//返回值：是否成功移除（容器里是否有此T）
+	template<typename T_>
+	bool remove(const T_&a)noexcept(remove_nothrow){//返回值：是否成功移除（容器里是否有此T）
 		data_t*tmp=_m,**tmp_=&_m;
 		while(tmp!=null_ptr){
 			if(a==tmp->_data){
@@ -136,7 +137,7 @@ public:
 			return hash(_m->_data);
 	}
 	void move_top_to(this_t&a)noexcept{
-		size--;
+		_size--;
 		auto tmp=_m;
 		_m=_m->_next;
 		a.add(tmp);

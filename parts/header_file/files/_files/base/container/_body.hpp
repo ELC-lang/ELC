@@ -12,6 +12,8 @@
 #include "stacks/_body.hpp"
 #include "hash_table/_body.hpp"
 
+#include "map/_body.hpp"
+
 #if defined(ELC_TEST_ON)
 	#include "_test.hpp"
 #endif

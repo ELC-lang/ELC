@@ -38,7 +38,7 @@ public:
 
 	virtual void clear()=0;
 
-	[[nodiscard]]virtual explicit operator hash_t()const=0;
+	[[nodiscard]]virtual explicit operator hash_t()const{return hash((void*)this);}
 	virtual void destroy(){
 		this->clear();
 		this->be_replace_as(null_ptr);
@@ -81,7 +81,7 @@ public:
 	}
 protected:
 	friend void the_waiting_for_destroy(node_like* a)noexcept;
-	virtual void waiting_for_destroy()noexcept=0;
+	virtual void waiting_for_destroy()noexcept{clear();}
 };
 
 //base中的类型功能适应器

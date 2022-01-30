@@ -7,11 +7,17 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 struct non_copy_assign_able{
-	constexpr non_copy_assign_able& operator=(non_copy_assign_able&)&noexcept=delete;
+	constexpr non_copy_assign_able()noexcept=default;
+	constexpr non_copy_assign_able(const non_copy_assign_able&)noexcept=default;
+	constexpr non_copy_assign_able(non_copy_assign_able&&)noexcept=default;
+	constexpr non_copy_assign_able& operator=(const non_copy_assign_able&)&noexcept=delete;
 	constexpr non_copy_assign_able& operator=(non_copy_assign_able&&)&noexcept=default;
 };
 struct non_move_assign_able{
-	constexpr non_move_assign_able& operator=(non_move_assign_able&)&noexcept=default;
+	constexpr non_move_assign_able()noexcept=default;
+	constexpr non_move_assign_able(const non_move_assign_able&)noexcept=default;
+	constexpr non_move_assign_able(non_move_assign_able&&)noexcept=default;
+	constexpr non_move_assign_able& operator=(const non_move_assign_able&)&noexcept=default;
 	constexpr non_move_assign_able& operator=(non_move_assign_able&&)&noexcept=delete;
 };
 
@@ -19,12 +25,12 @@ struct non_default_assign_able:non_copy_assign_able,non_move_assign_able{};
 
 struct non_copy_construct_able{
 	constexpr non_copy_construct_able()=default;
-	constexpr non_copy_construct_able(non_copy_construct_able&)=delete;
+	constexpr non_copy_construct_able(const non_copy_construct_able&)=delete;
 	constexpr non_copy_construct_able(non_copy_construct_able&&)=default;
 };
 struct non_move_construct_able{
 	constexpr non_move_construct_able()=default;
-	constexpr non_move_construct_able(non_move_construct_able&)=default;
+	constexpr non_move_construct_able(const non_move_construct_able&)=default;
 	constexpr non_move_construct_able(non_move_construct_able&&)=delete;
 };
 

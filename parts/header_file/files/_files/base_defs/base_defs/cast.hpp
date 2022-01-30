@@ -9,6 +9,8 @@
 template<typename T>
 inline const T add_const(T a){return a;}
 template<typename T>
+inline const T&add_const(T&a){return a;}
+template<typename T>
 inline T remove_const(const T a){return a;}
 template<typename T>
 inline const T*add_const(T*a){return a;}

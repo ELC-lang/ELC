@@ -15,6 +15,7 @@ namespace elc::defs{
 	namespace core{
 		#include "base_def/_body.hpp"
 		#include "special_values/_body.hpp"
+		#include "nodes/_body.hpp"
 	}
 
 	#if defined(ELC_TEST_ON)

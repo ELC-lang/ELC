@@ -35,6 +35,10 @@ auto as_setter(T&&a){
 		return static_cast<setter&>(a);
 	elseif constexpr(was_not_an_ill_form(static_cast<node_like&>(a)))
 		return setter(&static_cast<node_like&>(a));
+	elseif constexpr(was_not_an_ill_form(static_cast<const setter&>(a)))
+		return static_cast<const setter&>(a);
+	elseif constexpr(was_not_an_ill_form(static_cast<const node_like&>(a)))
+		return (const setter)remove_const((const node_like*)&static_cast<const node_like&>(a));
 	elseif constexpr(was_not_an_ill_form(ptr(&a)))
 		return setter(ptr(&a));
 	elseif constexpr(was_not_an_ill_form(const_ptr(&a)))

@@ -19,7 +19,12 @@
 void ste::stst(){
 	using namespace elc;
 	using elc::void;
-	if(nil[t][void])
-		stest_now();
-	delete &nil;
+	{
+		ptr a = defs::get<defs::core::common_node>();
+		stest_accert((*a)[nil] == void);
+		(*a)[nil] = t;
+		stest_accert((*a)[nil] == t);
+		delete a;
+		stest_accert(a == &nil);
+	}
 }

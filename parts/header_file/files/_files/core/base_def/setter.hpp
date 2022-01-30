@@ -1,4 +1,4 @@
-//defs.hpp
+//setter.hpp
 //at namespace elc::defs::core
 /*
 未完成的elc解释器core文件
@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct setter{
+struct setter:non_copy_assign_able{
 	typedef setter this_t;
 	struct base_data_t:type_info_t<base_data_t>::template_name
 	with_common_attribute<abstract_base,ref_able,never_in_array>,
@@ -53,6 +53,20 @@ struct setter{
 		[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<constexpr_data_t>(_m);}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<constexpr_data_t>;}
 	};
+
+	struct value_data_t final:type_info_t<value_data_t>::template_name
+	with_common_attribute<instance_struct>
+	,base_data_t{
+		ptr _m;
+		value_data_t(ptr a):_m(a){}
+		value_data_t(const value_data_t&)noexcept=default;
+		virtual ~value_data_t()noexcept override final=default;
+
+		virtual void be_set(ptr a)noexcept override final{_m=a;}
+		[[nodiscard]]virtual ptr get_value()override final{return _m;}
+		[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<value_data_t>(_m);}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<value_data_t>;}
+	};
 private:
 	mutable comn_ptr_t<base_data_t> _m;
 public:
@@ -65,10 +79,15 @@ public:
 	setter(this_t&&a)noexcept=default;
 	~setter()noexcept=default;
 
-	this_t&operator=(ptr a)&{
+	this_t&operator=(ptr a){
 		_m->be_set(a);
-		return*this;
+		return *this;
 	}
+	template<typename T>
+	this_t&operator=(T&&a){
+		return operator=(as_ptr(a));
+	}
+
 	[[nodiscard]]operator ptr(){
 		return _m->get_value();
 	}
@@ -89,6 +108,14 @@ public:
 	}
 	template<typename...Args> requires(invoke<node_like>.able<Args...>)
 	inline auto operator()(Args&&... rest)noexcept(invoke<node_like>.nothrow<Args...>){return(*operator&())(forward<Args>(rest)...);}
+	template<typename T>
+	[[nodiscard]]auto operator==(T&&a)const{
+		return const_ptr(*this) == const_ptr(as_setter(a));
+	}
+	template<typename T>
+	[[nodiscard]]auto operator!=(T&&a)const{
+		return !operator==(forward<T>(a));
+	}
 };
 
 //file_end

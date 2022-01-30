@@ -15,7 +15,7 @@ namespace hash_n{
 		return a._value%b;
 	}
 	struct unstable_hash_t:hash_t{
-		using hash_t::hash_t;
+		unstable_hash_t(const hash_t&a):hash_t(a){}
 	};
 
 	template<class T>
@@ -38,11 +38,11 @@ namespace hash_n{
 		return{a.get_hash()};
 	}
 	template<class T>
-	[[nodiscard]]constexpr_as_auto inline hash_t hash(const T&a)noexcept(is_fundamental_hash<T> or type_info<T>.can_nothrow_convert_to<hash_t>){
+	[[nodiscard]]constexpr_as_auto inline auto hash(const T&a)noexcept(is_fundamental_hash<T> or type_info<T>.can_nothrow_convert_to<hash_t>){
 		if constexpr(is_pointer<T>)
 			return pointer_hash(a);
 		elseif constexpr(is_fundamental_hash<T>)
-			return{size_t(a)};
+			return hash_t{size_t(a)};
 		elseif constexpr(is_unstable_hash<T>)
 			return unstable_hash_t(a);
 		elseif constexpr(was_not_an_ill_form(declvalue(const T&).hash()))
