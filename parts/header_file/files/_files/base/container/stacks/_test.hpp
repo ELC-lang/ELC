@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline void test(){
-	stest_entryevent(L"stack部分测试");
+	ELC_TEST_EVENTNAME("stack部分测试");
 	{
 		base_stack_t<int>a;
 		stest_accert(a.size()==0);
@@ -30,7 +30,6 @@ inline void test(){
 		stest_accert(b.size()==0);
 	}
 	check_memory_lack();
-	stest_exitevent();
 }
 inline void test_log_out(){
 }

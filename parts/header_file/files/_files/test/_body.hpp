@@ -8,11 +8,10 @@
 */
 namespace elc{
 	inline void test(){
-		stest_entryevent(L"elc总测试");
+		ELC_TEST_EVENTNAME("elc总测试");
 		#define CALL_NAME test
 		#include "map.hpp"
 		#undef CALL_NAME
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 		#define CALL_NAME test_log_out

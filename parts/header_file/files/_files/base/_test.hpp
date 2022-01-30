@@ -7,11 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline void test(){
-	stest_entryevent(L"base部分测试");
+	ELC_TEST_EVENTNAME("base部分测试");
 	memory::test();
 	container::test();
 	gc_n::test();
-	stest_exitevent();
 }
 inline void test_log_out(){
 	memory::test_log_out();

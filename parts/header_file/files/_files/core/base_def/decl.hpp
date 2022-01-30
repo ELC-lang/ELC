@@ -14,7 +14,8 @@ typedef weak_ptr_t<const node_like>const_weak_ptr;
 struct value;
 
 template<typename T>
-auto as_node(T&&a){
+auto as_node(T&& a) {
+	ELC_TEST_EVENTNAME("as_node转换");
 	if constexpr(was_not_an_ill_form(static_cast<node_like&>(a)))
 		return static_cast<node_like&>(a);
 	elseif constexpr(was_not_an_ill_form(static_cast<value&>(a)))
@@ -30,7 +31,8 @@ auto as_node(T&&a){
 }
 
 template<typename T>
-auto as_value(T&&a){
+auto as_value(T&& a) {
+	ELC_TEST_EVENTNAME("as_value转换");
 	if constexpr(was_not_an_ill_form(static_cast<value&>(a)))
 		return static_cast<value&>(a);
 	elseif constexpr(was_not_an_ill_form(static_cast<node_like&>(a)))
@@ -51,12 +53,13 @@ auto as_value(T&&a){
 
 template<typename T>
 auto as_ptr(T&&a){
+	ELC_TEST_EVENTNAME("as_ptr转换");
 	if constexpr(was_not_an_ill_form(ptr(&a)))
 		return ptr(&a);
 	elseif constexpr(was_not_an_ill_form(static_cast<node_like&>(a)))
 		return &static_cast<node_like&>(a);
-	elseif constexpr(was_not_an_ill_form((value&)(a)))
-		return ptr((value&)(a));
+	elseif constexpr(was_not_an_ill_form(static_cast<value&>(a)))
+		return ptr(static_cast<value&>(a));
 	elseif constexpr(was_not_an_ill_form(ptr(a)))
 		return value(ptr(a));
 }

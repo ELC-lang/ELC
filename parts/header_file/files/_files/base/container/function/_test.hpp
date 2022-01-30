@@ -9,7 +9,7 @@
 namespace function_n{
 	//BLOCK:for debug
 	inline void test(){
-		stest_entryevent(L"function部分测试");
+		ELC_TEST_EVENTNAME("function部分测试");
 		{
 			int tester=0;
 			#if !defined(_MSC_VER)
@@ -42,7 +42,6 @@ namespace function_n{
 			stest_accert(a==b);
 		}
 		check_memory_lack();
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 	}

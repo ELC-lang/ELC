@@ -9,8 +9,7 @@
 namespace lifetime_n{
 	//BLOCK:for debug
 	inline void test(){
-		stest_entryevent(L"lifetime部分测试");
-		stest_exitevent();
+		ELC_TEST_EVENTNAME("lifetime部分测试");
 	}
 	inline void test_log_out(){
 	}

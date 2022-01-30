@@ -9,7 +9,7 @@
 namespace get_n{
 	//BLOCK:for debug
 	inline void test(){
-		stest_entryevent(L"get部分测试");
+		ELC_TEST_EVENTNAME("get部分测试");
 		{
 			ste::tester::setzero();
 			tester*p=get<tester>[50]();
@@ -28,7 +28,6 @@ namespace get_n{
 			stest_accert(tester::getdestroytime()==110);
 		}
 		check_memory_lack();
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 	}

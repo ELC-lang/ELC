@@ -6,8 +6,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline void test(){
-	stest_entryevent(L"base_exception部分测试");
-	stest_exitevent();
+	ELC_TEST_EVENTNAME("base_exception部分测试");
 }
 inline void test_log_out(){
 }

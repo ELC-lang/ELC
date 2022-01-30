@@ -11,13 +11,12 @@ namespace ptr_n{
 	with_common_attribute<ref_able,weak_ref_able,never_in_array>,build_by_get_only{};
 	void waiting_for_destroy(tester*)noexcept{}
 	inline void test(){
-		stest_entryevent(L"ptr部分测试");
+		ELC_TEST_EVENTNAME("ptr部分测试");
 		{
 			comn_ptr_t a=get<tester>();
 			weak_ptr_t b=a;
 		}
 		check_memory_lack();
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 	}

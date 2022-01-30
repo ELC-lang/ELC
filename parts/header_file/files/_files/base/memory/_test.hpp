@@ -7,12 +7,11 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline void test(){
-	stest_entryevent(L"memory部分测试");
+	ELC_TEST_EVENTNAME("memory部分测试");
 	alloc_n::test();
 	lifetime_n::test();
 	get_n::test();
 	//pool_n::test();
-	stest_exitevent();
 }
 inline void test_log_out(){
 	alloc_n::test_log_out();

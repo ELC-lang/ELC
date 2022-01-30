@@ -9,12 +9,11 @@
 namespace hash_table_n{
 	//BLOCK:for debug
 	inline void test(){
-		stest_entryevent(L"hash_table部分测试");
+		ELC_TEST_EVENTNAME("hash_table部分测试");
 		{
 
 		}
 		check_memory_lack();
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 	}

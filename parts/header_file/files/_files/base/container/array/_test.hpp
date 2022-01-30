@@ -9,7 +9,7 @@
 namespace array_n{
 	//BLOCK:for debug
 	inline void test(){
-		stest_entryevent(L"array部分测试");
+		ELC_TEST_EVENTNAME("array部分测试");
 		{
 			array_t<int>anarray;
 			stest_accert(anarray.size()==0);
@@ -22,7 +22,6 @@ namespace array_n{
 			swap(anarray,anarray);
 		}
 		check_memory_lack();
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 	}

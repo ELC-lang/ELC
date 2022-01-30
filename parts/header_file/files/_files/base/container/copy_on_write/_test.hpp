@@ -9,11 +9,10 @@
 namespace copy_on_write_n{
 	//BLOCK:for debug
 	inline void test(){
-		stest_entryevent(L"copy_on_write部分测试");
+		ELC_TEST_EVENTNAME("copy_on_write部分测试");
 		{
 
 		}
-		stest_exitevent();
 	}
 	inline void test_log_out(){
 	}

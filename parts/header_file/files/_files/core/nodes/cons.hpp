@@ -47,6 +47,7 @@ public:
 [[nodiscard]]inline ptr make_list()noexcept{return &nil;}
 template<typename T,typename...Args>
 [[nodiscard]]inline ptr make_list(T&&first,Args&&...rest){
+	ELC_TEST_EVENTNAME("make_list调用");
 	return get<cons>(as_ptr(first),make_list(forward<Args>(rest)...));
 }
 

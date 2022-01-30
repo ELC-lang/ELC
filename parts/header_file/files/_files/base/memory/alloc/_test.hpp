@@ -19,7 +19,7 @@ inline void check_memory_lack()noexcept{
 	namespace alloc_n{
 		//BLOCK:for debug
 		inline void test(){
-			stest_entryevent(L"alloc部分测试");
+			ELC_TEST_EVENTNAME("alloc部分测试");
 			using ::std::time;
 			using ::std::rand;
 			using ::std::srand;
@@ -37,7 +37,6 @@ inline void check_memory_lack()noexcept{
 				free(p);
 			}
 			check_memory_lack();
-			stest_exitevent();
 		}
 		inline void test_log_out(){
 		}

@@ -92,5 +92,7 @@
 #undef es
 #undef ec
 
+#undef ELC_TEST_EVENTNAME
+
 //file_end
 

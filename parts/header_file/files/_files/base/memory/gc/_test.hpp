@@ -26,7 +26,7 @@ void destory_by_gc(gc_tester*a){
 	a->~gc_tester();
 }
 inline void test(){
-	stest_entryevent(L"gc部分测试");
+	ELC_TEST_EVENTNAME("gc部分测试");
 	using ::std::time;
 	using ::std::rand;
 	using ::std::srand;
@@ -45,7 +45,6 @@ inline void test(){
 		stest_accert(get_size_of_get(&*name)==1);
 	}
 	check_memory_lack();
-	stest_exitevent();
 }
 inline void test_log_out(){
 

@@ -14,11 +14,10 @@ namespace default_method{
 			if(nsize==0)
 				stest_uneventlog(ptr);
 			if(p){
-				stest_entryevent(L"base_realloc调用");
+				ELC_TEST_EVENTNAME("base_realloc调用");
 				if(p!=ptr)
 					stest_uneventlog(ptr);
 				stest_eventlog(p);
-				stest_exitevent();
 			}
 		#endif
 		return p;
@@ -27,9 +26,8 @@ namespace default_method{
 		void*p=::elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(p){
-				stest_entryevent(L"base_aligned_alloc调用");
+				ELC_TEST_EVENTNAME("base_aligned_alloc调用");
 				stest_eventlog(p);
-				stest_exitevent();
 			}
 		#endif
 		return p;

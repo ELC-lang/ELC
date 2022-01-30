@@ -6,7 +6,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline void test(){
-	stest_entryevent("string部分测试");
+	ELC_TEST_EVENTNAME("string部分测试");
 	{
 		string_t a=L"";
 		stest_accert(a.size()==0);
@@ -61,7 +61,6 @@ inline void test(){
 		stest_accert(a == L"77777777777777");
 	}
 	check_memory_lack();
-	stest_exitevent();
 }
 inline void test_log_out(){
 }

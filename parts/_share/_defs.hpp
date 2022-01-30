@@ -144,5 +144,11 @@ class name{}\
 #define es U""
 #define ec(ch) U ## ch
 
+#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
+	#define ELC_TEST_EVENTNAME(name) stest_eventer _the_stest_eventer__(L""name)
+#else
+	#define ELC_TEST_EVENTNAME(name)
+#endif
+
 //file_end
 
