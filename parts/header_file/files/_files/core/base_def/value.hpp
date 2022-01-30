@@ -123,6 +123,10 @@ public:
 	void re_ref_to(this_t a){
 		_m=a._m;
 	}
+	this_t& operator>>(this_t a){
+		a.ref_to(*this);
+		return*this;
+	}
 
 	template<typename T>
 	[[nodiscard]]auto operator[](T&&index){

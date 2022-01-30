@@ -27,7 +27,7 @@ void ste::stst(){
 		(*a)[nil] = t;
 		stest_accert((*a)[nil] == t);
 		stest_accert((*b)[t] == void);
-		(*b)[t].ref_to( (*a)[nil] );
+		(*a)[nil] >> (*b)[t];
 		stest_accert((*b)[t] == t);
 		(*a)[nil] = a;
 		stest_accert((*b)[t] == a);
@@ -42,7 +42,7 @@ void ste::stst(){
 		delete a;
 		stest_accert(a == &void);
 		stest_accert((*b)[t] == void);
-		stestb(a==nullptr);
+		stest_accert(a == nullptr);
 	}
 	elc::defs::memory::check_memory_lack();
 }
