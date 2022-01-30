@@ -43,7 +43,7 @@ void ste::stst(){
 		stest_accert(a == &void);
 		stest_accert((*b)[t] == void);
 		stest_accert(a == nullptr);
-		a();
+		stest_accert(a(void,a,t) == void);
 	}
 	elc::defs::memory::check_memory_lack();
 }
