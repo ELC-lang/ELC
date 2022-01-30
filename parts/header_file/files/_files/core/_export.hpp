@@ -10,7 +10,7 @@
 export node_like;
 export ptr;
 export const_ptr;
-export setter;
+export value;
 
 export nil;
 export t;

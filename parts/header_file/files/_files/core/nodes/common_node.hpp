@@ -9,7 +9,7 @@
 struct common_node final:node_like,instance_struct<common_node>{
 	typedef common_node this_t;
 
-	map_t<setter,const_ptr> _m;
+	map_t<value,const_ptr> _m;
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept{return type_info<this_t>;}
 protected:
@@ -20,7 +20,7 @@ protected:
 		return _m==p->_m;
 	}
 public:
-	[[nodiscard]]virtual setter arec(const setter index){return _m[index];}
+	[[nodiscard]]virtual value arec(const value index){return _m[index];}
 
 	virtual void clear(){_m.clear();}
 };

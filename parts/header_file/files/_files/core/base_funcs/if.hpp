@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 //UF: 草稿代码
-setter func_if(ptr){
+value func_if(ptr){
 	auto tmp=logical_bool(eval(get_arg(1)));
 	multi_node aret;
 	if(tmp)
@@ -16,21 +16,21 @@ setter func_if(ptr){
 		aret.add(eval(get_arg(3)));
 	return aret;
 }
-setter func_while(ptr){
+value func_while(ptr){
 	auto tmp=get_arg(1);
 	multi_node aret;
 	while(eval(tmp))
 		aret.add(eval(get_arg_list(2)));
 	return aret;
 }
-setter is_void(ptr){
+value is_void(ptr){
 	logical_bool tmp=false;
 	size_t index=0;
 	while(index++ < arg_size())
 		tmp &= (&the_void==get_arg(index));
 	return aret;
 }
-setter func_throw(prt){
+value func_throw(prt){
 	try{
 		multi_node tmp;
 		while(index++ < arg_size())
@@ -40,7 +40,7 @@ setter func_throw(prt){
 		throw;//?
 	}
 }
-setter jump(ptr)noexcept{
+value jump(ptr)noexcept{
 
 }
 

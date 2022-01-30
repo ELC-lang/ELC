@@ -16,8 +16,8 @@ public:
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 protected:
-	[[nodiscard]]virtual function_t<setter()> get_eval_of_this();
-	[[nodiscard]]virtual function_t<setter(ptr)> get_call_of_this();
+	[[nodiscard]]virtual function_t<value()> get_eval_of_this();
+	[[nodiscard]]virtual function_t<value(ptr)> get_call_of_this();
 
 	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const=0;
 	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
@@ -28,12 +28,12 @@ public:
 	node_like(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero(); }
 	virtual ~node_like()=default;
 
-	[[nodiscard]]virtual setter arec(const setter)=0;
+	[[nodiscard]]virtual value arec(const value)=0;
 
-	[[nodiscard]]setter operator[](const setter index);
+	[[nodiscard]]value operator[](const value index);
 	template<typename T>
-	[[nodiscard]]setter operator[](T&&index){
-		return operator[](as_setter(forward<T>(index)));
+	[[nodiscard]]value operator[](T&&index){
+		return operator[](as_value(forward<T>(index)));
 	}
 
 	virtual void clear()=0;
@@ -51,7 +51,7 @@ public:
 	[[nodiscard]]explicit operator bool()const{return(bool)this->operator logical_bool();}
 
 	template<typename...Args>
-	inline setter operator()(Args&&...rest){return this->get_call_of_this()(make_list(forward<Args>(rest)...));}
+	inline value operator()(Args&&...rest){return this->get_call_of_this()(make_list(forward<Args>(rest)...));}
 
 	[[nodiscard]]logical_bool eq(const_ptr a)const{
 		auto this_eqlv=this->eq_level();

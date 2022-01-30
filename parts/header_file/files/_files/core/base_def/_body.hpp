@@ -10,9 +10,9 @@
 
 #include "node_like.hpp"
 #include "ptr.hpp"
-#include "setter.hpp"
+#include "value.hpp"
 
-#include "node_like_using_setter_func_defs.hpp"
+#include "node_like_using_value_func_defs.hpp"
 
 //file_end
 
