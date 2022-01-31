@@ -159,7 +159,7 @@ namespace string_n{
 			else
 				return {};
 		}
-		[[nodiscard]]const char_T*	data()const{ return _m->get_data(); }
+		[[nodiscard]]const char_T*	data()const{ return _m->get_data(_m); }
 		[[nodiscard]]char_T*		c_str(){ return this->unique_c_str(); }
 		[[nodiscard]]const char_T*	const_c_str()const{ return _m->get_const_c_str(); }
 		[[nodiscard]]const char_T*	c_str()const{ return const_c_str(); }

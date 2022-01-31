@@ -24,7 +24,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{ return get<substr_string_data_t<char_T>>(_to,begin+_sub_begin,size); }
-	[[nodiscard]]virtual const char_T* get_data()override final{ return _to->get_data()+_sub_begin; }
+	[[nodiscard]]virtual const char_T* get_data(ptr_t&)override final{ return _to->get_data(_to)+_sub_begin; }
 	[[nodiscard]]virtual size_t get_size()override final{ return _sub_size; }
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
 	[[nodiscard]]virtual char_T arec(size_t index)override final{ return _to->arec(index+_sub_begin); }

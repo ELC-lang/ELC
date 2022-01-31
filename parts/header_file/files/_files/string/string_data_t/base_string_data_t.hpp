@@ -21,9 +21,9 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 
 	virtual ~base_string_data_t()=default;
 
-	[[nodiscard]]virtual char_T* get_c_str();
-	[[nodiscard]]virtual const char_T* get_const_c_str(){return get_c_str();}
-	[[nodiscard]]virtual const char_T* get_data(){return get_c_str();}//不要求以0结尾
+	[[nodiscard]]virtual char_T* get_c_str(ptr_t&);
+	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p){return get_c_str(p);}
+	[[nodiscard]]virtual const char_T* get_data(ptr_t&p){return get_c_str(p);}//不要求以0结尾
 	[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&);
 	[[nodiscard]]virtual size_t get_size()=0;
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size);
@@ -74,6 +74,7 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	[[nodiscard]]virtual double get_memory_cost()=0;
 	[[nodiscard]]double get_memory_cost_after_gc();
 	[[nodiscard]]double get_gc_profit(){return get_memory_cost()-get_memory_cost_after_gc();}
+	[[nodiscard]]bool positive_gc_profit(){return get_gc_profit() > 0;}
 	//for gc:
 	/*
 	[[nodiscard]]virtual bool gc()=0{

@@ -29,12 +29,12 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		_m.clear();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual char_T* get_c_str()override final{ return (char_T*)_m; }
-	[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&a)override final{
+	[[nodiscard]]virtual char_T* get_c_str(ptr_t&)override final{ return (char_T*)_m; }
+	[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&p)override final{
 		if(this->is_unique())
 			return (char_T*)_m;
 		else
-			return base_t::get_unique_c_str(a);
+			return base_t::get_unique_c_str(p);
 	}
 	[[nodiscard]]virtual size_t get_size()override final{ return _m.size()-1; }
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form((const char_T*)_m+pos),note::to(to)); }
@@ -51,16 +51,19 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	}
 };
 template<typename char_T>
-[[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(){
+[[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(ptr_t&a){
 	auto comn_data=get<comn_string_data_t<char_T>>(this);
-	this->be_replace_as(comn_data);
-	return comn_data->get_c_str();
+	if(positive_gc_profit())
+		a.do_replace(comn_data);
+	else
+		a=comn_data;
+	return comn_data->get_c_str(a);
 }
 template<typename char_T>
 [[nodiscard]]char_T* base_string_data_t<char_T>::get_unique_c_str(ptr_t&a){
 	auto comn_data=get<comn_string_data_t<char_T>>(this);
 	a=comn_data;
-	return comn_data->get_c_str();
+	return comn_data->get_c_str(a);
 }
 template<typename char_T>
 void base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p){
@@ -68,7 +71,7 @@ void base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p){
 }
 template<typename char_T>
 [[nodiscard]]double base_string_data_t<char_T>::get_memory_cost_after_gc(){
-	return double(sizeof(comn_string_data_t<char_T>)+this->size()*sizeof(char_T))/get_ref_num(this);
+	return double(sizeof(comn_string_data_t<char_T>)+this->get_size()*sizeof(char_T))/get_ref_num(this);
 }
 
 //file_end

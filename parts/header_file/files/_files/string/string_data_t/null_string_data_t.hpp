@@ -16,7 +16,7 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	null_string_data_t()noexcept:base_t(never_ref_num_zero){}
 
 	virtual void be_replace_as(ptr_t a)override final{nothing;}
-	[[nodiscard]]virtual char_T* get_c_str()override final{
+	[[nodiscard]]virtual char_T* get_c_str(ptr_t&)override final{
 		static char_T data[1]{};
 		return data;
 	}

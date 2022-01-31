@@ -24,12 +24,12 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
 		return get<this_t>(string_view_t{_m+begin,size});
 	}
-	[[nodiscard]]virtual const char_T* get_data(){return _m;}
-	[[nodiscard]]virtual const char_T* get_const_c_str(){
+	[[nodiscard]]virtual const char_T* get_data(ptr_t&)override final{return _m;}
+	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)override final{
 		if(!_m[_size])
 			return _m;
 		else
-			return base_t::get_const_c_str();
+			return base_t::get_const_c_str(p);
 	}
 	[[nodiscard]]virtual size_t get_size()override final{ return _size; }
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
