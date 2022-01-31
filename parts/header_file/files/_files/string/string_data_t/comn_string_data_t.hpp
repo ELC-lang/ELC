@@ -66,6 +66,10 @@ template<typename char_T>
 void base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p){
 	this->get_unique_c_str(p)[index]=a;
 }
+template<typename char_T>
+[[nodiscard]]double base_string_data_t<char_T>::get_memory_cost_after_gc(){
+	return double(sizeof(comn_string_data_t<char_T>)+this->size()*sizeof(char_T))/get_ref_num(this);
+}
 
 //file_end
 

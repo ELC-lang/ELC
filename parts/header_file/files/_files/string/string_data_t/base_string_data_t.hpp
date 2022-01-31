@@ -72,9 +72,10 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
 
 	[[nodiscard]]virtual double get_memory_cost()=0;
+	[[nodiscard]]double get_memory_cost_after_gc();
+	[[nodiscard]]double get_gc_profit(){return get_memory_cost()-get_memory_cost_after_gc();}
 	//for gc:
 	/*
-	[[nodiscard]]virtual ptrdiff_t get_gc_profit()=0;//comn_string_data_t(self).memory_cost-self.memory_cost
 	[[nodiscard]]virtual bool gc()=0{
 		bool need_be_replace=get_gc_profit()>=0
 		if(need_be_replace)
