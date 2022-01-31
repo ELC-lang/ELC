@@ -80,7 +80,7 @@ namespace string_n{
 			return *this+=b;
 		}
 
-		size_t memory_cost()const noexcept{return _m->get_memory_cost();}
+		double memory_cost()const noexcept{return _m->get_memory_cost();}
 	private:
 		void equivalent_optimization(const string_t& a)const{
 			if(this->memory_cost() >= a.memory_cost())

@@ -141,8 +141,8 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_m.resize(_used_size);
 	}
 
-	[[nodiscard]]virtual size_t get_memory_cost()override final{
-		return sizeof(*this)+_m.size()*sizeof(char_T)+_to->get_memory_cost();
+	[[nodiscard]]virtual double get_memory_cost()override final{
+		return (sizeof(*this)+_m.size()*sizeof(char_T)+_to->get_memory_cost())/get_ref_num((const base_t*)this);
 	}
 };
 template<typename char_T>

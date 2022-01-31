@@ -71,7 +71,7 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	[[nodiscard]]virtual char_T arec(size_t index)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)=0;
 
-	[[nodiscard]]virtual size_t get_memory_cost()=0;
+	[[nodiscard]]virtual double get_memory_cost()=0;
 	//for gc:
 	/*
 	[[nodiscard]]virtual ptrdiff_t get_gc_profit()=0;//comn_string_data_t(self).memory_cost-self.memory_cost
