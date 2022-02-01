@@ -233,16 +233,44 @@ namespace string_n{
 
 		//
 
-		operator string_view_t()const&{ return string_view_t{c_str(),size()}; }
+		operator string_view_t()const&{ return string_view_t{data(),size()}; }
 		/*
 		TODO:
 
-		find
-		rfind
 		find_first_of
 		find_first_not_of
 		find_last_of
 		find_last_not_of
+		*/
+
+		size_t find(char_T ch)const{
+			auto result = in_range(ch, string_view_t(*this));
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		size_t reverse_find(char_T ch)const{
+			auto result = in_range_but_reverse(ch, string_view_t(*this));
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		size_t find(string_view_t str) const {
+			auto result = in_range(str, string_view_t(*this));
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		size_t reverse_find(string_view_t str) const {
+			auto result = in_range_but_reverse(str, string_view_t(*this));
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
 		[[nodiscard]]string_t operator[](size_t index,char_T delimiter)const{
 			auto pos=find(delimiter);
 			auto end=find(delimiter,pos);
@@ -252,7 +280,7 @@ namespace string_n{
 			}
 			return substr(pos,end-pos);
 		}
-		[[nodiscard]]string_t operator[](size_t index,string_t delimiter_str)const{
+		[[nodiscard]]string_t operator[](size_t index,string_view_t delimiter_str)const{
 			auto pos=find(delimiter_str);
 			auto end=find(delimiter_str,pos);
 			while(index--){
@@ -261,7 +289,7 @@ namespace string_n{
 			}
 			return substr(pos,end-pos);
 		}
-		*/
+
 		void erase(size_t pos,size_t size=1)&{
 			_m=_m->do_erase(pos,size);
 		}
