@@ -20,5 +20,6 @@ void ste::stst()
 	stest_accert(a.memory_cost() > b.memory_cost());
 	stest_accert(a == b);
 	stest_accert(a.memory_cost() == b.memory_cost());
+	stest_accert(a.find(U'2')==1);
 }
 

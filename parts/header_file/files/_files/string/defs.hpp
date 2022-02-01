@@ -161,7 +161,7 @@ namespace string_n{
 		}
 		[[nodiscard]]const char_T*	data()const{ return _m->get_data(_m); }
 		[[nodiscard]]char_T*		c_str(){ return this->unique_c_str(); }
-		[[nodiscard]]const char_T*	const_c_str()const{ return _m->get_const_c_str(); }
+		[[nodiscard]]const char_T*	const_c_str()const{ return _m->get_const_c_str(_m); }
 		[[nodiscard]]const char_T*	c_str()const{ return const_c_str(); }
 		[[nodiscard]]size_t			size()const{ return _m->get_size(); }
 		void resize(size_t nsize,char_T ch ={}){
@@ -234,6 +234,7 @@ namespace string_n{
 		//
 
 		operator string_view_t()const&{ return string_view_t{data(),size()}; }
+		auto to_string_view_t()const&{ return operator string_view_t(); }
 		/*
 		TODO:
 
@@ -243,29 +244,29 @@ namespace string_n{
 		find_last_not_of
 		*/
 
-		size_t find(char_T ch)const{
-			auto result = in_range(ch, string_view_t(*this));
+		size_t find(const char_T ch)const{
+			auto result = in_range(ch, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
-		size_t reverse_find(char_T ch)const{
-			auto result = in_range_but_reverse(ch, string_view_t(*this));
+		size_t reverse_find(const char_T ch)const{
+			auto result = in_range_but_reverse(ch, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
 		size_t find(string_view_t str) const {
-			auto result = in_range(str, string_view_t(*this));
+			auto result = in_range(str, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
 		size_t reverse_find(string_view_t str) const {
-			auto result = in_range_but_reverse(str, string_view_t(*this));
+			auto result = in_range_but_reverse(str, to_string_view_t());
 			if(result)
 				return result - data();
 			else
