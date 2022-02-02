@@ -9,7 +9,7 @@
 #include "common_node.hpp"
 #include "cons.hpp"
 #include "expr.hpp"
-#include "glum_binary_function_node.hpp"
+#include "base_binary_function_node.hpp"
 
 //file_end
 

@@ -44,13 +44,14 @@ void ste::stst(){
 		stest_accert((*b)[t] == void);
 		stest_accert(a == nullptr);
 		stest_accert(a(void,a,t) == void);
-		a = defs::get<defs::core::glum_binary_function_node>([b] {
+		a = defs::get<defs::core::base_binary_function_node>([b] {
 			delete (*b)[t];
 		});
 		(*b)[t] = a;
 		stest_accert((*b)[t] != void);
 		a();
 		stest_accert((*b)[t] == void);
+		stest_accert(a == nullptr);
 	}
 	elc::defs::memory::check_memory_lack();
 }

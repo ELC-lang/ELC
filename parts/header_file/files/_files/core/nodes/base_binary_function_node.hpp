@@ -1,4 +1,4 @@
-//glum_binary_function_node.hpp
+//base_binary_function_node.hpp
 //at namespace elc::defs::core
 /*
 未完成的elc解释器core文件
@@ -6,19 +6,19 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct glum_binary_function_node:node_like,instance_struct<glum_binary_function_node>{
-	typedef glum_binary_function_node this_t;
+struct base_binary_function_node:node_like,instance_struct<base_binary_function_node>{
+	typedef base_binary_function_node this_t;
 
 	function_t<value(ptr)> _func;
 
-	glum_binary_function_node(function_t<value(ptr)> func)noexcept:_func(func){}
-	glum_binary_function_node(function_t<void(ptr)> func)noexcept{
+	base_binary_function_node(function_t<value(ptr)> func)noexcept:_func(func){}
+	base_binary_function_node(function_t<void(ptr)> func)noexcept{
 		_func = lambda_with_catch(func)(ptr p) {
 			func(p);
 			return as_value(the_void);
 		};
 	}
-	glum_binary_function_node(function_t<void()> func)noexcept{
+	base_binary_function_node(function_t<void()> func)noexcept{
 		_func = lambda_with_catch(func)(ptr) {
 			func();
 			return as_value(the_void);
