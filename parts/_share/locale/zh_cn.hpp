@@ -15,21 +15,21 @@ namespace elc::defs::locale::func{
 }
 namespace elc::defs::locale::str{
 	inline namespace gc{
-		auto gc_fail=es"gc失败";
-		auto empty_gc_method=es"gc方法为空时gc被调用";
+		inline auto gc_fail=es"gc失败";
+		inline auto empty_gc_method=es"gc方法为空时gc被调用";
 	}
 	inline namespace code_convert{
-		auto setlocale_error=es"setlocale出错";
-		auto code_convert_error=es"编码转换出错";
+		inline auto setlocale_error=es"setlocale出错";
+		inline auto code_convert_error=es"编码转换出错";
 	}
 	inline namespace exception{
-		auto unknow_error=es"未知错误";
+		inline auto unknow_error=es"未知错误";
 	}
 	inline namespace base_read{
-		auto ending_of_expr_beyond_expectations=es"表达式的结尾超出预期";
-		auto expr_incomplete=es"表达式未完成";
-		auto symbol_is_undefined=es"此符号未定义";
-		auto expr_too_outrageous=es"表达式过于离谱";
+		inline auto ending_of_expr_beyond_expectations=es"表达式的结尾超出预期";
+		inline auto expr_incomplete=es"表达式未完成";
+		inline auto symbol_is_undefined=es"此符号未定义";
+		inline auto expr_too_outrageous=es"表达式过于离谱";
 	}
 }
 

@@ -86,26 +86,26 @@ protected:
 };
 
 //base中的类型功能适应器
-[[nodiscard]]constexpr node_like*the_get_null_ptr(const node_like*)noexcept;//{return&void;}
-[[nodiscard]]logical_bool the_pointer_to_bool(const node_like*a)noexcept{
+[[nodiscard]]inline constexpr node_like*the_get_null_ptr(const node_like*)noexcept;//{return&void;}
+[[nodiscard]]inline logical_bool the_pointer_to_bool(const node_like*a)noexcept{
 	return a->operator logical_bool();
 }
-[[nodiscard]]logical_bool the_pointer_equal(const node_like*a,const node_like*b)noexcept{
+[[nodiscard]]inline logical_bool the_pointer_equal(const node_like*a,const node_like*b)noexcept{
 	return a->eq(b);
 }
-[[nodiscard]]hash_t the_pointer_hash(const node_like*a)noexcept{
+[[nodiscard]]inline hash_t the_pointer_hash(const node_like*a)noexcept{
 	return a->operator hash_t();
 }
 //ptr中的类型功能适应器
-void the_waiting_for_destroy(node_like*a)noexcept{
+inline void the_waiting_for_destroy(node_like*a)noexcept{
 	a->waiting_for_destroy();
 }
-void the_destroy_and_free(node_like*a)noexcept{
+inline void the_destroy_and_free(node_like*a)noexcept{
 	unget(a);
 }
 
 //gc中的类型功能适应器
-void the_destroy(node_like*a)noexcept{
+inline void the_destroy(node_like*a)noexcept{
 	a->destroy();
 }
 
