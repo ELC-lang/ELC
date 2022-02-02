@@ -180,7 +180,6 @@ namespace function_base_n{
 		[[nodiscard]]const auto&get_data()const noexcept{return _value;}
 	};
 	#endif
-
 }
 using function_base_n::get_function_type;
 using function_base_n::function_data_warpper_t;
