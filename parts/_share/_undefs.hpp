@@ -96,5 +96,7 @@
 
 #undef override_instance_struct
 
+#undef distinctive
+
 //file_end
 

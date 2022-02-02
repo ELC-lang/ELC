@@ -42,7 +42,7 @@ struct value:non_copy_assign_able{
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;//为什么要加这个？我不知道，万一将来有人用上了呢？
 	};
 
-	inline static struct null_data_t final:instance_struct<null_data_t>
+	distinctive inline static struct null_data_t final:instance_struct<null_data_t>
 	,value::base_data_t{
 		null_data_t():value::base_data_t(never_ref_num_zero){}
 		virtual ~null_data_t()noexcept override final=default;
@@ -155,7 +155,7 @@ BREAK_NAMESPACE
 
 INTER_NAMESPACE(base)
 template<>
-inline core::value const_default_value_of<core::value>{special_init};
+distinctive inline core::value const_default_value_of<core::value>{special_init};
 BREAK_NAMESPACE
 
 INTER_NAMESPACE(core)

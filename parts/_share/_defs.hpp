@@ -158,5 +158,11 @@ protected:\
 	virtual void* _abstract_method_get_forward_resize_this(size_t size)override{return instance_struct<this_t>::_abstract_method_get_forward_resize_this(size);}\
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept override{return instance_struct<this_t>::abstract_method_get_size_of_get_for_this();}
 
+#if defined(_WIN32)
+	#define distinctive __declspec(dllexport)
+#else
+	#define distinctive
+#endif
+
 //file_end
 

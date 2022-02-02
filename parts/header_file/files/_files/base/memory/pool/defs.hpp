@@ -123,7 +123,7 @@ namespace pool_n{
 	template<typename T>
 	struct alloc_by_pool{};
 	template<typename T>
-	inline pool_t<T,get_ment_size(type_info<T>)>pool{};
+	distinctive inline pool_t<T,get_ment_size(type_info<T>)>pool{};
 	//为alloc提供方法
 	template<typename T>
 	[[nodiscard]]inline void*the_alloc_method(type_info_t<T>)noexcept{

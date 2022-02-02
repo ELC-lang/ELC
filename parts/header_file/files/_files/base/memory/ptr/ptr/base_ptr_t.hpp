@@ -181,7 +181,7 @@ struct base_ptr_t:ptr_t<T,ref_type,do_replace_check>{
 	base_ptr_t&operator=(nullptr_t)&noexcept(reset_nothrow){return*this=null_ptr;}
 
 private:
-	static inline class for_delete_t{
+	distinctive static inline class for_delete_t{
 		T*_m;
 		friend class this_t;
 		for_delete_t*operator()(T*a)noexcept{

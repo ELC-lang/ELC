@@ -37,7 +37,7 @@ public:
 	}
 };
 template<typename T>
-inline roots_t<T>roots_of{};
+distinctive inline roots_t<T>roots_of{};
 
 template<typename T>
 class root_of{

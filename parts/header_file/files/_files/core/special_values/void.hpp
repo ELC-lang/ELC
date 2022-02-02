@@ -10,7 +10,7 @@
 使用elc::the_void来访问此值
 或者通过包含<elc/void_name>来使用elc::void访问此值，并使用::void来访问c艹的原生void
 */
-struct void_t final:base_constexpr_t{
+distinctive inline struct void_t final:base_constexpr_t{
 protected:
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept override{return max(type_info<size_t>);}
 	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept override{return max(type_info<size_t>);}

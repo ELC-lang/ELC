@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-inline gc_t gc;
+distinctive inline gc_t gc;
 
 //file_end
 

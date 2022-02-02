@@ -10,7 +10,7 @@ template<typename T>
 struct can_map_all:cons_t<can_map_all<T>>,is_common_attribute(can_map_all){
 	typedef can_map_all<T> this_t;
 private:
-	inline static list_t<this_t> type_list;
+	distinctive inline static list_t<this_t> type_list;
 
 	template<class,class func_t>
 	friend inline void map_all_helper(func_t&&a);

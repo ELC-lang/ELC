@@ -8,8 +8,8 @@
 */
 struct gc_tester:type_info_t<gc_tester>::template_name
 with_common_attribute<can_map_all,can_shrink,count_able,mark_able_for_gc,never_in_array,ref_able>,have_root,build_by_get_only,force_use_default_null_ptr{
-	static inline int shrink_time=0;
-	static inline int destroy_time=0;
+	distinctive static inline int shrink_time=0;
+	distinctive static inline int destroy_time=0;
 	~gc_tester()noexcept{destroy_time++;}
 	void shrink(){
 		shrink_time++;

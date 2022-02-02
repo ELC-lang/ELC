@@ -11,7 +11,7 @@
 #define other 4
 #if defined(__linux)||defined(__linux__)||defined(__gnu_linux__)
 	#define SYSTEM_TYPE linux
-#elif defined(WIN32)||defined(_WIN32)||defined(_WIN64)||defined(WIN64)||defined(_WIN128)||defined(WIN128)||defined(_WIN256)||defined(WIN256)//wdnmd
+#elif defined(_WIN32)
 	#define SYSTEM_TYPE windows
 #else
 	#define SYSTEM_TYPE other

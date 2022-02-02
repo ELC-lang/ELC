@@ -67,7 +67,7 @@ namespace function_n{
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
-	inline constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+	distinctive inline constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*the_get_null_ptr(const base_func_data_t<Ret_t(Args_t...)>*)noexcept{
@@ -251,7 +251,7 @@ namespace function_n{
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
-	inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+	distinctive inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*the_get_null_ptr(const base_func_data_t<Ret_t(Args_t...)>*)noexcept{
