@@ -138,13 +138,13 @@ public:
 	}
 };
 
-template <typename T_,typename T,typename ref_type,bool do_replace_check,enable_if(type_info<T_>.base_on<T>)>
+template<typename T_,typename T,typename ref_type,bool do_replace_check,enable_if(type_info<T_>.base_on<T>)>
 [[nodiscard]]inline auto operator==(const T_*a,ptr_t<T,ref_type,do_replace_check>&b)noexcept_as(b.operator==(a)){
 	return b.operator==(static_cast<const T*>(a));
 }
 
-template <typename T,typename T_>
-[[nodiscard]]inline auto operator!=(T&&a,T_&&b)noexcept_as(!(b==a)){
+template<typename T,typename T_> requires(equal.able<T,T_>)
+[[nodiscard]]inline auto operator!=(T&&a,T_&&b)noexcept_as(!(a==b)){
 	return !(a==b);
 }
 

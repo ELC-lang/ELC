@@ -22,10 +22,10 @@ auto as_node(T&& a) {
 		return *&static_cast<value&>(a);
 	elseif constexpr(was_not_an_ill_form(ptr(&a)))
 		return *ptr(&a);
-	elseif constexpr(was_not_an_ill_form(const_ptr(&a)))
-		return *const_ptr(&a);
 	elseif constexpr(was_not_an_ill_form(ptr(a)))
 		return *ptr(a);
+	elseif constexpr(was_not_an_ill_form(const_ptr(&a)))
+		return *const_ptr(&a);
 	elseif constexpr(was_not_an_ill_form(const_ptr(a)))
 		return *const_ptr(a);
 }
@@ -43,10 +43,10 @@ auto as_value(T&& a) {
 		return (const value)remove_const((const node_like*)&static_cast<const node_like&>(a));
 	elseif constexpr(was_not_an_ill_form(ptr(&a)))
 		return value(ptr(&a));
-	elseif constexpr(was_not_an_ill_form(const_ptr(&a)))
-		return (const value)(const_ptr(&a));
 	elseif constexpr(was_not_an_ill_form(ptr(a)))
 		return value(ptr(a));
+	elseif constexpr(was_not_an_ill_form(const_ptr(&a)))
+		return (const value)(const_ptr(&a));
 	elseif constexpr(was_not_an_ill_form(const_ptr(a)))
 		return (const value)remove_const((const node_like*)const_ptr(a));
 }

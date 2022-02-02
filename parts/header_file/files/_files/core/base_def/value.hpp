@@ -142,6 +142,9 @@ public:
 	[[nodiscard]]auto operator!=(T&&a)const{
 		return !operator==(forward<T>(a));
 	}
+	[[nodiscard]]operator ptr::for_delete_t*(){
+		return _m->get_value();
+	}
 };
 
 static value::base_data_t*the_get_null_ptr(const value::base_data_t*)noexcept{

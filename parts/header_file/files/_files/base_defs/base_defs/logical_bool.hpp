@@ -8,9 +8,9 @@
 */
 struct logical_bool{
 private:
-	bool _is_true;
-	bool _is_false;
-	bool _is_unknown;
+	[[no_unique_address]]bool _is_true;
+	[[no_unique_address]]bool _is_false;
+	[[no_unique_address]]bool _is_unknown;
 public:
 	constexpr logical_bool(special_init_t,bool is_true,bool is_false,bool is_unknown=0):_is_true(is_true),_is_false(is_false),_is_unknown(is_unknown){}
 	constexpr logical_bool(bool a):_is_true(a),_is_false(!a),_is_unknown(0){}

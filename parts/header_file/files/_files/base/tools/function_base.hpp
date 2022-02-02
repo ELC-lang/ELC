@@ -65,10 +65,13 @@ namespace function_base_n{
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
-			if constexpr(type_info<decltype(declvalue(T)(declvalue(Args_t)...))> != type_info<Ret_t>)
+			if constexpr(was_an_ill_form(static_cast<Ret_t>(declvalue(T)(declvalue(Args_t)...))))
 				template_error("the return type of T was wrong.");
 			//BLOCK_END
-			return _value(forward<Args_t>(args)...);
+			if constexpr(type_info<Ret_t> != type_info<void>)
+				return _value(forward<Args_t>(args)...);
+			else
+				_value(forward<Args_t>(args)...);
 		}
 		[[nodiscard]]auto&get_data()noexcept{return _value;}
 	};
@@ -148,10 +151,13 @@ namespace function_base_n{
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
-			if constexpr(type_info<decltype(declvalue(T)(declvalue(Args_t)...))> != type_info<Ret_t>)
+			if constexpr(was_an_ill_form(static_cast<Ret_t>(declvalue(T)(declvalue(Args_t)...))))
 				template_error("the return type of T was wrong.");
 			//BLOCK_END
-			return _value(forward<Args_t>(args)...);
+			if constexpr(type_info<Ret_t> != type_info<void>)
+				return _value(forward<Args_t>(args)...);
+			else
+				_value(forward<Args_t>(args)...);
 		}
 		[[nodiscard]]auto&get_data()noexcept{return _value;}
 	};
@@ -171,10 +177,13 @@ namespace function_base_n{
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
-			if constexpr(type_info<decltype(declvalue(T)(declvalue(Args_t)...))> != type_info<Ret_t>)
+			if constexpr(was_an_ill_form(static_cast<Ret_t>(declvalue(T)(declvalue(Args_t)...))))
 				template_error("the return type of T was wrong.");
 			//BLOCK_END
-			return _value(forward<Args_t>(args)...);
+			if constexpr(type_info<Ret_t> != type_info<void>)
+				return _value(forward<Args_t>(args)...);
+			else
+				_value(forward<Args_t>(args)...);
 		}
 		[[nodiscard]]auto&get_data()noexcept{return _value;}
 		[[nodiscard]]const auto&get_data()const noexcept{return _value;}
