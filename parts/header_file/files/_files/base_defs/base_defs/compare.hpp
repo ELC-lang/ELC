@@ -65,7 +65,7 @@ template<typename T>
 
 //compare：三路比较
 /*
-	以字典序三路比较任意支持比较的类型或其数组,并在 <=> 不可用时以 < 和 == 为后备.
+	若大小相同则以字典序三路比较任意支持比较的类型或其数组,并在 <=> 不可用时以 < 和 == 为后备.
 	用法:
 	compare(T1,T2)
 	compare(T1[N1],T2[N2])
@@ -132,6 +132,17 @@ constexpr struct compare_t{
 			return tmp;
 		else
 			return operator()(a,b,size1);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
+		if(auto tmp=operator()(a,b,min(size1,size2)); tmp!=0)
+			return tmp;
+		else
+			return size1<=>size2;
+	}
+	template<typename T,typename U,size_t N1,size_t N2>
+	[[nodiscard]]constexpr auto lexicographical(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
+		return lexicographical(a,N1,b,N2);
 	}
 }compare{};
 
