@@ -21,5 +21,7 @@ void ste::stst()
 	stest_accert(a == b);
 	stest_accert(a.memory_cost() == b.memory_cost());
 	stest_accert(a.find(U'2')==1);
+	stest_accert(a == U"123");
+	stest_accert(U"1234" != a);
 }
 

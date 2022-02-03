@@ -33,6 +33,12 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::get_substr_data(begin,size);
 	}
+	[[nodiscard]]virtual char_T* get_c_str(ptr_t&p)override final{
+		if(!_used_size)
+			return _to->get_c_str(_to);
+		else
+			return base_t::get_c_str(p);
+	}
 	virtual void be_replace_as(ptr_t a)override final{
 		if(type_info<this_t> == typeid(*a)){
 			auto p=static_cast<this_t*>(a.get());

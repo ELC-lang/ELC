@@ -6,6 +6,11 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//end_by_zero_t
+/*
+用于标志某一数据串以0结尾
+*/
+inline constexpr struct end_by_zero_t{}end_by_zero;
 //equal：值相等.
 /*
 	相等比较任意支持比较的类型或其数组——简易封装.
@@ -50,6 +55,31 @@ constexpr struct equal_t{
 			return operator()(a,b,size1);
 		else
 			return false;
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		while(size1--){
+			if(*a!=*b || *b==U(0))
+				return false;
+			a++;
+			b++;
+		}
+		return *b==U(0);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr bool operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
+		return operator()(b,size2,a,end_by_zero);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr bool operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		while(true){
+			if(*a!=*b)
+				return false;
+			if(*a==T(0))
+				return true;
+			a++;
+			b++;
+		}
 	}
 }equal{};
 
@@ -134,6 +164,41 @@ constexpr struct compare_t{
 			return operator()(a,b,size1);
 	}
 	template<typename T,typename U>
+	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		while(size1--){
+			if(*b==U(0))
+				return 1<=>0;
+			if(auto tmp=base_call(*a,*b); tmp!=0)
+				return tmp;
+			a++;
+			b++;
+		}
+		return 0<=>int(!bool(*b==U(0)));
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
+		while(size2--){
+			if(*a==T(0))
+				return 0<=>1;
+			if(auto tmp=base_call(*a,*b); tmp!=0)
+				return tmp;
+			a++;
+			b++;
+		}
+		return 0<=>int(!bool(*b==U(0)));
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		while(true){
+			if(*a==T(0))
+				return 0<=>int(!bool(*b==U(0)));
+			if(auto tmp=base_call(*a,*b); tmp!=0)
+				return tmp;
+			a++;
+			b++;
+		}
+	}
+	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(auto tmp=operator()(a,b,min(size1,size2)); tmp!=0)
 			return tmp;
@@ -143,6 +208,18 @@ constexpr struct compare_t{
 	template<typename T,typename U,size_t N1,size_t N2>
 	[[nodiscard]]constexpr auto lexicographical(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
 		return lexicographical(a,N1,b,N2);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		return operator()(a,size1,b,end_by_zero);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto lexicographical(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
+		return operator()(a,end_by_zero,b,size2);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto lexicographical(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		return operator()(a,end_by_zero,b,end_by_zero);
 	}
 }compare{};
 

@@ -91,7 +91,7 @@ namespace string_n{
 	public:
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
 			auto ssize = size();
-			auto scom = compare(ssize,a.size());
+			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
 			if(!scom){//大小相等
 				auto aret = compare(data(),a.data(),ssize);
 				if(!aret)//相等
@@ -102,7 +102,7 @@ namespace string_n{
 		}
 		[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
 			auto ssize = size();
-			auto seq = equal(ssize,a.size());
+			auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
 			if(seq){
 				auto aret = equal(data(),a.data(),ssize);
 				if(aret)
@@ -118,10 +118,10 @@ namespace string_n{
 			return equal(data(),size(),a.begin(),a.size());
 		}
 		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
-			return operator<=>(string_view_end_by_zero_t(a));
+			return compare(data(),size(),a,end_by_zero);
 		}
 		[[nodiscard]]constexpr auto operator==(const char_T* a)const noexcept(equal.nothrow<char_T>){
-			return operator==(string_view_end_by_zero_t(a));
+			return equal(data(),size(),a,end_by_zero);
 		}
 
 	private:
