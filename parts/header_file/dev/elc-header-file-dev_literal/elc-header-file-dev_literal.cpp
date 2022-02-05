@@ -6,20 +6,13 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 //
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#include <string>
 #include <iostream>
-#ifdef _WIN32
-	#include <fcntl.h>
-	#include <io.h>
-#endif
 
-#include "../../files/base_exception"
-#include "../../files/core"
-#include "../../files/string"
+#include <elc/base_exception>
+#include <elc/core>
+#include <elc/string>
 
-
-#include "../../files/_files/_share/_defs.hpp"
+#include "../../files/elc/_files/_share/_defs.hpp"
 
 namespace elc::defs{
 	namespace base_read_n{
@@ -162,7 +155,7 @@ namespace elc{
 	using defs::base_read_n::base_read_error;
 }
 
-#include "../../files/_files/_share/_undefs.hpp"
+#include "../../files/elc/_files/_share/_undefs.hpp"
 
 #define GET_CODE_STRUCT(...) ((__VA_ARGS__).get_code_struct())
 
