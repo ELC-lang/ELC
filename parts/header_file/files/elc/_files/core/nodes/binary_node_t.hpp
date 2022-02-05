@@ -25,6 +25,12 @@ protected:
 	}
 public:
 	[[nodiscard]]virtual value arec(const value index)override{return as_value(this);}
+	virtual void clear()override{
+		if constexpr(was_not_an_ill_form(declvalue(T).clear()))
+			_m.clear();
+		else
+			_m=T{};
+	}
 };
 template<typename T>
 bool was_an(const_ptr p)noexcept{
