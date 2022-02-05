@@ -30,6 +30,9 @@ namespace elc::defs{
 namespace elc{
 	#include "_export.hpp"
 }
+#if defined(ELC_CORE)
+	#include "../_multi/string_arec_as_value.hpp"
+#endif
 
 //file_end
 
