@@ -7,8 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 struct base_constexpr_t:node_like,instance_struct<base_constexpr_t>{
-protected:
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<base_constexpr_t>;}
+protected:
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept override{return magic_number::god;}
 	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept override{return magic_number::god;}
 public:

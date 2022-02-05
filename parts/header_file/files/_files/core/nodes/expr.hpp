@@ -12,6 +12,7 @@ struct expr:cons,instance_struct<expr>{
 public:
 	using cons::_car;
 	using cons::_cdr;
+	using cons::cons;
 
 	[[nodiscard]]virtual function_t<value()> get_eval_of_this()noexcept override{
 		return lambda_with_catch(this){

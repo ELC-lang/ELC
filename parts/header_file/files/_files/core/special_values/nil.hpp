@@ -7,11 +7,12 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 distinctive inline struct nil_t final:base_constexpr_t{
+	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<nil_t>;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const{return this==a;}
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const override{return this==a;}
 public:
-	[[nodiscard]]virtual constexpr explicit operator hash_t()const{return hash(false);}
-	[[nodiscard]]virtual constexpr explicit operator logical_bool()const{return false;}
+	[[nodiscard]]virtual constexpr explicit operator hash_t()const override{return hash(false);}
+	[[nodiscard]]virtual constexpr explicit operator logical_bool()const override{return false;}
 }nil{};
 
 //file_end
