@@ -12,8 +12,8 @@ elc依赖的基础函数.
 */
 #if !defined(ELC_APIS_alloc)
 	#define ELC_APIS_alloc
-	#include<cstdlib>
-	#include "../../header_file/files/base_defs"
+	#include <cstdlib>
+	#include "../../header_file/files/elc/base_defs"
 	namespace elc::APIs::alloc{
 		#include "_tools/decl_system_type.hpp"
 		#if SYSTEM_TYPE == windows

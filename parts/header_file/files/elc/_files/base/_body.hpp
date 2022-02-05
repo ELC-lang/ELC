@@ -11,10 +11,10 @@
 #endif
 
 //include APIs：elc中可能根据编译环境而修改的底层函数
-#include "../../../../_share/APIs/alloc.hpp"//using at memory/alloc
-#include "../../../../_share/APIs/die.hpp"//using at memory/gc
+#include "../../../../../_share/APIs/alloc.hpp"//using at memory/alloc
+#include "../../../../../_share/APIs/die.hpp"//using at memory/gc
 //include locale：自然语言相关的字符串
-#include "../../../../_share/locale/using.hpp"//strings
+#include "../../../../../_share/locale/using.hpp"//strings
 
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"

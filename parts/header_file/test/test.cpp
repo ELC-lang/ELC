@@ -14,8 +14,8 @@
 //*/
 
 #define ELC_TEST_CHECK_MEMORY_LACK
-#include "../files/core"
-#include "../files/void_name"
+#include <elc/core>
+#include <elc/void_name>
 
 void ste::stst(){
 	using namespace elc;

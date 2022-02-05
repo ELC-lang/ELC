@@ -272,6 +272,7 @@ namespace string_n{
 			else
 				return npos;
 		}
+		/*
 		[[nodiscard]]string_t operator[](size_t index,char_T delimiter)const{
 			auto pos=find(delimiter);
 			auto end=find(delimiter,pos);
@@ -290,6 +291,7 @@ namespace string_n{
 			}
 			return substr(pos,end-pos);
 		}
+		*/
 
 		void erase(size_t pos,size_t size=1)&{
 			_m=_m->do_erase(pos,size);

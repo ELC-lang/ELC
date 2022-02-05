@@ -9,7 +9,7 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
-#include "../../../../_share/default_data_type.hpp"//char_t
+#include "../../../../../_share/default_data_type.hpp"//char_t
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 	namespace exception_n{
