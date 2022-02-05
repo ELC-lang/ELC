@@ -21,7 +21,7 @@ namespace hash_n{
 	template<class T>
 	inline constexpr bool is_unstable_hash = type_info<T const>.can_convert_to<unstable_hash_t>;
 	template<class T>
-	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T> && sizeof(T)<=sizeof(size_t);
+	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T>;
 
 	template<class T>
 	[[nodiscard]]inline constexpr hash_t pointer_hash(T*a)noexcept{
@@ -53,10 +53,10 @@ namespace hash_n{
 	}
 	template<class T>
 	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(*a)){
-		hash_t aret=0;
+		size_t aret=0;
 		while(size--)
-			aret=hash(a[size])+aret._value*13;
-		return aret;
+			aret=hash(a[size])._value+aret*13;
+		return{aret};
 	}
 	template<class T> requires is_not_signal_value_for_array_like<T>
 	[[nodiscard]]inline hash_t hash(array_like_view_t<T>a)noexcept_as(hash(declvalue(T))){

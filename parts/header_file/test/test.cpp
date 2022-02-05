@@ -14,6 +14,7 @@
 //*/
 
 #define ELC_TEST_CHECK_MEMORY_LACK
+#include <elc/string>
 #include <elc/core>
 #include <elc/void_name>
 
@@ -56,5 +57,6 @@ void ste::stst(){
 		stest_accert(a == nullptr);
 		a = make_binary_node_from<int_t>(72);
 		stest_accert(use_as<int_t>(a) == 72);
+		stest_accert(a == make_binary_node_from<int_t>(72));
 	}
 }

@@ -235,6 +235,7 @@ namespace string_n{
 
 		operator string_view_t()const&{ return string_view_t{data(),size()}; }
 		auto to_string_view_t()const&{ return operator string_view_t(); }
+		[[nodiscard]]explicit operator hash_t()const{return hash(to_string_view_t());}
 		/*
 		TODO:
 
@@ -244,28 +245,28 @@ namespace string_n{
 		find_last_not_of
 		*/
 
-		size_t find(const char_T ch)const{
+		[[nodiscard]]size_t find(const char_T ch)const{
 			auto result = in_range(ch, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
-		size_t reverse_find(const char_T ch)const{
+		[[nodiscard]]size_t reverse_find(const char_T ch)const{
 			auto result = in_range_but_reverse(ch, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
-		size_t find(string_view_t str) const {
+		[[nodiscard]]size_t find(string_view_t str) const {
 			auto result = in_range(str, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
-		size_t reverse_find(string_view_t str) const {
+		[[nodiscard]]size_t reverse_find(string_view_t str) const {
 			auto result = in_range_but_reverse(str, to_string_view_t());
 			if(result)
 				return result - data();
