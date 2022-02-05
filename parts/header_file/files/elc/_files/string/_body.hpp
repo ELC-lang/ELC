@@ -14,7 +14,7 @@ namespace elc::defs{
 
 	#include "defs.hpp"
 }
-#include "../../../../_share/APIs/str_code_convert.hpp"//strings
+#include "../../../../../_share/APIs/str_code_convert.hpp"//strings
 namespace elc::defs{
 	#include "literal.hpp"
 	#include "to_string.hpp"

@@ -13,7 +13,7 @@ elc依赖的基础函数.
 #if !defined(ELC_APIS_str_code_convert)
 	#include <cuchar>
 	#include "../default_data_type.hpp"
-	#include "../../header_file/files/string"
+	#include "../../header_file/files/elc/string"
 	#define ELC_APIS_str_code_convert
 	namespace elc::APIs::str_code_convert{
 		using namespace ::elc::defs;//get def
