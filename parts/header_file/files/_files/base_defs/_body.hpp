@@ -12,6 +12,18 @@ namespace elc::defs{ //在elc::defs中定义内容
 	namespace base{}
 	using namespace base;//导出内容：defs内的名称空间只起到大体名称分组的作用，不进行名称阻拦
 
+	//内存泄露检测
+	#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
+	namespace memory{
+		inline void check_memory_lack()noexcept;
+		inline struct distinctive memory_lack_checker_t{
+			~memory_lack_checker_t(){
+				check_memory_lack();
+			}
+		}memory_lack_checker{};
+	}
+	#endif
+
 	namespace base{
 		#include "base_defs/_body.hpp"
 	}
