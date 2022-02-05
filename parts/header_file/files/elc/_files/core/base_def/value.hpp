@@ -95,8 +95,7 @@ public:
 		_m->be_set(a);
 		return *this;
 	}
-	template<typename T>
-	this_t&operator=(T&&a){
+	this_t&operator=(auto&&a){
 		return operator=(as_ptr(a));
 	}
 
@@ -134,13 +133,11 @@ public:
 	}
 	template<typename...Args> requires(invoke<node_like>.able<Args...>)
 	inline auto operator()(Args&&... rest)noexcept(invoke<node_like>.nothrow<Args...>){return(*operator&())(forward<Args>(rest)...);}
-	template<typename T>
-	[[nodiscard]]auto operator==(T&&a)const{
+	[[nodiscard]]auto operator==(auto&&a)const{
 		return const_ptr(*this) == const_ptr(as_value(a));
 	}
-	template<typename T>
-	[[nodiscard]]auto operator!=(T&&a)const{
-		return !operator==(forward<T>(a));
+	[[nodiscard]]auto operator!=(auto&&a)const{
+		return !operator==(a);
 	}
 	[[nodiscard]]operator ptr::for_delete_t*(){
 		return _m->get_value();

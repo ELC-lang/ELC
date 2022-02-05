@@ -12,6 +12,8 @@ namespace elc{
 	typedef int64_t int_t;
 	/*ELC内部钦定uint_t类型*/
 	typedef uint64_t uint_t;
+	/*ELC内部钦定float_t类型*/
+	typedef double float_t;
 }
 
 //file_end

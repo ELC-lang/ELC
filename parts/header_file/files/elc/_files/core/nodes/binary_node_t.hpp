@@ -43,7 +43,7 @@ public:
 };
 
 template<typename T>
-inline bool was_an(const_ptr p)noexcept{
+[[nodiscard]]inline bool was_an(const_ptr p)noexcept{
 	typedef binary_node_t<T> target_node_t;
 	if(p->get_type_info() == type_info<target_node_t>)
 		return true;
@@ -51,12 +51,12 @@ inline bool was_an(const_ptr p)noexcept{
 		return false;
 }
 template<typename T>
-inline T& use_as(ptr p)noexcept{
+[[nodiscard]]inline T& use_by_ref_as(ptr p)noexcept{
 	typedef binary_node_t<T> target_node_t;
 	return static_cast<target_node_t*>(p.get())->_m;
 }
 template<typename T>
-inline const T& use_as(const_ptr p)noexcept{
+[[nodiscard]]inline const T& const_use_by_ref_as(const_ptr p)noexcept{
 	typedef binary_node_t<T> target_node_t;
 	if(was_an<T>(p))
 		return static_cast<const target_node_t*>(p.get())->_m;
@@ -64,14 +64,30 @@ inline const T& use_as(const_ptr p)noexcept{
 		return const_default_value_of<T>;
 }
 template<typename T>
-inline maybe_fail_reference<T> maybe_fail_use_as(ptr p)noexcept{
+[[nodiscard]]inline T use_as(const_ptr p)noexcept{
+	typedef binary_node_t<T> target_node_t;
 	if(was_an<T>(p))
-		return use_as<T>(p);
+		return static_cast<const target_node_t*>(p.get())->_m;
+	else
+		return const_default_value_of<T>;
+}
+template<typename T>
+[[nodiscard]]inline const T& use_by_ref_as(const_ptr p)noexcept{
+	return const_use_by_ref_as<T>(p);
+}
+template<typename T>
+[[nodiscard]]inline const T& use_by_ref_as(auto&&a)noexcept{
+	return use_by_ref_as<T>(as_ptr(a));
+}
+template<typename T>
+[[nodiscard]]inline maybe_fail_reference<T> maybe_fail_use_by_ref_as(ptr p)noexcept{
+	if(was_an<T>(p))
+		return use_by_ref_as<T>(p);
 	else
 		return note::fail;
 }
 template<typename T>
-inline ptr make_binary_node_from(T a)noexcept{
+[[nodiscard]]inline ptr make_binary_node_from(T a)noexcept{
 	return get<binary_node_t<T>>(move(a));
 }
 

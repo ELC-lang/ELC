@@ -129,14 +129,15 @@ namespace string_n{
 		char_T	arec(size_t index){ return _m->arec(index); }
 		void	arec_set(size_t index,char_T a){ return _m->arec_set(index,a,_m); }
 
+	public:
 		class arec_t: non_copyable,non_moveable{
 			string_t* _to;
 			size_t	  _index;
 
 			friend class string_t;
-			arec_t(string_t* to,size_t index):_to(to),_index(index){}
-
 		public:
+			arec_t(string_t* to,size_t index):_to(to),_index(index){}
+			arec_t(special_init_t,const arec_t&ref):_to(ref._to),_index(ref._index){}
 			[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
 			arec_t&		 operator=(char_T a)noexcept{
 				_to->arec_set(_index,a);
@@ -148,7 +149,6 @@ namespace string_n{
 			[[nodiscard]]explicit operator const char_T&()const noexcept{ return *operator&(); }
 		};
 
-	public:
 		[[nodiscard]]arec_t		  operator[](size_t index){ return{this,index}; }
 		[[nodiscard]]const arec_t operator[](size_t index)const{ return{(string_t*)this,index}; }
 
@@ -335,6 +335,26 @@ namespace string_n{
 	using string_view_t=string_t<T>::string_view_t;
 
 	typedef string_view_t<char_t>string_view;
+
+	#if defined(ELC_CORE)
+		template<class char_T>
+		value arec_as_value(string_t<char_T>&str,const value index){
+			size_t i=size_t(use_as<int_t>(index));
+			struct arec_data_t final:instance_struct<arec_data_t>
+			,value::base_data_t{
+				typename string_t<char_T>::arec_t _m;
+				arec_data_t(string_t<char_T>&str,size_t index):_m(&str,index){};
+				arec_data_t(const arec_data_t&ref)noexcept:_m(special_init,ref._m){}
+				virtual ~arec_data_t()noexcept override final=default;
+
+				virtual void be_set(ptr a)noexcept override final{_m=use_as<char_T>(a);}
+				[[nodiscard]]virtual ptr get_value()override final{return core::make_binary_node_from<char_T>(_m);}
+				[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<arec_data_t>(*this);}
+				[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<arec_data_t>;}
+			};
+			return get<arec_data_t>(str,i);
+		}
+	#endif
 }
 using string_n::string_t;
 using string_n::string;

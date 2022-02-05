@@ -32,9 +32,8 @@ public:
 	[[nodiscard]]virtual value arec(const value)=0;
 
 	[[nodiscard]]value operator[](const value index);
-	template<typename T>
-	[[nodiscard]]value operator[](T&&index){
-		return operator[](as_value(forward<T>(index)));
+	[[nodiscard]]value operator[](auto&&index){
+		return operator[](as_value(index));
 	}
 
 	virtual void clear()=0;
