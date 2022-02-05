@@ -10,6 +10,7 @@
 #include "cons.hpp"
 #include "expr.hpp"
 #include "base_binary_function_node.hpp"
+#include "binary_node_t.hpp"
 
 //file_end
 

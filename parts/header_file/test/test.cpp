@@ -19,10 +19,12 @@
 
 void ste::stst(){
 	using namespace elc;
+	using namespace elc::defs;
+	using namespace elc::defs::core;
 	using elc::void;
 	{
-		ptr a = defs::get<defs::core::common_node>();
-		ptr b = defs::get<defs::core::common_node>();
+		ptr a = get<common_node>();
+		ptr b = get<common_node>();
 		stest_accert((*a)[nil] == void);
 		(*a)[nil] = t;
 		stest_accert((*a)[nil] == t);
@@ -33,7 +35,7 @@ void ste::stst(){
 		stest_accert((*b)[t] == a);
 		weak_ptr wk;
 		{
-			ptr c = defs::get<defs::core::common_node>();
+			ptr c = get<common_node>();
 			wk = c;
 			(*a)[c] = t;
 			stest_accert((*a)[c] == t);
@@ -44,7 +46,7 @@ void ste::stst(){
 		stest_accert((*b)[t] == void);
 		stest_accert(a == nullptr);
 		stest_accert(a(void,a,t) == void);
-		a = defs::get<defs::core::base_binary_function_node>([b] {
+		a = get<base_binary_function_node>([b] {
 			delete (*b)[t];
 		});
 		(*b)[t] = a;
@@ -52,5 +54,7 @@ void ste::stst(){
 		a();
 		stest_accert((*b)[t] == void);
 		stest_accert(a == nullptr);
+		a = make_binary_node_from<int_t>(72);
+		stest_accert(use_as<int_t>(a) == 72);
 	}
 }

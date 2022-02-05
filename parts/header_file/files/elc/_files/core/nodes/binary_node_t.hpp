@@ -12,7 +12,6 @@ struct binary_node_t:node_like,instance_struct<binary_node_t<T>>{
 
 	T _m;
 
-	binary_node_t(T a)noexcept:_m(a){}
 	binary_node_t(const T&a)noexcept:_m(a){}
 	binary_node_t(T&&a)noexcept:_m(a){}
 
@@ -25,8 +24,40 @@ protected:
 		return _m==p->_m;
 	}
 public:
-	[[nodiscard]]virtual value arec(const value index)override{return the_void[index];}
+	[[nodiscard]]virtual value arec(const value index)override{return as_value(this);}
 };
+template<typename T>
+bool was_an(const_ptr p)noexcept{
+	typedef binary_node_t<T> target_node_t;
+	if(p->get_type_info() == type_info<target_node_t>)
+		return true;
+	else
+		return false;
+}
+template<typename T>
+T& use_as(ptr p)noexcept{
+	typedef binary_node_t<T> target_node_t;
+	return static_cast<target_node_t*>(p.get())->_m;
+}
+template<typename T>
+const T& use_as(const_ptr p)noexcept{
+	typedef binary_node_t<T> target_node_t;
+	if(was_an<T>(p))
+		return static_cast<const target_node_t*>(p.get())->_m;
+	else
+		return const_default_value_of<T>;
+}
+template<typename T>
+maybe_fail_reference<T> maybe_fail_use_as(ptr p)noexcept{
+	if(was_an<T>(p))
+		return use_as<T>(p);
+	else
+		return note::fail;
+}
+template<typename T>
+ptr make_binary_node_from(T a)noexcept{
+	return get<binary_node_t<T>>(move(a));
+}
 
 //file_end
 
