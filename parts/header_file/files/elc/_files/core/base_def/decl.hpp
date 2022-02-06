@@ -35,8 +35,14 @@ auto as_value(T&& a) {
 		return (const value)(const_ptr(&a));
 	elseif constexpr(was_not_an_ill_form(const_ptr(a)))
 		return (const value)remove_const((const node_like*)const_ptr(a));
-	elseif constexpr(::std::is_integral_v<remove_cvref<T>>)
-		return value(make_binary_node_from<int_t>(a));
+	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
+		return value(make_binary_node_from<char_t>(a));
+	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
+		if constexpr(::std::is_signed_v<remove_cvref<T>>)
+			return value(make_binary_node_from<int_t>(a));
+		else
+			return value(make_binary_node_from<uint_t>(a));
+	}
 	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
 		return value(make_binary_node_from<float_t>(a));
 }
@@ -54,8 +60,14 @@ auto as_ptr(T&&a){
 		return ptr(a);
 	elseif constexpr(was_not_an_ill_form(const_ptr(a)))
 		return const_ptr(a);
-	elseif constexpr(::std::is_integral_v<remove_cvref<T>>)
-		return make_binary_node_from<int_t>(a);
+	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
+		return make_binary_node_from<char_t>(a);
+	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
+		if constexpr(::std::is_signed_v<remove_cvref<T>>)
+			return make_binary_node_from<int_t>(a);
+		else
+			return make_binary_node_from<uint_t>(a);
+	}
 	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
 		return make_binary_node_from<float_t>(a);
 }

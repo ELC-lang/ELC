@@ -12,6 +12,8 @@ namespace elc::defs{
 		template<class char_T>
 		value arec_as_value(string_t<char_T>&str,const value index){
 			size_t i=size_t(use_as<int_t>(index));
+			if(!i)
+				i=size_t(use_as<uint_t>(index));
 			struct arec_data_t final:instance_struct<arec_data_t>
 			,value::base_data_t{
 				typename string_t<char_T>::arec_t _m;

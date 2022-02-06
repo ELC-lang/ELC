@@ -60,5 +60,7 @@ void ste::stst(){
 		stest_accert(a == make_binary_node_from<int_t>(72));
 		b = make_binary_node_from<string>(U"12345");
 		stest_accert(use_as<char_t>((*b)[1]) == U'2');
+		(*b)[1] = U'3';
+		stest_accert(use_as<string>(b) == U"13345");
 	}
 }
