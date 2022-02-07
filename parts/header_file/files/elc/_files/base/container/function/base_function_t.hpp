@@ -43,7 +43,7 @@ namespace function_n{
 		virtual ~func_data_t()override=default;
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true) override{
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
 			else
@@ -61,7 +61,7 @@ namespace function_n{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		virtual ~default_func_data_t()noexcept override{}
-		virtual Ret_t call(Args_t...)override{return Ret_t();}
+		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
@@ -170,7 +170,14 @@ namespace function_n{
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26447)
+			#endif
 			return base_t::call(forward<Args_t>(args)...);
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
 		}
 		/*
 		private:
@@ -227,7 +234,7 @@ namespace function_n{
 		virtual ~func_data_t()override=default;
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true) override{
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
 			else
@@ -245,7 +252,7 @@ namespace function_n{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		virtual ~default_func_data_t()noexcept override{}
-		virtual Ret_t call(Args_t...)override{return Ret_t();}
+		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
@@ -351,7 +358,14 @@ namespace function_n{
 		}
 
 		Ret_t operator()(Args_t...args)const{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26447)
+			#endif
 			return base_t::call(forward<Args_t>(args)...);
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
 		}
 		/*
 		private:
@@ -434,7 +448,14 @@ namespace function_n{
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26447)
+			#endif
 			return base_t::call(forward<Args_t>(args)...);
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
 		}
 		/*
 		private:

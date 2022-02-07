@@ -29,50 +29,50 @@ namespace string_n{
 
 		string_t()noexcept=default;
 		string_t(special_init_t,string_view_t str)noexcept:_m(get<constexpr_string_data_t<char_T>>(str)){}
-		string_t(string_view_t str):_m(get<comn_string_data_t<char_T>>(str)){}
-		string_t(string_view_end_by_zero_t str):string_t((string_view_t)(str)){}
-		string_t(const char_T* str):string_t(string_view_end_by_zero_t(str)){}
-		string_t(char_T ch):string_t(string_view_t{&ch,1}){}
-		string_t(const string_t& str)=default;
-		string_t(string_t&& str)=default;
+		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
+		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
+		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
+		string_t(char_T ch)noexcept:string_t(string_view_t{&ch,1}){}
+		string_t(const string_t& str)noexcept=default;
+		string_t(string_t&& str)noexcept=default;
 
-		string_t& operator=(const string_t& str)=default;
-		string_t& operator=(string_t&& str)=default;
-		string_t& operator=(null_ptr_t p){clear();return*this;}
-		string_t& operator=(nullptr_t p){return*this=null_ptr;}
+		string_t& operator=(const string_t& str)noexcept=default;
+		string_t& operator=(string_t&& str)noexcept=default;
+		string_t& operator=(null_ptr_t p)noexcept{clear();return*this;}
+		string_t& operator=(nullptr_t p)noexcept{return*this=null_ptr;}
 
 
-		[[nodiscard]]string_t operator+(const string_t& str)const&{
+		[[nodiscard]]string_t operator+(const string_t& str)const&noexcept{
 			return ptr_copy()->apply_str_to_end(str._m);
 		}
-		[[nodiscard]]string_t operator+(string_view_t str)const&{
+		[[nodiscard]]string_t operator+(string_view_t str)const&noexcept{
 			return ptr_copy()->apply_str_to_end(str);
 		}
-		[[nodiscard]]string_t operator+(const char_T* str)const&{
+		[[nodiscard]]string_t operator+(const char_T* str)const&noexcept{
 			return *this+string_view_end_by_zero_t(str);
 		}
-		friend [[nodiscard]]string_t operator+(string_view_t str1,const string_t& str2){
+		friend [[nodiscard]]string_t operator+(string_view_t str1,const string_t& str2)noexcept{
 			return str2.ptr_copy()->apply_str_to_begin(str1);
 		}
-		friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2){
+		friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2)noexcept{
 			return string_view_end_by_zero_t(str1)+str2;
 		}
-		friend [[nodiscard]]string_t operator+(char_T ch,const string_t& str){
+		friend [[nodiscard]]string_t operator+(char_T ch,const string_t& str)noexcept{
 			return string_view_t{&ch,1}+str;
 		}
 
-		string_t& operator+=(string_t str) &{
+		string_t& operator+=(string_t str)&noexcept{
 			_m=_m->apply_str_to_end(str._m);
 			return *this;
 		}
-		string_t& operator+=(string_view_t str) &{
+		string_t& operator+=(string_view_t str)&noexcept{
 			_m=_m->apply_str_to_end(str);
 			return *this;
 		}
-		string_t& operator+=(const char_T* str) &{
+		string_t& operator+=(const char_T* str)&noexcept{
 			return *this+=string_view_end_by_zero_t(str);
 		}
-		string_t& operator+=(char_T ch) &{
+		string_t& operator+=(char_T ch)&noexcept{
 			return *this += string_view_t{&ch,1};
 		}
 		template<typename U>
@@ -80,9 +80,9 @@ namespace string_n{
 			return *this+=b;
 		}
 
-		double memory_cost()const noexcept{return _m->get_memory_cost();}
+		float_size_t memory_cost()const noexcept{return _m->get_memory_cost();}
 	private:
-		void equivalent_optimization(const string_t& a)const{
+		void equivalent_optimization(const string_t& a)const noexcept{
 			if(this->memory_cost() >= a.memory_cost())
 				_m.do_replace(a._m);
 			else
@@ -102,9 +102,9 @@ namespace string_n{
 		}
 		[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
 			auto ssize = size();
-			auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
+			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
 			if(seq){
-				auto aret = equal(data(),a.data(),ssize);
+				const auto aret = equal(data(),a.data(),ssize);
 				if(aret)
 					equivalent_optimization(a);
 				return aret;
@@ -126,8 +126,8 @@ namespace string_n{
 
 	private:
 		char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
-		char_T	arec(size_t index){ return _m->arec(index); }
-		void	arec_set(size_t index,char_T a){ return _m->arec_set(index,a,_m); }
+		char_T	arec(size_t index)noexcept{ return _m->arec(index); }
+		void	arec_set(size_t index,char_T a)noexcept{ return _m->arec_set(index,a,_m); }
 
 	public:
 		class arec_t: non_copyable,non_moveable{
@@ -136,8 +136,8 @@ namespace string_n{
 
 			friend class string_t;
 		public:
-			arec_t(string_t* to,size_t index):_to(to),_index(index){}
-			arec_t(special_init_t,const arec_t&ref):_to(ref._to),_index(ref._index){}
+			arec_t(string_t* to,size_t index)noexcept:_to(to),_index(index){}
+			arec_t(special_init_t,const arec_t&ref)noexcept:_to(ref._to),_index(ref._index){}
 			[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
 			arec_t&		 operator=(char_T a)noexcept{
 				_to->arec_set(_index,a);
@@ -159,11 +159,11 @@ namespace string_n{
 			else
 				return {};
 		}
-		[[nodiscard]]const char_T*	data()const{ return _m->get_data(_m); }
-		[[nodiscard]]char_T*		c_str(){ return this->unique_c_str(); }
-		[[nodiscard]]const char_T*	const_c_str()const{ return _m->get_const_c_str(_m); }
-		[[nodiscard]]const char_T*	c_str()const{ return const_c_str(); }
-		[[nodiscard]]size_t			size()const{ return _m->get_size(); }
+		[[nodiscard]]const char_T*	data()const noexcept{ return _m->get_data(_m); }
+		[[nodiscard]]char_T*		c_str()noexcept{ return this->unique_c_str(); }
+		[[nodiscard]]const char_T*	const_c_str()const noexcept{ return _m->get_const_c_str(_m); }
+		[[nodiscard]]const char_T*	c_str()const noexcept{ return const_c_str(); }
+		[[nodiscard]]size_t			size()const noexcept{ return _m->get_size(); }
 		void resize(size_t nsize,char_T ch ={}){
 			auto size=this->size();
 			if(size > nsize)
@@ -173,7 +173,7 @@ namespace string_n{
 			else
 				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size,ch);
 		}
-		void clear(){ _m=null_ptr; }
+		void clear()noexcept{ _m=null_ptr; }
 	private:
 		struct iterator_base_t{
 			string_t* _to;
@@ -233,9 +233,9 @@ namespace string_n{
 
 		//
 
-		operator string_view_t()const&{ return string_view_t{data(),size()}; }
-		auto to_string_view_t()const&{ return operator string_view_t(); }
-		[[nodiscard]]explicit operator hash_t()const{return hash(to_string_view_t());}
+		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
+		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
+		[[nodiscard]]explicit operator hash_t()const noexcept{return hash(to_string_view_t());}
 		/*
 		TODO:
 

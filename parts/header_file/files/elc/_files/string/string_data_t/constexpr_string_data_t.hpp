@@ -16,30 +16,30 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	const char_T* _m;
 	size_t _size;
 
-	constexpr_string_data_t(string_view_t str){
+	constexpr_string_data_t(string_view_t str)noexcept{
 		_m=str.begin();
 		_size=str.size();
 	}
 
-	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		return get<this_t>(string_view_t{_m+begin,size});
 	}
-	[[nodiscard]]virtual const char_T* get_data(ptr_t&)override final{return _m;}
-	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)override final{
+	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept override final{return _m;}
+	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept override final{
 		if(!_m[_size])
 			return _m;
 		else
 			return base_t::get_const_c_str(p);
 	}
-	[[nodiscard]]virtual size_t get_size()override final{ return _size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
-	[[nodiscard]]virtual char_T arec(size_t index)override final{ return _m[index]; }
+	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _size; }
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{ return _m[index]; }
 
-	virtual void be_replace_as(ptr_t a)override final{base_t::be_replace_as(a);}
-	virtual void arec_set(size_t index,char_T a,ptr_t&p)override final{base_t::arec_set(index,a,p);}
+	virtual void be_replace_as(ptr_t a)noexcept override final{base_t::be_replace_as(a);}
+	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept override final{base_t::arec_set(index,a,p);}
 
-	[[nodiscard]]virtual double get_memory_cost()override final{
-		return double(sizeof(*this))/get_ref_num((const base_t*)this);
+	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
+		return float_size_t{sizeof(*this)}/get_ref_num((const base_t*)this);
 	}
 };
 

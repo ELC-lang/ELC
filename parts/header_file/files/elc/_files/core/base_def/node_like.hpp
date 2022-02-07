@@ -20,10 +20,10 @@ public:
 	[[nodiscard]]virtual function_t<value()> get_eval_of_this();
 	[[nodiscard]]virtual function_t<value(ptr)> get_call_of_this();
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const=0;
-	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
-	[[nodiscard]]virtual constexpr size_t equal_level()const{return 36;}
-	[[nodiscard]]virtual constexpr size_t eq_level()const{return 36;}
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const noexcept=0;
+	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const noexcept{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
+	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept{return 36;}
+	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept{return 36;}
 public:
 	node_like()noexcept=default;
 	node_like(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero(); }
@@ -36,26 +36,26 @@ public:
 		return operator[](as_value(index));
 	}
 
-	virtual void clear()=0;
+	virtual void clear()noexcept=0;
 
-	[[nodiscard]]virtual explicit operator hash_t()const{return hash((void*)this);}
-	virtual void destroy(){
-		this->clear();
+	[[nodiscard]]virtual explicit operator hash_t()const noexcept{return hash((void*)this);}
+	void destroy()noexcept{
 		this->be_replace_as(null_ptr);
 	}
-	virtual void be_replace_as(ptr a){
+	virtual void be_replace_as(ptr a)noexcept{
+		this->clear();
 		replace_able<this_t>::be_replace_as(a.get());
 	}
 
-	[[nodiscard]]virtual explicit operator logical_bool()const{return true;}
-	[[nodiscard]]explicit operator bool()const{return(bool)this->operator logical_bool();}
+	[[nodiscard]]virtual explicit operator logical_bool()const noexcept{return true;}
+	[[nodiscard]]explicit operator bool()const noexcept{return(bool)this->operator logical_bool();}
 
 	template<typename...Args>
 	inline value operator()(Args&&...rest){return this->get_call_of_this()(make_list(forward<Args>(rest)...));}
 
-	[[nodiscard]]logical_bool eq(const_ptr a)const{
-		auto this_eqlv=this->eq_level();
-		auto arg_eqlv=a->eq_level();
+	[[nodiscard]]logical_bool eq(const_ptr a)const noexcept{
+		const auto this_eqlv = this->eq_level();
+		const auto arg_eqlv	 = a->eq_level();
 		if(this_eqlv _small_than_ arg_eqlv)
 			return a->eq_with(this);
 		elseif(this_eqlv _big_than_ arg_eqlv)
@@ -63,9 +63,9 @@ public:
 		else
 			return this->eq_with(a)&&a->eq_with(this);
 	}
-	[[nodiscard]]logical_bool equal(const_ptr a)const{
-		auto this_equlv=this->equal_level();
-		auto arg_equlv=a->equal_level();
+	[[nodiscard]]logical_bool equal(const_ptr a)const noexcept{
+		const auto this_equlv = this->equal_level();
+		const auto arg_equlv  = a->equal_level();
 		if(this_equlv _small_than_ arg_equlv)
 			return a->equal_with(this);
 		elseif(this_equlv _big_than_ arg_equlv)
@@ -74,9 +74,9 @@ public:
 			return this->equal_with(a)&&a->equal_with(this);
 	}
 
-	[[nodiscard]]ptr operator&(){return this;}
-	[[nodiscard]]const_ptr operator&()const{return this;}
-	[[nodiscard]]logical_bool operator==(const this_t&a)const{
+	[[nodiscard]]ptr operator&()noexcept{return this;}
+	[[nodiscard]]const_ptr operator&()const noexcept{return this;}
+	[[nodiscard]]logical_bool operator==(const this_t&a)const noexcept{
 		return a.equal(this);
 	}
 protected:

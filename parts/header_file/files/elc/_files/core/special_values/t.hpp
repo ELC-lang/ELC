@@ -9,12 +9,10 @@
 distinctive inline struct t_t final:base_constexpr_t{
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<t_t>;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const override{
-		return this==a;
-	}
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{return this==a;}
 public:
-	[[nodiscard]]virtual constexpr explicit operator hash_t()const override{return hash(true);}
-	[[nodiscard]]virtual constexpr explicit operator logical_bool()const override{return true;}
+	[[nodiscard]]virtual constexpr explicit operator hash_t()const noexcept override{return hash(true);}
+	[[nodiscard]]virtual constexpr explicit operator logical_bool()const noexcept override{return true;}
 
 	//nothing is true,everything is permitted.
 	[[noreturn]]virtual void be_replace_as(ptr)noexcept override{::std::exit(0);}

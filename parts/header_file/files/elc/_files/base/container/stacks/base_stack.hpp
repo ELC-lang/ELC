@@ -49,7 +49,14 @@ public:
 	}
 	base_stack_t(const this_t&a)noexcept_as(declvalue(this_t).copy()):base_stack_t(a.copy()){}
 	~base_stack_t()noexcept(unget.nothrow<data_t>){
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26494)//未初始化警告diss
+		#endif
 		data_t*tmp;
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 		while(_m!=null_ptr){
 			tmp=_m;
 			_m=_m->_next;
@@ -90,7 +97,7 @@ public:
 
 	static constexpr bool remove_nothrow=unget.nothrow<data_t>;
 	template<typename T_>
-	bool remove(const T_&a)noexcept(remove_nothrow){//返回值：是否成功移除（容器里是否有此T）
+	bool remove(const T_&a)noexcept(remove_nothrow && equal.nothrow<T_,T>){//返回值：是否成功移除（容器里是否有此T）
 		data_t*tmp=_m,**tmp_=&_m;
 		while(tmp!=null_ptr){
 			if(a==tmp->_data){
@@ -126,7 +133,7 @@ public:
 	}
 	#undef expr
 protected:
-	void add(data_t*a){
+	void add(data_t*a)noexcept{
 		a->_next=_m;
 		_m=a;
 		_size++;

@@ -17,30 +17,30 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	size_t _sub_begin;
 	size_t _sub_size;
 
-	substr_string_data_t(ptr_t str,size_t sub_begin,size_t sub_size):_to(str),_sub_begin(sub_begin),_sub_size(sub_size){}
+	substr_string_data_t(ptr_t str,size_t sub_begin,size_t sub_size)noexcept:_to(str),_sub_begin(sub_begin),_sub_size(sub_size){}
 
-	virtual void be_replace_as(ptr_t a)override final{
+	virtual void be_replace_as(ptr_t a)noexcept override final{
 		_to.reset();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{ return get<substr_string_data_t<char_T>>(_to,begin+_sub_begin,size); }
-	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)override final{
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{ return get<substr_string_data_t<char_T>>(_to,begin+_sub_begin,size); }
+	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept override final{
 		if(_sub_begin+_sub_size==_to->get_size())
 			return _to->get_const_c_str(_to)+_sub_begin;
 		else
 			return base_t::get_const_c_str(p);
 	}
-	[[nodiscard]]virtual const char_T* get_data(ptr_t&)override final{ return _to->get_data(_to)+_sub_begin; }
-	[[nodiscard]]virtual size_t get_size()override final{ return _sub_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
-	[[nodiscard]]virtual char_T arec(size_t index)override final{ return _to->arec(index+_sub_begin); }
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept override final{ return _to->get_data(_to)+_sub_begin; }
+	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _sub_size; }
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{ return _to->arec(index+_sub_begin); }
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
 		if(this->is_unique())
 			_to->arec_set(index+_sub_begin,a,_to);
 		else
 			base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
 		if(this->is_unique() && _sub_begin==0){
 			_to=_to->apply_str_to_begin(str);
 			_sub_size+=str.size();
@@ -49,7 +49,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
 		if(this->is_unique() && _sub_begin==0){
 			_to=_to->apply_str_to_begin(str);
 			_sub_size+=str->get_size();
@@ -58,7 +58,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			_to=_to->apply_str_to_end(str);
 			_sub_size+=str.size();
@@ -67,7 +67,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			_to=_to->apply_str_to_end(str);
 			_sub_size+=str->get_size();
@@ -76,7 +76,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self) override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique() && _sub_begin==0){
 			auto aret=_to->do_pop_front(size,_to);
 			_sub_size-=size;
@@ -85,7 +85,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self) override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			auto aret=_to->do_pop_back(size,_to);
 			_sub_size-=size;
@@ -95,12 +95,12 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 			return base_t::do_pop_back(size,self);
 	}
 
-	[[nodiscard]]virtual double get_memory_cost()override final{
+	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (sizeof(*this)+_to->get_memory_cost())/get_ref_num((const base_t*)this);
 	}
 };
 template<typename char_T>
-[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::get_substr_data(size_t begin,size_t size){
+[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::get_substr_data(size_t begin,size_t size)noexcept{
 	return get<substr_string_data_t<char_T>>(this,begin,size);
 }
 

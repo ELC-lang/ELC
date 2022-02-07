@@ -15,7 +15,7 @@ distinctive inline struct void_t final:base_constexpr_t{
 protected:
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept override{return max(type_info<size_t>);}
 	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept override{return max(type_info<size_t>);}
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const{
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
 		if(this==a)
 			return either;//当void是void时，void不是void
 		else
@@ -23,8 +23,8 @@ protected:
 	}
 	//我不知道为什么这么写，反正很有趣
 public:
-	[[nodiscard]]virtual constexpr explicit operator hash_t()const{return hash(nothing);}
-	[[nodiscard]]virtual constexpr explicit operator logical_bool()const{return neither;}//void 应当不真不假
+	[[nodiscard]]virtual constexpr explicit operator hash_t()const noexcept override{return hash(nothing);}
+	[[nodiscard]]virtual constexpr explicit operator logical_bool()const noexcept override{return neither;}//void 应当不真不假
 }the_void{};
 
 [[nodiscard]]constexpr node_like*the_get_null_ptr(const node_like*)noexcept{return addressof((node_like&)the_void);}

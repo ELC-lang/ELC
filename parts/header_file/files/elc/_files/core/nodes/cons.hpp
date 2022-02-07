@@ -19,10 +19,10 @@ struct cons:node_like,instance_struct<cons>{
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<cons>;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const override{
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
 		if(a->get_type_info() != this->get_type_info())
 			return false;
-		const this_t*p=static_cast<const this_t*>(a.get());
+		const this_t*p=down_cast<const this_t*>(a.get());
 		return _car==p->_car&&_cdr==p->_cdr;
 	}
 public:
@@ -41,7 +41,7 @@ public:
 		}
 	}
 
-	virtual void clear()override{the_void[t]>>_car>>_cdr;}
+	virtual void clear()noexcept override{as_value(&the_void)>>_car>>_cdr;}
 };
 
 [[nodiscard]]inline ptr make_list()noexcept{return &nil;}

@@ -24,7 +24,7 @@ namespace array_n{
 		}
 	public:
 		/*默认构造*/
-		constexpr array_t():_m(null_ptr){}
+		constexpr array_t()noexcept:_m(null_ptr){}
 		/*
 		构造size个T
 		*/
@@ -56,6 +56,9 @@ namespace array_n{
 		}
 		[[nodiscard]]size_t size()const noexcept{
 			return get_size_of_get(_m);
+		}
+		[[nodiscard]]size_t size_in_byte()const noexcept{
+			return size()*sizeof(T);
 		}
 		void resize(size_t size)noexcept(get_resize.nothrow<T>){
 			get_resize(_m,size);

@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace to_string_n{
-	inline string to_string(nothing){
+	inline string to_string(nothing)noexcept{
 		return es"nothing"_elc_string;
 	}
 	template<typename T>

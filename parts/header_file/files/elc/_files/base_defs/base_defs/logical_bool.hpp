@@ -29,7 +29,7 @@ public:
 		return logical_bool{special_init,a._is_true || b._is_true,a._is_false || b._is_false,a._is_unknown || b._is_unknown};
 	}
 };
-constexpr logical_bool neither{special_init,0,0},either{special_init,1,1};
+constexpr logical_bool neither{special_init,0,0},either{special_init,1,1},unknown{special_init,0,0,1};
 
 //file_end
 

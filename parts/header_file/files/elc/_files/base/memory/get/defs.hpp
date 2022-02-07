@@ -23,12 +23,12 @@ namespace get_n{
 
 	/*向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
 	template<typename T>
-	void alloc_size_cut(T*arg,size_t to_size){
+	void alloc_size_cut(T*arg,size_t to_size)noexcept{
 		realloc(arg,to_size);
 	}
 	/*向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/
 	template<typename T>
-	void alloc_size_grow(T*&arg,size_t to_size){
+	void alloc_size_grow(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		if constexpr(move.trivial<T>)
 			realloc(arg,to_size);
 		else{
@@ -51,9 +51,9 @@ namespace get_n{
 	}
 	/*向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
 	template<typename T>
-	void forward_alloc_size_cut(T*&arg,size_t to_size){
-		auto from_size=get_size_of_alloc(arg);
-		auto cut_size=from_size-to_size;
+	void forward_alloc_size_cut(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
+		const auto from_size=get_size_of_alloc(arg);
+		const auto cut_size=from_size-to_size;
 		if constexpr(move.trivial<T>){
 			::std::memmove(arg,add_const(arg+cut_size),to_size*sizeof(T));
 			realloc(arg,to_size);
@@ -77,9 +77,9 @@ namespace get_n{
 	}
 	/*向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/
 	template<typename T>
-	void forward_alloc_size_grow(T*&arg,size_t to_size){
-		auto from_size=get_size_of_alloc(arg);
-		auto grow_size=to_size-from_size;
+	void forward_alloc_size_grow(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
+		const auto from_size=get_size_of_alloc(arg);
+		const auto grow_size=to_size-from_size;
 		if constexpr(move.trivial<T>){
 			realloc(arg,to_size);
 			::std::memmove(arg+grow_size,add_const(arg),from_size*sizeof(T));
@@ -202,12 +202,15 @@ namespace get_n{
 		template<typename T>
 		static constexpr bool able=destruct.able<T>;
 		template<typename T>
-		static constexpr bool nothrow=type_info<T>.not_has_attribute(abstract_base)&&destruct.nothrow<T>;
+		static constexpr bool nothrow=destruct.nothrow<T>;
 
 		template<typename T> requires able<T>
 		void operator()(T*a)const noexcept(nothrow<T>){
 			if(a!=null_ptr){
 				if constexpr(type_info<T>.has_attribute(abstract_base))
+					#if defined(_MSC_VER)
+						[[gsl::suppress(f.6)]]
+					#endif
 					attribute_ptr_cast<abstract_base>(a)->abstract_method_unget_this();
 				else{
 					if constexpr(!destruct.nothrow<T>)

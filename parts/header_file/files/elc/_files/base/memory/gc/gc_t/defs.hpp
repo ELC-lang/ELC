@@ -38,14 +38,14 @@ public:
 	inline void add_gc_method(gc_method_t a)noexcept{
 		_gc_methods.add(a);
 	}
-	inline void remove_gc_method(gc_method_t a)noexcept{
+	inline void remove_gc_method(gc_method_t a){
 		_gc_methods.remove(a);
 	}
 
 	inline void add_gc_success_identifier(success_identifier_t a)noexcept{
 		_gc_success_identifiers.add(a);
 	}
-	inline void remove_gc_success_identifier(success_identifier_t a)noexcept{
+	inline void remove_gc_success_identifier(success_identifier_t a){
 		_gc_success_identifiers.remove(a);
 	}
 

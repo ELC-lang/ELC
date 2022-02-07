@@ -81,6 +81,17 @@ namespace magic_number{
 			b++;
 		return (T)b;
 	}
+	#if defined(_MSC_VER)
+		#pragma warning(push)
+		#pragma warning(disable:26467)//gold_of_resize永远为正数
+	#endif
+	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_array(size_t size){
+		/*
+		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
+		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
+		*/
+		return size_t(size*gold_of_resize);
+	}
 	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
 		/*
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
@@ -88,7 +99,12 @@ namespace magic_number{
 		*/
 		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
 	}
+	#if defined(_MSC_VER)
+		#pragma warning(pop)
+	#endif
 }
+using magic_number::get_next_gold_size_to_resize_for_array;
+using magic_number::get_next_gold_size_to_resize_for_hash;
 
 //file_end
 

@@ -17,7 +17,6 @@ public:
 
 	[[nodiscard]]virtual value arec(const value)noexcept override{return value(this);}
 
-	virtual void destroy()noexcept override final{nothing}
 	virtual void clear()noexcept override final{nothing}
 
 	virtual void be_replace_as(ptr)noexcept override{nothing}

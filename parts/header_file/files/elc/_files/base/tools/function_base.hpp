@@ -61,7 +61,14 @@ namespace function_base_n{
 
 		function_data_warpper_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
-		Ret_t operator()(Args_t...args)noexcept(nothrow){
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26440)//nothrow警告diss
+		#endif
+		Ret_t operator()(Args_t...args){
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
@@ -147,7 +154,14 @@ namespace function_base_n{
 
 		function_data_warpper_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
-		Ret_t operator()(Args_t...args)noexcept{
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26440)//nothrow警告diss
+		#endif
+		Ret_t operator()(Args_t...args){
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
@@ -173,7 +187,14 @@ namespace function_base_n{
 
 		function_data_warpper_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26440)//nothrow警告diss
+		#endif
 		Ret_t operator()(Args_t...args){
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");

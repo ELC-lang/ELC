@@ -62,5 +62,14 @@ void ste::stst(){
 		stest_accert(use_as<char_t>((*b)[1]) == U'2');
 		(*b)[1] = U'3';
 		stest_accert(use_as<string>(b) == U"13345");
+		struct 机枪1942 {
+			int 子弹数 = 114514;
+		};
+		struct 希特勒: 机枪1942 {
+			int 人头数 = 191980;
+		};
+		a = make_binary_node_from<希特勒>(希特勒{});
+		stest_accert(use_as<机枪1942>(a).子弹数 == 114514);
+		stest_accert(use_as<希特勒>(a).人头数 == 191980);
 	}
 }

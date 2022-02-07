@@ -18,30 +18,30 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	size_t _to_size;
 	size_t _used_size;
 
-	head_apply_string_data_t(ptr_t str,string_view_t head):
+	head_apply_string_data_t(ptr_t str,string_view_t head)noexcept:
 		_to_size(str->get_size()),
 		_used_size(head.size()),
 		_to(str)
 	{
-		_m.resize(size_t((_to_size+_used_size)*magic_number::gold_of_resize));
+		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
 		copy_assign[_used_size](note::form((const char_T*)head.begin()),note::to((char_T*)_m.end()-_used_size));
 	}
 
-	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin>=_used_size)
 			return _to->get_substr_data(begin-_used_size,size);
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	[[nodiscard]]virtual char_T* get_c_str(ptr_t&p)override final{
+	[[nodiscard]]virtual char_T* get_c_str(ptr_t&p)noexcept override final{
 		if(!_used_size)
 			return _to->get_c_str(_to);
 		else
 			return base_t::get_c_str(p);
 	}
-	virtual void be_replace_as(ptr_t a)override final{
+	virtual void be_replace_as(ptr_t a)noexcept override final{
 		if(type_info<this_t> == typeid(*a)){
-			auto p=static_cast<this_t*>(a.get());
+			const auto p = down_cast<this_t*>(a.get());
 			if(_used_size==p->_used_size && _to!=p->_to)
 				base_t::equivalent_optimization(_to, p->_to);
 		}
@@ -49,8 +49,8 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		_to.reset();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual size_t get_size()override final{ return _used_size+_to_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
+	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _used_size+_to_size; }
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{
 		if(pos<_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			const char_T* head_end=_m.end();
@@ -59,7 +59,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 
 			copy_assign[size_of_copy_from_head](note::form(copy_begin),note::to(to));
 			if(size!=size_of_copy_from_head){
-				size_t size_left=size-size_of_copy_from_head;
+				const size_t size_left=size-size_of_copy_from_head;
 				char_T* next_copy_begin_pos=to+size_of_copy_from_head;
 				_to->copy_part_data_to(next_copy_begin_pos,0,size_left);
 			}
@@ -67,13 +67,13 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			_to->copy_part_data_to(to,pos-_used_size,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
 		if(index<_used_size)
 			return _m[index];
 		else
 			return _to->arec(index-_used_size);
 	}
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
 		if(this->is_unique())
 			if(index<_used_size)
 				_m[index]=a;
@@ -82,11 +82,11 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
 		if(this->is_unique()){
 			if(_m.size()-_used_size<str.size()){
-				auto size_now=this->get_size()+str.size();
-				auto size_new=size_t(size_now*magic_number::gold_of_resize);
+				const auto size_now=this->get_size()+str.size();
+				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
 				_m.forward_resize(size_new);
 			}
 			_used_size+=str.size();
@@ -96,14 +96,14 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
 		this->shrink();
 		return base_t::apply_str_to_begin(str);
 	}
-	void shrink(){
+	void shrink()noexcept{
 		_m.forward_resize(_used_size);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str.size();
@@ -112,7 +112,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str->get_size();
@@ -121,7 +121,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self) override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
 			return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m.end()-_used_size-size,size});
@@ -129,7 +129,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self) override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique()){
 			auto aret=_to->do_pop_back(size,_to);
 			_to_size-=size;
@@ -139,12 +139,12 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			return base_t::do_pop_back(size,self);
 	}
 
-	[[nodiscard]]virtual double get_memory_cost()override final{
-		return (sizeof(*this)+_m.size()*sizeof(char_T)+_to->get_memory_cost())/get_ref_num((const base_t*)this);
+	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
+		return (_to->get_memory_cost()+sizeof(*this)+_m.size_in_byte())/get_ref_num((const base_t*)this);
 	}
 };
 template<typename char_T>
-[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(string_view_t str){
+[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(string_view_t str)noexcept{
 	return get<head_apply_string_data_t<char_T>>(this,str);
 }
 

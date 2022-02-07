@@ -19,9 +19,9 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	size_t _insert_pos;
 	size_t _insert_size;
 
-	inserted_string_data_t(ptr_t to,ptr_t insert_data,size_t insert_pos):_to(to),_insert_data(insert_data),_insert_pos(insert_pos),_to_size(to->get_size()),_insert_size(insert_data->get_size()){}
+	inserted_string_data_t(ptr_t to,ptr_t insert_data,size_t insert_pos)noexcept:_to(to),_insert_data(insert_data),_insert_pos(insert_pos),_to_size(to->get_size()),_insert_size(insert_data->get_size()){}
 
-	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)override final{
+	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin+size<_insert_pos)
 			return _to->get_substr_data(begin,size);
 		elseif(begin>_insert_pos+_insert_size)
@@ -31,9 +31,9 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	virtual void be_replace_as(ptr_t a)override final{
+	virtual void be_replace_as(ptr_t a)noexcept override final{
 		if(type_info<this_t> == typeid(*a)){
-			auto p=static_cast<this_t*>(a.get());
+			const auto p = down_cast<this_t*>(a.get());
 			if(_insert_pos==p->_insert_pos && _insert_size==p->_insert_size){
 				if(_to!=p->_to)
 					base_t::equivalent_optimization(_to, p->_to);
@@ -45,8 +45,8 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		_insert_data.reset();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual size_t get_size()override final{ return _to_size+_insert_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)override final{
+	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _to_size+_insert_size; }
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{
 		if(pos+size<_insert_pos)
 			_to->copy_part_data_to(to,pos,size);
 		elseif(pos>_insert_pos+_insert_size)
@@ -66,7 +66,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				_to->copy_part_data_to(to,_insert_pos,size);
 		}
 	}
-	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)override final{
+	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)noexcept override final{
 		if(this->is_unique()){
 			if(pos>=_insert_pos && pos+size<=_insert_pos+_insert_size){
 				_insert_data=_insert_data->do_erase(pos-_insert_pos,size);
@@ -82,7 +82,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		}
 		return base_t::do_erase(pos,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
 		if(index>=_insert_pos && index<_insert_pos+_insert_size)
 			return _insert_data->arec(index-_insert_pos);
 		elseif(index>=_insert_pos+_insert_size)
@@ -91,7 +91,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			return _to->arec(index);
 	}
 
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
 		if(this->is_unique())
 			if(index>=_insert_pos && index<_insert_pos+_insert_size)
 				_insert_data->arec_set(index-_insert_pos,a,p);
@@ -102,7 +102,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
 		if(this->is_unique()){
 			if(_insert_pos==0){
 				_insert_data=_insert_data->apply_str_to_begin(str);
@@ -117,7 +117,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
 		if(this->is_unique()){
 			if(_insert_pos==0){
 				_insert_data=_insert_data->apply_str_to_begin(str);
@@ -132,7 +132,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{
 		if(this->is_unique()){
 			if(_insert_pos==_to_size){
 				_insert_data=_insert_data->apply_str_to_end(str);
@@ -147,7 +147,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{
 		if(this->is_unique()){
 			if(_insert_pos==_to_size){
 				_insert_data=_insert_data->apply_str_to_end(str);
@@ -162,7 +162,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self) override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique()){
 			if(_insert_pos > size){
 				auto aret=_to->do_pop_front(size,_to);
@@ -177,7 +177,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		}
 		return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self) override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique()){
 			if(_insert_pos+_insert_size <= _to_size-size){
 				auto aret=_to->do_pop_back(size,_to);
@@ -192,16 +192,16 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		return base_t::do_pop_back(size,self);
 	}
 
-	[[nodiscard]]virtual double get_memory_cost()override final{
+	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (sizeof(*this)+_insert_data->get_memory_cost()+_to->get_memory_cost())/get_ref_num((const base_t*)this);
 	}
 };
 template<typename char_T>
-base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,ptr_t str){
+base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,ptr_t str)noexcept{
 	return get<inserted_string_data_t<char_T>>(this,str,pos);
 }
 template<typename char_T>
-base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,string_view_t str){
+base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,string_view_t str)noexcept{
 	return this->do_insert(pos,get<comn_string_data_t<char_T>>(str));
 }
 

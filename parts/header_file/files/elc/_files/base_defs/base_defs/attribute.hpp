@@ -10,22 +10,22 @@ template<class T,typename attribute_name>
 struct attribute{
 protected:
 	template<class U,special_attribute_t attribute_name>
-	friend U*get_handle(attribute<U,attribute_name>*);
-	constexpr T*get_handle()noexcept{return static_cast<T*>(static_cast<attribute_name*>(this));}
+	friend U*get_handle(attribute<U,attribute_name>*)noexcept;
+	constexpr T*get_handle()noexcept{return down_cast<T*>(down_cast<attribute_name*>(this));}
 
 	template<class U,special_attribute_t attribute_name>
-	friend const U*get_handle(const attribute<U,attribute_name>*);
-	constexpr const T*get_handle()const noexcept{return static_cast<const T*>(static_cast<const attribute_name*>(this));}
+	friend const U*get_handle(const attribute<U,attribute_name>*)noexcept;
+	constexpr const T*get_handle()const noexcept{return down_cast<const T*>(down_cast<const attribute_name*>(this));}
 };
 template<class T,special_attribute_t attribute_name>
-T*get_handle(attribute<T,attribute_name>*a){return a->get_handle();}
+T*get_handle(attribute<T,attribute_name>*a)noexcept{return a->get_handle();}
 template<class T,special_attribute_t attribute_name>
-const T*get_handle(const attribute<T,attribute_name>*a){return a->get_handle();}
+const T*get_handle(const attribute<T,attribute_name>*a)noexcept{return a->get_handle();}
 
 template<class T,common_attribute_t attribute_name>
-T* get_handle(attribute<T,attribute_name<T>>*a){return get_handle<T,attribute_name<T>>(a);}
+T* get_handle(attribute<T,attribute_name<T>>*a)noexcept{return get_handle<T,attribute_name<T>>(a);}
 template<class T,common_attribute_t attribute_name>
-const T* get_handle(const attribute<T,attribute_name<T>>*a){return get_handle<T,attribute_name<T>>(a);}
+const T* get_handle(const attribute<T,attribute_name<T>>*a)noexcept{return get_handle<T,attribute_name<T>>(a);}
 
 template<special_attribute_t attribute_name,class T>
 auto attribute_ptr_cast(T*ptr)noexcept{

@@ -17,7 +17,36 @@ template<typename T>
 [[nodiscard]]inline ptr make_binary_node_from(T a)noexcept;
 
 template<typename T>
-auto as_value(T&& a) {
+constexpr bool as_value_nothrow_helper()noexcept{
+	if constexpr(was_not_an_ill_form(static_cast<value&>(declvalue(T))))
+		return noexcept(static_cast<value&>(declvalue(T)));
+	elseif constexpr(was_not_an_ill_form(static_cast<node_like&>(declvalue(T))))
+		return noexcept(value(&static_cast<node_like&>(declvalue(T))));
+	elseif constexpr(was_not_an_ill_form(static_cast<const value&>(declvalue(T))))
+		return noexcept(static_cast<const value&>(declvalue(T)));
+	elseif constexpr(was_not_an_ill_form(static_cast<const node_like&>(declvalue(T))))
+		return noexcept((const value)remove_const((const node_like*)&static_cast<const node_like&>(declvalue(T))));
+	elseif constexpr(was_not_an_ill_form(ptr(&declvalue(T))))
+		return noexcept(value(ptr(&declvalue(T))));
+	elseif constexpr(was_not_an_ill_form(ptr(declvalue(T))))
+		return noexcept(value(ptr(declvalue(T))));
+	elseif constexpr(was_not_an_ill_form(const_ptr(&declvalue(T))))
+		return noexcept((const value)(const_ptr(&declvalue(T))));
+	elseif constexpr(was_not_an_ill_form(const_ptr(declvalue(T))))
+		return noexcept((const value)remove_const((const node_like*)const_ptr(declvalue(T))));
+	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
+		return noexcept(value(make_binary_node_from<char_t>(declvalue(T))));
+	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
+		if constexpr(::std::is_signed_v<remove_cvref<T>>)
+			return noexcept(value(make_binary_node_from<int_t>(declvalue(T))));
+		else
+			return noexcept(value(make_binary_node_from<uint_t>(declvalue(T))));
+	}
+	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
+		return noexcept(value(make_binary_node_from<float_t>(declvalue(T))));
+}
+template<typename T>
+auto as_value(T&& a)noexcept(as_value_nothrow_helper<T>()){
 	ELC_TEST_EVENTNAME("as_value转换");
 	if constexpr(was_not_an_ill_form(static_cast<value&>(a)))
 		return static_cast<value&>(a);
@@ -48,7 +77,30 @@ auto as_value(T&& a) {
 }
 
 template<typename T>
-auto as_ptr(T&&a){
+constexpr bool as_ptr_nothrow_helper()noexcept{
+	if constexpr(was_not_an_ill_form(ptr(&declvalue(T))))
+		return noexcept(ptr(&declvalue(T)));
+	elseif constexpr(was_not_an_ill_form(static_cast<node_like&>(declvalue(T))))
+		return noexcept(&static_cast<node_like&>(declvalue(T)));
+	elseif constexpr(was_not_an_ill_form(static_cast<value&>(declvalue(T))))
+		return noexcept(ptr(static_cast<value&>(declvalue(T))));
+	elseif constexpr(was_not_an_ill_form(ptr(declvalue(T))))
+		return noexcept(ptr(declvalue(T)));
+	elseif constexpr(was_not_an_ill_form(const_ptr(declvalue(T))))
+		return noexcept(const_ptr(declvalue(T)));
+	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
+		return noexcept(make_binary_node_from<char_t>(declvalue(T)));
+	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
+		if constexpr(::std::is_signed_v<remove_cvref<T>>)
+			return noexcept(make_binary_node_from<int_t>(declvalue(T)));
+		else
+			return noexcept(make_binary_node_from<uint_t>(declvalue(T)));
+	}
+	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
+		return noexcept(make_binary_node_from<float_t>(declvalue(T)));
+}
+template<typename T>
+auto as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
 	ELC_TEST_EVENTNAME("as_ptr转换");
 	if constexpr(was_not_an_ill_form(ptr(&a)))
 		return ptr(&a);

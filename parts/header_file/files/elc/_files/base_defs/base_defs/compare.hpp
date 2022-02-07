@@ -59,12 +59,12 @@ constexpr struct equal_t{
 	template<typename T,typename U>
 	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
-			if(*a!=*b || *b==U(0))
+			if(*a!=*b || *b==U{0})
 				return false;
 			a++;
 			b++;
 		}
-		return *b==U(0);
+		return *b==U{0};
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr bool operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
@@ -75,7 +75,7 @@ constexpr struct equal_t{
 		while(true){
 			if(*a!=*b)
 				return false;
-			if(*a==T(0))
+			if(*a==T{0})
 				return true;
 			a++;
 			b++;
@@ -166,32 +166,32 @@ constexpr struct compare_t{
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
-			if(*b==U(0))
+			if(*b==U{0})
 				return 1<=>0;
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;
 			b++;
 		}
-		return 0<=>int(!bool(*b==U(0)));
+		return 0<=>int(!bool(*b==U{0}));
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		while(size2--){
-			if(*a==T(0))
+			if(*a==T{0})
 				return 0<=>1;
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;
 			b++;
 		}
-		return 0<=>int(!bool(*b==U(0)));
+		return 0<=>int(!bool(*b==U{0}));
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(true){
-			if(*a==T(0))
-				return 0<=>int(!bool(*b==U(0)));
+			if(*a==T{0})
+				return 0<=>int(!bool(*b==U{0}));
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;

@@ -14,6 +14,8 @@ namespace elc{
 	typedef uint64_t uint_t;
 	/*ELC内部钦定float_t类型*/
 	typedef double float_t;
+	/*ELC内部钦定float_size_t类型，用以描述内存大小的浮点状况*/
+	typedef long double float_size_t;
 }
 
 //file_end

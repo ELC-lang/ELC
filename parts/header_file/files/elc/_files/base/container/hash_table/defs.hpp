@@ -22,7 +22,7 @@ namespace hash_table_n{
 			return _m[a%_m.size()];
 		}
 		void bucket_count_grow()noexcept{
-			this_t tmp(special_init,magic_number::get_next_gold_size_to_resize_for_hash(_m.size()));
+			this_t tmp(special_init,get_next_gold_size_to_resize_for_hash(_m.size()));
 			for(bucket_t&a:_m){
 				while(!a.empty())
 					a.move_top_to(tmp.find_bucket(a.get_top_hash()));
@@ -34,8 +34,8 @@ namespace hash_table_n{
 			return{_m};
 		}
 	public:
-		hash_table_t():_m(5){}
-		hash_table_t(special_init_t,size_t bucket_size):_m(bucket_size){}
+		hash_table_t()noexcept:_m(5){}
+		hash_table_t(special_init_t,size_t bucket_size)noexcept:_m(bucket_size){}
 		~hash_table_t()noexcept(destruct.nothrow<base_t_w>)=default;
 
 		operator base_t_w&()noexcept{return _m;}
@@ -82,7 +82,14 @@ namespace hash_table_n{
 		template<typename U>
 		[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept(find_nothrow<U>){
 			auto&bucket=find_bucket(hash(a));
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26496)//?
+			#endif
 			auto reference=bucket.find(a);
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
 			if constexpr(is_unstable_hash<T>)
 				if(reference.fail()){
 					for(auto&i:_m){
@@ -104,7 +111,7 @@ namespace hash_table_n{
 
 		size_t size()noexcept{
 			size_t aret=0;
-			for(bucket_t&a:_m){
+			for(const bucket_t&a:_m){
 				aret+=a.size();
 			}
 			return aret;

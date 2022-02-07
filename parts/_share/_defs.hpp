@@ -14,6 +14,17 @@
 	#pragma warning(disable:26812)//enum class安利diss.
 	#pragma warning(disable:4584)//重复子类警告diss
 	#pragma warning(disable:4250)//域控制继承警告diss
+	#pragma warning(disable:26432)//不完全默认方法警告diss
+	#pragma warning(disable:26435)//virtual override方法警告diss
+	#pragma warning(disable:26481)//容器安利diss
+	#pragma warning(disable:26446)//gsl::at安利diss
+	#pragma warning(disable:26434)//方法覆盖警告diss
+	#pragma warning(disable:26429)//gsl::not_null安利diss
+	#pragma warning(disable:26471)//对void*进行static_cast安利diss
+	#pragma warning(disable:26474)//隐式指针转换显式cast警告diss
+	#pragma warning(disable:26473)//相同指针显式cast警告diss
+	#pragma warning(disable:26456)//隐藏非虚运算符警告diss
+	#pragma warning(disable:26485)//数组作指针警告diss
 #endif
 //
 #if defined(ELC_VOID_NAME)
@@ -152,10 +163,10 @@ class name{}\
 
 #define override_instance_struct \
 protected:\
-	virtual void abstract_method_unget_this()override{instance_struct<this_t>::abstract_method_unget_this();}\
-	virtual void* _abstract_method_copy_get_this()override{return instance_struct<this_t>::_abstract_method_copy_get_this();}\
-	virtual void* _abstract_method_get_resize_this(size_t size)override{return instance_struct<this_t>::_abstract_method_get_resize_this(size);}\
-	virtual void* _abstract_method_get_forward_resize_this(size_t size)override{return instance_struct<this_t>::_abstract_method_get_forward_resize_this(size);}\
+	virtual void abstract_method_unget_this()noexcept_as(instance_struct<this_t>::abstract_method_unget_this())override{instance_struct<this_t>::abstract_method_unget_this();}\
+	virtual void* _abstract_method_copy_get_this()noexcept_as(instance_struct<this_t>::_abstract_method_copy_get_this())override{return instance_struct<this_t>::_abstract_method_copy_get_this();}\
+	virtual void* _abstract_method_get_resize_this(size_t size)noexcept_as(instance_struct<this_t>::instance_struct<this_t>::_abstract_method_get_resize_this(size))override{return instance_struct<this_t>::_abstract_method_get_resize_this(size);}\
+	virtual void* _abstract_method_get_forward_resize_this(size_t size)noexcept_as(instance_struct<this_t>::_abstract_method_get_forward_resize_this(size))override{return instance_struct<this_t>::_abstract_method_get_forward_resize_this(size);}\
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept override{return instance_struct<this_t>::abstract_method_get_size_of_get_for_this();}
 
 #if defined(_WIN32)

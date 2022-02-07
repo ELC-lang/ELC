@@ -6,22 +6,29 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#include <elc/string>
+//#include <elc/string>
+#include <elc/core>
+//#include <elc/base_exception>
+/*
+#include "../../files/elc/_files/_share/_defs.hpp"
 
-using namespace elc;
+namespace elc::defs{
+	
+}
+namespace elc{
+}
+
+#include "../../files/elc/_files/_share/_undefs.hpp"
+
 
 #include <iostream>
 #include <steve.h>
 
+using namespace elc;
+
 void ste::stst()
 {
-	elc::string_t a = U"123";
-	elc::string_t b = U"123"_elc_string;
-	stest_accert(a.memory_cost() > b.memory_cost());
-	stest_accert(a == b);
-	stest_accert(a.memory_cost() == b.memory_cost());
-	stest_accert(a.find(U'2')==1);
-	stest_accert(a == U"123");
-	stest_accert(U"1234" != a);
+	
 }
+*/
 

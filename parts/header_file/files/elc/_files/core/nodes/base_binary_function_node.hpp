@@ -28,16 +28,21 @@ struct base_binary_function_node:node_like,instance_struct<base_binary_function_
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<this_t>;}
 	[[nodiscard]]virtual function_t<value(ptr)> get_call_of_this()noexcept override{return _func;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const override{
+	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
 		if(a->get_type_info() != this->get_type_info())
 			return false;
-		const this_t*p=static_cast<const this_t*>(a.get());
-		return _func==p->_func;
+		const this_t*p=down_cast<const this_t*>(a.get());
+		try{
+			return _func==p->_func;
+		}
+		catch(...){
+			return unknown;
+		}
 	}
 public:
 	[[nodiscard]]virtual value arec(const value index)override{return the_void[index];}
 
-	virtual void clear()override{_func=nullptr;}
+	virtual void clear()noexcept override{_func=nullptr;}
 };
 
 //file_end

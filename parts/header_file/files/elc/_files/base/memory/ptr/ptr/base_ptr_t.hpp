@@ -52,7 +52,7 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	using same_ptr::_to;
 
 	explicit ptr_t(T*a,special_init_t)noexcept:same_ref(a){}
-	ptr_t(T*a)noexcept:same_ref(a){add_ref();}
+	constexpr ptr_t(T*a)noexcept:same_ref(a){add_ref();}
 	ptr_t(const same_ptr&a)noexcept:same_ref(a){
 		if constexpr(type_info<T>.has_attribute(weak_ref_able) && type_info<ref_type> == type_info<ref_able<remove_cv<T>>>)
 			if(get_ref_num(_to))
@@ -66,8 +66,8 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	ptr_t(const ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(const ptr_t<remove_cv<T>,ref_type,do_replace_check>&a)noexcept requires(type_info<remove_cv<T>>!=type_info<T>):ptr_t(a.get()){}
 	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){}
-	ptr_t(nullptr_t=nullptr)noexcept:ptr_t(null_ptr){}
-	ptr_t(null_ptr_t)noexcept:ptr_t((T*)(null_ptr)){}
+	constexpr ptr_t(nullptr_t=nullptr)noexcept:ptr_t(null_ptr){}
+	constexpr ptr_t(null_ptr_t)noexcept:ptr_t((T*)(null_ptr)){}
 	~ptr_t()noexcept(cut_nothrow){cut_ref();}
 
 	static constexpr bool reset_nothrow=cut_nothrow;
@@ -80,14 +80,14 @@ public:
 			if(attribute_ptr_cast<replace_able>(_to)->replaced())
 				reset(attribute_ptr_cast<replace_able>(_to)->get_ptr());
 	}
-	inline void do_replace(T*p)const noexcept(replace_check_nothrow&&reset_nothrow){
+	inline void do_replace(T*p)noexcept(replace_check_nothrow&&reset_nothrow){
 		if constexpr(type_info<remove_cvref<T>>.has_attribute(replace_able)){
 			attribute_ptr_cast<replace_able>(_to)->be_replace_as(p);
 			reset(p);
 		}
 	}
 	template<typename ref_type_,bool do_replace_check_>
-	inline void do_replace(const ptr_t<T,ref_type_,do_replace_check_>&p)const noexcept(replace_check_nothrow&&reset_nothrow){
+	inline void do_replace(const ptr_t<T,ref_type_,do_replace_check_>&p)noexcept(replace_check_nothrow&&reset_nothrow){
 		do_replace(p.get());
 	}
 	static constexpr bool get_nothrow=replace_check_nothrow;
@@ -139,7 +139,7 @@ public:
 };
 
 template<typename T_,typename T,typename ref_type,bool do_replace_check,enable_if(type_info<T_>.base_on<T>)>
-[[nodiscard]]inline auto operator==(const T_*a,ptr_t<T,ref_type,do_replace_check>&b)noexcept_as(b.operator==(a)){
+[[nodiscard]]inline auto operator==(const T_*a,ptr_t<T,ref_type,do_replace_check>&b)noexcept_as(b.operator==(static_cast<const T*>(a))){
 	return b.operator==(static_cast<const T*>(a));
 }
 

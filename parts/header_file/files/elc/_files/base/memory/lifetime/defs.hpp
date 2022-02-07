@@ -143,6 +143,10 @@ namespace lifetime_n{
 		template<class T>
 		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
 
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26457)//虽然我不是很理解为啥调用析构函数会触发这个
+		#endif
 		template<class T> requires able<T>
 		static void base_call(T*to)noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)
@@ -151,6 +155,9 @@ namespace lifetime_n{
 						base_call(addressof(i));
 				else to->~T();
 		}
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 
 		template<class T> requires able<T>
 		static void base_call([[maybe_unused]]T*begin,[[maybe_unused]]size_t size)noexcept(nothrow<T>){

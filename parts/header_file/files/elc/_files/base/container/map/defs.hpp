@@ -16,7 +16,7 @@ namespace map_n{
 			T _value;
 
 			data_t(const data_t&) = default;
-			data_t(const key_t&a,const T&b):_key(a),_value(b){}
+			data_t(const key_t&a,const T&b)noexcept(copy_construct.nothrow<key_t> && copy_construct.nothrow<T>):_key(a),_value(b){}
 
 			struct seek_value_t{
 				const T*_m;
@@ -64,7 +64,7 @@ namespace map_n{
 		template<size_t _>
 		void swap(map_t<T,key_t,stack_t,_>&a)noexcept{swap(_m,a._m);}
 
-		[[nodiscard]]T&operator[](const key_t&a){
+		[[nodiscard]]T&operator[](const key_t&a)noexcept_as(_m.add({a,T()})){
 			auto tmp=_m.find(a);
 			if(tmp.fail()){
 				_m.add({a,T()});
@@ -72,7 +72,7 @@ namespace map_n{
 			}
 			return tmp.get_ref()._value;
 		}
-		[[nodiscard]]const T&operator[](const key_t&a)const{
+		[[nodiscard]]const T&operator[](const key_t&a)const noexcept{
 			auto tmp=_m.find(a);
 			return tmp.fail()?const_default_value_of<T>:tmp.get_ref()._value;
 		}
@@ -100,7 +100,7 @@ namespace map_n{
 
 		static constexpr bool shrink_nothow=stack_t<data_t>::remove_nothrow;
 		void shrink()const noexcept(shrink_nothow){
-			_m.for_each_bucket(lambda(stack_t<data_t>&a)noexcept(shrink_nothow){
+			_m.for_each_bucket(lambda(stack_t<data_t>&a)noexcept(shrink_nothow && equal.nothrow<T>){
 				while(a.remove(data_t::seek_value_t(const_default_value_of<T>)));
 			});
 		}
@@ -115,7 +115,7 @@ namespace map_n{
 			try{
 				_m.for_each(lambda_with_catch(&a)(data_t&b){
 					if(a[b._key]!=b._value)
-						throw (this_t*)nullptr;
+						throw (this_t*)(nullptr);
 				});
 			}
 			catch(this_t*){
