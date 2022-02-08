@@ -24,7 +24,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		_to(str)
 	{
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
-		copy_assign[_used_size](note::form((const char_T*)head.begin()),note::to((char_T*)_m.end()-_used_size));
+		copy_assign[_used_size](note::form<const char_T*>(head.begin()),note::to<char_T*>(_m.end()-_used_size));
 	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
@@ -90,7 +90,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 				_m.forward_resize(size_new);
 			}
 			_used_size+=str.size();
-			copy_assign[str.size()](note::form((const char_T*)str.begin()),note::to((char_T*)_m.end()-_used_size));
+			copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size));
 			return this;
 		}
 		else

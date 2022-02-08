@@ -80,7 +80,7 @@ namespace default_method{
 		//但只允许在扩大数据块时可选的移动数据块
 		if constexpr(type_info<T>.has_attribute(never_in_array))
 			template_error("You cannot perform array operations on never_in_array type.");
-		return ptr=(T*)base_realloc(ptr,sizeof(T)*new_size,alignof(T));
+		return ptr=reinterpret_cast<T*>(base_realloc(ptr,sizeof(T)*new_size,alignof(T)));
 	}
 }
 

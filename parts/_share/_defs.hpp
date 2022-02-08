@@ -25,6 +25,9 @@
 	#pragma warning(disable:26473)//相同指针显式cast警告diss
 	#pragma warning(disable:26456)//隐藏非虚运算符警告diss
 	#pragma warning(disable:26485)//数组作指针警告diss
+	#pragma warning(disable:26490)//reinterpret_cast警告diss
+	#pragma warning(disable:26472)//static_cast窄幅转换警告diss
+	#pragma warning(disable:26493)//c_cast转换警告diss：虽然有用但是太烦了，爬
 #endif
 //
 #if defined(ELC_VOID_NAME)

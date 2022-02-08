@@ -47,7 +47,7 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
-		size_t this_size=sizeof(*this)+_m.size_in_byte();
+		const auto this_size=sizeof(*this)+_m.size_in_byte();
 		return float_size_t(this_size)/get_ref_num((const base_t*)this);
 	}
 };
@@ -72,8 +72,8 @@ void base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p)noexcep
 }
 template<typename char_T>
 [[nodiscard]]float_size_t base_string_data_t<char_T>::get_memory_cost_after_gc()noexcept{
-	size_t size_of_base_array=this->get_size()*sizeof(char_T);
-	size_t size=sizeof(comn_string_data_t<char_T>)+size_of_base_array;
+	const auto size_of_base_array=this->get_size()*sizeof(char_T);
+	const auto size=sizeof(comn_string_data_t<char_T>)+size_of_base_array;
 	return float_size_t(size)/get_ref_num(this);
 }
 
