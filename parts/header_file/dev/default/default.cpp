@@ -56,14 +56,3 @@ namespace elc{
 #include "../../files/elc/_files/_share/_undefs.hpp"
 
 
-#include <iostream>
-#include <steve.h>
-
-using namespace elc;
-
-void ste::stst()
-{
-	
-}
-
-
