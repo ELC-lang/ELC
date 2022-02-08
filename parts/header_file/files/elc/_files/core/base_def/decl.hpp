@@ -13,6 +13,17 @@ typedef comn_ptr_t<const node_like>const_ptr;
 typedef weak_ptr_t<const node_like>const_weak_ptr;
 struct value;
 
+BREAK_NAMESPACE
+namespace string_n{
+	template<typename char_T>
+	struct string_t;
+	typedef string_t<char_t> string;
+}
+using string_n::string_t;
+using string_n::string;
+inline string operator""_elc_string(const char_t*str,size_t N)noexcept;
+INTER_NAMESPACE(core)
+
 template<typename T>
 [[nodiscard]]inline ptr make_binary_node_from(T a)noexcept;
 
