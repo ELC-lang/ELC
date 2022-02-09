@@ -36,7 +36,10 @@ namespace elc::defs{
 				#endif
 			}
 			value get_symbol(const value index){
-				return (*_namespace_now)[index];
+				ptr namespace_now_p = _namespace_now;
+				while(namespace_now_p && !(*namespace_now_p)[index])
+					namespace_now_p = (*namespace_now_p)[es".."];
+				return (*namespace_now_p)[index];
 			}
 			value get_symbol(auto&& index){ return get_symbol(as_value(index)); }
 
