@@ -25,7 +25,7 @@ inline string operator""_elc_string(const char_t*str,size_t N)noexcept;
 INTER_NAMESPACE(core)
 
 template<typename T>
-[[nodiscard]]inline ptr make_binary_node_from(T a)noexcept;
+[[nodiscard]]inline ptr make_long_term_binary_node_from(T a)noexcept;
 
 template<typename T>
 constexpr bool as_ptr_nothrow_helper()noexcept{
@@ -46,23 +46,23 @@ constexpr bool as_ptr_nothrow_helper()noexcept{
 	elseif constexpr(was_not_an_ill_form(const_ptr(declvalue(T))))
 		return noexcept(const_ptr(declvalue(T)));
 	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
-		return noexcept(make_binary_node_from<char_t>(declvalue(T)));
+		return noexcept(make_long_term_binary_node_from<char_t>(declvalue(T)));
 	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
 		if constexpr(::std::is_signed_v<remove_cvref<T>>)
-			return noexcept(make_binary_node_from<int_t>(declvalue(T)));
+			return noexcept(make_long_term_binary_node_from<int_t>(declvalue(T)));
 		else
-			return noexcept(make_binary_node_from<uint_t>(declvalue(T)));
+			return noexcept(make_long_term_binary_node_from<uint_t>(declvalue(T)));
 	}
 	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
-		return noexcept(make_binary_node_from<float_t>(declvalue(T)));
+		return noexcept(make_long_term_binary_node_from<float_t>(declvalue(T)));
 	elseif constexpr(::std::is_array_v<remove_cvref<T>> && type_info<::std::remove_extent_t<remove_ref<T>>> == type_info<const char_t>){
 		if constexpr(!::std::extent_v<remove_cvref<T>>)
-			return noexcept(make_binary_node_from<string>(declvalue(T)));
+			return noexcept(make_long_term_binary_node_from<string>(declvalue(T)));
 		else
-			return noexcept(make_binary_node_from<string>(operator""_elc_string(declvalue(T),::std::extent_v<remove_cvref<T>>-1)));
+			return noexcept(make_long_term_binary_node_from<string>(operator""_elc_string(declvalue(T),::std::extent_v<remove_cvref<T>>-1)));
 	}
 	elseif constexpr(type_info<remove_cvref<T>> == type_info<string>){
-		return noexcept(make_binary_node_from<string>(declvalue(T)));
+		return noexcept(make_long_term_binary_node_from<string>(declvalue(T)));
 	}
 }
 template<typename T>
@@ -85,23 +85,23 @@ auto as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
 	elseif constexpr(was_not_an_ill_form(const_ptr(a)))
 		return const_ptr(a);
 	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
-		return make_binary_node_from<char_t>(a);
+		return make_long_term_binary_node_from<char_t>(a);
 	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
 		if constexpr(::std::is_signed_v<remove_cvref<T>>)
-			return make_binary_node_from<int_t>(a);
+			return make_long_term_binary_node_from<int_t>(a);
 		else
-			return make_binary_node_from<uint_t>(a);
+			return make_long_term_binary_node_from<uint_t>(a);
 	}
 	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
-		return make_binary_node_from<float_t>(a);
+		return make_long_term_binary_node_from<float_t>(a);
 	elseif constexpr(::std::is_array_v<remove_cvref<T>> && type_info<::std::remove_extent_t<remove_ref<T>>> == type_info<const char_t>){
 		if constexpr(!::std::extent_v<remove_cvref<T>>)
-			return make_binary_node_from<string>(a);
+			return make_long_term_binary_node_from<string>(a);
 		else
-			return make_binary_node_from<string>(operator""_elc_string(a,::std::extent_v<remove_cvref<T>>-1));
+			return make_long_term_binary_node_from<string>(operator""_elc_string(a,::std::extent_v<remove_cvref<T>>-1));
 	}
 	elseif constexpr(type_info<remove_cvref<T>> == type_info<string>){
-		return make_binary_node_from<string>(a);
+		return make_long_term_binary_node_from<string>(a);
 	}
 }
 

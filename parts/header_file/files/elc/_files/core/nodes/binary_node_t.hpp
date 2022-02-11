@@ -163,6 +163,15 @@ template<typename T>
 [[nodiscard]]inline ptr make_binary_node_from(T a)noexcept{
 	return get<binary_node_t<T>>(move(a));
 }
+template<typename T>
+inline distinctive map_t<ptr,T> long_term_binary_node_storager;
+template<typename T>
+[[nodiscard]]inline ptr make_long_term_binary_node_from(T a)noexcept{
+	ptr& to = long_term_binary_node_storager<T>[a];
+	if(!bool(to) || const_use_by_ref_as<T>(to)!=a)
+		to = make_binary_node_from<T>(move(a));
+	return to;
+}
 
 //file_end
 
