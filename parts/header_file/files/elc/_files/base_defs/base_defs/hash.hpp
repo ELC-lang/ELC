@@ -9,11 +9,13 @@
 namespace hash_n{
 	struct hash_value_t{
 		size_t _value;
+		auto operator%(auto&&a)const noexcept{
+			return _value%a;
+		}
+		auto operator==(const hash_value_t&a)const noexcept{
+			return _value==a._value;
+		}
 	};
-	template<class T>
-	auto operator%(const hash_value_t a,T&&b)noexcept{
-		return a._value%b;
-	}
 	struct unstable_hash_value_t:hash_value_t{
 		unstable_hash_value_t(const hash_value_t&a)noexcept:hash_value_t(a){}
 	};

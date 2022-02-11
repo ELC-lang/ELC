@@ -61,6 +61,9 @@ constexpr bool as_ptr_nothrow_helper()noexcept{
 		else
 			return noexcept(make_binary_node_from<string>(operator""_elc_string(declvalue(T),::std::extent_v<remove_cvref<T>>-1)));
 	}
+	elseif constexpr(type_info<remove_cvref<T>> == type_info<string>){
+		return noexcept(make_binary_node_from<string>(declvalue(T)));
+	}
 }
 template<typename T>
 auto as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
@@ -96,6 +99,9 @@ auto as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
 			return make_binary_node_from<string>(a);
 		else
 			return make_binary_node_from<string>(operator""_elc_string(a,::std::extent_v<remove_cvref<T>>-1));
+	}
+	elseif constexpr(type_info<remove_cvref<T>> == type_info<string>){
+		return make_binary_node_from<string>(a);
 	}
 }
 

@@ -28,6 +28,11 @@ public:
 	friend logical_bool operator||(logical_bool a,logical_bool b)noexcept{
 		return logical_bool{special_init,a._is_true || b._is_true,a._is_false || b._is_false,a._is_unknown || b._is_unknown};
 	}
+	friend logical_bool operator==(logical_bool a,logical_bool b)noexcept{
+		logical_bool aret(a._is_true == b._is_true && a._is_false == b._is_false);
+		aret._is_unknown = a._is_unknown || b._is_unknown;
+		return aret;
+	}
 };
 constexpr logical_bool neither{special_init,0,0},either{special_init,1,1},unknown{special_init,0,0,1};
 
