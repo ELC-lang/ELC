@@ -9,10 +9,10 @@
 namespace hash_n{
 	struct hash_value_t{
 		size_t _value;
-		auto operator%(auto&&a)const noexcept{
+		size_t operator%(auto&&a)const noexcept{
 			return _value%a;
 		}
-		auto operator==(const hash_value_t&a)const noexcept{
+		bool operator==(const hash_value_t&a)const noexcept{
 			return _value==a._value;
 		}
 	};

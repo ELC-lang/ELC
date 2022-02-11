@@ -12,6 +12,8 @@
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
+	#include "defs.hpp"
+
 	#if defined(ELC_TEST_ON)
 	namespace namespace_part_test{
 		#include "_test.hpp"

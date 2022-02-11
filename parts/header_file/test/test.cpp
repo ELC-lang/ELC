@@ -17,6 +17,7 @@
 #include <elc/core>
 #include <elc/string>
 #include <elc/void_name>
+#include <elc/namespace>
 
 void ste::stst(){
 	using namespace elc;

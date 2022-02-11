@@ -17,6 +17,10 @@ export value;
 export nil;
 export t;
 export the_void;
+
+export as_value;
+export as_ptr;
+export common_node;
 #undef export
 
 //file_end

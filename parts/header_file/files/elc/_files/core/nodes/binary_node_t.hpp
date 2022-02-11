@@ -164,7 +164,7 @@ template<typename T>
 	return get<binary_node_t<T>>(move(a));
 }
 template<typename T>
-inline distinctive map_t<ptr,T> long_term_binary_node_storager;
+distinctive inline map_t<ptr,T> long_term_binary_node_storager{};
 template<typename T>
 [[nodiscard]]inline ptr make_long_term_binary_node_from(T a)noexcept{
 	ptr& to = long_term_binary_node_storager<T>[a];
