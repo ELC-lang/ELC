@@ -77,7 +77,8 @@ namespace string_n{
 		}
 		template<typename U>
 		[[nodiscard]]string_t&& operator+(U&& b)&&noexcept_as(*this+=b) requires was_not_an_ill_form(*this+=b){		  //对右值的operator+优化为operator+=
-			return *this+=b;
+			*this+=b;
+			return move(*this);
 		}
 
 		float_size_t memory_cost()const noexcept{return _m->get_memory_cost();}

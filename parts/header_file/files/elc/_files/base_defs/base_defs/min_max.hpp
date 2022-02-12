@@ -6,6 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+#undef min
+#undef max
 /*
 获取几个参数中的最小值或某类型能表示的最小值.
 用法:
