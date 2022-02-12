@@ -10,7 +10,7 @@ namespace core{
 	distinctive inline map_t<ptr,string> long_term_binary_node_storager<string>{};
 }
 namespace namespace_n{
-	distinctive inline struct namespace_t {
+	distinctive inline struct namespace_t{
 		ptr _namespace_root;
 		weak_ptr _namespace_now;
 		value get_symbol_type_map(ptr thenamespace){
