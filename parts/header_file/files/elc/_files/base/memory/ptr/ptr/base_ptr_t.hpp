@@ -65,7 +65,22 @@ struct ptr_t:same_ref_p_t<T,ref_type>{
 	ptr_t(const same_ref&a)noexcept:same_ref(a){add_ref();}
 	ptr_t(const ptr_t&a)noexcept:ptr_t((same_ptr&)a){}
 	ptr_t(const ptr_t<remove_cv<T>,ref_type,do_replace_check>&a)noexcept requires(type_info<remove_cv<T>>!=type_info<T>):ptr_t(a.get()){}
-	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){}
+	ptr_t(ptr_t&&a)noexcept:ptr_t((same_ptr&)a){
+		//为什么不默认构造后swap_with？
+		/*
+		直接构造：
+			对目标进行addref
+			移动对象析构（单次cutref）
+			总耗费4
+		默认构造后swap_with：
+			对nullptr进行addref
+			交换ptr值
+			移动对象析构（单次cutref）
+			总耗费6
+
+		总结：多此一举
+		*/
+	}
 	constexpr ptr_t(nullptr_t=nullptr)noexcept:ptr_t(null_ptr){}
 	constexpr ptr_t(null_ptr_t)noexcept:ptr_t((T*)(null_ptr)){}
 	~ptr_t()noexcept(cut_nothrow){cut_ref();}
@@ -102,7 +117,7 @@ public:
 		using elc::defs::hash;
 		return hash(get());
 	}
-	
+
 	[[nodiscard]]inline auto operator==(const T*a)const noexcept_as(pointer_equal(add_const(declvalue(const this_t&).get()),a)){
 		return pointer_equal(add_const(get()),a);
 	}
