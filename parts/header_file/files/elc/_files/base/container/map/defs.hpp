@@ -29,7 +29,7 @@ namespace map_n{
 			[[nodiscard]]bool operator==(const key_t&a)noexcept_as(_key==a){
 				return bool(_key==a);
 			}
-			[[nodiscard]]constexpr_as(hash(_key))operator hash_t()const noexcept_as(hash(_key)){
+			[[nodiscard]]constexpr_as(hash(_key))operator decltype(hash(_key))()const noexcept_as(hash(_key)){
 				return hash(_key);
 			}
 			/* operator T&()noexcept{
