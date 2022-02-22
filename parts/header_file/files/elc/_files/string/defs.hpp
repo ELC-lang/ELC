@@ -145,13 +145,13 @@ namespace string_n{
 				return *this;
 			}
 			[[nodiscard]]char_T*		operator&()noexcept{ return _to->unique_c_str()+_index; }
-			[[nodiscard]]const char_T*	operator&()const noexcept{ return ((const string_t*)(_to))->c_str()+_index; }
+			[[nodiscard]]const char_T*	operator&()const noexcept{ return (add_const(_to))->c_str()+_index; }
 			[[nodiscard]]explicit operator char_T&()noexcept{ return *operator&(); }
 			[[nodiscard]]explicit operator const char_T&()const noexcept{ return *operator&(); }
 		};
 
 		[[nodiscard]]arec_t		  operator[](size_t index){ return{this,index}; }
-		[[nodiscard]]const arec_t operator[](size_t index)const{ return{(string_t*)this,index}; }
+		[[nodiscard]]const arec_t operator[](size_t index)const{ return{remove_const(this),index}; }
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
 			size=min(size,this->size()-begin);
@@ -183,7 +183,7 @@ namespace string_n{
 			[[nodiscard]]constexpr iterator_base_t	get_before()const noexcept{ return{_to,_index-1}; }
 			[[nodiscard]]constexpr iterator_base_t	get_next()const noexcept{ return{_to,_index+1}; }
 			[[nodiscard]]arec_t						get_value()noexcept{ return (*_to)[_index]; }
-			[[nodiscard]]const arec_t				get_value()const noexcept{ return (*(const string_t*)_to)[_index]; }
+			[[nodiscard]]const arec_t				get_value()const noexcept{ return (*add_const(_to))[_index]; }
 			[[nodiscard]]char_T*					get_handle()noexcept{ return &get_value(); }
 			[[nodiscard]]const char_T*				get_handle()const noexcept{ return &get_value(); }
 			constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to && _index==a._index; }
@@ -320,8 +320,57 @@ namespace string_n{
 	};
 	template<typename T>
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
+
+	//std ostream
 	template<typename T>
-	decltype(auto)operator<<(auto&stream,const string_t<T>&str){ return(stream<<str.const_c_str()); }
+	decltype(auto) operator<<(auto& stream, const string_t<T>& str) {
+		typedef decltype(stream)	  stream_t;
+		typedef stream_t::traits_type traits_t;
+		typename stream_t::iostate	  state = stream_t::goodbit;
+
+		size_t pad;
+		size_t size = str.size();
+		if(stream.width() <= 0 || static_cast<size_t>(stream.width()) <= size)
+			pad = 0;
+		else
+			pad = static_cast<size_t>(stream.width()) - size;
+
+		const typename stream_t::sentry isok(stream);
+
+		if(!isok)
+			state |= stream_t::badbit;
+		else {
+			try {
+				if((stream.flags() & stream_t::adjustfield) != stream_t::left) {
+					for(; 0 < pad; --pad) {		  // pad on left
+						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))) {
+							state |= stream_t::badbit;		 // insertion failed, quit
+							break;
+						}
+					}
+				}
+
+				if(state == stream_t::goodbit && stream.rdbuf()->sputn(str.c_str(), static_cast<::std::streamsize>(size)) != static_cast<::std::streamsize>(size))
+					state |= stream_t::badbit;
+				else {
+					for(; 0 < pad; --pad) {		  // pad on right
+						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))) {
+							state |= stream_t::badbit;		 // insertion failed, quit
+							break;
+						}
+					}
+				}
+
+				stream.width(0);
+			}
+			catch(...) {
+				stream.setstate(stream_t::badbit, true);
+				return stream;
+			}
+		}
+		stream.setstate(state);
+		return stream;
+	}
 
 	template<class T>
 	[[nodiscard]]inline auto size_of_array_like(const string_t<T>& a)noexcept{ return a.size(); }
