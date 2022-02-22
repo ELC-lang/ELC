@@ -322,11 +322,11 @@ namespace string_n{
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 
 	//std ostream
-	template<typename T>
-	decltype(auto) operator<<(auto& stream, const string_t<T>& str) {
-		typedef decltype(stream)	  stream_t;
-		typedef stream_t::traits_type traits_t;
-		typename stream_t::iostate	  state = stream_t::goodbit;
+	template<typename some_fucking_std_ostream, typename T>
+	decltype(auto) operator<<(some_fucking_std_ostream& stream, const string_t<T>& str) {
+		typedef some_fucking_std_ostream stream_t;
+		typedef stream_t::traits_type	 traits_t;
+		typename stream_t::iostate		 state = stream_t::goodbit;
 
 		size_t pad;
 		size_t size = str.size();
