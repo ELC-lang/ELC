@@ -66,7 +66,7 @@ constexpr bool as_ptr_nothrow_helper()noexcept{
 	}
 }
 template<typename T>
-auto as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
+decltype(auto) as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
 	ELC_TEST_EVENTNAME("as_ptr转换");
 	if constexpr(was_not_an_ill_form(ptr(&a)))
 		return ptr(&a);
@@ -119,7 +119,7 @@ constexpr bool as_value_nothrow_helper()noexcept{
 	}
 }
 template<typename T>
-auto as_value(T&& a)noexcept(as_value_nothrow_helper<T>()){
+decltype(auto) as_value(T&& a)noexcept(as_value_nothrow_helper<T>()){
 	ELC_TEST_EVENTNAME("as_value转换");
 	if constexpr(was_not_an_ill_form(static_cast<value&>(a)))
 		return static_cast<value&>(a);

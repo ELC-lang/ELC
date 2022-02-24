@@ -6,6 +6,19 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+value car_of(ptr p){
+	return (*p)[t];
+}
+value cdr_of(ptr p){
+	return (*p)[nil];
+}
+value car_of(auto&&node){
+	return car_of(as_ptr(node));
+}
+value cdr_of(auto&&node){
+	return cdr_of(as_ptr(node));
+}
+
 struct cons:node_like,instance_struct<cons>{
 	typedef cons this_t;
 
@@ -34,8 +47,8 @@ public:
 			return _car;
 		else{
 			ptr to=get<common_node>();
-			_car >> (*to)[t];
-			_cdr >> (*to)[nil];
+			_car >> car_of(to);
+			_cdr >> cdr_of(to);
 			be_replace_as(to);
 			return (*to)[v];
 		}
