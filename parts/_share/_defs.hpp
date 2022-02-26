@@ -178,5 +178,14 @@ protected:\
 	#define distinctive
 #endif
 
+#if defined(_WIN32)
+	#define with_no_vtable __declspec(novtable)
+#else
+	#define with_no_vtable
+#endif
+
+#define no_vtable_struct struct with_no_vtable
+#define no_vtable_class class with_no_vtable
+
 //file_end
 

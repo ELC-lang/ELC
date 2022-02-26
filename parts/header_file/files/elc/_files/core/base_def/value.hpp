@@ -8,7 +8,7 @@
 */
 struct value:non_copy_assign_able{
 	typedef value this_t;
-	struct base_data_t:type_info_t<base_data_t>::template_name
+	no_vtable_struct base_data_t:type_info_t<base_data_t>::template_name
 	with_common_attribute<abstract_base,ref_able,never_in_array,replace_able>,
 	build_by_get_only{
 		/*//COMMIT:

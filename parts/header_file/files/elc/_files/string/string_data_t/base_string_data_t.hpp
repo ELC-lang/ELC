@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<typename char_T>
-struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name
+no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name
 with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_by_get_only{
 	typedef base_string_data_t<char_T> this_t;
 	typedef comn_ptr_t<this_t> ptr_t;

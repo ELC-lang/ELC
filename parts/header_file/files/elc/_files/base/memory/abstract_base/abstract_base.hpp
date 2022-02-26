@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<class T>
-class abstract_base:virtual public abstract_base_vtable{
+no_vtable_class abstract_base:virtual public abstract_base_vtable{
 	T* abstract_method_copy_get_this(){
 		is_base_ptr(this);
 		return reinterpret_cast<T*>(get_ptr_after_off_set(this->_abstract_method_copy_get_this()));

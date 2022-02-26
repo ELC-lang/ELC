@@ -98,5 +98,10 @@
 
 #undef distinctive
 
+#undef with_no_vtable
+
+#undef no_vtable_struct
+#undef no_vtable_class
+
 //file_end
 
