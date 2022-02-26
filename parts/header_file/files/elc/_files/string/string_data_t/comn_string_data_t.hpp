@@ -12,6 +12,7 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
 
 	array_t<char_T> _m;
 
@@ -40,8 +41,10 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{ copy_assign[size](note::form((const char_T*)_m+pos),note::to(to)); }
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{ return _m[index]; }
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			_m[index]=a;
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}

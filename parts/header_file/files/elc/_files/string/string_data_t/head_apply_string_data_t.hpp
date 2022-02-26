@@ -12,6 +12,9 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
+	using base_t::has_hash_cache;
+	using base_t::hash_cache;
 
 	array_t<char_T> _m;//意义为向前延续的数组：当需要向前附加内容时向前拓展以避免重新分配内存
 	ptr_t _to;
@@ -74,11 +77,13 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			return _to->arec(index-_used_size);
 	}
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			if(index<_used_size)
 				_m[index]=a;
 			else
 				_to->arec_set(index-_used_size,a,_to);
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}
@@ -91,6 +96,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			}
 			_used_size+=str.size();
 			copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size));
+			self_changed();
 			return this;
 		}
 		else
@@ -107,6 +113,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -116,6 +123,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -124,6 +132,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
+			self_changed();
 			return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m.end()-_used_size-size,size});
 		}
 		else
@@ -133,10 +142,52 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		if(this->is_unique()){
 			auto aret=_to->do_pop_back(size,_to);
 			_to_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
 			return base_t::do_pop_back(size,self);
+	}
+
+	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26494)//未初始化警告diss
+			#endif
+			hash_t result;
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+			if(_used_size){
+				const char_T* head_begin=_m.end()-_used_size;
+				result=hash(head_begin,_used_size);
+				if(_to_size)
+					result=_to->get_others_hash_with_calculated_before(result,_to,0,_to_size);
+			}
+			else
+				result=_to->get_hash(_to);
+			return hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos<_used_size){
+			const char_T* head_begin=_m.end()-_used_size;
+			const char_T* head_end=_m.end();
+			const char_T* calculate_begin=pos+head_begin;
+			const size_t size_of_calculate_from_head=min(size_t(head_end-calculate_begin),size);
+
+			before=hash.with_calculated_before(before,calculate_begin,size_of_calculate_from_head);
+			if(size!=size_of_calculate_from_head){
+				const size_t size_left=size-size_of_calculate_from_head;
+				before=_to->get_others_hash_with_calculated_before(before,_to,0,size_left);
+			}
+		}
+		else
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos-_used_size,size);
+		return before;
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

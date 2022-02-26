@@ -90,11 +90,17 @@ namespace array_n{
 		[[nodiscard]]iterator end()noexcept{
 			return get_iterator_at(size());
 		}
+		[[nodiscard]]constexpr const_iterator begin()const noexcept{
+			return get_iterator_at(zero);
+		}
+		[[nodiscard]]const_iterator end()const noexcept{
+			return get_iterator_at(size());
+		}
 		[[nodiscard]]const_iterator cbegin()const noexcept{
-			return remove_const(this)->begin();
+			return begin();
 		}
 		[[nodiscard]]const_iterator cend()const noexcept{
-			return remove_const(this)->end();
+			return end();
 		}
 
 		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)noexcept(compare.nothrow<array_like_view_t<T>>){
@@ -168,9 +174,9 @@ namespace array_n{
 	inline void swap(array_t<T>&a,array_t<T>&b)noexcept{a.swap_with(b);}
 
 	template<class T>
-	[[nodiscard]]inline auto size_of_array_like(array_t<T>&a)noexcept{return a.size();}
+	[[nodiscard]]inline auto size_of_array_like(const array_t<remove_cv<T>>&a)noexcept{return a.size();}
 	template<class T>
-	[[nodiscard]]inline auto begin_of_array_like(array_t<T>&a)noexcept{return(T*)a.begin();}
+	[[nodiscard]]inline auto begin_of_array_like(array_t<remove_cv<T>>&a)noexcept{return(T*)a.begin();}
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(const array_t<remove_cv<T>>&a)noexcept{return(const T*)a.begin();}
 }

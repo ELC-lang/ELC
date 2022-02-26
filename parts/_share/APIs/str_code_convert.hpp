@@ -21,7 +21,8 @@ elc依赖的基础函数.
 		inline string_t<char> to_char_str(string_view_t<char_t> a)noexcept{
 			string_t<char>aret;
 			::std::mbstate_t stat{};
-			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
+			char*old_lc;
+			if((old_lc=::std::setlocale(LC_CTYPE,"en_US.utf8"))==nullptr)
 				die_with(locale::str::setlocale_error);
 			#if defined(_MSC_VER)
 				#pragma warning(push)
@@ -38,13 +39,14 @@ elc依赖的基础函数.
 					die_with(locale::str::code_convert_error);
 				aret+=string_view_t<char>{(char*)r,note::size((size_t)s)};
 			}
-			::std::setlocale(LC_ALL,"C");
+			::std::setlocale(LC_CTYPE,old_lc);
 			return aret;
 		}
 		inline string_t<char_t> to_char_t_str(string_view_t<char> a)noexcept{
 			string_t<char_t>aret;
 			::std::mbstate_t stat{};
-			if(::std::setlocale(LC_ALL,"en_US.utf8")==nullptr)
+			char*old_lc;
+			if((old_lc=::std::setlocale(LC_CTYPE,"en_US.utf8"))==nullptr)
 				die_with(locale::str::setlocale_error);
 			#if defined(_MSC_VER)
 				#pragma warning(push)
@@ -63,7 +65,7 @@ elc依赖的基础函数.
 				i+=s;
 				aret+=c;
 			}
-			::std::setlocale(LC_ALL,"C");
+			::std::setlocale(LC_CTYPE,old_lc);
 			return aret;
 		}
 		inline string_t<char> to_char_str(const char_t*a)noexcept{

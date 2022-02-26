@@ -71,6 +71,26 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept=0;
 
+	hash_t hash_cache=hash(-1);
+	bool has_hash_cache()noexcept{return hash_cache!=hash(-1);}
+	void reset_hash_cache()noexcept{hash_cache=hash(-1);}
+	virtual hash_t get_hash(ptr_t&p)noexcept{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			const auto size=get_size();
+			auto result=hash(get_data(p),size);
+			return p->hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept{
+		return hash.with_calculated_before(before,get_data(p)+pos,size);
+	}
+
+	void self_changed()noexcept{
+		reset_hash_cache();
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept=0;
 	[[nodiscard]]float_size_t get_memory_cost_after_gc()noexcept;
 	[[nodiscard]]float_size_t get_gc_profit()noexcept{return get_memory_cost()-get_memory_cost_after_gc();}

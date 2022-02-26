@@ -94,15 +94,44 @@ namespace hash_n{
 			else template_error("Please overload the function hash in the namespace where this type is defined.");
 		}
 		template<class T>
-		[[nodiscard]]inline hash_value_t operator()(const T*a,size_t size)const noexcept(nothrow<const T>){
-			size_t aret=0;
+		[[nodiscard]]constexpr_as_auto inline size_t get_hash_in_size_type(const T&a)const noexcept(nothrow<T>){
+			return operator()(a)._value;
+		}
+
+		static constexpr auto array_hash_magic_number=13;
+
+		/*从某个起始点算起的hash*/
+		template<class T>
+		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,const T*a,size_t size)const noexcept{
+			size_t aret=before._value;
+			size_t index=0;
 			while(size--)
-				aret=operator()(a[size])._value+aret*13;
+				aret = array_hash_magic_number*aret + get_hash_in_size_type(a[index++]);
 			return{aret};
 		}
+		template<class T>
+		[[nodiscard]]constexpr inline hash_value_t operator()(const T*a,size_t size)const noexcept(nothrow<const T>){
+			return with_calculated_before(operator()(nothing), a, size);
+		}
+		/*合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般*/
+		[[nodiscard,deprecated("There is a potential overflow that could lead to a mismatch of results")]]
+		inline hash_value_t merge_array_hash_results(hash_value_t before,hash_value_t after,size_t after_size)const noexcept{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26467)//cast警告diss
+			#endif
+			return{before._value*size_t(::std::pow(array_hash_magic_number,after_size))+after._value};
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]inline hash_value_t operator()(array_like_view_t<T>a)const noexcept(nothrow<T>){
+		[[nodiscard]]constexpr inline hash_value_t operator()(array_like_view_t<T>a)const noexcept(nothrow<T>){
 			return operator()(a.begin(),a.size());
+		}
+		template<class T> requires is_not_signal_value_for_array_like<T>
+		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,array_like_view_t<T>a)const noexcept{
+			return with_calculated_before(before,a.begin(),a.size());
 		}
 	}hash{};
 }

@@ -12,6 +12,9 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
+	using base_t::has_hash_cache;
+	using base_t::hash_cache;
 
 	ptr_t  _defore;
 	ptr_t  _after;
@@ -65,11 +68,13 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 			return _after->arec(index-_defore_size);
 	}
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			if(index<_defore_size)
 				_defore->arec_set(index,a,_defore);
 			else
 				_after->arec_set(index-_defore_size,a,_after);
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}
@@ -77,6 +82,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		if(this->is_unique()){
 			_defore=_defore->apply_str_to_begin(str);
 			_defore_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -86,6 +92,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		if(this->is_unique()){
 			_defore=_defore->apply_str_to_begin(str);
 			_defore_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -95,6 +102,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		if(this->is_unique()){
 			_after=_after->apply_str_to_end(str);
 			_after_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -104,6 +112,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		if(this->is_unique()){
 			_after=_after->apply_str_to_end(str);
 			_after_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -113,6 +122,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		if(this->is_unique() && _defore_size>=size){
 			auto aret=_defore->do_pop_front(size,_defore);
 			_defore_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
@@ -122,10 +132,50 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		if(this->is_unique() && _after_size>=size){
 			auto aret=_after->do_pop_back(size,_after);
 			_after_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
 			return base_t::do_pop_back(size,self);
+	}
+
+	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26494)//未初始化警告diss
+			#endif
+			hash_t result;
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+			if(_defore_size){
+				result=_defore->get_hash(_defore);
+				if(_after_size){
+					result=_after->get_others_hash_with_calculated_before(result,_after,0,_after_size);
+				}
+			}
+			else
+				result=_after->get_hash(_after);
+			return hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos<_defore_size){
+			const auto calculate_defore_begin=pos;
+			const auto calculate_defore_end=min(pos+size,_defore_size);
+			const auto calculate_defore_size=calculate_defore_end-calculate_defore_begin;
+			before=_defore->get_others_hash_with_calculated_before(before,_defore,calculate_defore_begin,calculate_defore_size);
+			if(size!=calculate_defore_size){
+				const auto calculate_after_size=size-calculate_defore_size;
+				before=_after->get_others_hash_with_calculated_before(before,_after,0,calculate_after_size);
+			}
+		}
+		else
+			before=_after->get_others_hash_with_calculated_before(before,_after,pos-_defore_size,size);
+		return before;
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

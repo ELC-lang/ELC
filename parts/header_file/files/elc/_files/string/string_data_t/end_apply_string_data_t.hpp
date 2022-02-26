@@ -12,6 +12,9 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
+	using base_t::has_hash_cache;
+	using base_t::hash_cache;
 
 	array_t<char_T> _m;
 	ptr_t _to;
@@ -81,11 +84,13 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			return _m[index-_to_size];
 	}
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			if(index<_to_size)
 				_to->arec_set(index,a,_to);
 			else
 				_m[index-_to_size]=a;
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}
@@ -99,6 +104,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			}
 			copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m+_used_size));
 			_used_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -112,6 +118,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		if(this->is_unique()){
 			_to=_to->apply_str_to_begin(str);
 			_to_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -121,6 +128,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		if(this->is_unique()){
 			_to=_to->apply_str_to_begin(str);
 			_to_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -130,6 +138,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		if(this->is_unique()){
 			auto aret=_to->do_pop_front(size,_to);
 			_to_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
@@ -138,10 +147,35 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
+			self_changed();
 			return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m+_used_size,size});
 		}
 		else
 			return base_t::do_pop_back(size,self);
+	}
+	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			auto result=hash.with_calculated_before(_to->get_hash(_to),string_view_t(_m.begin(),_used_size));
+			return p->hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos+size<=_to_size)
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size);
+		else{
+			if(pos<_to_size){
+				before=_to->get_others_hash_with_calculated_before(before,_to,pos,_to_size-pos);
+				const auto calculated_size=_to_size-pos;
+				pos=0;
+				size-=calculated_size;
+			}
+			else
+				pos-=_to_size;
+			before=hash.with_calculated_before(before,(const char_T*)_m+pos,size);
+		}
+		return before;
 	}
 	void shrink()noexcept{
 		_m.resize(_used_size);

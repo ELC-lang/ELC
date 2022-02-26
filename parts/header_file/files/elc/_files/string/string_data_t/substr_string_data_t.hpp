@@ -12,6 +12,9 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
+	using base_t::has_hash_cache;
+	using base_t::hash_cache;
 
 	ptr_t _to;
 	size_t _sub_begin;
@@ -35,8 +38,10 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{ return _to->arec(index+_sub_begin); }
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			_to->arec_set(index+_sub_begin,a,_to);
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}
@@ -44,6 +49,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin==0){
 			_to=_to->apply_str_to_begin(str);
 			_sub_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -53,6 +59,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin==0){
 			_to=_to->apply_str_to_begin(str);
 			_sub_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -62,6 +69,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			_to=_to->apply_str_to_end(str);
 			_sub_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -71,6 +79,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			_to=_to->apply_str_to_end(str);
 			_sub_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -80,6 +89,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin==0){
 			auto aret=_to->do_pop_front(size,_to);
 			_sub_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
@@ -89,10 +99,25 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			auto aret=_to->do_pop_back(size,_to);
 			_sub_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
 			return base_t::do_pop_back(size,self);
+	}
+
+	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			auto result=hash(nothing);
+			result=_to->get_others_hash_with_calculated_before(result,_to,_sub_begin,_sub_size);
+			return hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		before=_to->get_others_hash_with_calculated_before(before,_to,pos+_sub_begin,size);
+		return before;
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

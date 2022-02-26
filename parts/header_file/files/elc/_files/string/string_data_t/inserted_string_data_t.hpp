@@ -12,6 +12,9 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
+	using base_t::has_hash_cache;
+	using base_t::hash_cache;
 
 	ptr_t  _to;
 	ptr_t  _insert_data;
@@ -71,13 +74,18 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			if(pos>=_insert_pos && pos+size<=_insert_pos+_insert_size){
 				_insert_data=_insert_data->do_erase(pos-_insert_pos,size);
 				_insert_size-=size;
+				self_changed();
 				return this;
 			}
 			elseif(pos+size<_insert_pos){
 				_to=_to->do_erase(pos,size);
+				self_changed();
+				return this;
 			}
 			elseif(pos>_insert_pos+_insert_size){
 				_to=_to->do_erase(pos-_insert_size,size);
+				self_changed();
+				return this;
 			}
 		}
 		return base_t::do_erase(pos,size);
@@ -92,13 +100,15 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	}
 
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			if(index>=_insert_pos && index<_insert_pos+_insert_size)
 				_insert_data->arec_set(index-_insert_pos,a,p);
 			elseif(index>=_insert_pos+_insert_size)
 				_to->arec_set(index-_insert_size,a,p);
 			else
 				_to->arec_set(index,a,p);
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}
@@ -112,6 +122,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				_to=_to->apply_str_to_begin(str);
 				_to_size+=str.size();
 			}
+			self_changed();
 			return this;
 		}
 		else
@@ -127,6 +138,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				_to=_to->apply_str_to_begin(str);
 				_to_size+=str->get_size();
 			}
+			self_changed();
 			return this;
 		}
 		else
@@ -142,6 +154,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				_to=_to->apply_str_to_end(str);
 				_to_size+=str.size();
 			}
+			self_changed();
 			return this;
 		}
 		else
@@ -157,6 +170,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				_to=_to->apply_str_to_end(str);
 				_to_size+=str->get_size();
 			}
+			self_changed();
 			return this;
 		}
 		else
@@ -168,11 +182,14 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				auto aret=_to->do_pop_front(size,_to);
 				_to_size-=size;
 				_insert_pos-=size;
+				self_changed();
 				return aret;
 			}
 			elseif(_insert_pos==0 && _insert_size>=size){
 				auto aret=_insert_data->do_pop_front(size,_insert_data);
 				_insert_size-=size;
+				self_changed();
+				return aret;
 			}
 		}
 		return base_t::do_pop_front(size,self);
@@ -182,14 +199,56 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			if(_insert_pos+_insert_size <= _to_size-size){
 				auto aret=_to->do_pop_back(size,_to);
 				_to_size-=size;
+				self_changed();
 				return aret;
 			}
 			elseif(_insert_pos==_to_size && _insert_size>=size){
 				auto aret=_insert_data->do_pop_front(size,_insert_data);
 				_insert_size-=size;
+				self_changed();
+				return aret;
 			}
 		}
 		return base_t::do_pop_back(size,self);
+	}
+
+	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			auto result=hash(nothing);
+			auto size=get_size();
+			if(_insert_pos){
+				const auto size_defore_insert_pos=_insert_pos;
+				result=_to->get_others_hash_with_calculated_before(result,_to,0,_insert_pos);
+				size-=_insert_pos;
+			}
+			auto size_defore_insert_end=min(size,_insert_size);
+			result=_insert_data->get_others_hash_with_calculated_before(result,_insert_data,0,size_defore_insert_end);
+			size-=size_defore_insert_end;
+			if(size)
+				result=_to->get_others_hash_with_calculated_before(result,_to,_insert_pos,size);
+			return hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos+size<_insert_pos)
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size);
+		elseif(pos>_insert_pos+_insert_size)
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos-_insert_size,size);
+		else{
+			if(_insert_pos>pos){
+				const auto size_defore_insert_pos=_insert_pos-pos;
+				before=_to->get_others_hash_with_calculated_before(before,_to,pos,size_defore_insert_pos);
+				size-=size_defore_insert_pos;
+			}
+			auto size_defore_insert_end=min(size,_insert_size);
+			before=_insert_data->get_others_hash_with_calculated_before(before,_insert_data,0,size_defore_insert_end);
+			size-=size_defore_insert_end;
+			if(size)
+				before=_to->get_others_hash_with_calculated_before(before,_to,_insert_pos,size);
+		}
+		return before;
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

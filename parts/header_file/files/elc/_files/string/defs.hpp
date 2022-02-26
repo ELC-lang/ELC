@@ -28,7 +28,7 @@ namespace string_n{
 		}
 
 		string_t()noexcept=default;
-		string_t(special_init_t,string_view_t str)noexcept:_m(get<constexpr_string_data_t<char_T>>(str)){}
+		constexpr string_t(special_init_t,string_view_t str)noexcept:_m(get<constexpr_string_data_t<char_T>>(str,hash(str))){}
 		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
 		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
@@ -328,7 +328,14 @@ namespace string_n{
 		typedef stream_t::traits_type	 traits_t;
 		typename stream_t::iostate		 state = stream_t::goodbit;
 
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26494)//未初始化警告diss
+		#endif
 		size_t pad;
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 		size_t size = str.size();
 		if(stream.width() <= 0 || static_cast<size_t>(stream.width()) <= size)
 			pad = 0;

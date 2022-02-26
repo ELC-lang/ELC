@@ -12,6 +12,9 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::self_changed;
+	using base_t::has_hash_cache;
+	using base_t::hash_cache;
 
 	ptr_t  _to;
 	size_t _to_size;
@@ -56,6 +59,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			if(pos<=_erase_pos && pos+size>=_erase_pos+_erase_size){
 				_erase_pos=pos;
 				_erase_size+=size;
+				self_changed();
 				return this;
 			}
 		}
@@ -69,11 +73,13 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 	}
 
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
-		if(this->is_unique())
+		if(this->is_unique()){
 			if(index>_erase_pos)
-				return _to->arec_set(index+_erase_size,a,_to);
+				_to->arec_set(index+_erase_size,a,_to);
 			else
-				return _to->arec_set(index,a,_to);
+				_to->arec_set(index,a,_to);
+			self_changed();
+		}
 		else
 			base_t::arec_set(index,a,p);
 	}
@@ -83,6 +89,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			const auto strsize=str.size();
 			_to_size+=strsize;
 			_erase_pos+=strsize;
+			self_changed();
 			return this;
 		}
 		else
@@ -94,6 +101,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			const auto strsize=str->get_size();
 			_to_size+=strsize;
 			_erase_pos+=strsize;
+			self_changed();
 			return this;
 		}
 		else
@@ -103,6 +111,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str.size();
+			self_changed();
 			return this;
 		}
 		else
@@ -112,6 +121,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str->get_size();
+			self_changed();
 			return this;
 		}
 		else
@@ -122,6 +132,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			auto aret=_to->do_pop_front(size,_to);
 			_to_size-=size;
 			_erase_pos-=size;
+			self_changed();
 			return aret;
 		}
 		else
@@ -131,10 +142,37 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		if(this->is_unique() && _erase_pos+_erase_size <= _to_size-size){
 			auto aret=_to->do_pop_back(size,_to);
 			_to_size-=size;
+			self_changed();
 			return aret;
 		}
 		else
 			return base_t::do_pop_back(size,self);
+	}
+
+	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+		if(has_hash_cache())
+			return hash_cache;
+		else{
+			auto result=hash(nothing);
+			const auto size_defore_erase_pos=_erase_pos;
+			const auto size_after_erase_pos=_to_size-size_defore_erase_pos;
+			result=_to->get_others_hash_with_calculated_before(result,_to,0,size_defore_erase_pos);
+			result=_to->get_others_hash_with_calculated_before(result,_to,_erase_pos+_erase_size,size_after_erase_pos);
+			return hash_cache=result;
+		}
+	}
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos+size<_erase_pos)
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size);
+		elseif(pos>_erase_pos)
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos+_erase_size,size);
+		else{
+			const auto size_defore_erase_pos=_erase_pos-pos;
+			const auto size_after_erase_pos=size-size_defore_erase_pos;
+			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size_defore_erase_pos);
+			before=_to->get_others_hash_with_calculated_before(before,_to,_erase_pos+_erase_size,size_after_erase_pos);
+		}
+		return before;
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

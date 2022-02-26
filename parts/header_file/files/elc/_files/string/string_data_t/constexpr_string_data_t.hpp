@@ -16,13 +16,14 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	const char_T* _m;
 	size_t _size;
 
-	constexpr_string_data_t(string_view_t str)noexcept{
+	constexpr_string_data_t(string_view_t str,hash_t hash)noexcept{
 		_m=str.begin();
 		_size=str.size();
+		base_t::hash_cache=hash;
 	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
-		return get<this_t>(string_view_t{_m+begin,size});
+		return get<this_t>(string_view_t{_m+begin,size},hash(-1));
 	}
 	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept override final{return _m;}
 	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept override final{
