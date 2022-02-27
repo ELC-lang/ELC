@@ -32,6 +32,7 @@ namespace string_n{
 		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
 		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
+		string_t(char_T* str)noexcept:string_t(add_const(str)){}
 		string_t(char_T ch)noexcept:string_t(string_view_t{&ch,1}){}
 		string_t(const string_t& str)noexcept=default;
 		string_t(string_t&& str)noexcept=default;
