@@ -127,7 +127,7 @@ namespace string_n{
 		}
 
 	private:
-		char_T* unique_c_str(){ return _m->get_unique_c_str(_m); }
+		char_T* unique_c_str()noexcept{ return _m->get_unique_c_str(_m); }
 		char_T	arec(size_t index)noexcept{ return _m->arec(index); }
 		void	arec_set(size_t index,char_T a)noexcept{ return _m->arec_set(index,a,_m); }
 
@@ -218,26 +218,26 @@ namespace string_n{
 
 		//
 
-		void push_back(const string_t& str){ _m=_m->apply_str_to_end(str._m); }
-		void push_back(string_view_t str){ _m=_m->apply_str_to_end(str); }
-		void push_back(char_T ch){ push_back(string_view_t{&ch,1}); }
-		void push_back(const char_T* str){ push_back(string_view_end_by_zero_t(str)); }
+		void push_back(const string_t& str)noexcept{ _m=_m->apply_str_to_end(str._m); }
+		void push_back(string_view_t str)noexcept{ _m=_m->apply_str_to_end(str); }
+		void push_back(char_T ch)noexcept{ push_back(string_view_t{&ch,1}); }
+		void push_back(const char_T* str)noexcept{ push_back(string_view_end_by_zero_t(str)); }
 
-		void push_front(const string_t& str){ _m=_m->apply_str_to_begin(str._m); }
-		void push_front(string_view_t str){ _m=_m->apply_str_to_begin(str); }
-		void push_front(char_T ch){ push_front(string_view_t{&ch,1}); }
-		void push_front(const char_T* str){ push_front(string_view_end_by_zero_t(str)); }
+		void push_front(const string_t& str)noexcept{ _m=_m->apply_str_to_begin(str._m); }
+		void push_front(string_view_t str)noexcept{ _m=_m->apply_str_to_begin(str); }
+		void push_front(char_T ch)noexcept{ push_front(string_view_t{&ch,1}); }
+		void push_front(const char_T* str)noexcept{ push_front(string_view_end_by_zero_t(str)); }
 
-		string_t pop_back(size_t size){ return _m->do_pop_back(size,_m); }
-		string_t pop_front(size_t size){ return _m->do_pop_front(size,_m); }
-		char_T pop_back(){ return pop_back(1)[0]; }
-		char_T pop_front(){ return pop_front(1)[0]; }
+		string_t pop_back(size_t size)noexcept{ return _m->do_pop_back(size,_m); }
+		string_t pop_front(size_t size)noexcept{ return _m->do_pop_front(size,_m); }
+		char_T pop_back()noexcept{ return pop_back(1)[0]; }
+		char_T pop_front()noexcept{ return pop_front(1)[0]; }
 
 		//
 
 		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
 		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
-		[[nodiscard]]explicit operator hash_t()const noexcept{return hash(to_string_view_t());}
+		[[nodiscard]]explicit operator hash_t()const noexcept{return _m->get_hash(_m);}
 		/*
 		TODO:
 
@@ -261,14 +261,14 @@ namespace string_n{
 			else
 				return npos;
 		}
-		[[nodiscard]]size_t find(string_view_t str) const {
+		[[nodiscard]]size_t find(string_view_t str)const{
 			auto result = in_range(str, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
-		[[nodiscard]]size_t reverse_find(string_view_t str) const {
+		[[nodiscard]]size_t reverse_find(string_view_t str)const{
 			auto result = in_range_but_reverse(str, to_string_view_t());
 			if(result)
 				return result - data();
@@ -296,19 +296,19 @@ namespace string_n{
 		}
 		*/
 
-		void erase(size_t pos,size_t size=1)&{
+		void erase(size_t pos,size_t size=1)&noexcept{
 			_m=_m->do_erase(pos,size);
 		}
-		void insert(size_t pos,string_t str)&{
+		void insert(size_t pos,string_t str)&noexcept{
 			_m=_m->do_insert(pos,str);
 		}
-		void insert(size_t pos,string_view_t str)&{
+		void insert(size_t pos,string_view_t str)&noexcept{
 			_m=_m->do_insert(pos,str);
 		}
-		void insert(size_t pos,const char_T* str)&{
+		void insert(size_t pos,const char_T* str)&noexcept{
 			insert(pos,string_view_end_by_zero_t(str));
 		}
-		void insert(size_t pos,char_T ch)&{
+		void insert(size_t pos,char_T ch)&noexcept{
 			insert(pos,string_view_t{&ch,1});
 		}
 		/*
@@ -390,7 +390,7 @@ namespace string_n{
 	typedef string_t<char_t>string;
 
 	template<typename T>
-	using string_view_t=string_t<T>::string_view_t;
+	using string_view_t=string_t<T>::string_view_end_by_zero_t;
 
 	typedef string_view_t<char_t>string_view;
 }

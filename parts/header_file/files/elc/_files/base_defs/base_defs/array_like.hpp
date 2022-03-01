@@ -82,6 +82,7 @@ namespace array_like_n{
 	template<typename T>
 	struct array_end_by_zero_t:array_like_view_t<T>{
 		typedef array_like_view_t<T>base_t;
+		using base_t::base_t;
 
 		[[nodiscard]]constexpr static size_t get_length_of(T*ptr){
 			if(*ptr)return get_length_of(ptr+1)+1;

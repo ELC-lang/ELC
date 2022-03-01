@@ -133,6 +133,10 @@ namespace hash_n{
 		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,array_like_view_t<T>a)const noexcept{
 			return with_calculated_before(before,a.begin(),a.size());
 		}
+		template<class T> requires is_not_signal_value_for_array_like<T>
+		[[nodiscard]]constexpr inline hash_value_t operator()(array_end_by_zero_t<T>a)const noexcept(nothrow<T>){
+			return operator()(array_like_view_t<T>(a));
+		}
 	}hash{};
 }
 typedef hash_n::hash_value_t hash_t;

@@ -154,8 +154,9 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			return hash_cache;
 		else{
 			auto result=hash(nothing);
+			auto size=get_size();
 			const auto size_defore_erase_pos=_erase_pos;
-			const auto size_after_erase_pos=_to_size-size_defore_erase_pos;
+			const auto size_after_erase_pos=size-size_defore_erase_pos;
 			result=_to->get_others_hash_with_calculated_before(result,_to,0,size_defore_erase_pos);
 			result=_to->get_others_hash_with_calculated_before(result,_to,_erase_pos+_erase_size,size_after_erase_pos);
 			return hash_cache=result;

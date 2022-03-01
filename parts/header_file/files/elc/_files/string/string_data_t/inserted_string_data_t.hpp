@@ -114,13 +114,15 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
 		if(this->is_unique()){
+			auto size=str.size();
 			if(_insert_pos==0){
 				_insert_data=_insert_data->apply_str_to_begin(str);
-				_insert_size+=str.size();
+				_insert_size+=size;
 			}
 			else{
 				_to=_to->apply_str_to_begin(str);
 				_to_size+=str.size();
+				_insert_pos+=size;
 			}
 			self_changed();
 			return this;
@@ -130,13 +132,15 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
 		if(this->is_unique()){
+			auto size=str->get_size();
 			if(_insert_pos==0){
 				_insert_data=_insert_data->apply_str_to_begin(str);
-				_insert_size+=str->get_size();
+				_insert_size+=size;
 			}
 			else{
 				_to=_to->apply_str_to_begin(str);
 				_to_size+=str->get_size();
+				_insert_pos+=size;
 			}
 			self_changed();
 			return this;
