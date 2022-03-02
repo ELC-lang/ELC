@@ -8,57 +8,79 @@
 inline void test(){
 	ELC_TEST_EVENTNAME("string部分测试");
 	{
-		string_t a=L"";
-		stest_accert(a.size()==0);
-		a=L"asd";
-		stest_accert(a.size()==3);
-		a=L"asd"+a;
-		stest_accert(a.size()==6);
-		a+=L"asd";
-		stest_accert(L"asd"+a==L"asdasdasdasd");
-		a[1]=L'e';
-		stest_accert(a.substr(0,3)==L"aed");
-		stest_accert(a.substr(3).size()==6);
-		stest_accert(a[2]==L'd');
-		a.clear();
-		stest_accert(a.size()==0);
-		a.resize(3,L'd');
-		stest_accert(a==L"ddd");
-		for(const wchar_t&c:a)
-			stest_accert(c==L'd');
-		a=L"abc";
-		stest_accert(a.begin()==a.cbegin());
-		stest_accert(*a.begin()==L'a');
-		stest_accert(a.begin()<=a.cend());
-		stest_accert(*a.rbegin()==L'c');
-		stest_accert(a.rbegin()<=a.rend());
-		stest_accert(a.rbegin()==a.end()-1);
-		a.push_back(L"as");
-		a.push_front(L'p');
-		stest_accert(a == L"pabcas");
-		a.erase(1,3);
-		a.erase(1);
-		stest_accert(a == L"ps");
-		stest_accert(a.pop_front() == L'p');
-		stest_accert(a.pop_back() == L's');
-		stest_accert(a.size() == 0);
-		a=L"abc";
-		stest_accert(a.pop_back(2) == L"bc");
-		stest_accert(a.size() == 1);
-		a.push_front(L"wqer");
-		stest_accert(a==L"wqera");
-		a.insert(2,L"123");
-		a.insert(0,L"123");
-		a.insert(a.size(),L"123");
-		stest_accert(a[2] == L'3');
-		a[5]=L'6';
-		a[6]=L'6';
-		a[7]=L'6';
-		a[8]=L'6';
-		stest_accert(a == L"123wq6666ra123");
-		for(wchar_t& c: a)
-			c ='7';
-		stest_accert(a == L"77777777777777");
+		{
+			string_t a=es"";
+			stest_accert(a.size()==0);
+			a=es"asd";
+			stest_accert(a.size()==3);
+			a=es"asd"+a;
+			stest_accert(a.size()==6);
+			a+=es"asd";
+			stest_accert(es"asd"+a==es"asdasdasdasd");
+			a[1]=es'e';
+			stest_accert(a.substr(0,3)==es"aed");
+			stest_accert(a.substr(3).size()==6);
+			stest_accert(a[2]==es'd');
+			a.clear();
+			stest_accert(a.size()==0);
+			a.resize(3,es'd');
+			stest_accert(a==es"ddd");
+			for(const wchar_t&c:a)
+				stest_accert(c==es'd');
+			a=es"abc";
+			stest_accert(a.begin()==a.cbegin());
+			stest_accert(*a.begin()==es'a');
+			stest_accert(a.begin()<=a.cend());
+			stest_accert(*a.rbegin()==es'c');
+			stest_accert(a.rbegin()<=a.rend());
+			stest_accert(a.rbegin()==a.end()-1);
+			a.push_back(es"as");
+			a.push_front(es'p');
+			stest_accert(a == es"pabcas");
+			a.erase(1,3);
+			a.erase(1);
+			stest_accert(a == es"ps");
+			stest_accert(a.pop_front() == es'p');
+			stest_accert(a.pop_back() == es's');
+			stest_accert(a.size() == 0);
+			a=es"abc";
+			stest_accert(a.pop_back(2) == es"bc");
+			stest_accert(a.size() == 1);
+			a.push_front(es"wqer");
+			stest_accert(a==es"wqera");
+			a.insert(2,es"123");
+			a.insert(0,es"123");
+			a.insert(a.size(),es"123");
+			stest_accert(a[2] == es'3');
+			a[5]=es'6';
+			a[6]=es'6';
+			a[7]=es'6';
+			a[8]=es'6';
+			stest_accert(a == es"123wq6666ra123");
+			for(wchar_t& c: a)
+				c ='7';
+			stest_accert(a == es"77777777777777");
+		}
+		{
+			using namespace elc;
+			using elc::defs::hash;
+			auto a = es"ab"_elc_string;//constexpr_string_data_t
+			stest_accert(hash(a) == hash(string_view(es"ab")));
+			elc::string b = es"ab";//comn_string_data_t
+			stest_accert(hash(b) == hash(string_view(es"ab")));
+			stest_accert(b.memory_cost() > a.memory_cost());
+			a += b;//sum_string_data_t -> constexpr_string_data_t
+				   //				   -> comn_string_data_t
+			stest_accert(hash(a) == hash(string_view(es"abab")));
+			a.insert(1, 'c');//inserted_string_data_t -> sum_string_data_t
+			stest_accert(hash(a) == hash(string_view(es"acbab")));
+			a.erase(2, 3);//erased_string_data_t -> inserted_string_data_t
+			stest_accert(hash(a) == hash(string_view(es"ac")));
+			a.push_back(es"123");//end_apply_string_data_t -> erased_string_data_t
+			stest_accert(hash(a) == hash(string_view(es"ac123")));
+			a.push_front(es"123");//head_apply_string_data_t -> end_apply_string_data_t
+			stest_accert(hash(a) == hash(string_view(es"123ac123")));
+		}
 	}
 	check_memory_lack();
 }
