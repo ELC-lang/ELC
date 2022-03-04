@@ -6,11 +6,6 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct core_run_time_goto_t{
-	ptr to;
-};
-struct core_run_time_return_t{
-};
 value eval(ptr p){
 	return p->get_eval_of_this()();
 }

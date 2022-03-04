@@ -13,17 +13,17 @@
 	#pragma warning(disable:26492)//const_cast警告diss
 #endif
 template<typename T>
-inline const T add_const(T a)noexcept{return a;}
+inline constexpr const T add_const(T a)noexcept{return a;}
 template<typename T>
-inline const T&add_const(T&a)noexcept{return a;}
+inline constexpr const T&add_const(T&a)noexcept{return a;}
 template<typename T>
-inline T remove_const(const T a)noexcept{return a;}
+inline constexpr T remove_const(const T a)noexcept{return a;}
 template<typename T>
-inline const T*add_const(T*a)noexcept{return a;}
+inline constexpr const T*add_const(T*a)noexcept{return a;}
 template<typename T>
-inline T*remove_const(const T*a)noexcept{return const_cast<T*>(a);}
+inline constexpr T*remove_const(const T*a)noexcept{return const_cast<T*>(a);}
 template<typename T,typename U>
-inline T down_cast(U a)noexcept{return static_cast<T>(a);}
+inline constexpr T down_cast(U a)noexcept{return static_cast<T>(a);}
 #if defined(_MSC_VER)
 	#pragma warning(pop)
 #endif

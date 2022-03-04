@@ -28,7 +28,7 @@ namespace string_n{
 		}
 
 		string_t()noexcept=default;
-		constexpr string_t(special_init_t,string_view_t str)noexcept:_m(get<constexpr_string_data_t<char_T>>(str,hash(str))){}
+		constexpr string_t(constexpr_str_t<char_t> str)noexcept:_m(get<constexpr_string_data_t<char_T>>(str,hash(str))){}
 		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
 		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
@@ -114,10 +114,19 @@ namespace string_n{
 			return seq;
 		}
 		[[nodiscard]]constexpr auto operator<=>(string_view_t a)const noexcept(compare.nothrow<char_T>){
-			return compare(data(),size(),a.begin(),a.size());
+			auto ssize = size();
+			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
+			if(!scom)
+				return compare(data(),a.begin(),ssize);
+			return scom;
 		}
 		[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
 			return equal(data(),size(),a.begin(),a.size());
+			auto ssize = size();
+			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
+			if(seq)
+				return equal(data(),a.begin(),ssize);
+			return seq;
 		}
 		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
 			return compare(data(),size(),a,end_by_zero);

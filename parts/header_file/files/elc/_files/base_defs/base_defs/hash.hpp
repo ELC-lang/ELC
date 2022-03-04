@@ -137,6 +137,10 @@ namespace hash_n{
 		[[nodiscard]]constexpr inline hash_value_t operator()(array_end_by_zero_t<T>a)const noexcept(nothrow<T>){
 			return operator()(array_like_view_t<T>(a));
 		}
+		template<class T>
+		[[nodiscard]]constexpr inline hash_value_t operator()(constexpr_str_t<T>a)const noexcept(nothrow<T>){
+			return operator()(array_like_view_t<const T>(a));
+		}
 	}hash{};
 }
 typedef hash_n::hash_value_t hash_t;

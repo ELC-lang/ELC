@@ -8,6 +8,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace elc::defs{
+	#include "../_share/_defs.hpp"
 	namespace string_n{
 		template<class char_T>
 		value arec_as_value(string_t<char_T>&str,const value index){
@@ -29,6 +30,7 @@ namespace elc::defs{
 			return get<arec_data_t>(str,i);
 		}
 	}
+	#include "../_share/_undefs.hpp"
 }
 
 //file_end

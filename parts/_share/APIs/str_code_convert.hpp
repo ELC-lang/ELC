@@ -11,10 +11,10 @@ elc依赖的基础函数.
 调整这些,实现快速移植,快速优化与行为自定义.
 */
 #if !defined(ELC_APIS_str_code_convert)
+	#define ELC_APIS_str_code_convert
 	#include <cuchar>
 	#include "../default_data_type.hpp"
 	#include "../../header_file/files/elc/string"
-	#define ELC_APIS_str_code_convert
 	namespace elc::APIs::str_code_convert{
 		using namespace ::elc::defs;//get def
 

@@ -8,6 +8,7 @@
 */
 #define export using defs::exception_n::
 export exception;
+export runtime_exception;
 #undef export
 
 //file_end

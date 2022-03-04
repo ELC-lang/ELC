@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline string operator ""_elc_string(const char_t*str,size_t N)noexcept{
-	return string(special_init,string_view{str,N});
+	return string(constexpr_str_t<char_t>{str,N});
 }
 
 [[deprecated("run time string code convert")]]

@@ -23,6 +23,7 @@
 #include "compare.hpp"
 #include "note.hpp"
 #include "array_like.hpp"
+#include "constexpr_str.hpp"
 #include "range.hpp"
 #include "data.hpp"
 #include "pointer.hpp"
