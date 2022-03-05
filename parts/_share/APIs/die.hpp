@@ -16,6 +16,9 @@ elc依赖的基础函数.
 	#include "../default_data_type.hpp"
 	namespace elc::APIs::die{
 		[[noreturn]]inline void die()noexcept{
+			#if defined(_MSC_VER)
+				__debugbreak();
+			#endif
 			#if defined(_WINMAIN_)
 				::MessageBoxW(NULL,L"elc died.",NULL,MB_ICONERROR);
 			#else
@@ -26,6 +29,7 @@ elc依赖的基础函数.
 		}
 		[[noreturn]]inline void die_with(const char_t*err_msg)noexcept{
 			#if defined(_MSC_VER)
+				__debugbreak();
 				#pragma warning(push)
 				#pragma warning(disable:26485)//数组转型警告diss
 				#pragma warning(disable:26475)//强转警告diss
