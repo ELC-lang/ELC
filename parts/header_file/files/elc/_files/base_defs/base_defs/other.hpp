@@ -27,7 +27,7 @@ class maybe_fail_reference{
 	T*_ref_to;
 public:
 	constexpr maybe_fail_reference(T&a):_ref_to(&a){}
-	constexpr maybe_fail_reference(maybe_fail_reference&)=default;
+	constexpr maybe_fail_reference(const maybe_fail_reference&)=default;
 	constexpr maybe_fail_reference(note::fail_t):_ref_to(nullptr){}
 
 	[[nodiscard]]bool not_fail()noexcept{return _ref_to;}

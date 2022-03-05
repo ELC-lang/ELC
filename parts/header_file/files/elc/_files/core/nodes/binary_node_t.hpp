@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct binary_node_base_t:node_like{
+no_vtable_struct binary_node_base_t:node_like{
 	typedef binary_node_base_t this_t;
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<this_t>;}

@@ -95,7 +95,7 @@ namespace hash_table_n{
 					for(auto&i:_m){
 						if(is_eq(i,bucket))
 							continue;
-						re_construct(&reference,i.find(a));
+						re_construct[&reference](i.find(a));
 						if(reference.not_fail())
 							break;
 					}

@@ -26,7 +26,7 @@ struct base_binary_function_node:node_like,instance_struct<base_binary_function_
 	}
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<this_t>;}
-	[[nodiscard]]virtual function_t<value(ptr)> get_call_of_this()noexcept override{return _func;}
+	[[nodiscard]]virtual value be_call(ptr arg_list)override{return _func(arg_list);}
 protected:
 	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
 		if(a->get_type_info() != this->get_type_info())

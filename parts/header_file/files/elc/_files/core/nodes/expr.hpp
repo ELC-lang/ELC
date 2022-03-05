@@ -14,10 +14,8 @@ public:
 	using cons::_cdr;
 	using cons::cons;
 
-	[[nodiscard]]virtual function_t<value()> get_eval_of_this()noexcept override{
-		return lambda_with_catch(this){
-			return as_ptr(_car)->get_call_of_this()(_cdr);
-		};
+	[[nodiscard]]virtual value be_eval()override{
+		return as_ptr(_car)->be_call(_cdr);
 	}
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<expr>;}
 };

@@ -7,13 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "base_runtime_exception.hpp"
-#include "core_runtime_internal_helper_base_t.hpp"
-struct core_run_time_goto_t{
-	ptr to;
-};
-struct core_run_time_return_t{
-};
-//#include ".hpp"
+#include "core_runtime_internal_helper.hpp"
 
 //file_end
 

@@ -17,8 +17,8 @@ public:
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 
-	[[nodiscard]]virtual function_t<value()> get_eval_of_this();
-	[[nodiscard]]virtual function_t<value(ptr)> get_call_of_this();
+	[[nodiscard]]virtual value be_eval();
+	[[nodiscard]]virtual value be_call(ptr);
 protected:
 	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const noexcept=0;
 	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const noexcept{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
@@ -51,7 +51,7 @@ public:
 	[[nodiscard]]explicit operator bool()const noexcept{return(bool)this->operator logical_bool();}
 
 	template<typename...Args>
-	inline value operator()(Args&&...rest){return this->get_call_of_this()(make_list(forward<Args>(rest)...));}
+	inline value operator()(Args&&...rest){return this->be_call(make_list(forward<Args>(rest)...));}
 
 	[[nodiscard]]logical_bool eq(const_ptr a)const noexcept{
 		const auto this_eqlv = this->eq_level();

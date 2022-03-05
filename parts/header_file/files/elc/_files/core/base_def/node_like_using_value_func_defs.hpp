@@ -6,12 +6,19 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-[[nodiscard]]inline function_t<value()> node_like::get_eval_of_this(){
-	return lambda_with_catch(this)()noexcept{return value(this);};
+#if defined(_MSC_VER)
+	#pragma warning(push)
+	#pragma warning(disable:26440)//nothrow警告diss
+#endif
+[[nodiscard]]inline value node_like::be_eval(){
+	return value(this);
 }
-[[nodiscard]]inline function_t<value(ptr)> node_like::get_call_of_this(){
-	return lambda_with_catch(this)(ptr)noexcept{return value(this);};
+[[nodiscard]]inline value node_like::be_call(ptr){
+	return value(this);
 }
+#if defined(_MSC_VER)
+	#pragma warning(pop)
+#endif
 
 [[nodiscard]]inline value node_like::operator[](const value index){
 	return arec(index);

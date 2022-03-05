@@ -6,10 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-value eval(ptr p){
-	return p->get_eval_of_this()();
+inline value eval(ptr p){
+	return p->be_eval();
 }
-value eval(auto&&node){
+inline value eval(auto&&node){
 	return eval(as_ptr(node));
 }
 struct code_list:cons,instance_struct<code_list>{
@@ -18,25 +18,23 @@ struct code_list:cons,instance_struct<code_list>{
 public:
 	using cons::cons;
 
-	[[nodiscard]]virtual function_t<value()> get_eval_of_this()noexcept override{
+	[[nodiscard]]virtual value be_eval()override{
 		ptr self = this;
-		return lambda_with_catch(self)()mutable{
-			value aret{special_init};
-		from_goto:
-			try{
-				do{
-					eval(car_of(self)) >> aret;
-					self=cdr_of(self);
-				}while(self);
-			}
-			catch(core_run_time_goto_t&info){
-				self=info.to;
-				goto from_goto;
-			}
-			catch(core_run_time_return_t&){
-			}
-			return aret;
-		};
+		value aret{special_init};
+	from_goto:
+		try{
+			do{
+				eval(car_of(self)) >> aret;
+				self=cdr_of(self);
+			}while(self);
+		}
+		catch(core_runtime_internal_helper_n::goto_t&info){
+			self=info.to;
+			goto from_goto;
+		}
+		catch(core_runtime_internal_helper_n::return_t&){
+		}
+		return aret;
 	}
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<code_list>;}
 };
