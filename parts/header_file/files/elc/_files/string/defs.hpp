@@ -20,8 +20,8 @@ namespace string_n{
 	private:
 		mutable ptr_t _m;
 
-		string_t(ptr_t str):_m(str){}
-		[[nodiscard]]ptr_t ptr_copy()const{ return _m; }
+		string_t(ptr_t str)noexcept:_m(str){}
+		[[nodiscard]]ptr_t ptr_copy()const noexcept{ return _m; }
 	public:
 		void swap_with(this_t& a)noexcept{
 			swap(_m,a._m);
@@ -156,12 +156,12 @@ namespace string_n{
 			}
 			[[nodiscard]]char_T*		operator&()noexcept{ return _to->unique_c_str()+_index; }
 			[[nodiscard]]const char_T*	operator&()const noexcept{ return (add_const(_to))->c_str()+_index; }
-			[[nodiscard]]explicit operator char_T&()noexcept{ return *operator&(); }
-			[[nodiscard]]explicit operator const char_T&()const noexcept{ return *operator&(); }
+			[[nodiscard]]operator char_T&()noexcept{ return *operator&(); }
+			[[nodiscard]]operator const char_T&()const noexcept{ return *operator&(); }
 		};
 
-		[[nodiscard]]arec_t		  operator[](size_t index){ return{this,index}; }
-		[[nodiscard]]const arec_t operator[](size_t index)const{ return{remove_const(this),index}; }
+		[[nodiscard]]arec_t		  operator[](size_t index)noexcept{ return{this,index}; }
+		[[nodiscard]]const arec_t operator[](size_t index)const noexcept{ return{remove_const(this),index}; }
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
 			size=min(size,this->size()-begin);
@@ -199,31 +199,31 @@ namespace string_n{
 			constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to && _index==a._index; }
 			constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to ? _index<=>a._index : NAN<=>NAN; }
 		};
-		[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const{ return iterator_base_t{(string_t*)this,index}; }
+		[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const noexcept{ return iterator_base_t{(string_t*)this,index}; }
 	public:
 		typedef iterator_t<char_T,iterator_base_t>				iterator;
 		typedef const_iterator_t<char_T,const iterator_base_t>	const_iterator;
 
-		[[nodiscard]]iterator		get_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
-		[[nodiscard]]const_iterator get_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
-		[[nodiscard]]iterator		begin(){ return get_iterator_at(0); }
-		[[nodiscard]]const_iterator begin()const{ return get_iterator_at(0); }
-		[[nodiscard]]const_iterator cbegin()const{ return begin(); }
-		[[nodiscard]]iterator		end(){ return get_iterator_at(size()); }
-		[[nodiscard]]const_iterator end()const{ return get_iterator_at(size()); }
-		[[nodiscard]]const_iterator cend()const{ return end(); }
+		[[nodiscard]]iterator		get_iterator_at(ptrdiff_t index)noexcept{ return get_iterator_data_at(index); }
+		[[nodiscard]]const_iterator get_iterator_at(ptrdiff_t index)const noexcept{ return get_iterator_data_at(index); }
+		[[nodiscard]]iterator		begin()noexcept{ return get_iterator_at(0); }
+		[[nodiscard]]const_iterator begin()const noexcept{ return get_iterator_at(0); }
+		[[nodiscard]]const_iterator cbegin()const noexcept{ return begin(); }
+		[[nodiscard]]iterator		end()noexcept{ return get_iterator_at(size()); }
+		[[nodiscard]]const_iterator end()const noexcept{ return get_iterator_at(size()); }
+		[[nodiscard]]const_iterator cend()const noexcept{ return end(); }
 
 		typedef reverse_iterator_t<char_T,iterator_base_t>				reverse_iterator;
 		typedef reverse_const_iterator_t<char_T,const iterator_base_t>	reverse_const_iterator;
 
-		[[nodiscard]]reverse_iterator		get_reverse_iterator_at(ptrdiff_t index){ return get_iterator_data_at(index); }
-		[[nodiscard]]reverse_const_iterator get_reverse_iterator_at(ptrdiff_t index)const{ return get_iterator_data_at(index); }
-		[[nodiscard]]reverse_iterator		rbegin(){ return get_reverse_iterator_at(size()-1); }
-		[[nodiscard]]reverse_const_iterator rbegin()const{ return get_reverse_iterator_at(size()-1); }
-		[[nodiscard]]reverse_const_iterator rcbegin()const{ return rbegin(); }
-		[[nodiscard]]reverse_iterator		rend(){ return get_reverse_iterator_at(-1); }
-		[[nodiscard]]reverse_const_iterator rend()const{ return get_reverse_iterator_at(-1); }
-		[[nodiscard]]reverse_const_iterator rcend()const{ return rend(); }
+		[[nodiscard]]reverse_iterator		get_reverse_iterator_at(ptrdiff_t index)noexcept{ return get_iterator_data_at(index); }
+		[[nodiscard]]reverse_const_iterator get_reverse_iterator_at(ptrdiff_t index)const noexcept{ return get_iterator_data_at(index); }
+		[[nodiscard]]reverse_iterator		rbegin()noexcept{ return get_reverse_iterator_at(size()-1); }
+		[[nodiscard]]reverse_const_iterator rbegin()const noexcept{ return get_reverse_iterator_at(size()-1); }
+		[[nodiscard]]reverse_const_iterator rcbegin()const noexcept{ return rbegin(); }
+		[[nodiscard]]reverse_iterator		rend()noexcept{ return get_reverse_iterator_at(-1); }
+		[[nodiscard]]reverse_const_iterator rend()const noexcept{ return get_reverse_iterator_at(-1); }
+		[[nodiscard]]reverse_const_iterator rcend()const noexcept{ return rend(); }
 
 		//
 
