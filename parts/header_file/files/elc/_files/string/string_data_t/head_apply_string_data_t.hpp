@@ -71,15 +71,19 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			_to->copy_part_data_to(to,pos-_used_size,size);
 	}
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
-		if(index<_used_size)
-			return _m[index];
+		if(index<_used_size){
+			const char_T* head_begin=_m.end()-_used_size;
+			return head_begin[index];
+		}
 		else
 			return _to->arec(index-_used_size);
 	}
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
 		if(this->is_unique()){
-			if(index<_used_size)
-				_m[index]=a;
+			if(index<_used_size){
+				char_T* head_begin=_m.end()-_used_size;
+				head_begin[index]=a;
+			}
 			else
 				_to->arec_set(index-_used_size,a,_to);
 			self_changed();
