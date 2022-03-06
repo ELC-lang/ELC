@@ -98,15 +98,13 @@ namespace hash_n{
 			return operator()(a)._value;
 		}
 
-		static constexpr auto array_hash_magic_number=13;
-
 		/*从某个起始点算起的hash*/
 		template<class T>
 		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,const T*a,size_t size)const noexcept{
 			size_t aret=before._value;
 			size_t index=0;
 			while(size--)
-				aret = array_hash_magic_number*aret + get_hash_in_size_type(a[index++]);
+				aret ^= magic_number::rotl(get_hash_in_size_type(a[size]),size);
 			return{aret};
 		}
 		template<class T>
@@ -114,16 +112,10 @@ namespace hash_n{
 			return with_calculated_before(operator()(nothing), a, size);
 		}
 		/*合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般*/
-		[[nodiscard,deprecated("There is a potential overflow that could lead to a mismatch of results")]]
-		inline hash_value_t merge_array_hash_results(hash_value_t before,hash_value_t after,size_t after_size)const noexcept{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26467)//cast警告diss
-			#endif
-			return{before._value*size_t(::std::pow(array_hash_magic_number,after_size))+after._value};
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+		[[nodiscard]]inline hash_value_t merge_array_hash_results(
+			hash_value_t before,size_t before_size,hash_value_t after,size_t after_size
+		)const noexcept{
+			return{before._value^(magic_number::rotl(after._value,before_size))};
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
 		[[nodiscard]]constexpr inline hash_value_t operator()(array_like_view_t<T>a)const noexcept(nothrow<T>){

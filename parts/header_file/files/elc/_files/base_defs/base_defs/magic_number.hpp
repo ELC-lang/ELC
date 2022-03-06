@@ -102,6 +102,36 @@ namespace magic_number{
 	#if defined(_MSC_VER)
 		#pragma warning(pop)
 	#endif
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]inline constexpr auto rotl(const T v,const auto R)noexcept;
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]inline constexpr auto rotr(const T v,const auto R)noexcept{
+		constexpr auto d = ::std::numeric_limits<T>::digits;
+		const auto r = R%d;
+		if(r>0){
+			return static_cast<T>(static_cast<T>(v >> r) | static_cast<T>(v << (d - r)));
+		}
+		elseif(r==0){
+			return v;
+		}
+		else{//r<0
+			return rotl(v,0-r);
+		}
+	}
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]inline constexpr auto rotl(const T v,const auto R)noexcept{
+		constexpr auto d = ::std::numeric_limits<T>::digits;
+		const auto r  = R%d;
+		if(r>0){
+			return static_cast<T>(static_cast<T>(v << r) | static_cast<T>(v >> (d - r)));
+		}
+		elseif(r==0){
+			return v;
+		}
+		else{//r<0
+			return rotr(v,0-r);
+		}
+	}
 }
 using magic_number::get_next_gold_size_to_resize_for_array;
 using magic_number::get_next_gold_size_to_resize_for_hash;
