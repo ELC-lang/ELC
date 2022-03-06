@@ -38,17 +38,17 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 
 	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept{
 		const auto pos	  = this->get_size()-size;
-		const auto defore = get_substr_data(0,pos);
+		const auto before = get_substr_data(0,pos);
 		const auto after  = get_substr_data(pos,size);
-		self			  = defore;
+		self			  = before;
 		return after;
 	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept{
 		const auto pos	  = size;
-		const auto defore = get_substr_data(0,pos);
+		const auto before = get_substr_data(0,pos);
 		const auto after  = get_substr_data(pos,this->get_size()-size);
 		self			  = after;
-		return defore;
+		return before;
 	}
 	/*
 	TODO:
@@ -83,7 +83,9 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 			return p->hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept{
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		return hash.with_calculated_before(before,get_data(p)+pos,size);
 	}
 

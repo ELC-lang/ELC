@@ -38,7 +38,7 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	[[nodiscard]]virtual ptr_t do_pop_front([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)noexcept override final{ return this; }
 
 	virtual hash_t get_hash([[maybe_unused]]ptr_t&p)noexcept override final{ return hash(nothing); }
-	virtual hash_t get_others_hash_with_calculated_before([[maybe_unused]]hash_t before,[[maybe_unused]]ptr_t&p,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return before; }
+	virtual hash_t get_others_hash_with_calculated_before([[maybe_unused]]hash_t before,[[maybe_unused]]size_t before_size,[[maybe_unused]]ptr_t&p,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return before; }
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{return 0;}
 };

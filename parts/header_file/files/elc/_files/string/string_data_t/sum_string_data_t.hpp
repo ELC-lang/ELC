@@ -16,63 +16,63 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	using base_t::has_hash_cache;
 	using base_t::hash_cache;
 
-	ptr_t  _defore;
+	ptr_t  _before;
 	ptr_t  _after;
-	size_t _defore_size;
+	size_t _before_size;
 	size_t _after_size;
 
-	sum_string_data_t(ptr_t defore,ptr_t after)noexcept:_defore(defore),_after(after),_defore_size(_defore->get_size()),_after_size(_after->get_size()){}
+	sum_string_data_t(ptr_t before,ptr_t after)noexcept:_before(before),_after(after),_before_size(_before->get_size()),_after_size(_after->get_size()){}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
-		if(begin+size<=_defore_size)
-			return _defore->get_substr_data(begin,size);
-		elseif(begin>=_defore_size)
-			return _after->get_substr_data(begin-_defore_size,size);
+		if(begin+size<=_before_size)
+			return _before->get_substr_data(begin,size);
+		elseif(begin>=_before_size)
+			return _after->get_substr_data(begin-_before_size,size);
 		else
 			return base_t::get_substr_data(begin,size);
 	}
 	virtual void be_replace_as(ptr_t a)noexcept override final{
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
-			if(_defore_size==p->_defore_size){
-				if(_defore!=p->_defore)
-					base_t::equivalent_optimization(_defore, p->_defore);
+			if(_before_size==p->_before_size){
+				if(_before!=p->_before)
+					base_t::equivalent_optimization(_before, p->_before);
 				if(_after!=p->_after)
 					base_t::equivalent_optimization(_after, p->_after);
 			}
 		}
-		_defore.reset();
+		_before.reset();
 		_after.reset();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _defore_size+_after_size; }
+	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _before_size+_after_size; }
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{
-		if(pos<_defore_size){
-			const auto copy_defore_begin=pos;
-			const auto copy_defore_end=min(pos+size,_defore_size);
-			const auto copy_defore_size=copy_defore_end-copy_defore_begin;
-			_defore->copy_part_data_to(to,copy_defore_begin,copy_defore_size);
-			if(size!=copy_defore_size){
-				const auto copy_after_size=size-copy_defore_size;
-				to+=copy_defore_size;
+		if(pos<_before_size){
+			const auto copy_before_begin=pos;
+			const auto copy_before_end=min(pos+size,_before_size);
+			const auto copy_before_size=copy_before_end-copy_before_begin;
+			_before->copy_part_data_to(to,copy_before_begin,copy_before_size);
+			if(size!=copy_before_size){
+				const auto copy_after_size=size-copy_before_size;
+				to+=copy_before_size;
 				_after->copy_part_data_to(to,0,copy_after_size);
 			}
 		}
 		else
-			_after->copy_part_data_to(to,pos-_defore_size,size);
+			_after->copy_part_data_to(to,pos-_before_size,size);
 	}
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
-		if(index<_defore_size)
-			return _defore->arec(index);
+		if(index<_before_size)
+			return _before->arec(index);
 		else
-			return _after->arec(index-_defore_size);
+			return _after->arec(index-_before_size);
 	}
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
 		if(this->is_unique()){
-			if(index<_defore_size)
-				_defore->arec_set(index,a,_defore);
+			if(index<_before_size)
+				_before->arec_set(index,a,_before);
 			else
-				_after->arec_set(index-_defore_size,a,_after);
+				_after->arec_set(index-_before_size,a,_after);
 			self_changed();
 		}
 		else
@@ -80,8 +80,8 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
 		if(this->is_unique()){
-			_defore=_defore->apply_str_to_begin(str);
-			_defore_size+=str.size();
+			_before=_before->apply_str_to_begin(str);
+			_before_size+=str.size();
 			self_changed();
 			return this;
 		}
@@ -90,8 +90,8 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
 		if(this->is_unique()){
-			_defore=_defore->apply_str_to_begin(str);
-			_defore_size+=str->get_size();
+			_before=_before->apply_str_to_begin(str);
+			_before_size+=str->get_size();
 			self_changed();
 			return this;
 		}
@@ -119,9 +119,9 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 			return base_t::apply_str_to_end(str);
 	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
-		if(this->is_unique() && _defore_size>=size){
-			auto aret=_defore->do_pop_front(size,_defore);
-			_defore_size-=size;
+		if(this->is_unique() && _before_size>=size){
+			auto aret=_before->do_pop_front(size,_before);
+			_before_size-=size;
 			self_changed();
 			return aret;
 		}
@@ -151,35 +151,37 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 			#if defined(_MSC_VER)
 				#pragma warning(pop)
 			#endif
-			if(_defore_size){
-				result=_defore->get_hash(_defore);
-				if(_after_size){
-					result=_after->get_others_hash_with_calculated_before(result,_after,0,_after_size);
-				}
+			if(_before_size){
+				result=_before->get_hash(_before);
+				if(_after_size)
+					result=hash.merge_array_hash_results(result,_before_size,_after->get_hash(_after),_after_size);
 			}
 			else
 				result=_after->get_hash(_after);
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
-		if(pos<_defore_size){
-			const auto calculate_defore_begin=pos;
-			const auto calculate_defore_end=min(pos+size,_defore_size);
-			const auto calculate_defore_size=calculate_defore_end-calculate_defore_begin;
-			before=_defore->get_others_hash_with_calculated_before(before,_defore,calculate_defore_begin,calculate_defore_size);
-			if(size!=calculate_defore_size){
-				const auto calculate_after_size=size-calculate_defore_size;
-				before=_after->get_others_hash_with_calculated_before(before,_after,0,calculate_after_size);
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+		if(pos<_before_size){
+			const auto calculate_before_begin=pos;
+			const auto calculate_before_end=min(pos+size,_before_size);
+			const auto calculate_before_size=calculate_before_end-calculate_before_begin;
+			before=_before->get_others_hash_with_calculated_before(before,before_size,_before,calculate_before_begin,calculate_before_size);
+			if(size!=calculate_before_size){
+				const auto calculate_after_size=size-calculate_before_size;
+				before_size+=calculate_before_size;
+				before=_after->get_others_hash_with_calculated_before(before,before_size,_after,0,calculate_after_size);
 			}
 		}
 		else
-			before=_after->get_others_hash_with_calculated_before(before,_after,pos-_defore_size,size);
+			before=_after->get_others_hash_with_calculated_before(before,before_size,_after,pos-_before_size,size);
 		return before;
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
-		return (sizeof(*this)+_defore->get_memory_cost()+_after->get_memory_cost())/get_ref_num((const base_t*)this);
+		return (sizeof(*this)+_before->get_memory_cost()+_after->get_memory_cost())/get_ref_num((const base_t*)this);
 	}
 };
 template<typename char_T>

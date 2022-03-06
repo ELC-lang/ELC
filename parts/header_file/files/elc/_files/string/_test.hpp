@@ -25,7 +25,7 @@ inline void test(){
 			stest_accert(a.size()==0);
 			a.resize(3,ec('d'));
 			stest_accert(a==es"ddd");
-			for(const wchar_t&c:a)
+			for(const char_t&c:a)
 				stest_accert(c==ec('d'));
 			a=es"abc";
 			stest_accert(a.begin()==a.cbegin());
@@ -57,7 +57,7 @@ inline void test(){
 			a[7]=ec('6');
 			a[8]=ec('6');
 			stest_accert(a == es"123wq6666ra123");
-			for(wchar_t& c: a)
+			for(char_t& c: a)
 				c ='7';
 			stest_accert(a == es"77777777777777");
 		}

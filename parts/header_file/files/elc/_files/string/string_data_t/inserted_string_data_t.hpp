@@ -56,15 +56,15 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			_to->copy_part_data_to(to,pos-_insert_size,size);
 		else{
 			if(_insert_pos>pos){
-				auto size_defore_insert_pos=_insert_pos-pos;
-				_to->copy_part_data_to(to,pos,size_defore_insert_pos);
-				to+=size_defore_insert_pos;
-				size-=size_defore_insert_pos;
+				auto size_before_insert_pos=_insert_pos-pos;
+				_to->copy_part_data_to(to,pos,size_before_insert_pos);
+				to+=size_before_insert_pos;
+				size-=size_before_insert_pos;
 			}
-			auto size_defore_insert_end=min(size,_insert_size);
-			_insert_data->copy_part_data_to(to,0,size_defore_insert_end);
-			to+=size_defore_insert_end;
-			size-=size_defore_insert_end;
+			auto size_before_insert_end=min(size,_insert_size);
+			_insert_data->copy_part_data_to(to,0,size_before_insert_end);
+			to+=size_before_insert_end;
+			size-=size_before_insert_end;
 			if(size)
 				_to->copy_part_data_to(to,_insert_pos,size);
 		}
@@ -223,34 +223,36 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			auto result=hash(nothing);
 			auto size=get_size();
 			if(_insert_pos){
-				const auto size_defore_insert_pos=_insert_pos;
-				result=_to->get_others_hash_with_calculated_before(result,_to,0,_insert_pos);
+				result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
 				size-=_insert_pos;
 			}
-			auto size_defore_insert_end=min(size,_insert_size);
-			result=_insert_data->get_others_hash_with_calculated_before(result,_insert_data,0,size_defore_insert_end);
-			size-=size_defore_insert_end;
+			result=hash.merge_array_hash_results(result,_insert_pos,_insert_data->get_hash(_insert_data),_insert_size);
+			size-=_insert_size;
 			if(size)
-				result=_to->get_others_hash_with_calculated_before(result,_to,_insert_pos,size);
+				result=_to->get_others_hash_with_calculated_before(result,_insert_pos+_insert_size,_to,_insert_pos,size);
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos+size<_insert_pos)
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size);
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
 		elseif(pos>_insert_pos+_insert_size)
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos-_insert_size,size);
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos-_insert_size,size);
 		else{
 			if(_insert_pos>pos){
-				const auto size_defore_insert_pos=_insert_pos-pos;
-				before=_to->get_others_hash_with_calculated_before(before,_to,pos,size_defore_insert_pos);
-				size-=size_defore_insert_pos;
+				const auto size_before_insert_pos=_insert_pos-pos;
+				before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size_before_insert_pos);
+				size-=size_before_insert_pos;
+				before_size+=size_before_insert_pos;
 			}
-			auto size_defore_insert_end=min(size,_insert_size);
-			before=_insert_data->get_others_hash_with_calculated_before(before,_insert_data,0,size_defore_insert_end);
-			size-=size_defore_insert_end;
+			auto size_before_insert_end=min(size,_insert_size);
+			before=_insert_data->get_others_hash_with_calculated_before(before,before_size,_insert_data,0,size_before_insert_end);
+			size-=size_before_insert_end;
+			before_size+=size_before_insert_end;
 			if(size)
-				before=_to->get_others_hash_with_calculated_before(before,_to,_insert_pos,size);
+				before=_to->get_others_hash_with_calculated_before(before,before_size,_to,_insert_pos,size);
 		}
 		return before;
 	}

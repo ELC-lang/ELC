@@ -169,14 +169,16 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 				const char_T* head_begin=_m.end()-_used_size;
 				result=hash(head_begin,_used_size);
 				if(_to_size)
-					result=_to->get_others_hash_with_calculated_before(result,_to,0,_to_size);
+					result=hash.merge_array_hash_results(result,_used_size,_to->get_hash(_to),_to_size);
 			}
 			else
 				result=_to->get_hash(_to);
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos<_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			const char_T* head_end=_m.end();
@@ -186,11 +188,12 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			before=hash.with_calculated_before(before,calculate_begin,size_of_calculate_from_head);
 			if(size!=size_of_calculate_from_head){
 				const size_t size_left=size-size_of_calculate_from_head;
-				before=_to->get_others_hash_with_calculated_before(before,_to,0,size_left);
+				before_size+=size_of_calculate_from_head;
+				before=_to->get_others_hash_with_calculated_before(before,before_size,_to,0,size_left);
 			}
 		}
 		else
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos-_used_size,size);
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos-_used_size,size);
 		return before;
 	}
 

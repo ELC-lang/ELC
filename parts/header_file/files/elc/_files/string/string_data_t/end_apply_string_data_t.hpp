@@ -161,12 +161,16 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			return p->hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos+size<=_to_size)
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size);
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
 		else{
 			if(pos<_to_size){
-				before=_to->get_others_hash_with_calculated_before(before,_to,pos,_to_size-pos);
+				before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,_to_size-pos);
 				const auto calculated_size=_to_size-pos;
 				pos=0;
 				size-=calculated_size;

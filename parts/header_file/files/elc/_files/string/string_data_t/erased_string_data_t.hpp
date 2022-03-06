@@ -48,10 +48,10 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		elseif(pos>_erase_pos)
 			_to->copy_part_data_to(to,pos+_erase_size,size);
 		else{
-			const auto size_defore_erase_pos=_erase_pos-pos;
-			const auto size_after_erase_pos=size-size_defore_erase_pos;
-			_to->copy_part_data_to(to,pos,size_defore_erase_pos);
-			_to->copy_part_data_to(to+size_defore_erase_pos,_erase_pos+_erase_size,size_after_erase_pos);
+			const auto size_before_erase_pos=_erase_pos-pos;
+			const auto size_after_erase_pos=size-size_before_erase_pos;
+			_to->copy_part_data_to(to,pos,size_before_erase_pos);
+			_to->copy_part_data_to(to+size_before_erase_pos,_erase_pos+_erase_size,size_after_erase_pos);
 		}
 	}
 	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)noexcept override final{
@@ -155,23 +155,25 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else{
 			auto result=hash(nothing);
 			auto size=get_size();
-			const auto size_defore_erase_pos=_erase_pos;
-			const auto size_after_erase_pos=size-size_defore_erase_pos;
-			result=_to->get_others_hash_with_calculated_before(result,_to,0,size_defore_erase_pos);
-			result=_to->get_others_hash_with_calculated_before(result,_to,_erase_pos+_erase_size,size_after_erase_pos);
+			const auto size_before_erase_pos=_erase_pos;
+			const auto size_after_erase_pos=size-size_before_erase_pos;
+			result=_to->get_others_hash_with_calculated_before(result,0,_to,0,size_before_erase_pos);
+			result=_to->get_others_hash_with_calculated_before(result,size_before_erase_pos,_to,_erase_pos+_erase_size,size_after_erase_pos);
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+		if(pos==0&&size==get_size())
+			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos+size<_erase_pos)
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size);
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
 		elseif(pos>_erase_pos)
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos+_erase_size,size);
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos+_erase_size,size);
 		else{
-			const auto size_defore_erase_pos=_erase_pos-pos;
-			const auto size_after_erase_pos=size-size_defore_erase_pos;
-			before=_to->get_others_hash_with_calculated_before(before,_to,pos,size_defore_erase_pos);
-			before=_to->get_others_hash_with_calculated_before(before,_to,_erase_pos+_erase_size,size_after_erase_pos);
+			const auto size_before_erase_pos=_erase_pos-pos;
+			const auto size_after_erase_pos=size-size_before_erase_pos;
+			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size_before_erase_pos);
+			before=_to->get_others_hash_with_calculated_before(before,before_size+size_before_erase_pos,_to,_erase_pos+_erase_size,size_after_erase_pos);
 		}
 		return before;
 	}
