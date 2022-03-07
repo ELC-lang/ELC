@@ -100,16 +100,15 @@ namespace hash_n{
 
 		/*从某个起始点算起的hash*/
 		template<class T>
-		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,const T*a,size_t size)const noexcept{
+		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
 			size_t aret=before._value;
-			size_t index=0;
 			while(size--)
-				aret ^= magic_number::rotl(get_hash_in_size_type(a[size]),size);
+				aret ^= magic_number::rotl(get_hash_in_size_type(a[size]),before_size+size);
 			return{aret};
 		}
 		template<class T>
 		[[nodiscard]]constexpr inline hash_value_t operator()(const T*a,size_t size)const noexcept(nothrow<const T>){
-			return with_calculated_before(operator()(nothing), a, size);
+			return with_calculated_before(operator()(nothing),0,a,size);
 		}
 		/*合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般*/
 		[[nodiscard]]inline hash_value_t merge_array_hash_results(
@@ -122,8 +121,8 @@ namespace hash_n{
 			return operator()(a.begin(),a.size());
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,array_like_view_t<T>a)const noexcept{
-			return with_calculated_before(before,a.begin(),a.size());
+		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,array_like_view_t<T>a)const noexcept{
+			return with_calculated_before(before,before_size,a.begin(),a.size());
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
 		[[nodiscard]]constexpr inline hash_value_t operator()(array_end_by_zero_t<T>a)const noexcept(nothrow<T>){

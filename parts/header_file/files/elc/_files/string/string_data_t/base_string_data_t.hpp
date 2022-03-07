@@ -86,7 +86,7 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept{
 		if(pos==0&&size==get_size())
 			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
-		return hash.with_calculated_before(before,get_data(p)+pos,size);
+		return hash.with_calculated_before(before,before_size,get_data(p)+pos,size);
 	}
 
 	void self_changed()noexcept{

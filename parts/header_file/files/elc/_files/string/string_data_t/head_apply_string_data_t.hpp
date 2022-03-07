@@ -185,7 +185,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			const char_T* calculate_begin=pos+head_begin;
 			const size_t size_of_calculate_from_head=min(size_t(head_end-calculate_begin),size);
 
-			before=hash.with_calculated_before(before,calculate_begin,size_of_calculate_from_head);
+			before=hash.with_calculated_before(before,before_size,calculate_begin,size_of_calculate_from_head);
 			if(size!=size_of_calculate_from_head){
 				const size_t size_left=size-size_of_calculate_from_head;
 				before_size+=size_of_calculate_from_head;

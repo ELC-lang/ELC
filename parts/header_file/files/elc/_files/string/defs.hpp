@@ -10,6 +10,8 @@ namespace string_n{
 	#include "string_data_t/_body.hpp"
 	template<typename char_T>
 	struct string_t{
+		static_assert(type_info<char_T> != type_info<const char_T>);
+
 		typedef base_string_data_t<char_T>			base_t_w;
 		typedef base_t_w::ptr_t						ptr_t;
 		typedef base_t_w::string_view_t				string_view_t;
@@ -32,7 +34,6 @@ namespace string_n{
 		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
 		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
-		string_t(char_T* str)noexcept:string_t(add_const(str)){}
 		string_t(char_T ch)noexcept:string_t(string_view_t{&ch,1}){}
 		string_t(const string_t& str)noexcept=default;
 		string_t(string_t&& str)noexcept=default;
@@ -245,6 +246,7 @@ namespace string_n{
 		//
 
 		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
+		operator string_view_end_by_zero_t()const&noexcept{ return string_view_end_by_zero_t{data(),size()}; }
 		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
 		[[nodiscard]]explicit operator hash_t()const noexcept{return _m->get_hash(_m);}
 		/*
@@ -328,6 +330,10 @@ namespace string_n{
 		replace
 		*/
 	};
+	template<class char_T>
+	string_t(const char_T*) -> string_t<char_T>;
+	template<class char_T>
+	string_t(char_T*) -> string_t<char_T>;
 	template<typename T>
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 
@@ -390,9 +396,9 @@ namespace string_n{
 	}
 
 	template<class T>
-	[[nodiscard]]inline auto size_of_array_like(const string_t<T>& a)noexcept{ return a.size(); }
+	[[nodiscard]]inline auto size_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return a.size(); }
 	template<class T>
-	[[nodiscard]]inline auto begin_of_array_like(string_t<T>& a)noexcept{ return(T*)a.c_str(); }
+	[[nodiscard]]inline auto begin_of_array_like(string_t<remove_cv<T>>& a)noexcept{ return(T*)a.c_str(); }
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return(const T*)a.c_str(); }
 

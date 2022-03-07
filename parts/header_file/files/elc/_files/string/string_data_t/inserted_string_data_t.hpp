@@ -221,13 +221,11 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			return hash_cache;
 		else{
 			auto result=hash(nothing);
-			auto size=get_size();
 			if(_insert_pos){
 				result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
-				size-=_insert_pos;
 			}
 			result=hash.merge_array_hash_results(result,_insert_pos,_insert_data->get_hash(_insert_data),_insert_size);
-			size-=_insert_size;
+			auto size=_to_size-_insert_pos;
 			if(size)
 				result=_to->get_others_hash_with_calculated_before(result,_insert_pos+_insert_size,_to,_insert_pos,size);
 			return hash_cache=result;

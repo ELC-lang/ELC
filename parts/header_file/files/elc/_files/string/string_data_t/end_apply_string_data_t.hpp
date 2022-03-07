@@ -157,7 +157,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		if(has_hash_cache())
 			return hash_cache;
 		else{
-			auto result=hash.with_calculated_before(_to->get_hash(_to),string_view_t(_m.begin(),_used_size));
+			auto result=hash.with_calculated_before(_to->get_hash(_to),_to_size,string_view_t(_m.begin(),_used_size));
 			return p->hash_cache=result;
 		}
 	}
@@ -174,10 +174,11 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 				const auto calculated_size=_to_size-pos;
 				pos=0;
 				size-=calculated_size;
+				before_size+=calculated_size;
 			}
 			else
 				pos-=_to_size;
-			before=hash.with_calculated_before(before,(const char_T*)_m+pos,size);
+			before=hash.with_calculated_before(before,before_size,(const char_T*)_m+pos,size);
 		}
 		return before;
 	}
