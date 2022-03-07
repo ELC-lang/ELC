@@ -103,9 +103,9 @@ namespace magic_number{
 		#pragma warning(pop)
 	#endif
 	template<class T> requires ::std::is_unsigned_v<T>
-	[[nodiscard]]inline constexpr auto rotl(const T v,const auto R)noexcept;
+	[[nodiscard]]force_inline constexpr auto rotl(const T v,const auto R)noexcept;
 	template<class T> requires ::std::is_unsigned_v<T>
-	[[nodiscard]]inline constexpr auto rotr(const T v,const auto R)noexcept{
+	[[nodiscard]]force_inline constexpr auto rotr(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		const auto r = R%d;
 		if(r>0){
@@ -119,7 +119,7 @@ namespace magic_number{
 		}
 	}
 	template<class T> requires ::std::is_unsigned_v<T>
-	[[nodiscard]]inline constexpr auto rotl(const T v,const auto R)noexcept{
+	[[nodiscard]]force_inline constexpr auto rotl(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		const auto r  = R%d;
 		if(r>0){

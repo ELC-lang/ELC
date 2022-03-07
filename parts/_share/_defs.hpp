@@ -179,6 +179,14 @@ protected:\
 #endif
 
 #if defined(_WIN32)
+	#define force_inline __forceinline
+#elif defined(__GNUC__)
+	#define force_inline __attribute__((always_inline)) inline
+#else
+	#define force_inline inline
+#endif
+
+#if defined(_WIN32)
 	#define with_no_vtable __declspec(novtable)
 #else
 	#define with_no_vtable

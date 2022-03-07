@@ -100,7 +100,7 @@ namespace hash_n{
 
 		/*从某个起始点算起的hash*/
 		template<class T>
-		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
+		[[nodiscard]]constexpr force_inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
 			size_t aret=before._value;
 			while(size--)
 				aret ^= magic_number::rotl(get_hash_in_size_type(a[size]),before_size+size);
@@ -111,7 +111,7 @@ namespace hash_n{
 			return with_calculated_before(operator()(nothing),0,a,size);
 		}
 		/*合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般*/
-		[[nodiscard]]inline hash_value_t merge_array_hash_results(
+		[[nodiscard]]force_inline hash_value_t merge_array_hash_results(
 			hash_value_t before,size_t before_size,hash_value_t after,size_t after_size
 		)const noexcept{
 			return{before._value^(magic_number::rotl(after._value,before_size))};
