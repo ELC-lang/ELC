@@ -7,7 +7,6 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace function_n{
-	#if !defined(_MSC_VER)
 	template<class T>
 	class base_func_data_t;
 	template<class Ret_t,class...Args_t>
@@ -20,6 +19,7 @@ namespace function_n{
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
 		[[nodiscard]]virtual bool equal_with(const void*)const=0;
+		[[noreturn]] virtual void throw_self_ptr()const=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
@@ -43,6 +43,7 @@ namespace function_n{
 		virtual ~func_data_t()override=default;
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
+		[[noreturn]] virtual void throw_self_ptr()const override{throw addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
@@ -57,17 +58,18 @@ namespace function_n{
 	template<class T>
 	class default_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>{
+	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>,instance_struct<default_func_data_t<Ret_t(Args_t...)>>{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 
 		virtual ~default_func_data_t()noexcept override{}
 		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
+		[[noreturn]] virtual void throw_self_ptr()const override{throw nullptr;}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
-	distinctive inline constexpr default_func_data_t<Ret_t(Args_t...)>default_func_data{};
+	distinctive inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
 
 	template<class Ret_t,class...Args_t>
 	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*the_get_null_ptr(const base_func_data_t<Ret_t(Args_t...)>*)noexcept{
@@ -96,10 +98,27 @@ namespace function_n{
 		[[nodiscard]]bool operator==(T&&a)const noexcept(equal.nothrow<base_t_w,T>){
 			return *_m==a;
 		}
+		template<typename T>
+		[[nodiscard]]bool was_an()const noexcept{
+			return _m->get_type_info()==type_info<T>;
+		}
+		template<typename T>
+		[[nodiscard]]maybe_fail_reference<T>& get_as()const noexcept{
+			try{
+				_m->throw_self_ptr();
+			}
+			catch(T*p){
+				return *p;
+			}
+			catch(void*){
+				return note::fail;
+			}
+		}
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
+	#if !defined(_MSC_VER)
 	template<class T,bool promise_nothrow_at_destruct>
 	class base_function_t;
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
@@ -199,98 +218,6 @@ namespace function_n{
 	}
 	#else
 	//MSVC，我滴垃圾堆
-	template<class T>
-	class base_func_data_t;
-	template<class Ret_t,class...Args_t>
-	no_vtable_struct base_func_data_t<Ret_t(Args_t...)>:type_info_t<base_func_data_t<Ret_t(Args_t...)>>::template_name with_common_attribute<abstract_base,ref_able,never_in_array>,build_by_get_only{
-		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
-
-		virtual ~base_func_data_t()=default;
-		virtual Ret_t call(Args_t...)=0;
-		//for equal:
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
-		[[nodiscard]]virtual bool equal_with(const void*)const=0;
-		[[nodiscard]]bool operator==(const this_t&a)const{
-			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
-		}
-		template<typename T>
-		[[nodiscard]]bool operator==(T&&a)const{
-			return this->get_type_info()==type_info<T>&&this->equal_with(addressof(a));
-		}
-	};
-
-	template<class T,class Func_t>
-	class func_data_t;
-	template<class T,class Ret_t,class...Args_t>
-	struct func_data_t<T,Ret_t(Args_t...)>:
-	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template_name with_common_attribute<instance_struct>,
-	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<T,Ret_t(Args_t...)>{
-		static_assert(!::std::is_function_v<T>);
-		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
-		typedef function_data_warpper_t<T,Ret_t(Args_t...)>data_t;
-
-		using data_t::data_t;
-		virtual ~func_data_t()override=default;
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override{
-			if constexpr(equal.able<T>)
-				return data_t::_value==*reinterpret_cast<const T*>(a);
-			else
-				return false;
-		}
-		[[nodiscard]]virtual Ret_t call(Args_t...args)override{
-			return data_t::operator()(forward<Args_t>(args)...);
-		}
-	};
-
-	template<class T>
-	class default_func_data_t;
-	template<class Ret_t,class...Args_t>
-	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>,instance_struct<default_func_data_t<Ret_t(Args_t...)>>{
-		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
-
-		virtual ~default_func_data_t()noexcept override{}
-		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
-	};
-	template<class Ret_t,class...Args_t>
-	distinctive inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
-
-	template<class Ret_t,class...Args_t>
-	[[nodiscard]]constexpr base_func_data_t<Ret_t(Args_t...)>*the_get_null_ptr(const base_func_data_t<Ret_t(Args_t...)>*)noexcept{
-		return&default_func_data<Ret_t,Args_t...>;
-	}
-
-	template<class T>
-	class function_data_saver_t;
-	template<class Ret_t,class...Args_t>
-	class function_data_saver_t<Ret_t(Args_t...)>{
-	protected:
-		typedef function_data_saver_t<Ret_t(Args_t...)>this_t;
-		typedef base_func_data_t<Ret_t(Args_t...)> base_t_w;
-		typedef comn_ptr_t<base_t_w>ptr_t;
-
-		ptr_t _m;
-		void swap_with(this_t&a)noexcept{swap(_m,a._m);}
-	public:
-		function_data_saver_t()noexcept=default;
-		function_data_saver_t(const this_t&a)noexcept:_m(a._m){}
-		function_data_saver_t(this_t&&a)noexcept{swap_with(a);}
-		[[nodiscard]]bool operator==(const this_t&a)const{
-			return *_m==*(a._m);
-		}
-		template<typename T> requires(equal.able<base_t_w,T>)
-		[[nodiscard]]bool operator==(T&&a)const noexcept(equal.nothrow<base_t_w,T>){
-			return *_m==a;
-		}
-		void operator=(const this_t&a){_m=a._m;}
-		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
-	};
-
 	template<class T,bool promise_nothrow_at_destruct>
 	class base_function_t;
 	template<class Ret_t,class...Args_t,bool promise_nothrow_at_destruct>
