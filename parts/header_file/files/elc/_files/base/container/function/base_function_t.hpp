@@ -176,7 +176,7 @@ namespace function_n{
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(a))){
+		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);
 			return*this;
@@ -212,10 +212,6 @@ namespace function_n{
 			}
 		*/
 	};
-	template<class T,bool promise_nothrow_at_destruct>
-	void swap(base_function_t<T,promise_nothrow_at_destruct>&a,base_function_t<T,promise_nothrow_at_destruct>&b)noexcept{
-		a.swap_with(b);
-	}
 	#else
 	//MSVC，我滴垃圾堆
 	template<class T,bool promise_nothrow_at_destruct>
@@ -272,7 +268,7 @@ namespace function_n{
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
 		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(a))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(a))){
+		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))){
 			this_t tmp(forward<T>(a));
 			swap_with(tmp);
 			return*this;
@@ -398,11 +394,11 @@ namespace function_n{
 			}
 		*/
 	};
+	#endif
 	template<class T,bool promise_nothrow_at_destruct>
 	void swap(base_function_t<T,promise_nothrow_at_destruct>&a,base_function_t<T,promise_nothrow_at_destruct>&b)noexcept{
 		a.swap_with(b);
 	}
-	#endif
 }
 
 //file_end
