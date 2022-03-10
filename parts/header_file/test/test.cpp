@@ -19,6 +19,10 @@
 #include <elc/void_name>
 //#include <elc/namespace>
 
+#if defined(_MSC_VER)
+	#define delete [[gsl::suppress(i.11,r.11)]]delete
+#endif
+
 void ste::stst(){
 	using namespace elc;
 	using namespace elc::defs;
@@ -68,6 +72,7 @@ void ste::stst(){
 		};
 		struct 希特勒: 机枪1942 {
 			int 人头数 = 191980;
+			希特勒()   = default;
 		};
 		a = make_binary_node_from<希特勒>(希特勒{});
 		stest_accert(use_as<机枪1942>(a).子弹数 == 114514);
