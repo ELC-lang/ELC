@@ -19,7 +19,7 @@ namespace lib_loader_n{
 		string _name;
 		string _error;
 	public:
-		explicit library_info_t(special_init_t)noexcept{
+		constexpr explicit library_info_t(special_init_t)noexcept{
 			_m=library_handle{0};
 			_error=locale::str::lib_load::null_lib;
 			attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero();
@@ -57,14 +57,7 @@ namespace lib_loader_n{
 	[[nodiscard]]inline bool the_pointer_to_bool(const library_info_t*a)noexcept{
 		return a->operator bool();
 	}
-	#if defined(_MSC_VER)
-		#pragma warning(push)
-		#pragma warning(disable:26426)//非静态初始化警告diss
-	#endif
 	distinctive inline library_info_t null_lib{special_init};
-	#if defined(_MSC_VER)
-		#pragma warning(pop)
-	#endif
 	[[nodiscard]]inline constexpr library_info_t*the_get_null_ptr(const library_info_t*)noexcept{return&null_lib;}
 
 	/*

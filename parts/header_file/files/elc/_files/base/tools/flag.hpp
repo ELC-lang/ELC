@@ -16,7 +16,7 @@ bool的简易包装以表示『是否被设置』,无法使用operator=,因为�
 class flag{
 	bool _m;
 public:
-	explicit constexpr flag(flag_set_type a=not_set)noexcept:_m(bool(a)){}
+	constexpr explicit flag(flag_set_type a=not_set)noexcept:_m(bool(a)){}
 	[[nodiscard]]explicit operator bool()const noexcept{return _m;}
 	flag(flag&a)noexcept:_m((bool)a){}
 	flag(flag&&a)noexcept:_m((bool)a){}

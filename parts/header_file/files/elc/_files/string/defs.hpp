@@ -21,30 +21,74 @@ namespace string_n{
 
 	private:
 		mutable ptr_t _m;
+		union _cso_info_t{
+			struct _str_info_t{
+				const char_T* _p;
+				size_t _size;
+				hash_t _hash;
+			}_str;
+			char_T _ch;
+		}_cso_info{};
+		mutable enum _cso_flag_t{
+			not_cso,cso_char,cso_string
+		}_cso_flag=not_cso;
+
+		[[nodiscard]]bool in_cso()const noexcept{return _cso_flag!=not_cso;}
+		[[nodiscard]]bool in_str_cso()const noexcept{return _cso_flag==cso_string;}
+		[[nodiscard]]const char_T* get_cso_data()const noexcept{return _cso_flag==cso_char?&_cso_info._ch:_cso_info._str._p;}
+		[[nodiscard]]size_t get_cso_size()const noexcept{return _cso_flag==cso_char?1:_cso_info._str._size;}
+		[[nodiscard]]hash_t get_cso_hash()const noexcept{return _cso_flag==cso_char?hash(_cso_info._ch):_cso_info._str._hash;}
+		constexpr void _cso_init(constexpr_str_t<char_t> str)noexcept{_cso_flag=cso_string;_cso_info._str._p=str.begin();_cso_info._str._size=str.size();_cso_info._str._hash=hash(str);}
+		constexpr void _cso_init(char_T ch)noexcept{_cso_flag=cso_char;_cso_info._ch=ch;}
+		void _cso_fin()const noexcept{
+			auto str=string_view_t{get_cso_data(),get_cso_size()};
+			if(_cso_flag==cso_char)
+				_m=get<comn_string_data_t<char_T>>(str);
+			else
+				_m=get<constexpr_string_data_t<char_T>>(str,get_cso_hash());
+		}
+		void _cso_check()const noexcept{
+			if(in_cso())
+				_cso_fin();
+		}
+		void _cso_clear(){_cso_flag=not_cso;}
 
 		string_t(ptr_t str)noexcept:_m(str){}
-		[[nodiscard]]ptr_t ptr_copy()const noexcept{ return _m; }
+		[[nodiscard]]ptr_t ptr_copy()const noexcept{
+			_cso_check();
+			return _m;
+		}
 	public:
 		void swap_with(this_t& a)noexcept{
-			swap(_m,a._m);
+			if(in_cso()&&a.in_cso()){
+				swap(_cso_flag,a._cso_flag);
+				swap(_cso_info,a._cso_info);
+			}
+			elseif(in_cso()||a.in_cso()){
+				swap(_m,a._m);
+				swap(_cso_flag,a._cso_flag);
+				swap(_cso_info,a._cso_info);
+			}
+			else
+				swap(_m,a._m);
 		}
 
 		string_t()noexcept=default;
-		constexpr string_t(constexpr_str_t<char_t> str)noexcept:_m(get<constexpr_string_data_t<char_T>>(str,hash(str))){}
+		constexpr string_t(constexpr_str_t<char_t> str)noexcept{_cso_init(str);}
 		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
 		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
-		string_t(char_T ch)noexcept:string_t(string_view_t{&ch,1}){}
+		string_t(char_T ch)noexcept{_cso_init(ch);}
 		string_t(const string_t& str)noexcept=default;
 		string_t(string_t&& str)noexcept=default;
 
 		string_t& operator=(const string_t& str)noexcept=default;
 		string_t& operator=(string_t&& str)noexcept=default;
-		string_t& operator=(null_ptr_t p)noexcept{clear();return*this;}
-		string_t& operator=(nullptr_t p)noexcept{return*this=null_ptr;}
-
+		constexpr string_t& operator=(constexpr_str_t<char_t> str)noexcept{_m.reset();_cso_init(str);return*this;}
+		constexpr string_t& operator=(char_T ch)noexcept{_m.reset();_cso_init(ch);return*this;}
 
 		[[nodiscard]]string_t operator+(const string_t& str)const&noexcept{
+			str._cso_check();
 			return ptr_copy()->apply_str_to_end(str._m);
 		}
 		[[nodiscard]]string_t operator+(string_view_t str)const&noexcept{
@@ -64,10 +108,13 @@ namespace string_n{
 		}
 
 		string_t& operator+=(string_t str)&noexcept{
+			_cso_check();
+			str._cso_check();
 			_m=_m->apply_str_to_end(str._m);
 			return *this;
 		}
 		string_t& operator+=(string_view_t str)&noexcept{
+			_cso_check();
 			_m=_m->apply_str_to_end(str);
 			return *this;
 		}
@@ -83,13 +130,24 @@ namespace string_n{
 			return move(*this);
 		}
 
-		float_size_t memory_cost()const noexcept{return _m->get_memory_cost();}
+		float_size_t memory_cost()const noexcept{
+			if(in_cso())
+				return 0;
+			else
+				return _m->get_memory_cost();
+		}
 	private:
 		void equivalent_optimization(const string_t& a)const noexcept{
 			if(this->memory_cost() >= a.memory_cost())
-				_m.do_replace(a._m);
+				if(!a.in_cso())
+					_m.do_replace(a._m);
+				else
+					*this=a;
 			else
-				a._m.do_replace(_m);
+				if(!in_cso())
+					a._m.do_replace(_m);
+				else
+					a=*this;
 		}
 	public:
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
@@ -137,9 +195,14 @@ namespace string_n{
 		}
 
 	private:
-		char_T* unique_c_str()noexcept{ return _m->get_unique_c_str(_m); }
-		char_T	arec(size_t index)noexcept{ return _m->arec(index); }
-		void	arec_set(size_t index,char_T a)noexcept{ return _m->arec_set(index,a,_m); }
+		char_T* unique_c_str()noexcept{ _cso_check();return _m->get_unique_c_str(_m); }
+		char_T	arec(size_t index)noexcept{
+			if(in_cso())
+				return get_cso_data()[index];
+			else
+				return _m->arec(index);
+		}
+		void	arec_set(size_t index,char_T a)noexcept{ _cso_check();return _m->arec_set(index,a,_m); }
 
 	public:
 		class arec_t: non_copyable,non_moveable{
@@ -166,26 +229,30 @@ namespace string_n{
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
 			size=min(size,this->size()-begin);
-			if(size)
+			if(size){
+				_cso_check();
 				return _m->get_substr_data(begin,size);
+			}
 			else
 				return {};
 		}
-		[[nodiscard]]const char_T*	data()const noexcept{ return _m->get_data(_m); }
+		[[nodiscard]]const char_T*	data()const noexcept{ if(in_cso())return get_cso_data();else return _m->get_data(_m); }
 		[[nodiscard]]char_T*		c_str()noexcept{ return this->unique_c_str(); }
-		[[nodiscard]]const char_T*	const_c_str()const noexcept{ return _m->get_const_c_str(_m); }
+		[[nodiscard]]const char_T*	const_c_str()const noexcept{ if(in_str_cso())return get_cso_data();else return _m->get_const_c_str(_m); }
 		[[nodiscard]]const char_T*	c_str()const noexcept{ return const_c_str(); }
-		[[nodiscard]]size_t			size()const noexcept{ return _m->get_size(); }
+		[[nodiscard]]size_t			size()const noexcept{ if(in_str_cso())return get_cso_size();else return _m->get_size(); }
 		void resize(size_t nsize,char_T ch ={}){
 			auto size=this->size();
 			if(size > nsize)
 				*this=substr(0,nsize);
 			elseif(size == nsize)
 				return;
-			else
+			else{
+				_cso_clear();
 				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size,ch);
+			}
 		}
-		void clear()noexcept{ _m=null_ptr; }
+		void clear()noexcept{ _cso_clear();_m=null_ptr; }
 	private:
 		struct iterator_base_t{
 			string_t* _to;
@@ -228,20 +295,20 @@ namespace string_n{
 
 		//
 
-		void push_back(const string_t& str)noexcept{ _m=_m->apply_str_to_end(str._m); }
-		void push_back(string_view_t str)noexcept{ _m=_m->apply_str_to_end(str); }
+		void push_back(const string_t& str)noexcept{ _cso_check();_m=_m->apply_str_to_end(str._m); }
+		void push_back(string_view_t str)noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
 		void push_back(char_T ch)noexcept{ push_back(string_view_t{&ch,1}); }
 		void push_back(const arec_t& ch)noexcept{ push_back(ch.operator char_T()); }
 		void push_back(const char_T* str)noexcept{ push_back(string_view_end_by_zero_t(str)); }
 
-		void push_front(const string_t& str)noexcept{ _m=_m->apply_str_to_begin(str._m); }
-		void push_front(string_view_t str)noexcept{ _m=_m->apply_str_to_begin(str); }
+		void push_front(const string_t& str)noexcept{ _cso_check();_m=_m->apply_str_to_begin(str._m); }
+		void push_front(string_view_t str)noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
 		void push_front(char_T ch)noexcept{ push_front(string_view_t{&ch,1}); }
 		void push_front(const arec_t& ch)noexcept{ push_front(ch.operator char_T()); }
 		void push_front(const char_T* str)noexcept{ push_front(string_view_end_by_zero_t(str)); }
 
-		string_t pop_back(size_t size)noexcept{ return _m->do_pop_back(size,_m); }
-		string_t pop_front(size_t size)noexcept{ return _m->do_pop_front(size,_m); }
+		string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
+		string_t pop_front(size_t size)noexcept{ _cso_check();return _m->do_pop_front(size,_m); }
 		char_T pop_back()noexcept{ return pop_back(1)[0]; }
 		char_T pop_front()noexcept{ return pop_front(1)[0]; }
 
@@ -250,7 +317,7 @@ namespace string_n{
 		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
 		operator string_view_end_by_zero_t()const&noexcept{ return string_view_end_by_zero_t{data(),size()}; }
 		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
-		[[nodiscard]]explicit operator hash_t()const noexcept{return _m->get_hash(_m);}
+		[[nodiscard]]explicit operator hash_t()const noexcept{ if(in_cso())return get_cso_hash();else return _m->get_hash(_m); }
 		/*
 		TODO:
 
@@ -310,13 +377,13 @@ namespace string_n{
 		*/
 
 		void erase(size_t pos,size_t size=1)&noexcept{
-			_m=_m->do_erase(pos,size);
+			_cso_check();_m=_m->do_erase(pos,size);
 		}
 		void insert(size_t pos,string_t str)&noexcept{
-			_m=_m->do_insert(pos,str);
+			_cso_check();_m=_m->do_insert(pos,str);
 		}
 		void insert(size_t pos,string_view_t str)&noexcept{
-			_m=_m->do_insert(pos,str);
+			_cso_check();_m=_m->do_insert(pos,str);
 		}
 		void insert(size_t pos,const char_T* str)&noexcept{
 			insert(pos,string_view_end_by_zero_t(str));

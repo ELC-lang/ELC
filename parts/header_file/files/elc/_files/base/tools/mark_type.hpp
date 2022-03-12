@@ -17,7 +17,7 @@ template<typename T>
 class mark_able:non_copyable,non_moveable{
 	mutable flag _m;
 public:
-	explicit constexpr mark_able(mark_type a=not_mark)noexcept:_m(a==not_mark?not_set:seted){};
+	constexpr explicit mark_able(mark_type a=not_mark)noexcept:_m(a==not_mark?not_set:seted){};
 	inline void mark()const noexcept{_m.set();}
 	inline void unmark()const noexcept{_m.unset();}
 	[[nodiscard]]bool was_marked()const noexcept{return(bool)_m;}

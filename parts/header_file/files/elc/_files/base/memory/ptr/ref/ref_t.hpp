@@ -11,12 +11,12 @@ class ref_t:non_copyable,non_moveable{
 	mutable link_num_t _ref_num=0;
 public:
 	constexpr ref_t()noexcept=default;
-	explicit constexpr ref_t(never_ref_num_zero_t)noexcept:_ref_num(1){}
-	inline void add_ref()const noexcept{_ref_num++;}
+	constexpr explicit ref_t(never_ref_num_zero_t)noexcept:_ref_num(1){}
+	constexpr inline void add_ref()const noexcept{_ref_num++;}
 	[[nodiscard]]inline bool cut_ref()const noexcept{return!--_ref_num;}
 	//[[nodiscard]]operator bool()const noexcept{return _ref_num;}
 	inline void set_zero()noexcept{_ref_num=0;}
-	inline void init_never_ref_num_zero()noexcept{add_ref();}
+	constexpr inline void init_never_ref_num_zero()noexcept{add_ref();}
 	[[nodiscard]]link_num_t link_num()const noexcept{return _ref_num;}
 };
 
