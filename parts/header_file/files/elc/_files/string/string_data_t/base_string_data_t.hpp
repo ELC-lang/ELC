@@ -47,14 +47,14 @@ with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_
 	[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str)noexcept;
 	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)noexcept;
 
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow){
 		const auto pos	  = this->get_size()-size;
 		const auto before = get_substr_data(0,pos);
 		const auto after  = get_substr_data(pos,size);
 		self			  = before;
 		return after;
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow){
 		const auto pos	  = size;
 		const auto before = get_substr_data(0,pos);
 		const auto after  = get_substr_data(pos,this->get_size()-size);

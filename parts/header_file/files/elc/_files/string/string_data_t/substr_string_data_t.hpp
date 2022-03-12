@@ -46,9 +46,9 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	}
 	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept(get_data_nothrow)override final{ return _to->get_data(_to)+_sub_begin; }
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _sub_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{ return _to->arec(index+_sub_begin); }
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{ return _to->arec(index+_sub_begin); }
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(this->is_unique()){
 			_to->arec_set(index+_sub_begin,a,_to);
 			self_changed();
@@ -96,7 +96,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _sub_begin==0){
 			auto aret=_to->do_pop_front(size,_to);
 			_sub_size-=size;
@@ -106,7 +106,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		else
 			return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			auto aret=_to->do_pop_back(size,_to);
 			_sub_size-=size;

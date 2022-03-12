@@ -53,7 +53,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _to_size-_erase_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<_erase_pos)
 			_to->copy_part_data_to(to,pos,size);
 		elseif(pos>_erase_pos)
@@ -76,14 +76,14 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		}
 		return base_t::do_erase(pos,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{
 		if(index>_erase_pos)
 			return _to->arec(index+_erase_size);
 		else
 			return _to->arec(index);
 	}
 
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(this->is_unique()){
 			if(index>_erase_pos)
 				_to->arec_set(index+_erase_size,a,_to);
@@ -138,7 +138,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _erase_pos > size){
 			auto aret=_to->do_pop_front(size,_to);
 			_to_size-=size;
@@ -149,7 +149,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _erase_pos+_erase_size <= _to_size-size){
 			auto aret=_to->do_pop_back(size,_to);
 			_to_size-=size;

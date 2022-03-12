@@ -32,7 +32,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	size_t _to_size;
 	size_t _used_size;
 
-	head_apply_string_data_t(ptr_t str,string_view_t head)noexcept:
+	head_apply_string_data_t(ptr_t str,string_view_t head)noexcept(construct_nothrow&&copy_assign_nothrow):
 		_to_size(str->get_size()),
 		_used_size(head.size()),
 		_to(str)
@@ -64,7 +64,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _used_size+_to_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos<_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			const char_T* head_end=_m.end();
@@ -81,7 +81,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			_to->copy_part_data_to(to,pos-_used_size,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{
 		if(index<_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			return head_begin[index];
@@ -89,11 +89,11 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return _to->arec(index-_used_size);
 	}
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(this->is_unique()){
 			if(index<_used_size){
 				char_T* head_begin=_m.end()-_used_size;
-				head_begin[index]=a;
+				copy_assign(head_begin[index],a);
 			}
 			else
 				_to->arec_set(index-_used_size,a,_to);
@@ -144,7 +144,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
 			self_changed();
@@ -153,7 +153,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		else
 			return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			auto aret=_to->do_pop_back(size,_to);
 			_to_size-=size;

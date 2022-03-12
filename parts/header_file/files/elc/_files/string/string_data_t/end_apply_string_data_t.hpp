@@ -55,13 +55,13 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	[[nodiscard]]virtual char_T* get_c_str(ptr_t&p)noexcept(get_data_nothrow) override final{
+	[[nodiscard]]virtual char_T* get_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(!_used_size)
 			return _to->get_c_str(_to);
 		else
 			return base_t::get_c_str(p);
 	}
-	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow) override final{
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
 			if(_used_size==p->_used_size && _to!=p->_to)
@@ -72,7 +72,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _used_size+_to_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<=_to_size)
 			_to->copy_part_data_to(to,pos,size);
 		else{
@@ -88,18 +88,18 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			copy_assign[size](note::form((const char_T*)_m+pos),note::to(to));
 		}
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{
 		if(index<_to_size)
 			return _to->arec(index);
 		else
 			return _m[index-_to_size];
 	}
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(this->is_unique()){
 			if(index<_to_size)
 				_to->arec_set(index,a,_to);
 			else
-				_m[index-_to_size]=a;
+				copy_assign(_m[index - _to_size],a);
 			self_changed();
 		}
 		else
@@ -145,7 +145,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			auto aret=_to->do_pop_front(size,_to);
 			_to_size-=size;
@@ -155,7 +155,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::do_pop_front(size,self);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept override final{
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
 			self_changed();

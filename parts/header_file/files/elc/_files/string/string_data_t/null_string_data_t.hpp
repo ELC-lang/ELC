@@ -38,7 +38,7 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{ return get<comn_string_data_t<char_T>>(str); }
 	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{ return str; }
 
-	[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]string_view_t str)noexcept override final{ return get<comn_string_data_t<char_T>>(str); }
+	[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]string_view_t str)noexcept(construct_nothrow&&copy_assign_nothrow)override final{ return get<comn_string_data_t<char_T>>(str); }
 	[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]ptr_t str)noexcept override final{ return str; }
 	[[nodiscard]]virtual ptr_t do_erase([[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return this; }
 
