@@ -7,10 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace lib_loader_n{
+	using namespace elc::APIs::library_load;
 	//UF:抽象等级太低
 	struct library_info_t;
 	typedef comn_ptr_t<library_info_t> library_handle_t;
-
 
 	struct library_info_t:ref_able<library_info_t>{
 	private:
@@ -23,7 +23,7 @@ namespace lib_loader_n{
 			_m=load_library(lib_name);
 
 			if(_m)
-				error=get_load_error();
+				_error=get_load_error();
 		}
 		~library_info_t()noexcept{
 			free_library(_m);
@@ -39,7 +39,7 @@ namespace lib_loader_n{
 		}
 
 		[[nodiscard]]void*get_symbol(string symbol_name)noexcept{
-			return get_symbol(_m,symbol_name);
+			return APIs::library_load::get_symbol(_m,symbol_name);
 		}
 		template<class symbol_t>
 		[[nodiscard]]symbol_t&get_symbol_as(string symbol_name)noexcept{
@@ -62,7 +62,7 @@ namespace lib_loader_n{
 			} f =
 			{func_p,this};
 
-			return static_cast<function_t<Func_t>>(f);
+			return f;
 		}
 	};
 }

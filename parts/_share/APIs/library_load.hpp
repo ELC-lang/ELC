@@ -13,6 +13,7 @@ elc依赖的基础函数.
 #if !defined(ELC_APIS_library_load)
 	#define ELC_APIS_library_load
 	#include "_tools/decl_system_type.hpp"
+	#include "../../header_file/files/elc/string"
 	#if SYSTEM_TYPE == linux
 		#include <dlfcn.h>
 	#elif SYSTEM_TYPE == windows
@@ -22,6 +23,9 @@ elc依赖的基础函数.
 		#error ERROR_MSG_UNABLE_OS
 	#endif
 	namespace elc::APIs::library_load{
+		#include "../_defs.hpp"
+		using namespace elc::defs;
+
 		typedef
 		#if SYSTEM_TYPE == linux
 			void*
@@ -30,7 +34,7 @@ elc依赖的基础函数.
 		#endif
 		library_handle;
 
-		[[nodiscard]]library_handle base_load_library(const char*file_name){
+		[[nodiscard]]library_handle base_load_library(const char*file_name)noexcept{
 			//可返回bool意义为空的值表示失败
 			return
 			#if SYSTEM_TYPE == linux
@@ -40,16 +44,16 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		[[nodiscard]]const char* base_get_load_error(){
+		[[nodiscard]]string base_get_load_error()noexcept{
 			return
 			#if SYSTEM_TYPE == linux
-				(char*)dlerror()
+				to_char_t_str(dlerror());
 			#elif SYSTEM_TYPE == windows
-				"unknown error."//"ERROR CODE:"+to_string((DWORD)GetLastError());//傻逼微软设计的jb端口，再您妈的见
+				es"ERROR CODE:"_constexpr_str+to_string((DWORD)GetLastError());//傻逼微软设计的jb端口，再您妈的见
 			#endif
 			;
 		}
-		void base_free_library(library_handle handle){
+		void base_free_library(library_handle handle)noexcept{
 			#if SYSTEM_TYPE == linux
 				dlclose(handle)
 			#elif SYSTEM_TYPE == windows
@@ -57,8 +61,9 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		[[nodiscard]]void* base_get_symbol(library_handle handle,const char*symbol_name){
+		[[nodiscard]]void* base_get_symbol(library_handle handle,const char*symbol_name)noexcept{
 			//可返回bool意义为空的值表示失败
+			return
 			#if SYSTEM_TYPE == linux
 				dlsym(handle,symbol_name)
 			#elif SYSTEM_TYPE == windows
@@ -67,20 +72,21 @@ elc依赖的基础函数.
 			;
 		}
 
-		[[nodiscard]]library_handle load_library(char_t*file_name){
+		[[nodiscard]]library_handle load_library(string file_name)noexcept{
 			//可返回bool意义为空的值表示失败
-			return base_load_library((const char*)(to_char_str(file_name)+zero));
+			return base_load_library(to_char_str(file_name).c_str());
 		}
-		[[nodiscard]]string_t<char_t> get_load_error(){
-			return to_char_t_str(base_get_load_error());
+		[[nodiscard]]string get_load_error()noexcept{
+			return base_get_load_error();
 		}
-		void free_library(library_handle handle){
+		void free_library(library_handle handle)noexcept{
 			return base_free_library(handle);
 		}
-		[[nodiscard]]void* get_symbol(library_handle handle,char_t*symbol_name){
+		[[nodiscard]]void* get_symbol(library_handle handle,string symbol_name)noexcept{
 			//可返回bool意义为空的值表示失败
-			return base_get_symbol(handle,(const char*)(to_char_str(symbol_name)+zero));
+			return base_get_symbol(handle,to_char_str(symbol_name).c_str());
 		}
+		#include "../_undefs.hpp"
 	}
 	#include "_tools/undef_decl_system_type.hpp"
 #endif

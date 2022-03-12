@@ -231,11 +231,13 @@ namespace string_n{
 		void push_back(const string_t& str)noexcept{ _m=_m->apply_str_to_end(str._m); }
 		void push_back(string_view_t str)noexcept{ _m=_m->apply_str_to_end(str); }
 		void push_back(char_T ch)noexcept{ push_back(string_view_t{&ch,1}); }
+		void push_back(const arec_t& ch)noexcept{ push_back(ch.operator char_T()); }
 		void push_back(const char_T* str)noexcept{ push_back(string_view_end_by_zero_t(str)); }
 
 		void push_front(const string_t& str)noexcept{ _m=_m->apply_str_to_begin(str._m); }
 		void push_front(string_view_t str)noexcept{ _m=_m->apply_str_to_begin(str); }
 		void push_front(char_T ch)noexcept{ push_front(string_view_t{&ch,1}); }
+		void push_front(const arec_t& ch)noexcept{ push_front(ch.operator char_T()); }
 		void push_front(const char_T* str)noexcept{ push_front(string_view_end_by_zero_t(str)); }
 
 		string_t pop_back(size_t size)noexcept{ return _m->do_pop_back(size,_m); }

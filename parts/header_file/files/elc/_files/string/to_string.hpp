@@ -11,7 +11,7 @@ namespace to_string_n{
 		return es"nothing"_elc_string;
 	}
 	template<typename T>
-	inline string num_base(T num,size_t radix,const string radix_table){
+	inline string num_base(T num,size_t radix,const string radix_table)noexcept{
 		string aret;
 		do{//do while，在num为0时也有返值
 			T first_char_index{};
@@ -28,7 +28,7 @@ namespace to_string_n{
 		return aret;
 	}
 	template<typename T>
-	inline string num_base_mantissa(T num,size_t radix,const string radix_table){
+	inline string num_base_mantissa(T num,size_t radix,const string radix_table)noexcept{
 		string aret;
 		while(num){
 			num*=radix;
@@ -39,7 +39,7 @@ namespace to_string_n{
 		return aret;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	inline string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string){
+	inline string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
 				if(num==::std::numeric_limits<T>::signaling_NaN())

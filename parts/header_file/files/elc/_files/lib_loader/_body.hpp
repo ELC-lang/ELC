@@ -9,16 +9,19 @@
 #if defined(ELC_TEST)
 #error "this part cannot be tested."
 #endif
+#include "../../../../../_share/APIs/str_code_convert.hpp"//strings
+#include "../../../../../_share/APIs/library_load.hpp"//strings
 namespace elc::defs{
-	#include "../_defs.hpp"
+	#include "../_share/_defs.hpp"
 
+	#include "lib_loader.hpp"
 	#if defined(ELC_TEST_ON)
 	namespace lib_loader_part_test{
 		#include "_test.hpp"
 	}
 	#endif
 
-	#include "../_undefs.hpp"
+	#include "../_share/_undefs.hpp"
 }
 namespace elc{
 	#include "_export.hpp"
