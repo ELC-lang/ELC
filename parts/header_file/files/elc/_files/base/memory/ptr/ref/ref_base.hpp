@@ -11,7 +11,7 @@ void waiting_for_destroy(T*a)noexcept{
 	if constexpr(was_not_an_ill_form(the_waiting_for_destroy(a)))
 		return the_waiting_for_destroy(a);
 	else
-		template_error("this function should not be instantiated,please overload the function waiting_for_destroy in the namespace where this type is defined.");
+		template_error("this function should not be instantiated,please overload the function the_waiting_for_destroy in the namespace where this type is defined.");
 }
 template<typename T>
 void destroy_and_free(T*a)noexcept{
@@ -20,7 +20,7 @@ void destroy_and_free(T*a)noexcept{
 	elseif constexpr(type_info<T>.has_attribute(build_by_get_only)&&type_info<T>.has_attribute(never_in_array))
 		unget(a);
 	else
-		template_error("please overload the function destroy_and_free in the namespace where this type is defined.");
+		template_error("please overload the function the_destroy_and_free in the namespace where this type is defined.");
 }
 //
 common_attribute_t ref_able;

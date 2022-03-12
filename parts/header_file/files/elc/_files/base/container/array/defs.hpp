@@ -60,10 +60,12 @@ namespace array_n{
 		[[nodiscard]]size_t size_in_byte()const noexcept{
 			return size()*sizeof(T);
 		}
-		void resize(size_t size)noexcept(get_resize.nothrow<T>){
+		static constexpr bool resize_nothrow = get_resize.nothrow<T>;
+		void resize(size_t size)noexcept(resize_nothrow){
 			get_resize(_m,size);
 		}
-		void forward_resize(size_t size)noexcept(get_forward_resize.nothrow<T>){
+		static constexpr bool forward_resize_nothrow = get_forward_resize.nothrow<T>;
+		void forward_resize(size_t size)noexcept(forward_resize_nothrow){
 			get_forward_resize(_m,size);
 		}
 		[[nodiscard]]bool empty()const{

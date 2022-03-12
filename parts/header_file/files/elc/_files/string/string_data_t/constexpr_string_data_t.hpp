@@ -13,6 +13,17 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 
+	using base_t::copy_assign_nothrow;
+	using base_t::copy_construct_nothrow;
+	using base_t::move_construct_nothrow;
+	using base_t::construct_nothrow;
+	using base_t::destruct_nothrow;
+	using base_t::clear_nothrow;
+	using base_t::ptr_reset_nothrow;
+	using base_t::hash_nothrow;
+	using base_t::get_data_nothrow;
+	using base_t::apply_data_nothrow;
+
 	const char_T* _m;
 	size_t _size;
 
@@ -27,18 +38,18 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		return get<this_t>(string_view_t{_m+begin,size});
 	}
-	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept override final{return _m;}
-	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept override final{
+	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept(get_data_nothrow)override final{return _m;}
+	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(!_m[_size])
 			return _m;
 		else
 			return base_t::get_const_c_str(p);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{ return _m[index]; }
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{ copy_assign[size](note::form(_m+pos),note::to(to)); }
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{ return _m[index]; }
 
-	virtual void be_replace_as(ptr_t a)noexcept override final{base_t::be_replace_as(a);}
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{base_t::be_replace_as(a);}
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept override final{base_t::arec_set(index,a,p);}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

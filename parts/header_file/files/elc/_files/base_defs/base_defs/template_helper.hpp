@@ -16,7 +16,7 @@ constexpr bool template_error_helper=1000-7==114514;//w.
 */
 template<class T,class U>
 [[deprecated("this was a template warning."),nodiscard]]
-inline auto template_warning_helper(U&&a){return a;}
+inline auto template_warning_helper(U&&a)noexcept{return 0;}
 
 //file_end
 

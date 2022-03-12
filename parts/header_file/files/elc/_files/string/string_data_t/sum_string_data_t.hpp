@@ -16,6 +16,17 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	using base_t::has_hash_cache;
 	using base_t::hash_cache;
 
+	using base_t::copy_assign_nothrow;
+	using base_t::copy_construct_nothrow;
+	using base_t::move_construct_nothrow;
+	using base_t::construct_nothrow;
+	using base_t::destruct_nothrow;
+	using base_t::clear_nothrow;
+	using base_t::ptr_reset_nothrow;
+	using base_t::hash_nothrow;
+	using base_t::get_data_nothrow;
+	using base_t::apply_data_nothrow;
+
 	ptr_t  _before;
 	ptr_t  _after;
 	size_t _before_size;
@@ -31,7 +42,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	virtual void be_replace_as(ptr_t a)noexcept override final{
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
 			if(_before_size==p->_before_size){
@@ -46,7 +57,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _before_size+_after_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{
 		if(pos<_before_size){
 			const auto copy_before_begin=pos;
 			const auto copy_before_end=min(pos+size,_before_size);
@@ -61,13 +72,13 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			_after->copy_part_data_to(to,pos-_before_size,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{
 		if(index<_before_size)
 			return _before->arec(index);
 		else
 			return _after->arec(index-_before_size);
 	}
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
 		if(this->is_unique()){
 			if(index<_before_size)
 				_before->arec_set(index,a,_before);
@@ -78,7 +89,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_before=_before->apply_str_to_begin(str);
 			_before_size+=str.size();
@@ -88,7 +99,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_before=_before->apply_str_to_begin(str);
 			_before_size+=str->get_size();
@@ -98,7 +109,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_after=_after->apply_str_to_end(str);
 			_after_size+=str.size();
@@ -108,7 +119,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_after=_after->apply_str_to_end(str);
 			_after_size+=str->get_size();
@@ -139,7 +150,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 			return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
 		if(has_hash_cache())
 			return hash_cache;
 		else{
@@ -161,7 +172,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos==0&&size==get_size())
 			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos<_before_size){
@@ -185,11 +196,11 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	}
 };
 template<typename char_T>
-[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_end(ptr_t str)noexcept{
+[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_end(ptr_t str)noexcept(apply_data_nothrow){
 	return get<sum_string_data_t<char_T>>(this,str);
 }
 template<typename char_T>
-[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(ptr_t str)noexcept{
+[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(ptr_t str)noexcept(apply_data_nothrow){
 	return get<sum_string_data_t<char_T>>(str,this);
 }
 

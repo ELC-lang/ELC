@@ -13,18 +13,29 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 
+	using base_t::copy_assign_nothrow;
+	using base_t::copy_construct_nothrow;
+	using base_t::move_construct_nothrow;
+	using base_t::construct_nothrow;
+	using base_t::destruct_nothrow;
+	using base_t::clear_nothrow;
+	using base_t::ptr_reset_nothrow;
+	using base_t::hash_nothrow;
+	using base_t::get_data_nothrow;
+	using base_t::apply_data_nothrow;
+
 	null_string_data_t()noexcept:base_t(never_ref_num_zero){}
 
-	virtual void be_replace_as(ptr_t a)noexcept override final{nothing;}
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{nothing;}
 	[[nodiscard]]virtual char_T* get_c_str(ptr_t&)noexcept override final{
 		static char_T data[1]{};
 		return data;
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return 0; }
 	[[nodiscard]]virtual ptr_t get_substr_data([[maybe_unused]]size_t begin,[[maybe_unused]]size_t size)noexcept override final{ return this; }
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{ return get<comn_string_data_t<char_T>>(str); }
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{ return str; }
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{ return get<comn_string_data_t<char_T>>(str); }
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{ return get<comn_string_data_t<char_T>>(str); }
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept(apply_data_nothrow)override final{ return str; }
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{ return get<comn_string_data_t<char_T>>(str); }
 	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{ return str; }
 
 	[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]string_view_t str)noexcept override final{ return get<comn_string_data_t<char_T>>(str); }

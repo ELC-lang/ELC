@@ -16,6 +16,17 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	using base_t::has_hash_cache;
 	using base_t::hash_cache;
 
+	using base_t::copy_assign_nothrow;
+	using base_t::copy_construct_nothrow;
+	using base_t::move_construct_nothrow;
+	using base_t::construct_nothrow;
+	using base_t::destruct_nothrow;
+	using base_t::clear_nothrow;
+	using base_t::ptr_reset_nothrow;
+	using base_t::hash_nothrow;
+	using base_t::get_data_nothrow;
+	using base_t::apply_data_nothrow;
+
 	ptr_t  _to;
 	ptr_t  _insert_data;
 	size_t _to_size;
@@ -34,7 +45,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	virtual void be_replace_as(ptr_t a)noexcept override final{
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
 			if(_insert_pos==p->_insert_pos && _insert_size==p->_insert_size){
@@ -49,7 +60,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _to_size+_insert_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{
 		if(pos+size<_insert_pos)
 			_to->copy_part_data_to(to,pos,size);
 		elseif(pos>_insert_pos+_insert_size)
@@ -90,7 +101,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		}
 		return base_t::do_erase(pos,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{
 		if(index>=_insert_pos && index<_insert_pos+_insert_size)
 			return _insert_data->arec(index-_insert_pos);
 		elseif(index>=_insert_pos+_insert_size)
@@ -99,7 +110,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			return _to->arec(index);
 	}
 
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
 		if(this->is_unique()){
 			if(index>=_insert_pos && index<_insert_pos+_insert_size)
 				_insert_data->arec_set(index-_insert_pos,a,p);
@@ -112,7 +123,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			auto size=str.size();
 			if(_insert_pos==0){
@@ -130,7 +141,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
 			auto size=str->get_size();
 			if(_insert_pos==0){
@@ -148,7 +159,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			if(_insert_pos==_to_size){
 				_insert_data=_insert_data->apply_str_to_end(str);
@@ -164,7 +175,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
 			if(_insert_pos==_to_size){
 				_insert_data=_insert_data->apply_str_to_end(str);
@@ -216,7 +227,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
 		if(has_hash_cache())
 			return hash_cache;
 		else{
@@ -231,7 +242,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos==0&&size==get_size())
 			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos+size<_insert_pos)
@@ -264,7 +275,7 @@ base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t p
 	return get<inserted_string_data_t<char_T>>(this,str,pos);
 }
 template<typename char_T>
-base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,string_view_t str)noexcept{
+base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,string_view_t str)noexcept(copy_construct_nothrow){
 	return this->do_insert(pos,get<comn_string_data_t<char_T>>(str));
 }
 

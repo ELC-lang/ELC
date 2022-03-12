@@ -16,6 +16,17 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 	using base_t::has_hash_cache;
 	using base_t::hash_cache;
 
+	using base_t::copy_assign_nothrow;
+	using base_t::copy_construct_nothrow;
+	using base_t::move_construct_nothrow;
+	using base_t::construct_nothrow;
+	using base_t::destruct_nothrow;
+	using base_t::clear_nothrow;
+	using base_t::ptr_reset_nothrow;
+	using base_t::hash_nothrow;
+	using base_t::get_data_nothrow;
+	using base_t::apply_data_nothrow;
+
 	ptr_t  _to;
 	size_t _to_size;
 	size_t _erase_pos;
@@ -31,7 +42,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	virtual void be_replace_as(ptr_t a) noexcept override final {
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final {
 		static_assert(noexcept(*a));//貌似msvc在这里有bug
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
@@ -42,7 +53,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _to_size-_erase_size; }
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow) override final{
 		if(pos+size<_erase_pos)
 			_to->copy_part_data_to(to,pos,size);
 		elseif(pos>_erase_pos)
@@ -65,14 +76,14 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		}
 		return base_t::do_erase(pos,size);
 	}
-	[[nodiscard]]virtual char_T arec(size_t index)noexcept override final{
+	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow) override final{
 		if(index>_erase_pos)
 			return _to->arec(index+_erase_size);
 		else
 			return _to->arec(index);
 	}
 
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept override final{
+	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow) override final{
 		if(this->is_unique()){
 			if(index>_erase_pos)
 				_to->arec_set(index+_erase_size,a,_to);
@@ -83,7 +94,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_to=_to->apply_str_to_begin(str);
 			const auto strsize=str.size();
@@ -95,7 +106,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_to=_to->apply_str_to_begin(str);
 			const auto strsize=str->get_size();
@@ -107,7 +118,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::apply_str_to_begin(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str.size();
@@ -117,7 +128,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::apply_str_to_end(str);
 	}
-	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept override final{
+	[[nodiscard]]virtual ptr_t apply_str_to_end(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
 			_to=_to->apply_str_to_end(str);
 			_to_size+=str->get_size();
@@ -149,7 +160,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept override final{
+	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
 		if(has_hash_cache())
 			return hash_cache;
 		else{
@@ -162,7 +173,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 			return hash_cache=result;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept override final{
+	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos==0&&size==get_size())
 			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		if(pos+size<_erase_pos)

@@ -22,7 +22,7 @@ namespace lib_loader_n{
 			_name=move(lib_name);
 			_m=load_library(lib_name);
 
-			if(_m)
+			if(!_m)
 				_error=get_load_error();
 		}
 		~library_info_t()noexcept{
