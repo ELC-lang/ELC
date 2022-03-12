@@ -65,7 +65,7 @@ namespace function_n{
 		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
-		[[noreturn]] virtual void throw_self_ptr()const override{throw nullptr;}
+		[[noreturn]] virtual void throw_self_ptr()const override{throw(void*)null_ptr;}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
@@ -100,19 +100,25 @@ namespace function_n{
 		}
 		template<typename T>
 		[[nodiscard]]bool was_an()const noexcept{
-			return _m->get_type_info()==type_info<T>;
+			try{
+				_m->throw_self_ptr();
+			}
+			catch(T*p){
+				return true;
+			}
+			catch(void*){}
+			return false;
 		}
 		template<typename T>
-		[[nodiscard]]maybe_fail_reference<T>& get_as()const noexcept{
+		[[nodiscard]]maybe_fail_reference<T> get_as()const noexcept{
 			try{
 				_m->throw_self_ptr();
 			}
 			catch(T*p){
 				return *p;
 			}
-			catch(void*){
-				return note::fail;
-			}
+			catch(void*){}
+			return note::fail;
 		}
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
@@ -181,11 +187,13 @@ namespace function_n{
 			swap_with(tmp);
 			return*this;
 		}
-
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
 		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
 			base_t::operator=(a);
 			return*this;
+		}
+		[[nodiscard]]explicit operator bool()const noexcept{
+			return bool(_m);
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
@@ -273,11 +281,13 @@ namespace function_n{
 			swap_with(tmp);
 			return*this;
 		}
-
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
 		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
 			base_t::operator=(a);
 			return*this;
+		}
+		[[nodiscard]]explicit operator bool()const noexcept{
+			return bool(_m);
 		}
 
 		Ret_t operator()(Args_t...args)const{
@@ -363,11 +373,13 @@ namespace function_n{
 			swap_with(tmp);
 			return*this;
 		}
-
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
 		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
 			base_t::operator=(a);
 			return*this;
+		}
+		[[nodiscard]]explicit operator bool()const noexcept{
+			return bool(_m);
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept{

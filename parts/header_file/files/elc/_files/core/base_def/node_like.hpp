@@ -11,7 +11,7 @@ template<typename T,typename...Args>
 [[nodiscard]]inline ptr make_list(T&&first,Args&&...rest);
 
 no_vtable_struct node_like:type_info_t<node_like>::template_name
-with_common_attribute<abstract_base,weak_ref_able,replace_able,ref_able>{
+	with_common_attribute<abstract_base,weak_ref_able,replace_able,ref_able>{
 public:
 	typedef node_like this_t;
 

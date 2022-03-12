@@ -8,7 +8,7 @@
 */
 template<typename char_T>
 no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::template_name
-with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_by_get_only{
+	with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_by_get_only{
 	typedef base_string_data_t<char_T> this_t;
 	typedef comn_ptr_t<this_t> ptr_t;
 	typedef array_like_view_t<const char_T> string_view_t;

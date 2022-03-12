@@ -28,16 +28,17 @@ namespace function_base_n{
 	{using type=Ret_t(Args_t...)noexcept(nothrow);};
 
 	template<typename T>
+	[[nodiscard]]constexpr auto function_type_getter_conditional_helper(){
+		if constexpr(::std::is_function_v<T>)
+			return type_info<T>;
+		elseif constexpr(is_pointer<T> && ::std::is_function_v<::std::remove_pointer_t<T>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
+			return function_type_getter_conditional_helper<::std::remove_pointer_t<T>>();
+		else
+			return type_info<type_name function_type_getter_helper<decltype(&T::operator())>::type>;
+	}
+	template<typename T>
 	struct function_type_getter{
-		typedef conditional<
-					::std::is_function_v<T>,
-					T,
-					conditional<
-						is_pointer<T>&&::std::is_function_v<::std::remove_pointer_t<T>>,//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
-						type_name function_type_getter<::std::remove_pointer_t<T>>::type,
-						type_name function_type_getter_helper<decltype(&T::operator())>::type
-					>
-				> type;
+		typedef decltype(function_type_getter_conditional_helper<T>())::template_name type type;
 	};
 
 	/*
@@ -59,7 +60,7 @@ namespace function_base_n{
 
 		T _value;
 
-		function_data_warpper_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
+		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
 		#if defined(_MSC_VER)
 			#pragma warning(push)
@@ -119,18 +120,18 @@ namespace function_base_n{
 	struct function_type_getter_helper<Ret_t(T::*)(Args_t...)const&noexcept>
 	{using type=Ret_t(Args_t...)noexcept;};
 
-
+	template<typename T>
+	[[nodiscard]]constexpr auto function_type_getter_conditional_helper(){
+		if constexpr(::std::is_function_v<T>)
+			return type_info<T>;
+		elseif constexpr(is_pointer<T> && ::std::is_function_v<::std::remove_pointer_t<T>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
+			return function_type_getter_conditional_helper<::std::remove_pointer_t<T>>();
+		else
+			return type_info<type_name function_type_getter_helper<decltype(&T::operator())>::type>;
+	}
 	template<typename T>
 	struct function_type_getter{
-		typedef conditional<
-					::std::is_function_v<T>,
-					T,
-					conditional<
-						is_pointer<T>&&::std::is_function_v<::std::remove_pointer_t<T>>,//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
-						type_name function_type_getter<::std::remove_pointer_t<T>>::type,
-						type_name function_type_getter_helper<decltype(&T::operator())>::type
-					>
-				> type;
+		typedef decltype(function_type_getter_conditional_helper<T>())::template_name type type;
 	};
 
 	/*
@@ -152,7 +153,7 @@ namespace function_base_n{
 
 		T _value;
 
-		function_data_warpper_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
+		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
 		#if defined(_MSC_VER)
 			#pragma warning(push)
@@ -185,7 +186,7 @@ namespace function_base_n{
 
 		T _value;
 
-		function_data_warpper_t(T&a)noexcept(construct<T>.nothrow<T>):_value(a){}
+		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
 		#if defined(_MSC_VER)
 			#pragma warning(push)

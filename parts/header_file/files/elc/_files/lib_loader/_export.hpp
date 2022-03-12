@@ -7,6 +7,9 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using defs::lib_loader_n::
+export load_lib;
+export get_library_handle_form_symbol;
+export get_symbol_name_form_symbol;
 #undef export
 
 //file_end

@@ -8,7 +8,7 @@
 */
 namespace ptr_n{
 	struct tester:type_info_t<tester>::template_name
-	with_common_attribute<ref_able,weak_ref_able,never_in_array>,build_by_get_only{};
+		with_common_attribute<ref_able,weak_ref_able,never_in_array>,build_by_get_only{};
 	void waiting_for_destroy(tester*)noexcept{}
 	inline void test(){
 		ELC_TEST_EVENTNAME("ptr部分测试");

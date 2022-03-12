@@ -9,8 +9,11 @@
 #if defined(ELC_TEST)
 #error "this part cannot be tested."
 #endif
-#include "../../../../../_share/APIs/str_code_convert.hpp"//strings
-#include "../../../../../_share/APIs/library_load.hpp"//strings
+//include APIs：elc中可能根据编译环境而修改的底层函数
+#include "../../../../../_share/APIs/str_code_convert.hpp"
+#include "../../../../../_share/APIs/library_load.hpp"
+//include locale：自然语言相关的字符串
+#include "../../../../../_share/locale/using.hpp"//strings
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 

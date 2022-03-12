@@ -22,6 +22,9 @@ namespace elc::defs::locale::str{
 		inline constexpr auto setlocale_error=es"setlocale出错"_constexpr_str;
 		inline constexpr auto code_convert_error=es"编码转换出错"_constexpr_str;
 	}
+	inline namespace lib_load{
+		inline constexpr auto null_lib=es"访问null处的lib对象"_constexpr_str;
+	}
 	inline namespace exception{
 		inline constexpr auto unknow_error=es"未知错误"_constexpr_str;
 		inline constexpr auto core_runtime_internal_helper_leak=es"未知错误"_constexpr_str;
