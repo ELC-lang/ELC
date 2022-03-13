@@ -13,6 +13,7 @@ no_vtable_struct binary_node_base_t:node_like{
 	[[nodiscard]]virtual base_type_info_t get_additional_type_info()const noexcept=0;
 protected:
 	[[noreturn]] virtual void throw_self_ptr()const=0;
+	[[noreturn]] virtual void throw_self_ptr()=0;
 	template<typename T>
 	friend[[nodiscard]]inline maybe_fail_reference<T> maybe_fail_use_by_ref_as(ptr p)noexcept;
 	template<typename T>
@@ -46,6 +47,7 @@ public:
 	}
 protected:
 	[[noreturn]] virtual void throw_self_ptr()const override{throw&_m;}
+	[[noreturn]] virtual void throw_self_ptr()override{throw&_m;}
 	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const noexcept override{
 		using defs::equal;//貌似msvc在这里有bug
 		if constexpr(equal.able<T>){
@@ -97,10 +99,10 @@ template<typename T>
 			try{
 				base_p->throw_self_ptr();
 			}
-			catch(T*){
+			catch(const T*){
 				return true;
 			}
-			catch(void*){}
+			catch(const void*){}
 		}
 	}
 	return false;

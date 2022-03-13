@@ -20,6 +20,7 @@ namespace function_n{
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
 		[[nodiscard]]virtual bool equal_with(const void*)const=0;
 		[[noreturn]] virtual void throw_self_ptr()const=0;
+		[[noreturn]] virtual void throw_self_ptr()=0;
 		[[nodiscard]]bool operator==(const this_t&a)const{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
@@ -44,6 +45,7 @@ namespace function_n{
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
 		[[noreturn]] virtual void throw_self_ptr()const override{throw addressof(data_t::get_data());}
+		[[noreturn]] virtual void throw_self_ptr()override{throw addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
@@ -65,7 +67,8 @@ namespace function_n{
 		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
-		[[noreturn]] virtual void throw_self_ptr()const override{throw(void*)null_ptr;}
+		[[noreturn]] virtual void throw_self_ptr()const override{throw(const void*)null_ptr;}
+		[[noreturn]] virtual void throw_self_ptr()override{throw(void*)null_ptr;}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
 	};
 	template<class Ret_t,class...Args_t>
@@ -103,14 +106,14 @@ namespace function_n{
 			try{
 				_m->throw_self_ptr();
 			}
-			catch(T*p){
+			catch(const T*p){
 				return true;
 			}
-			catch(void*){}
+			catch(const void*){}
 			return false;
 		}
 		template<typename T>
-		[[nodiscard]]maybe_fail_reference<T> get_as()const noexcept{
+		[[nodiscard]]maybe_fail_reference<T> get_as()noexcept{
 			try{
 				_m->throw_self_ptr();
 			}
