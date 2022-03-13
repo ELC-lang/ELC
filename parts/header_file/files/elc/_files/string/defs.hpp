@@ -248,7 +248,7 @@ namespace string_n{
 			elseif(size == nsize)
 				return;
 			else{
-				_cso_clear();
+				_cso_check();
 				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size,ch);
 			}
 		}
