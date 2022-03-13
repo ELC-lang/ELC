@@ -237,9 +237,9 @@ namespace string_n{
 				return {};
 		}
 		[[nodiscard]]const char_T*	data()const noexcept{ if(in_cso())return get_cso_data();else return _m->get_data(_m); }
-		[[nodiscard]]char_T*		c_str()noexcept{ return this->unique_c_str(); }
-		[[nodiscard]]const char_T*	const_c_str()const noexcept{ if(in_str_cso())return get_cso_data();else return _m->get_const_c_str(_m); }
-		[[nodiscard]]const char_T*	c_str()const noexcept{ return const_c_str(); }
+		char_T* writeable_data()noexcept{ return unique_c_str(); }
+		[[nodiscard]]const char_T*	c_str()const noexcept{ if(in_str_cso())return get_cso_data();else return _m->get_const_c_str(_m); }
+		char_T* writeable_c_str()noexcept{ return unique_c_str(); }
 		[[nodiscard]]size_t			size()const noexcept{ if(in_str_cso())return get_cso_size();else return _m->get_size(); }
 		void resize(size_t nsize,char_T ch ={}){
 			auto size=this->size();
