@@ -30,6 +30,8 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	constexpr_string_data_t(string_view_t str)noexcept{
 		_m=str.begin();
 		_size=str.size();
+		if(!_size)
+			be_replace_as(null_ptr);
 	}
 	constexpr_string_data_t(string_view_t str,hash_t hash)noexcept:constexpr_string_data_t(str){
 		base_t::hash_cache=hash;

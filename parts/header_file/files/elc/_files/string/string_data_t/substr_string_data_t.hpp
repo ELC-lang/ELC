@@ -13,8 +13,6 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 	using base_t::self_changed;
-	using base_t::has_hash_cache;
-	using base_t::hash_cache;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -31,7 +29,14 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	size_t _sub_begin;
 	size_t _sub_size;
 
-	substr_string_data_t(ptr_t str,size_t sub_begin,size_t sub_size)noexcept:_to(str),_sub_begin(sub_begin),_sub_size(sub_size){}
+	void null_equivalent_check()noexcept{
+		if(!_sub_size)
+			be_replace_as(null_ptr);
+	}
+
+	substr_string_data_t(ptr_t str,size_t sub_begin,size_t sub_size)noexcept:_to(str),_sub_begin(sub_begin),_sub_size(sub_size){
+		null_equivalent_check();
+	}
 
 	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
 		_to.reset();
@@ -100,6 +105,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin==0){
 			auto aret=_to->do_pop_front(size,_to);
 			_sub_size-=size;
+			null_equivalent_check();
 			self_changed();
 			return aret;
 		}
@@ -110,6 +116,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		if(this->is_unique() && _sub_begin+_sub_size==_to->get_size()){
 			auto aret=_to->do_pop_back(size,_to);
 			_sub_size-=size;
+			null_equivalent_check();
 			self_changed();
 			return aret;
 		}
@@ -117,20 +124,13 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 			return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
-		if(has_hash_cache())
-			return hash_cache;
-		else{
-			auto result=hash(nothing);
-			result=_to->get_others_hash_with_calculated_before(result,0,_to,_sub_begin,_sub_size);
-			return hash_cache=result;
-		}
+	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+		auto result=hash(nothing);
+		result=_to->get_others_hash_with_calculated_before(result,0,_to,_sub_begin,_sub_size);
+		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
-		if(pos==0&&size==get_size())
-			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
-		before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos+_sub_begin,size);
-		return before;
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
+		return _to->get_others_hash_with_calculated_before(before,before_size,_to,pos+_sub_begin,size);
 	}
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{

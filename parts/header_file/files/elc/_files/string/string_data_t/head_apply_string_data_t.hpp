@@ -13,8 +13,6 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 	using base_t::self_changed;
-	using base_t::has_hash_cache;
-	using base_t::hash_cache;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -164,32 +162,26 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
-		if(has_hash_cache())
-			return hash_cache;
-		else{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
-			hash_t result;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
-			if(_used_size){
-				const char_T* head_begin=_m.end()-_used_size;
-				result=hash(head_begin,_used_size);
-				if(_to_size)
-					result=hash.merge_array_hash_results(result,_used_size,_to->get_hash(_to),_to_size);
-			}
-			else
-				result=_to->get_hash(_to);
-			return hash_cache=result;
+	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26494)//未初始化警告diss
+		#endif
+		hash_t result;
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
+		if(_used_size){
+			const char_T* head_begin=_m.end()-_used_size;
+			result=hash(head_begin,_used_size);
+			if(_to_size)
+				result=hash.merge_array_hash_results(result,_used_size,_to->get_hash(_to),_to_size);
 		}
+		else
+			result=_to->get_hash(_to);
+		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
-		if(pos==0&&size==get_size())
-			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos<_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			const char_T* head_end=_m.end();

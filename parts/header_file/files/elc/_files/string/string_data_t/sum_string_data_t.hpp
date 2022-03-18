@@ -13,8 +13,6 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 	using base_t::self_changed;
-	using base_t::has_hash_cache;
-	using base_t::hash_cache;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -32,7 +30,12 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	size_t _before_size;
 	size_t _after_size;
 
-	sum_string_data_t(ptr_t before,ptr_t after)noexcept:_before(before),_after(after),_before_size(_before->get_size()),_after_size(_after->get_size()){}
+	sum_string_data_t(ptr_t before,ptr_t after)noexcept:_before(before),_after(after),_before_size(_before->get_size()),_after_size(_after->get_size()){
+		if(!_before_size)
+			be_replace_as(_after);
+		elseif(!_after_size)
+			be_replace_as(_before);
+	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin+size<=_before_size)
@@ -131,8 +134,14 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _before_size>=size){
-			auto aret=_before->do_pop_front(size,_before);
+			ptr_t aret;
+			if(_before_size==size)
+				swap(aret,_before);
+			else
+				aret=_before->do_pop_front(size,_before);
 			_before_size-=size;
+			if(!_before_size)
+				be_replace_as(_after);
 			self_changed();
 			return aret;
 		}
@@ -141,8 +150,14 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	}
 	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _after_size>=size){
-			auto aret=_after->do_pop_back(size,_after);
+			ptr_t aret;
+			if(_before_size==size)
+				swap(aret,_after);
+			else
+				aret=_after->do_pop_back(size,_after);
 			_after_size-=size;
+			if(!_after_size)
+				be_replace_as(_before);
 			self_changed();
 			return aret;
 		}
@@ -150,31 +165,25 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 			return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
-		if(has_hash_cache())
-			return hash_cache;
-		else{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
-			hash_t result;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
-			if(_before_size){
-				result=_before->get_hash(_before);
-				if(_after_size)
-					result=hash.merge_array_hash_results(result,_before_size,_after->get_hash(_after),_after_size);
-			}
-			else
-				result=_after->get_hash(_after);
-			return hash_cache=result;
+	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26494)//未初始化警告diss
+		#endif
+		hash_t result;
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
+		if(_before_size){
+			result=_before->get_hash(_before);
+			if(_after_size)
+				result=hash.merge_array_hash_results(result,_before_size,_after->get_hash(_after),_after_size);
 		}
+		else
+			result=_after->get_hash(_after);
+		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
-		if(pos==0&&size==get_size())
-			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos<_before_size){
 			const auto calculate_before_begin=pos;
 			const auto calculate_before_end=min(pos+size,_before_size);

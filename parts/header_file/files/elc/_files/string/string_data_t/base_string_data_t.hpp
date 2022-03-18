@@ -85,18 +85,24 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	hash_t hash_cache=hash(-1);
 	bool has_hash_cache()noexcept{return hash_cache!=hash(-1);}
 	void reset_hash_cache()noexcept{hash_cache=hash(-1);}
-	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow){
+	hash_t get_hash(ptr_t&p)noexcept(hash_nothrow){
 		if(has_hash_cache())
 			return hash_cache;
 		else{
-			const auto size=get_size();
-			auto result=hash(get_data(p),size);
-			return p->hash_cache=result;
+			auto tmp=this->get_hash_detail(p);
+			return p->hash_cache=tmp;
 		}
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
+	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow){
+		const auto size=get_size();
+		return hash(get_data(p),size);
+	}
+	hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
 		if(pos==0&&size==get_size())
 			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+		return this->get_others_hash_with_calculated_before_detail(before,before_size,p,pos,size);
+	}
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
 		return hash.with_calculated_before(before,before_size,get_data(p)+pos,size);
 	}
 

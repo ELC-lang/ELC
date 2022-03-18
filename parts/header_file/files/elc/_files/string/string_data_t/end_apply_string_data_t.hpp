@@ -13,8 +13,6 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 	using base_t::self_changed;
-	using base_t::has_hash_cache;
-	using base_t::hash_cache;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -164,19 +162,10 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::do_pop_back(size,self);
 	}
-	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
-		if(has_hash_cache())
-			return hash_cache;
-		else{
-			auto result=hash.with_calculated_before(_to->get_hash(_to),_to_size,string_view_t(_m.begin(),_used_size));
-			return p->hash_cache=result;
-		}
+	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+		return hash.with_calculated_before(_to->get_hash(_to),_to_size,string_view_t(_m.begin(),_used_size));
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
-		if(pos==0&&size==get_size())
-			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
-		if(pos==0&&size==get_size())
-			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos+size<=_to_size)
 			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
 		else{

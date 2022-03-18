@@ -13,8 +13,6 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	using base_t::ptr_t;
 	using base_t::string_view_t;
 	using base_t::self_changed;
-	using base_t::has_hash_cache;
-	using base_t::hash_cache;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -227,24 +225,18 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		return base_t::do_pop_back(size,self);
 	}
 
-	virtual hash_t get_hash(ptr_t&p)noexcept(hash_nothrow)override final{
-		if(has_hash_cache())
-			return hash_cache;
-		else{
-			auto result=hash(nothing);
-			if(_insert_pos){
-				result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
-			}
-			result=hash.merge_array_hash_results(result,_insert_pos,_insert_data->get_hash(_insert_data),_insert_size);
-			auto size=_to_size-_insert_pos;
-			if(size)
-				result=_to->get_others_hash_with_calculated_before(result,_insert_pos+_insert_size,_to,_insert_pos,size);
-			return hash_cache=result;
+	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+		auto result=hash(nothing);
+		if(_insert_pos){
+			result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
 		}
+		result=hash.merge_array_hash_results(result,_insert_pos,_insert_data->get_hash(_insert_data),_insert_size);
+		auto size=_to_size-_insert_pos;
+		if(size)
+			result=_to->get_others_hash_with_calculated_before(result,_insert_pos+_insert_size,_to,_insert_pos,size);
+		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
-		if(pos==0&&size==get_size())
-			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos+size<_insert_pos)
 			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
 		elseif(pos>_insert_pos+_insert_size)
