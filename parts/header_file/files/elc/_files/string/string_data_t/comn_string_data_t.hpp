@@ -49,7 +49,9 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 			return base_t::get_unique_c_str(p);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _m.size()-1; }
+protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{ copy_assign[size](note::form((const char_T*)_m+pos),note::to(to)); }
+public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{ return _m[index]; }
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(this->is_unique()){
@@ -64,7 +66,11 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		return true;//总size被保证一样
 	}
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {&_m[begin],note::size(get_size()-begin)};}
-	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		return equal(_m, wp->_m);
+	}
+	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		return compare(_m, wp->_m);
 	}

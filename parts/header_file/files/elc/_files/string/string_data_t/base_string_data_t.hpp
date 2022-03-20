@@ -71,7 +71,6 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	find_last_of
 	find_last_not_of
 
-	compare
 	starts_with
 	ends_with
 	contains
@@ -81,13 +80,119 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 protected:
 	bool same_type(ptr_t a)noexcept{return typeid(*this)==typeid(*a);}
 	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept=0;
+	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)=0;
 	[[nodiscard]]virtual compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)=0;
 public:
+//protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept=0;
+public:
+	[[nodiscard]]bool equal_with(ptr_t with)noexcept(equal.nothrow<char_T>){
+		//eq->equal优化
+		if(this==with)
+			return true;
+		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
+		//快速比较结束，实际比较段
+		{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26494)//未初始化警告diss
+			#endif
+			bool aret;
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+			{
+				//同结构比较优化比较方式
+				if(same_type(with)&&same_struct(with))
+					aret=same_struct_equal(with);
+				//否则默认比较
+				else
+					aret=default_equal_method(with);
+			}
+			//如果equal，则eq处理
+			if(aret==0)
+				equivalent_optimization(this,with);
+			return aret;
+		}
+	}
+protected:
+	[[nodiscard]]bool default_equal_method(ptr_t with)noexcept(equal.nothrow<char_T>){
+		size_t self_size=get_size();
+		return equal_with(with,0,self_size);
+	}
+public:
+	[[nodiscard]]bool equal_with(ptr_t with,size_t pos,size_t size)noexcept(equal.nothrow<char_T>){
+		//eq->equal优化
+		if(this==with)
+			return true;
+		size_t index=pos;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		auto b=with->get_the_largest_complete_data_block_begin_form(index);
+		while(size){
+			size_t step=min({a.size(),b.size(),size});
+			if(a.begin()!=b.begin())//起始地址不同时才需要真的比较
+				if(!equal(a.begin(),b.begin(),step))
+					return false;
+			index+=step;
+			size-=step;
+			if(a.size()==step)
+				a=this->get_the_largest_complete_data_block_begin_form(index);
+			else
+				a={a.begin()+step,note::size(a.size()-step)};
+			if(b.size()==step)
+				b=with->get_the_largest_complete_data_block_begin_form(index);
+			else
+				b={b.begin()+step,note::size(b.size()-step)};
+		}
+		return true;
+	}
+	[[nodiscard]]bool equal_with(string_view_t with)noexcept(equal.nothrow<char_T>){
+		size_t size=with.size();
+		size_t index=0;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		if(a.begin()==with.begin() && a.size()==with.size())
+			return true;
+		while(size){
+			auto b=with.begin()+index;
+			size_t step=min({a.size(),with.size()-index,size});
+			if(!equal(a.begin(),b,step))
+				return false;
+			index+=step;
+			size-=step;
+			if(a.size()==step)
+				a=this->get_the_largest_complete_data_block_begin_form(index);
+			else
+				a={a.begin()+step,note::size(a.size()-step)};
+		}
+		return true;
+	}
+	[[nodiscard]]bool equal_with(const char_T*with)noexcept(equal.nothrow<char_T>){
+		size_t size=get_size();
+		size_t index=0;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		if(a.begin()==with && with[a.size()]==char_T{})
+			return true;
+		while(size){
+			auto b=with+index;
+			if(!*b)
+				return false;
+			size_t step=min({a.size(),size});
+			if(!equal(a.begin(),step,just_an_part,b,end_by_zero))
+				return false;
+			index+=step;
+			size-=step;
+			if(a.size()==step)
+				a=this->get_the_largest_complete_data_block_begin_form(index);
+			else
+				a={a.begin()+step,note::size(a.size()-step)};
+		}
+		return *(with+index)==char_T{};
+	}
+public:
 	[[nodiscard]]compare_type compare_with(ptr_t with)noexcept(compare.nothrow<char_T>){
 		//eq->equal优化
 		if(this==with)
-			return 0<=>0;
+			return strong_ordering::equivalent;
 		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
 		//快速比较结束，实际比较段
 		{
@@ -120,6 +225,9 @@ protected:
 	}
 public:
 	[[nodiscard]]compare_type compare_with(ptr_t with,size_t pos,size_t size)noexcept(compare.nothrow<char_T>){
+		//eq->equal优化
+		if(this==with)
+			return strong_ordering::equivalent;
 		size_t index=pos;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		auto b=with->get_the_largest_complete_data_block_begin_form(index);
@@ -139,12 +247,14 @@ public:
 			else
 				b={b.begin()+step,note::size(b.size()-step)};
 		}
-		return 0<=>0;
+		return strong_ordering::equivalent;
 	}
 	[[nodiscard]]compare_type compare_with(string_view_t with)noexcept(compare.nothrow<char_T>){
 		size_t size=with.size();
 		size_t index=0;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		if(a.begin()==with.begin() && a.size()==with.size())
+			return strong_ordering::equivalent;
 		while(size){
 			auto b=with.begin()+index;
 			size_t step=min({a.size(),with.size()-index,size});
@@ -157,16 +267,18 @@ public:
 			else
 				a={a.begin()+step,note::size(a.size()-step)};
 		}
-		return 0<=>0;
+		return strong_ordering::equivalent;
 	}
 	[[nodiscard]]compare_type compare_with(const char_T*with)noexcept(compare.nothrow<char_T>){
 		size_t size=get_size();
 		size_t index=0;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		if(a.begin()==with && with[a.size()]==char_T{})
+			return strong_ordering::equivalent;
 		while(size){
 			auto b=with+index;
 			if(!*b)
-				return 1<=>0;
+				return strong_ordering::greater;
 			size_t step=min({a.size(),size});
 			if(auto tmp=compare(a.begin(),step,just_an_part,b,end_by_zero); tmp!=0)
 				return tmp;
@@ -177,10 +289,13 @@ public:
 			else
 				a={a.begin()+step,note::size(a.size()-step)};
 		}
-		return 0<=>int(bool(*(with+index)));
+		return *(with+index)==char_T{}? strong_ordering::equivalent:
+										strong_ordering::less;
 	}
-
+public:
+//protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
+public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)=0;
 protected:
@@ -196,15 +311,18 @@ public:
 			return p->hash_cache=tmp;
 		}
 	}
+protected:
 	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow){
 		const auto size=get_size();
 		return hash(get_data(p),size);
 	}
+public:
 	hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
 		if(pos==0&&size==get_size())
 			return hash.merge_array_hash_results(before,before_size,get_hash(p),size);
 		return this->get_others_hash_with_calculated_before_detail(before,before_size,p,pos,size);
 	}
+protected:
 	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
 		return hash.with_calculated_before(before,before_size,get_data(p)+pos,size);
 	}
@@ -226,19 +344,18 @@ public:
 		return need_be_replace;
 	}
 	*/
-	static inline void equivalent_optimization(this_t* a,ptr_t& b)noexcept(ptr_reset_nothrow){
-		ptr_t tmp=a;
-		equivalent_optimization(tmp,b);
+protected:
+	static inline void be_replace(this_t* a,ptr_t b)noexcept(ptr_reset_nothrow){
+		a->be_replace_as(b);
 	}
-	static inline void equivalent_optimization(ptr_t& a,this_t* b)noexcept(ptr_reset_nothrow){
-		ptr_t tmp=b;
-		equivalent_optimization(a,tmp);
+	static inline void be_replace(ptr_t& a,ptr_t b)noexcept(ptr_reset_nothrow){
+		a.do_replace(b);
 	}
-	static inline void equivalent_optimization(ptr_t& a,ptr_t& b)noexcept(ptr_reset_nothrow){
+	static inline void equivalent_optimization(auto&& a,auto&& b)noexcept(ptr_reset_nothrow){
 		if(a->get_memory_cost() >= b->get_memory_cost())
-			a.do_replace(b);
+			be_replace(a,b);
 		else
-			b.do_replace(a);
+			be_replace(b,a);
 	}
 };
 template<typename char_T>

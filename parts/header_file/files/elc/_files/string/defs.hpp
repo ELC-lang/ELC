@@ -38,8 +38,11 @@ namespace string_n{
 		[[nodiscard]]const char_T* get_cso_data()const noexcept{return _cso_flag==cso_char?&_cso_info._ch:_cso_info._str._p;}
 		[[nodiscard]]size_t get_cso_size()const noexcept{return _cso_flag==cso_char?1:_cso_info._str._size;}
 		[[nodiscard]]hash_t get_cso_hash()const noexcept{return _cso_flag==cso_char?hash(_cso_info._ch):_cso_info._str._hash;}
+		[[nodiscard]]constexpr_str_t<char_t> get_cso_constexpr_str()const noexcept{return {get_cso_data(),get_cso_size()};}
 		constexpr void _cso_init(constexpr_str_t<char_t> str)noexcept{_cso_flag=cso_string;_cso_info._str._p=str.begin();_cso_info._str._size=str.size();_cso_info._str._hash=hash(str);}
+		constexpr void _cso_reinit(constexpr_str_t<char_t> str)noexcept{_m.reset();_cso_init(str);}
 		constexpr void _cso_init(char_T ch)noexcept{_cso_flag=cso_char;_cso_info._ch=ch;}
+		constexpr void _cso_reinit(char_T ch)noexcept{_m.reset();_cso_init(ch);}
 		void _cso_fin()const noexcept{
 			_cso_flag=not_cso;
 			auto str=string_view_t{get_cso_data(),get_cso_size()};
@@ -154,21 +157,30 @@ namespace string_n{
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
-			if(!scom){//大小相等
-				_cso_check();
-				a._cso_check();
-				return _m->compare_with(a._m);
+			if(scom==0){//大小相等
+				if(in_cso()&&a.in_cso())
+					return compare(data(),a.data(),ssize);
+				elseif(in_cso())
+					return compare.reverse(a<=>get_cso_constexpr_str());
+				elseif(a.in_cso())
+					return operator<=>(a.get_cso_constexpr_str());
+				else
+					return _m->compare_with(a._m);
 			}
 			return scom;
 		}
 		[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
 			auto ssize = size();
 			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
-			if(seq){
-				const auto aret = equal(data(),a.data(),ssize);
-				if(aret)
-					equivalent_optimization(a);
-				return aret;
+			if(seq){//大小相等
+				if(in_cso()&&a.in_cso())
+					return equal(data(),a.data(),ssize);
+				elseif(in_cso())
+					return !a==get_cso_constexpr_str();
+				elseif(a.in_cso())
+					return operator==(a.get_cso_constexpr_str());
+				else
+					return _m->equal_with(a._m);
 			}
 			return seq;
 		}
@@ -176,18 +188,35 @@ namespace string_n{
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
 			if(scom==0){
-				_cso_check();
-				return _m->compare_with(a);
+				if(in_cso())
+					return compare(data(),a.begin(),ssize);
+				else
+					return _m->compare_with(a);
 			}
 			return scom;
 		}
 		[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
-			return equal(data(),size(),a.begin(),a.size());
 			auto ssize = size();
 			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
-			if(seq)
-				return equal(data(),a.begin(),ssize);
+			if(seq){
+				if(in_cso())
+					return equal(data(),a.begin(),ssize);
+				else
+					return _m->equal_with(a);
+			}
 			return seq;
+		}
+		[[nodiscard]]constexpr auto operator<=>(constexpr_str_t<char_t> a)const noexcept(compare.nothrow<char_T>){
+			auto tmp=operator<=>((string_view_t&)a);
+			if(tmp==0)
+				_cso_reinit(a);
+			return tmp;
+		}
+		[[nodiscard]]constexpr auto operator==(constexpr_str_t<char_t> a)const noexcept(equal.nothrow<char_T>){
+			auto tmp=operator==((string_view_t&)a);
+			if(!tmp)
+				_cso_reinit(a);
+			return tmp;
 		}
 		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
 			if(in_cso())
@@ -196,7 +225,10 @@ namespace string_n{
 				return _m->compare_with(a);
 		}
 		[[nodiscard]]constexpr auto operator==(const char_T* a)const noexcept(equal.nothrow<char_T>){
-			return equal(data(),size(),a,end_by_zero);
+			if(in_cso())
+				return equal(data(),size(),a,end_by_zero);
+			else
+				return _m->equal_with(a);
 		}
 
 	private:
@@ -270,7 +302,7 @@ namespace string_n{
 			[[nodiscard]]char_T*					get_handle()noexcept{ return &get_value(); }
 			[[nodiscard]]const char_T*				get_handle()const noexcept{ return &get_value(); }
 			constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to && _index==a._index; }
-			constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to ? _index<=>a._index : NAN<=>NAN; }
+			constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to ? _index<=>a._index : partial_ordering::unordered; }
 		};
 		[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const noexcept{ return iterator_base_t{(string_t*)this,index}; }
 	public:

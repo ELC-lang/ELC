@@ -143,10 +143,10 @@ constexpr struct compare_t{
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
 		if constexpr(r_able<T,U>)
 			return a<=>b;
-		else return a == b	? 1.3<=>1.3	:
-					a < b	? 1.3<=>1.7	:
-					b < a	? 1.7<=>1.3	:
-							  NAN<=>NAN	;
+		else return a == b	? partial_ordering::equivalent	:
+					a < b	? partial_ordering::less		:
+					b < a	? partial_ordering::greater		:
+							  partial_ordering::unordered	;
 	}
 
 	template<class T,class U=T>
@@ -162,7 +162,7 @@ constexpr struct compare_t{
 			if(auto tmp=base_call(*(a++),*(b++)); tmp!=0)
 				return tmp;
 		}
-		return 0<=>0;
+		return strong_ordering::equivalent;
 	}
 	template<typename T,typename U,size_t N1,size_t N2>
 	[[nodiscard]]constexpr auto operator()(T(&a)[N1],U(&b)[N2])const noexcept(nothrow<T,U>){
@@ -185,31 +185,34 @@ constexpr struct compare_t{
 	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
 			if(*b==U{0})
-				return 1<=>0;
+				return strong_ordering::greater;
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;
 			b++;
 		}
-		return 0<=>int(!bool(*b==U{0}));
+		return *b==U{0}?strong_ordering::equivalent:
+						strong_ordering::less;
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		while(size2--){
 			if(*a==T{0})
-				return 0<=>1;
+				return strong_ordering::less;
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;
 			b++;
 		}
-		return 0<=>int(!bool(*b==U{0}));
+		return *b==U{0}?strong_ordering::equivalent:
+						strong_ordering::less;
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(true){
 			if(*a==T{0})
-				return 0<=>int(!bool(*b==U{0}));
+				return *b==U{0}?strong_ordering::equivalent:
+								strong_ordering::less;
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;
@@ -220,13 +223,13 @@ constexpr struct compare_t{
 	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
 			if(*b==U{0})
-				return 1<=>0;
+				return strong_ordering::greater;
 			if(auto tmp=base_call(*a,*b); tmp!=0)
 				return tmp;
 			a++;
 			b++;
 		}
-		return 0<=>0;
+		return strong_ordering::equivalent;
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
@@ -254,6 +257,31 @@ constexpr struct compare_t{
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		return operator()(a,size1,just_an_part,b,end_by_zero);
+	}
+	//
+	[[nodiscard]]constexpr auto reverse(partial_ordering odr)const noexcept{
+		if(odr==partial_ordering::greater)
+			return partial_ordering::less;
+		elseif(odr==partial_ordering::less)
+			return partial_ordering::greater;
+		else
+			return odr;
+	}
+	[[nodiscard]]constexpr auto reverse(weak_ordering odr)const noexcept{
+		if(odr==weak_ordering::greater)
+			return weak_ordering::less;
+		elseif(odr==weak_ordering::less)
+			return weak_ordering::greater;
+		else
+			return odr;
+	}
+	[[nodiscard]]constexpr auto reverse(strong_ordering odr)const noexcept{
+		if(odr==strong_ordering::greater)
+			return strong_ordering::less;
+		elseif(odr==strong_ordering::less)
+			return strong_ordering::greater;
+		else
+			return odr;
 	}
 }compare{};
 

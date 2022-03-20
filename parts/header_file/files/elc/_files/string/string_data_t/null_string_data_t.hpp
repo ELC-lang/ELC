@@ -41,20 +41,22 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]string_view_t str)noexcept(construct_nothrow&&copy_assign_nothrow)override final{ return get<comn_string_data_t<char_T>>(str); }
 	[[nodiscard]]virtual ptr_t do_insert([[maybe_unused]]size_t pos,[[maybe_unused]]ptr_t str)noexcept override final{ return str; }
 	[[nodiscard]]virtual ptr_t do_erase([[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return this; }
-
+protected:
 	virtual void copy_part_data_to([[maybe_unused]]char_T* to,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return; }
+public:
 	[[nodiscard]]virtual char_T arec([[maybe_unused]]size_t index)noexcept override final{ return char_T{}; }
 	virtual void arec_set([[maybe_unused]]size_t index,[[maybe_unused]]char_T a,[[maybe_unused]]ptr_t& p)noexcept override final{ nothing; }
 	[[nodiscard]]virtual ptr_t do_pop_back([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)noexcept override final{ return this; }
 	[[nodiscard]]virtual ptr_t do_pop_front([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)noexcept override final{ return this; }
-
+protected:
 	virtual hash_t get_hash_detail([[maybe_unused]]ptr_t&p)noexcept override final{ return hash(nothing); }
 	virtual hash_t get_others_hash_with_calculated_before_detail([[maybe_unused]]hash_t before,[[maybe_unused]]size_t before_size,[[maybe_unused]]ptr_t&p,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return before; }
-
+protected:
 	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept override final{return false;}
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {0,0};}
-	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept override final{return 0<=>0;}
-
+	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept override final{return false;}
+	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept override final{return strong_ordering::equivalent;}
+public:
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{return 0;}
 };
 template<typename char_T>

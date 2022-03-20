@@ -35,6 +35,10 @@ template<class T>
 using remove_ref= ::std::remove_reference_t<T>;
 template<bool B,class T,class F>
 using conditional= ::std::conditional_t<B,T,F>;
+//
+using ::std::partial_ordering;
+using ::std::weak_ordering;
+using ::std::strong_ordering;
 
 //file_end
 

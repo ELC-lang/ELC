@@ -70,6 +70,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _used_size+_to_size; }
+protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<=_to_size)
 			_to->copy_part_data_to(to,pos,size);
@@ -86,6 +87,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			copy_assign[size](note::form((const char_T*)_m+pos),note::to(to));
 		}
 	}
+public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{
 		if(index<_to_size)
 			return _to->arec(index);
@@ -162,6 +164,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::do_pop_back(size,self);
 	}
+protected:
 	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
 		return hash.with_calculated_before(_to->get_hash(_to),_to_size,string_view_t(_m.begin(),_used_size));
 	}
@@ -185,7 +188,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	void shrink()noexcept(_m.resize_nothrow){
 		_m.resize(_used_size);
 	}
-
+protected:
 	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override final{
 		auto wp = down_cast<this_t*>(with.get());
 		return _used_size==wp->_used_size;// && _to_size==wp->_to_size; //总size被保证一样
@@ -199,13 +202,19 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			return {_m.begin()+begin,note::size(_used_size)};
 		}
 	}
-	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		if(!_to->equal_with(wp->_to))
+			return false;
+		return equal((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
+	}
+	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		if(auto tmp=_to->compare_with(wp->_to); tmp!=0)
 			return tmp;
 		return compare((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
 	}
-
+public:
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (_to->get_memory_cost()+sizeof(*this)+_m.size_in_byte())/get_ref_num((const base_t*)this);
 	}

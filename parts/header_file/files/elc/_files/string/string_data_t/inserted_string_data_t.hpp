@@ -58,6 +58,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _to_size+_insert_size; }
+protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<_insert_pos)
 			_to->copy_part_data_to(to,pos,size);
@@ -78,6 +79,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 				_to->copy_part_data_to(to,_insert_pos,size);
 		}
 	}
+public:
 	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)noexcept override final{
 		if(this->is_unique()){
 			if(pos>=_insert_pos && pos+size<=_insert_pos+_insert_size){
@@ -224,7 +226,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		}
 		return base_t::do_pop_back(size,self);
 	}
-
+protected:
 	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
 		auto result=hash(nothing);
 		if(_insert_pos){
@@ -257,7 +259,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 		}
 		return before;
 	}
-
+protected:
 	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override final{
 		auto wp=down_cast<this_t*>(with.get());
 		return _insert_pos==wp->_insert_pos && _insert_size==wp->_insert_size;//总size被保证一样
@@ -274,7 +276,13 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			return aret;
 		}
 	}
-	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		if(!_insert_data->equal_with(wp->_insert_data))
+			return false;
+		return _to->equal_with(wp->_to);
+	}
+	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		if(auto tmp=_to->compare_with(wp->_to,0,_insert_pos); tmp!=0)
 			return tmp;
@@ -282,7 +290,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 			return tmp;
 		return _to->compare_with(wp->_to,_insert_pos,_to_size-(_insert_pos+_insert_size));
 	}
-
+public:
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (sizeof(*this)+_insert_data->get_memory_cost()+_to->get_memory_cost())/get_ref_num((const base_t*)this);
 	}
