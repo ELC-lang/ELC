@@ -41,6 +41,7 @@ namespace string_n{
 		constexpr void _cso_init(constexpr_str_t<char_t> str)noexcept{_cso_flag=cso_string;_cso_info._str._p=str.begin();_cso_info._str._size=str.size();_cso_info._str._hash=hash(str);}
 		constexpr void _cso_init(char_T ch)noexcept{_cso_flag=cso_char;_cso_info._ch=ch;}
 		void _cso_fin()const noexcept{
+			_cso_flag=not_cso;
 			auto str=string_view_t{get_cso_data(),get_cso_size()};
 			if(_cso_flag==cso_char)
 				_m=get<comn_string_data_t<char_T>>(str);
