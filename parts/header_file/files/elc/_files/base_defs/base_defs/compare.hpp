@@ -11,6 +11,11 @@
 用于标志某一数据串以0结尾
 */
 inline constexpr struct end_by_zero_t{}end_by_zero;
+//just_an_part_t
+/*
+用于标志某一数据串并没有完结
+*/
+inline constexpr struct just_an_part_t{}just_an_part;
 //equal：值相等.
 /*
 	相等比较任意支持比较的类型或其数组——简易封装.
@@ -80,6 +85,16 @@ constexpr struct equal_t{
 			a++;
 			b++;
 		}
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		while(size1--){
+			if(*a!=*b || *b==U{0})
+				return false;
+			a++;
+			b++;
+		}
+		return true;
 	}
 }equal{};
 
@@ -202,6 +217,18 @@ constexpr struct compare_t{
 		}
 	}
 	template<typename T,typename U>
+	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		while(size1--){
+			if(*b==U{0})
+				return 1<=>0;
+			if(auto tmp=base_call(*a,*b); tmp!=0)
+				return tmp;
+			a++;
+			b++;
+		}
+		return 0<=>0;
+	}
+	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(auto tmp=operator()(a,b,min(size1,size2)); tmp!=0)
 			return tmp;
@@ -223,6 +250,10 @@ constexpr struct compare_t{
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		return operator()(a,end_by_zero,b,end_by_zero);
+	}
+	template<typename T,typename U>
+	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+		return operator()(a,size1,just_an_part,b,end_by_zero);
 	}
 }compare{};
 

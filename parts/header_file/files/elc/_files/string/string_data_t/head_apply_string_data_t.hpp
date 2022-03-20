@@ -200,6 +200,29 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		return before;
 	}
 
+	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override{
+		auto wp=down_cast<this_t*>(with.get());
+		return _used_size==wp->_used_size;// && _to_size==wp->_to_size; //总size被保证一样
+	}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
+		if(begin >= _used_size)
+			return _to->get_the_largest_complete_data_block_begin_form(begin-_used_size);
+		else {
+			const char_T* head_begin = _m.end() - _used_size;
+			const char_T* head_end	 = _m.end();
+			const char_T* ret_begin	 = begin+head_begin;
+			return {ret_begin, head_end};
+		}
+	}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		const char_T* head_begin = _m.end() - _used_size;
+		const char_T* wp_head_begin = wp->_m.end() - _used_size;
+		if(auto tmp=compare(head_begin,wp_head_begin,_used_size); tmp!=0)
+			return tmp;
+		return _to->compare_with(wp->_to);
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (_to->get_memory_cost()+sizeof(*this)+_m.size_in_byte())/get_ref_num((const base_t*)this);
 	}

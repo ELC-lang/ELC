@@ -200,6 +200,23 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 		return before;
 	}
 
+	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override final{
+		auto wp=down_cast<this_t*>(with.get());
+		return _before_size==wp->_before_size;//总size被保证一样
+	}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
+		if(begin < _before_size)
+			return _before->get_the_largest_complete_data_block_begin_form(begin);
+		else
+			return _after->get_the_largest_complete_data_block_begin_form(begin - _before_size);
+	}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		if(auto tmp=this->_before->compare_with(wp->_before); tmp!=0)
+			return tmp;
+		return this->_after->compare_with(wp->_after);
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (sizeof(*this)+_before->get_memory_cost()+_after->get_memory_cost())/get_ref_num((const base_t*)this);
 	}

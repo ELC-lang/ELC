@@ -54,6 +54,15 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{base_t::be_replace_as(a);}
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept override final{base_t::arec_set(index,a,p);}
 
+	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override{
+		return true;//总size被保证一样
+	}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override{return {&_m[begin],note::size(_size-begin)};}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>) override{
+		auto wp=down_cast<this_t*>(with.get());
+		return compare(_m,wp->_m,_size);
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return float_size_t{sizeof(*this)}/get_ref_num((const base_t*)this);
 	}

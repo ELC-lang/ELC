@@ -60,6 +60,15 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 			base_t::arec_set(index,a,p);
 	}
 
+	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept override final{
+		return true;//总size被保证一样
+	}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {&_m[begin],note::size(get_size()-begin)};}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		return compare(_m, wp->_m);
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		const auto this_size=sizeof(*this)+_m.size_in_byte();
 		return float_size_t(this_size)/get_ref_num((const base_t*)this);

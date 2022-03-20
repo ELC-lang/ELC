@@ -190,6 +190,28 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		return before;
 	}
 
+	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override final{
+		auto wp = down_cast<this_t*>(with.get());
+		return _erase_pos == wp->_erase_pos && _erase_size == wp->_erase_size;
+	}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
+		if(begin < _erase_pos) {
+			auto aret=_to->get_the_largest_complete_data_block_begin_form(begin);
+			if(aret.size() > _erase_pos) {
+				aret = {aret.begin(),_erase_pos};
+			}
+			return aret;
+		}
+		else
+			return _to->get_the_largest_complete_data_block_begin_form(begin + _erase_size);
+	}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		if(auto tmp=_to->compare_with(wp->_to,0,_erase_pos); tmp!=0)
+			return tmp;
+		return _to->compare_with(wp->_to,_erase_pos+_erase_size,_to_size);
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (sizeof(*this)+_to->get_memory_cost())/get_ref_num((const base_t*)this);
 	}

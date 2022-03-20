@@ -77,14 +77,117 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	contains
 	replace
 	*/
+	typedef compare_t::type<char_T> compare_type;
+protected:
+	bool same_type(ptr_t a)noexcept{return typeid(*this)==typeid(*a);}
+	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept=0;
+	[[nodiscard]]virtual compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)=0;
+public:
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept=0;
+	[[nodiscard]]compare_type compare_with(ptr_t with)noexcept(compare.nothrow<char_T>){
+		//eq->equal优化
+		if(this==with)
+			return 0<=>0;
+		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
+		//快速比较结束，实际比较段
+		{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26494)//未初始化警告diss
+			#endif
+			compare_type aret;
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+			{
+				//同结构比较优化比较方式
+				if(same_type(with)&&same_struct(with))
+					aret=same_struct_compare(with);
+				//否则默认比较
+				else
+					aret=default_compare_method(with);
+			}
+			//如果equal，则eq处理
+			if(aret==0)
+				equivalent_optimization(this,with);
+			return aret;
+		}
+	}
+protected:
+	[[nodiscard]]compare_type default_compare_method(ptr_t with)noexcept(compare.nothrow<char_T>){
+		size_t self_size=get_size();
+		return compare_with(with,0,self_size);
+	}
+public:
+	[[nodiscard]]compare_type compare_with(ptr_t with,size_t pos,size_t size)noexcept(compare.nothrow<char_T>){
+		size_t index=pos;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		auto b=with->get_the_largest_complete_data_block_begin_form(index);
+		while(size){
+			size_t step=min({a.size(),b.size(),size});
+			if(a.begin()!=b.begin())//起始地址不同时才需要真的比较
+				if(auto tmp=compare(a.begin(),b.begin(),step); tmp!=0)
+					return tmp;
+			index+=step;
+			size-=step;
+			if(a.size()==step)
+				a=this->get_the_largest_complete_data_block_begin_form(index);
+			else
+				a={a.begin()+step,note::size(a.size()-step)};
+			if(b.size()==step)
+				b=with->get_the_largest_complete_data_block_begin_form(index);
+			else
+				b={b.begin()+step,note::size(b.size()-step)};
+		}
+		return 0<=>0;
+	}
+	[[nodiscard]]compare_type compare_with(string_view_t with)noexcept(compare.nothrow<char_T>){
+		size_t size=with.size();
+		size_t index=0;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		while(size){
+			auto b=with.begin()+index;
+			size_t step=min({a.size(),with.size()-index,size});
+			if(auto tmp=compare(a.begin(),b,step); tmp!=0)
+				return tmp;
+			index+=step;
+			size-=step;
+			if(a.size()==step)
+				a=this->get_the_largest_complete_data_block_begin_form(index);
+			else
+				a={a.begin()+step,note::size(a.size()-step)};
+		}
+		return 0<=>0;
+	}
+	[[nodiscard]]compare_type compare_with(const char_T*with)noexcept(compare.nothrow<char_T>){
+		size_t size=get_size();
+		size_t index=0;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		while(size){
+			auto b=with+index;
+			if(!*b)
+				return 1<=>0;
+			size_t step=min({a.size(),size});
+			if(auto tmp=compare(a.begin(),step,just_an_part,b,end_by_zero); tmp!=0)
+				return tmp;
+			index+=step;
+			size-=step;
+			if(a.size()==step)
+				a=this->get_the_largest_complete_data_block_begin_form(index);
+			else
+				a={a.begin()+step,note::size(a.size()-step)};
+		}
+		return 0<=>int(bool(*(with+index)));
+	}
 
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)=0;
-
+protected:
 	hash_t hash_cache=hash(-1);
 	bool has_hash_cache()noexcept{return hash_cache!=hash(-1);}
 	void reset_hash_cache()noexcept{hash_cache=hash(-1);}
+public:
 	hash_t get_hash(ptr_t&p)noexcept(hash_nothrow){
 		if(has_hash_cache())
 			return hash_cache;
@@ -105,11 +208,11 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
 		return hash.with_calculated_before(before,before_size,get_data(p)+pos,size);
 	}
-
+protected:
 	void self_changed()noexcept{
 		reset_hash_cache();
 	}
-
+public:
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept=0;
 	[[nodiscard]]float_size_t get_memory_cost_after_gc()noexcept;
 	[[nodiscard]]float_size_t get_gc_profit()noexcept{return get_memory_cost()-get_memory_cost_after_gc();}
@@ -123,6 +226,14 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 		return need_be_replace;
 	}
 	*/
+	static inline void equivalent_optimization(this_t* a,ptr_t& b)noexcept(ptr_reset_nothrow){
+		ptr_t tmp=a;
+		equivalent_optimization(tmp,b);
+	}
+	static inline void equivalent_optimization(ptr_t& a,this_t* b)noexcept(ptr_reset_nothrow){
+		ptr_t tmp=b;
+		equivalent_optimization(a,tmp);
+	}
 	static inline void equivalent_optimization(ptr_t& a,ptr_t& b)noexcept(ptr_reset_nothrow){
 		if(a->get_memory_cost() >= b->get_memory_cost())
 			a.do_replace(b);

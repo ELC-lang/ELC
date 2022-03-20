@@ -186,6 +186,26 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_m.resize(_used_size);
 	}
 
+	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override final{
+		auto wp = down_cast<this_t*>(with.get());
+		return _used_size==wp->_used_size;// && _to_size==wp->_to_size; //总size被保证一样
+	}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
+		if(begin < _to_size) {
+			return _to->get_the_largest_complete_data_block_begin_form(begin);
+		}
+		else {
+			begin-=_to_size;
+			return {_m.begin()+begin,note::size(_used_size)};
+		}
+	}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
+		auto wp=down_cast<this_t*>(with.get());
+		if(auto tmp=_to->compare_with(wp->_to); tmp!=0)
+			return tmp;
+		return compare((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
+	}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return (_to->get_memory_cost()+sizeof(*this)+_m.size_in_byte())/get_ref_num((const base_t*)this);
 	}

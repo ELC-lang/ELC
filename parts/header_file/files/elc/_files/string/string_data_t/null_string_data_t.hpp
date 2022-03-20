@@ -51,6 +51,10 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	virtual hash_t get_hash_detail([[maybe_unused]]ptr_t&p)noexcept override final{ return hash(nothing); }
 	virtual hash_t get_others_hash_with_calculated_before_detail([[maybe_unused]]hash_t before,[[maybe_unused]]size_t before_size,[[maybe_unused]]ptr_t&p,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return before; }
 
+	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept override final{return false;}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {0,0};}
+	virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept override final{return 0<=>0;}
+
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{return 0;}
 };
 template<typename char_T>

@@ -154,10 +154,9 @@ namespace string_n{
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
 			if(!scom){//大小相等
-				auto aret = compare(data(),a.data(),ssize);
-				if(!aret)//相等
-					equivalent_optimization(a);
-				return aret;
+				_cso_check();
+				a._cso_check();
+				return _m->compare_with(a._m);
 			}
 			return scom;
 		}
@@ -175,8 +174,10 @@ namespace string_n{
 		[[nodiscard]]constexpr auto operator<=>(string_view_t a)const noexcept(compare.nothrow<char_T>){
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
-			if(!scom)
-				return compare(data(),a.begin(),ssize);
+			if(scom==0){
+				_cso_check();
+				return _m->compare_with(a);
+			}
 			return scom;
 		}
 		[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
@@ -188,7 +189,10 @@ namespace string_n{
 			return seq;
 		}
 		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
-			return compare(data(),size(),a,end_by_zero);
+			if(in_cso())
+				return compare(data(),size(),a,end_by_zero);
+			else
+				return _m->compare_with(a);
 		}
 		[[nodiscard]]constexpr auto operator==(const char_T* a)const noexcept(equal.nothrow<char_T>){
 			return equal(data(),size(),a,end_by_zero);
