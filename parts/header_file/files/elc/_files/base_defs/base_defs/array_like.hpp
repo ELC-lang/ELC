@@ -91,6 +91,13 @@ namespace array_like_n{
 
 		constexpr array_end_by_zero_t(T*ptr):base_t(ptr,get_length_of(ptr)){}
 	};
+
+	template<class T>
+	[[nodiscard]]inline T* begin_of_array_like(array_like_view_t<T>&a)noexcept{return a.begin();}
+	template<class T>
+	[[nodiscard]]inline T* begin_of_array_like(array_like_view_t<remove_cv<T>>&a)noexcept{return a.begin();}
+	template<class T>
+	[[nodiscard]]inline size_t size_of_array_like(array_like_view_t<T>&a)noexcept{return a.size();}
 }
 using array_like_n::size_of_array_like;
 using array_like_n::begin_of_array_like;

@@ -124,7 +124,7 @@ constexpr struct compare_t{
 
 
 	template<class T,class U>
-	[[nodiscard]]constexpr auto base_call(T&&a,U&&b)const noexcept(nothrow<T,U>){
+	[[nodiscard]]static constexpr auto base_call(T&&a,U&&b)noexcept(nothrow<T,U>){
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
 		if constexpr(r_able<T,U>)
 			return a<=>b;
@@ -133,6 +133,9 @@ constexpr struct compare_t{
 					b < a	? 1.7<=>1.3	:
 							  NAN<=>NAN	;
 	}
+
+	template<class T,class U=T>
+	using type=decltype(base_call(declvalue(T),declvalue(U)));
 
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T&&a,U&&b)const noexcept(nothrow<T,U>){

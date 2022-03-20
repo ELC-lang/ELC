@@ -81,9 +81,12 @@ namespace array_n{
 		[[nodiscard]]explicit operator const T*()const noexcept{return _m;}
 
 		typedef iterator_t<T>iterator;
-		typedef iterator_t<const T>const_iterator;
+		typedef const_iterator_t<T>const_iterator;
 
 		[[nodiscard]]constexpr iterator get_iterator_at(size_t a)noexcept{
+			return _m+a;
+		}
+		[[nodiscard]]constexpr const_iterator get_iterator_at(size_t a)const noexcept{
 			return _m+a;
 		}
 		[[nodiscard]]constexpr iterator begin()noexcept{
@@ -105,11 +108,17 @@ namespace array_n{
 			return end();
 		}
 
-		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)noexcept(compare.nothrow<array_like_view_t<T>>){
-			return compare(array_like_view_t<T>(*this),a);
+		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)const noexcept(compare.nothrow<array_like_view_t<T>>){
+			return compare(array_like_view_t<const T>(*this),a);
 		}
-		[[nodiscard]]constexpr auto operator==(array_like_view_t<const T> a)noexcept(equal.nothrow<array_like_view_t<T>>){
-			return equal(array_like_view_t<T>(*this),a);
+		[[nodiscard]]constexpr auto operator==(array_like_view_t<const T> a)const noexcept(equal.nothrow<array_like_view_t<T>>){
+			return equal(array_like_view_t<const T>(*this),a);
+		}
+		[[nodiscard]]constexpr auto operator<=>(const this_t&a)const noexcept(compare.nothrow<array_like_view_t<T>>){
+			return operator<=>(array_like_view_t<const T>(a));
+		}
+		[[nodiscard]]constexpr auto operator==(const this_t&a)const noexcept(equal.nothrow<array_like_view_t<T>>){
+			return operator==(array_like_view_t<const T>(a));
 		}
 
 		#define expr declvalue(func_t)(declvalue(T&))

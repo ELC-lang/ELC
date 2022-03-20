@@ -199,11 +199,11 @@ namespace iterator_n{
 
 	template<typename value_t,typename base_t_w=value_t*>
 	using iterator_t = base_iterator_t<remove_cvref<value_t>,base_t_w>;
-	template<typename value_t,typename base_t_w=value_t*>
+	template<typename value_t,typename base_t_w=const value_t*>
 	using const_iterator_t = base_iterator_t<const remove_cvref<value_t>,base_t_w>;
 	template<typename value_t,typename base_t_w=value_t*>
 	using reverse_iterator_t = base_iterator_t<remove_cvref<value_t>,reverse_base_t<base_t_w>>;
-	template<typename value_t,typename base_t_w=value_t*>
+	template<typename value_t,typename base_t_w=const value_t*>
 	using reverse_const_iterator_t = base_iterator_t<const remove_cvref<value_t>,reverse_base_t<base_t_w>>;
 }
 using iterator_n::base_iterator_t;
