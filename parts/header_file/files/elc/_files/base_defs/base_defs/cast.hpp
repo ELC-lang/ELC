@@ -17,7 +17,7 @@ inline constexpr const T add_const(T a)noexcept{return a;}
 template<typename T>
 inline constexpr const T&add_const(T&a)noexcept{return a;}
 template<typename T>
-inline constexpr T remove_const(const T a)noexcept{return a;}
+inline constexpr T&remove_const(const T&a)noexcept{return const_cast<T&>(a);}
 template<typename T>
 inline constexpr const T*add_const(T*a)noexcept{return a;}
 template<typename T>

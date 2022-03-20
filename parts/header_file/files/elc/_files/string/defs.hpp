@@ -52,7 +52,7 @@ namespace string_n{
 			if(in_cso())
 				_cso_fin();
 		}
-		void _cso_clear(){_cso_flag=not_cso;}
+		void _cso_clear()noexcept{_cso_flag=not_cso;}
 
 		string_t(ptr_t str)noexcept:_m(str){}
 		[[nodiscard]]ptr_t ptr_copy()const noexcept{
@@ -140,15 +140,15 @@ namespace string_n{
 	private:
 		void equivalent_optimization(const string_t& a)const noexcept{
 			if(this->memory_cost() >= a.memory_cost())
-				if(!a.in_cso())
+				if(!in_cso()&&!a.in_cso())
 					_m.do_replace(a._m);
 				else
-					*this=a;
+					remove_const(*this)=a;
 			else
-				if(!in_cso())
+				if(!in_cso()&&!a.in_cso())
 					a._m.do_replace(_m);
 				else
-					a=*this;
+					remove_const(a)=*this;
 		}
 	public:
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
