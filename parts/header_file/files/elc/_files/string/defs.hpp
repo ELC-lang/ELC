@@ -140,19 +140,6 @@ namespace string_n{
 			else
 				return _m->get_memory_cost();
 		}
-	private:
-		void equivalent_optimization(const string_t& a)const noexcept{
-			if(this->memory_cost() >= a.memory_cost())
-				if(!in_cso()&&!a.in_cso())
-					_m.do_replace(a._m);
-				else
-					remove_const(*this)=a;
-			else
-				if(!in_cso()&&!a.in_cso())
-					a._m.do_replace(_m);
-				else
-					remove_const(a)=*this;
-		}
 	public:
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
 			auto ssize = size();
@@ -160,9 +147,9 @@ namespace string_n{
 			if(scom==0){//大小相等
 				if(in_cso()&&a.in_cso())
 					return compare(data(),a.data(),ssize);
-				elseif(in_cso())
+				elseif(in_str_cso())
 					return compare.reverse(a<=>get_cso_constexpr_str());
-				elseif(a.in_cso())
+				elseif(a.in_str_cso())
 					return operator<=>(a.get_cso_constexpr_str());
 				else
 					return _m->compare_with(a._m);
@@ -175,9 +162,9 @@ namespace string_n{
 			if(seq){//大小相等
 				if(in_cso()&&a.in_cso())
 					return equal(data(),a.data(),ssize);
-				elseif(in_cso())
-					return !a==get_cso_constexpr_str();
-				elseif(a.in_cso())
+				elseif(in_str_cso())
+					return a==get_cso_constexpr_str();
+				elseif(a.in_str_cso())
 					return operator==(a.get_cso_constexpr_str());
 				else
 					return _m->equal_with(a._m);
