@@ -82,7 +82,7 @@ namespace string_n{
 		string_t(string_view_t str)noexcept:_m(get<comn_string_data_t<char_T>>(str)){}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
 		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
-		string_t(char_T ch)noexcept{_cso_init(ch);}
+		constexpr string_t(char_T ch)noexcept{_cso_init(ch);}
 		string_t(const string_t& str)noexcept=default;
 		string_t(string_t&& str)noexcept=default;
 
@@ -145,12 +145,10 @@ namespace string_n{
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
 			if(scom==0){//大小相等
-				if(in_cso()&&a.in_cso())
-					return compare(data(),a.data(),ssize);
+				if(a.in_str_cso())
+					return operator<=>(a.get_cso_constexpr_str());
 				elseif(in_str_cso())
 					return compare.reverse(a<=>get_cso_constexpr_str());
-				elseif(a.in_str_cso())
-					return operator<=>(a.get_cso_constexpr_str());
 				else
 					return _m->compare_with(a._m);
 			}
@@ -160,12 +158,10 @@ namespace string_n{
 			auto ssize = size();
 			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
 			if(seq){//大小相等
-				if(in_cso()&&a.in_cso())
-					return equal(data(),a.data(),ssize);
+				if(a.in_str_cso())
+					return operator==(a.get_cso_constexpr_str());
 				elseif(in_str_cso())
 					return a==get_cso_constexpr_str();
-				elseif(a.in_str_cso())
-					return operator==(a.get_cso_constexpr_str());
 				else
 					return _m->equal_with(a._m);
 			}
@@ -194,12 +190,16 @@ namespace string_n{
 			return seq;
 		}
 		[[nodiscard]]constexpr auto operator<=>(constexpr_str_t<char_t> a)const noexcept(compare.nothrow<char_T>){
+			if(in_cso() && data()==a.begin())//同起始优化
+				return strong_ordering::equivalent;
 			auto tmp=operator<=>((string_view_t&)a);
 			if(tmp==0)
 				_cso_reinit(a);
 			return tmp;
 		}
 		[[nodiscard]]constexpr auto operator==(constexpr_str_t<char_t> a)const noexcept(equal.nothrow<char_T>){
+			if(in_cso() && data()==a.begin())//同起始优化
+				return true;
 			auto tmp=operator==((string_view_t&)a);
 			if(!tmp)
 				_cso_reinit(a);
