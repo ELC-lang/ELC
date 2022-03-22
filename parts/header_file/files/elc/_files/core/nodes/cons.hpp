@@ -6,16 +6,16 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-value car_of(ptr p){
+inline value car_of(ptr p){
 	return (*p)[t];
 }
-value cdr_of(ptr p){
+inline value cdr_of(ptr p){
 	return (*p)[nil];
 }
-value car_of(auto&&node){
+inline value car_of(auto&&node){
 	return car_of(as_ptr(node));
 }
-value cdr_of(auto&&node){
+inline value cdr_of(auto&&node){
 	return cdr_of(as_ptr(node));
 }
 
