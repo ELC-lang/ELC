@@ -83,7 +83,7 @@ protected:
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)=0;
 	[[nodiscard]]virtual compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)=0;
 public:
-//protected:
+//protected://貌似msvc在这里有bug
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept=0;
 public:
 	[[nodiscard]]bool equal_with(ptr_t with)noexcept(equal.nothrow<char_T>){
@@ -293,7 +293,7 @@ public:
 										strong_ordering::less;
 	}
 public:
-//protected:
+//protected://貌似msvc在这里有bug
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
 public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
