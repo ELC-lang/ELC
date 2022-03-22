@@ -33,7 +33,7 @@ namespace hash_n{
 			return{size_t(a)};
 	}
 
-	struct hash_t{
+	inline struct hash_t{
 		template<class T>
 		[[nodiscard]]static constexpr inline bool nothrow_helper()noexcept{
 			if constexpr(is_pointer<T>)

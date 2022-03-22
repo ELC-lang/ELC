@@ -13,13 +13,13 @@ struct base_binary_function_node:node_like,instance_struct<base_binary_function_
 
 	base_binary_function_node(function_t<value(ptr)> func)noexcept:_func(func){}
 	base_binary_function_node(function_t<void(ptr)> func)noexcept{
-		_func = lambda_with_catch(func)(ptr p) {
+		_func = lambda_with_catch(func)(ptr p)mutable{
 			func(p);
 			return as_value(the_void);
 		};
 	}
 	base_binary_function_node(function_t<void()> func)noexcept{
-		_func = lambda_with_catch(func)(ptr) {
+		_func = lambda_with_catch(func)(ptr)mutable{
 			func();
 			return as_value(the_void);
 		};

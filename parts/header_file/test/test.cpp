@@ -18,6 +18,7 @@
 #include <elc/string>
 #include <elc/void_name>
 //#include <elc/namespace>
+#include <elc/lib_loader>
 
 #if defined(_MSC_VER)
 	#define delete [[gsl::suppress(i.11,r.11)]]delete

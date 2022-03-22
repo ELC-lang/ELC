@@ -17,6 +17,8 @@ elc依赖的基础函数.
 	#if SYSTEM_TYPE == linux
 		#include <dlfcn.h>
 	#elif SYSTEM_TYPE == windows
+		#define NOMINMAX
+		#include <Windows.h>
 		#include <Libloaderapi.h>
 		#include <Errhandlingapi.h>//GetLastError
 	#else
@@ -34,7 +36,7 @@ elc依赖的基础函数.
 		#endif
 		library_handle;
 
-		[[nodiscard]]library_handle base_load_library(const char*file_name)noexcept{
+		[[nodiscard]]inline library_handle base_load_library(const char*file_name)noexcept{
 			//可返回bool意义为空的值表示失败
 			return
 			#if SYSTEM_TYPE == linux
@@ -44,7 +46,7 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		[[nodiscard]]string base_get_load_error()noexcept{
+		[[nodiscard]]inline string base_get_load_error()noexcept{
 			return
 			#if SYSTEM_TYPE == linux
 				to_char_t_str(dlerror());
@@ -53,7 +55,7 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		void base_free_library(library_handle handle)noexcept{
+		inline void base_free_library(library_handle handle)noexcept{
 			#if SYSTEM_TYPE == linux
 				dlclose(handle)
 			#elif SYSTEM_TYPE == windows
@@ -61,7 +63,7 @@ elc依赖的基础函数.
 			#endif
 			;
 		}
-		[[nodiscard]]void* base_get_symbol(library_handle handle,const char*symbol_name)noexcept{
+		[[nodiscard]]inline void* base_get_symbol(library_handle handle,const char*symbol_name)noexcept{
 			//可返回bool意义为空的值表示失败
 			return
 			#if SYSTEM_TYPE == linux
@@ -72,17 +74,17 @@ elc依赖的基础函数.
 			;
 		}
 
-		[[nodiscard]]library_handle load_library(string file_name)noexcept{
+		[[nodiscard]]inline library_handle load_library(string file_name)noexcept{
 			//可返回bool意义为空的值表示失败
 			return base_load_library(to_char_str(file_name).c_str());
 		}
-		[[nodiscard]]string get_load_error()noexcept{
+		[[nodiscard]]inline string get_load_error()noexcept{
 			return base_get_load_error();
 		}
-		void free_library(library_handle handle)noexcept{
+		inline void free_library(library_handle handle)noexcept{
 			return base_free_library(handle);
 		}
-		[[nodiscard]]void* get_symbol(library_handle handle,string symbol_name)noexcept{
+		[[nodiscard]]inline void* get_symbol(library_handle handle,string symbol_name)noexcept{
 			//可返回bool意义为空的值表示失败
 			return base_get_symbol(handle,to_char_str(symbol_name).c_str());
 		}

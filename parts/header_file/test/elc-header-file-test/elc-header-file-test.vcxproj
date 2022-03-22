@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test.cpp" />
+    <ClCompile Include="..\test_inline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\cpp.hint" />
