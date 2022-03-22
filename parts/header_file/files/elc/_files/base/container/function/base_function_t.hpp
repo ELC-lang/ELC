@@ -154,6 +154,23 @@ namespace function_n{
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(nothrow),			bool(promise_nothrow_at_destruct+1)	>>||
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept(bool(nothrow+1)),	bool(promise_nothrow_at_destruct+1)	>>
 		);
+
+		template<class T>
+		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
+		template<class T>
+		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+
+		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
+		static ptr_t get_data_from(T&&a)noexcept(get_data_nothrow<T>){
+			//BLOCK:constexpr checks
+			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+				template_error("unexpected assign.");
+			if constexpr(nothrow)
+				if constexpr(!invoke<T>.nothrow<Args_t...>)
+					template_warning("the call of T was not noexcept,this may cause terminate.");
+			//BLOCK_END
+			return get<func_data_t<remove_cvref<T>>>(a);
+		}
 	public:
 		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
@@ -166,35 +183,32 @@ namespace function_n{
 		base_function_t(this_t&&a)noexcept:base_function_t(){
 			swap_with(a);
 		}
-		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
-		template<class T> requires(invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>)
-		base_function_t(T&&a)noexcept(get<func_data_t<remove_cvref<T>>>.nothrow<T>){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			if constexpr(nothrow)
-				if constexpr(!invoke<T>.nothrow<Args_t...>)
-					template_warning("the call of T was not noexcept,this may cause terminate.");
-			//BLOCK_END
-			_m=get<func_data_t<remove_cvref<T>>>(a);
+		base_function_t(nullptr_t)noexcept:base_function_t(null_ptr){}
+		template<class T> requires(get_data_able<T>)
+		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
+			_m=get_data_from(forward<T>(a));
 		}
 		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
 			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))){
-			this_t tmp(forward<T>(a));
-			swap_with(tmp);
-			return*this;
-		}
+		this_t&operator=(const this_t&a)&noexcept=default;
+		this_t&operator=(this_t&&a)&noexcept=default;
+		this_t&operator=(null_ptr_t)&noexcept(promise_nothrow_at_destruct){_m=null_ptr;return *this;}
+		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){return *this=null_ptr;}
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
 		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
 			base_t::operator=(a);
 			return*this;
 		}
+		template<class T> requires(get_data_able<T>)
+		this_t&operator=(T&&a)noexcept(get_data_nothrow<T> && promise_nothrow_at_destruct){
+			_m=get_data_from(forward<T>(a));
+			return*this;
+		}
+
 		[[nodiscard]]explicit operator bool()const noexcept{
 			return bool(_m);
 		}
@@ -251,6 +265,20 @@ namespace function_n{
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),			bool(promise_nothrow_at_destruct+1)	>>||
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept,	bool(promise_nothrow_at_destruct+1)	>>
 		);
+
+		template<class T>
+		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
+		template<class T>
+		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+
+		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
+		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
+			//BLOCK:constexpr checks
+			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+				template_error("unexpected assign.");
+			//BLOCK_END
+			return get<func_data_t<remove_cvref<T>>>(a);
+		}
 	public:
 		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
@@ -263,32 +291,32 @@ namespace function_n{
 		base_function_t(this_t&&a)noexcept:base_function_t(){
 			swap_with(a);
 		}
-		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
-		template<class T> requires(invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
-		base_function_t(T&&a)noexcept(get<func_data_t<remove_cvref<T>>>.nothrow<T>){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			//BLOCK_END
-			_m=get<func_data_t<remove_cvref<T>>>(a);
+		base_function_t(nullptr_t)noexcept:base_function_t(null_ptr){}
+		template<class T> requires(get_data_able<T>)
+		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
+			_m=get_data_from(forward<T>(a));
 		}
 		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
 			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))){
-			this_t tmp(forward<T>(a));
-			swap_with(tmp);
-			return*this;
-		}
+		this_t&operator=(const this_t&a)noexcept=default;
+		this_t&operator=(this_t&&a)noexcept=default;
+		this_t&operator=(null_ptr_t)noexcept(promise_nothrow_at_destruct){_m=null_ptr;return *this;}
+		this_t&operator=(nullptr_t)noexcept(promise_nothrow_at_destruct){return *this=null_ptr;}
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
 		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
 			base_t::operator=(a);
 			return*this;
 		}
+		template<class T> requires(get_data_able<T>)
+		this_t&operator=(T&&a)noexcept(get_data_nothrow<T> && promise_nothrow_at_destruct){
+			_m=get_data_from(forward<T>(a));
+			return*this;
+		}
+
 		[[nodiscard]]explicit operator bool()const noexcept{
 			return bool(_m);
 		}
@@ -340,6 +368,23 @@ namespace function_n{
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept,	promise_nothrow_at_destruct			>>||
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept,	bool(promise_nothrow_at_destruct+1)	>>
 		);
+
+		template<class T>
+		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
+		template<class T>
+		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+
+		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
+		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
+			//BLOCK:constexpr checks
+			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+				template_error("unexpected assign.");
+			if constexpr(1)
+				if constexpr(!invoke<T>.nothrow<Args_t...>)
+					template_warning("the call of T was not noexcept,this may cause terminate.");
+			//BLOCK_END
+			return get<func_data_t<remove_cvref<T>>>(a);
+		}
 	public:
 		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
@@ -352,35 +397,32 @@ namespace function_n{
 		base_function_t(this_t&&a)noexcept:base_function_t(){
 			swap_with(a);
 		}
-		base_function_t(nullptr_t)noexcept:base_function_t(){}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
-		template<class T> requires(invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>)
-		base_function_t(T&&a)noexcept(get<func_data_t<remove_cvref<T>>>.nothrow<T>){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			if constexpr(1)
-				if constexpr(!invoke<T>.nothrow<Args_t...>)
-					template_warning("the call of T was not noexcept,this may cause terminate.");
-			//BLOCK_END
-			_m=get<func_data_t<remove_cvref<T>>>(a);
+		base_function_t(nullptr_t)noexcept:base_function_t(null_ptr){}
+		template<class T> requires(get_data_able<T>)
+		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
+			_m=get_data_from(forward<T>(a));
 		}
 		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
 			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		template<class T>
-		this_t&operator=(T&&a)&noexcept_as(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))) requires was_not_an_ill_form(declvalue(this_t).swap_with((this_t&)this_t(forward<T>(a)))){
-			this_t tmp(forward<T>(a));
-			swap_with(tmp);
-			return*this;
-		}
+		this_t&operator=(const this_t&a)&noexcept=default;
+		this_t&operator=(this_t&&a)&noexcept=default;
+		this_t&operator=(null_ptr_t)&noexcept(promise_nothrow_at_destruct){_m=null_ptr;return *this;}
+		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){return *this=null_ptr;}
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
 		this_t&operator=(const T&a)&noexcept(promise_nothrow_at_destruct){
 			base_t::operator=(a);
 			return*this;
 		}
+		template<class T> requires(get_data_able<T>)
+		this_t&operator=(T&&a)noexcept(get_data_nothrow<T> && promise_nothrow_at_destruct){
+			_m=get_data_from(forward<T>(a));
+			return*this;
+		}
+
 		[[nodiscard]]explicit operator bool()const noexcept{
 			return bool(_m);
 		}
