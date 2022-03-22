@@ -269,7 +269,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
 		template<class T>
-		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		static constexpr bool get_data_nothrow=true;//get<func_data_t<remove_cvref<T>>>.nothrow<T>; //貌似msvc在这里有bug
 
 		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
@@ -372,7 +372,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
 		template<class T>
-		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		static constexpr bool get_data_nothrow=true;//get<func_data_t<remove_cvref<T>>>.nothrow<T>; //貌似msvc在这里有bug
 
 		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
