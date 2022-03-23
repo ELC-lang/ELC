@@ -38,7 +38,7 @@ namespace string_n{
 		[[nodiscard]]const char_T* get_cso_data()const noexcept{return _cso_flag==cso_char?&_cso_info._ch:_cso_info._str._p;}
 		[[nodiscard]]size_t get_cso_size()const noexcept{return _cso_flag==cso_char?1:_cso_info._str._size;}
 		[[nodiscard]]hash_t get_cso_hash()const noexcept{return _cso_flag==cso_char?hash(_cso_info._ch):_cso_info._str._hash;}
-		[[nodiscard]]constexpr_str_t<char_t> get_cso_constexpr_str()const noexcept{return {get_cso_data(),get_cso_size()};}
+		[[nodiscard]]constexpr_str_t<char_t> get_cso_constexpr_str()const noexcept{return constexpr_str_t<char_t>{get_cso_data(),get_cso_size()};}
 		constexpr void _cso_init(constexpr_str_t<char_t> str)noexcept{_cso_flag=cso_string;_cso_info._str._p=str.begin();_cso_info._str._size=str.size();_cso_info._str._hash=hash(str);}
 		constexpr void _cso_reinit(constexpr_str_t<char_t> str)noexcept{_m.reset();_cso_init(str);}
 		constexpr void _cso_init(char_T ch)noexcept{_cso_flag=cso_char;_cso_info._ch=ch;}
@@ -194,7 +194,7 @@ namespace string_n{
 				return strong_ordering::equivalent;
 			auto tmp=operator<=>((string_view_t&)a);
 			if(tmp==0)
-				_cso_reinit(a);
+				remove_const(this)->_cso_reinit(a);
 			return tmp;
 		}
 		[[nodiscard]]constexpr auto operator==(constexpr_str_t<char_t> a)const noexcept(equal.nothrow<char_T>){
@@ -202,7 +202,7 @@ namespace string_n{
 				return true;
 			auto tmp=operator==((string_view_t&)a);
 			if(!tmp)
-				_cso_reinit(a);
+				remove_const(this)->_cso_reinit(a);
 			return tmp;
 		}
 		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){

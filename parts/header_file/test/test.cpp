@@ -16,9 +16,9 @@
 #define ELC_TEST_CHECK_MEMORY_LACK
 #include <elc/core>
 #include <elc/string>
+#include <elc/lib_loader>
 #include <elc/void_name>
 //#include <elc/namespace>
-#include <elc/lib_loader>
 
 #if defined(_MSC_VER)
 	#define delete [[gsl::suppress(i.11,r.11)]]delete
