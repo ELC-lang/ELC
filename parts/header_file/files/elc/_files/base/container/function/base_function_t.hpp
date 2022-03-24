@@ -12,9 +12,11 @@ namespace function_n{
 	template<class Ret_t,class...Args_t>
 	no_vtable_struct base_func_data_t<Ret_t(Args_t...)>:type_info_t<base_func_data_t<Ret_t(Args_t...)>>::template_name with_common_attribute<abstract_base,ref_able,never_in_array>,build_by_get_only{
 		typedef base_func_data_t<Ret_t(Args_t...)>this_t;
+		typedef comn_ptr_t<this_t>ptr_t;
 
 		virtual ~base_func_data_t()=default;
-		virtual Ret_t call(Args_t...)=0;
+		virtual Ret_t call(ptr_t&self,Args_t...)=0;
+		virtual Ret_t call(const ptr_t&self,Args_t...)const=0;
 		//for equal:
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
@@ -33,43 +35,78 @@ namespace function_n{
 	template<class T,class Func_t>
 	class func_data_t;
 	template<class T,class Ret_t,class...Args_t>
-	struct func_data_t<T,Ret_t(Args_t...)>:
+	struct func_data_t<T,Ret_t(Args_t...)>final:
 	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template_name with_common_attribute<instance_struct>,
 	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<T,Ret_t(Args_t...)>{
 		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
+		typedef func_data_t<T,Ret_t(Args_t...)>this_t;
 		typedef function_data_warpper_t<T,Ret_t(Args_t...)>data_t;
+		typedef base_t::ptr_t ptr_t;
+
+		[[nodiscard]]bool is_unique()const noexcept{return get_ref_num((base_t*)this)==1;}
 
 		using data_t::data_t;
 		virtual ~func_data_t()override=default;
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<T>;}
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return addressof(data_t::get_data());}
-		[[noreturn]] virtual void throw_self_ptr()const override{throw addressof(data_t::get_data());}
-		[[noreturn]] virtual void throw_self_ptr()override{throw addressof(data_t::get_data());}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override{
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<T>;}
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept override final{return addressof(data_t::get_data());}
+		[[noreturn]] virtual void throw_self_ptr()const override final{throw addressof(data_t::get_data());}
+		[[noreturn]] virtual void throw_self_ptr()override final{throw addressof(data_t::get_data());}
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override final{
 			if constexpr(equal.able<T>)
 				return data_t::_value==*reinterpret_cast<const T*>(a);
 			else
 				return false;
 		}
-		[[nodiscard]]virtual Ret_t call(Args_t...args)override{
-			return data_t::operator()(forward<Args_t>(args)...);
+	private:
+		[[nodiscard]]static constexpr bool const_call_nothrow_helper(){
+			if constexpr(invoke<const T>.able<Args_t...>)
+				return invoke<const T>.nothrow<Args_t...>;
+			else
+				return construct<Ret_t>.nothrow<>;
+		}
+		[[nodiscard]]static constexpr bool non_const_call_nothrow_helper(){
+			if constexpr(invoke<const T>.able<Args_t...>)
+				return const_call_nothrow_helper();
+			else
+				return invoke<T>.nothrow<Args_t...>&&get<this_t>.nothrow<T>;
+		}
+	public:
+		[[nodiscard]]virtual Ret_t call(ptr_t&self,Args_t...args)noexcept(non_const_call_nothrow_helper())override final{
+			if constexpr(invoke<const T>.able<Args_t...>)
+				return add_const(this)->call(self,forward<Args_t>(args)...);
+			else{
+				if(this->is_unique())
+					return data_t::operator()(forward<Args_t>(args)...);
+				else{
+					self = get<this_t>(data_t::_value);
+					return self->call(self,forward<Args_t>(args)...);
+				}
+			}
+		}
+		[[nodiscard]]virtual Ret_t call(const ptr_t&self,Args_t...args)const noexcept(const_call_nothrow_helper())override final{
+			if constexpr(invoke<const T>.able<Args_t...>)
+				return data_t::operator()(forward<Args_t>(args)...);
+			else
+				return Ret_t{};
 		}
 	};
 
 	template<class T>
 	class default_func_data_t;
 	template<class Ret_t,class...Args_t>
-	struct default_func_data_t<Ret_t(Args_t...)>:base_func_data_t<Ret_t(Args_t...)>,instance_struct<default_func_data_t<Ret_t(Args_t...)>>{
+	struct default_func_data_t<Ret_t(Args_t...)>final:base_func_data_t<Ret_t(Args_t...)>,instance_struct<default_func_data_t<Ret_t(Args_t...)>>{
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
+		typedef base_t::ptr_t ptr_t;
 
-		virtual ~default_func_data_t()noexcept override{}
-		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override{return Ret_t();}
-		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<void>;}
-		[[nodiscard]]virtual const void*get_data_begin()const noexcept override{return null_ptr;}//这玩意实际上用不到，艹
-		[[noreturn]] virtual void throw_self_ptr()const override{throw(const void*)null_ptr;}
-		[[noreturn]] virtual void throw_self_ptr()override{throw(void*)null_ptr;}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override{return true;}
+		virtual ~default_func_data_t()noexcept override final{}
+		virtual Ret_t call(ptr_t&self,Args_t...)noexcept_as(Ret_t())override final{return Ret_t();}
+		virtual Ret_t call(const ptr_t&self,Args_t...)const noexcept_as(Ret_t())override final{return Ret_t();}
+		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<void>;}
+		[[nodiscard]]virtual const void*get_data_begin()const noexcept override final{return null_ptr;}//这玩意实际上用不到，艹
+		[[noreturn]] virtual void throw_self_ptr()const override final{throw(const void*)null_ptr;}
+		[[noreturn]] virtual void throw_self_ptr()override final{throw(void*)null_ptr;}
+		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override final{return true;}
 	};
 	template<class Ret_t,class...Args_t>
 	distinctive inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
@@ -124,7 +161,8 @@ namespace function_n{
 			return note::fail;
 		}
 		void operator=(const this_t&a){_m=a._m;}
-		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
+		Ret_t call(Args_t&&...rest){return _m->call(_m,forward<Args_t>(rest)...);}
+		Ret_t call(Args_t&&...rest)const{return _m->call(_m,forward<Args_t>(rest)...);}
 	};
 
 	#if !defined(_MSC_VER)
@@ -213,6 +251,16 @@ namespace function_n{
 			return bool(_m);
 		}
 
+		Ret_t operator()(Args_t...args)noexcept(nothrow){
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26447)
+			#endif
+			return base_t::call(forward<Args_t>(args)...);
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+		}
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
 			#if defined(_MSC_VER)
 				#pragma warning(push)
@@ -321,15 +369,11 @@ namespace function_n{
 			return bool(_m);
 		}
 
-		Ret_t operator()(Args_t...args)const{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26447)
-			#endif
+		Ret_t operator()(Args_t...args){
 			return base_t::call(forward<Args_t>(args)...);
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+		}
+		Ret_t operator()(Args_t...args)const{
+			return base_t::call(forward<Args_t>(args)...);
 		}
 		/*
 		private:
@@ -427,6 +471,16 @@ namespace function_n{
 			return bool(_m);
 		}
 
+		Ret_t operator()(Args_t...args)noexcept{
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26447)
+			#endif
+			return base_t::call(forward<Args_t>(args)...);
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
+		}
 		Ret_t operator()(Args_t...args)const noexcept{
 			#if defined(_MSC_VER)
 				#pragma warning(push)
