@@ -45,6 +45,14 @@ static void ELC_StringCopy_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringCopy_Size5);
 
+static void ELC_StringCopy_Size5_MarkAsConstExpr(benchmark::State& state) {
+	using namespace elc::defs;
+	elc::string x = U"hello"_constexpr_str;
+	for(auto _: state)
+		elc::string copy(x);
+}
+BENCHMARK(ELC_StringCopy_Size5_MarkAsConstExpr);
+
 static void Std_StringCopy_Size20480(benchmark::State& state) {
 	std::string x = "hello";
 	for(int i = 13; i; i--)
