@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\test.cpp" />
-    <ClCompile Include="..\test_inline.cpp" />
+    <None Include="..\..\..\cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\cpp.hint" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="test_inline.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
