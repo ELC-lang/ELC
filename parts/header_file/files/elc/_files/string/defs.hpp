@@ -29,10 +29,17 @@ namespace string_n{
 			}_str;
 			char_T _ch;
 
+			#if defined(_MSC_VER)
+				#pragma warning(push)
+				#pragma warning(disable:26495)//未初始化警告diss
+			#endif
 			constexpr _cso_info_t()noexcept{}
 			constexpr _cso_info_t(const _cso_info_t&a)noexcept{
 				copy_assign[sizeof(_cso_info_t)](cast_to_data(this),cast_to_data(&a));
 			}
+			#if defined(_MSC_VER)
+				#pragma warning(pop)
+			#endif
 			constexpr void operator=(const _cso_info_t&a)noexcept{
 				copy_assign[sizeof(_cso_info_t)](cast_to_data(this),cast_to_data(&a));
 			}
