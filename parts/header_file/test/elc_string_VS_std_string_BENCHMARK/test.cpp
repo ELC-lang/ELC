@@ -1,30 +1,67 @@
 #include "pch.h"
 
-static void Std_StringCreation(benchmark::State& state) {
+static void Std_StringCreation_Size0(benchmark::State& state) {
 	for(auto _: state)
 		std::string empty_string;
 }
-BENCHMARK(Std_StringCreation);
+BENCHMARK(Std_StringCreation_Size0);
 
-static void ELC_StringCreation(benchmark::State& state) {
+static void ELC_StringCreation_Size0(benchmark::State& state) {
 	for(auto _: state)
 		elc::string empty_string;
 }
-BENCHMARK(ELC_StringCreation);
+BENCHMARK(ELC_StringCreation_Size0);
 
-static void Std_StringCopy(benchmark::State& state) {
+static void Std_StringCreation_Size5(benchmark::State& state) {
+	for(auto _: state)
+		std::string string = "hello";
+}
+BENCHMARK(Std_StringCreation_Size5);
+
+static void ELC_StringCreation_Size5(benchmark::State& state) {
+	for(auto _: state)
+		elc::string string = U"hello";
+}
+BENCHMARK(ELC_StringCreation_Size5);
+
+static void ELC_StringCreation_Size5_MarkAsConstExpr(benchmark::State& state) {
+	using namespace elc::defs;
+	for(auto _: state)
+		elc::string string = U"hello"_constexpr_str;
+}
+BENCHMARK(ELC_StringCreation_Size5_MarkAsConstExpr);
+
+static void Std_StringCopy_Size5(benchmark::State& state) {
 	std::string x = "hello";
 	for(auto _: state)
 		std::string copy(x);
 }
-BENCHMARK(Std_StringCopy);
+BENCHMARK(Std_StringCopy_Size5);
 
-static void ELC_StringCopy(benchmark::State& state) {
+static void ELC_StringCopy_Size5(benchmark::State& state) {
 	elc::string x = U"hello";
 	for(auto _: state)
 		elc::string copy(x);
 }
-BENCHMARK(ELC_StringCopy);
+BENCHMARK(ELC_StringCopy_Size5);
+
+static void Std_StringCopy_Size20480(benchmark::State& state) {
+	std::string x = "hello";
+	for(int i = 13; i; i--)
+		x += x;
+	for(auto _: state)
+		std::string copy(x);
+}
+BENCHMARK(Std_StringCopy_Size20480);
+
+static void ELC_StringCopy_Size20480(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(int i = 13; i; i--)
+		x += x;
+	for(auto _: state)
+		elc::string copy(x);
+}
+BENCHMARK(ELC_StringCopy_Size20480);
 
 static void Std_StringApplyEnd(benchmark::State& state) {
 	std::string x = "hello";
