@@ -110,7 +110,7 @@ public:
 					aret=default_equal_method(with);
 			}
 			//如果equal，则eq处理
-			if(aret==0)
+			if(aret)
 				equivalent_optimization(this,with);
 			return aret;
 		}
