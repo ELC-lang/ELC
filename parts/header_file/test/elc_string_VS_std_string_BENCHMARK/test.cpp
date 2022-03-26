@@ -24,12 +24,12 @@ static void ELC_StringCreation_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringCreation_Size5);
 
-static void ELC_StringCreation_Size5_MarkAsConstExpr(benchmark::State& state) {
+static void ELC_StringCreation_Size5_MarkAsConstExprStr(benchmark::State& state) {
 	using namespace elc::defs;
 	for(auto _: state)
 		elc::string string = U"hello"_constexpr_str;
 }
-BENCHMARK(ELC_StringCreation_Size5_MarkAsConstExpr);
+BENCHMARK(ELC_StringCreation_Size5_MarkAsConstExprStr);
 
 static void Std_StringCopy_Size5(benchmark::State& state) {
 	std::string x = "hello";
@@ -45,13 +45,13 @@ static void ELC_StringCopy_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringCopy_Size5);
 
-static void ELC_StringCopy_Size5_MarkAsConstExpr(benchmark::State& state) {
+static void ELC_StringCopy_Size5_MarkAsConstExprStr(benchmark::State& state) {
 	using namespace elc::defs;
 	elc::string x = U"hello"_constexpr_str;
 	for(auto _: state)
 		elc::string copy(x);
 }
-BENCHMARK(ELC_StringCopy_Size5_MarkAsConstExpr);
+BENCHMARK(ELC_StringCopy_Size5_MarkAsConstExprStr);
 
 static void Std_StringCopy_Size20480(benchmark::State& state) {
 	std::string x = "hello";
