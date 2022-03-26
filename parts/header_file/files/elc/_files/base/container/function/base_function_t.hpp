@@ -15,8 +15,7 @@ namespace function_n{
 		typedef comn_ptr_t<this_t>ptr_t;
 
 		virtual ~base_func_data_t()=default;
-		virtual Ret_t call(ptr_t&self,Args_t...)=0;
-		virtual Ret_t call(const ptr_t&self,Args_t...)const=0;
+		virtual Ret_t call(Args_t...)=0;
 		//for equal:
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept=0;
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept=0;
@@ -54,41 +53,12 @@ namespace function_n{
 		[[noreturn]] virtual void throw_self_ptr()override final{throw addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override final{
 			if constexpr(equal.able<T>)
-				return data_t::_value==*reinterpret_cast<const T*>(a);
+				return data_t::_value==*remove_const(reinterpret_cast<const T*>(a));
 			else
 				return false;
 		}
-	private:
-		[[nodiscard]]static constexpr bool const_call_nothrow_helper(){
-			if constexpr(invoke<const T>.able<Args_t...>)
-				return invoke<const T>.nothrow<Args_t...>;
-			else
-				return construct<Ret_t>.nothrow<>;
-		}
-		[[nodiscard]]static constexpr bool non_const_call_nothrow_helper(){
-			if constexpr(invoke<const T>.able<Args_t...>)
-				return const_call_nothrow_helper();
-			else
-				return invoke<T>.nothrow<Args_t...>&&get<this_t>.nothrow<T>;
-		}
-	public:
-		[[nodiscard]]virtual Ret_t call(ptr_t&self,Args_t...args)noexcept(non_const_call_nothrow_helper())override final{
-			if constexpr(invoke<const T>.able<Args_t...>)
-				return add_const(this)->call(self,forward<Args_t>(args)...);
-			else{
-				if(this->is_unique())
-					return data_t::operator()(forward<Args_t>(args)...);
-				else{
-					self = get<this_t>(data_t::_value);
-					return self->call(self,forward<Args_t>(args)...);
-				}
-			}
-		}
-		[[nodiscard]]virtual Ret_t call(const ptr_t&self,Args_t...args)const noexcept(const_call_nothrow_helper())override final{
-			if constexpr(invoke<const T>.able<Args_t...>)
-				return data_t::operator()(forward<Args_t>(args)...);
-			else
-				return Ret_t{};
+		[[nodiscard]]virtual Ret_t call(Args_t...args)noexcept(invoke<T>.nothrow<Args_t...>)override final{
+			return data_t::operator()(forward<Args_t>(args)...);
 		}
 	};
 
@@ -100,8 +70,7 @@ namespace function_n{
 		typedef base_t::ptr_t ptr_t;
 
 		virtual ~default_func_data_t()noexcept override final{}
-		virtual Ret_t call(ptr_t&self,Args_t...)noexcept_as(Ret_t())override final{return Ret_t();}
-		virtual Ret_t call(const ptr_t&self,Args_t...)const noexcept_as(Ret_t())override final{return Ret_t();}
+		virtual Ret_t call(Args_t...)noexcept_as(Ret_t())override final{return Ret_t();}
 		[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<void>;}
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override final{return null_ptr;}//这玩意实际上用不到，艹
 		[[noreturn]] virtual void throw_self_ptr()const override final{throw(const void*)null_ptr;}
@@ -125,7 +94,7 @@ namespace function_n{
 		typedef base_func_data_t<Ret_t(Args_t...)> base_t_w;
 		typedef comn_ptr_t<base_t_w>ptr_t;
 
-		ptr_t _m;
+		mutable ptr_t _m;
 		void swap_with(this_t&a)noexcept{swap(_m,a._m);}
 	public:
 		function_data_saver_t()noexcept=default;
@@ -161,8 +130,7 @@ namespace function_n{
 			return note::fail;
 		}
 		void operator=(const this_t&a){_m=a._m;}
-		Ret_t call(Args_t&&...rest){return _m->call(_m,forward<Args_t>(rest)...);}
-		Ret_t call(Args_t&&...rest)const{return _m->call(_m,forward<Args_t>(rest)...);}
+		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
 	#if !defined(_MSC_VER)
@@ -209,6 +177,7 @@ namespace function_n{
 			//BLOCK_END
 			return get<func_data_t<remove_cvref<T>>>(a);
 		}
+		explicit base_function_t(base_t::ptr_t a)noexcept{_m=a;}
 	public:
 		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
@@ -247,20 +216,12 @@ namespace function_n{
 			return*this;
 		}
 
+		this_t deep_copy(){return this_t{copy_get(_m.get())};}
+
 		[[nodiscard]]explicit operator bool()const noexcept{
 			return bool(_m);
 		}
 
-		Ret_t operator()(Args_t...args)noexcept(nothrow){
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26447)
-			#endif
-			return base_t::call(forward<Args_t>(args)...);
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
-		}
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
 			#if defined(_MSC_VER)
 				#pragma warning(push)
@@ -327,6 +288,7 @@ namespace function_n{
 			//BLOCK_END
 			return get<func_data_t<remove_cvref<T>>>(a);
 		}
+		explicit base_function_t(base_t::ptr_t a)noexcept{_m=a;}
 	public:
 		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
@@ -364,6 +326,8 @@ namespace function_n{
 			_m=get_data_from(forward<T>(a));
 			return*this;
 		}
+
+		this_t deep_copy(){return this_t{copy_get(_m.get())};}
 
 		[[nodiscard]]explicit operator bool()const noexcept{
 			return bool(_m);
@@ -429,6 +393,7 @@ namespace function_n{
 			//BLOCK_END
 			return get<func_data_t<remove_cvref<T>>>(a);
 		}
+		explicit base_function_t(base_t::ptr_t a)noexcept{_m=a;}
 	public:
 		void swap_with(this_t&a)noexcept{//不与base_t::swap_with重复：与更加严格（或宽松）的this_t进行swap是错误的
 			base_t::swap_with(a);
@@ -466,6 +431,8 @@ namespace function_n{
 			_m=get_data_from(forward<T>(a));
 			return*this;
 		}
+
+		this_t deep_copy(){return this_t{copy_get(_m.get())};}
 
 		[[nodiscard]]explicit operator bool()const noexcept{
 			return bool(_m);

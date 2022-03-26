@@ -7,6 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 no_vtable_class abstract_base_vtable{
+protected:
 	virtual void* _abstract_method_copy_get_this()=0;
 	virtual void* _abstract_method_get_resize_this(size_t size)=0;
 	virtual void* _abstract_method_get_forward_resize_this(size_t size)=0;

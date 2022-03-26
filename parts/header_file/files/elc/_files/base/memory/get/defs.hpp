@@ -333,14 +333,14 @@ namespace get_n{
 
 	constexpr struct copy_get_t{
 		template<typename T>
-		static constexpr bool able=copy_construct.able<T>;
+		static constexpr bool able=copy_construct.able<T> || type_info<T>.has_attribute(abstract_base);
 		template<typename T>
 		static constexpr bool nothrow=copy_construct.nothrow<T>;
 
 		template<typename T> requires able<T>
 		static T*base_call(const T*arg)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(abstract_base))
-				return attribute_ptr_cast<abstract_base>(arg)->abstract_method_copy_get_this();
+				return remove_const(attribute_ptr_cast<abstract_base>(arg))->abstract_method_copy_get_this();
 			else
 				return copy_construct(note::from(arg),note::to(copy_alloc(arg)),get_size_of_get(arg));
 		}
