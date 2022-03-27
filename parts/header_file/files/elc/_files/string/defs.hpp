@@ -124,6 +124,7 @@ namespace string_n{
 		string_t(string_t&& str)noexcept:string_t(){
 			swap_with(str);
 		}
+		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
 
 		string_t& operator=(const string_t& str)noexcept{
 			if(str._in_cso()){
@@ -133,7 +134,7 @@ namespace string_n{
 			else
 				_m=str._m;
 		}
-		string_t& operator=(string_t&& str)noexcept{swap_with(str);}
+		string_t& operator=(string_t&& str)noexcept{swap_with(str);return*this;}
 		constexpr string_t& operator=(constexpr_str_t<char_t> str)noexcept{_cso_reinit(str);return*this;}
 		constexpr string_t& operator=(char_T ch)noexcept{_cso_reinit(ch);return*this;}
 

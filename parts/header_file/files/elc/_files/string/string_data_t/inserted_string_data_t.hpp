@@ -82,24 +82,21 @@ protected:
 public:
 	[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str)noexcept(copy_construct_nothrow)override final{
 		if(this->is_unique()){
-			if(pos>=_insert_pos || pos<=_insert_pos+_insert_size){
-				if(pos==_insert_pos)
-					_insert_data=_insert_data->apply_str_to_begin(str);
-				elseif(pos==_insert_pos+_insert_size)
-					_insert_data=_insert_data->apply_str_to_end(str);
-				else
-					_insert_data=_insert_data->do_insert(pos-_insert_pos,str);
+			if(pos>=_insert_pos && pos<=_insert_pos+_insert_size){
+				_insert_data=_insert_data->do_insert(pos-_insert_pos,str);
 				_insert_size+=str.size();
 				self_changed();
 				return this;
 			}
 			elseif(pos<_insert_pos){
 				_to=_to->do_insert(pos,str);
+				_to_size+=str.size();
 				self_changed();
 				return this;
 			}
 			elseif(pos>_insert_pos+_insert_size){
 				_to=_to->do_insert(pos-_insert_size,str);
+				_to_size+=str.size();
 				self_changed();
 				return this;
 			}
