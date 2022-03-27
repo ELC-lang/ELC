@@ -155,7 +155,10 @@ public:
 };
 template<typename char_T>
 [[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::get_substr_data(size_t begin,size_t size)noexcept{
-	return get<substr_string_data_t<char_T>>(this,begin,size);
+	if(begin==0&&size==get_size())
+		return this;
+	else
+		return get<substr_string_data_t<char_T>>(this,begin,size);
 }
 
 //file_end
