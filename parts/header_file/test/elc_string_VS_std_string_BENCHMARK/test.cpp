@@ -171,4 +171,18 @@ static void ELC_StringHash_Size20480(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringHash_Size20480);
 
+static void Std_StringClear(benchmark::State& state) {
+	std::string x = "hello";
+	for(auto _: state)
+		x.clear();
+}
+BENCHMARK(Std_StringClear);
+
+static void ELC_StringClear(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(auto _: state)
+		x.clear();
+}
+BENCHMARK(ELC_StringClear);
+
 BENCHMARK_MAIN();

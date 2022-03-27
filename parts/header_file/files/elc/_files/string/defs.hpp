@@ -79,7 +79,6 @@ namespace string_n{
 			if(_in_cso())
 				_cso_fin();
 		}
-		void _cso_clear()noexcept{_cso_flag=not_cso;}
 
 		string_t(ptr_t str)noexcept{_ncso_construct_mptr(str);}
 		[[nodiscard]]ptr_t ptr_copy()const noexcept{
@@ -319,7 +318,7 @@ namespace string_n{
 				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size,ch);
 			}
 		}
-		void clear()noexcept{ _cso_clear();_ncso_destruct_mptr(); }
+		void clear()noexcept{ re_construct(this); }
 	private:
 		struct iterator_base_t{
 			string_t* _to;
