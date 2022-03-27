@@ -111,7 +111,7 @@ namespace string_n{
 				swap(_m,a._m);
 		}
 
-		constexpr string_t()noexcept:string_t(constexpr_str_t<char_T>{null_ptr,0}){}
+		constexpr string_t()noexcept:string_t(constexpr_str_t<char_T>{&const_default_value_of<char_T>,0}){}
 		constexpr string_t(constexpr_str_t<char_t> str)noexcept{_cso_init(str);}
 		string_t(string_view_t str)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));}
 		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}

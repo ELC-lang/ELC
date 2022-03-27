@@ -222,7 +222,10 @@ public:
 };
 template<typename char_T>
 [[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow){
-	return get<end_apply_string_data_t<char_T>>(this,str);
+	if(str.size())
+		return get<end_apply_string_data_t<char_T>>(this,str);
+	else
+		return this;
 }
 
 //file_end

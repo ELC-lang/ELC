@@ -226,7 +226,10 @@ public:
 };
 template<typename char_T>
 [[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_erase(size_t pos,size_t size)noexcept{
-	return get<erased_string_data_t<char_T>>(this,pos,size);
+	if(size==get_size())
+		return null_ptr;
+	else
+		return get<erased_string_data_t<char_T>>(this,pos,size);
 }
 
 //file_end
