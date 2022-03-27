@@ -296,6 +296,7 @@ namespace string_n{
 				_to->arec_set(_index,a);
 				return *this;
 			}
+			arec_t&		 operator=(const arec_t&ch)noexcept{ return operator=(ch.operator char_T()); }
 			[[nodiscard]]char_T*		operator&()noexcept{ return _to->unique_c_str()+_index; }
 			[[nodiscard]]const char_T*	operator&()const noexcept{ return (add_const(_to))->c_str()+_index; }
 			[[nodiscard]]operator char_T&()noexcept{ return *operator&(); }
