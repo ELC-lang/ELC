@@ -25,7 +25,6 @@ namespace string_n{
 			struct _str_info_t{
 				const char_T* _p;
 				size_t _size;
-				hash_t _hash;
 			}_str;
 			char_T _ch;
 
@@ -45,9 +44,10 @@ namespace string_n{
 			}
 			~_cso_info_t()noexcept{}
 		}_cso_info{};
-		mutable enum _cso_flag_t{
-			not_cso,cso_char,cso_string
-		}_cso_flag=not_cso;
+		mutable struct _cso_flags_t{
+			bool _cso_flag=0;
+			bool _str_cso_flag=0;
+		}_cso_flags;
 
 		#define _m _cso_info._mptr
 
@@ -55,25 +55,29 @@ namespace string_n{
 		constexpr void _ncso_construct_mptr()const noexcept{construct<ptr_t>[&_m]();}
 		constexpr void _ncso_construct_mptr(ptr_t p)const noexcept{construct<ptr_t>[&_m](p);}
 
-		[[nodiscard]]bool _in_cso()const noexcept{return _cso_flag!=not_cso;}
-		[[nodiscard]]bool _in_str_cso()const noexcept{return _cso_flag==cso_string;}
+		[[nodiscard]]bool _in_cso()const noexcept{return _cso_flags._cso_flag;}
+		[[nodiscard]]bool _in_str_cso()const noexcept{return _cso_flags._str_cso_flag;}
+		[[nodiscard]]bool _in_chr_cso()const noexcept{return !_cso_flags._str_cso_flag;}
+		void _set_str_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=1;}
+		void _set_chr_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=0;}
+		void _set_not_cso()const noexcept{_cso_flags._cso_flag=0;}
 
-		[[nodiscard]]const char_T* _get_cso_data()const noexcept{return _cso_flag==cso_char?&_cso_info._ch:_cso_info._str._p;}
-		[[nodiscard]]size_t _get_cso_size()const noexcept{return _cso_flag==cso_char?1:_cso_info._str._size;}
-		[[nodiscard]]hash_t _get_cso_hash()const noexcept{return _cso_flag==cso_char?hash(_cso_info._ch):_cso_info._str._hash;}
+		[[nodiscard]]const char_T* _get_cso_data()const noexcept{return _in_str_cso()?_cso_info._str._p:&_cso_info._ch;}
+		[[nodiscard]]size_t _get_cso_size()const noexcept{return _in_str_cso()?_cso_info._str._size:1;}
+		[[nodiscard]]hash_t _get_cso_hash()const noexcept{return hash(_get_cso_constexpr_str());}
 		[[nodiscard]]constexpr_str_t<char_t> _get_cso_constexpr_str()const noexcept{return constexpr_str_t<char_t>{_get_cso_data(),_get_cso_size()};}
 
-		constexpr void _cso_init(constexpr_str_t<char_t> str)noexcept{_cso_flag=cso_string;_cso_info._str._p=str.begin();_cso_info._str._size=str.size();_cso_info._str._hash=hash(str);}
+		constexpr void _cso_init(constexpr_str_t<char_t> str)noexcept{_set_str_cso();_cso_info._str._p=str.begin();_cso_info._str._size=str.size();}
 		constexpr void _cso_reinit(constexpr_str_t<char_t> str)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(str);}
-		constexpr void _cso_init(char_T ch)noexcept{_cso_flag=cso_char;_cso_info._ch=ch;}
+		constexpr void _cso_init(char_T ch)noexcept{_set_chr_cso();_cso_info._ch=ch;}
 		constexpr void _cso_reinit(char_T ch)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(ch);}
 		void _cso_fin()const noexcept{
 			auto str=string_view_t{_get_cso_data(),_get_cso_size()};
-			if(_cso_flag==cso_char)
-				_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));
+			if(_in_str_cso())
+				_ncso_construct_mptr(get<constexpr_string_data_t<char_T>>(str));
 			else
-				_ncso_construct_mptr(get<constexpr_string_data_t<char_T>>(str,_get_cso_hash()));
-			_cso_flag=not_cso;
+				_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));
+			_set_not_cso();
 		}
 		static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
 			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),(size_t)1);
@@ -84,7 +88,7 @@ namespace string_n{
 				str._cso_check();
 		}
 		void _cso_fin(ptr_t p)noexcept{
-			_cso_flag=not_cso;
+			_set_not_cso();
 			_ncso_construct_mptr(p);
 		}
 		void _cso_check()const noexcept{
@@ -100,8 +104,8 @@ namespace string_n{
 	public:
 		void swap_with(this_t& a)noexcept{
 			if(_in_cso()||a._in_cso()){
-				swap(_cso_flag,a._cso_flag);
 				swap(_cso_info,a._cso_info);
+				swap(_cso_flags,a._cso_flags);
 			}
 			else
 				swap(_m,a._m);
@@ -115,8 +119,8 @@ namespace string_n{
 		constexpr string_t(char_T ch)noexcept{_cso_init(ch);}
 		string_t(const string_t& str)noexcept{
 			if(str._in_cso()){
-				_cso_flag=str._cso_flag;
 				_cso_info=str._cso_info;
+				_cso_flags=str._cso_flags;
 			}
 			else
 				_ncso_construct_mptr(str._m);
@@ -128,8 +132,8 @@ namespace string_n{
 
 		string_t& operator=(const string_t& str)noexcept{
 			if(str._in_cso()){
-				_cso_flag=str._cso_flag;
 				_cso_info=str._cso_info;
+				_cso_flags=str._cso_flags;
 			}
 			else
 				_m=str._m;
@@ -425,7 +429,7 @@ namespace string_n{
 		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
 		operator string_view_end_by_zero_t()const&noexcept{ return string_view_end_by_zero_t{data(),size()}; }
 		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
-		[[nodiscard]]explicit operator hash_t()const noexcept{ if(_in_cso())return _get_cso_hash();else return _m->get_hash(_m); }
+		[[nodiscard]]explicit operator hash_t()const noexcept{ _cso_check();return _m->get_hash(_m); }
 		/*
 		TODO:
 
