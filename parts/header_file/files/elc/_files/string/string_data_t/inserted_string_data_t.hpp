@@ -91,6 +91,7 @@ public:
 			elseif(pos<_insert_pos){
 				_to=_to->do_insert(pos,str);
 				_to_size+=str.size();
+				_insert_pos+=str.size();
 				self_changed();
 				return this;
 			}
@@ -113,11 +114,14 @@ public:
 			}
 			elseif(pos+size<_insert_pos){
 				_to=_to->do_erase(pos,size);
+				_to_size-=size;
+				_insert_pos-=size;
 				self_changed();
 				return this;
 			}
 			elseif(pos>_insert_pos+_insert_size){
 				_to=_to->do_erase(pos-_insert_size,size);
+				_to_size-=size;
 				self_changed();
 				return this;
 			}
