@@ -80,6 +80,32 @@ protected:
 		}
 	}
 public:
+	[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str)noexcept(copy_construct_nothrow)override final{
+		if(this->is_unique()){
+			if(pos>=_insert_pos || pos<=_insert_pos+_insert_size){
+				if(pos==_insert_pos)
+					_insert_data=_insert_data->apply_str_to_begin(str);
+				elseif(pos==_insert_pos+_insert_size)
+					_insert_data=_insert_data->apply_str_to_end(str);
+				else
+					_insert_data=_insert_data->do_insert(pos-_insert_pos,str);
+				_insert_size+=str.size();
+				self_changed();
+				return this;
+			}
+			elseif(pos<_insert_pos){
+				_to=_to->do_insert(pos,str);
+				self_changed();
+				return this;
+			}
+			elseif(pos>_insert_pos+_insert_size){
+				_to=_to->do_insert(pos-_insert_size,str);
+				self_changed();
+				return this;
+			}
+		}
+		return base_t::do_insert(pos,str);
+	}
 	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)noexcept override final{
 		if(this->is_unique()){
 			if(pos>=_insert_pos && pos+size<=_insert_pos+_insert_size){
@@ -301,7 +327,12 @@ base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t p
 }
 template<typename char_T>
 base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::do_insert(size_t pos,string_view_t str)noexcept(copy_construct_nothrow){
-	return this->do_insert(pos,get<comn_string_data_t<char_T>>(str));
+	if(pos==0)
+		return this->apply_str_to_begin(str);
+	elseif(pos==get_size())
+		return this->apply_str_to_end(str);
+	else
+		return this->do_insert(pos,get<comn_string_data_t<char_T>>(str));
 }
 
 //file_end

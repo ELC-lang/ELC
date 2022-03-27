@@ -185,4 +185,32 @@ static void ELC_StringClear(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringClear);
 
+static void Std_StringInsert_ToPos1(benchmark::State& state) {
+	std::string x = "hello";
+	for(auto _: state)
+		x.insert(1, "e");
+}
+BENCHMARK(Std_StringInsert_ToPos1);
+
+static void ELC_StringInsert_ToPos1(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(auto _: state)
+		x.insert(1, U"e");
+}
+BENCHMARK(ELC_StringInsert_ToPos1);
+
+static void Std_StringInsert_ToPos_1UnitForwardAtTheEnd(benchmark::State& state) {
+	std::string x = "hello";
+	for(auto _: state)
+		x.insert(x.size()-2, "e");
+}
+BENCHMARK(Std_StringInsert_ToPos_1UnitForwardAtTheEnd);
+
+static void ELC_StringInsert_ToPos_1UnitForwardAtTheEnd(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(auto _: state)
+		x.insert(x.size()-2, U"e");
+}
+BENCHMARK(ELC_StringInsert_ToPos_1UnitForwardAtTheEnd);
+
 BENCHMARK_MAIN();
