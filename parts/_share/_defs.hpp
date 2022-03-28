@@ -27,6 +27,7 @@
 	#pragma warning(disable:26485)//数组作指针警告diss
 	#pragma warning(disable:26490)//reinterpret_cast警告diss
 	#pragma warning(disable:26472)//static_cast窄幅转换警告diss
+	#pragma warning(disable:26482)//非常数数组索引警告diss
 	#pragma warning(disable:26493)//c_cast转换警告diss：虽然有用但是太烦了，爬
 #endif
 //

@@ -42,23 +42,23 @@ namespace range_n{
 
 	//in_range
 	template<typename T>
-	[[nodiscard]]constexpr bool in_range(T a,const range_t<T>range){//算术类型或指针
-		return a>=range.begin() && a<range.end();
+	[[nodiscard]]constexpr bool in_range(T pattern,const range_t<T>range){//算术类型或指针
+		return pattern>=range.begin() && pattern<range.end();
 	}
 	template<typename T>
-	[[nodiscard]]constexpr bool in_range(T*a,const range_t<byte*>range){
-		return reinterpret_cast<const void*>(a)>=range.begin() && reinterpret_cast<const void*>(a)<range.end();
+	[[nodiscard]]constexpr bool in_range(T*pattern,const range_t<byte*>range){
+		return reinterpret_cast<const void*>(pattern)>=range.begin() && reinterpret_cast<const void*>(pattern)<range.end();
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(T&a,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range(T&pattern,array_like_view_t<T>range){
 		for(auto&i : range){
-			if(i==a)
+			if(i==pattern)
 				return addressof(i);
 		}
 		return nullptr;
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(array_like_view_t<T>a,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		//数据串匹配by steve02081504.
 		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
 		size_t off_set=0;
@@ -66,29 +66,29 @@ namespace range_n{
 
 		while(true){
 			matching_off_set=1;
-			while(a.end()[0-matching_off_set]==range.begin()[off_set+a.size()-matching_off_set])
-				if(matching_off_set==a.size())
+			while(pattern.end()[0-matching_off_set]==range.begin()[off_set+pattern.size()-matching_off_set])
+				if(matching_off_set==pattern.size())
 					return addressof(range.begin()[off_set]);
 				else
 					matching_off_set++;
-			if(off_set+a.size() >= range.size())
+			if(off_set+pattern.size() >= range.size())
 				return nullptr;
-			auto tmp = in_range(range.begin()[off_set+a.size()], a);
+			auto tmp = in_range(range.begin()[off_set+pattern.size()], pattern);
 			if(!tmp)
-				tmp=a.begin();
-			off_set+=a.end()-tmp;
+				tmp=pattern.begin();
+			off_set+=pattern.end()-tmp;
 		}
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(T&a,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range_but_reverse(T&pattern,array_like_view_t<T>range){
 		for(auto&i : range|::std::views::reverse){
-			if(i==a)
+			if(i==pattern)
 				return addressof(i);
 		}
 		return nullptr;
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(array_like_view_t<T>a,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		//反向数据串匹配by steve02081504.
 		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
 		size_t off_set=0;
@@ -96,17 +96,17 @@ namespace range_n{
 
 		while(true){
 			matching_off_set=0;
-			while(a.begin()[matching_off_set]==range.end()[0-(off_set+a.size()-matching_off_set)])
-				if(matching_off_set==a.size()-1)
-					return addressof(range.end()[0-(off_set+a.size())]);
+			while(pattern.begin()[matching_off_set]==range.end()[0-(off_set+pattern.size()-matching_off_set)])
+				if(matching_off_set==pattern.size()-1)
+					return addressof(range.end()[0-(off_set+pattern.size())]);
 				else
 					matching_off_set++;
-			if(off_set+a.size() >= range.size())
+			if(off_set+pattern.size() >= range.size())
 				return nullptr;
-			auto tmp = in_range_but_reverse(range.end()[0-(off_set+a.size()+1)], a);
+			auto tmp = in_range_but_reverse(range.end()[0-(off_set+pattern.size()+1)], pattern);
 			if(!tmp)
-				tmp=a.end()-1;
-			off_set+=tmp-a.begin();
+				tmp=pattern.end()-1;
+			off_set+=tmp-pattern.begin();
 			off_set+=1;
 		}
 	}
