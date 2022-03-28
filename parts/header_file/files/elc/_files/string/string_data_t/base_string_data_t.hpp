@@ -90,6 +90,10 @@ public:
 		//eq->equal优化
 		if(this==with)
 			return true;
+		//hash_diff->not_equal优化
+		if(this->has_hash_cache()&&with->has_hash_cache())
+			if(this->hash_cache!=with->hash_cache)
+				return false;
 		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
 		//快速比较结束，实际比较段
 		{

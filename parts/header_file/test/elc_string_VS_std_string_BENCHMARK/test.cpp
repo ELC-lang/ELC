@@ -1,5 +1,7 @@
 #include "pch.h"
 
+static_assert(sizeof(std::string)>=sizeof(elc::string));
+
 static void Std_StringCreation_Size0(benchmark::State& state) {
 	for(auto _: state)
 		std::string empty_string;
