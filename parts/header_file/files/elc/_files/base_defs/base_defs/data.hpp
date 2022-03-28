@@ -6,6 +6,11 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+/*
+	每个T的可能性大小
+*/
+template<class T> requires ::std::is_integral_v<T>
+constexpr size_t number_of_possible_values_per=max(type_info<::std::make_unsigned_t<T>>)+1;
 
 /*
 	功能: byte* 类型数据转换为 T&，不进行任何检查

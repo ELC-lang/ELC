@@ -110,6 +110,55 @@ namespace range_n{
 			off_set+=1;
 		}
 	}
+	template<typename T>
+	struct match_pattern{
+		array_like_view_t<T>_pattern;
+		typedef unsigned char index_type;
+
+		size_t skip_table[number_of_possible_values_per<index_type>];
+		size_t radical_skip_table[number_of_possible_values_per<index_type>];
+		index_type pre_index_table[number_of_possible_values_per<index_type>];
+
+		index_type get_index_of(T&ch)noexcept{
+			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
+		}
+		void build_table(array_like_view_t<T>pattern)noexcept{
+			size_t m=pattern.size();
+			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
+				skip_table[i]=radical_skip_table[i]=m;
+			}
+			skip_table[pattern[0]]=radical_skip_table[pattern[0]]=m-1;//单独处理pattern[0]的情况
+			for(size_t i=1;i<m-1;i++){
+				index_type index=get_index_of(pattern[i]);//radical_skip_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离
+				radical_skip_table[index]=skip_table[index];//当index在pattern中出现0次或1次时，radical_skip_table[index]等于模式串长度m
+				skip_table[index]=m-i-1;//skip数组的定义与BMH算法相同
+				pre_index_table[index]=get_index_of(pattern[i-1]);
+			}
+		}
+		match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
+			build_table(_pattern);
+		}
+		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)noexcept{
+			size_t m=_pattern.size();
+			size_t n= range.size();
+			size_t i= m-1;
+			while(i<n){
+				size_t k=i;
+				ptrdiff_t j=m-1;//k记录text中每次从右至左开始比较的起始位置
+				while((j>=0)&&(_pattern[j]==range[i])){
+					i--;j--;
+				}
+				if(j==-1)
+					return addressof(range[i+1]);//在text[i+1]处匹配成功
+				index_type index_k=get_index_of(range[k]);
+				if(get_index_of(range[k-1])!=pre_index_table[index_k])
+					i=k+radical_skip_table[index_k];//采用激进策略移动文本指针
+				else
+					i=k+skip_table[index_k];
+			}
+			return nullptr;//匹配失败
+		}
+	};
 }
 using range_n::range_t;
 using range_n::in_range;
