@@ -149,12 +149,61 @@ namespace range_n{
 					i--;j--;
 				}
 				if(j==-1)
-					return addressof(range[i+1]);//在text[i+1]处匹配成功
+					return addressof(range[i+1]);//在range[i+1]处匹配成功
 				index_type index_k=get_index_of(range[k]);
 				if(get_index_of(range[k-1])!=pre_index_table[index_k])
 					i=k+radical_skip_table[index_k];//采用激进策略移动文本指针
 				else
 					i=k+skip_table[index_k];
+			}
+			return nullptr;//匹配失败
+		}
+	};
+	template<typename T>
+	struct reverse_match_pattern{
+		array_like_view_t<T>_pattern;
+		typedef unsigned char index_type;
+
+		size_t skip_table[number_of_possible_values_per<index_type>];
+		size_t radical_skip_table[number_of_possible_values_per<index_type>];
+		index_type pre_index_table[number_of_possible_values_per<index_type>];
+
+		index_type get_index_of(T&ch)noexcept{
+			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
+		}
+		void build_table(array_like_view_t<T>pattern)noexcept{
+			size_t m=pattern.size();
+			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
+				skip_table[i]=radical_skip_table[i]=m;
+			}
+			skip_table[pattern[m-1]]=radical_skip_table[pattern[m-1]]=m-1;//单独处理pattern[m-1]的情况
+			for(ptrdiff_t i=m-2;i>=0;i--){
+				index_type index=get_index_of(pattern[i]);//radical_skip_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离
+				radical_skip_table[index]=skip_table[index];//当index在pattern中出现0次或1次时，radical_skip_table[index]等于模式串长度m
+				skip_table[index]=i;//skip数组的定义与BMH算法相同
+				pre_index_table[index]=get_index_of(pattern[i+1]);
+			}
+		}
+		reverse_match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
+			build_table(_pattern);
+		}
+		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)noexcept{
+			size_t m=_pattern.size();
+			size_t n= range.size();
+			ptrdiff_t i= n-m;
+			while(i>=0){
+				size_t k=i;
+				size_t j=0;//k记录text中每次从右至左开始比较的起始位置
+				while((j<=m-1)&&(_pattern[j]==range[i])){
+					i++;j++;
+				}
+				if(j==m)
+					return addressof(range[k]);//在range[k]处匹配成功
+				index_type index_k=get_index_of(range[k]);
+				if(get_index_of(range[k+1])!=pre_index_table[index_k])
+					i=k-radical_skip_table[index_k];//采用激进策略移动文本指针
+				else
+					i=k-skip_table[index_k];
 			}
 			return nullptr;//匹配失败
 		}
