@@ -115,19 +115,21 @@ namespace range_n{
 		array_like_view_t<T>_pattern;
 		typedef unsigned char index_type;
 
-		size_t skip_table[number_of_possible_values_per<index_type>];
-		size_t radical_skip_table[number_of_possible_values_per<index_type>];
-		index_type pre_index_table[number_of_possible_values_per<index_type>];
+		size_t skip_table[number_of_possible_values_per<index_type>]{};
+		size_t radical_skip_table[number_of_possible_values_per<index_type>]{};
+		index_type pre_index_table[number_of_possible_values_per<index_type>]{};
 
-		index_type get_index_of(T&ch)noexcept{
+		constexpr index_type get_index_of(T&ch)noexcept{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
-		void build_table(array_like_view_t<T>pattern)noexcept{
+		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
 			size_t m=pattern.size();
+			if(!m)
+				return;
 			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
 				skip_table[i]=radical_skip_table[i]=m;
 			}
-			skip_table[pattern[0]]=radical_skip_table[pattern[0]]=m-1;//单独处理pattern[0]的情况
+			skip_table[get_index_of(pattern[0])]=radical_skip_table[get_index_of(pattern[0])]=m-1;//单独处理pattern[0]的情况
 			for(size_t i=1;i<m-1;i++){
 				index_type index=get_index_of(pattern[i]);//radical_skip_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离
 				radical_skip_table[index]=skip_table[index];//当index在pattern中出现0次或1次时，radical_skip_table[index]等于模式串长度m
@@ -135,11 +137,13 @@ namespace range_n{
 				pre_index_table[index]=get_index_of(pattern[i-1]);
 			}
 		}
-		match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
+		constexpr match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
 			build_table(_pattern);
 		}
 		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)noexcept{
-			size_t m=_pattern.size();
+			size_t m = _pattern.size();
+			if(!m)
+				return range.begin();
 			size_t n= range.size();
 			size_t i= m-1;
 			while(i<n){
@@ -164,19 +168,21 @@ namespace range_n{
 		array_like_view_t<T>_pattern;
 		typedef unsigned char index_type;
 
-		size_t skip_table[number_of_possible_values_per<index_type>];
-		size_t radical_skip_table[number_of_possible_values_per<index_type>];
-		index_type pre_index_table[number_of_possible_values_per<index_type>];
+		size_t skip_table[number_of_possible_values_per<index_type>]{};
+		size_t radical_skip_table[number_of_possible_values_per<index_type>]{};
+		index_type pre_index_table[number_of_possible_values_per<index_type>]{};
 
-		index_type get_index_of(T&ch)noexcept{
+		constexpr index_type get_index_of(T&ch)noexcept{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
-		void build_table(array_like_view_t<T>pattern)noexcept{
+		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
 			size_t m=pattern.size();
+			if(!m)
+				return;
 			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
 				skip_table[i]=radical_skip_table[i]=m;
 			}
-			skip_table[pattern[m-1]]=radical_skip_table[pattern[m-1]]=m-1;//单独处理pattern[m-1]的情况
+			skip_table[get_index_of(pattern[m-1])]=radical_skip_table[get_index_of(pattern[m-1])]=m-1;//单独处理pattern[m-1]的情况
 			for(ptrdiff_t i=m-2;i>=0;i--){
 				index_type index=get_index_of(pattern[i]);//radical_skip_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离
 				radical_skip_table[index]=skip_table[index];//当index在pattern中出现0次或1次时，radical_skip_table[index]等于模式串长度m
@@ -184,11 +190,13 @@ namespace range_n{
 				pre_index_table[index]=get_index_of(pattern[i+1]);
 			}
 		}
-		reverse_match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
+		constexpr reverse_match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
 			build_table(_pattern);
 		}
 		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)noexcept{
 			size_t m=_pattern.size();
+			if(!m)
+				return range.begin();
 			size_t n= range.size();
 			ptrdiff_t i= n-m;
 			while(i>=0){

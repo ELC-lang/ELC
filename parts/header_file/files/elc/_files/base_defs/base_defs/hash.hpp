@@ -9,10 +9,10 @@
 namespace hash_n{
 	struct hash_value_t{
 		size_t _value;
-		size_t operator%(auto&&a)const noexcept{
+		constexpr size_t operator%(auto&&a)const noexcept{
 			return _value%a;
 		}
-		bool operator==(const hash_value_t&a)const noexcept{
+		constexpr bool operator==(const hash_value_t&a)const noexcept{
 			return _value==a._value;
 		}
 	};
@@ -123,14 +123,6 @@ namespace hash_n{
 		template<class T> requires is_not_signal_value_for_array_like<T>
 		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,array_like_view_t<T>a)const noexcept{
 			return with_calculated_before(before,before_size,a.begin(),a.size());
-		}
-		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t operator()(array_end_by_zero_t<T>a)const noexcept(nothrow<T>){
-			return operator()(array_like_view_t<T>(a));
-		}
-		template<class T>
-		[[nodiscard]]constexpr inline hash_value_t operator()(constexpr_str_t<T>a)const noexcept(nothrow<T>){
-			return operator()(array_like_view_t<const T>(a));
 		}
 	}hash{};
 }

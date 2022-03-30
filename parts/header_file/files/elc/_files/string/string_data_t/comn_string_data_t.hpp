@@ -26,6 +26,17 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	using base_t::apply_data_nothrow;
 
 	array_t<char_T> _m;
+	range_n::match_pattern<const char_T>*		  _p_match_pattern		   = nullptr;
+	range_n::reverse_match_pattern<const char_T>* _p_reverse_match_pattern = nullptr;
+	void clear_match_pattern()noexcept{
+		unget(_p_match_pattern);
+		unget(_p_reverse_match_pattern);
+		base_t::self_changed();
+	}
+	void self_changed()noexcept{
+		clear_match_pattern();
+		base_t::self_changed();
+	}
 
 	comn_string_data_t(string_view_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str.size()+1)){
 		copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m));
@@ -35,6 +46,10 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	}
 	comn_string_data_t(ptr_t str,size_t pos,size_t size)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1)){
 		str->copy_part_data_to((char_T*)_m,pos,size);
+	}
+
+	virtual ~comn_string_data_t()noexcept(destruct_nothrow)override final{
+		clear_match_pattern();
 	}
 
 	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
@@ -79,6 +94,19 @@ public:
 		const auto this_size=sizeof(*this)+_m.size_in_byte();
 		return float_size_t(this_size)/get_ref_num((const base_t*)this);
 	}
+	
+	[[nodiscard]]virtual range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+		if(!_p_match_pattern){
+			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
+		}
+		return *_p_match_pattern;
+	}
+	[[nodiscard]]virtual range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+		if(!_p_reverse_match_pattern){
+			_p_reverse_match_pattern=get<range_n::reverse_match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
+		}
+		return *_p_reverse_match_pattern;
+	}
 };
 template<typename char_T>
 [[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(ptr_t&a)noexcept(get_data_nothrow){
@@ -104,6 +132,18 @@ template<typename char_T>
 	const auto size_of_base_array=this->get_size()*sizeof(char_T);
 	const auto size=sizeof(comn_string_data_t<char_T>)+size_of_base_array;
 	return float_size_t(size)/get_ref_num(this);
+}
+template<typename char_T>
+[[nodiscard]]range_n::match_pattern<const char_T>& base_string_data_t<char_T>::get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){
+	auto comn_data=get<comn_string_data_t<char_T>>(this);
+	self=comn_data;
+	return comn_data->get_match_pattern_from_self(self);
+}
+template<typename char_T>
+[[nodiscard]]range_n::reverse_match_pattern<const char_T>& base_string_data_t<char_T>::get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){
+	auto comn_data=get<comn_string_data_t<char_T>>(this);
+	self=comn_data;
+	return comn_data->get_reverse_match_pattern_from_self(self);
 }
 
 //file_end

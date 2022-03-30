@@ -51,21 +51,23 @@ namespace array_like_n{
 		typedef const T* const_iterator;
 		typedef array_like_view_t<T>this_t;
 	private:
-		T*_begin;
-		size_t _size;
+		T*_begin=nullptr;
+		size_t _size=0;
 	public:
 		constexpr explicit array_like_view_t(T*a,size_t b)noexcept:_begin(a),_size(b){}
 		template<class U> requires is_array_like_for<T,U>
 		explicit constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)):array_like_view_t(begin_of_array_like<T>(a),size_of_array_like<T>(a)){}
 		constexpr array_like_view_t(const this_t&)noexcept=default;
 
-		[[nodiscard]]constexpr size_t size()noexcept{return _size;}
+		[[nodiscard]]constexpr size_t size()const noexcept{return _size;}
 
 		[[nodiscard]]constexpr iterator begin()noexcept{return _begin;}
 		[[nodiscard]]constexpr iterator end()noexcept{return begin()+size();}
 
 		[[nodiscard]]constexpr const_iterator cbegin()const noexcept{return remove_const(this)->begin();}
 		[[nodiscard]]constexpr const_iterator cend()const noexcept{return remove_const(this)->end();}
+		[[nodiscard]]constexpr const_iterator begin()const noexcept requires(type_info<iterator>!=type_info<const_iterator>){return cbegin();}
+		[[nodiscard]]constexpr const_iterator end()const noexcept requires(type_info<iterator>!=type_info<const_iterator>){return cend();}
 
 		[[nodiscard]]constexpr bool empty()const noexcept{return size();}
 
@@ -93,11 +95,11 @@ namespace array_like_n{
 	};
 
 	template<class T>
-	[[nodiscard]]inline T* begin_of_array_like(array_like_view_t<T>&a)noexcept{return a.begin();}
+	[[nodiscard]]inline constexpr T* begin_of_array_like(array_like_view_t<T>&a)noexcept{return a.begin();}
 	template<class T>
-	[[nodiscard]]inline T* begin_of_array_like(array_like_view_t<remove_cv<T>>&a)noexcept{return a.begin();}
+	[[nodiscard]]inline constexpr T* begin_of_array_like(array_like_view_t<remove_cv<T>>&a)noexcept{return a.begin();}
 	template<class T>
-	[[nodiscard]]inline size_t size_of_array_like(array_like_view_t<T>&a)noexcept{return a.size();}
+	[[nodiscard]]inline constexpr size_t size_of_array_like(const array_like_view_t<T>&a)noexcept{return a.size();}
 }
 using array_like_n::size_of_array_like;
 using array_like_n::begin_of_array_like;

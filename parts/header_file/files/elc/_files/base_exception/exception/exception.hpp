@@ -10,7 +10,7 @@ no_vtable_class exception{
 	const char_t* _constexpr_str=locale::str::exception::unknow_error;
 public:
 	constexpr exception()noexcept=default;
-	constexpr exception(constexpr_str_t<char_t> str)noexcept:_constexpr_str(str){}
+	constexpr exception(const constexpr_str_t<char_t>&str)noexcept:_constexpr_str(str){}
 	virtual constexpr ~exception()noexcept=0;
 	virtual constexpr const char_t*what()noexcept{return _constexpr_str;}
 };

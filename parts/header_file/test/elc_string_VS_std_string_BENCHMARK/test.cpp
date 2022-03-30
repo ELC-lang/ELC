@@ -155,6 +155,15 @@ static void ELC_StringHash_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringHash_Size5);
 
+//ELC_StringHash_Size5_MarkAsConstExprStr
+static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state) {
+	using namespace elc::defs;
+	elc::string x = U"hello"_constexpr_str;
+	for(auto _: state)
+		hash(x);
+}
+BENCHMARK(ELC_StringHash_Size5_MarkAsConstExprStr);
+
 static void Std_StringHash_Size20480(benchmark::State& state) {
 	std::string x = "hello";
 	for(int i = 13; i; i--)

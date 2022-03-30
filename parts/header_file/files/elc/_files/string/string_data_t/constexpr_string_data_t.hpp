@@ -27,6 +27,14 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	const char_T* _m;
 	size_t _size;
 
+	range_n::match_pattern<const char_T>*		  _p_match_pattern		   = nullptr;
+	range_n::reverse_match_pattern<const char_T>* _p_reverse_match_pattern = nullptr;
+	void clear_match_pattern()noexcept{
+		unget(_p_match_pattern);
+		unget(_p_reverse_match_pattern);
+		base_t::self_changed();
+	}
+
 	constexpr_string_data_t(string_view_t str)noexcept{
 		_m=str.begin();
 		_size=str.size();
@@ -35,6 +43,9 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	}
 	constexpr_string_data_t(string_view_t str,hash_t hash)noexcept:constexpr_string_data_t(str){
 		base_t::hash_cache=hash;
+	}
+	virtual ~constexpr_string_data_t()noexcept(destruct_nothrow)override final{
+		clear_match_pattern();
 	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
@@ -71,6 +82,19 @@ public:
 
 	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
 		return float_size_t{sizeof(*this)}/get_ref_num((const base_t*)this);
+	}
+
+	[[nodiscard]]virtual range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+		if(!_p_match_pattern){
+			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
+		}
+		return *_p_match_pattern;
+	}
+	[[nodiscard]]virtual range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+		if(!_p_reverse_match_pattern){
+			_p_reverse_match_pattern=get<range_n::reverse_match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
+		}
+		return *_p_reverse_match_pattern;
 	}
 };
 
