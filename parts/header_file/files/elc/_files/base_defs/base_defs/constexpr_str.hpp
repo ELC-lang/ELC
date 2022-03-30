@@ -47,7 +47,7 @@ namespace constexpr_str_n{
 		return literal_result_provider<str_helper>::value;
 	}
 	template<class char_T>
-	distinctive auto empty_constexpr_str_of = constexpr_str_t(&const_default_value_of<char_T>,0);
+	distinctive inline constexpr auto empty_constexpr_str_of = constexpr_str_t(&const_default_value_of<char_T>,0);
 };
 using constexpr_str_n::constexpr_str_view_t;
 using constexpr_str_n::constexpr_str_t;

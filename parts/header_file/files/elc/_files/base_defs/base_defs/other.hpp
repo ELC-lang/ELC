@@ -20,7 +20,7 @@ template<typename T>
 inline void just_a_use(T&&){}
 
 template<typename T>
-inline T const_default_value_of{};//?
+distinctive inline T const_default_value_of{};//?
 
 template<typename T>
 class maybe_fail_reference{
