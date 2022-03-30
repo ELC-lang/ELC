@@ -144,7 +144,7 @@ BENCHMARK(ELC_StringEqual_Size20480);
 static void Std_StringHash_Size5(benchmark::State& state) {
 	std::string x = "hello";
 	for(auto _: state)
-		std::hash<std::string>{}(x);
+		std::hash<std::string>()(x);
 }
 BENCHMARK(Std_StringHash_Size5);
 
@@ -155,7 +155,6 @@ static void ELC_StringHash_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringHash_Size5);
 
-//ELC_StringHash_Size5_MarkAsConstExprStr
 static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state) {
 	using namespace elc::defs;
 	elc::string x = U"hello"_constexpr_str;
@@ -169,7 +168,7 @@ static void Std_StringHash_Size20480(benchmark::State& state) {
 	for(int i = 13; i; i--)
 		x += x;
 	for(auto _: state)
-		std::hash<std::string>{}(x);
+		std::hash<std::string>()(x);
 }
 BENCHMARK(Std_StringHash_Size20480);
 
@@ -181,6 +180,28 @@ static void ELC_StringHash_Size20480(benchmark::State& state) {
 		elc::defs::hash(x);
 }
 BENCHMARK(ELC_StringHash_Size20480);
+
+static void Std_StringSize(benchmark::State& state) {
+	std::string x = "hello";
+	for(auto _: state)
+		x.size();
+}
+BENCHMARK(Std_StringSize);
+
+static void ELC_StringSize(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(auto _: state)
+		x.size();
+}
+BENCHMARK(ELC_StringSize);
+
+static void ELC_StringSize_MarkAsConstExprStr(benchmark::State& state) {
+	using namespace elc::defs;
+	elc::string x = U"hello"_constexpr_str;
+	for(auto _: state)
+		x.size();
+}
+BENCHMARK(ELC_StringSize_MarkAsConstExprStr);
 
 static void Std_StringClear(benchmark::State& state) {
 	std::string x = "hello";
