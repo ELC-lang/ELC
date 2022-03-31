@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="elc::defs::base::constexpr_str_n::constexpr_str_t&lt;*&gt;">
+		<DisplayString>{_begin,[_size]}</DisplayString>
+	</Type>
+	<Type Name="elc::defs::memory::ptr_n::base_ptr_t&lt;elc::defs::string_n::string_data_n::base_string_data_t&lt;*&gt;,elc::defs::memory::ptr_n::ref_able&lt;elc::defs::string_n::string_data_n::base_string_data_t&lt;*&gt;&gt;,1&gt;">
+		<DisplayString>{*_to}</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_t&lt;*&gt;">
+		<DisplayString Condition="_cso_flags._cso_flag == true &amp;&amp; _cso_flags._str_cso_flag == true">constexpr str {*_cso_info._str}</DisplayString>
+		<DisplayString Condition="_cso_flags._cso_flag == true &amp;&amp; _cso_flags._str_cso_flag == false">char {_cso_info._ch}</DisplayString>
+		<DisplayString Condition="_cso_flags._cso_flag == false">{*_cso_info._mptr._to}</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::comn_string_data_t&lt;*&gt;">
+		<DisplayString>{_m._m}</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::constexpr_string_data_t&lt;*&gt;">
+		<DisplayString>{_m,[_size]}</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::null_string_data_t&lt;*&gt;">
+		<DisplayString>null: ""</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::substr_string_data_t&lt;*&gt;">
+		<DisplayString>This string is so complex that its content cannot be displayed</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::head_apply_string_data_t&lt;*&gt;">
+		<DisplayString>This string is so complex that its content cannot be displayed</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::end_apply_string_data_t&lt;*&gt;">
+		<DisplayString>This string is so complex that its content cannot be displayed</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::sum_string_data_t&lt;*&gt;">
+		<DisplayString>This string is so complex that its content cannot be displayed</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::erased_string_data_t&lt;*&gt;">
+		<DisplayString>This string is so complex that its content cannot be displayed</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::inserted_string_data_t&lt;*&gt;">
+		<DisplayString>This string is so complex that its content cannot be displayed</DisplayString>
+	</Type>
+</AutoVisualizer>
