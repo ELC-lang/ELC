@@ -27,22 +27,32 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	const char_T* _m;
 	size_t _size;
 
-	range_n::match_pattern<const char_T>*		  _p_match_pattern		   = nullptr;
-	range_n::reverse_match_pattern<const char_T>* _p_reverse_match_pattern = nullptr;
+	const range_n::match_pattern<const char_T>*			_p_match_pattern		 = nullptr;
+	const range_n::reverse_match_pattern<const char_T>* _p_reverse_match_pattern = nullptr;
+	bool												match_pattern_by_get	 = 0;
+
 	void clear_match_pattern()noexcept{
-		unget(_p_match_pattern);
-		unget(_p_reverse_match_pattern);
-		base_t::self_changed();
+		if(match_pattern_by_get){
+			unget(remove_const(_p_match_pattern));
+			unget(remove_const(_p_reverse_match_pattern));
+			_p_match_pattern = nullptr;
+			_p_reverse_match_pattern = nullptr;
+		}
 	}
 
+	constexpr_string_data_t(const constexpr_str_t<char_T>&str)noexcept{
+		_m=str.begin();
+		_size=str.size();
+		base_t::hash_cache=hash(str);
+		_p_match_pattern=&str.match_pattern;
+		_p_reverse_match_pattern=&str.reverse_match_pattern;
+		match_pattern_by_get=0;
+	}
 	constexpr_string_data_t(string_view_t str)noexcept{
 		_m=str.begin();
 		_size=str.size();
 		if(!_size)
 			be_replace_as(null_ptr);
-	}
-	constexpr_string_data_t(string_view_t str,hash_t hash)noexcept:constexpr_string_data_t(str){
-		base_t::hash_cache=hash;
 	}
 	virtual ~constexpr_string_data_t()noexcept(destruct_nothrow)override final{
 		clear_match_pattern();
@@ -73,10 +83,14 @@ public:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {&_m[begin],note::size(_size-begin)};}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
+		if(_m==wp->_m)
+			return true;
 		return equal(_m,wp->_m,_size);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>) override final{
 		auto wp=down_cast<this_t*>(with.get());
+		if(_m==wp->_m)
+			return strong_ordering::equivalent;
 		return compare(_m,wp->_m,_size);
 	}
 
@@ -84,15 +98,17 @@ public:
 		return float_size_t{sizeof(*this)}/get_ref_num((const base_t*)this);
 	}
 
-	[[nodiscard]]virtual range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(!_p_match_pattern){
 			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
+			match_pattern_by_get = 1;
 		}
 		return *_p_match_pattern;
 	}
-	[[nodiscard]]virtual range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+	[[nodiscard]]virtual const range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(!_p_reverse_match_pattern){
 			_p_reverse_match_pattern=get<range_n::reverse_match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
+			match_pattern_by_get = 1;
 		}
 		return *_p_reverse_match_pattern;
 	}

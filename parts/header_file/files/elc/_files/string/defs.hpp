@@ -69,12 +69,13 @@ namespace string_n{
 		constexpr void _cso_reinit(constexpr_str_t&str)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(str);}
 		constexpr void _cso_init(char_T ch)noexcept{_set_chr_cso();_cso_info._ch=ch;}
 		constexpr void _cso_reinit(char_T ch)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(ch);}
-		void _cso_fin()const noexcept{
-			auto str=string_view_t{_get_cso_data(),_get_cso_size()};
-			if(_in_str_cso())
-				_ncso_construct_mptr(get<constexpr_string_data_t<char_T>>(str));
-			else
+		void _cso_fin(bool need_write) const noexcept {
+			if(_in_str_cso()&&!need_write)
+				_ncso_construct_mptr(get<constexpr_string_data_t<char_T>>(*_cso_info._str));
+			else{
+				auto str=string_view_t{_get_cso_data(),_get_cso_size()};
 				_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));
+			}
 			_set_not_cso();
 		}
 		static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
@@ -89,9 +90,9 @@ namespace string_n{
 			_set_not_cso();
 			_ncso_construct_mptr(p);
 		}
-		void _cso_check()const noexcept{
+		void _cso_check(bool need_write=0)const noexcept{
 			if(_in_cso())
-				_cso_fin();
+				_cso_fin(need_write);
 		}
 
 		string_t(ptr_t str)noexcept{_ncso_construct_mptr(str);}
@@ -276,14 +277,14 @@ namespace string_n{
 		}
 
 	private:
-		char_T* unique_c_str()noexcept{ _cso_check();return _m->get_unique_c_str(_m); }
+		char_T* unique_c_str()noexcept{ _cso_check(1);return _m->get_unique_c_str(_m); }
 		char_T	arec(size_t index)noexcept{
 			if(_in_cso())
 				return _get_cso_data()[index];
 			else
 				return _m->arec(index);
 		}
-		void	arec_set(size_t index,char_T a)noexcept{ _cso_check();return _m->arec_set(index,a,_m); }
+		void	arec_set(size_t index,char_T a)noexcept{ _cso_check(1);return _m->arec_set(index,a,_m); }
 
 	public:
 		class arec_t: non_copyable,non_moveable{
@@ -456,6 +457,46 @@ namespace string_n{
 		}
 		[[nodiscard]]size_t reverse_find(string_view_t str)const{
 			auto result = in_range_but_reverse(str, to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find(constexpr_str_t&str)const{
+			auto result = str.match_pattern.match(to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t reverse_find(constexpr_str_t&str)const{
+			auto result = str.reverse_match_pattern.match(to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find(const string_t&str)const{
+			if(str._in_cso()){
+				if(str._in_str_cso())
+					return find(str._get_cso_constexpr_str());
+				elseif(str._in_cso())
+					return find(str._cso_info._ch);
+			}
+			auto result = str._m->get_match_pattern_from_self(str._m).match(to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t reverse_find(const string_t&str)const{
+			if(str._in_cso()){
+				if(str._in_str_cso())
+					return reverse_find(str._get_cso_constexpr_str());
+				elseif(str._in_cso())
+					return reverse_find(str._cso_info._ch);
+			}
+			auto result = str._m->get_reverse_match_pattern_from_self(str._m).match(to_string_view_t());
 			if(result)
 				return result - data();
 			else

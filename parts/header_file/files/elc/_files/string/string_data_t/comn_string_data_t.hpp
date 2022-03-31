@@ -95,13 +95,13 @@ public:
 		return float_size_t(this_size)/get_ref_num((const base_t*)this);
 	}
 	
-	[[nodiscard]]virtual range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(!_p_match_pattern){
 			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
 		}
 		return *_p_match_pattern;
 	}
-	[[nodiscard]]virtual range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+	[[nodiscard]]virtual const range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(!_p_reverse_match_pattern){
 			_p_reverse_match_pattern=get<range_n::reverse_match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
 		}
@@ -134,13 +134,13 @@ template<typename char_T>
 	return float_size_t(size)/get_ref_num(this);
 }
 template<typename char_T>
-[[nodiscard]]range_n::match_pattern<const char_T>& base_string_data_t<char_T>::get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){
+[[nodiscard]]const range_n::match_pattern<const char_T>& base_string_data_t<char_T>::get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){
 	auto comn_data=get<comn_string_data_t<char_T>>(this);
 	self=comn_data;
 	return comn_data->get_match_pattern_from_self(self);
 }
 template<typename char_T>
-[[nodiscard]]range_n::reverse_match_pattern<const char_T>& base_string_data_t<char_T>::get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){
+[[nodiscard]]const range_n::reverse_match_pattern<const char_T>& base_string_data_t<char_T>::get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){
 	auto comn_data=get<comn_string_data_t<char_T>>(this);
 	self=comn_data;
 	return comn_data->get_reverse_match_pattern_from_self(self);

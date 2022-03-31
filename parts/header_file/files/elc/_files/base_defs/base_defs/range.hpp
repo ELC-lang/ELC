@@ -50,67 +50,6 @@ namespace range_n{
 		return reinterpret_cast<const void*>(pattern)>=range.begin() && reinterpret_cast<const void*>(pattern)<range.end();
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(T&pattern,array_like_view_t<T>range){
-		for(auto&i : range){
-			if(i==pattern)
-				return addressof(i);
-		}
-		return nullptr;
-	}
-	template<typename T>
-	[[nodiscard]]constexpr T* in_range(array_like_view_t<T>pattern,array_like_view_t<T>range){
-		//数据串匹配by steve02081504.
-		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
-		size_t off_set=0;
-		size_t matching_off_set=1;
-
-		while(true){
-			matching_off_set=1;
-			while(pattern.end()[0-matching_off_set]==range.begin()[off_set+pattern.size()-matching_off_set])
-				if(matching_off_set==pattern.size())
-					return addressof(range.begin()[off_set]);
-				else
-					matching_off_set++;
-			if(off_set+pattern.size() >= range.size())
-				return nullptr;
-			auto tmp = in_range(range.begin()[off_set+pattern.size()], pattern);
-			if(!tmp)
-				tmp=pattern.begin();
-			off_set+=pattern.end()-tmp;
-		}
-	}
-	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(T&pattern,array_like_view_t<T>range){
-		for(auto&i : range|::std::views::reverse){
-			if(i==pattern)
-				return addressof(i);
-		}
-		return nullptr;
-	}
-	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
-		//反向数据串匹配by steve02081504.
-		//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
-		size_t off_set=0;
-		size_t matching_off_set=0;
-
-		while(true){
-			matching_off_set=0;
-			while(pattern.begin()[matching_off_set]==range.end()[0-(off_set+pattern.size()-matching_off_set)])
-				if(matching_off_set==pattern.size()-1)
-					return addressof(range.end()[0-(off_set+pattern.size())]);
-				else
-					matching_off_set++;
-			if(off_set+pattern.size() >= range.size())
-				return nullptr;
-			auto tmp = in_range_but_reverse(range.end()[0-(off_set+pattern.size()+1)], pattern);
-			if(!tmp)
-				tmp=pattern.end()-1;
-			off_set+=tmp-pattern.begin();
-			off_set+=1;
-		}
-	}
-	template<typename T>
 	struct match_pattern{
 		array_like_view_t<T>_pattern;
 		typedef unsigned char index_type;
@@ -216,6 +155,77 @@ namespace range_n{
 			return nullptr;//匹配失败
 		}
 	};
+	template<typename T>
+	[[nodiscard]]constexpr T* in_range(T&pattern,array_like_view_t<T>range){
+		for(auto&i : range){
+			if(i==pattern)
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//数据串匹配by steve02081504.
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* in_range(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		if (range.size() >= 512 && pattern.size() >= 11) {
+			match_pattern tmp=pattern;
+			return tmp.match(range);
+		}
+
+		size_t off_set=0;
+		size_t matching_off_set=1;
+
+		while(true){
+			matching_off_set=1;
+			while(pattern.end()[0-matching_off_set]==range.begin()[off_set+pattern.size()-matching_off_set])
+				if(matching_off_set==pattern.size())
+					return addressof(range.begin()[off_set]);
+				else
+					matching_off_set++;
+			if(off_set+pattern.size() >= range.size())
+				return nullptr;
+			auto tmp = in_range(range.begin()[off_set+pattern.size()], pattern);
+			if(!tmp)
+				tmp=pattern.begin();
+			off_set+=pattern.end()-tmp;
+		}
+	}
+	template<typename T>
+	[[nodiscard]]constexpr T* in_range_but_reverse(T&pattern,array_like_view_t<T>range){
+		for(auto&i : range|::std::views::reverse){
+			if(i==pattern)
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//反向数据串匹配by steve02081504.
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* in_range_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		if(range.size() >= 512 && pattern.size() >= 11) {
+			reverse_match_pattern tmp = pattern;
+			return tmp.match(range);
+		}
+
+		size_t off_set=0;
+		size_t matching_off_set=0;
+
+		while(true){
+			matching_off_set=0;
+			while(pattern.begin()[matching_off_set]==range.end()[0-(off_set+pattern.size()-matching_off_set)])
+				if(matching_off_set==pattern.size()-1)
+					return addressof(range.end()[0-(off_set+pattern.size())]);
+				else
+					matching_off_set++;
+			if(off_set+pattern.size() >= range.size())
+				return nullptr;
+			auto tmp = in_range_but_reverse(range.end()[0-(off_set+pattern.size()+1)], pattern);
+			if(!tmp)
+				tmp=pattern.end()-1;
+			off_set+=tmp-pattern.begin();
+			off_set+=1;
+		}
+	}
 }
 using range_n::range_t;
 using range_n::in_range;

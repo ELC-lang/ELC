@@ -349,8 +349,8 @@ public:
 	}
 	*/
 
-	[[nodiscard]]virtual range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow);
-	[[nodiscard]]virtual range_n::reverse_match_pattern<const char_T>& get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow);
+	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow);
+	[[nodiscard]]virtual const range_n::reverse_match_pattern<const char_T>& get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow);
 
 protected:
 	static inline void be_replace(this_t* a,ptr_t b)noexcept(ptr_reset_nothrow){
