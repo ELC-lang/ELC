@@ -34,7 +34,7 @@ namespace constexpr_str_n{
 			_array_begin=str;
 		}
 		[[nodiscard]]constexpr auto get_constexpr_str_t()const noexcept{
-			return constexpr_str_t{_array_begin,N};
+			return constexpr_str_t{_array_begin,N-1};
 		}
 	};
 	template<constexpr_str_t_literal_helper v>
