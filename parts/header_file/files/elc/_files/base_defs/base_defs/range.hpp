@@ -226,10 +226,165 @@ namespace range_n{
 			off_set+=1;
 		}
 	}
+	//bitmask_for_finds
+	template<typename T>
+	struct bitmask_for_finds {
+		typedef unsigned char index_type;
+		bool _bitmask[number_of_possible_values_per<index_type>]{};
+		
+		bitmask_for_finds()noexcept=default;
+		[[nodiscard]]constexpr bool mask(array_like_view_t<T>pattern)noexcept{
+			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>){
+				for(auto& i: pattern) {
+					if(::std::make_unsigned_t<T>(i) >= number_of_possible_values_per<index_type>)
+						return false;
+					_bitmask[index_type(i)] = true;
+				}
+			}
+			else{
+				for(auto& i: pattern)
+					_bitmask[index_type(i)] = true;
+			}
+			return true;
+		}
+		[[nodiscard]]constexpr bool operator[](T&index)const noexcept{
+			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>)
+				if(::std::make_unsigned_t<T>(index) >= number_of_possible_values_per<index_type>)
+					return false;
+			return _bitmask[index_type(index)];
+		}
+	};
+	//find_first_of的bitmask实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_first_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
+		for(auto&i : range){
+			if(mask[i])
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_first_of的朴素实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* base_find_first_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		for(auto&i : range){
+			if(in_range(i,pattern))
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_first_of
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_first_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		if constexpr(::std::is_integral_v<T>) {
+			bitmask_for_finds<T> mask;
+			if(mask.mask(pattern))
+				return find_first_of_bitmask(mask,range);
+		}
+		return base_find_first_of(pattern,range);
+	}
+	//find_last_of的bitmask实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_last_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
+		for(auto& i: range|::std::views::reverse) {
+			if(mask[i])
+				return addressof(i);
+		}
+	}
+	//find_last_of的朴素实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* base_find_last_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		for(auto&i : range|::std::views::reverse){
+			if(in_range(i,pattern))
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_last_of
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_last_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		if constexpr(::std::is_integral_v<T>) {
+			bitmask_for_finds<T> mask;
+			if(mask.mask(pattern))
+				return find_last_of_bitmask(mask,range);
+		}
+		return base_find_last_of(pattern,range);
+	}
+	//find_first_not_of的bitmask实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_first_not_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
+		for(auto& i: range){
+			if(!mask[i])
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_first_not_of的朴素实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* base_find_first_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		for(auto&i : range){
+			if(!in_range(i,pattern))
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_first_not_of
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_first_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		if constexpr(::std::is_integral_v<T>) {
+			bitmask_for_finds<T> mask;
+			if(mask.mask(pattern))
+				return find_first_not_of_bitmask(mask,range);
+		}
+		return base_find_first_not_of(pattern,range);
+	}
+	//find_last_not_of的bitmask实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_last_not_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
+		for(auto& i: range|::std::views::reverse){
+			if(!mask[i])
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_last_not_of的朴素实现
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* base_find_last_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		for(auto&i : range|::std::views::reverse){
+			if(!in_range(i,pattern))
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	//find_last_not_of
+	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* find_last_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		if constexpr(::std::is_integral_v<T>) {
+			bitmask_for_finds<T> mask;
+			if(mask.mask(pattern))
+				return find_last_not_of_bitmask(mask,range);
+		}
+		return base_find_last_not_of(pattern,range);
+	}
 }
 using range_n::range_t;
 using range_n::in_range;
 using range_n::in_range_but_reverse;
+using range_n::find_first_of;
+using range_n::find_last_of;
+using range_n::find_first_not_of;
+using range_n::find_last_not_of;
 
 //file_end
 
