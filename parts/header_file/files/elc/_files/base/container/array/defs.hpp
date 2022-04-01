@@ -11,16 +11,26 @@ namespace array_n{
 	class array_t{
 		typedef array_t<T>this_t;
 		T*_m;
+		#if defined(DEBUG) || defined(_DEBUG)
+			size_t _size_for_debug_view;
+		#endif
 
 		/*return{ptr};*/
 		constexpr array_t(T*a):_m(a){}
 		/*返回一个自身的副本*/
 		[[nodiscard]]this_t copy()const noexcept(copy_get.nothrow<T>) requires(copy_get.able<T>){
-			return{copy_get(_m)};
+			#if defined(DEBUG) || defined(_DEBUG)
+				return{copy_get(_m),_size_for_debug_view};
+			#else
+				return{copy_get(_m)};
+			#endif
 		}
 	public:
 		void swap_with(this_t&a)noexcept{
 			swap(_m,a._m);
+			#if defined(DEBUG) || defined(_DEBUG)
+				swap(_size_for_debug_view,a._size_for_debug_view);
+			#endif
 		}
 	public:
 		/*默认构造*/
@@ -30,6 +40,9 @@ namespace array_n{
 		*/
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size.value;
+			#endif
 		}
 		/*
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
@@ -38,6 +51,9 @@ namespace array_n{
 		template<class U> requires(get<T>.as_array.able<U>)
 		array_t(U&&a)noexcept(get<T>.as_array.nothrow<U>){
 			_m=get<T>.as_array(forward<U>(a));
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size();
+			#endif
 		}
 
 		//复制和移动函数
@@ -63,10 +79,16 @@ namespace array_n{
 		static constexpr bool resize_nothrow = get_resize.nothrow<T>;
 		void resize(size_t size)noexcept(resize_nothrow){
 			get_resize(_m,size);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size;
+			#endif
 		}
 		static constexpr bool forward_resize_nothrow = get_forward_resize.nothrow<T>;
 		void forward_resize(size_t size)noexcept(forward_resize_nothrow){
 			get_forward_resize(_m,size);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size;
+			#endif
 		}
 		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;
@@ -141,12 +163,21 @@ namespace array_n{
 
 		void push_back(const T&a){
 			get<T>.apply_end(note::to<T*&>(_m),a);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size();
+			#endif
 		}
 		void push_back(T&&a){
 			get<T>.apply_end(note::to<T*&>(_m),move(a));
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size();
+			#endif
 		}
 		void remove(T a){
 			get<T>.remove(a,note::form(_m));
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size();
+			#endif
 		}
 		//template<as_concept<get<T>.apply_end.able> U>
 		template<class U,enable_if(get<T>.apply_end.able)>

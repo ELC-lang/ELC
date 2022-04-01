@@ -66,8 +66,11 @@
 	<Type Name="elc::defs::string_n::string_data_n::substr_string_data_t&lt;*&gt;">
 		<DisplayString IncludeView="ElcString">"+This part of string is so complex that its content cannot be displayed+"</DisplayString>
 	</Type>
-	<Type Name="elc::defs::string_n::string_data_n::head_apply_string_data_t&lt;*&gt;">
-		<DisplayString IncludeView="ElcString">"+This part of string is so complex that its content cannot be displayed+"</DisplayString>
+	<Type Name="elc::defs::string_n::string_data_n::head_apply_string_data_t&lt;char32_t&gt;">
+		<DisplayString IncludeView="ElcString">{_m._m+_m._size_for_debug_view-_used_size,s32b}{*_to._to,view(ElcString)}</DisplayString>
+	</Type>
+	<Type Name="elc::defs::string_n::string_data_n::head_apply_string_data_t&lt;char&gt;">
+		<DisplayString IncludeView="ElcString">{_m._m+_m._size_for_debug_view-_used_size,sb}{*_to._to,view(ElcString)}</DisplayString>
 	</Type>
 	<Type Name="elc::defs::string_n::string_data_n::end_apply_string_data_t&lt;char32_t&gt;">
 		<DisplayString IncludeView="ElcString">{*_to._to,view(ElcString)}{_m._m,s32b}</DisplayString>
