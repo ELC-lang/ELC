@@ -48,6 +48,11 @@ namespace default_method{
 		#endif
 		::elc::APIs::alloc::free(p,align);
 	}
+	inline size_t base_get_size_of_alloc(const void* arg, size_t align)noexcept{
+		//arg保证不与null_ptr相等
+		auto tmp= ::elc::APIs::alloc::get_size_of_alloc(arg,align);
+		return tmp;
+	}
 	//BLOCK_END
 
 	template<typename T>
@@ -66,7 +71,7 @@ namespace default_method{
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		//arg保证不与null_ptr相等
-		return ::elc::APIs::alloc::get_size_of_alloc(arg,alignof(T))/sizeof(T);
+		return base_get_size_of_alloc(arg,alignof(T))/sizeof(T);
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{

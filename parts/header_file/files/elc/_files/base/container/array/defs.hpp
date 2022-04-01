@@ -12,7 +12,7 @@ namespace array_n{
 		typedef array_t<T>this_t;
 		T*_m;
 		#if defined(DEBUG) || defined(_DEBUG)
-			size_t _size_for_debug_view;
+			size_t _size_for_debug_view=0;
 		#endif
 
 		/*return{ptr};*/
