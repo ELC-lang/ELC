@@ -255,7 +255,7 @@ namespace range_n{
 		}
 	};
 	//find_first_of的bitmask实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_first_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
 		for(auto&i : range){
@@ -265,7 +265,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_first_of的朴素实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* base_find_first_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		for(auto&i : range){
@@ -275,7 +275,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_first_of
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_first_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		if constexpr(::std::is_integral_v<T>) {
@@ -286,7 +286,7 @@ namespace range_n{
 		return base_find_first_of(pattern,range);
 	}
 	//find_last_of的bitmask实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_last_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
 		for(auto& i: range|::std::views::reverse) {
@@ -295,7 +295,7 @@ namespace range_n{
 		}
 	}
 	//find_last_of的朴素实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* base_find_last_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		for(auto&i : range|::std::views::reverse){
@@ -305,7 +305,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_last_of
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_last_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		if constexpr(::std::is_integral_v<T>) {
@@ -316,7 +316,7 @@ namespace range_n{
 		return base_find_last_of(pattern,range);
 	}
 	//find_first_not_of的bitmask实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_first_not_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
 		for(auto& i: range){
@@ -326,7 +326,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_first_not_of的朴素实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* base_find_first_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		for(auto&i : range){
@@ -336,7 +336,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_first_not_of
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_first_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		if constexpr(::std::is_integral_v<T>) {
@@ -347,7 +347,7 @@ namespace range_n{
 		return base_find_first_not_of(pattern,range);
 	}
 	//find_last_not_of的bitmask实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_last_not_of_bitmask(bitmask_for_finds<T>&mask,array_like_view_t<T>range){
 		for(auto& i: range|::std::views::reverse){
@@ -357,7 +357,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_last_not_of的朴素实现
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* base_find_last_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		for(auto&i : range|::std::views::reverse){
@@ -367,7 +367,7 @@ namespace range_n{
 		return nullptr;
 	}
 	//find_last_not_of
-	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
+	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_last_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		if constexpr(::std::is_integral_v<T>) {

@@ -463,14 +463,14 @@ namespace string_n{
 				return npos;
 		}
 		[[nodiscard]]size_t find(constexpr_str_t&str)const{
-			auto result = str.match_pattern.match(to_string_view_t());
+			auto result = in_range(str, to_string_view_t());
 			if(result)
 				return result - data();
 			else
 				return npos;
 		}
 		[[nodiscard]]size_t reverse_find(constexpr_str_t&str)const{
-			auto result = str.reverse_match_pattern.match(to_string_view_t());
+			auto result = in_range_but_reverse(str, to_string_view_t());
 			if(result)
 				return result - data();
 			else
