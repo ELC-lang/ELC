@@ -425,14 +425,8 @@ namespace string_n{
 		operator string_view_end_by_zero_t()const&noexcept{ return string_view_end_by_zero_t{data(),size()}; }
 		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
 		[[nodiscard]]explicit operator hash_t()const noexcept{ return _in_cso()?_get_cso_hash():_m->get_hash(_m); }
-		/*
-		TODO:
 
-		find_first_of
-		find_first_not_of
-		find_last_of
-		find_last_not_of
-		*/
+		//
 
 		[[nodiscard]]size_t find(const char_T ch)const{
 			auto result = in_range(ch, to_string_view_t());
@@ -502,6 +496,7 @@ namespace string_n{
 			else
 				return npos;
 		}
+		//
 		[[nodiscard]]size_t find_first_of(string_view_t str)const{
 			auto result = range_n::find_first_of(str,to_string_view_t());
 			if(result)
@@ -594,8 +589,10 @@ namespace string_n{
 			}
 			return find_last_not_of(str.to_string_view_t());
 		}
-		/*
-		[[nodiscard]]string_t operator[](size_t index,char_T delimiter)const{
+
+		//
+		
+		[[nodiscard]]string_t arec(size_t index,char_T delimiter)const{
 			auto pos=find(delimiter);
 			auto end=find(delimiter,pos);
 			while(index--){
@@ -604,7 +601,7 @@ namespace string_n{
 			}
 			return substr(pos,end-pos);
 		}
-		[[nodiscard]]string_t operator[](size_t index,string_view_t delimiter_str)const{
+		[[nodiscard]]string_t arec(size_t index,string_view_t delimiter_str)const{
 			auto pos=find(delimiter_str);
 			auto end=find(delimiter_str,pos);
 			while(index--){
@@ -613,8 +610,27 @@ namespace string_n{
 			}
 			return substr(pos,end-pos);
 		}
-		*/
+		[[nodiscard]]string_t arec(size_t index,const string_t&delimiter_str)const{
+			auto pos=find(delimiter_str);
+			auto end=find(delimiter_str,pos);
+			while(index--){
+				pos=end;
+				end=find(delimiter_str,pos);
+			}
+			return substr(pos,end-pos);
+		}
+		[[nodiscard]]string_t arec(size_t index,constexpr_str_t&delimiter_str)const{
+			auto pos=find(delimiter_str);
+			auto end=find(delimiter_str,pos);
+			while(index--){
+				pos=end;
+				end=find(delimiter_str,pos);
+			}
+			return substr(pos,end-pos);
+		}
 
+		//
+		
 		void erase(size_t pos,size_t size=1)&noexcept{
 			_cso_check();_m=_m->do_erase(pos,size);
 		}

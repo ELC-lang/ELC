@@ -245,4 +245,18 @@ static void ELC_StringInsert_ToPos_1UnitForwardAtTheEnd(benchmark::State& state)
 }
 BENCHMARK(ELC_StringInsert_ToPos_1UnitForwardAtTheEnd);
 
+static void Std_StringFindFirstOf_Size5(benchmark::State& state) {
+	std::string x = "hello";
+	for(auto _: state)
+		x.find_first_of("e");
+}
+BENCHMARK(Std_StringFindFirstOf_Size5);
+
+static void ELC_StringFindFirstOf_Size5(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(auto _: state)
+		x.find_first_of(U"e");
+}
+BENCHMARK(ELC_StringFindFirstOf_Size5);
+
 BENCHMARK_MAIN();
