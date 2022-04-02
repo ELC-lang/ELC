@@ -54,8 +54,8 @@ namespace string_n{
 		constexpr void _ncso_construct_mptr(ptr_t p)const noexcept{construct<ptr_t>[&_m](p);}
 
 		[[nodiscard]]bool _in_cso()const noexcept{return _cso_flags._cso_flag;}
-		[[nodiscard]]bool _in_str_cso()const noexcept{return _cso_flags._str_cso_flag;}
-		[[nodiscard]]bool _in_chr_cso()const noexcept{return !_cso_flags._str_cso_flag;}
+		[[nodiscard]]bool _in_str_cso()const noexcept{return _in_cso() && _cso_flags._str_cso_flag;}
+		[[nodiscard]]bool _in_chr_cso()const noexcept{return _in_cso() && !_cso_flags._str_cso_flag;}
 		constexpr void _set_str_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=1;}
 		constexpr void _set_chr_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=0;}
 		constexpr void _set_not_cso()const noexcept{_cso_flags._cso_flag=0;}
@@ -501,6 +501,98 @@ namespace string_n{
 				return result - data();
 			else
 				return npos;
+		}
+		[[nodiscard]]size_t find_first_of(string_view_t str)const{
+			auto result = range_n::find_first_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_first_of(constexpr_str_t&str)const{
+			auto result = range_n::find_first_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_first_of(const string_t&str)const{
+			if(str._in_cso()){
+				if(str._in_str_cso())
+					return find_first_of(str._get_cso_constexpr_str());
+				elseif(str._in_cso())
+					return find(str._cso_info._ch);
+			}
+			return find_first_of(str.to_string_view_t());
+		}
+		[[nodiscard]]size_t find_first_not_of(string_view_t str)const{
+			auto result = range_n::find_first_not_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_first_not_of(constexpr_str_t&str)const{
+			auto result = range_n::find_first_not_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_first_not_of(const string_t&str)const{
+			if(str._in_cso()){
+				if(str._in_str_cso())
+					return find_first_not_of(str._get_cso_constexpr_str());
+				elseif(str._in_cso())
+					return find_first_not_of(str.to_string_view_t());
+			}
+			return find_first_not_of(str.to_string_view_t());
+		}
+		[[nodiscard]]size_t find_last_of(string_view_t str)const{
+			auto result = range_n::find_last_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_last_of(constexpr_str_t&str)const{
+			auto result = range_n::find_last_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_last_of(const string_t&str)const{
+			if(str._in_cso()){
+				if(str._in_str_cso())
+					return find_last_of(str._get_cso_constexpr_str());
+				elseif(str._in_cso())
+					return reverse_find(str._cso_info._ch);
+			}
+			return find_last_of(str.to_string_view_t());
+		}
+		[[nodiscard]]size_t find_last_not_of(string_view_t str)const{
+			auto result = range_n::find_last_not_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_last_not_of(constexpr_str_t&str)const{
+			auto result = range_n::find_last_not_of(str,to_string_view_t());
+			if(result)
+				return result - data();
+			else
+				return npos;
+		}
+		[[nodiscard]]size_t find_last_not_of(const string_t&str)const{
+			if(str._in_cso()){
+				if(str._in_str_cso())
+					return find_last_not_of(str._get_cso_constexpr_str());
+				elseif(str._in_cso())
+					return find_last_not_of(str.to_string_view_t());
+			}
+			return find_last_not_of(str.to_string_view_t());
 		}
 		/*
 		[[nodiscard]]string_t operator[](size_t index,char_T delimiter)const{
