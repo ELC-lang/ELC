@@ -21,6 +21,7 @@ namespace string_n{
 		static constexpr size_t						npos=size_t(-1);
 
 	private:
+		//_cso_info用于存储不同cso情况下string所用到的数据
 		mutable union _cso_info_t{
 			ptr_t _mptr;
 			const constexpr_str_t* _str;
@@ -42,29 +43,45 @@ namespace string_n{
 			}
 			~_cso_info_t()noexcept{}
 		}_cso_info{};
+		//_cso_flags用于标识不同的cso情况
 		mutable struct _cso_flags_t{
 			bool _cso_flag=0;
 			bool _str_cso_flag=0;
 		}_cso_flags;
 
+		//非cso情况下的成员宏，表示一个指向string data的智能指针
 		#define _m _cso_info._mptr
 
+		//BLOCK: 对成员宏`_m`的生命周期手动管理的函数族
+		
+		//结束成员宏`_m`的生命周期
 		constexpr void _ncso_destruct_mptr()const noexcept{destruct(&_m);}
+		//开始成员宏`_m`的生命周期
 		constexpr void _ncso_construct_mptr()const noexcept{construct<ptr_t>[&_m]();}
+		//以特定初始值开始成员宏`_m`的生命周期
 		constexpr void _ncso_construct_mptr(ptr_t p)const noexcept{construct<ptr_t>[&_m](p);}
 
+		//END_BLOCK
+		
+		//BLOCK: cso情况判断函数族
 		[[nodiscard]]bool _in_cso()const noexcept{return _cso_flags._cso_flag;}
 		[[nodiscard]]bool _in_str_cso()const noexcept{return _in_cso() && _cso_flags._str_cso_flag;}
 		[[nodiscard]]bool _in_chr_cso()const noexcept{return _in_cso() && !_cso_flags._str_cso_flag;}
+		//END_BLOCK
+		//BLOCK: cso情况设定函数族
 		constexpr void _set_str_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=1;}
 		constexpr void _set_chr_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=0;}
 		constexpr void _set_not_cso()const noexcept{_cso_flags._cso_flag=0;}
+		//END_BLOCK
 
+		//BLOCK: cso情况下的信息获取函数族
 		[[nodiscard]]const char_T* _get_cso_data()const noexcept{return _in_str_cso()?_cso_info._str->str():&_cso_info._ch;}
 		[[nodiscard]]size_t _get_cso_size()const noexcept{return _in_str_cso()?_cso_info._str->size():1;}
 		[[nodiscard]]hash_t _get_cso_hash()const noexcept{return _in_str_cso()?hash(_get_cso_constexpr_str()):hash(_cso_info._ch);}
 		[[nodiscard]]constexpr_str_t& _get_cso_constexpr_str()const noexcept{return *_cso_info._str;}
+		//END_BLOCK
 
+		//BLOCK: cso情况管理函数族
 		constexpr void _cso_init(constexpr_str_t&str)noexcept{_set_str_cso();_cso_info._str=&str;}
 		constexpr void _cso_reinit(constexpr_str_t&str)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(str);}
 		constexpr void _cso_init(char_T ch)noexcept{_set_chr_cso();_cso_info._ch=ch;}
@@ -78,6 +95,13 @@ namespace string_n{
 			}
 			_set_not_cso();
 		}
+		void _cso_fin(ptr_t p)noexcept{
+			_set_not_cso();
+			_ncso_construct_mptr(p);
+		}
+		//END_BLOCK
+		
+		//BLOCK: 已知需要拷贝cso全部内容，判断是否值得结束cso的检查
 		static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
 			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),(size_t)1);
 			return size>=max_size;
@@ -86,21 +110,23 @@ namespace string_n{
 			if(the_size_worth_to_end_cso(str.size()))
 				str._cso_check();
 		}
-		void _cso_fin(ptr_t p)noexcept{
-			_set_not_cso();
-			_ncso_construct_mptr(p);
-		}
+		//END_BLOCK
+		
+		//若cso，结束它
 		void _cso_check(bool need_write=0)const noexcept{
 			if(_in_cso())
 				_cso_fin(need_write);
 		}
 
+		//便利用，内部使用的构造函数
 		string_t(ptr_t str)noexcept{_ncso_construct_mptr(str);}
+		//无论是否在cso中，都保证可以获得一个ptr
 		[[nodiscard]]ptr_t ptr_copy()const noexcept{
 			_cso_check();
 			return _m;
 		}
 	public:
+		//swap的内部实现
 		void swap_with(this_t& a)noexcept{
 			if(_in_cso()||a._in_cso()){
 				swap(_cso_info,a._cso_info);
@@ -110,6 +136,7 @@ namespace string_n{
 				swap(_m,a._m);
 		}
 
+		//BLOCK: 构造函数
 		constexpr string_t()noexcept:string_t(empty_constexpr_str_of<char_T>){}
 		constexpr string_t(constexpr_str_t&str)noexcept{_cso_init(str);}
 		string_t(string_view_t str)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));}
@@ -127,8 +154,11 @@ namespace string_n{
 		string_t(string_t&& str)noexcept:string_t(){
 			swap_with(str);
 		}
+		//END_BLOCK
+		//析构函数
 		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
 
+		//BLOCK: 赋值操作符
 		string_t& operator=(const string_t& str)noexcept{
 			if(str._in_cso()){
 				_cso_info=str._cso_info;
@@ -140,7 +170,9 @@ namespace string_n{
 		string_t& operator=(string_t&& str)noexcept{swap_with(str);return*this;}
 		constexpr string_t& operator=(constexpr_str_t&str)noexcept{_cso_reinit(str);return*this;}
 		constexpr string_t& operator=(char_T ch)noexcept{_cso_reinit(ch);return*this;}
+		//END_BLOCK
 
+		//BLOCK: 字符串相加操作符
 		[[nodiscard]]string_t operator+(const string_t& str)const&noexcept{
 			full_copy_cso_check(str);
 			if(str._in_cso())
@@ -183,7 +215,9 @@ namespace string_n{
 			*this+=b;
 			return move(*this);
 		}
+		//END_BLOCK
 
+		//获取string占用的内存大小
 		float_size_t memory_cost()const noexcept{
 			if(_in_cso())
 				return 0;
@@ -191,6 +225,7 @@ namespace string_n{
 				return _m->get_memory_cost();
 		}
 	public:
+		//BLOCK: 比较运算符
 		[[nodiscard]]constexpr auto operator<=>(const string_t& a)const noexcept(compare.nothrow<char_T>){
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
@@ -275,7 +310,7 @@ namespace string_n{
 			else
 				return _m->equal_with(a);
 		}
-
+		//END_BLOCK
 	private:
 		char_T* unique_c_str()noexcept{ _cso_check(1);return _m->get_unique_c_str(_m); }
 		char_T	arec(size_t index)noexcept{
@@ -655,19 +690,22 @@ namespace string_n{
 		compare
 		starts_with
 		ends_with
-		contains
 		replace
 		*/
 		#undef _m
 	};
+
+	//推导指引
 	template<class char_T>
 	string_t(const char_T*) -> string_t<char_T>;
 	template<class char_T>
 	string_t(char_T*) -> string_t<char_T>;
+
+	//string的swap特化
 	template<typename T>
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 
-	//std ostream
+	//std ostream支持
 	template<typename some_fucking_std_ostream, typename T>
 	decltype(auto) operator<<(some_fucking_std_ostream& stream, const string_t<T>& str) {
 		typedef some_fucking_std_ostream stream_t;
@@ -725,6 +763,7 @@ namespace string_n{
 		return stream;
 	}
 
+	//array like支持
 	template<class T>
 	[[nodiscard]]inline auto size_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return a.size(); }
 	template<class T>
@@ -732,11 +771,12 @@ namespace string_n{
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return(const T*)a.c_str(); }
 
-	typedef string_t<char_t>string;
-
+	//string_view_t定义
 	template<typename T>
 	using string_view_t=string_t<T>::string_view_end_by_zero_t;
 
+	//typedefs
+	typedef string_t<char_t>string;
 	typedef string_view_t<char_t>string_view;
 }
 using string_n::string_t;
