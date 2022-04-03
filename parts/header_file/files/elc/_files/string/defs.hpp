@@ -686,10 +686,83 @@ namespace string_n{
 		void insert(size_t pos,char_T ch)&noexcept{
 			insert(pos,string_view_t{&ch,1});
 		}
+
+		//
+		
+		//contains
+		constexpr bool contains(string_view_t str)const noexcept{
+			return find(str) != npos;
+		}
+		constexpr bool contains(constexpr_str_t&str)const noexcept{
+			return find(str) != npos;
+		}
+		constexpr bool contains(const string_t&str)const noexcept{
+			return find(str) != npos;
+		}
+		constexpr bool contains(char_T ch)const noexcept{
+			return find(ch) != npos;
+		}
+		constexpr bool contains(const char_T*str)const noexcept{
+			return find(str) != npos;
+		}
+		
+		//starts_with
+		constexpr bool starts_with(string_view_t str)const noexcept{
+			if(size()<str.size())
+				return false;
+			return substr(0,str.size()) == str;
+		}
+		constexpr bool starts_with(constexpr_str_t&str)const noexcept{
+			if(size()<str.size())
+				return false;
+			return substr(0,str.size()) == str;
+		}
+		constexpr bool starts_with(const string_t&str)const noexcept{
+			if(size()<str.size())
+				return false;
+			if(str._in_char_cso())
+				return starts_with(str._cso_info._ch);
+			else
+				return substr(0,str.size()) == str;
+		}
+		constexpr bool starts_with(char_T ch)const noexcept{
+			if(size()<1)
+				return false;
+			return operator[](0) == ch;
+		}
+		constexpr bool starts_with(const char_T*str)const noexcept{
+			return starts_with(string_view_t{str});
+		}
+		
+		//ends_with
+		constexpr bool ends_with(string_view_t str)const noexcept{
+			if(size()<str.size())
+				return false;
+			return substr(size()-str.size()) == str;
+		}
+		constexpr bool ends_with(constexpr_str_t&str)const noexcept{
+			if(size()<str.size())
+				return false;
+			return substr(size()-str.size()) == str;
+		}
+		constexpr bool ends_with(const string_t&str)const noexcept{
+			if(size()<str.size())
+				return false;
+			if(str._in_char_cso())
+				return ends_with(str._cso_info._ch);
+			else
+				return substr(size()-str.size()) == str;
+		}
+		constexpr bool ends_with(char_T ch)const noexcept{
+			if(size()<1)
+				return false;
+			return operator[](size()-1) == ch;
+		}
+		constexpr bool ends_with(const char_T*str)const noexcept{
+			return ends_with(string_view_t{str});
+		}
 		/*
 		compare
-		starts_with
-		ends_with
 		replace
 		*/
 		#undef _m
