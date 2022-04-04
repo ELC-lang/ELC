@@ -22,7 +22,7 @@ namespace range_n {
 	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,array_like_view_t<T>range);
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t in_range_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
 		auto result = in_range(pattern, range);
 		if(result)
 			return result - range.data();
@@ -33,7 +33,7 @@ namespace range_n {
 	[[nodiscard]]constexpr T* in_range_but_reverse(const constexpr_str_t<T>&pattern,array_like_view_t<T>range);
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t in_range_but_reverse_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
 		auto result = in_range_but_reverse(pattern, range);
 		if(result)
 			return result - range.data();
@@ -44,7 +44,7 @@ namespace range_n {
 	[[nodiscard]]constexpr T* find_first_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range);
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t find_first_of_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_first_of_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
 		auto result = find_first_of(pattern, range);
 		if(result)
 			return result - range.data();
@@ -55,7 +55,7 @@ namespace range_n {
 	[[nodiscard]]constexpr T* find_last_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range);
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t find_last_of_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_last_of_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
 		auto result = find_last_of(pattern, range);
 		if(result)
 			return result - range.data();
@@ -66,7 +66,7 @@ namespace range_n {
 	[[nodiscard]]constexpr T* find_first_not_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range);
 	//若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t find_first_not_of_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_first_not_of_size_t(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
 		auto result = find_first_not_of(pattern, range);
 		if(result)
 			return result - range.data();
@@ -117,95 +117,95 @@ namespace constexpr_str_n{
 			return constexpr_str_view_t(begin,end-begin);
 		}
 		//find
-		[[nodiscard]]size_t find(const char_T ch)const{
+		[[nodiscard]]constexpr size_t find(const char_T ch)const{
 			return in_range_size_t(ch, *this);
 		}
-		[[nodiscard]]size_t reverse_find(const char_T ch)const{
+		[[nodiscard]]constexpr size_t reverse_find(const char_T ch)const{
 			return in_range_but_reverse_size_t(ch, *this);
 		}
-		[[nodiscard]]size_t find(base_t str)const{
+		[[nodiscard]]constexpr size_t find(base_t str)const{
 			return in_range_size_t(str, *this);
 		}
-		[[nodiscard]]size_t reverse_find(base_t str)const{
+		[[nodiscard]]constexpr size_t reverse_find(base_t str)const{
 			return in_range_but_reverse_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find(const char_T*str,size_t len)const{
+		[[nodiscard]]constexpr size_t find(const char_T*str,size_t len)const{
 			return in_range_size_t(array_like_view_t<const char_T>(str,len), *this);
 		}
-		[[nodiscard]]size_t reverse_find(const char_T*str,size_t len)const{
+		[[nodiscard]]constexpr size_t reverse_find(const char_T*str,size_t len)const{
 			return in_range_but_reverse_size_t(array_like_view_t<const char_T>(str,len), *this);
 		}
-		[[nodiscard]]size_t find(const constexpr_str_t<char_T>&str)const{
+		[[nodiscard]]constexpr size_t find(const constexpr_str_t<char_T>&str)const{
 			return in_range_size_t(str, *this);
 		}
-		[[nodiscard]]size_t reverse_find(const constexpr_str_t<char_T>&str)const{
+		[[nodiscard]]constexpr size_t reverse_find(const constexpr_str_t<char_T>&str)const{
 			return in_range_but_reverse_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find(const char_T*str)const{
+		[[nodiscard]]constexpr size_t find(const char_T*str)const{
 			return find(array_end_by_zero_t<const char_T>(str), *this);
 		}
-		[[nodiscard]]size_t reverse_find(const char_T*str)const{
+		[[nodiscard]]constexpr size_t reverse_find(const char_T*str)const{
 			return reverse_find(array_end_by_zero_t<const char_T>(str), *this);
 		}
 		//others by range_n::find_last_of_size_t etc
-		[[nodiscard]]size_t find_first_of(const char_T ch)const{
+		[[nodiscard]]constexpr size_t find_first_of(const char_T ch)const{
 			return range_n::find_first_of_size_t(ch, *this);
 		}
-		[[nodiscard]]size_t find_last_of(const char_T ch)const{
+		[[nodiscard]]constexpr size_t find_last_of(const char_T ch)const{
 			return range_n::find_last_of_size_t(ch, *this);
 		}
-		[[nodiscard]]size_t find_first_not_of(const char_T ch)const{
+		[[nodiscard]]constexpr size_t find_first_not_of(const char_T ch)const{
 			return range_n::find_first_not_of_size_t(ch, *this);
 		}
-		[[nodiscard]]size_t find_last_not_of(const char_T ch)const{
+		[[nodiscard]]constexpr size_t find_last_not_of(const char_T ch)const{
 			return range_n::find_last_not_of_size_t(ch, *this);
 		}
-		[[nodiscard]]size_t find_first_of(base_t str)const{
+		[[nodiscard]]constexpr size_t find_first_of(base_t str)const{
 			return range_n::find_first_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_last_of(base_t str)const{
+		[[nodiscard]]constexpr size_t find_last_of(base_t str)const{
 			return range_n::find_last_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_first_not_of(base_t str)const{
+		[[nodiscard]]constexpr size_t find_first_not_of(base_t str)const{
 			return range_n::find_first_not_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_last_not_of(base_t str)const{
+		[[nodiscard]]constexpr size_t find_last_not_of(base_t str)const{
 			return range_n::find_last_not_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_first_of(const constexpr_str_t<char_T>&str)const{
+		[[nodiscard]]constexpr size_t find_first_of(const constexpr_str_t<char_T>&str)const{
 			return range_n::find_first_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_last_of(const constexpr_str_t<char_T>&str)const{
+		[[nodiscard]]constexpr size_t find_last_of(const constexpr_str_t<char_T>&str)const{
 			return range_n::find_last_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_first_not_of(const constexpr_str_t<char_T>&str)const{
+		[[nodiscard]]constexpr size_t find_first_not_of(const constexpr_str_t<char_T>&str)const{
 			return range_n::find_first_not_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_last_not_of(const constexpr_str_t<char_T>&str)const{
+		[[nodiscard]]constexpr size_t find_last_not_of(const constexpr_str_t<char_T>&str)const{
 			return range_n::find_last_not_of_size_t(str, *this);
 		}
-		[[nodiscard]]size_t find_first_of(const char_T* str) const {
+		[[nodiscard]]constexpr size_t find_first_of(const char_T* str) const {
 			return find_first_of(array_end_by_zero_t<const char_T>(str), *this);
 		}
-		[[nodiscard]]size_t find_last_of(const char_T* str) const {
+		[[nodiscard]]constexpr size_t find_last_of(const char_T* str) const {
 			return find_last_of(array_end_by_zero_t<const char_T>(str), *this);
 		}
-		[[nodiscard]]size_t find_first_not_of(const char_T* str) const {
+		[[nodiscard]]constexpr size_t find_first_not_of(const char_T* str) const {
 			return find_first_not_of(array_end_by_zero_t<const char_T>(str), *this);
 		}
-		[[nodiscard]]size_t find_last_not_of(const char_T* str) const {
+		[[nodiscard]]constexpr size_t find_last_not_of(const char_T* str) const {
 			return find_last_not_of(array_end_by_zero_t<const char_T>(str), *this);
 		}
-		[[nodiscard]]size_t find_first_of(const char_T* str, size_t len) const {
+		[[nodiscard]]constexpr size_t find_first_of(const char_T* str, size_t len) const {
 			return find_first_of(array_like_view_t<const char_T>(str, len), *this);
 		}
-		[[nodiscard]]size_t find_last_of(const char_T* str, size_t len) const {
+		[[nodiscard]]constexpr size_t find_last_of(const char_T* str, size_t len) const {
 			return find_last_of(array_like_view_t<const char_T>(str, len), *this);
 		}
-		[[nodiscard]]size_t find_first_not_of(const char_T* str, size_t len) const {
+		[[nodiscard]]constexpr size_t find_first_not_of(const char_T* str, size_t len) const {
 			returnfind_first_not_of(array_like_view_t<const char_T>(str, len), *this);
 		}
-		[[nodiscard]]size_t find_last_not_of(const char_T* str, size_t len) const {
+		[[nodiscard]]constexpr size_t find_last_not_of(const char_T* str, size_t len) const {
 			return find_last_not_of(array_like_view_t<const char_T>(str, len), *this);
 		}
 	};
