@@ -15,7 +15,6 @@ namespace string_n{
 		typedef base_string_data_t<char_T>			base_t_w;
 		typedef base_t_w::ptr_t						ptr_t;
 		typedef base_t_w::string_view_t				string_view_t;
-		typedef array_end_by_zero_t<const char_T>	string_view_end_by_zero_t;
 		typedef const constexpr_str_t<char_T>		constexpr_str_t;
 		typedef string_t<char_T>					this_t;
 		static constexpr size_t						npos = range_n::npos;
@@ -140,8 +139,7 @@ namespace string_n{
 		constexpr string_t()noexcept:string_t(empty_constexpr_str_of<char_T>){}
 		constexpr string_t(constexpr_str_t&str)noexcept{_cso_init(str);}
 		string_t(string_view_t str)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));}
-		string_t(string_view_end_by_zero_t str)noexcept:string_t((string_view_t)(str)){}
-		string_t(const char_T* str)noexcept:string_t(string_view_end_by_zero_t(str)){}
+		string_t(const char_T* str)noexcept:string_t(string_view_t(str)){}
 		constexpr string_t(char_T ch)noexcept{_cso_init(ch);}
 		string_t(const string_t& str)noexcept{
 			if(str._in_cso()){
@@ -184,13 +182,13 @@ namespace string_n{
 			return ptr_copy()->apply_str_to_end(str);
 		}
 		[[nodiscard]]string_t operator+(const char_T* str)const&noexcept{
-			return *this+string_view_end_by_zero_t(str);
+			return *this+string_view_t(str);
 		}
 		friend [[nodiscard]]string_t operator+(string_view_t str1,const string_t& str2)noexcept{
 			return str2.ptr_copy()->apply_str_to_begin(str1);
 		}
 		friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2)noexcept{
-			return string_view_end_by_zero_t(str1)+str2;
+			return string_view_t(str1)+str2;
 		}
 		friend [[nodiscard]]string_t operator+(char_T ch,const string_t& str)noexcept{
 			return string_view_t{&ch,1}+str;
@@ -205,7 +203,7 @@ namespace string_n{
 			return *this;
 		}
 		string_t& operator+=(const char_T* str)&noexcept{
-			return *this+=string_view_end_by_zero_t(str);
+			return *this+=string_view_t(str);
 		}
 		string_t& operator+=(char_T ch)&noexcept{
 			return *this += string_view_t{&ch,1};
@@ -429,7 +427,7 @@ namespace string_n{
 		void push_back(string_view_t str)noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
 		void push_back(char_T ch)noexcept{ push_back(string_view_t{&ch,1}); }
 		void push_back(const arec_t& ch)noexcept{ push_back(ch.operator char_T()); }
-		void push_back(const char_T* str)noexcept{ push_back(string_view_end_by_zero_t(str)); }
+		void push_back(const char_T* str)noexcept{ push_back(string_view_t(str)); }
 
 		void push_front(const string_t& str)noexcept{
 			full_copy_cso_check(*this);
@@ -447,7 +445,7 @@ namespace string_n{
 		void push_front(string_view_t str)noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
 		void push_front(char_T ch)noexcept{ push_front(string_view_t{&ch,1}); }
 		void push_front(const arec_t& ch)noexcept{ push_front(ch.operator char_T()); }
-		void push_front(const char_T* str)noexcept{ push_front(string_view_end_by_zero_t(str)); }
+		void push_front(const char_T* str)noexcept{ push_front(string_view_t(str)); }
 
 		string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
 		string_t pop_front(size_t size)noexcept{ _cso_check();return _m->do_pop_front(size,_m); }
@@ -457,7 +455,6 @@ namespace string_n{
 		//
 
 		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
-		operator string_view_end_by_zero_t()const&noexcept{ return string_view_end_by_zero_t{data(),size()}; }
 		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
 		[[nodiscard]]explicit operator hash_t()const noexcept{ return _in_cso()?_get_cso_hash():_m->get_hash(_m); }
 
@@ -523,6 +520,15 @@ namespace string_n{
 			}
 			return find_first_of(str.to_string_view_t());
 		}
+		[[nodiscard]]size_t find_first_of(const char_T*str)const{
+			return find_first_of(string_view_t(str));
+		}
+		[[nodiscard]]size_t find_first_of(char_T ch)const{
+			return find(ch);
+		}
+		[[nodiscard]]size_t find_first_of(const arec_t&ch)const{
+			return find(ch.operator char_T());
+		}
 		[[nodiscard]]size_t find_first_not_of(string_view_t str)const{
 			return range_n::find_first_not_of_size_t(str,to_string_view_t());
 		}
@@ -537,6 +543,15 @@ namespace string_n{
 					return find_first_not_of(str.to_string_view_t());
 			}
 			return find_first_not_of(str.to_string_view_t());
+		}
+		[[nodiscard]]size_t find_first_not_of(const char_T*str)const{
+			return find_first_not_of(string_view_t(str));
+		}
+		[[nodiscard]]size_t find_first_not_of(char_T ch)const{
+			return find_first_not_of(string_view_t(ch));
+		}
+		[[nodiscard]]size_t find_first_not_of(const arec_t&ch)const{
+			return find_first_not_of(string_view_t(ch.operator char_T()));
 		}
 		[[nodiscard]]size_t find_last_of(string_view_t str)const{
 			return range_n::find_last_of_size_t(str,to_string_view_t());
@@ -553,6 +568,15 @@ namespace string_n{
 			}
 			return find_last_of(str.to_string_view_t());
 		}
+		[[nodiscard]]size_t find_last_of(const char_T*str)const{
+			return find_last_of(string_view_t(str));
+		}
+		[[nodiscard]]size_t find_last_of(char_T ch)const{
+			return reverse_find(ch);
+		}
+		[[nodiscard]]size_t find_last_of(const arec_t&ch)const{
+			return reverse_find(ch.operator char_T());
+		}
 		[[nodiscard]]size_t find_last_not_of(string_view_t str)const{
 			return range_n::find_last_not_of_size_t(str,to_string_view_t());
 		}
@@ -567,6 +591,15 @@ namespace string_n{
 					return find_last_not_of(str.to_string_view_t());
 			}
 			return find_last_not_of(str.to_string_view_t());
+		}
+		[[nodiscard]]size_t find_last_not_of(const char_T*str)const{
+			return find_last_not_of(string_view_t(str));
+		}
+		[[nodiscard]]size_t find_last_not_of(char_T ch)const{
+			return find_last_not_of(string_view_t(ch));
+		}
+		[[nodiscard]]size_t find_last_not_of(const arec_t&ch)const{
+			return find_last_not_of(string_view_t(ch.operator char_T()));
 		}
 
 		//
@@ -625,7 +658,7 @@ namespace string_n{
 			_cso_check();_m=_m->do_insert(pos,str);
 		}
 		void insert(size_t pos,const char_T* str)&noexcept{
-			insert(pos,string_view_end_by_zero_t(str));
+			insert(pos,string_view_t(str));
 		}
 		void insert(size_t pos,char_T ch)&noexcept{
 			insert(pos,string_view_t{&ch,1});
@@ -788,18 +821,11 @@ namespace string_n{
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return(const T*)a.c_str(); }
 
-	//string_view_t定义
-	template<typename T>
-	using string_view_t=string_t<T>::string_view_end_by_zero_t;
-
-	//typedefs
+	//typedef
 	typedef string_t<char_t>string;
-	typedef string_view_t<char_t>string_view;
 }
 using string_n::string_t;
 using string_n::string;
-using string_n::string_view_t;
-using string_n::string_view;
 
 //file_end
 

@@ -6,6 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//include default_data_type：基础数据类型定义
+#include "../../../../../_share/default_data_type.hpp"
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 

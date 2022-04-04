@@ -175,7 +175,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t in_range_size_t(T&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t(T&pattern,array_like_view_t<T>range){
 		auto result = in_range(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -211,7 +211,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t in_range_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = in_range(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -229,7 +229,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t in_range_size_t_but_reverse(T&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t_but_reverse(T&pattern,array_like_view_t<T>range){
 		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -266,7 +266,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]size_t in_range_size_t_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -335,7 +335,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_first_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = find_first_of(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -374,7 +374,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_last_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = find_last_of(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -414,7 +414,7 @@ namespace range_n{
 	}
 	//若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_first_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = find_first_not_of(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -454,7 +454,7 @@ namespace range_n{
 	}
 	//若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_last_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = find_last_not_of(pattern,range);
 		if(result)
 			return result - range.begin();

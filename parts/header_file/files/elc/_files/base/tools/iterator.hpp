@@ -181,7 +181,7 @@ namespace iterator_n{
 		constexpr this_t operator++(int)&noexcept_as(this_t(++declvalue(this_t&))){auto a=*this;operator++();return a;}
 		constexpr this_t operator--(int)&noexcept_as(this_t(--declvalue(this_t&))){auto a=*this;operator--();return a;}
 		constexpr this_t operator+(ptrdiff_t num)const noexcept_as(this_t(--declvalue(this_t&)),++declvalue(this_t&)){
-			if constexpr(is_pointer<base_t_rw>)
+			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return base_t::_m+num;
 			else{
 				auto a=*this;

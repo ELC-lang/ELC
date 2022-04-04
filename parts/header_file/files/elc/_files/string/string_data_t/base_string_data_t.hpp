@@ -11,7 +11,7 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	with_common_attribute<abstract_base,never_in_array,replace_able,ref_able>,build_by_get_only{
 	typedef base_string_data_t<char_T> this_t;
 	typedef comn_ptr_t<this_t> ptr_t;
-	typedef array_like_view_t<const char_T> string_view_t;
+	typedef string_view_t<char_T> string_view_t;
 
 	static constexpr bool copy_assign_nothrow=copy_assign.nothrow<char_T>;
 	static constexpr bool copy_construct_nothrow=copy_construct.nothrow<char_T>;

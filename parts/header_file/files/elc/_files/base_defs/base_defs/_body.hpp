@@ -26,6 +26,7 @@
 #include "data.hpp"
 #include "hash.hpp"
 #include "range.hpp"
+#include "string_view.hpp"
 #include "constexpr_str.hpp"
 #include "pointer.hpp"
 #include "logical_bool.hpp"

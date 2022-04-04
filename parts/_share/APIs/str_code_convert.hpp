@@ -68,12 +68,6 @@ elc依赖的基础函数.
 			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return aret;
 		}
-		inline string_t<char> to_char_str(const char_t*a)noexcept{
-			return to_char_str(array_end_by_zero_t(a));
-		}
-		inline string_t<char_t> to_char_t_str(const char*a)noexcept{
-			return to_char_t_str(array_end_by_zero_t(a));
-		}
 	}
 	namespace elc::defs{
 		using namespace elc::APIs::str_code_convert;
