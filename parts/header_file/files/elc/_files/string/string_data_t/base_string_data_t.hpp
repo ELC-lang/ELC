@@ -147,6 +147,8 @@ public:
 				b=with->get_the_largest_complete_data_block_begin_form(index);
 			else
 				b={b.begin()+step,note::size(b.size()-step)};
+			if(!a.size()&&!b.size())
+				return a.size()==b.size();
 		}
 		return true;
 	}
@@ -156,7 +158,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with.begin() && a.size()==with.size())
 			return true;
-		while(size){
+		while(true){
 			auto b=with.begin()+index;
 			size_t step=min({a.size(),with.size()-index,size});
 			if(!equal(a.begin(),b,step))
@@ -167,8 +169,9 @@ public:
 				a=this->get_the_largest_complete_data_block_begin_form(index);
 			else
 				a={a.begin()+step,note::size(a.size()-step)};
+			if(!a.size()||!size)
+				return a.size()==size;
 		}
-		return true;
 	}
 	[[nodiscard]]bool equal_with(const char_T*with)noexcept(equal.nothrow<char_T>){
 		size_t size=get_size();
@@ -176,7 +179,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with && with[a.size()]==char_T{})
 			return true;
-		while(size){
+		while(true){
 			auto b=with+index;
 			if(!*b)
 				return false;
@@ -189,8 +192,11 @@ public:
 				a=this->get_the_largest_complete_data_block_begin_form(index);
 			else
 				a={a.begin()+step,note::size(a.size()-step)};
+			if(!*(b+step))
+				return !a.size();
+			if(!a.size())
+				return !*(b+step);
 		}
-		return *(with+index)==char_T{};
 	}
 public:
 	[[nodiscard]]compare_type compare_with(ptr_t with)noexcept(compare.nothrow<char_T>){
@@ -250,6 +256,8 @@ public:
 				b=with->get_the_largest_complete_data_block_begin_form(index);
 			else
 				b={b.begin()+step,note::size(b.size()-step)};
+			if(!a.size()||!b.size())
+				return a.size()<=>b.size();
 		}
 		return strong_ordering::equivalent;
 	}
@@ -259,7 +267,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with.begin() && a.size()==with.size())
 			return strong_ordering::equivalent;
-		while(size){
+		while(true){
 			auto b=with.begin()+index;
 			size_t step=min({a.size(),with.size()-index,size});
 			if(auto tmp=compare(a.begin(),b,step); tmp!=0)
@@ -270,8 +278,9 @@ public:
 				a=this->get_the_largest_complete_data_block_begin_form(index);
 			else
 				a={a.begin()+step,note::size(a.size()-step)};
+			if(!a.size()||!size)
+				return a.size()<=>size;
 		}
-		return strong_ordering::equivalent;
 	}
 	[[nodiscard]]compare_type compare_with(const char_T*with)noexcept(compare.nothrow<char_T>){
 		size_t size=get_size();
@@ -279,7 +288,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with && with[a.size()]==char_T{})
 			return strong_ordering::equivalent;
-		while(size){
+		while(true){
 			auto b=with+index;
 			if(!*b)
 				return strong_ordering::greater;
@@ -292,9 +301,12 @@ public:
 				a=this->get_the_largest_complete_data_block_begin_form(index);
 			else
 				a={a.begin()+step,note::size(a.size()-step)};
+			if(!a.size())
+				return *(with+index)==char_T{}? strong_ordering::equivalent:
+												strong_ordering::less;
+			if(!*(with+index))
+				return strong_ordering::greater;
 		}
-		return *(with+index)==char_T{}? strong_ordering::equivalent:
-										strong_ordering::less;
 	}
 public:
 //protected://貌似msvc在这里有bug
