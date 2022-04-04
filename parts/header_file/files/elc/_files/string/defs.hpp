@@ -18,7 +18,7 @@ namespace string_n{
 		typedef array_end_by_zero_t<const char_T>	string_view_end_by_zero_t;
 		typedef const constexpr_str_t<char_T>		constexpr_str_t;
 		typedef string_t<char_T>					this_t;
-		static constexpr size_t						npos=size_t(-1);
+		static constexpr size_t						npos = range_n::npos;
 
 	private:
 		//_cso_info用于存储不同cso情况下string所用到的数据
@@ -53,7 +53,7 @@ namespace string_n{
 		#define _m _cso_info._mptr
 
 		//BLOCK: 对成员宏`_m`的生命周期手动管理的函数族
-		
+
 		//结束成员宏`_m`的生命周期
 		constexpr void _ncso_destruct_mptr()const noexcept{destruct(&_m);}
 		//开始成员宏`_m`的生命周期
@@ -62,7 +62,7 @@ namespace string_n{
 		constexpr void _ncso_construct_mptr(ptr_t p)const noexcept{construct<ptr_t>[&_m](p);}
 
 		//END_BLOCK
-		
+
 		//BLOCK: cso情况判断函数族
 		[[nodiscard]]bool _in_cso()const noexcept{return _cso_flags._cso_flag;}
 		[[nodiscard]]bool _in_str_cso()const noexcept{return _in_cso() && _cso_flags._str_cso_flag;}
@@ -100,7 +100,7 @@ namespace string_n{
 			_ncso_construct_mptr(p);
 		}
 		//END_BLOCK
-		
+
 		//BLOCK: 已知需要拷贝cso全部内容，判断是否值得结束cso的检查
 		static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
 			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),(size_t)1);
@@ -111,7 +111,7 @@ namespace string_n{
 				str._cso_check();
 		}
 		//END_BLOCK
-		
+
 		//若cso，结束它
 		void _cso_check(bool need_write=0)const noexcept{
 			if(_in_cso())
@@ -464,46 +464,22 @@ namespace string_n{
 		//
 
 		[[nodiscard]]size_t find(const char_T ch)const{
-			auto result = in_range(ch, to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return in_range_size_t(ch, to_string_view_t());
 		}
 		[[nodiscard]]size_t reverse_find(const char_T ch)const{
-			auto result = in_range_but_reverse(ch, to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return in_range_but_reverse_size_t(ch, to_string_view_t());
 		}
 		[[nodiscard]]size_t find(string_view_t str)const{
-			auto result = in_range(str, to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return in_range_size_t(str, to_string_view_t());
 		}
 		[[nodiscard]]size_t reverse_find(string_view_t str)const{
-			auto result = in_range_but_reverse(str, to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return in_range_but_reverse_size_t(str, to_string_view_t());
 		}
 		[[nodiscard]]size_t find(constexpr_str_t&str)const{
-			auto result = in_range(str, to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return in_range_size_t(str, to_string_view_t());
 		}
 		[[nodiscard]]size_t reverse_find(constexpr_str_t&str)const{
-			auto result = in_range_but_reverse(str, to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return in_range_but_reverse_size_t(str, to_string_view_t());
 		}
 		[[nodiscard]]size_t find(const string_t&str)const{
 			if(str._in_cso()){
@@ -533,18 +509,10 @@ namespace string_n{
 		}
 		//
 		[[nodiscard]]size_t find_first_of(string_view_t str)const{
-			auto result = range_n::find_first_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_first_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_first_of(constexpr_str_t&str)const{
-			auto result = range_n::find_first_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_first_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_first_of(const string_t&str)const{
 			if(str._in_cso()){
@@ -556,18 +524,10 @@ namespace string_n{
 			return find_first_of(str.to_string_view_t());
 		}
 		[[nodiscard]]size_t find_first_not_of(string_view_t str)const{
-			auto result = range_n::find_first_not_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_first_not_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_first_not_of(constexpr_str_t&str)const{
-			auto result = range_n::find_first_not_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_first_not_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_first_not_of(const string_t&str)const{
 			if(str._in_cso()){
@@ -579,18 +539,10 @@ namespace string_n{
 			return find_first_not_of(str.to_string_view_t());
 		}
 		[[nodiscard]]size_t find_last_of(string_view_t str)const{
-			auto result = range_n::find_last_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_last_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_last_of(constexpr_str_t&str)const{
-			auto result = range_n::find_last_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_last_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_last_of(const string_t&str)const{
 			if(str._in_cso()){
@@ -602,18 +554,10 @@ namespace string_n{
 			return find_last_of(str.to_string_view_t());
 		}
 		[[nodiscard]]size_t find_last_not_of(string_view_t str)const{
-			auto result = range_n::find_last_not_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_last_not_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_last_not_of(constexpr_str_t&str)const{
-			auto result = range_n::find_last_not_of(str,to_string_view_t());
-			if(result)
-				return result - data();
-			else
-				return npos;
+			return range_n::find_last_not_of_size_t(str,to_string_view_t());
 		}
 		[[nodiscard]]size_t find_last_not_of(const string_t&str)const{
 			if(str._in_cso()){
@@ -626,7 +570,7 @@ namespace string_n{
 		}
 
 		//
-		
+
 		[[nodiscard]]string_t arec(size_t index,char_T delimiter)const{
 			auto pos=find(delimiter);
 			auto end=find(delimiter,pos);
@@ -665,7 +609,7 @@ namespace string_n{
 		}
 
 		//
-		
+
 		void erase(size_t pos,size_t size=1)&noexcept{
 			_cso_check();_m=_m->do_erase(pos,size);
 		}
@@ -688,7 +632,7 @@ namespace string_n{
 		}
 
 		//
-		
+
 		//contains
 		constexpr bool contains(string_view_t str)const noexcept{
 			return find(str) != npos;
@@ -705,7 +649,7 @@ namespace string_n{
 		constexpr bool contains(const char_T*str)const noexcept{
 			return find(str) != npos;
 		}
-		
+
 		//starts_with
 		constexpr bool starts_with(string_view_t str)const noexcept{
 			if(size()<str.size())
@@ -733,7 +677,7 @@ namespace string_n{
 		constexpr bool starts_with(const char_T*str)const noexcept{
 			return starts_with(string_view_t{str});
 		}
-		
+
 		//ends_with
 		constexpr bool ends_with(string_view_t str)const noexcept{
 			if(size()<str.size())

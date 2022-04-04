@@ -21,8 +21,8 @@ namespace range_n{
 		constexpr size_t size()noexcept{return _end-_begin;}
 		constexpr auto end()noexcept{return _end;}
 		constexpr auto begin()noexcept{return _begin;}
-		constexpr auto end()const noexcept{ return _end; }
-		constexpr auto begin()const noexcept{ return _begin; }
+		constexpr auto end()const noexcept{return _end;}
+		constexpr auto begin()const noexcept{return _begin;}
 
 		template <class U> requires(type_info<T>.can_convert_to<U>)
 		constexpr operator range_t<U>()const noexcept(type_info<T>.can_nothrow_convert_to<U>){
@@ -155,6 +155,16 @@ namespace range_n{
 			return nullptr;//匹配失败
 		}
 	};
+	#if defined(_MSC_VER)
+		#pragma warning(push)
+		#pragma warning(disable:26475)//强制转换警告diss
+	#endif
+	//npos
+	static constexpr size_t npos = size_t(-1);
+	#if defined(_MSC_VER)
+		#pragma warning(pop)
+	#endif
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* in_range(T&pattern,array_like_view_t<T>range){
 		for(auto&i : range){
@@ -162,6 +172,15 @@ namespace range_n{
 				return addressof(i);
 		}
 		return nullptr;
+	}
+	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]size_t in_range_size_t(T&pattern,array_like_view_t<T>range){
+		auto result = in_range(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
 	}
 	//数据串匹配by steve02081504.
 	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
@@ -190,6 +209,16 @@ namespace range_n{
 			off_set+=pattern.end()-tmp;
 		}
 	}
+	//若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]size_t in_range_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		auto result = in_range(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
+	}
+	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* in_range_but_reverse(T&pattern,array_like_view_t<T>range){
 		for(auto&i : range|::std::views::reverse){
@@ -197,6 +226,15 @@ namespace range_n{
 				return addressof(i);
 		}
 		return nullptr;
+	}
+	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]size_t in_range_size_t_but_reverse(T&pattern,array_like_view_t<T>range){
+		auto result = in_range_but_reverse(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
 	}
 	//反向数据串匹配by steve02081504.
 	//若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
@@ -226,12 +264,22 @@ namespace range_n{
 			off_set+=1;
 		}
 	}
+	//若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]size_t in_range_size_t_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		auto result = in_range_but_reverse(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
+	}
+
 	//bitmark_for_finds
 	template<typename T>
 	struct bitmark_for_finds {
 		typedef unsigned char index_type;
 		bool _bitmark[number_of_possible_values_per<index_type>]{};
-		
+
 		bitmark_for_finds()noexcept=default;
 		[[nodiscard]]constexpr bool mark(array_like_view_t<T>pattern)noexcept{
 			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>){
@@ -285,6 +333,15 @@ namespace range_n{
 		}
 		return base_find_first_of(pattern,range);
 	}
+	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr T* find_first_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		auto result = find_first_of(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
+	}
 	//find_last_of的bitmark实现
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
@@ -314,6 +371,15 @@ namespace range_n{
 				return find_last_of_bitmark(mark,range);
 		}
 		return base_find_last_of(pattern,range);
+	}
+	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr T* find_last_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		auto result = find_last_of(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
 	}
 	//find_first_not_of的bitmark实现
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
@@ -346,6 +412,15 @@ namespace range_n{
 		}
 		return base_find_first_not_of(pattern,range);
 	}
+	//若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr T* find_first_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		auto result = find_first_not_of(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
+	}
 	//find_last_not_of的bitmark实现
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
@@ -376,6 +451,15 @@ namespace range_n{
 				return find_last_not_of_bitmark(mark,range);
 		}
 		return base_find_last_not_of(pattern,range);
+	}
+	//若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr T* find_last_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+		auto result = find_last_not_of(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
 	}
 }
 using range_n::range_t;

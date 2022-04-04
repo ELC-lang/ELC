@@ -94,7 +94,7 @@ public:
 		const auto this_size=sizeof(*this)+_m.size_in_byte();
 		return float_size_t(this_size)/get_ref_num((const base_t*)this);
 	}
-	
+
 	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(!_p_match_pattern){
 			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
