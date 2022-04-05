@@ -12,6 +12,7 @@ namespace constexpr_str_n{
 	struct constexpr_str_view_t:string_view_t<char_T>{
 		typedef string_view_t<char_T> base_t;
 		using base_t::base_t;
+		constexpr_str_view_t(const char_T*str)noexcept=delete;
 		//成员函数
 		[[nodiscard]]constexpr const char_T*str()const noexcept{return base_t::cbegin();}
 		[[nodiscard]]constexpr const char_T*data()const noexcept{return base_t::cbegin();}
