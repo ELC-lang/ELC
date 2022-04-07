@@ -11,6 +11,11 @@
 */
 template<class T> requires ::std::is_integral_v<T>
 constexpr size_t number_of_possible_values_per=max(type_info<::std::make_unsigned_t<T>>)+1;
+/*
+	每个T有多少位
+*/
+template<class T>
+constexpr size_t bitnumof=sizeof(T)*CHAR_BIT;
 
 /*
 	功能: byte* 类型数据转换为 T&，不进行任何检查
