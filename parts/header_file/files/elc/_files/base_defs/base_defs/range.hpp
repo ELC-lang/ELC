@@ -8,6 +8,7 @@
 */
 namespace range_n{
 	//range_t
+	//用以表示某类型的数值范围，仅可表示闭区间
 	template<typename T>
 	struct range_t{
 		T _begin,_end;
@@ -41,14 +42,20 @@ namespace range_n{
 	[[nodiscard]]inline auto begin_of_array_like(range_t<const T*>&a)noexcept{return a.begin();}
 
 	//in_range
+	//判断一个值是否在某个范围内
 	template<typename T>
-	[[nodiscard]]constexpr bool in_range(T pattern,const range_t<T>range){//算术类型或指针
-		return pattern>=range.begin() && pattern<range.end();
+	[[nodiscard]]constexpr bool in_range(T pattern,const range_t<T>range)noexcept_as(bool(declvalue(T)>=declvalue(const T) && declvalue(T)<=declvalue(const T))){//算术类型或指针
+		return bool(pattern>=range.begin() && pattern<range.end());
 	}
+	//in_range
+	//判断一个指针是否在某个byte指针范围内
 	template<typename T>
-	[[nodiscard]]constexpr bool in_range(T*pattern,const range_t<byte*>range){
+	[[nodiscard]]constexpr bool in_range(T*pattern,const range_t<byte*>range)noexcept{
 		return reinterpret_cast<const void*>(pattern)>=range.begin() && reinterpret_cast<const void*>(pattern)<range.end();
 	}
+	//match_pattern
+	//BMH2改算法表头，用以实施头起始的快速子串匹配算法
+	//大部分情况下应当编译时预构建或对运行时生成的实例进行缓存
 	template<typename T>
 	struct match_pattern{
 		array_like_view_t<T>_pattern;
@@ -102,6 +109,9 @@ namespace range_n{
 			return nullptr;//匹配失败
 		}
 	};
+	//reverse_match_pattern
+	//反向BMH2改算法表头，用以实施尾起始的快速子串匹配算法
+	//大部分情况下应当编译时预构建或对运行时生成的实例进行缓存
 	template<typename T>
 	struct reverse_match_pattern{
 		array_like_view_t<T>_pattern;
@@ -160,6 +170,7 @@ namespace range_n{
 		#pragma warning(disable:26475)//强制转换警告diss
 	#endif
 	//npos
+	//用以指定不存在的位置
 	static constexpr size_t npos = size_t(-1);
 	#if defined(_MSC_VER)
 		#pragma warning(pop)
@@ -275,6 +286,8 @@ namespace range_n{
 	}
 
 	//bitmark_for_finds
+	//bitmark提供了一种快速进行四种泛搜索的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。
+	//若bitmark构建失败，程序应当使用正在进行的泛搜索的朴素实现版本。
 	template<typename T>
 	struct bitmark_for_finds {
 		typedef unsigned char index_type;
