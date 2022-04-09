@@ -71,6 +71,7 @@ namespace magic_number{
 		因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
 		*/
 	}
+	//求大于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
 		//if constexpr(::std::is_floating_point_v<T>)
@@ -85,13 +86,14 @@ namespace magic_number{
 		#pragma warning(push)
 		#pragma warning(disable:26467)//gold_of_resize永远为正数
 	#endif
+	//已知当前array的size，求下一个合适的提前分配大小
 	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_array(size_t size){
 		/*
-		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
 		*/
 		return size_t(size*gold_of_resize);
 	}
+	//已知当前hash table的size，求下一个合适的桶大小
 	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
 		/*
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
@@ -102,8 +104,12 @@ namespace magic_number{
 	#if defined(_MSC_VER)
 		#pragma warning(pop)
 	#endif
+	//位操作：循环左移
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
 	[[nodiscard]]force_inline constexpr auto rotl(const T v,const auto R)noexcept;
+	//位操作：循环右移
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
 	[[nodiscard]]force_inline constexpr auto rotr(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
@@ -118,6 +124,8 @@ namespace magic_number{
 			return rotl(v,0-r);
 		}
 	}
+	//位操作：循环左移
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
 	[[nodiscard]]force_inline constexpr auto rotl(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
@@ -135,6 +143,8 @@ namespace magic_number{
 }
 using magic_number::get_next_gold_size_to_resize_for_array;
 using magic_number::get_next_gold_size_to_resize_for_hash;
+using magic_number::rotl;
+using magic_number::rotr;
 
 //file_end
 

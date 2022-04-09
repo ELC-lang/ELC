@@ -37,7 +37,7 @@ namespace constexpr_str_n{
 			return base_t::substr(begin,end);
 		}
 	};
-	//告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmarks等，用于加速库操作
+	//告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
 	template<typename char_T>
 	struct constexpr_str_t:constexpr_str_view_t<char_T>{
 		typedef constexpr_str_view_t<char_T> base_t;
@@ -70,7 +70,7 @@ namespace constexpr_str_n{
 		distinctive static constexpr auto value = v.get_constexpr_str_t();
 	};
 	//别问，问就是傻逼c++
-	//告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmarks等，用于加速库操作
+	//告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
 	template<constexpr_str_t_literal_helper str_helper>
 	[[nodiscard]]inline consteval auto& operator ""_constexpr_str()noexcept{
 		return literal_result_provider<str_helper>::value;
