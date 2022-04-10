@@ -21,7 +21,8 @@ namespace string_n{
 }
 using string_n::string_t;
 using string_n::string;
-inline string operator""_elc_string(const char_t*str,size_t N)noexcept;
+template<constexpr_str_n::constexpr_str_t_literal_helper str_helper>
+inline constexpr string operator""_elc_string()noexcept;
 INTER_NAMESPACE(core)
 
 template<typename T>

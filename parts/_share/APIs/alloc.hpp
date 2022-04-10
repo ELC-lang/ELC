@@ -63,7 +63,7 @@ elc依赖的基础函数.
 				::std::free(recorrect_pointer(p,align));
 			#endif
 		}
-		inline size_t get_size_of_alloc(const void*p,[[maybe_unused]]size_t align)noexcept{
+		[[nodiscard]]inline size_t get_size_of_alloc(const void*p,[[maybe_unused]]size_t align)noexcept{
 			//传入需获取大小的数据块起始点与对齐
 			#if SYSTEM_TYPE == windows
 				return _aligned_msize(remove_const(p),align,0);
@@ -72,6 +72,7 @@ elc依赖的基础函数.
 				return get_overhead(recorrect_pointer(p,align));
 			#endif
 		}
+		#include "_tools/undef_decl_system_type.hpp"
 	}
 #endif
 

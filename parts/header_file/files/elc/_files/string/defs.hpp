@@ -157,14 +157,7 @@ namespace string_n{
 		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
 
 		//BLOCK: 赋值操作符
-		string_t& operator=(const string_t& str)noexcept{
-			if(str._in_cso()){
-				_cso_info=str._cso_info;
-				_cso_flags=str._cso_flags;
-			}
-			else
-				_m=str._m;
-		}
+		string_t& operator=(const string_t& str)noexcept{re_construct[this](str);return*this;}
 		string_t& operator=(string_t&& str)noexcept{swap_with(str);return*this;}
 		constexpr string_t& operator=(constexpr_str_t&str)noexcept{_cso_reinit(str);return*this;}
 		constexpr string_t& operator=(char_T ch)noexcept{_cso_reinit(ch);return*this;}

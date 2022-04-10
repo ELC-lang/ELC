@@ -62,14 +62,19 @@ namespace function_base_n{
 
 		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26440)//nothrow警告diss
-		#endif
-		Ret_t operator()(Args_t...args){
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
+		Ret_t operator()(Args_t...args)noexcept(nothrow || invoke<T>.nothrow<Args_t...>){
+			//BLOCK:constexpr checks
+			if constexpr(!invoke<T>.able<Args_t...>)
+				template_error("this T can\'t becall as args.");
+			if constexpr(was_an_ill_form(static_cast<Ret_t>(declvalue(T)(declvalue(Args_t)...))))
+				template_error("the return type of T was wrong.");
+			//BLOCK_END
+			if constexpr(type_info<Ret_t> != type_info<void>)
+				return _value(forward<Args_t>(args)...);
+			else
+				_value(forward<Args_t>(args)...);
+		}
+		Ret_t operator()(Args_t...args)const noexcept(nothrow || invoke<const T>.nothrow<Args_t...>) requires(invoke<const T>.able<Args_t...>){
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");
@@ -155,14 +160,19 @@ namespace function_base_n{
 
 		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
 		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26440)//nothrow警告diss
-		#endif
-		Ret_t operator()(Args_t...args){
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
+		Ret_t operator()(Args_t...args)noexcept{
+			//BLOCK:constexpr checks
+			if constexpr(!invoke<T>.able<Args_t...>)
+				template_error("this T can\'t becall as args.");
+			if constexpr(was_an_ill_form(static_cast<Ret_t>(declvalue(T)(declvalue(Args_t)...))))
+				template_error("the return type of T was wrong.");
+			//BLOCK_END
+			if constexpr(type_info<Ret_t> != type_info<void>)
+				return _value(forward<Args_t>(args)...);
+			else
+				_value(forward<Args_t>(args)...);
+		}
+		Ret_t operator()(Args_t...args)const noexcept requires(invoke<const T>.able<Args_t...>){
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
 				template_error("this T can\'t becall as args.");

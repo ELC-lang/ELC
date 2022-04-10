@@ -18,7 +18,7 @@ elc依赖的基础函数.
 	namespace elc::APIs::str_code_convert{
 		using namespace ::elc::defs;//get def
 
-		inline string_t<char> to_char_str(string_view_t<char_t> a)noexcept{
+		[[nodiscard]]inline string_t<char> to_char_str(string_view_t<char_t> a)noexcept{
 			string_t<char>aret;
 			::std::mbstate_t stat{};
 			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
@@ -42,7 +42,7 @@ elc依赖的基础函数.
 			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return aret;
 		}
-		inline string_t<char_t> to_char_t_str(string_view_t<char> a)noexcept{
+		[[nodiscard]]inline string_t<char_t> to_char_t_str(string_view_t<char> a)noexcept{
 			string_t<char_t>aret;
 			::std::mbstate_t stat{};
 			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);

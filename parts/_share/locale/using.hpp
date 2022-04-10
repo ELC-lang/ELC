@@ -18,9 +18,10 @@ elc使用的字符串.
 	#include "_char.hpp"
 	//
 	#include "../../header_file/files/elc/base_defs"
-	#define es U""
+	//
+	#include "../_defs.hpp"
 	#include "zh_cn.hpp"
-	#undef es
+	#include "../_undefs.hpp"
 	//
 #endif
 

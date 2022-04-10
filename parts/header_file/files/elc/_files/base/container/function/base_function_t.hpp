@@ -129,7 +129,14 @@ namespace function_n{
 			catch(void*){}
 			return note::fail;
 		}
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:26440)//nothrow警告diss
+		#endif
 		void operator=(const this_t&a){_m=a._m;}
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
@@ -201,8 +208,8 @@ namespace function_n{
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		this_t&operator=(const this_t&a)&noexcept=default;
-		this_t&operator=(this_t&&a)&noexcept=default;
+		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_at_destruct)=default;
+		this_t&operator=(this_t&&a)&noexcept(promise_nothrow_at_destruct)=default;
 		this_t&operator=(null_ptr_t)&noexcept(promise_nothrow_at_destruct){_m=null_ptr;return *this;}
 		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){return *this=null_ptr;}
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
@@ -312,8 +319,8 @@ namespace function_n{
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		this_t&operator=(const this_t&a)noexcept=default;
-		this_t&operator=(this_t&&a)noexcept=default;
+		this_t&operator=(const this_t&a)noexcept(promise_nothrow_at_destruct)=default;
+		this_t&operator=(this_t&&a)noexcept(promise_nothrow_at_destruct)=default;
 		this_t&operator=(null_ptr_t)noexcept(promise_nothrow_at_destruct){_m=null_ptr;return *this;}
 		this_t&operator=(nullptr_t)noexcept(promise_nothrow_at_destruct){return *this=null_ptr;}
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>
@@ -417,8 +424,8 @@ namespace function_n{
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
-		this_t&operator=(const this_t&a)&noexcept=default;
-		this_t&operator=(this_t&&a)&noexcept=default;
+		this_t&operator=(const this_t&a)&noexcept(promise_nothrow_at_destruct)=default;
+		this_t&operator=(this_t&&a)&noexcept(promise_nothrow_at_destruct)=default;
 		this_t&operator=(null_ptr_t)&noexcept(promise_nothrow_at_destruct){_m=null_ptr;return *this;}
 		this_t&operator=(nullptr_t)&noexcept(promise_nothrow_at_destruct){return *this=null_ptr;}
 		template<class T> requires base_on_this_t_or_more_stringent_restrictions<T>

@@ -35,6 +35,10 @@ namespace elc::defs::locale::str{
 		inline constexpr auto symbol_is_undefined=es"此符号未定义"_constexpr_str;
 		inline constexpr auto expr_too_outrageous=es"表达式过于离谱"_constexpr_str;
 	}
+	inline namespace package_symbol_loader{
+		inline constexpr auto load_failed=es"无法加载的package_symbol_loader"_constexpr_str;
+		inline constexpr auto load_interface_failed=es"package_symbol_loader缺失load_interface"_constexpr_str;
+	}
 }
 
 //file_end
