@@ -74,13 +74,11 @@ namespace magic_number{
 	//求大于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
-		//if constexpr(::std::is_floating_point_v<T>)
-			auto b= ::std::llround(a);
-		//else
-			//auto&b=a;
-		while(!is_prime_num(b))
-			b++;
-		return (T)b;
+		if constexpr(::std::is_floating_point_v<T>)
+			a=::std::ceil(a);
+		while(!is_prime_num(a))
+			a++;
+		return a;
 	}
 	#if defined(_MSC_VER)
 		#pragma warning(push)

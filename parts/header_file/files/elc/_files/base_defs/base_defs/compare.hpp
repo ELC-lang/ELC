@@ -20,12 +20,16 @@ inline constexpr struct just_an_part_t{}just_an_part;
 /*
 	相等比较任意支持比较的类型或其数组——简易封装.
 	用法:
-	equal(T1,T2)
-	返回类型自动推断
-	equal(T1[N1],T2[N2])
-	equal(T1*,size1,T2*,size2)
-	equal(T1*,T2*,size)
-	通通返回bool.
+	判断两值是否可比较。
+	equal.able<类型1,类型2（可选，默认为类型1）>		->	bool
+	判断将两者进行比较时是否会抛出异常。
+	equal.nothrow<类型,类型2（可选，默认为类型1）>		->	bool
+
+	equal(T1,T2)										->	auto
+
+	equal(T1[N1],T2[N2])								->	bool
+	equal(T1*,size1,T2*,size2)							->	bool
+	equal(T1*,T2*,size)									->	bool
 */
 constexpr struct equal_t{
 	template<class T,class U=T>
@@ -112,11 +116,31 @@ template<typename T>
 /*
 	若大小相同则以字典序三路比较任意支持比较的类型或其数组,并在 <=> 不可用时以 < 和 == 为后备.
 	用法:
+	compare.r_able：判断两者是否可进行三路比较。
+	compare.r_able<类型1,类型2(可选，默认与1相同)>		返回bool。
+compare.able：判断两者是否可进行compare操作。
+	compare.able<类型1,类型2(可选，默认与1相同)>		返回bool。
+compare.nothrow：判断将两者进行三路比较是否会抛出异常。
+	compare.nothrow<类型1,类型2（可选，默认与1相同）>		返回bool。
+
 	compare(T1,T2)
 	compare(T1[N1],T2[N2])
 	compare(T1*,size1,T2*,size2)
 	compare(T1*,T2*,size)
 	返回类型语义上是三路比较的结果类型,具体类型视情况而定.
+    compare.lexicographical()以字典序进行三路比较。
+	用法：
+	compare.lexicographical(T1,T2)
+	compare.lexicographical(T1[N1],T2[N2])
+	compare.lexicographical(T1*,size1,T2*,size2)
+	compare.lexicographical(T1*,T2*,size)
+	返回类型语义上是三路比较的结果类型,具体类型视情况而定.
+    compare.reverse()翻转三路比较的结果类型。
+	用法：
+	compare.reverse(partial_ordering)
+	compare.reverse(weak_ordering)
+	compare.reverse(strong_ordering)
+	返回对应结果类型的反义，与零相等或无法比较时则返回其本身。
 */
 constexpr struct compare_t{
 	template<class T,class U=T>
