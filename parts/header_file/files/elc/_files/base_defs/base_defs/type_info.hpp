@@ -39,7 +39,6 @@ template<class T>
 struct type_info_t{
 	typedef T type;
 
-
 	template<class U>
 	static constexpr bool same_as=::std::is_same_v<T,U>;
 	template<class U>

@@ -56,13 +56,7 @@ constexpr bool as_ptr_nothrow_helper()noexcept{
 	}
 	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
 		return noexcept(make_long_term_binary_node_from<float_t>(declvalue(T)));
-	elseif constexpr(::std::is_array_v<remove_cvref<T>> && type_info<::std::remove_extent_t<remove_ref<T>>> == type_info<const char_t>){
-		if constexpr(!::std::extent_v<remove_cvref<T>>)
-			return noexcept(make_long_term_binary_node_from<string>(declvalue(T)));
-		else
-			return noexcept(make_long_term_binary_node_from<string>(operator""_elc_string(declvalue(T),::std::extent_v<remove_cvref<T>>-1)));
-	}
-	elseif constexpr(type_info<remove_cvref<T>> == type_info<string>){
+	elseif constexpr(construct<string>.able<T>){
 		return noexcept(make_long_term_binary_node_from<string>(declvalue(T)));
 	}
 }
@@ -95,13 +89,7 @@ decltype(auto) as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
 	}
 	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
 		return make_long_term_binary_node_from<float_t>(a);
-	elseif constexpr(::std::is_array_v<remove_cvref<T>> && type_info<::std::remove_extent_t<remove_ref<T>>> == type_info<const char_t>){
-		if constexpr(!::std::extent_v<remove_cvref<T>>)
-			return make_long_term_binary_node_from<string>(a);
-		else
-			return make_long_term_binary_node_from<string>(operator""_elc_string(a,::std::extent_v<remove_cvref<T>>-1));
-	}
-	elseif constexpr(type_info<remove_cvref<T>> == type_info<string>){
+	elseif constexpr(construct<string>.able<T>){
 		return make_long_term_binary_node_from<string>(a);
 	}
 }
