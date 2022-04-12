@@ -25,8 +25,20 @@ inline constexpr struct just_an_part_t{}just_an_part;
 	equal(T1[N1],T2[N2])
 	equal(T1*,size1,T2*,size2)
 	equal(T1*,T2*,size)
+	equal(T1*,size1,T2*,end_by_zero)
+	equal(T1*,end_by_zero,T2*,size)
+	equal(T1*,end_by_zero,T2*,end_by_zero)
 	通通返回bool.
 */
+/*
+equal.able:判断两值是否可比较。
+	用法：
+	equal.able<类型1，类型2(可选，默认与类型1相同)>		返回bool
+equal.nothrow:判断将两者进行比较时是否会抛出异常。
+	用法：
+	equal.nothrow<类型1，类型2(可选，默认与类型1相同)>		返回bool.
+*/
+
 constexpr struct equal_t{
 	template<class T,class U=T>
 	static constexpr bool able= was_not_an_ill_form(declvalue(T)==declvalue(U));
@@ -117,6 +129,34 @@ template<typename T>
 	compare(T1*,size1,T2*,size2)
 	compare(T1*,T2*,size)
 	返回类型语义上是三路比较的结果类型,具体类型视情况而定.
+*/
+/*
+compare.r_able：判断两者是否可进行三路比较。
+	用法：
+	compare.r_able<类型1,类型2(可选，默认与1相同)>		返回bool。
+compare.able：判断两者是否可进行compare操作。
+	用法：
+	compare.able<类型1,类型2(可选，默认与1相同)>		返回bool。
+compare.nothrow：判断将两者进行三路比较是否会抛出异常。
+	用法：
+	compare.nothrow<类型1,类型2（可选，默认与1相同）>		返回bool。
+*/
+/*
+compare.lexicographical()以字典序进行三路比较。
+	用法：
+	compare.lexicographical(T1,T2)
+	compare.lexicographical(T1[N1],T2[N2])
+	compare.lexicographical(T1*,size1,T2*,size2)
+	compare.lexicographical(T1*,T2*,size)
+	返回类型语义上是三路比较的结果类型,具体类型视情况而定.
+*/
+/*
+compare.reverse()翻转三路比较的结果类型。
+	用法：
+	compare.reverse(partial_ordering)
+	compare.reverse(weak_ordering)
+	compare.reverse(strong_ordering)
+	返回对应结果类型的反义，与零相等时则返回本身。
 */
 constexpr struct compare_t{
 	template<class T,class U=T>
