@@ -164,17 +164,17 @@ namespace string_n{
 		//END_BLOCK
 
 		//BLOCK: 字符串相加操作符
-		[[nodiscard]]string_t operator+(const string_t& str)const&noexcept{
+		[[nodiscard]]string_t operator+(const string_t& str)const noexcept{
 			full_copy_cso_check(str);
 			if(str._in_cso())
 				return operator+(str.to_string_view_t());
 			else
 				return ptr_copy()->apply_str_to_end(str._m);
 		}
-		[[nodiscard]]string_t operator+(string_view_t str)const&noexcept{
+		[[nodiscard]]string_t operator+(string_view_t str)const noexcept{
 			return ptr_copy()->apply_str_to_end(str);
 		}
-		[[nodiscard]]string_t operator+(const char_T* str)const&noexcept{
+		[[nodiscard]]string_t operator+(const char_T* str)const noexcept{
 			return *this+string_view_t(str);
 		}
 		friend [[nodiscard]]string_t operator+(string_view_t str1,const string_t& str2)noexcept{
@@ -404,7 +404,7 @@ namespace string_n{
 
 		//
 
-		void push_back(const string_t& str)noexcept{
+		void push_back(const string_t& str)&noexcept{
 			full_copy_cso_check(*this);
 			full_copy_cso_check(str);
 			if(_in_cso()&&!str._in_cso())
@@ -417,12 +417,12 @@ namespace string_n{
 				_m=_m->apply_str_to_end(str._m);
 			}
 		}
-		void push_back(string_view_t str)noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
-		void push_back(char_T ch)noexcept{ push_back(string_view_t{&ch,1}); }
-		void push_back(const arec_t& ch)noexcept{ push_back(ch.operator char_T()); }
-		void push_back(const char_T* str)noexcept{ push_back(string_view_t(str)); }
+		void push_back(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
+		void push_back(char_T ch)&noexcept{ push_back(string_view_t{&ch,1}); }
+		void push_back(const arec_t& ch)&noexcept{ push_back(ch.operator char_T()); }
+		void push_back(const char_T* str)&noexcept{ push_back(string_view_t(str)); }
 
-		void push_front(const string_t& str)noexcept{
+		void push_front(const string_t& str)&noexcept{
 			full_copy_cso_check(*this);
 			full_copy_cso_check(str);
 			if(_in_cso()&&!str._in_cso())
@@ -435,10 +435,10 @@ namespace string_n{
 				_m=_m->apply_str_to_begin(str._m);
 			}
 		}
-		void push_front(string_view_t str)noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
-		void push_front(char_T ch)noexcept{ push_front(string_view_t{&ch,1}); }
-		void push_front(const arec_t& ch)noexcept{ push_front(ch.operator char_T()); }
-		void push_front(const char_T* str)noexcept{ push_front(string_view_t(str)); }
+		void push_front(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
+		void push_front(char_T ch)&noexcept{ push_front(string_view_t{&ch,1}); }
+		void push_front(const arec_t& ch)&noexcept{ push_front(ch.operator char_T()); }
+		void push_front(const char_T* str)&noexcept{ push_front(string_view_t(str)); }
 
 		string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
 		string_t pop_front(size_t size)noexcept{ _cso_check();return _m->do_pop_front(size,_m); }
