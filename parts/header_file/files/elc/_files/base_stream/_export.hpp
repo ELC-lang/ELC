@@ -7,6 +7,14 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using defs::
+export base_stream;
+export base_ostream;
+export base_istream;
+export base_iostream;
+export noexcept_stream;
+export noexcept_ostream;
+export noexcept_istream;
+export noexcept_iostream;
 #undef export
 
 //file_end
