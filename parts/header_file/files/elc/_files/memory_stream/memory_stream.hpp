@@ -50,14 +50,14 @@ struct memory_stream:noexcept_iostream{
 		_m = nullptr;
 		_s = 0;
 	}
-	virtual void write(const void*buf,size_t size)noexcept override{
+	virtual void write(const byte*buf,size_t size)noexcept override{
 		if(size>this->bufsize()-_pos)
 			get_resize(_m,get_next_gold_size_to_resize_for_array(_pos+size));
 		::std::memcpy(_m+_pos,buf,size);
 		_pos += size;
 		_s = max(_pos,_s);
 	}
-	virtual size_t read(void*buf,size_t size)noexcept override{
+	virtual size_t read(byte*buf,size_t size)noexcept override{
 		if(_pos+size>_s)
 			size = _s-_pos;
 		::std::memcpy(buf,_m+_pos,size);

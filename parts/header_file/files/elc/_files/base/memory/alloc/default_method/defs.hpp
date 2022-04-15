@@ -8,7 +8,7 @@
 */
 namespace default_method{
 	//BLOCK:for debug
-	[[nodiscard]]inline void*base_realloc(void*ptr,size_t nsize,size_t align)noexcept{
+	[[nodiscard]]inline void*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
 		void*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(nsize==0)
@@ -48,7 +48,7 @@ namespace default_method{
 		#endif
 		::elc::APIs::alloc::free(p,align);
 	}
-	inline size_t base_get_size_of_alloc(const void* arg, size_t align)noexcept{
+	inline size_t base_get_size_of_alloc(const byte*arg, size_t align)noexcept{
 		//arg保证不与null_ptr相等
 		auto tmp= ::elc::APIs::alloc::get_size_of_alloc(arg,align);
 		return tmp;
@@ -71,7 +71,7 @@ namespace default_method{
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		//arg保证不与null_ptr相等
-		return base_get_size_of_alloc(arg,alignof(T))/sizeof(T);
+		return base_get_size_of_alloc(cast_to_data(arg),alignof(T))/sizeof(T);
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
@@ -85,7 +85,7 @@ namespace default_method{
 		//但只允许在扩大数据块时可选的移动数据块
 		if constexpr(type_info<T>.has_attribute(never_in_array))
 			template_error("You cannot perform array operations on never_in_array type.");
-		return ptr=reinterpret_cast<T*>(base_realloc(ptr,sizeof(T)*new_size,alignof(T)));
+		return ptr=reinterpret_cast<T*>(base_realloc(cast_to_data(ptr),sizeof(T)*new_size,alignof(T)));
 	}
 }
 

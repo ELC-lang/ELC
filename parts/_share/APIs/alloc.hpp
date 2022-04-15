@@ -37,7 +37,7 @@ elc依赖的基础函数.
 				else return nullptr;
 			#endif
 		}
-		[[nodiscard]]inline void*realloc(void*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
+		[[nodiscard]]inline void*realloc(byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
 			//return空指针被允许，但ptr值必须保持有效以保证gc后再次realloc有效
 			//new_size被保证不为0
 			//align维持不变
@@ -63,7 +63,7 @@ elc依赖的基础函数.
 				::std::free(recorrect_pointer(p,align));
 			#endif
 		}
-		[[nodiscard]]inline size_t get_size_of_alloc(const void*p,[[maybe_unused]]size_t align)noexcept{
+		[[nodiscard]]inline size_t get_size_of_alloc(const byte*p,[[maybe_unused]]size_t align)noexcept{
 			//传入需获取大小的数据块起始点与对齐
 			#if SYSTEM_TYPE == windows
 				return _aligned_msize(remove_const(p),align,0);

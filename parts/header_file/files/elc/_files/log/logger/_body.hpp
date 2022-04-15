@@ -41,7 +41,7 @@ public:
 			_has_info=0;
 		}
 	}
-	virtual void write(const void*buf,size_t size)noexcept override final{
+	virtual void write(const byte*buf,size_t size)noexcept override final{
 		_has_info=true;
 		if(_tie_with)
 			_tie_with->write(buf,size);

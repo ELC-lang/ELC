@@ -22,18 +22,18 @@ no_vtable_struct base_stream{
 };
 no_vtable_struct base_ostream:virtual base_stream{
 	virtual ~base_ostream()=default;
-	virtual void write(const void*buf,size_t size)=0;
+	virtual void write(const byte*buf,size_t size)=0;
 	template<class T>
 	void write(const T*v,size_t size=1){
-		this->write((const void*)v,size*sizeof(T));
+		this->write(cast_to_data(v),size*sizeof(T));
 	}
 };
 no_vtable_struct base_istream:virtual base_stream{
 	virtual ~base_istream()=default;
-	virtual size_t read(void*buf,size_t size)=0;
+	virtual size_t read(byte*buf,size_t size)=0;
 	template<class T>
 	size_t read(T*v,size_t size=1){
-		return this->read((void*)v,size*sizeof(T))/sizeof(T);
+		return this->read(cast_to_data(v),size*sizeof(T))/sizeof(T);
 	}
 };
 no_vtable_struct base_iostream:virtual base_istream,virtual base_ostream{};
@@ -49,17 +49,17 @@ no_vtable_struct noexcept_stream:virtual base_stream{
 	virtual void close()noexcept override=0;
 };
 no_vtable_struct noexcept_ostream:virtual base_ostream,virtual noexcept_stream{
-	virtual void write(const void*buf,size_t size)noexcept override=0;
+	virtual void write(const byte*buf,size_t size)noexcept override=0;
 	template<class T>
 	void write(const T*v,size_t size=1)noexcept{
-		this->write((const void*)v,size*sizeof(T));
+		this->write(cast_to_data(v),size*sizeof(T));
 	}
 };
 no_vtable_struct noexcept_istream:virtual base_istream,virtual noexcept_stream{
-	virtual size_t read(void*buf,size_t size)noexcept override=0;
+	virtual size_t read(byte*buf,size_t size)noexcept override=0;
 	template<class T>
 	size_t read(T*v,size_t size=1)noexcept{
-		return this->read((void*)v,size*sizeof(T))/sizeof(T);
+		return this->read(cast_to_data(v),size*sizeof(T))/sizeof(T);
 	}
 };
 no_vtable_struct noexcept_iostream:virtual base_iostream,virtual noexcept_ostream,virtual noexcept_istream{};
