@@ -23,9 +23,22 @@ namespace magic_number{
 
 	constexpr auto god=72;//神已死,神万岁.
 
-	template<class T> requires ::std::is_integral_v<T>
+	/*求余*/
+	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
+	[[nodiscard]]force_inline constexpr auto mod(T1 a,T2 b){
+		if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
+			return ::std::fmod(a,b);
+		else
+			return a%b;
+	}
+
+	/*判断某数是否是素数*/
+	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]inline constexpr bool is_prime_num(T a)
 	{
+		if constexpr(::std::is_floating_point_v<T>)
+			if(a != ::std::ceil(a))
+				return false;
 		/*
 		应某人的要求补注释(都是主人的任务罢了.).
 		*/
@@ -43,7 +56,7 @@ namespace magic_number{
 		6x,排除.
 		那么,只用考虑6x±1是否是prime.
 		*/
-		if((a%6-1)%4)
+		if(mod(mod(a,6)-1,4))
 			return false;
 		T b=static_cast<T>(::std::sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
 		/*
@@ -58,7 +71,7 @@ namespace magic_number{
 		虽然很想写成以6为起始逐次判断±1的对称格式但是这样会加重时空负担.(不甘心.....)
 		*/
 		for(T c=5;c<=b;c+=6)//遍历判断是否能被因数分解——不会有人看不懂吧?
-			if((!(a%c))||(!(a%(c+2))))
+			if((!mod(a,c))||(!mod(a,(c+2))))
 				return false;
 		/*
 		最后,为什么是6?
