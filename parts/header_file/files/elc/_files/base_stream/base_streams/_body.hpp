@@ -33,7 +33,7 @@ no_vtable_struct base_istream:virtual base_stream{
 	virtual size_t read(void*buf,size_t size)=0;
 	template<class T>
 	size_t read(T*v,size_t size=1){
-		return this->read((void*)v,size*sizeof(T));
+		return this->read((void*)v,size*sizeof(T))/sizeof(T);
 	}
 };
 no_vtable_struct base_iostream:virtual base_istream,virtual base_ostream{};
@@ -59,7 +59,7 @@ no_vtable_struct noexcept_istream:virtual base_istream,virtual noexcept_stream{
 	virtual size_t read(void*buf,size_t size)noexcept override=0;
 	template<class T>
 	size_t read(T*v,size_t size=1)noexcept{
-		return this->read((void*)v,size*sizeof(T));
+		return this->read((void*)v,size*sizeof(T))/sizeof(T);
 	}
 };
 no_vtable_struct noexcept_iostream:virtual base_iostream,virtual noexcept_ostream,virtual noexcept_istream{};
