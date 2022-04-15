@@ -27,7 +27,7 @@ struct memory_stream:noexcept_iostream{
 				_pos = 0;
 				return _m;
 			case cur:
-				_pos += offsize;
+				_pos += (ptrdiff_t)offsize;
 				return _m + _pos;
 			case end:
 				_pos = _s;
@@ -37,7 +37,7 @@ struct memory_stream:noexcept_iostream{
 		}
 	}
 	virtual void seek_to(void*p)noexcept override{
-		_pos = _m-p;
+		_pos = ((byte*)p)-_m;
 	}
 	virtual void sync()noexcept override{
 		//do nothing
