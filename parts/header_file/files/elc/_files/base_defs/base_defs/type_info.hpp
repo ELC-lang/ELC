@@ -13,12 +13,8 @@ private:
 
 		constexpr type_id_t(const ::std::type_info&a)noexcept:_m(&a){}
 		constexpr type_id_t(const type_id_t&a)noexcept=default;
-		[[nodiscard]]const char*get_name()const noexcept{
-			#if (defined(__GNUC__)&&(__GNUC__>=7))||(defined(__clang__)&&(__clang_major__>=3))
-				return abi::__cxa_demangle(_m->name(),nullptr,nullptr,nullptr);
-			#else
-				return _m->name();
-			#endif
+		[[nodiscard]]const char*get_name()const noexcept{//-UF:对于gcc和clang应使用abi::__cxa_demangle重整//重整几把，麻烦死了，懒得管。
+			return _m->name();
 		}
 		[[nodiscard]]size_t get_hash()const noexcept{
 			return _m->hash_code();
