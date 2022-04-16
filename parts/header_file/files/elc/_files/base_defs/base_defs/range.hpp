@@ -51,7 +51,7 @@ namespace range_n{
 	//判断一个指针是否在某个byte指针范围内
 	template<typename T>
 	[[nodiscard]]constexpr bool in_range(T*pattern,const range_t<byte*>range)noexcept{
-		return reinterpret_cast<const void*>(pattern)>=range.begin() && reinterpret_cast<const void*>(pattern)<range.end();
+		return cast_to_data(pattern)>=range.begin() && cast_to_data(pattern)<range.end();
 	}
 	//match_pattern
 	//BMH2改算法表头，用以实施头起始的快速子串匹配算法
