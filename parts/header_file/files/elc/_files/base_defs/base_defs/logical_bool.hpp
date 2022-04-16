@@ -6,15 +6,22 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-/*logical_bool：混沌布尔值。
+
+/*
+	logical_bool：混沌布尔值。
 	允许输出介于真假之间的内容的布尔值。
-	混沌布尔值会有五个可能的值，分别为TRUE,FALSE,NEITHER,EITHER。UNKNOWN视为不合法。
-	用在if与while中时，TRUE，EITHER被判定为真，其与均为假。
+	混沌布尔值会有五个可能的值，分别为true,false,neither,either。unknown视为不合法。
+	用在if与while中时，true，either被判定为真，其与均为假。
 	用法：
 	logical_bool(bool)		输出logical_bool,将布尔值转换为混沌布尔值。
 	bool(logical_bool)		输出bool，将混沌布尔值转化为布尔值。
-	允许与或非运算：输出结果仍然为混沌布尔值,参与运算的值如果有UNKNOWN则均输出UNKNOWN.
-	允许判定相等，输出结果为混沌布尔值。仅有TRUE和FALSE两个合法值。	
+	允许与或非运算：输出结果仍然为混沌布尔值,参与运算的值如果有unknown则均输出unknown.
+	允许判定相等，输出结果为混沌布尔值,参与运算的值如果有unknown则均输出unknown，否则仅有true和false两个合法值。
+*/
+/*
+	在 虚伪 的 信 念 之 前 - 他 们 将 三 元 论 视 为 真理
+	所 有 的 东西 都 是 三 部 分 。
+	从 那里 ， 他 们 终于 获得 了 答案 。
 */
 struct logical_bool{
 private:
