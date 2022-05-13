@@ -13,6 +13,7 @@ elc依赖的基础函数.
 #if !defined(ELC_APIS_die)
 	#define ELC_APIS_die
 	#include <cuchar>
+	#include <clocale>
 	#include "../default_data_type.hpp"
 	namespace elc::APIs::die{
 		[[noreturn]]inline void die()noexcept{
