@@ -65,6 +65,26 @@ no_vtable_struct noexcept_istream:virtual base_istream,virtual noexcept_stream{
 no_vtable_struct noexcept_iostream:virtual base_iostream,virtual noexcept_ostream,virtual noexcept_istream{};
 static_assert(noexcept(((noexcept_iostream*)(nullptr))->~noexcept_iostream()));
 static_assert(noexcept(((noexcept_iostream*)(nullptr))->sync()));
+
+//string streams
+no_vtable_struct string_istream: virtual base_istream{};
+no_vtable_struct string_ostream: virtual base_ostream{};
+no_vtable_struct string_iostream: virtual string_istream,virtual string_ostream,virtual base_iostream{};
+//noexcept_
+no_vtable_struct noexcept_string_istream: virtual noexcept_istream,virtual string_istream{};
+no_vtable_struct noexcept_string_ostream: virtual noexcept_ostream,virtual string_ostream{};
+no_vtable_struct noexcept_string_iostream: virtual noexcept_string_istream,virtual noexcept_string_ostream,virtual noexcept_iostream,virtual string_iostream{};
+
+
+//data streams
+no_vtable_struct data_istream: virtual base_istream{};
+no_vtable_struct data_ostream: virtual base_ostream{};
+no_vtable_struct data_iostream: virtual data_istream,virtual data_ostream,virtual base_iostream{};
+//noexcept_
+no_vtable_struct noexcept_data_istream: virtual noexcept_istream,virtual data_istream{};
+no_vtable_struct noexcept_data_ostream: virtual noexcept_ostream,virtual data_ostream{};
+no_vtable_struct noexcept_data_iostream: virtual noexcept_data_istream,virtual noexcept_data_ostream,virtual noexcept_iostream,virtual data_iostream{};
+
 #if defined(_MSC_VER)
 	#pragma warning(pop)
 #endif
