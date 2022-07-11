@@ -11,7 +11,7 @@
 #define other 4
 #if defined(__linux)||defined(__linux__)||defined(__gnu_linux__)
 	#define SYSTEM_TYPE linux
-#elif defined(_WIN32)
+#elif defined(_WIN32)||defined(__MINGW32__)||defined(__CYGWIN__)
 	#define SYSTEM_TYPE windows
 #else
 	#define SYSTEM_TYPE other
