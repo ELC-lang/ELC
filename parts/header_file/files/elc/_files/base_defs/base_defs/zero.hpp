@@ -16,7 +16,7 @@ constexpr struct zero_t{
 
 template<class T>
 constexpr inline bool is_all_byte_zero(T&&a){
-	static constexpr byte all_byte_zero_v[sizeof(T)]={};
+	constexpr byte all_byte_zero_v[sizeof(T)]={};
 	return equal(cast_to_data(addressof(a)),all_byte_zero_v,sizeof(T));
 }
 

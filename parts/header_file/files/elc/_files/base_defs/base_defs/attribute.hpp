@@ -9,12 +9,12 @@
 template<class T,typename attribute_name>
 struct attribute{
 protected:
-	template<class U,special_attribute_t attribute_name>
-	friend U*get_handle(attribute<U,attribute_name>*)noexcept;
+	template<class U,special_attribute_t another_attribute_name>
+	friend U*get_handle(attribute<U,another_attribute_name>*)noexcept;
 	constexpr T*get_handle()noexcept{return down_cast<T*>(down_cast<attribute_name*>(this));}
 
-	template<class U,special_attribute_t attribute_name>
-	friend const U*get_handle(const attribute<U,attribute_name>*)noexcept;
+	template<class U,special_attribute_t another_attribute_name>
+	friend const U*get_handle(const attribute<U,another_attribute_name>*)noexcept;
 	constexpr const T*get_handle()const noexcept{return down_cast<const T*>(down_cast<const attribute_name*>(this));}
 };
 template<class T,special_attribute_t attribute_name>

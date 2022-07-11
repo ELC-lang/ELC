@@ -7,9 +7,11 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 template<class T>
+[[nodiscard]]inline size_t the_number_of(type_info_t<T>)noexcept;
+template<class T>
 struct count_able:is_common_attribute(count_able){
 private:
-	friend size_t the_number_of(type_info_t<T>)noexcept;
+	friend size_t the_number_of<T>(type_info_t<T>)noexcept;
 	static size_t _number;
 public:
 	count_able()noexcept{_number++;}

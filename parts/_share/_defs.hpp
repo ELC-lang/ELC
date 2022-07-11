@@ -74,8 +74,8 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 #define is_common_attribute(name) public attribute<T,name<T>>
 #define is_special_attribute(name) public attribute<T,name>
 
-#define has_attribute(...) has_attribute_helper<__VA_ARGS__>()
-#define not_has_attribute(...) not_has_has_attribute_helper<__VA_ARGS__>()
+#define has_attribute(...) template_name has_attribute_helper<__VA_ARGS__>()
+#define not_has_attribute(...) template_name not_has_has_attribute_helper<__VA_ARGS__>()
 
 //for attribute
 #define def_common_attribute_with_nothing(name) \

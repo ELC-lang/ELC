@@ -25,8 +25,10 @@ namespace null_ptr_n{
 	[[nodiscard]]constexpr auto get_null_ptr()noexcept{
 		if constexpr(was_not_an_ill_form(the_get_null_ptr((T*)nullptr)))
 			return the_get_null_ptr((T*)nullptr);
-		elseif constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr))
+		elseif constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr)){
 			template_error("please overload the function the_get_null_ptr in the namespace where this type is defined.");
+			return (T*)nullptr;
+		}
 		else
 			return (T*)nullptr;
 	}

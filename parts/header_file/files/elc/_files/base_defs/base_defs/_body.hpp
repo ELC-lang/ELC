@@ -12,6 +12,8 @@
 #include "concept.hpp"
 #include "magic_number.hpp"
 
+#include "other.hpp"
+
 #include "cast.hpp"
 #include "special_flags.hpp"
 #include "non_Xable.hpp"
@@ -24,17 +26,16 @@
 #include "note.hpp"
 #include "array_like.hpp"
 #include "data.hpp"
+#include "pointer.hpp"
 #include "hash.hpp"
 #include "range.hpp"
 #include "string_view.hpp"
 #include "constexpr_str.hpp"
-#include "pointer.hpp"
 #include "logical_bool.hpp"
 #include "zero.hpp"
 #include "count_able.hpp"
 #include "invoke.hpp"
-
-#include "other.hpp"
+#include "maybe_fail_reference.hpp"
 
 //file_end
 
