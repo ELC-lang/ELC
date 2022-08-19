@@ -71,6 +71,33 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _used_size+_to_size; }
+	[[nodiscard]]virtual ptr_t do_insert(size_t pos,string_view_t str)noexcept(copy_construct_nothrow)override final{
+		if(pos==0)
+			return this->apply_str_to_begin(str);
+		elseif(pos==get_size())
+			return this->apply_str_to_end(str);
+		elseif(this->is_unique()){
+			if(pos<_to_size)
+				return _to->do_insert(pos-_used_size,str);
+			else{
+				pos-=_to_size;
+				if(_m.size()-_used_size<str.size()){
+					const auto size_now=this->get_size()+str.size();
+					const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
+					_m.insert_with_resize(pos,str.size(),str.begin(),size_new);
+				}
+				else{
+					copy_assign[_used_size-pos](note::form<const char_T*>(&_m[pos]),note::to((char_T*)&_m[pos+str.size()]));
+					copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(&_m[pos]));
+				}
+				_used_size+=str.size();
+				self_changed();
+				return this;
+			}
+		}
+		else
+			return base_t::do_insert(pos,str);
+	}
 protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<=_to_size)

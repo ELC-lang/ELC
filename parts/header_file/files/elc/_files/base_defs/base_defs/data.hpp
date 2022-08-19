@@ -10,7 +10,7 @@
 	每个T的可能性大小
 */
 template<class T> requires ::std::is_integral_v<T>
-constexpr size_t number_of_possible_values_per=max(type_info<::std::make_unsigned_t<T>>)+1;
+constexpr size_t number_of_possible_values_per=max(type_info<::std::make_unsigned_t<T>>)+size_t{1};
 /*
 	每个T有多少位
 */

@@ -90,6 +90,32 @@ namespace array_n{
 				_size_for_debug_view=size;
 			#endif
 		}
+		static constexpr bool insert_nothrow = get_resize.insert.nothrow<T>;
+		void insert(size_t index,size_t count)noexcept(insert_nothrow){
+			get_resize.insert(_m,index,count);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view+=count;
+			#endif
+		}
+		void insert(size_t index,size_t count,const T*data)noexcept(insert_nothrow){
+			get_resize.insert(_m,index,count,data);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view+=count;
+			#endif
+		}
+		void insert_with_resize(size_t index,size_t count,const T*data,size_t new_size)noexcept(insert_nothrow){
+			get_resize.insert_with_resize(_m,index,count,data,new_size);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=new_size;
+			#endif
+		}
+		static constexpr bool insert_with_forward_resize_nothrow = get_forward_resize.insert_with_resize.nothrow<T>;
+		void insert_with_forward_resize(size_t index,size_t count,const T*data,size_t new_size)noexcept(insert_with_forward_resize_nothrow){
+			get_forward_resize.insert_with_resize(_m,index,count,data,new_size);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=new_size;
+			#endif
+		}
 		[[nodiscard]]bool empty()const{
 			return _m==null_ptr;
 		}

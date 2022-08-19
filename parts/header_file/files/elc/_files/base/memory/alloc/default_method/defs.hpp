@@ -50,7 +50,7 @@ namespace default_method{
 	}
 	inline size_t base_get_size_of_alloc(const byte*arg, size_t align)noexcept{
 		//arg保证不与null_ptr相等
-		auto tmp= ::elc::APIs::alloc::get_size_of_alloc(arg,align);
+		const auto tmp= ::elc::APIs::alloc::get_size_of_alloc(arg,align);
 		return tmp;
 	}
 	//BLOCK_END

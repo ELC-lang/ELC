@@ -284,7 +284,7 @@ namespace string_n{
 		[[nodiscard]]constexpr auto operator==(constexpr_str_t&a)const noexcept(equal.nothrow<char_T>){
 			if(_in_cso() && data()==a.str())//同起始优化
 				return true;
-			auto tmp=operator==((string_view_t&)a);
+			const auto tmp=operator==((string_view_t&)a);
 			if(!tmp)
 				remove_const(this)->_cso_reinit(a);
 			return tmp;

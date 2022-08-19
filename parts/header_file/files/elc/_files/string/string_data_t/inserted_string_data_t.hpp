@@ -152,7 +152,7 @@ public:
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
-			auto size=str.size();
+			const auto size=str.size();
 			if(_insert_pos==0){
 				_insert_data=_insert_data->apply_str_to_begin(str);
 				_insert_size+=size;
@@ -170,7 +170,7 @@ public:
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(ptr_t str)noexcept(apply_data_nothrow)override final{
 		if(this->is_unique()){
-			auto size=str->get_size();
+			const auto size=str->get_size();
 			if(_insert_pos==0){
 				_insert_data=_insert_data->apply_str_to_begin(str);
 				_insert_size+=size;
@@ -260,7 +260,7 @@ protected:
 			result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
 		}
 		result=hash.merge_array_hash_results(result,_insert_pos,_insert_data->get_hash(_insert_data),_insert_size);
-		auto size=_to_size-_insert_pos;
+		const auto size=_to_size-_insert_pos;
 		if(size)
 			result=_to->get_others_hash_with_calculated_before(result,_insert_pos+_insert_size,_to,_insert_pos,size);
 		return result;

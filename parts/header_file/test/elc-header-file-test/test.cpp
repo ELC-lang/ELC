@@ -18,7 +18,6 @@
 #include <elc/string>
 #include <elc/lib_loader>
 #include <elc/void_name>
-#include <elc/memory_stream>
 //#include <elc/namespace>
 
 #if defined(_MSC_VER)

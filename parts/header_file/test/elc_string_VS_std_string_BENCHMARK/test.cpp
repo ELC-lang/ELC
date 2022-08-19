@@ -2,6 +2,8 @@
 
 static_assert(sizeof(std::string)>=sizeof(elc::string));
 
+//*
+
 static void Std_StringCreation_Size0(benchmark::State& state) {
 	for(auto _: state)
 		std::string empty_string;
@@ -260,3 +262,5 @@ static void ELC_StringFindFirstOf_Size5(benchmark::State& state) {
 BENCHMARK(ELC_StringFindFirstOf_Size5);
 
 BENCHMARK_MAIN();
+
+//*/

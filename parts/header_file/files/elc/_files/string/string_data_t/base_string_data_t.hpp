@@ -121,7 +121,7 @@ public:
 	}
 protected:
 	[[nodiscard]]bool default_equal_method(ptr_t with)noexcept(equal.nothrow<char_T>){
-		size_t self_size=get_size();
+		const size_t self_size=get_size();
 		return equal_with(with,0,self_size);
 	}
 public:
@@ -133,7 +133,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		auto b=with->get_the_largest_complete_data_block_begin_form(index);
 		while(size){
-			size_t step=min({a.size(),b.size(),size});
+			const size_t step=min({a.size(),b.size(),size});
 			if(a.begin()!=b.begin())//起始地址不同时才需要真的比较
 				if(!equal(a.begin(),b.begin(),step))
 					return false;
@@ -160,7 +160,7 @@ public:
 			return true;
 		while(true){
 			auto b=with.begin()+index;
-			size_t step=min({a.size(),with.size()-index,size});
+			const size_t step=min({a.size(),with.size()-index,size});
 			if(!equal(a.begin(),b,step))
 				return false;
 			index+=step;
@@ -230,7 +230,7 @@ public:
 	}
 protected:
 	[[nodiscard]]compare_type default_compare_method(ptr_t with)noexcept(compare.nothrow<char_T>){
-		size_t self_size=get_size();
+		const size_t self_size=get_size();
 		return compare_with(with,0,self_size);
 	}
 public:
@@ -242,7 +242,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		auto b=with->get_the_largest_complete_data_block_begin_form(index);
 		while(size){
-			size_t step=min({a.size(),b.size(),size});
+			const size_t step=min({a.size(),b.size(),size});
 			if(a.begin()!=b.begin())//起始地址不同时才需要真的比较
 				if(auto tmp=compare(a.begin(),b.begin(),step); tmp!=0)
 					return tmp;
@@ -323,7 +323,7 @@ public:
 		if(has_hash_cache())
 			return hash_cache;
 		else{
-			auto tmp=this->get_hash_detail(p);
+			const auto tmp=this->get_hash_detail(p);
 			return p->hash_cache=tmp;
 		}
 	}

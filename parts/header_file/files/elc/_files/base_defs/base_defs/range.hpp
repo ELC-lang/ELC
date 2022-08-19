@@ -69,7 +69,7 @@ namespace range_n{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
 		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
-			size_t m=pattern.size();
+			const size_t m=pattern.size();
 			if(!m)
 				return;
 			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
@@ -125,7 +125,7 @@ namespace range_n{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
 		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
-			size_t m=pattern.size();
+			const size_t m=pattern.size();
 			if(!m)
 				return;
 			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
@@ -318,7 +318,7 @@ namespace range_n{
 	//find_first_of的bitmark实现
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_of_bitmark(bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
 		for(auto&i : range){
 			if(mark[i])
 				return addressof(i);
@@ -358,7 +358,7 @@ namespace range_n{
 	//find_last_of的bitmark实现
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_of_bitmark(bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
 		for(auto& i: range|::std::views::reverse) {
 			if(mark[i])
 				return addressof(i);
@@ -397,7 +397,7 @@ namespace range_n{
 	//find_first_not_of的bitmark实现
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_not_of_bitmark(bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_not_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
 		for(auto& i: range){
 			if(!mark[i])
 				return addressof(i);
@@ -437,7 +437,7 @@ namespace range_n{
 	//find_last_not_of的bitmark实现
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_not_of_bitmark(bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_not_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
 		for(auto& i: range|::std::views::reverse){
 			if(!mark[i])
 				return addressof(i);

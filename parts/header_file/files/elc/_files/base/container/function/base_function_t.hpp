@@ -29,6 +29,8 @@ namespace function_n{
 		[[nodiscard]]bool operator==(T&&a)const{
 			return this->get_type_info()==type_info<T>&&this->equal_with(addressof(a));
 		}
+		typedef Ret_t(*func_ptr_t)(Args_t...);
+		virtual func_ptr_t get_func_ptr()const noexcept{return nullptr;}
 	};
 
 	template<class T,class Func_t>
@@ -42,6 +44,7 @@ namespace function_n{
 		typedef func_data_t<T,Ret_t(Args_t...)>this_t;
 		typedef function_data_warpper_t<T,Ret_t(Args_t...)>data_t;
 		typedef base_t::ptr_t ptr_t;
+		typedef base_t::func_ptr_t func_ptr_t;
 
 		[[nodiscard]]bool is_unique()const noexcept{return get_ref_num((base_t*)this)==1;}
 
@@ -53,12 +56,20 @@ namespace function_n{
 		[[noreturn]] virtual void throw_self_ptr()override final{throw addressof(data_t::get_data());}
 		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept(equal.able<T>?equal.nothrow<T>:true)override final{
 			if constexpr(equal.able<T>)
-				return data_t::_value==*remove_const(reinterpret_cast<const T*>(a));
+				return data_t::get_data()==*remove_const(reinterpret_cast<const T*>(a));
 			else
 				return false;
 		}
 		[[nodiscard]]virtual Ret_t call(Args_t...args)noexcept(invoke<T>.nothrow<Args_t...>)override final{
 			return data_t::operator()(forward<Args_t>(args)...);
+		}
+
+		//func ptr convert
+		virtual func_ptr_t get_func_ptr()const noexcept override final{
+			if constexpr(type_info<const T>.can_convert_to<func_ptr_t>)
+				return static_cast<func_ptr_t>(data_t::get_data());
+			else
+				return nullptr;
 		}
 	};
 
@@ -239,19 +250,20 @@ namespace function_n{
 				#pragma warning(pop)
 			#endif
 		}
-		/*
-		private:
-			//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-			static ptr_t _func_ptr_data;
-			static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
-				return _func_ptr_data->call(forward<Args_t>(args)...);
-			}
-		public:
-			[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
-				_func_ptr_data=base_t::_m;
-				return _func_ptr_value;
-			}
-		*/
+		
+	private:
+		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
+		static ptr_t _func_ptr_data;
+		static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
+			return _func_ptr_data->call(forward<Args_t>(args)...);
+		}
+	public:
+		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
+			func_ptr_t a=(func_ptr_t)_m->get_func_ptr();
+			if(a)return a;
+			_func_ptr_data=base_t::_m;
+			return _func_ptr_value;
+		}
 	};
 	#else
 	//MSVC，我滴垃圾堆
@@ -285,7 +297,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
 		template<class T>
-		static constexpr bool get_data_nothrow=true;//get<func_data_t<remove_cvref<T>>>.nothrow<T>; //貌似msvc在这里有bug
+		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 
 		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
@@ -346,19 +358,20 @@ namespace function_n{
 		Ret_t operator()(Args_t...args)const{
 			return base_t::call(forward<Args_t>(args)...);
 		}
-		/*
-		private:
-			//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-			static ptr_t _func_ptr_data;
-			static Ret_t _func_ptr_value(Args_t...args){
-				return _func_ptr_data->call(forward<Args_t>(args)...);
-			}
-		public:
-			[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
-				_func_ptr_data=base_t::_m;
-				return _func_ptr_value;
-			}
-		*/
+		
+	private:
+		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
+		static base_t::ptr_t _func_ptr_data;
+		static Ret_t _func_ptr_value(Args_t...args){
+			return _func_ptr_data->call(forward<Args_t>(args)...);
+		}
+	public:
+		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
+			func_ptr_t a=(func_ptr_t)_m->get_func_ptr();
+			if(a)return a;
+			_func_ptr_data=base_t::_m;
+			return _func_ptr_value;
+		}
 	};
 	template<class Ret_t,class...Args_t,bool promise_nothrow_at_destruct>
 	struct base_function_t<Ret_t(Args_t...)noexcept,promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
@@ -387,7 +400,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
 		template<class T>
-		static constexpr bool get_data_nothrow=true;//get<func_data_t<remove_cvref<T>>>.nothrow<T>; //貌似msvc在这里有bug
+		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 
 		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
@@ -465,19 +478,20 @@ namespace function_n{
 				#pragma warning(pop)
 			#endif
 		}
-		/*
-		private:
-			//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-			static ptr_t _func_ptr_data;
-			static Ret_t _func_ptr_value(Args_t...args)noexcept{
-				return _func_ptr_data->call(forward<Args_t>(args)...);
-			}
-		public:
-			[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
-				_func_ptr_data=base_t::_m;
-				return _func_ptr_value;
-			}
-		*/
+		
+	private:
+		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
+		static base_t::ptr_t _func_ptr_data;
+		static Ret_t _func_ptr_value(Args_t...args)noexcept{
+			return _func_ptr_data->call(forward<Args_t>(args)...);
+		}
+	public:
+		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
+			func_ptr_t a=(func_ptr_t)_m->get_func_ptr();
+			if(a)return a;
+			_func_ptr_data=base_t::_m;
+			return _func_ptr_value;
+		}
 	};
 	#endif
 	template<class T,bool promise_nothrow_at_destruct>

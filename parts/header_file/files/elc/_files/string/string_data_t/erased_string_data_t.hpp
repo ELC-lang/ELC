@@ -171,7 +171,7 @@ public:
 protected:
 	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
 		auto result=hash(nothing);
-		auto size=get_size();
+		const auto size=get_size();
 		const auto size_before_erase_pos=_erase_pos;
 		const auto size_after_erase_pos=size-size_before_erase_pos;
 		result=_to->get_others_hash_with_calculated_before(result,0,_to,0,size_before_erase_pos);

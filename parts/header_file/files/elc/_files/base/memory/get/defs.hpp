@@ -49,6 +49,70 @@ namespace get_n{
 			arg=tmp;
 		}
 	}
+	/*在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例*/
+	template<typename T>
+	void alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
+		const auto from_size=get_size_of_alloc(arg);
+		const auto to_size=from_size+insert_size;
+		const auto size_before_insert=insert_pos;
+		const auto size_after_insert=from_size-insert_pos;
+		if constexpr(move.trivial<T>){
+			realloc(arg,to_size);
+			memmove(arg+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*sizeof(T));
+		}
+		else{
+			T*tmp=alloc<T>(to_size);
+			if constexpr(!move.nothrow<T>){
+				template_warning("the move of T was not noexcept,this may cause memory lack.");
+				try{
+					move[size_before_insert](note::from(arg),note::to(tmp));
+					move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));
+				}catch(...){
+					free(tmp);
+					throw;
+				}
+			}else{
+				move[size_before_insert](note::from(arg),note::to(tmp));
+				move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));
+			}
+			free(arg);
+			arg=tmp;
+		}
+	}
+	/*
+	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
+	若有多余的大小，追加到末尾
+	返回多余的大小
+	*/
+	template<typename T>
+	size_t alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t to_size,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
+		const auto from_size=get_size_of_alloc(arg);
+		const auto size_before_insert=insert_pos;
+		const auto size_after_insert=from_size-insert_pos;
+		if constexpr(move.trivial<T>){
+			realloc(arg,to_size);
+			memmove(arg+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*sizeof(T));
+		}
+		else{
+			T*tmp=alloc<T>(to_size);
+			if constexpr(!move.nothrow<T>){
+				template_warning("the move of T was not noexcept,this may cause memory lack.");
+				try{
+					move[size_before_insert](note::from(arg),note::to(tmp));
+					move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));
+				}catch(...){
+					free(tmp);
+					throw;
+				}
+			}else{
+				move[size_before_insert](note::from(arg),note::to(tmp));
+				move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));
+			}
+			free(arg);
+			arg=tmp;
+		}
+		return to_size-from_size;
+	}
 	/*向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
 	template<typename T>
 	void forward_alloc_size_cut(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
@@ -100,6 +164,46 @@ namespace get_n{
 			free(arg);
 			arg=tmp;
 		}
+	}
+	/*
+	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
+	若有多余的大小，追加到前端
+	返回多余的大小
+	*/
+	template<typename T>
+	size_t forward_alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t to_size,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
+		const auto from_size=get_size_of_alloc(arg);
+		const auto grow_size=to_size-from_size;
+		const auto before_grow_size=grow_size-insert_size;
+		const auto size_before_insert=insert_pos;
+		const auto size_after_insert=from_size-insert_pos;
+		if constexpr(move.trivial<T>){
+			realloc(arg,to_size);
+			const auto orogin_data_ptr=arg+before_grow_size;
+			::std::memmove(orogin_data_ptr+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*sizeof(T));
+			::std::memmove(orogin_data_ptr,arg,size_before_insert*sizeof(T));
+		}
+		else{
+			T*tmp=alloc<T>(to_size);
+			if constexpr(!move.nothrow<T>){
+				template_warning("the move of T was not noexcept,this may cause memory lack.");
+				try{
+					const auto orogin_data_ptr=tmp+before_grow_size;
+					move[size_before_insert](note::from(arg),note::to(orogin_data_ptr));
+					move[size_after_insert](note::from(arg+size_before_insert),note::to(orogin_data_ptr+size_before_insert+insert_size));
+				}catch(...){
+					free(tmp);
+					throw;
+				}
+			}else{
+				const auto orogin_data_ptr=tmp+before_grow_size;
+				move[size_before_insert](note::from(arg),note::to(orogin_data_ptr));
+				move[size_after_insert](note::from(arg+size_before_insert),note::to(orogin_data_ptr+size_before_insert+insert_size));
+			}
+			free(arg);
+			arg=tmp;
+		}
+		return before_grow_size;
 	}
 
 	struct base_get_t{};
@@ -270,6 +374,39 @@ namespace get_n{
 			base_call(arg,to_size);
 			return arg;
 		}
+
+		static constexpr struct insert_t{
+			template<typename T>
+			static constexpr bool able=get_resize_t::able<T>;
+			template<typename T>
+			static constexpr bool nothrow=get_resize_t::nothrow<T>;
+			template<typename T> requires(able<T> && construct<T>.able<>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size)const noexcept(nothrow<T>){
+				if(insert_size){
+					alloc_size_grow_with_insert_uninitialized_data(arg,insert_pos,insert_size);
+					construct<T>[arg+insert_pos][insert_size]();
+				}
+			}
+			template<typename T> requires(able<T> && copy_construct.able<T>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data)const noexcept(nothrow<T>){
+				if(insert_size){
+					alloc_size_grow_with_insert_uninitialized_data(arg,insert_pos,insert_size);
+					copy_construct[insert_size](note::from(insert_data),note::to(arg+insert_pos));
+				}
+			}
+		}insert{};
+		static constexpr struct insert_resize_t{
+			template<typename T>
+			static constexpr bool able=get_resize_t::able<T>;
+			template<typename T>
+			static constexpr bool nothrow=get_resize_t::nothrow<T>;
+			template<typename T> requires(able<T> && construct<T>.able<> && copy_construct.able<T>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data,size_t to_size)const noexcept(nothrow<T>){
+				auto grow_size=alloc_size_grow_with_insert_uninitialized_data(arg,to_size,insert_pos,insert_size);
+				copy_construct[insert_size](note::from(insert_data),note::to(arg+insert_pos));
+				construct<T>[arg+to_size-grow_size][grow_size]();
+			}
+		}insert_with_resize{};
 	}get_resize{};
 
 	constexpr struct get_forward_resize_t{
@@ -312,6 +449,36 @@ namespace get_n{
 			base_call(arg,to_size);
 			return arg;
 		}
+
+		static constexpr struct insert_t{
+			template<typename T>
+			static constexpr bool able=get_resize_t::able<T>;
+			template<typename T>
+			static constexpr bool nothrow=get_resize_t::nothrow<T>;
+			template<typename T> requires(able<T> && construct<T>.able<>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size)const noexcept(nothrow<T>){
+				get_resize.insert(arg,insert_pos,insert_size);
+			}
+			template<typename T> requires(able<T> && copy_construct.able<T>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data)const noexcept(nothrow<T>){
+				get_resize.insert(arg,insert_pos,insert_size,insert_data);
+			}
+		}insert{};
+		static constexpr struct insert_resize_t{
+			template<typename T>
+			static constexpr bool able=get_resize_t::able<T>;
+			template<typename T>
+			static constexpr bool nothrow=get_resize_t::nothrow<T>;
+			template<typename T> requires(able<T> && construct<T>.able<> && copy_construct.able<T>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data,size_t to_size)const noexcept(nothrow<T>){
+				if(insert_size){
+					auto before_grow_size=forward_alloc_size_grow_with_insert_uninitialized_data(arg,to_size,insert_pos,insert_size);
+					const auto orogin_arg=arg+before_grow_size;
+					copy_construct[insert_size](note::from(insert_data),note::to(orogin_arg+insert_pos));
+					construct<T>[arg][before_grow_size]();
+				}
+			}
+		}insert_with_resize{};
 	}get_forward_resize{};
 
 	constexpr struct get_size_of_get_t{

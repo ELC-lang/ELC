@@ -34,38 +34,42 @@ elc依赖的基础函数.
 				#pragma warning(push)
 				#pragma warning(disable:26485)//数组转型警告diss
 				#pragma warning(disable:26475)//强转警告diss
+				#pragma warning(disable:26481)//指针操作警告diss
+				#pragma warning(disable:26429)//nullness警告diss
 			#endif
-			::std::mbstate_t stat{};
-			if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
-				die();
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
-			char err_msg_in_char[2048];
-			char* err_msg_write = err_msg_in_char;
-			size_t s;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
-			char_t c;
-			while(c = *(err_msg++)) {
-				s = ::std::c32rtomb(err_msg_write, c, &stat);
-				if(s == size_t(-1))
+			if(err_msg){
+				::std::mbstate_t stat{};
+				if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
 					die();
-				err_msg_write += s;
+				#if defined(_MSC_VER)
+					#pragma warning(push)
+					#pragma warning(disable:26494)//未初始化警告diss
+				#endif
+				char err_msg_in_char[2048];
+				char* err_msg_write = err_msg_in_char;
+				size_t s;
+				#if defined(_MSC_VER)
+					#pragma warning(pop)
+				#endif
+				char_t c;
+				while(c = *(err_msg++)) {
+					s = ::std::c32rtomb(err_msg_write, c, &stat);
+					if(s == size_t(-1))
+						die();
+					err_msg_write += s;
+				}
+				*err_msg_write = '\0';
+				#if defined(_WINMAIN_)
+					wchar_t err_msg_in_wchar[2048];
+					MultiByteToWideChar(CP_UTF8, 0, err_msg_in_char, -1, err_msg_in_wchar, 2048);
+					::MessageBoxW(NULL,err_msg_in_wchar,NULL,MB_ICONERROR);
+				#else
+					::std::fputs("elc died because:\n",stderr);
+					::std::fputs(err_msg_in_char,stderr);
+					::std::fputc('\n',stderr);
+					::std::fflush(stderr);
+				#endif
 			}
-			*err_msg_write = '\0';
-			#if defined(_WINMAIN_)
-				wchar_t err_msg_in_wchar[2048];
-				MultiByteToWideChar(CP_UTF8, 0, err_msg_in_char, -1, err_msg_in_wchar, 2048);
-				::MessageBoxW(NULL,err_msg_in_wchar,NULL,MB_ICONERROR);
-			#else
-				::std::fputs("elc died because:\n",stderr);
-				::std::fputs(err_msg_in_char,stderr);
-				::std::fputc('\n',stderr);
-				::std::fflush(stderr);
-			#endif
 			::std::abort();
 			#if defined(_MSC_VER)
 				#pragma warning(pop)
