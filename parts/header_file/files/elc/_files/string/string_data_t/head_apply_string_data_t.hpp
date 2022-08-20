@@ -134,10 +134,11 @@ public:
 			if(_m.size()-_used_size<str.size()){
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.forward_resize(size_new);
+				_m.insert_with_forward_resize(0,str.size(),str.begin(),size_new);
 			}
+			else
+				copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
 			_used_size+=str.size();
-			copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size));
 			self_changed();
 			return this;
 		}
