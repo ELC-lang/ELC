@@ -71,22 +71,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
