@@ -26,6 +26,7 @@ namespace default_gc_for_type{
 		)
 	);
 
+	enable_adl(destory_by_gc);
 	template<class T>
 	void destory_by_gc(T*){
 		template_error("this function should not be instantiated,please overload the function destory_by_gc in the namespace where this type is defined.");

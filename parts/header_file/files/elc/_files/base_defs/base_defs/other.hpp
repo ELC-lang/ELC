@@ -22,6 +22,7 @@ inline void just_a_use(T&&){}
 template<typename T>
 distinctive inline T const_default_value_of{};//?
 
+enable_adl(the_destroy);
 template<typename T>
 static void destroy(T*a)noexcept{
 	if constexpr(was_not_an_ill_form(the_destroy(a)))

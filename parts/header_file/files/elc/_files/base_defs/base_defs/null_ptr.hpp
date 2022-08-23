@@ -20,7 +20,7 @@ namespace null_ptr_n{
 	*/
 	special_attribute_t force_use_default_null_ptr:can_t_use_default_null_ptr{};
 
-	void the_get_null_ptr() = delete;
+	enable_adl(the_get_null_ptr);
 	template<typename T>
 	[[nodiscard]]constexpr auto get_null_ptr()noexcept{
 		if constexpr(was_not_an_ill_form(the_get_null_ptr((T*)nullptr)))

@@ -26,6 +26,8 @@
 #undef using_method_from_value
 
 // #undef floop
+#undef enable_adl
+
 #undef re_declvalue
 #undef re_decltype
 

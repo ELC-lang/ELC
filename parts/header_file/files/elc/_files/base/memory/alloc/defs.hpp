@@ -16,7 +16,7 @@ namespace alloc_n{
 	//这里是缺省时的默认方法定义
 	#include "default_method/defs.hpp"
 	
-	void the_alloc_method()noexcept=delete;
+	enable_adl(the_alloc_method);
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
@@ -34,7 +34,7 @@ namespace alloc_n{
 		else
 			return default_method::alloc_method(type_info<T>,size);
 	}
-	void the_get_size_of_alloc_method()noexcept=delete;
+	enable_adl(the_get_size_of_alloc_method);
 	template<typename T>
 	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
 		//arg保证不与null_ptr相等
@@ -43,7 +43,7 @@ namespace alloc_n{
 		else
 			return default_method::get_size_of_alloc_method(arg);
 	}
-	void the_free_method()noexcept=delete;
+	enable_adl(the_free_method);
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
 		if constexpr(was_not_an_ill_form(the_free_method(arg)))
@@ -51,7 +51,7 @@ namespace alloc_n{
 		else
 			default_method::free_method(arg);
 	}
-	void the_realloc_method()noexcept=delete;
+	enable_adl(the_realloc_method);
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效

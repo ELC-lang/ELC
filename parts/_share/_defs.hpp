@@ -57,6 +57,8 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 
 
 // #define floop while(true)
+#define enable_adl(name) void name()noexcept=delete
+
 #define re_declvalue(...) (declvalue(decltype(__VA_ARGS__)))
 #define re_decltype(...) (decltype(declvalue(__VA_ARGS__)))
 

@@ -25,7 +25,7 @@ namespace hash_n{
 	template<class T>
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T>;
 
-	void the_pointer_hash()noexcept=delete;
+	enable_adl(the_pointer_hash);
 	template<class T>
 	[[nodiscard]]inline constexpr hash_value_t pointer_hash(T*a)noexcept{
 		if constexpr(was_not_an_ill_form(the_pointer_hash(a)))

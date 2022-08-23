@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-void the_waiting_for_destroy()noexcept=delete;
+enable_adl(the_waiting_for_destroy);
 template<typename T>
 void waiting_for_destroy(T*a)noexcept{
 	if constexpr(was_not_an_ill_form(the_waiting_for_destroy(a)))
@@ -14,7 +14,7 @@ void waiting_for_destroy(T*a)noexcept{
 	else
 		template_error("this function should not be instantiated,please overload the function the_waiting_for_destroy in the namespace where this type is defined.");
 }
-void the_destroy_and_free()noexcept=delete;
+enable_adl(the_destroy_and_free);
 template<typename T>
 void destroy_and_free(T*a)noexcept{
 	if constexpr(was_not_an_ill_form(the_destroy_and_free(a)))

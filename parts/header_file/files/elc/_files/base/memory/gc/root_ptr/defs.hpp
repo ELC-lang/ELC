@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+enable_adl(map_and_mark_for_gc);
 template<typename T>
 void map_and_mark_for_gc(T*)noexcept{
 	template_error("this function should not be instantiated,please overload the function map_and_mark_for_gc in the namespace where this type is defined");

@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 
-void the_pointer_to_bool()noexcept=delete;
+enable_adl(the_pointer_to_bool);
 //指针转bool的重载接口，允许类对此进行自定义
 //elc内部的指针转bool应当视情况使用默认配置或此重载接口
 template<typename T>
@@ -18,7 +18,7 @@ template<typename T>
 		return null_ptr!=a;
 }
 
-void the_pointer_equal()noexcept=delete;
+enable_adl(the_pointer_equal);
 //指针比较的重载接口，允许类对此进行自定义
 //elc内部的指针比较应当视情况使用默认配置或此重载接口
 template<typename T>
