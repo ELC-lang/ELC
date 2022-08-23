@@ -11,7 +11,7 @@ struct memory_stream:noexcept_iostream{
 	size_t _s;
 	size_t _pos;
 	memory_stream()noexcept{
-		_m = get<byte>[1024]();
+		_m = get<byte>[1024];
 		_pos = 0;
 		_s = 0;
 	}

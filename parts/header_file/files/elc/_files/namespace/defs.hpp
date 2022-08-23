@@ -17,7 +17,7 @@ namespace namespace_n{
 			return (*thenamespace)[es".symbol_type_map"];
 		}
 		namespace_t()noexcept{
-			_namespace_root = get<common_node>();
+			_namespace_root = get<common_node>;
 			auto&nmsp	    = *_namespace_root;
 			_namespace_now  = &nmsp;
 			#if defined(_MSC_VER)
@@ -30,7 +30,7 @@ namespace namespace_n{
 			nmsp[es"nil"]	 = nil;
 			nmsp[es"void"]	 = the_void;
 			value nmsptm	 = get_symbol_type_map(&nmsp);
-			nmsptm			 = get<common_node>();
+			nmsptm			 = get<common_node>;
 			nmsptm[es"void"] = es"void";
 			#if defined(_MSC_VER)
 				#pragma warning(pop)

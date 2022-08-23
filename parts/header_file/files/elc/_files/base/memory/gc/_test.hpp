@@ -36,9 +36,9 @@ inline void test(){
 	for(int t=rand()%7;t--;)
 	{
 		int i;
-		root_ptr_t<gc_tester> name=get<gc_tester>();
+		root_ptr_t<gc_tester> name=get<gc_tester>;
 		for(i=rand()%72;i--;){
-			auto p=get<gc_tester>();
+			auto p=get<gc_tester>;
 		}
 		gc();
 		stest_accert(gc_tester::shrink_time==i+1);
