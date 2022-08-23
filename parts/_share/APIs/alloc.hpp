@@ -13,11 +13,14 @@ elc依赖的基础函数.
 #if !defined(ELC_APIS_alloc)
 	#define ELC_APIS_alloc
 	#include <cstdlib>
+	#if SYSTEM_TYPE == windows
+		#include <malloc.h>
+	#endif
 	#include "../../header_file/files/elc/base_defs"
+	#include "../../_share/_defs.hpp"
 	namespace elc::APIs::alloc{
 		#include "_tools/decl_system_type.hpp"
 		#if SYSTEM_TYPE == windows
-			#include <malloc.h>
 			using namespace elc::defs;//remove_const
 		#else
 			#include "alloc/default_method/overhead.hpp"
@@ -86,6 +89,7 @@ elc依赖的基础函数.
 		}
 		#include "_tools/undef_decl_system_type.hpp"
 	}
+	#include "../../_share/_undefs.hpp"
 #endif
 
 //file_end
