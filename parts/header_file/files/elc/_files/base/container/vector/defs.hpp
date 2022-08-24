@@ -31,7 +31,7 @@ namespace vector_n{
 		构造size个T
 		*/
 		explicit vector_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
-			_m=get<T>[size.value];
+			_m=get<T>[size.value]();
 			_used_size=size.value;
 		}
 		/*

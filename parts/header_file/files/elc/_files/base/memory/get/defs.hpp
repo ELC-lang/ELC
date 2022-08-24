@@ -220,11 +220,6 @@ namespace get_n{
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
 
-		template<typename anotherT>
-		[[nodiscard]]operator anotherT()const noexcept(nothrow<>)requires able<>{
-			return (*this)();
-		}
-
 		struct array_get_t{
 			size_t _size;
 			template<class...Args> requires able<Args...>
@@ -232,10 +227,6 @@ namespace get_n{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
-			}
-			template<typename anotherT>
-			[[nodiscard]]operator anotherT()const noexcept(nothrow<>)requires able<>{
-				return (*this)();
 			}
 		};
 		[[nodiscard]]constexpr array_get_t operator[](size_t size)const noexcept{return{size};}
@@ -370,7 +361,7 @@ namespace get_n{
 					alloc_size_grow(arg,to_size);
 					construct<T>[arg+from_size][to_size-from_size]();
 				}else
-					arg=get<T>[to_size];
+					arg=get<T>[to_size]();
 			}
 		}
 
@@ -445,7 +436,7 @@ namespace get_n{
 					forward_alloc_size_grow(arg,to_size);
 					construct<T>[arg][to_size-from_size]();
 				}else
-					arg=get<T>[to_size];
+					arg=get<T>[to_size]();
 			}
 		}
 

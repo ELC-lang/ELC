@@ -39,7 +39,7 @@ namespace array_n{
 		构造size个T
 		*/
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
-			_m=get<T>[size.value];
+			_m=get<T>[size.value]();
 			#if defined(DEBUG) || defined(_DEBUG)
 				_size_for_debug_view=size.value;
 			#endif

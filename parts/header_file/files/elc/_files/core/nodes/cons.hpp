@@ -46,7 +46,7 @@ public:
 		elseif(v==&t)
 			return _car;
 		else{
-			ptr to=get<common_node>;
+			ptr to=get<common_node>();
 			_car >> car_of(to);
 			_cdr >> cdr_of(to);
 			be_replace_as(to);

@@ -30,8 +30,8 @@ void ste::stst(){
 	using namespace elc::defs::core;
 	using elc::void;
 	{
-		ptr a = get<common_node>;
-		ptr b = get<common_node>;
+		ptr a = get<common_node>();
+		ptr b = get<common_node>();
 		stest_accert((*a)[nil] == void);
 		(*a)[nil] = t;
 		stest_accert((*a)[nil] == t);
@@ -42,7 +42,7 @@ void ste::stst(){
 		stest_accert((*b)[t] == a);
 		weak_ptr wk;
 		{
-			ptr c = get<common_node>;
+			ptr c = get<common_node>();
 			wk = c;
 			(*a)[c] = t;
 			stest_accert((*a)[c] == t);

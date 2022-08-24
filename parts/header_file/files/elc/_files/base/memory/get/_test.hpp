@@ -12,7 +12,7 @@ namespace get_n{
 		ELC_TEST_EVENTNAME("get部分测试");
 		{
 			ste::tester::setzero();
-			tester*p=get<tester>[50];
+			tester*p=get<tester>[50]();
 			stest_accert(tester::getbuildtime()==50);
 			get_resize(p,60);
 			//destroytime:50(+50) cause move(move_construct&destruct).
