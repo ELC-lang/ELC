@@ -1,6 +1,7 @@
 #include "pch.h"
 
 static_assert(sizeof(std::string)>=sizeof(elc::string));
+#pragma optimize("", off)
 
 //*
 
@@ -293,5 +294,7 @@ static void ELC_StringFindFirstOf_Size5(benchmark::State& state) {
 BENCHMARK(ELC_StringFindFirstOf_Size5);
 
 BENCHMARK_MAIN();
+
+#pragma optimize("", on)
 
 //*/
