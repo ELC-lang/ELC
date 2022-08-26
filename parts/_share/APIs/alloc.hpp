@@ -12,7 +12,7 @@ elc依赖的基础函数.
 */
 #if !defined(ELC_APIS_alloc)
 	#define ELC_APIS_alloc
-	#if defined(_DEBUG)
+	#if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD)
 		#include <stacktrace>//for operate_source_location
 	#endif
 	#if SYSTEM_TYPE == windows

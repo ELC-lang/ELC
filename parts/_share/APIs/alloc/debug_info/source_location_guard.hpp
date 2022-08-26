@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if defined(_DEBUG)
+#if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD)
 	distinctive inline ::std::stacktrace_entry operate_source_frame;
 	distinctive inline struct source_location_info_t{
 		const char*_file=nullptr;
@@ -58,8 +58,12 @@
 	};
 #else
 	struct source_location_guard{
-		source_location_guard(size_t lookup=0)noexcept{}
+		constexpr source_location_guard(size_t lookup=0)noexcept{}
 	};
+	distinctive inline struct source_location_info_t{
+		constexpr const char*file()noexcept{return nullptr;}
+		constexpr uint_least32_t line()noexcept{return 0;}
+	}operate_source_location;
 #endif
 
 //file_end
