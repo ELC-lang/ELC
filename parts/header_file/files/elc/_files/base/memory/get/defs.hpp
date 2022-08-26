@@ -217,6 +217,7 @@ namespace get_n{
 
 		template<class...Args> requires able<Args...>
 		[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+			const APIs::alloc::source_location_guard slg;
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
 
@@ -224,6 +225,7 @@ namespace get_n{
 			size_t _size;
 			template<class...Args> requires able<Args...>
 			[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+				const APIs::alloc::source_location_guard slg;
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				return construct<T>[alloc<T>(_size)][_size](forward<Args>(rest)...);
@@ -238,6 +240,7 @@ namespace get_n{
 			static constexpr bool nothrow=copy_construct.nothrow<T>;
 
 			[[nodiscard]]T* operator()(array_like_view_t<const T>a)const noexcept(nothrow<void>){
+				const APIs::alloc::source_location_guard slg;
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
 				auto size=a.size();
@@ -254,6 +257,7 @@ namespace get_n{
 			static constexpr bool nothrow=copy_construct.nothrow<T>&&move.nothrow<T>;
 
 			T* operator()(note::to_t<T*&> to,array_like_view_t<const T>a)const noexcept(nothrow<void>){
+				const APIs::alloc::source_location_guard slg;
 				auto&ptr=to.value;
 				auto from_size=get_size_of_alloc(ptr);
 				auto a_size=a.size();
@@ -262,6 +266,7 @@ namespace get_n{
 				return ptr;
 			}
 			T* operator()(note::to_t<T*&> to,const T&a)const noexcept(nothrow<void>){
+				const APIs::alloc::source_location_guard slg;
 				auto&ptr=to.value;
 				auto from_size=get_size_of_alloc(ptr);
 				alloc_size_grow(ptr,from_size+1);
@@ -269,6 +274,7 @@ namespace get_n{
 				return ptr;
 			}
 			T* operator()(note::to_t<T*&> to,T&&a)const noexcept(nothrow<void>){
+				const APIs::alloc::source_location_guard slg;
 				auto&ptr=to.value;
 				auto from_size=get_size_of_alloc(ptr);
 				alloc_size_grow(ptr,from_size+1);
@@ -284,6 +290,7 @@ namespace get_n{
 			static constexpr bool nothrow=destruct.nothrow<T>&&move.nothrow<T>;
 
 			bool operator()(array_like_view_t<const T>a,note::from_t<T*>from)const noexcept(nothrow<void>){
+				const APIs::alloc::source_location_guard slg;
 				auto ptr=from.value;
 				auto from_size=get_size_of_alloc(ptr);
 				T*ptr_to_a=in_range(a,{ptr,note::size(from_size)});
@@ -310,6 +317,7 @@ namespace get_n{
 
 		template<typename T> requires able<T>
 		void operator()(T*a)const noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg;
 			if(a!=null_ptr){
 				if constexpr(type_info<T>.has_attribute(abstract_base))
 					#if defined(_MSC_VER)
@@ -330,6 +338,7 @@ namespace get_n{
 		/*适用于unget(this,not destruct);*/
 		template<typename T> requires able<T>
 		void operator()(T*a,decltype(destruct)::not_t)const noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg;
 			free(a);
 		}
 	}unget{};
@@ -367,10 +376,12 @@ namespace get_n{
 
 		template<typename T> requires able<T>
 		inline void operator()(T*&arg,size_t to_size)const noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg;
 			base_call(arg,to_size);
 		}
 		template<typename T> requires able<T>
 		[[nodiscard]]inline T* operator()(T*&&arg,size_t to_size)const noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg;
 			base_call(arg,to_size);
 			return arg;
 		}
@@ -383,6 +394,7 @@ namespace get_n{
 			template<typename T> requires(able<T> && construct<T>.able<>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size)const noexcept(nothrow<T>){
 				if(insert_size){
+					const APIs::alloc::source_location_guard slg;
 					alloc_size_grow_with_insert_uninitialized_data(arg,insert_pos,insert_size);
 					construct<T>[arg+insert_pos][insert_size]();
 				}
@@ -390,6 +402,7 @@ namespace get_n{
 			template<typename T> requires(able<T> && copy_construct.able<T>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data)const noexcept(nothrow<T>){
 				if(insert_size){
+					const APIs::alloc::source_location_guard slg;
 					alloc_size_grow_with_insert_uninitialized_data(arg,insert_pos,insert_size);
 					copy_construct[insert_size](note::from(insert_data),note::to(arg+insert_pos));
 				}
@@ -402,6 +415,7 @@ namespace get_n{
 			static constexpr bool nothrow=get_resize_t::nothrow<T>;
 			template<typename T> requires(able<T> && construct<T>.able<> && copy_construct.able<T>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data,size_t to_size)const noexcept(nothrow<T>){
+				const APIs::alloc::source_location_guard slg;
 				auto grow_size=alloc_size_grow_with_insert_uninitialized_data(arg,to_size,insert_pos,insert_size);
 				copy_construct[insert_size](note::from(insert_data),note::to(arg+insert_pos));
 				construct<T>[arg+to_size-grow_size][grow_size]();
@@ -417,6 +431,7 @@ namespace get_n{
 
 		template<typename T> requires able<T>
 		static void base_call(T*&arg,const size_t to_size)noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(never_in_array)){
 				template_warning("For never_in_array type,get_forward_resize will unget ptr when new_size=0 else do nothing.");
 				if(to_size)
@@ -457,10 +472,12 @@ namespace get_n{
 			static constexpr bool nothrow=get_resize_t::nothrow<T>;
 			template<typename T> requires(able<T> && construct<T>.able<>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size)const noexcept(nothrow<T>){
+				const APIs::alloc::source_location_guard slg;
 				get_resize.insert(arg,insert_pos,insert_size);
 			}
 			template<typename T> requires(able<T> && copy_construct.able<T>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data)const noexcept(nothrow<T>){
+				const APIs::alloc::source_location_guard slg;
 				get_resize.insert(arg,insert_pos,insert_size,insert_data);
 			}
 		}insert{};
@@ -472,6 +489,7 @@ namespace get_n{
 			template<typename T> requires(able<T> && construct<T>.able<> && copy_construct.able<T>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data,size_t to_size)const noexcept(nothrow<T>){
 				if(insert_size){
+					const APIs::alloc::source_location_guard slg;
 					auto before_grow_size=forward_alloc_size_grow_with_insert_uninitialized_data(arg,to_size,insert_pos,insert_size);
 					const auto orogin_arg=arg+before_grow_size;
 					copy_construct[insert_size](note::from(insert_data),note::to(orogin_arg+insert_pos));
@@ -489,6 +507,7 @@ namespace get_n{
 
 		template<typename T> requires able<T>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg{1};
 			return get_size_of_alloc(arg);
 		}
 
@@ -506,6 +525,7 @@ namespace get_n{
 
 		template<typename T> requires able<T>
 		static T*base_call(const T*arg)noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(abstract_base))
 				return remove_const(attribute_ptr_cast<abstract_base>(arg))->abstract_method_copy_get_this();
 			else

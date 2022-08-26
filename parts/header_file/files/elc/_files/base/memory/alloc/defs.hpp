@@ -75,6 +75,7 @@ namespace alloc_n{
 			return reinterpret_cast<T*>(tmp);
 		}
 		[[nodiscard]]static T*base_call(size_t size)noexcept{
+			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You can\'t alloc an array for never_in_array type.");
 			if(size){//null_ptr不一定等价于nullptr，请勿删除本行
@@ -98,6 +99,7 @@ namespace alloc_n{
 		typedef free_t base_t;
 		template<class T>
 		static void base_call(T*p)noexcept{
+			const APIs::alloc::source_location_guard slg{1};
 			if(p!=null_ptr)//null_ptr不一定等价于nullptr，请勿删除本行
 				free_method(p);
 		}
@@ -109,6 +111,7 @@ namespace alloc_n{
 		typedef realloc_t base_t;
 		template<class T>
 		static void base_call(T*&ptr,size_t nsize)noexcept{
+			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
 				//template_warning("For never_in_array type,realloc will free ptr when new_size=0 else do nothing.");
@@ -143,6 +146,7 @@ namespace alloc_n{
 
 		template<typename T> requires able<T>
 		static size_t base_call(const T*arg)noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg{1};
 			if(arg==null_ptr)
 				return 0;
 			return get_size_of_alloc_method(arg);
@@ -162,6 +166,7 @@ namespace alloc_n{
 
 		template<typename T> requires able<T>
 		static T*base_call(const T*arg)noexcept(nothrow<T>){
+			const APIs::alloc::source_location_guard slg{1};
 			return alloc<T>(get_size_of_alloc(arg));
 		}
 

@@ -26,7 +26,7 @@ template<typename T>
 inline constexpr const T*add_const(T*a)noexcept{return a;}
 //对指针移除const
 template<typename T>
-inline constexpr T*remove_const(const T*a)noexcept{return const_cast<T*>(a);}
+inline constexpr T*remove_const(const T*a)noexcept{return ::std::launder(const_cast<T*>(a));}
 //向下转型至
 template<typename T,typename U>
 inline constexpr T down_cast(U a)noexcept{return static_cast<T>(a);}

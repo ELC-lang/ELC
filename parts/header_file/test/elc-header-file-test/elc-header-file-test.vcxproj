@@ -87,7 +87,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;C:\Users\steve02081504\Documents\workstation\steve.h\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>
     </EnableClangTidyCodeAnalysis>
@@ -95,7 +94,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;C:\Users\steve02081504\Documents\workstation\steve.h\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>
     </EnableClangTidyCodeAnalysis>
@@ -103,7 +101,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;C:\Users\steve02081504\Documents\workstation\steve.h\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>
     </EnableClangTidyCodeAnalysis>
@@ -111,7 +108,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\files;C:\Users\steve02081504\Documents\workstation\steve.h\files;$(IncludePath)</IncludePath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>
     </EnableClangTidyCodeAnalysis>
