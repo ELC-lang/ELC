@@ -14,7 +14,7 @@ elc依赖的基础函数.
 	#define ELC_APIS_alloc
 	#include <cstdlib>
 	#if defined(_DEBUG)
-		#include <stacktrace>
+		#include <stacktrace>//for operate_source_location
 	#endif
 	#if SYSTEM_TYPE == windows
 		#include <malloc.h>
@@ -26,47 +26,9 @@ elc依赖的基础函数.
 		#if SYSTEM_TYPE == windows
 			using namespace elc::defs;//remove_const
 		#else
-			#include "alloc/default_method/overhead.hpp"
+			#include "alloc/default_method/overhead.hpp"//overhead
 		#endif
-		//debug info
-		#if defined(_DEBUG)
-			distinctive inline struct source_location_info_t{
-				const char*file=nullptr;
-				uint_least32_t line=0;
-			}operate_source_location;
-			struct source_location_guard{
-				bool is_set=false;
-				source_location_guard(size_t lookup=0)noexcept{
-					if(operate_source_location.file==nullptr){
-						::std::stacktrace stack = ::std::stacktrace::current(/*skip*/lookup+2,/*max_depth*/1);
-						if(stack.size()){
-							const auto&			 caller_info = stack[0];
-							static ::std::string caller_file;
-							if(caller_info){
-								try {
-									caller_file					 = caller_info.source_file();
-									operate_source_location.file = caller_file.c_str();
-									operate_source_location.line = caller_info.source_line();
-									is_set						 = true;
-								}
-								catch(...) {
-								}
-							}
-						}
-					}
-				}
-				~source_location_guard()noexcept{
-					if(is_set){
-						operate_source_location.file=nullptr;
-						operate_source_location.line=0;
-					}
-				}
-			};
-		#else
-			struct source_location_guard{
-				source_location_guard(size_t lookup=0)noexcept{}
-			};
-		#endif
+		#include "alloc/debug_info/source_location_guard.hpp"//operate_source_location & source_location_guard
 		/*
 		aligned_alloc 内存分配函数，需提供对齐需求
 		return空指针被允许
@@ -75,7 +37,7 @@ elc依赖的基础函数.
 		[[nodiscard]]inline void*aligned_alloc(size_t align,size_t size)noexcept{
 			#if SYSTEM_TYPE == windows
 				#if defined(_DEBUG)
-					return _aligned_malloc_dbg(size,align,operate_source_location.file,operate_source_location.line);
+					return _aligned_malloc_dbg(size,align,operate_source_location.file(),operate_source_location.line());
 				#else
 					return _aligned_malloc(size,align);
 				#endif
@@ -99,7 +61,7 @@ elc依赖的基础函数.
 		[[nodiscard]]inline void*realloc(byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
 			#if SYSTEM_TYPE == windows
 				#if defined(_DEBUG)
-					return _aligned_realloc_dbg(ptr,nsize,align,operate_source_location.file,operate_source_location.line);
+					return _aligned_realloc_dbg(ptr,nsize,align,operate_source_location.file(),operate_source_location.line());
 				#else
 					return _aligned_realloc(ptr,nsize,align);
 				#endif
