@@ -35,6 +35,37 @@ static void ELC_StringCreation_Size5_MarkAsConstExprStr(benchmark::State& state)
 }
 BENCHMARK(ELC_StringCreation_Size5_MarkAsConstExprStr);
 
+
+static void Std_StringArec(benchmark::State& state) {
+	std::string x = "hello";
+	char c;
+	for(auto _: state)
+		c = x[0];
+}
+BENCHMARK(Std_StringArec);
+
+static void ELC_StringArec(benchmark::State& state) {
+	elc::string x = U"hello";
+	wchar_t c;
+	for(auto _: state)
+		c = x[0];
+}
+BENCHMARK(ELC_StringArec);
+
+static void Std_StringArecSet(benchmark::State& state) {
+	std::string x = "hello";
+	for(auto _: state)
+		x[0] = 'e';
+}
+BENCHMARK(Std_StringArecSet);
+
+static void ELC_StringArecSet(benchmark::State& state) {
+	elc::string x = U"hello";
+	for(auto _: state)
+		x[0] = U'e';
+}
+BENCHMARK(ELC_StringArecSet);
+
 static void Std_StringCopy_Size5(benchmark::State& state) {
 	std::string x = "hello";
 	for(auto _: state)

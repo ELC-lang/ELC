@@ -12,12 +12,13 @@ elc依赖的基础函数.
 */
 #if !defined(ELC_APIS_alloc)
 	#define ELC_APIS_alloc
-	#include <cstdlib>
 	#if defined(_DEBUG)
 		#include <stacktrace>//for operate_source_location
 	#endif
 	#if SYSTEM_TYPE == windows
 		#include <malloc.h>
+	#else
+		#include <cstdlib>
 	#endif
 	#include "../../header_file/files/elc/base_defs"
 	#include "../../_share/_defs.hpp"

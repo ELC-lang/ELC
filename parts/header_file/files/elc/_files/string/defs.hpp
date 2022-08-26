@@ -321,16 +321,21 @@ namespace string_n{
 		public:
 			arec_t(string_t* to,size_t index)noexcept:_to(to),_index(index){}
 			arec_t(special_init_t,const arec_t&ref)noexcept:_to(ref._to),_index(ref._index){}
-			[[nodiscard]]operator char_T()const noexcept{ return _to->arec(_index); }
-			arec_t&		 operator=(char_T a)noexcept{
+			[[nodiscard]]operator char_T()&&noexcept{ return _to->arec(_index); }
+			[[nodiscard]]operator char_T()const&&noexcept{ return _to->arec(_index); }
+			arec_t&		 operator=(char_T a)&&noexcept{
 				_to->arec_set(_index,a);
 				return *this;
 			}
-			arec_t&		 operator=(const arec_t&ch)noexcept{ return operator=(ch.operator char_T()); }
-			[[nodiscard]]char_T*		operator&()noexcept{ return _to->unique_c_str()+_index; }
-			[[nodiscard]]const char_T*	operator&()const noexcept{ return (add_const(_to))->c_str()+_index; }
-			[[nodiscard]]operator char_T&()noexcept{ return *operator&(); }
-			[[nodiscard]]operator const char_T&()const noexcept{ return *operator&(); }
+			arec_t&		 operator=(const arec_t&ch)&&noexcept{ return operator=(ch.operator char_T()); }
+		private:
+			[[nodiscard]]char_T*		get_address()noexcept{ return _to->unique_c_str()+_index; }
+			[[nodiscard]]const char_T*	get_address()const noexcept{ return (add_const(_to))->c_str()+_index; }
+		public:
+			[[nodiscard]]char_T*		operator&()&&noexcept{ return get_address(); }
+			[[nodiscard]]const char_T*	operator&()const&&noexcept{ return get_address(); }
+			[[nodiscard]]explicit operator char_T&()&&noexcept{ return *get_address(); }
+			[[nodiscard]]explicit operator const char_T&()const&&noexcept{ return *get_address(); }
 		};
 
 		[[nodiscard]]arec_t		  operator[](size_t index)noexcept{ return{this,index}; }
