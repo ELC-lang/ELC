@@ -8,47 +8,47 @@ CPU Caches:
   L2 Unified 256 KiB (x8)
   L3 Unified 16384 KiB (x1)
 ***WARNING*** Library was built as DEBUG. Timings may be affected.
---------------------------------------------------------------------------------------
-Benchmark                                            Time             CPU   Iterations
---------------------------------------------------------------------------------------
-Std_StringCreation_Size0                           321 ns          314 ns      2240000
-ELC_StringCreation_Size0                          17.0 ns         15.9 ns     37333333
-Std_StringCreation_Size5                           399 ns          368 ns      1866667
-ELC_StringCreation_Size5                          1392 ns         1413 ns       497778
-ELC_StringCreation_Size5_MarkAsConstExprStr       14.3 ns         14.4 ns     49777778
-Std_StringArec                                    8.50 ns         8.58 ns     74666667
-ELC_StringArec                                    35.3 ns         35.3 ns     19478261
-Std_StringArecSet                                 8.39 ns         8.37 ns     74666667
-ELC_StringArecSet                                 86.6 ns         87.2 ns      8960000
-Std_StringCopy_Size5                               342 ns          338 ns      2036364
-ELC_StringCopy_Size5                              95.0 ns         96.3 ns      7466667
-ELC_StringCopy_Size5_MarkAsConstExprStr           28.0 ns         28.5 ns     26352941
-Std_StringCopy_Size20480                          2839 ns         2825 ns       248889
-ELC_StringCopy_Size20480                          94.8 ns         94.2 ns      7466667
-Std_StringApplyEnd                                25.1 ns         24.9 ns     26352941
-ELC_StringApplyEnd                                 303 ns          305 ns      2357895
-Std_StringApplyHead                               6699 ns         6676 ns       203636
-ELC_StringApplyHead                                412 ns          417 ns      1723077
-Std_StringEqual_Size5                             19.4 ns         19.7 ns     37333333
-ELC_StringEqual_Size5                              346 ns          345 ns      1947826
-Std_StringEqual_Size20480                         1627 ns         1611 ns       407273
-ELC_StringEqual_Size20480                          155 ns          157 ns      4480000
-Std_StringHash_Size5                              26.3 ns         26.1 ns     26352941
-ELC_StringHash_Size5                              43.8 ns         43.9 ns     16000000
-ELC_StringHash_Size5_MarkAsConstExprStr           18.7 ns         18.4 ns     37333333
-Std_StringHash_Size20480                        117711 ns       117188 ns         5600
-ELC_StringHash_Size20480                          43.4 ns         42.0 ns     16000000
-Std_StringSize                                    5.14 ns         5.16 ns    112000000
-ELC_StringSize                                     120 ns          122 ns      6400000
-ELC_StringSize_MarkAsConstExprStr                 13.3 ns         13.4 ns     56000000
-Std_StringClear                                   11.6 ns         11.7 ns     64000000
-ELC_StringClear                                   29.0 ns         28.5 ns     23578947
-Std_StringInsert_ToPos1                           8492 ns         8472 ns       640000
-ELC_StringInsert_ToPos1                            540 ns          547 ns      1000000
-Std_StringInsert_ToPos_1UnitForwardAtTheEnd       35.8 ns         35.3 ns     20363636
-ELC_StringInsert_ToPos_1UnitForwardAtTheEnd        448 ns          449 ns      1600000
-Std_StringFindFirstOf_Size5                       43.0 ns         43.0 ns     16000000
-ELC_StringFindFirstOf_Size5                        346 ns          345 ns      2036364
+------------------------------------------------------------------------------------------------------
+Benchmark                                            Time             CPU   Iterations UserCounters...
+------------------------------------------------------------------------------------------------------
+Std_StringCreation_Size0                           274 ns          276 ns      2488889 bytes_per_second=0/s
+ELC_StringCreation_Size0                          15.6 ns         15.3 ns     44800000 bytes_per_second=0/s
+Std_StringCreation_Size5                           320 ns          321 ns      2240000 bytes_per_second=14.8607M/s
+ELC_StringCreation_Size5                          1266 ns         1283 ns       560000 bytes_per_second=14.8607M/s
+ELC_StringCreation_Size5_MarkAsConstExprStr       14.0 ns         13.8 ns     49777778 bytes_per_second=1.34863G/s
+Std_StringArec                                    8.19 ns         8.20 ns     89600000 bytes_per_second=116.356M/s
+ELC_StringArec                                    33.3 ns         33.7 ns     21333333 bytes_per_second=113.225M/s
+Std_StringArecSet                                 8.07 ns         8.02 ns     89600000 bytes_per_second=118.886M/s
+ELC_StringArecSet                                 82.6 ns         82.0 ns      8960000 bytes_per_second=46.5426M/s
+Std_StringCopy_Size5                               322 ns          321 ns      2240000 bytes_per_second=14.8607M/s
+ELC_StringCopy_Size5                              90.8 ns         90.0 ns      7466667 bytes_per_second=211.967M/s
+ELC_StringCopy_Size5_MarkAsConstExprStr           26.2 ns         26.1 ns     26352941 bytes_per_second=731.116M/s
+Std_StringCopy_Size20480                          2573 ns         2550 ns       263529 bytes_per_second=7.48118G/s
+ELC_StringCopy_Size20480                          89.7 ns         90.0 ns      7466667 bytes_per_second=847.868G/s
+Std_StringApplyEnd                                24.5 ns         24.6 ns     28000000 bytes_per_second=38.8406M/s
+ELC_StringApplyEnd                                 296 ns          293 ns      2240000 bytes_per_second=13.0208M/s
+Std_StringApplyHead                               6538 ns         6519 ns       213333 bytes_per_second=149.812k/s
+ELC_StringApplyHead                                387 ns          384 ns      1792000 bytes_per_second=9.94318M/s
+Std_StringEqual_Size5                             18.9 ns         18.8 ns     37333333 bytes_per_second=253.183M/s
+ELC_StringEqual_Size5                              327 ns          330 ns      2133333 bytes_per_second=57.8704M/s
+Std_StringEqual_Size20480                         1543 ns         1535 ns       448000 bytes_per_second=12.429G/s
+ELC_StringEqual_Size20480                          146 ns          148 ns      4977778 bytes_per_second=517.14G/s
+Std_StringHash_Size5                              23.5 ns         23.0 ns     29866667 bytes_per_second=207.15M/s
+ELC_StringHash_Size5                              41.2 ns         40.5 ns     16592593 bytes_per_second=471.038M/s
+ELC_StringHash_Size5_MarkAsConstExprStr           17.6 ns         17.6 ns     40727273 bytes_per_second=1080.78M/s
+Std_StringHash_Size20480                        110618 ns       104980 ns         6400 bytes_per_second=186.047M/s
+ELC_StringHash_Size20480                          40.8 ns         40.8 ns     17230769 bytes_per_second=1.82584T/s
+Std_StringSize                                    4.81 ns         4.76 ns    144516129 bytes_per_second=0/s
+ELC_StringSize                                     112 ns          112 ns      6400000 bytes_per_second=0/s
+ELC_StringSize_MarkAsConstExprStr                 12.9 ns         13.1 ns     56000000 bytes_per_second=0/s
+Std_StringClear                                   11.4 ns         11.4 ns     56000000 bytes_per_second=0/s
+ELC_StringClear                                   26.8 ns         26.7 ns     26352941 bytes_per_second=0/s
+Std_StringInsert_ToPos1                           7850 ns         7837 ns       640000 bytes_per_second=124.611k/s
+ELC_StringInsert_ToPos1                            505 ns          500 ns      1000000 bytes_per_second=7.62939M/s
+Std_StringInsert_ToPos_1UnitForwardAtTheEnd       35.2 ns         35.3 ns     20363636 bytes_per_second=27.0195M/s
+ELC_StringInsert_ToPos_1UnitForwardAtTheEnd        415 ns          414 ns      1659259 bytes_per_second=9.20665M/s
+Std_StringFindFirstOf_Size5                       41.9 ns         42.6 ns     17230769 bytes_per_second=44.7525M/s
+ELC_StringFindFirstOf_Size5                        323 ns          322 ns      2133333 bytes_per_second=23.6742M/s
 
 C:\Users\steve02081504>C:\Users\steve02081504\Documents\workstation\ELC_workdirs\ELC\parts\header_file\test\elc_string_VS_std_string_BENCHMARK\x64\Release\elc_string_VS_std_string_BENCHMARK.exe
 2022-06-21T00:57:14+08:00
@@ -59,46 +59,46 @@ CPU Caches:
   L1 Instruction 32 KiB (x8)
   L2 Unified 256 KiB (x8)
   L3 Unified 16384 KiB (x1)
---------------------------------------------------------------------------------------
-Benchmark                                            Time             CPU   Iterations
---------------------------------------------------------------------------------------
-Std_StringCreation_Size0                          3.63 ns         3.49 ns    179200000
-ELC_StringCreation_Size0                          2.48 ns         2.49 ns    263529412
-Std_StringCreation_Size5                          7.95 ns         8.02 ns     89600000
-ELC_StringCreation_Size5                           162 ns          161 ns      4072727
-ELC_StringCreation_Size5_MarkAsConstExprStr       2.24 ns         2.25 ns    320000000
-Std_StringArec                                    1.48 ns         1.51 ns    497777778
-ELC_StringArec                                    4.74 ns         4.81 ns    149333333
-Std_StringArecSet                                 1.94 ns         1.95 ns    344615385
-ELC_StringArecSet                                 7.50 ns         7.50 ns     89600000
-Std_StringCopy_Size5                              6.95 ns         6.98 ns    112000000
-ELC_StringCopy_Size5                              6.91 ns         6.80 ns     89600000
-ELC_StringCopy_Size5_MarkAsConstExprStr           2.53 ns         2.51 ns    280000000
-Std_StringCopy_Size20480                           990 ns         1001 ns       640000
-ELC_StringCopy_Size20480                          7.05 ns         6.98 ns     89600000
-Std_StringApplyEnd                                5.21 ns         5.16 ns    100000000
-ELC_StringApplyEnd                                25.4 ns         25.1 ns     29866667
-Std_StringApplyHead                               8394 ns         8381 ns       497778
-ELC_StringApplyHead                               27.0 ns         26.7 ns     26352941
-Std_StringEqual_Size5                             5.47 ns         5.44 ns    112000000
-ELC_StringEqual_Size5                             38.3 ns         37.5 ns     17920000
-Std_StringEqual_Size20480                         1585 ns         1569 ns       448000
-ELC_StringEqual_Size20480                         24.3 ns         24.0 ns     28000000
-Std_StringHash_Size5                              3.93 ns         3.92 ns    179200000
-ELC_StringHash_Size5                              4.06 ns         4.01 ns    179200000
-ELC_StringHash_Size5_MarkAsConstExprStr           2.22 ns         2.25 ns    320000000
-Std_StringHash_Size20480                         39591 ns        40109 ns        17920
-ELC_StringHash_Size20480                          3.87 ns         3.81 ns    172307692
-Std_StringSize                                    1.95 ns         1.97 ns    373333333
-ELC_StringSize                                    10.3 ns         10.3 ns     64000000
-ELC_StringSize_MarkAsConstExprStr                 1.94 ns         1.93 ns    373333333
-Std_StringClear                                   2.18 ns         2.20 ns    320000000
-ELC_StringClear                                   2.47 ns         2.46 ns    298666667
-Std_StringInsert_ToPos1                           8290 ns         8276 ns       640000
-ELC_StringInsert_ToPos1                           37.8 ns         37.7 ns     18666667
-Std_StringInsert_ToPos_1UnitForwardAtTheEnd       10.3 ns         10.3 ns     64000000
-ELC_StringInsert_ToPos_1UnitForwardAtTheEnd       31.0 ns         30.7 ns     22400000
-Std_StringFindFirstOf_Size5                       9.14 ns         9.21 ns     74666667
-ELC_StringFindFirstOf_Size5                       26.9 ns         27.3 ns     26352941
+------------------------------------------------------------------------------------------------------
+Benchmark                                            Time             CPU   Iterations UserCounters...
+------------------------------------------------------------------------------------------------------
+Std_StringCreation_Size0                          2.83 ns         2.83 ns    248888889 bytes_per_second=0/s
+ELC_StringCreation_Size0                          2.26 ns         2.25 ns    298666667 bytes_per_second=0/s
+Std_StringCreation_Size5                          6.80 ns         6.84 ns    112000000 bytes_per_second=697.545M/s
+ELC_StringCreation_Size5                           146 ns          148 ns      4977778 bytes_per_second=129.285M/s
+ELC_StringCreation_Size5_MarkAsConstExprStr       2.48 ns         2.46 ns    280000000 bytes_per_second=7.58605G/s
+Std_StringArec                                    2.48 ns         2.46 ns    280000000 bytes_per_second=388.406M/s
+ELC_StringArec                                    4.80 ns         4.81 ns    149333333 bytes_per_second=792.572M/s
+Std_StringArecSet                                 2.12 ns         2.13 ns    344615385 bytes_per_second=447.525M/s
+ELC_StringArecSet                                 6.61 ns         6.70 ns    112000000 bytes_per_second=569.661M/s
+Std_StringCopy_Size5                              5.44 ns         5.44 ns    112000000 bytes_per_second=876.402M/s
+ELC_StringCopy_Size5                              6.31 ns         6.28 ns    112000000 bytes_per_second=2.96699G/s
+ELC_StringCopy_Size5_MarkAsConstExprStr           2.27 ns         2.25 ns    298666667 bytes_per_second=8.27996G/s
+Std_StringCopy_Size20480                           920 ns          903 ns       640000 bytes_per_second=21.1149G/s
+ELC_StringCopy_Size20480                          6.01 ns         6.00 ns    112000000 bytes_per_second=12.4199T/s
+Std_StringApplyEnd                                5.04 ns         5.08 ns    144516129 bytes_per_second=187.672M/s
+ELC_StringApplyEnd                                23.2 ns         23.0 ns     29866667 bytes_per_second=165.72M/s
+Std_StringApplyHead                               8840 ns         8845 ns       560000 bytes_per_second=110.41k/s
+ELC_StringApplyHead                               26.7 ns         26.8 ns     28000000 bytes_per_second=142.415M/s
+Std_StringEqual_Size5                             5.44 ns         5.44 ns    112000000 bytes_per_second=876.402M/s
+ELC_StringEqual_Size5                             34.5 ns         34.5 ns     20363636 bytes_per_second=552.399M/s
+Std_StringEqual_Size20480                         1470 ns         1475 ns       497778 bytes_per_second=12.9285G/s
+ELC_StringEqual_Size20480                         22.3 ns         22.5 ns     32000000 bytes_per_second=3.31713T/s
+Std_StringHash_Size5                              4.04 ns         4.05 ns    165925926 bytes_per_second=1.14999G/s
+ELC_StringHash_Size5                              3.65 ns         3.60 ns    186666667 bytes_per_second=5.17498G/s
+ELC_StringHash_Size5_MarkAsConstExprStr           2.08 ns         2.09 ns    344615385 bytes_per_second=8.93073G/s
+Std_StringHash_Size20480                         37128 ns        37703 ns        19478 bytes_per_second=518.032M/s
+ELC_StringHash_Size20480                          3.68 ns         3.68 ns    186666667 bytes_per_second=20.2295T/s
+Std_StringSize                                    1.41 ns         1.38 ns    497777778 bytes_per_second=0/s
+ELC_StringSize                                    10.0 ns         10.0 ns     64000000 bytes_per_second=0/s
+ELC_StringSize_MarkAsConstExprStr                 1.63 ns         1.64 ns    448000000 bytes_per_second=0/s
+Std_StringClear                                   1.81 ns         1.80 ns    373333333 bytes_per_second=0/s
+ELC_StringClear                                   2.18 ns         2.15 ns    320000000 bytes_per_second=0/s
+Std_StringInsert_ToPos1                           7765 ns         7764 ns       640000 bytes_per_second=125.786k/s
+ELC_StringInsert_ToPos1                           34.4 ns         34.5 ns     19478261 bytes_per_second=110.592M/s
+Std_StringInsert_ToPos_1UnitForwardAtTheEnd       9.52 ns         9.52 ns     64000000 bytes_per_second=100.16M/s
+ELC_StringInsert_ToPos_1UnitForwardAtTheEnd       35.7 ns         35.9 ns     21333333 bytes_per_second=106.293M/s
+Std_StringFindFirstOf_Size5                       8.94 ns         9.07 ns     89600000 bytes_per_second=210.337M/s
+ELC_StringFindFirstOf_Size5                       25.9 ns         25.5 ns     26352941 bytes_per_second=299.248M/s
 
 C:\Users\steve02081504>
