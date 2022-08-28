@@ -12,6 +12,7 @@ export string;
 export string_view_t;
 export string_view;
 export operator""_elc_string;
+export operator""_constexpr_str;
 export to_string;
 #undef export
 
