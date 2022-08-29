@@ -91,7 +91,14 @@ public:
 	}
 protected:
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
-		return float_size_t{sizeof(*this)}+_m.size_in_byte();
+		#if defined(_MSC_VER)
+			#pragma warning(push)
+			#pragma warning(disable:4244)//貌似msvc在这里有bug
+		#endif
+		return sizeof(*this) + _m.size_in_byte();
+		#if defined(_MSC_VER)
+			#pragma warning(pop)
+		#endif
 	}
 public:
 	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{

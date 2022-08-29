@@ -327,7 +327,7 @@ namespace string_n{
 				_to->arec_set(_index,a);
 				return *this;
 			}
-			arec_t&		 operator=(const arec_t&ch)&&noexcept{ return operator=(ch.operator char_T()); }
+			arec_t&		 operator=(const arec_t&&ch)&&noexcept{ return operator=(move(ch).operator char_T()); }
 		private:
 			[[nodiscard]]char_T*		get_address()noexcept{ return _to->unique_c_str()+_index; }
 			[[nodiscard]]const char_T*	get_address()const noexcept{ return (add_const(_to))->c_str()+_index; }
@@ -424,7 +424,7 @@ namespace string_n{
 		}
 		void push_back(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
 		void push_back(char_T ch)&noexcept{ push_back(string_view_t{&ch,1}); }
-		void push_back(const arec_t& ch)&noexcept{ push_back(ch.operator char_T()); }
+		void push_back(const arec_t&& ch)&noexcept{ push_back(move(ch).operator char_T()); }
 		void push_back(const char_T* str)&noexcept{ push_back(string_view_t(str)); }
 
 		void push_front(const string_t& str)&noexcept{
@@ -442,7 +442,7 @@ namespace string_n{
 		}
 		void push_front(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
 		void push_front(char_T ch)&noexcept{ push_front(string_view_t{&ch,1}); }
-		void push_front(const arec_t& ch)&noexcept{ push_front(ch.operator char_T()); }
+		void push_front(const arec_t&& ch)&noexcept{ push_front(move(ch).operator char_T()); }
 		void push_front(const char_T* str)&noexcept{ push_front(string_view_t(str)); }
 
 		string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
@@ -524,8 +524,8 @@ namespace string_n{
 		[[nodiscard]]size_t find_first_of(char_T ch)const{
 			return find(ch);
 		}
-		[[nodiscard]]size_t find_first_of(const arec_t&ch)const{
-			return find(ch.operator char_T());
+		[[nodiscard]]size_t find_first_of(const arec_t&&ch)const{
+			return find(move(ch).operator char_T());
 		}
 		[[nodiscard]]size_t find_first_not_of(string_view_t str)const{
 			return range_n::find_first_not_of_size_t(str,to_string_view_t());
@@ -548,8 +548,8 @@ namespace string_n{
 		[[nodiscard]]size_t find_first_not_of(char_T ch)const{
 			return find_first_not_of(string_view_t(ch));
 		}
-		[[nodiscard]]size_t find_first_not_of(const arec_t&ch)const{
-			return find_first_not_of(string_view_t(ch.operator char_T()));
+		[[nodiscard]]size_t find_first_not_of(const arec_t&&ch)const{
+			return find_first_not_of(string_view_t(move(ch).operator char_T()));
 		}
 		[[nodiscard]]size_t find_last_of(string_view_t str)const{
 			return range_n::find_last_of_size_t(str,to_string_view_t());
@@ -572,8 +572,8 @@ namespace string_n{
 		[[nodiscard]]size_t find_last_of(char_T ch)const{
 			return reverse_find(ch);
 		}
-		[[nodiscard]]size_t find_last_of(const arec_t&ch)const{
-			return reverse_find(ch.operator char_T());
+		[[nodiscard]]size_t find_last_of(const arec_t&&ch)const{
+			return reverse_find(move(ch).operator char_T());
 		}
 		[[nodiscard]]size_t find_last_not_of(string_view_t str)const{
 			return range_n::find_last_not_of_size_t(str,to_string_view_t());
@@ -596,8 +596,8 @@ namespace string_n{
 		[[nodiscard]]size_t find_last_not_of(char_T ch)const{
 			return find_last_not_of(string_view_t(ch));
 		}
-		[[nodiscard]]size_t find_last_not_of(const arec_t&ch)const{
-			return find_last_not_of(string_view_t(ch.operator char_T()));
+		[[nodiscard]]size_t find_last_not_of(const arec_t&&ch)const{
+			return find_last_not_of(string_view_t(move(ch).operator char_T()));
 		}
 
 		//

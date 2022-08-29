@@ -22,8 +22,8 @@ namespace elc::defs{
 				arec_data_t(const arec_data_t&ref)noexcept:_m(special_init,ref._m){}
 				virtual ~arec_data_t()noexcept override final=default;
 
-				virtual void be_set(ptr a)noexcept override final{_m=use_as<char_T>(a);}
-				[[nodiscard]]virtual ptr get_value()noexcept override final{return core::make_binary_node_from<char_T>(_m);}
+				virtual void be_set(ptr a)noexcept override final{move(_m)=use_as<char_T>(a);}
+				[[nodiscard]]virtual ptr get_value()noexcept override final{return core::make_binary_node_from<char_T>(move(_m));}
 				[[nodiscard]]virtual base_data_t*copy()const noexcept override final{return get<arec_data_t>(*this);}
 				[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override final{return type_info<arec_data_t>;}
 			};
