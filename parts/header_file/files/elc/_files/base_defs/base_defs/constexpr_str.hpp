@@ -53,6 +53,7 @@ namespace constexpr_str_n{
 			reverse_match_pattern(array_like_view_t<const char_T>{str, size}) {
 				is_bitmark_workable = bitmark_for_finds.mark(*this);
 			}
+		constexpr constexpr_str_t(const char_T* str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
 		[[nodiscard]]constexpr hash_t hash()const noexcept{return hash_result;}
 	};
 	template<class char_T,size_t N>

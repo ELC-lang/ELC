@@ -221,7 +221,9 @@ namespace string_n{
 			auto ssize = size();
 			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
 			if(scom==0){//大小相等
-				if(a._in_str_cso())
+				if(!_in_cso() && !a._in_cso())
+					return _m->compare_with(a._m);
+				elseif(a._in_str_cso())
 					return operator<=>(a._get_cso_constexpr_str());
 				elseif(_in_str_cso())
 					return compare.reverse(a<=>_get_cso_constexpr_str());
@@ -229,8 +231,6 @@ namespace string_n{
 					return operator<=>(a.to_string_view_t());
 				elseif(_in_cso())
 					return compare.reverse(a<=>to_string_view_t());
-				else
-					return _m->compare_with(a._m);
 			}
 			return scom;
 		}
@@ -238,7 +238,9 @@ namespace string_n{
 			auto ssize = size();
 			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
 			if(seq){//大小相等
-				if(a._in_str_cso())
+				if(!_in_cso() && !a._in_cso())
+					return _m->equal_with(a._m);
+				elseif(a._in_str_cso())
 					return operator==(a._get_cso_constexpr_str());
 				elseif(_in_str_cso())
 					return a==_get_cso_constexpr_str();
@@ -246,8 +248,6 @@ namespace string_n{
 					return operator==(a.to_string_view_t());
 				elseif(_in_cso())
 					return a==to_string_view_t();
-				else
-					return _m->equal_with(a._m);
 			}
 			return seq;
 		}
