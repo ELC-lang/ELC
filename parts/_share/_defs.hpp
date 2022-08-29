@@ -198,7 +198,7 @@ protected:\
 #if defined(__cpp_if_consteval)
 	#define if_in_consteval if consteval
 #else
-	#define if_in_consteval if constexpr(0)
+	#define if_in_consteval if(::std::is_constant_evaluated())
 #endif
 
 #define no_vtable_struct struct with_no_vtable
