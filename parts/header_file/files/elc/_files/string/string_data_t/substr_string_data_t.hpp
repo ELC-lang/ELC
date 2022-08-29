@@ -148,9 +148,8 @@ protected:
 		auto wp=down_cast<this_t*>(with.get());
 		return _to->compare_with(wp->_to,_sub_begin,_sub_size);
 	}
-public:
-	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
-		return (sizeof(*this)+_to->get_memory_cost())/get_ref_num((const base_t*)this);
+	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
+		return sizeof(*this)+_to->get_memory_cost();
 	}
 };
 template<typename char_T>

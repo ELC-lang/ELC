@@ -346,8 +346,11 @@ protected:
 	void self_changed()noexcept{
 		reset_hash_cache();
 	}
+	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept=0;
 public:
-	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept=0;
+	[[nodiscard]]float_size_t get_memory_cost()noexcept{
+		return get_base_memory_cost()/get_ref_num(this);
+	}
 	[[nodiscard]]float_size_t get_memory_cost_after_gc()noexcept;
 	[[nodiscard]]float_size_t get_gc_profit()noexcept{return get_memory_cost()-get_memory_cost_after_gc();}
 	[[nodiscard]]bool positive_gc_profit()noexcept{return get_gc_profit() > 0;}

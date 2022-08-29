@@ -243,9 +243,8 @@ protected:
 			return tmp;
 		return compare((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
 	}
-public:
-	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
-		return (_to->get_memory_cost()+sizeof(*this)+_m.size_in_byte())/get_ref_num((const base_t*)this);
+	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
+		return _to->get_memory_cost()+sizeof(*this)+_m.size_in_byte();
 	}
 };
 template<typename char_T>

@@ -93,11 +93,11 @@ public:
 			return strong_ordering::equivalent;
 		return compare(_m,wp->_m,_size);
 	}
-
-	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{
-		return float_size_t{sizeof(*this)}/get_ref_num((const base_t*)this);
+protected:
+	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
+		return sizeof(*this);
 	}
-
+public:
 	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(!_p_match_pattern){
 			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});

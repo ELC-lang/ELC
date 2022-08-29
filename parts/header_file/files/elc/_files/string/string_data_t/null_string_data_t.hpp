@@ -56,8 +56,7 @@ protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {0,0};}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept override final{return false;}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept override final{return strong_ordering::equivalent;}
-public:
-	[[nodiscard]]virtual float_size_t get_memory_cost()noexcept override final{return 0;}
+	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{return 0;}
 };
 template<typename char_T>
 distinctive inline null_string_data_t<char_T> null_string_data{};
