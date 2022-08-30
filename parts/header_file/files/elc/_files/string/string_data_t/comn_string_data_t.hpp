@@ -91,14 +91,7 @@ public:
 	}
 protected:
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:4244)//貌似msvc在这里有bug
-		#endif
-		return sizeof(*this) + _m.size_in_byte();
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
+		return float_size_of(*this) + _m.size_in_byte();
 	}
 public:
 	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
@@ -136,8 +129,8 @@ void base_string_data_t<char_T>::arec_set(size_t index,char_T a,ptr_t& p)noexcep
 template<typename char_T>
 [[nodiscard]]float_size_t base_string_data_t<char_T>::get_memory_cost_after_gc()noexcept{
 	const auto size_of_base_array=this->get_size()*sizeof(char_T);
-	const auto size=sizeof(comn_string_data_t<char_T>)+size_of_base_array;
-	return float_size_t(size)/get_ref_num(this);
+	const auto size=float_size_of(comn_string_data_t<char_T>)+size_of_base_array;
+	return size/get_ref_num(this);
 }
 template<typename char_T>
 [[nodiscard]]const range_n::match_pattern<const char_T>& base_string_data_t<char_T>::get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow){

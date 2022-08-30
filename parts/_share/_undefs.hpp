@@ -45,6 +45,8 @@
 #undef has_attribute
 #undef not_has_attribute
 
+#undef float_size_of
+
 #undef def_common_attribute_with_nothing
 #undef def_special_attribute_with_nothing
 

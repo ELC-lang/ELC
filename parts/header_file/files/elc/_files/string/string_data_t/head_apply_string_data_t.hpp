@@ -261,7 +261,7 @@ protected:
 		return _to->compare_with(wp->_to);
 	}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
-		return _to->get_memory_cost()+sizeof(*this)+_m.size_in_byte();
+		return _to->get_memory_cost()+float_size_of(*this)+_m.size_in_byte();
 	}
 };
 template<typename char_T>

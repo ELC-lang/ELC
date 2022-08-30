@@ -95,7 +95,7 @@ public:
 	}
 protected:
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
-		return sizeof(*this);
+		return float_size_of(*this);
 	}
 public:
 	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{

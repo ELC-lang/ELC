@@ -79,6 +79,9 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 #define has_attribute(...) template_name has_attribute_helper<__VA_ARGS__>()
 #define not_has_attribute(...) template_name not_has_has_attribute_helper<__VA_ARGS__>()
 
+//for float_size_t
+#define float_size_of(...) (float_size_t{sizeof(__VA_ARGS__)})
+
 //for attribute
 #define def_common_attribute_with_nothing(name) \
 template<typename T>\

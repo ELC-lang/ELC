@@ -225,7 +225,7 @@ protected:
 		return this->_after->compare_with(wp->_after);
 	}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
-		return sizeof(*this)+_before->get_memory_cost()+_after->get_memory_cost();
+		return float_size_of(*this)+_before->get_memory_cost()+_after->get_memory_cost();
 	}
 };
 template<typename char_T>
