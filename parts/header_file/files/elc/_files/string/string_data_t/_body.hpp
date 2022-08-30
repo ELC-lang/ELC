@@ -7,7 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 inline namespace string_data_n{
+	#include "_decl.hpp"
+
 	#include "base_string_data_t.hpp"
+
 	#include "null_string_data_t.hpp"
 	#include "constexpr_string_data_t.hpp"
 

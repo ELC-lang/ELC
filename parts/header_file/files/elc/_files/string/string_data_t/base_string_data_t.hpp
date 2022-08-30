@@ -24,6 +24,16 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	static constexpr bool get_data_nothrow=copy_construct_nothrow&&destruct_nothrow;
 	static constexpr bool apply_data_nothrow=construct_nothrow&&copy_assign_nothrow;
 
+	friend class null_string_data_t<char_T>;
+	friend class constexpr_string_data_t<char_T>;
+	friend class comn_string_data_t<char_T>;
+	friend class substr_string_data_t<char_T>;
+	friend class head_apply_string_data_t<char_T>;
+	friend class end_apply_string_data_t<char_T>;
+	friend class sum_string_data_t<char_T>;
+	friend class erased_string_data_t<char_T>;
+	friend class inserted_string_data_t<char_T>;
+
 	base_string_data_t()noexcept=default;
 	base_string_data_t(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero(); }
 
@@ -82,8 +92,7 @@ protected:
 	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept=0;
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)=0;
 	[[nodiscard]]virtual compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)=0;
-public:
-//protected://貌似msvc在这里有bug
+protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept=0;
 public:
 	[[nodiscard]]bool equal_with(ptr_t with)noexcept(equal.nothrow<char_T>){
@@ -308,8 +317,7 @@ public:
 				return strong_ordering::greater;
 		}
 	}
-public:
-//protected://貌似msvc在这里有bug
+protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
 public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
