@@ -17,6 +17,9 @@ namespace string_n{
 		typedef base_t_w::string_view_t				string_view_t;
 		typedef const constexpr_str_t<char_T>		constexpr_str_t;
 		typedef string_t<char_T>					this_t;
+		typedef char_T								value_type;
+		typedef value_type							char_type;
+		typedef size_t								size_type;
 		static constexpr size_t						npos = range_n::npos;
 
 	private:
