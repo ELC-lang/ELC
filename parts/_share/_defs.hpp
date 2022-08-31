@@ -8,8 +8,13 @@
 
 //undefs at "_undefs.hpp"
 
+//set ELC_WARNING_LEVEL default to 4(max)
+#if !defined(ELC_WARNING_LEVEL)
+	#define ELC_WARNING_LEVEL 4
+#endif
+
 #if defined(_MSC_VER)
-	#pragma warning(push)
+	#pragma warning(push,ELC_WARNING_LEVEL)
 	#pragma warning(disable:4099)//class与struct混用警告diss
 	#pragma warning(disable:26812)//enum class安利diss.
 	#pragma warning(disable:4584)//重复子类警告diss

@@ -58,7 +58,7 @@
 	};
 #else
 	struct source_location_guard{
-		constexpr source_location_guard(size_t lookup=0)noexcept{}
+		constexpr source_location_guard([[maybe_unused]]size_t lookup=0)noexcept{}
 	};
 	distinctive inline struct source_location_info_t{
 		constexpr const char*file()noexcept{return nullptr;}

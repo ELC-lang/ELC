@@ -126,12 +126,12 @@ public:
 			return base_t::do_pop_back(size,self);
 	}
 protected:
-	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
 		auto result=hash(nothing);
 		result=_to->get_others_hash_with_calculated_before(result,0,_to,_sub_begin,_sub_size);
 		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		return _to->get_others_hash_with_calculated_before(before,before_size,_to,pos+_sub_begin,size);
 	}
 protected:

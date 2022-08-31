@@ -113,7 +113,7 @@ namespace hash_n{
 		}
 		/*合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般*/
 		[[nodiscard]]force_inline hash_value_t merge_array_hash_results(
-			hash_value_t before,size_t before_size,hash_value_t after,size_t after_size
+			hash_value_t before,size_t before_size,hash_value_t after,[[maybe_unused]]size_t after_size
 		)const noexcept{
 			return{before._value^(rotl(after._value,before_size))};
 		}

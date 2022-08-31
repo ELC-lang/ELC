@@ -53,7 +53,7 @@ protected:
 	virtual hash_t get_others_hash_with_calculated_before_detail([[maybe_unused]]hash_t before,[[maybe_unused]]size_t before_size,[[maybe_unused]]ptr_t&p,[[maybe_unused]]size_t pos,[[maybe_unused]]size_t size)noexcept override final{ return before; }
 protected:
 	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept override final{return false;}
-	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {0,0};}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form([[maybe_unused]]size_t begin)noexcept override final{return {0,0};}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept override final{return false;}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept override final{return strong_ordering::equivalent;}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{return 0;}

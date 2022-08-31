@@ -254,7 +254,7 @@ public:
 		return base_t::do_pop_back(size,self);
 	}
 protected:
-	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
 		auto result=hash(nothing);
 		if(_insert_pos){
 			result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
@@ -265,7 +265,7 @@ protected:
 			result=_to->get_others_hash_with_calculated_before(result,_insert_pos+_insert_size,_to,_insert_pos,size);
 		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos+size<_insert_pos)
 			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
 		elseif(pos>_insert_pos+_insert_size)

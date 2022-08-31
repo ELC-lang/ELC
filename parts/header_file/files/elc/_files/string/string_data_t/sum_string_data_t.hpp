@@ -167,7 +167,7 @@ public:
 			return base_t::do_pop_back(size,self);
 	}
 protected:
-	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow)override final{
+	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
 		#if defined(_MSC_VER)
 			#pragma warning(push)
 			#pragma warning(disable:26494)//未初始化警告diss
@@ -185,7 +185,7 @@ protected:
 			result=_after->get_hash(_after);
 		return result;
 	}
-	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow)override final{
+	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos<_before_size){
 			const auto calculate_before_begin=pos;
 			const auto calculate_before_end=min(pos+size,_before_size);

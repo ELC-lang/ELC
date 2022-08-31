@@ -86,7 +86,7 @@ namespace function_n{
 		[[nodiscard]]virtual const void*get_data_begin()const noexcept override final{return null_ptr;}//这玩意实际上用不到，艹
 		[[noreturn]] virtual void throw_self_ptr()const override final{throw(const void*)null_ptr;}
 		[[noreturn]] virtual void throw_self_ptr()override final{throw(void*)null_ptr;}
-		[[nodiscard]]virtual bool equal_with(const void*a)const noexcept override final{return true;}
+		[[nodiscard]]virtual bool equal_with(const void*)const noexcept override final{return true;}
 	};
 	template<class Ret_t,class...Args_t>
 	distinctive inline default_func_data_t<Ret_t(Args_t...)>default_func_data{};
