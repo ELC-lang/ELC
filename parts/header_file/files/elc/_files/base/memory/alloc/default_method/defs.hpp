@@ -8,6 +8,14 @@
 */
 namespace default_method{
 	//BLOCK:for debug
+	#if defined(_MSC_VER)
+		#if defined(ELC_TEST_CHECK_MEMORY_LACK)
+			#pragma detect_mismatch("ELC_TEST_CHECK_MEMORY_LACK","true")
+		#else
+			#pragma detect_mismatch("ELC_TEST_CHECK_MEMORY_LACK","false")
+		#endif
+	#endif
+
 	[[nodiscard]]inline void*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
 		void*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)

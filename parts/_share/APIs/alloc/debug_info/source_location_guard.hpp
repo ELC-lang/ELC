@@ -6,6 +6,13 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+#if defined(_MSC_VER)
+	#if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD)
+		#pragma detect_mismatch("ELC_MEMORY_ALLOC_LOCATION_RECORD","true")
+	#else
+		#pragma detect_mismatch("ELC_MEMORY_ALLOC_LOCATION_RECORD","false")
+	#endif
+#endif
 #if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD)
 	distinctive inline ::std::stacktrace_entry operate_source_frame;
 	distinctive inline struct source_location_info_t{
