@@ -461,32 +461,32 @@ namespace string_n{
 
 		//
 		static constexpr bool find_nothrow=equal.nothrow<char_T>;
-		[[nodiscard]]size_t find(const char_T ch)const noexcept(find_nothrow){
-			return in_range_size_t(ch, to_string_view_t());
+		[[nodiscard]]size_t find(const char_T ch,size_t begin=0)const noexcept(find_nothrow){
+			return in_range_size_t(ch, to_string_view_t().substr(begin));
 		}
 		[[nodiscard]]size_t reverse_find(const char_T ch)const noexcept(find_nothrow){
 			return in_range_but_reverse_size_t(ch, to_string_view_t());
 		}
-		[[nodiscard]]size_t find(string_view_t str)const noexcept(find_nothrow){
-			return in_range_size_t(str, to_string_view_t());
+		[[nodiscard]]size_t find(string_view_t str,size_t begin=0)const noexcept(find_nothrow){
+			return in_range_size_t(str, to_string_view_t().substr(begin));
 		}
 		[[nodiscard]]size_t reverse_find(string_view_t str)const noexcept(find_nothrow){
 			return in_range_but_reverse_size_t(str, to_string_view_t());
 		}
-		[[nodiscard]]size_t find(constexpr_str_t&str)const noexcept(find_nothrow){
-			return in_range_size_t(str, to_string_view_t());
+		[[nodiscard]]size_t find(constexpr_str_t&str,size_t begin=0)const noexcept(find_nothrow){
+			return in_range_size_t(str, to_string_view_t().substr(begin));
 		}
 		[[nodiscard]]size_t reverse_find(constexpr_str_t&str)const noexcept(find_nothrow){
 			return in_range_but_reverse_size_t(str, to_string_view_t());
 		}
-		[[nodiscard]]size_t find(const string_t&str)const noexcept(find_nothrow){
+		[[nodiscard]]size_t find(const string_t&str,size_t begin=0)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
-					return find(str._get_cso_constexpr_str());
+					return find(str._get_cso_constexpr_str(),begin);
 				elseif(str._in_cso())
-					return find(str._cso_info._ch);
+					return find(str._cso_info._ch,begin);
 			}
-			auto result = str._m->get_match_pattern_from_self(str._m).match(to_string_view_t());
+			auto result = str._m->get_match_pattern_from_self(str._m).match(to_string_view_t().substr(begin));
 			if(result)
 				return result - data();
 			else
