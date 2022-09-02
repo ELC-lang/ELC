@@ -150,7 +150,10 @@ namespace from_string_get_n{
 			if(dot_pos!=string::npos){
 				auto mantissa_str=str.substr(dot_pos+1);
 				str=str.substr(0,dot_pos);
-				unum+=num_base_mantissa<UT>(mantissa_str,radix,radix_table);
+				auto mantissa=num_base_mantissa<UT>(mantissa_str,radix,radix_table);
+				if(!mantissa)
+					return T{};
+				unum=mantissa;
 			}
 		}
 		unum+=num_base<UT>(str,radix,radix_table);
