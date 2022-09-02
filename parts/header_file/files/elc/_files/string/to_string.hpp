@@ -166,5 +166,60 @@ namespace from_string_get_n{
 }
 using from_string_get_n::from_string_get;
 
+namespace to_string_n{
+	//to_string
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
+		auto aret=to_string_rough(num,radix,radix_table);
+		if constexpr(::std::is_floating_point_v<T>){
+			T tmp;
+			if(::std::modf(num,&tmp)){//如果有小数部分
+				size_t dot_pos=aret.find(ec('.'));
+				if(dot_pos == string::npos)
+					return aret;//?
+				
+				constexpr size_t list_length=3;
+				//检查小数部分的返回值是否有list_length个连续的radix_table[0]
+				char_t zero_char = radix_table[0];
+				string zero_list_str{zero_char, list_length};
+				//检查小数部分的返回值是否有list_length个连续的radix_table[radix-1]
+				char_t last_char = radix_table[radix-1];
+				string last_list_str{last_char, list_length};
+				size_t step_pos = dot_pos + 1;
+				string better_aret;
+				do{
+					size_t zero_list_pos = aret.find(zero_list_str, step_pos);
+					size_t last_list_pos = aret.find(last_list_str, step_pos);
+					step_pos			 = ::std::min(zero_list_pos, last_list_pos);
+					
+					if(step_pos == string::npos)
+						break;
+					better_aret = aret.substr(0, step_pos);
+					if(better_aret.ends_with(ec('.')))
+						better_aret.pop_back();
+					if(step_pos == last_list_pos) {
+						//进位
+						char_t up_char = better_aret.back();
+						size_t up_pos  = radix_table.find(up_char);
+						up_pos++;
+						if(up_pos == radix)
+							up_pos = 1;
+						better_aret.back() = radix_table[up_pos];
+					}
+					if(from_string_get<T>(better_aret, radix, radix_table) == num)
+						return better_aret;
+					step_pos++;
+				}while(1);
+			}
+		}
+		return aret;
+	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline string to_string(T num,const string radix_table)noexcept{
+		return to_string(num,radix_table.size(),radix_table);
+	}
+}
+using to_string_n::to_string;
+
 //file_end
 
