@@ -65,7 +65,7 @@ namespace range_n{
 		size_t radical_skip_table[number_of_possible_values_per<index_type>]{};
 		index_type pre_index_table[number_of_possible_values_per<index_type>]{};
 
-		constexpr index_type get_index_of(T&ch)noexcept{
+		static constexpr index_type get_index_of(T&ch)noexcept{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
 		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
@@ -86,7 +86,7 @@ namespace range_n{
 		constexpr match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
 			build_table(_pattern);
 		}
-		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)noexcept{
+		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)const noexcept{
 			size_t m = _pattern.size();
 			if(!m)
 				return range.begin();
@@ -121,7 +121,7 @@ namespace range_n{
 		size_t radical_skip_table[number_of_possible_values_per<index_type>]{};
 		index_type pre_index_table[number_of_possible_values_per<index_type>]{};
 
-		constexpr index_type get_index_of(T&ch)noexcept{
+		static constexpr index_type get_index_of(T&ch)noexcept{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
 		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
@@ -142,7 +142,7 @@ namespace range_n{
 		constexpr reverse_match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
 			build_table(_pattern);
 		}
-		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)noexcept{
+		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)const noexcept{
 			size_t m=_pattern.size();
 			if(!m)
 				return range.begin();
