@@ -155,6 +155,9 @@ namespace string_n{
 		string_t(string_t&& str)noexcept:string_t(){
 			swap_with(str);
 		}
+		string_t(char_T ch,size_t size)noexcept:string_t(){
+			resize(size,ch);
+		}
 		//END_BLOCK
 		//析构函数
 		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
