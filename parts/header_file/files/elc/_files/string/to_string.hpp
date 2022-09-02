@@ -79,8 +79,91 @@ namespace to_string_n{
 		aret.push_front(num_base(unum,radix,radix_table));
 		return aret;
 	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline string to_string(T num,const string radix_table)noexcept{
+		return to_string(num,radix_table.size(),radix_table);
+	}
 }
 using to_string_n::to_string;
+
+namespace from_string_get_n{
+	template<typename T>
+	inline T num_base(string str,size_t radix,const string radix_table)noexcept{
+		T aret{};
+		for(size_t i=0;i<str.size();i++){
+			const size_t index=radix_table.find(str[i]);
+			if(index==string::npos)
+				return T();
+			aret*=radix;
+			aret+=index;
+		}
+		return aret;
+	}
+	template<typename T>
+	inline T num_base_mantissa(string str,size_t radix,const string radix_table)noexcept{
+		T aret{};
+		for(size_t i=str.size()-1;i<str.size();i--){
+			const size_t index=radix_table.find(str[i]);
+			if(index==string::npos)
+				return T();
+			aret+=(T)index;
+			aret/=radix;
+		}
+		return aret;
+	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline T from_string_get(string str,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
+		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
+			if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
+				if(str==es"signaling_NaN"_constexpr_str)
+					return ::std::numeric_limits<T>::signaling_NaN();
+			}
+			if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
+				if(str==es"quiet_NaN"_constexpr_str)
+					return ::std::numeric_limits<T>::quiet_NaN();
+			}
+			if constexpr(::std::numeric_limits<T>::has_infinity){
+				if(str==es"infinity"_constexpr_str)
+					return ::std::numeric_limits<T>::infinity();
+				if(str==es"-infinity"_constexpr_str)
+					return -::std::numeric_limits<T>::infinity();
+			}
+		}
+		typedef decltype(lambda{
+			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
+				return T();
+			else
+				return::std::make_unsigned_t<T>();
+		}()) UT;
+		UT unum{};
+		bool is_negative=false;
+		if(str[0]==ec('-')){
+			is_negative=true;
+			str.pop_front();
+		}
+		if constexpr(::std::is_floating_point_v<T>) {
+			const size_t dot_pos=str.find(ec('.'));
+			if(dot_pos!=string::npos){
+				auto mantissa_str=str.substr(dot_pos+1);
+				str=str.substr(0,dot_pos);
+				unum+=num_base_mantissa<UT>(mantissa_str,radix,radix_table);
+			}
+			unum+=num_base<UT>(str,radix,radix_table);
+		}
+		else{
+			unum=num_base<UT>(str,radix,radix_table);
+		}
+		if(is_negative)
+			return T(T{}-unum);
+		else
+			return T(unum);
+	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline T from_string_get(string str,const string radix_table)noexcept{
+		return from_string_get<T>(str,radix_table.size(),radix_table);
+	}
+}
+using from_string_get_n::from_string_get;
 
 //file_end
 

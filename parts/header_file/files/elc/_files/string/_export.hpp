@@ -14,6 +14,7 @@ export string_view;
 export operator""_elc_string;
 export operator""_constexpr_str;
 export to_string;
+export from_string_get;
 #undef export
 
 //file_end
