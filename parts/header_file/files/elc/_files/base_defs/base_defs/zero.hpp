@@ -19,8 +19,9 @@ constexpr inline bool is_all_byte_zero(T&&a){
 	const byte*ptr=cast_to_data(addressof(a));
 	const byte*end=ptr+sizeof(a);
 	while(ptr!=end)
-		if(*ptr++)
+		if((unsigned char)(*ptr++))
 			return false;
+	return true;
 }
 
 //file_end

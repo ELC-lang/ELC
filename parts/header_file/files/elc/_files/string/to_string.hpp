@@ -94,25 +94,27 @@ namespace from_string_get_n{
 			const size_t index=radix_table.find(str[i]);
 			if(index==string::npos)
 				return T();
-			aret*=radix;
-			aret+=index;
+			aret*=(T)radix;
+			aret+=(T)index;
 		}
 		return aret;
 	}
 	template<typename T>
 	inline T num_base_mantissa(string str,size_t radix,const string radix_table)noexcept{
 		T aret{};
-		for(size_t i=str.size()-1;i<str.size();i--){
+		size_t i=str.size();
+		while(i){
+			i--;
 			const size_t index=radix_table.find(str[i]);
 			if(index==string::npos)
 				return T();
 			aret+=(T)index;
 			aret/=radix;
-		}
+		};
 		return aret;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	inline T from_string_get(string str,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
+	inline T from_string_get(string str,size_t radix=10,string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
 				if(str==es"signaling_NaN"_constexpr_str)
@@ -129,6 +131,7 @@ namespace from_string_get_n{
 					return -::std::numeric_limits<T>::infinity();
 			}
 		}
+		radix_table.resize(radix);
 		typedef decltype(lambda{
 			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
 				return T();

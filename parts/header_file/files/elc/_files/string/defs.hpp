@@ -344,7 +344,7 @@ namespace string_n{
 		[[nodiscard]]arec_t		  operator[](size_t index)noexcept{ return{this,index}; }
 		[[nodiscard]]const arec_t operator[](size_t index)const noexcept{ return{remove_const(this),index}; }
 
-		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const{
+		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const noexcept{
 			size=min(size,this->size()-begin);
 			if(size){
 				_cso_check();
@@ -358,8 +358,8 @@ namespace string_n{
 		[[nodiscard]]const char_T*	c_str()const noexcept{ if(_in_str_cso())return _get_cso_data();else return _m->get_const_c_str(_m); }
 		char_T* writeable_c_str()noexcept{ return unique_c_str(); }
 		[[nodiscard]]size_t			size()const noexcept{ if(_in_str_cso())return _get_cso_size();else return _m->get_size(); }
-		void resize(size_t nsize,char_T ch ={}){
-			auto size=this->size();
+		void resize(size_t nsize,char_T ch ={})noexcept{
+			const auto size=this->size();
 			if(size > nsize)
 				*this=substr(0,nsize);
 			elseif(size == nsize)
@@ -460,26 +460,26 @@ namespace string_n{
 		[[nodiscard]]explicit operator hash_t()const noexcept{ return _in_cso()?_get_cso_hash():_m->get_hash(_m); }
 
 		//
-
-		[[nodiscard]]size_t find(const char_T ch)const{
+		static constexpr bool find_nothrow=equal.nothrow<char_T>;
+		[[nodiscard]]size_t find(const char_T ch)const noexcept(find_nothrow){
 			return in_range_size_t(ch, to_string_view_t());
 		}
-		[[nodiscard]]size_t reverse_find(const char_T ch)const{
+		[[nodiscard]]size_t reverse_find(const char_T ch)const noexcept(find_nothrow){
 			return in_range_but_reverse_size_t(ch, to_string_view_t());
 		}
-		[[nodiscard]]size_t find(string_view_t str)const{
+		[[nodiscard]]size_t find(string_view_t str)const noexcept(find_nothrow){
 			return in_range_size_t(str, to_string_view_t());
 		}
-		[[nodiscard]]size_t reverse_find(string_view_t str)const{
+		[[nodiscard]]size_t reverse_find(string_view_t str)const noexcept(find_nothrow){
 			return in_range_but_reverse_size_t(str, to_string_view_t());
 		}
-		[[nodiscard]]size_t find(constexpr_str_t&str)const{
+		[[nodiscard]]size_t find(constexpr_str_t&str)const noexcept(find_nothrow){
 			return in_range_size_t(str, to_string_view_t());
 		}
-		[[nodiscard]]size_t reverse_find(constexpr_str_t&str)const{
+		[[nodiscard]]size_t reverse_find(constexpr_str_t&str)const noexcept(find_nothrow){
 			return in_range_but_reverse_size_t(str, to_string_view_t());
 		}
-		[[nodiscard]]size_t find(const string_t&str)const{
+		[[nodiscard]]size_t find(const string_t&str)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
 					return find(str._get_cso_constexpr_str());
@@ -492,7 +492,7 @@ namespace string_n{
 			else
 				return npos;
 		}
-		[[nodiscard]]size_t reverse_find(const string_t&str)const{
+		[[nodiscard]]size_t reverse_find(const string_t&str)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
 					return reverse_find(str._get_cso_constexpr_str());
@@ -506,13 +506,13 @@ namespace string_n{
 				return npos;
 		}
 		//
-		[[nodiscard]]size_t find_first_of(string_view_t str)const{
+		[[nodiscard]]size_t find_first_of(string_view_t str)const noexcept(find_nothrow){
 			return range_n::find_first_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_of(constexpr_str_t&str)const{
+		[[nodiscard]]size_t find_first_of(constexpr_str_t&str)const noexcept(find_nothrow){
 			return range_n::find_first_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_of(const string_t&str)const{
+		[[nodiscard]]size_t find_first_of(const string_t&str)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
 					return find_first_of(str._get_cso_constexpr_str());
@@ -521,22 +521,22 @@ namespace string_n{
 			}
 			return find_first_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_of(const char_T*str)const{
+		[[nodiscard]]size_t find_first_of(const char_T*str)const noexcept(find_nothrow){
 			return find_first_of(string_view_t(str));
 		}
-		[[nodiscard]]size_t find_first_of(char_T ch)const{
+		[[nodiscard]]size_t find_first_of(char_T ch)const noexcept(find_nothrow){
 			return find(ch);
 		}
-		[[nodiscard]]size_t find_first_of(const arec_t&&ch)const{
+		[[nodiscard]]size_t find_first_of(const arec_t&&ch)const noexcept(find_nothrow){
 			return find(move(ch).operator char_T());
 		}
-		[[nodiscard]]size_t find_first_not_of(string_view_t str)const{
+		[[nodiscard]]size_t find_first_not_of(string_view_t str)const noexcept(find_nothrow){
 			return range_n::find_first_not_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_not_of(constexpr_str_t&str)const{
+		[[nodiscard]]size_t find_first_not_of(constexpr_str_t&str)const noexcept(find_nothrow){
 			return range_n::find_first_not_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_not_of(const string_t&str)const{
+		[[nodiscard]]size_t find_first_not_of(const string_t&str)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
 					return find_first_not_of(str._get_cso_constexpr_str());
@@ -545,22 +545,22 @@ namespace string_n{
 			}
 			return find_first_not_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_not_of(const char_T*str)const{
+		[[nodiscard]]size_t find_first_not_of(const char_T*str)const noexcept(find_nothrow){
 			return find_first_not_of(string_view_t(str));
 		}
-		[[nodiscard]]size_t find_first_not_of(char_T ch)const{
+		[[nodiscard]]size_t find_first_not_of(char_T ch)const noexcept(find_nothrow){
 			return find_first_not_of(string_view_t(ch));
 		}
-		[[nodiscard]]size_t find_first_not_of(const arec_t&&ch)const{
+		[[nodiscard]]size_t find_first_not_of(const arec_t&&ch)const noexcept(find_nothrow){
 			return find_first_not_of(string_view_t(move(ch).operator char_T()));
 		}
-		[[nodiscard]]size_t find_last_of(string_view_t str)const{
+		[[nodiscard]]size_t find_last_of(string_view_t str)const noexcept(find_nothrow){
 			return range_n::find_last_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_of(constexpr_str_t&str)const{
+		[[nodiscard]]size_t find_last_of(constexpr_str_t&str)const noexcept(find_nothrow){
 			return range_n::find_last_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_of(const string_t&str)const{
+		[[nodiscard]]size_t find_last_of(const string_t&str)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
 					return find_last_of(str._get_cso_constexpr_str());
@@ -569,22 +569,22 @@ namespace string_n{
 			}
 			return find_last_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_of(const char_T*str)const{
+		[[nodiscard]]size_t find_last_of(const char_T*str)const noexcept(find_nothrow){
 			return find_last_of(string_view_t(str));
 		}
-		[[nodiscard]]size_t find_last_of(char_T ch)const{
+		[[nodiscard]]size_t find_last_of(char_T ch)const noexcept(find_nothrow){
 			return reverse_find(ch);
 		}
-		[[nodiscard]]size_t find_last_of(const arec_t&&ch)const{
+		[[nodiscard]]size_t find_last_of(const arec_t&&ch)const noexcept(find_nothrow){
 			return reverse_find(move(ch).operator char_T());
 		}
-		[[nodiscard]]size_t find_last_not_of(string_view_t str)const{
+		[[nodiscard]]size_t find_last_not_of(string_view_t str)const noexcept(find_nothrow){
 			return range_n::find_last_not_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_not_of(constexpr_str_t&str)const{
+		[[nodiscard]]size_t find_last_not_of(constexpr_str_t&str)const noexcept(find_nothrow){
 			return range_n::find_last_not_of_size_t(str,to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_not_of(const string_t&str)const{
+		[[nodiscard]]size_t find_last_not_of(const string_t&str)const noexcept(find_nothrow){
 			if(str._in_cso()){
 				if(str._in_str_cso())
 					return find_last_not_of(str._get_cso_constexpr_str());
@@ -593,13 +593,13 @@ namespace string_n{
 			}
 			return find_last_not_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_not_of(const char_T*str)const{
+		[[nodiscard]]size_t find_last_not_of(const char_T*str)const noexcept(find_nothrow){
 			return find_last_not_of(string_view_t(str));
 		}
-		[[nodiscard]]size_t find_last_not_of(char_T ch)const{
+		[[nodiscard]]size_t find_last_not_of(char_T ch)const noexcept(find_nothrow){
 			return find_last_not_of(string_view_t(ch));
 		}
-		[[nodiscard]]size_t find_last_not_of(const arec_t&&ch)const{
+		[[nodiscard]]size_t find_last_not_of(const arec_t&&ch)const noexcept(find_nothrow){
 			return find_last_not_of(string_view_t(move(ch).operator char_T()));
 		}
 
