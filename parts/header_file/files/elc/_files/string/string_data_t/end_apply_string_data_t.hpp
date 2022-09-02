@@ -139,7 +139,7 @@ public:
 			if(_m.size()-_used_size < str.size()){
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_resize(_m.size()-1,str.size(),str.begin(),size_new);
+				_m.insert_with_resize(_m.size(),str.size(),str.begin(),size_new);
 			}
 			else
 				copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m+_used_size));

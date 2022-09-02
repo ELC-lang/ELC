@@ -288,7 +288,7 @@ namespace string_n{
 			if(_in_cso() && data()==a.str())//同起始优化
 				return true;
 			const auto tmp=operator==((string_view_t&)a);
-			if(!tmp)
+			if(tmp)
 				remove_const(this)->_cso_reinit(a);
 			return tmp;
 		}

@@ -240,7 +240,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t in_range_size_t_but_reverse(T&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(T&pattern,array_like_view_t<T>range){
 		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -277,7 +277,7 @@ namespace range_n{
 	}
 	//若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t in_range_size_t_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
 		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -477,7 +477,9 @@ namespace range_n{
 }
 using range_n::range_t;
 using range_n::in_range;
+using range_n::in_range_size_t;
 using range_n::in_range_but_reverse;
+using range_n::in_range_but_reverse_size_t;
 using range_n::find_first_of;
 using range_n::find_last_of;
 using range_n::find_first_not_of;

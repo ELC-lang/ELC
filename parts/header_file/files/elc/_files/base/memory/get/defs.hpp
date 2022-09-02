@@ -111,7 +111,7 @@ namespace get_n{
 			free(arg);
 			arg=tmp;
 		}
-		return to_size-from_size;
+		return to_size-from_size-insert_size;
 	}
 	/*向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
 	template<typename T>
@@ -416,9 +416,9 @@ namespace get_n{
 			template<typename T> requires(able<T> && construct<T>.able<> && copy_construct.able<T>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data,size_t to_size)const noexcept(nothrow<T>){
 				const APIs::alloc::source_location_guard slg;
-				auto grow_size=alloc_size_grow_with_insert_uninitialized_data(arg,to_size,insert_pos,insert_size);
+				auto end_grow_size=alloc_size_grow_with_insert_uninitialized_data(arg,to_size,insert_pos,insert_size);
 				copy_construct[insert_size](note::from(insert_data),note::to(arg+insert_pos));
-				construct<T>[arg+to_size-grow_size][grow_size]();
+				construct<T>[arg+to_size-end_grow_size][end_grow_size]();
 			}
 		}insert_with_resize{};
 	}get_resize{};
