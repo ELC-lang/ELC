@@ -344,6 +344,14 @@ namespace string_n{
 		[[nodiscard]]arec_t		  operator[](size_t index)noexcept{ return{this,index}; }
 		[[nodiscard]]const arec_t operator[](size_t index)const noexcept{ return{remove_const(this),index}; }
 
+		//front
+		[[nodiscard]]arec_t		  front()noexcept{ return{this,0}; }
+		[[nodiscard]]const arec_t front()const noexcept{ return{remove_const(this),0}; }
+		//back
+		[[nodiscard]]arec_t		  back()noexcept{ return{this,size()-1}; }
+		[[nodiscard]]const arec_t back()const noexcept{ return{remove_const(this),size()-1}; }
+		
+
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const noexcept{
 			size=min(size,this->size()-begin);
 			if(size){
