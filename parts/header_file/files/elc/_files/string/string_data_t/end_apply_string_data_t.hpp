@@ -228,7 +228,7 @@ protected:
 		}
 		else {
 			begin-=_to_size;
-			return {_m.begin()+begin,note::size(_used_size)};
+			return {_m.begin()+begin,note::size(_used_size-begin)};
 		}
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
