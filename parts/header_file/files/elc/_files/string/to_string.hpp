@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace to_string_n{
-	inline string to_string(nothing)noexcept{
+	inline string to_string_rough(nothing)noexcept{
 		return es"nothing"_elc_string;
 	}
 	template<typename T>
@@ -39,7 +39,7 @@ namespace to_string_n{
 		return aret;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	inline string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
+	inline string to_string_rough(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
 				if(num==::std::numeric_limits<T>::signaling_NaN())
@@ -80,11 +80,11 @@ namespace to_string_n{
 		return aret;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	inline string to_string(T num,const string radix_table)noexcept{
-		return to_string(num,radix_table.size(),radix_table);
+	inline string to_string_rough(T num,const string radix_table)noexcept{
+		return to_string_rough(num,radix_table.size(),radix_table);
 	}
 }
-using to_string_n::to_string;
+using to_string_n::to_string_rough;
 
 namespace from_string_get_n{
 	template<typename T>
