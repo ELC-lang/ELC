@@ -326,11 +326,11 @@ namespace string_n{
 			arec_t(special_init_t,const arec_t&ref)noexcept:_to(ref._to),_index(ref._index){}
 			[[nodiscard]]operator char_T()&&noexcept{ return _to->arec(_index); }
 			[[nodiscard]]operator char_T()const&&noexcept{ return _to->arec(_index); }
-			arec_t&		 operator=(char_T a)&&noexcept{
+			arec_t&&	 operator=(char_T a)&&noexcept{
 				_to->arec_set(_index,a);
-				return *this;
+				return move(*this);
 			}
-			arec_t&		 operator=(const arec_t&&ch)&&noexcept{ return operator=(move(ch).operator char_T()); }
+			arec_t&&	 operator=(const arec_t&&ch)&&noexcept{ return move(*this).operator=(move(ch).operator char_T()); }
 		private:
 			[[nodiscard]]char_T*		get_address()noexcept{ return _to->unique_c_str()+_index; }
 			[[nodiscard]]const char_T*	get_address()const noexcept{ return (add_const(_to))->c_str()+_index; }
