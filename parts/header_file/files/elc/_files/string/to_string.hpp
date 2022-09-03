@@ -172,7 +172,9 @@ namespace from_string_get_n{
 using from_string_get_n::from_string_get;
 
 namespace to_string_n{
-	//to_string
+	inline string to_string(nothing)noexcept{
+		return es"nothing"_elc_string;
+	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		auto aret=to_string_rough(num,radix,radix_table);
