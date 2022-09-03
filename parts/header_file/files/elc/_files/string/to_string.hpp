@@ -49,7 +49,7 @@ namespace to_string_n{
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
 				if(::std::isnan(num)){
 					if constexpr(::std::numeric_limits<T>::has_signaling_NaN) {
-						auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
+						constexpr auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
 						if(full_equal_in_byte(signaling_NaN,num))
 							return es"signaling_NaN"_elc_string;
 						auto negative_signaling_NaN = ::std::copysign(signaling_NaN,-1);
@@ -57,7 +57,7 @@ namespace to_string_n{
 							return es"-signaling_NaN"_elc_string;
 					}
 					if constexpr(::std::numeric_limits<T>::has_quiet_NaN) {
-						auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
+						constexpr auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
 						if(full_equal_in_byte(quiet_NaN,num))
 							return es"quiet_NaN"_elc_string;
 						auto negative_quiet_NaN = ::std::copysign(quiet_NaN,-1);
