@@ -181,38 +181,43 @@ namespace to_string_n{
 				if(dot_pos == string::npos)
 					return aret;//?
 				
-				constexpr size_t list_length=3;
-				//检查小数部分的返回值是否有list_length个连续的radix_table[0]
-				char_t zero_char = radix_table[0];
-				string zero_list_str{zero_char, list_length};
-				//检查小数部分的返回值是否有list_length个连续的radix_table[radix-1]
-				char_t last_char = radix_table[radix-1];
-				string last_list_str{last_char, list_length};
-				size_t step_pos = dot_pos + 1;
-				string better_aret;
-				do{
-					size_t zero_list_pos = aret.find(zero_list_str, step_pos);
-					size_t last_list_pos = aret.find(last_list_str, step_pos);
-					step_pos			 = min(zero_list_pos, last_list_pos);
+				//进位器
+				auto rounding_up = lambda_with_catch(&radix_table, radix) (string::arec_t char_arc)noexcept{
+					char_t up_char = move(char_arc);
+					size_t up_pos  = radix_table.find(up_char);
+					up_pos++;
+					if(up_pos == radix)
+						up_pos = 1;
+					move(char_arc) = radix_table[up_pos];
+				};
+				{
+					constexpr size_t list_length = 3;
+					//检查小数部分的返回值是否有list_length个连续的radix_table[0]
+					char_t zero_char = radix_table[0];
+					string zero_list_str{zero_char, list_length};
+					//检查小数部分的返回值是否有list_length个连续的radix_table[radix-1]
+					char_t last_char = radix_table[radix - 1];
+					string last_list_str{last_char, list_length};
+					size_t step_pos = dot_pos + 1;
+					string better_aret;
+					do {
+						size_t zero_list_pos = aret.find(zero_list_str, step_pos);
+						size_t last_list_pos = aret.find(last_list_str, step_pos);
+						step_pos			 = min(zero_list_pos, last_list_pos);
+
+						if(step_pos == string::npos)
+							break;
+						better_aret = aret.substr(0, step_pos);
+						if(better_aret.ends_with(ec('.')))
+							better_aret.pop_back();
+						if(step_pos == last_list_pos)
+							rounding_up(better_aret.back());
+						if(from_string_get<T>(better_aret, radix, radix_table) == num)
+							return better_aret;
+						step_pos++;
+					} while(1);
+				}
 					
-					if(step_pos == string::npos)
-						break;
-					better_aret = aret.substr(0, step_pos);
-					if(better_aret.ends_with(ec('.')))
-						better_aret.pop_back();
-					if(step_pos == last_list_pos) {
-						//进位
-						char_t up_char = better_aret.back();
-						size_t up_pos  = radix_table.find(up_char);
-						up_pos++;
-						if(up_pos == radix)
-							up_pos = 1;
-						better_aret.back() = radix_table[up_pos];
-					}
-					if(from_string_get<T>(better_aret, radix, radix_table) == num)
-						return better_aret;
-					step_pos++;
-				}while(1);
 			}
 		}
 		return aret;
