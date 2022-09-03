@@ -57,9 +57,9 @@ namespace to_string_n{
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity){
 				if(num==::std::numeric_limits<T>::infinity())
-					return es"infinity"_elc_string;
+					return es"Infinity"_elc_string;
 				if(num==-::std::numeric_limits<T>::infinity())
-					return es"-infinity"_elc_string;
+					return es"-Infinity"_elc_string;
 			}
 		}
 		typedef decltype(lambda{
@@ -140,9 +140,9 @@ namespace from_string_get_n{
 				}
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity){
-				if(str==es"infinity"_constexpr_str)
+				if(str==es"Infinity"_constexpr_str)
 					return ::std::numeric_limits<T>::infinity();
-				if(str==es"-infinity"_constexpr_str)
+				if(str==es"-Infinity"_constexpr_str)
 					return -::std::numeric_limits<T>::infinity();
 			}
 		}
