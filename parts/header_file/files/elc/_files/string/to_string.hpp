@@ -43,13 +43,17 @@ namespace to_string_n{
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline string to_string_rough(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
-			if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
-				if(num==::std::numeric_limits<T>::signaling_NaN())
-					return es"signaling_NaN"_elc_string;
-			}
-			if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
-				if(num==::std::numeric_limits<T>::quiet_NaN())
-					return es"quiet_NaN"_elc_string;
+			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
+				if(::std::isnan(num)){
+					string aret=es"NaN("_elc_string;
+					data_view<T> view{&num};
+					for(byte c: view) {
+						aret += to_string_rough((unsigned char)c, radix, radix_table);
+						aret += ec('.');
+					}
+					aret.back() = ec(')');
+					return aret;
+				}
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity){
 				if(num==::std::numeric_limits<T>::infinity())
@@ -68,7 +72,7 @@ namespace to_string_n{
 		UT unum=UT(num);
 		string aret;
 		if constexpr(!::std::is_unsigned_v<T>)
-			if(num < 0){
+			if(::std::signbit(num)){
 				aret=ec('-');
 				unum=UT(-num);
 			}
@@ -118,13 +122,22 @@ namespace from_string_get_n{
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline T from_string_get(string str,size_t radix=10,string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
-			if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
-				if(str==es"signaling_NaN"_constexpr_str)
-					return ::std::numeric_limits<T>::signaling_NaN();
-			}
-			if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
-				if(str==es"quiet_NaN"_constexpr_str)
-					return ::std::numeric_limits<T>::quiet_NaN();
+			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
+				if(str.starts_with(es"NaN("_elc_string)){
+					str.pop_front(4);
+					str.pop_back();
+					data_block<T> block;
+					size_t		  write_index = 0;
+					while(1) {
+						const size_t dot_pos = str.find(ec('.'));
+						auto byte_str			 = str.substr(0, dot_pos);
+						block[write_index++] = (byte)from_string_get<unsigned char>(byte_str, radix, radix_table);
+						if(dot_pos == string::npos)
+							break;
+						str					 = str.substr(dot_pos+1);
+					}
+					return data_cast<T>(block);
+				}
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity){
 				if(str==es"infinity"_constexpr_str)
@@ -176,6 +189,9 @@ namespace to_string_n{
 	inline string to_string(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
 		auto aret=to_string_rough(num,radix,radix_table);
 		if constexpr(::std::is_floating_point_v<T>){
+			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN)
+				if(aret.starts_with(es"NaN("_elc_string))
+					return aret;
 			T tmp;
 			if(::std::modf(num,&tmp)){//如果有小数部分
 				size_t dot_pos=aret.find(ec('.'));
