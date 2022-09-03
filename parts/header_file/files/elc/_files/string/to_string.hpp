@@ -77,7 +77,7 @@ namespace to_string_n{
 			num_fractional=::std::modf(unum,&unum);
 		aret+=num_base(unum,radix,radix_table);
 		if constexpr(::std::is_floating_point_v<T>)
-			if(num_fractional)
+			if(num_fractional > ::std::numeric_limits<UT>::epsilon())
 				aret+=ec('.')+num_base_mantissa(num_fractional,radix,radix_table);
 		return aret;
 	}
@@ -152,10 +152,7 @@ namespace from_string_get_n{
 			if(dot_pos!=string::npos){
 				auto mantissa_str=str.substr(dot_pos+1);
 				str=str.substr(0,dot_pos);
-				auto mantissa=num_base_mantissa<UT>(mantissa_str,radix,radix_table);
-				if(!mantissa)
-					return T{};
-				unum=mantissa;
+				unum=num_base_mantissa<UT>(mantissa_str,radix,radix_table);
 			}
 		}
 		unum+=num_base<UT>(str,radix,radix_table);
