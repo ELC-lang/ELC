@@ -201,12 +201,6 @@ namespace to_string_n{
 						else
 							break;
 					}
-					if(str.back() == radix_table[0]) {
-						auto end_pos = str.find_last_not_of(radix_table[0]);
-						str.resize(end_pos + 1);
-						if(str.back() == ec('.'))
-							str.pop_back();
-					}
 				};
 				{
 					//二分法查找最合适的切割位点.
@@ -223,7 +217,13 @@ namespace to_string_n{
 							rounding_up(better_aret);
 						//判断当前切割位点有效性.
 						if(from_string_get<T>(better_aret, radix, radix_table) == num) {
-							right_pos = step_pos;
+							if(better_aret.back() == radix_table[0]) {
+								auto end_pos = better_aret.find_last_not_of(radix_table[0]);
+								better_aret.resize(end_pos + 1);
+								if(better_aret.back() == ec('.'))
+									better_aret.pop_back();
+							}
+							right_pos		 = better_aret.size();
 							better_aret_last = better_aret;
 						}
 						elseif(left_pos != step_pos)
