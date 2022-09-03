@@ -720,7 +720,7 @@ namespace string_n{
 		constexpr bool starts_with(const string_t&str)const noexcept{
 			if(size()<str.size())
 				return false;
-			if(str._in_char_cso())
+			if(str._in_chr_cso())
 				return starts_with(str._cso_info._ch);
 			else
 				return substr(0,str.size()) == str;
@@ -748,7 +748,7 @@ namespace string_n{
 		constexpr bool ends_with(const string_t&str)const noexcept{
 			if(size()<str.size())
 				return false;
-			if(str._in_char_cso())
+			if(str._in_chr_cso())
 				return ends_with(str._cso_info._ch);
 			else
 				return substr(size()-str.size()) == str;

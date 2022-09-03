@@ -139,7 +139,11 @@ protected:
 		auto wp = down_cast<this_t*>(with.get());
 		return _sub_begin == wp->_sub_begin;//总size被保证一样
 	}
-	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return _to->get_the_largest_complete_data_block_begin_form(_sub_begin+begin);}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
+		auto result = _to->get_the_largest_complete_data_block_begin_form(_sub_begin+begin);
+		auto size	= min(result.size(),_sub_size-begin);
+		return {result.begin(), note::size(size)};
+	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		return _to->equal_with(wp->_to,_sub_begin,_sub_size);
