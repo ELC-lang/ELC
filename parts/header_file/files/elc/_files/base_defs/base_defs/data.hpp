@@ -48,5 +48,15 @@ struct data_block:non_copyable,non_moveable{
 	constexpr operator byte*(){return _data;}
 };
 
+/*
+	功能: data_view类模板,接受一个类型参数，提供对byte数组的访问和遍历
+	用法: data_view<T>value{&value};
+*/
+template<class T>
+struct data_view:array_like_view_t<const byte>{
+	using array_like_view_t<const byte>::array_like_view_t;
+	constexpr data_view(T*p):array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
+};
+
 //file_end
 
