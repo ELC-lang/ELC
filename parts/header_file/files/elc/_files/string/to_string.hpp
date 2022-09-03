@@ -193,16 +193,19 @@ namespace to_string_n{
 				};
 				auto rounding_up = lambda_with_catch(&) (string&str)noexcept{
 					size_t i = str.size();
-					while(i){
-						i--;
-						if(rounding_up_char(str[i])) {
-							//处理小数点.
-							if(str.back() == ec('.'))
-								str.pop_back();
+					while(i--){
+						if(str[i] == ec('.'))
+							i--;
+						if(rounding_up_char(str[i]))
 							continue;
-						}
 						else
 							break;
+					}
+					if(str.back() == radix_table[0]) {
+						auto end_pos = str.find_last_not_of(radix_table[0]);
+						str.resize(end_pos + 1);
+						if(str.back() == ec('.'))
+							str.pop_back();
 					}
 				};
 				{

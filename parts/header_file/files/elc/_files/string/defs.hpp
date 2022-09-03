@@ -353,6 +353,14 @@ namespace string_n{
 		//back
 		[[nodiscard]]arec_t		  back()noexcept{ return{this,size()-1}; }
 		[[nodiscard]]const arec_t back()const noexcept{ return{remove_const(this),size()-1}; }
+
+		
+		[[nodiscard]]string_t operator+(const arec_t&& ch)const noexcept{
+			return *this+move(ch).operator char_T();
+		}
+		string_t& operator+=(const arec_t&& ch)&noexcept{
+			return *this+=move(ch).operator char_T();
+		}
 		
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const noexcept{
@@ -611,10 +619,10 @@ namespace string_n{
 			return find_last_not_of(string_view_t(str));
 		}
 		[[nodiscard]]size_t find_last_not_of(char_T ch)const noexcept(find_nothrow){
-			return find_last_not_of(string_view_t(ch));
+			return find_last_not_of(string_view_t{&ch,1});
 		}
 		[[nodiscard]]size_t find_last_not_of(const arec_t&&ch)const noexcept(find_nothrow){
-			return find_last_not_of(string_view_t(move(ch).operator char_T()));
+			return find_last_not_of(move(ch).operator char_T());
 		}
 
 		//
