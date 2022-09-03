@@ -30,8 +30,10 @@ namespace to_string_n{
 	template<typename T>
 	inline string num_base_mantissa(T num,size_t radix,const string radix_table)noexcept{
 		string aret;
-		while(num){
+		T	   epsilon = ::std::numeric_limits<T>::epsilon();
+		while(num > epsilon){
 			num*=radix;
+			epsilon*=radix;
 			T first_char_index;
 			num=::std::modf(num,&first_char_index);
 			aret+=radix_table[(size_t)first_char_index];
