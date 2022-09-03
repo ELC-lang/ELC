@@ -193,7 +193,7 @@ namespace to_string_n{
 				do{
 					size_t zero_list_pos = aret.find(zero_list_str, step_pos);
 					size_t last_list_pos = aret.find(last_list_str, step_pos);
-					step_pos			 = ::std::min(zero_list_pos, last_list_pos);
+					step_pos			 = min(zero_list_pos, last_list_pos);
 					
 					if(step_pos == string::npos)
 						break;
