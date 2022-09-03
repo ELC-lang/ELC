@@ -65,5 +65,14 @@ struct data_view:array_like_view_t<const byte>{
 	constexpr data_view(T*p):array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
 };
 
+/*
+	功能: 比较两个类实例在内存中的内容是否相同
+	用法: full_equal_in_byte(const T&a,const T&b) -> bool
+*/
+template<class T>
+[[nodiscard]]constexpr bool full_equal_in_byte(const T&a,const T&b){
+	return equal(cast_to_data(&a),cast_to_data(&b),sizeof(T));
+}
+
 //file_end
 

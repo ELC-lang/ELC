@@ -42,9 +42,28 @@ namespace to_string_n{
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline string to_string_rough(T num,size_t radix=10,const string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
+		bool is_negative = false;
+		if constexpr(!::std::is_unsigned_v<T>)
+			is_negative=::std::signbit(num);
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
 				if(::std::isnan(num)){
+					if constexpr(::std::numeric_limits<T>::has_signaling_NaN) {
+						auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
+						if(full_equal_in_byte(signaling_NaN,num))
+							return es"signaling_NaN"_elc_string;
+						auto negative_signaling_NaN = ::std::copysign(signaling_NaN,-1);
+						if(full_equal_in_byte(negative_signaling_NaN,num))
+							return es"-signaling_NaN"_elc_string;
+					}
+					if constexpr(::std::numeric_limits<T>::has_quiet_NaN) {
+						auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
+						if(full_equal_in_byte(quiet_NaN,num))
+							return es"quiet_NaN"_elc_string;
+						auto negative_quiet_NaN = ::std::copysign(quiet_NaN,-1);
+						if(full_equal_in_byte(negative_quiet_NaN,num))
+							return es"-quiet_NaN"_elc_string;
+					}
 					string aret=es"NaN("_elc_string;
 					data_view<T> view{&num};
 					for(byte c: view) {
@@ -56,10 +75,12 @@ namespace to_string_n{
 				}
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity){
-				if(num==::std::numeric_limits<T>::infinity())
+				if(::std::isinf(num)){
+					if constexpr(!::std::is_unsigned_v<T>)
+						if(is_negative)
+							return es"-Infinity"_elc_string;
 					return es"Infinity"_elc_string;
-				if(num==-::std::numeric_limits<T>::infinity())
-					return es"-Infinity"_elc_string;
+				}
 			}
 		}
 		typedef decltype(lambda{
@@ -72,7 +93,7 @@ namespace to_string_n{
 		UT unum=UT(num);
 		string aret;
 		if constexpr(!::std::is_unsigned_v<T>)
-			if(::std::signbit(num)){
+			if(is_negative) {
 				aret=ec('-');
 				unum=UT(-num);
 			}
@@ -121,8 +142,21 @@ namespace from_string_get_n{
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline T from_string_get(string str,size_t radix=10,string radix_table=es"0123456789abcdefghigklmnopqrstuvwxyz"_elc_string)noexcept{
+		bool is_negative=false;
+		if constexpr(!::std::is_unsigned_v<T>)
+			if(str[0]==ec('-')){
+				is_negative=true;
+				str.pop_front();
+			}
 		if constexpr(::std::is_floating_point_v<T>){//float特殊值检查
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
+				int sign=is_negative?-1:1;
+				if constexpr(::std::numeric_limits<T>::has_signaling_NaN)
+					if(str==es"signaling_NaN"_elc_string)
+						return ::std::copysign(::std::numeric_limits<T>::signaling_NaN(),sign);
+				if constexpr(::std::numeric_limits<T>::has_quiet_NaN)
+					if(str==es"quiet_NaN"_elc_string)
+						return ::std::copysign(::std::numeric_limits<T>::quiet_NaN(),sign);
 				if(str.starts_with(es"NaN("_elc_string)){
 					str.pop_front(4);
 					str.pop_back();
@@ -138,12 +172,18 @@ namespace from_string_get_n{
 					}
 					return data_cast<T>(block);
 				}
+				elseif(str == es"NaN"_elc_string)
+					if constexpr(::std::numeric_limits<T>::has_quiet_NaN)
+						return ::std::copysign(::std::numeric_limits<T>::quiet_NaN(),sign);
+					else
+						return ::std::copysign(::std::numeric_limits<T>::signaling_NaN(),sign);
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity){
 				if(str==es"Infinity"_constexpr_str)
-					return ::std::numeric_limits<T>::infinity();
-				if(str==es"-Infinity"_constexpr_str)
-					return -::std::numeric_limits<T>::infinity();
+					if(is_negative)
+						return T{}-::std::numeric_limits<T>::infinity();
+					else
+						return ::std::numeric_limits<T>::infinity();
 			}
 		}
 		radix_table.resize(radix);
@@ -154,12 +194,6 @@ namespace from_string_get_n{
 				return::std::make_unsigned_t<T>();
 		}()) UT;
 		UT unum{};
-		bool is_negative=false;
-		if constexpr(!::std::is_unsigned_v<T>)
-			if(str[0]==ec('-')){
-				is_negative=true;
-				str.pop_front();
-			}
 		if constexpr(::std::is_floating_point_v<T>) {
 			const size_t dot_pos=str.find(ec('.'));
 			if(dot_pos!=string::npos){
