@@ -30,10 +30,8 @@ namespace to_string_n{
 	template<typename T>
 	inline string num_base_mantissa(T num,size_t radix,const string radix_table)noexcept{
 		string aret;
-		T	   epsilon = ::std::numeric_limits<T>::epsilon();
-		while(num >= epsilon){
+		while(num){
 			num*=radix;
-			epsilon*=radix;
 			T first_char_index;
 			num=::std::modf(num,&first_char_index);
 			aret+=radix_table[(size_t)first_char_index];
@@ -102,7 +100,7 @@ namespace to_string_n{
 			num_fractional=::std::modf(unum,&unum);
 		aret+=num_base(unum,radix,radix_table);
 		if constexpr(::std::is_floating_point_v<T>)
-			if(num_fractional >= ::std::numeric_limits<UT>::epsilon())
+			if(num_fractional)
 				aret+=ec('.')+num_base_mantissa(num_fractional,radix,radix_table);
 		return aret;
 	}
