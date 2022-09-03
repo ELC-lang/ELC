@@ -180,7 +180,7 @@ namespace to_string_n{
 				size_t dot_pos=aret.find(ec('.'));
 				if(dot_pos == string::npos)
 					return aret;//?
-				
+
 				//进位器
 				auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
 					char_t up_char = move(char_arc);

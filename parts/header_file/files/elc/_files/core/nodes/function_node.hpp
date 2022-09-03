@@ -16,7 +16,7 @@ struct function_node:common_node,instance_struct<function_node>{
 	[[nodiscard]]virtual value be_call(ptr arg_list)override{return _func(arg_list);}
 protected:
 	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
-		
+
 	}
 };
 

@@ -250,7 +250,7 @@ namespace function_n{
 				#pragma warning(pop)
 			#endif
 		}
-		
+
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
 		static ptr_t _func_ptr_data;
@@ -358,7 +358,7 @@ namespace function_n{
 		Ret_t operator()(Args_t...args)const{
 			return base_t::call(forward<Args_t>(args)...);
 		}
-		
+
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
 		static base_t::ptr_t _func_ptr_data;
@@ -478,7 +478,7 @@ namespace function_n{
 				#pragma warning(pop)
 			#endif
 		}
-		
+
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
 		static base_t::ptr_t _func_ptr_data;

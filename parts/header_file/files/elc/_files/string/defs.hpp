@@ -354,14 +354,14 @@ namespace string_n{
 		[[nodiscard]]arec_t		  back()noexcept{ return{this,size()-1}; }
 		[[nodiscard]]const arec_t back()const noexcept{ return{remove_const(this),size()-1}; }
 
-		
+
 		[[nodiscard]]string_t operator+(const arec_t&& ch)const noexcept{
 			return *this+move(ch).operator char_T();
 		}
 		string_t& operator+=(const arec_t&& ch)&noexcept{
 			return *this+=move(ch).operator char_T();
 		}
-		
+
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const noexcept{
 			size=min(size,this->size()-begin);

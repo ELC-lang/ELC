@@ -95,7 +95,7 @@
 			}
 		}
 		inline constexpr auto package_symbol_loader_file_name = es"package_symbol_loader" DYNAMIC_LIBRARY_SUFFIX ""_constexpr_str;
-		
+
 		#if defined(_MSC_VER)
 			#pragma warning(push)
 			#pragma warning(disable:26426)//动态初始化警告diss
@@ -105,7 +105,7 @@
 		#if defined(_MSC_VER)
 			#pragma warning(pop)
 		#endif
-		
+
 		#undef DYNAMIC_LIBRARY_SUFFIX
 	}
 	#include "_undefs.hpp"
