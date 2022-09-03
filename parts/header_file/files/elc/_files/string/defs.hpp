@@ -369,6 +369,9 @@ namespace string_n{
 		[[nodiscard]]const char_T*	c_str()const noexcept{ if(_in_cso())return _get_cso_data();else return _m->get_const_c_str(_m); }
 		char_T* writeable_c_str()noexcept{ return unique_c_str(); }
 		[[nodiscard]]size_t			size()const noexcept{ if(_in_cso())return _get_cso_size();else return _m->get_size(); }
+		[[nodiscard]]explicit operator bool()const noexcept{ return size(); }
+		[[nodiscard]]bool			empty()const noexcept{ return !size(); }
+		[[nodiscard]]size_t			length()const noexcept{ return size(); }
 		void resize(size_t nsize,char_T ch ={})noexcept{
 			const auto size=this->size();
 			if(size > nsize)

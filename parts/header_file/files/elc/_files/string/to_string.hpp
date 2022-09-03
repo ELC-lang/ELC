@@ -182,42 +182,58 @@ namespace to_string_n{
 					return aret;//?
 				
 				//进位器
-				auto rounding_up = lambda_with_catch(&radix_table, radix) (string::arec_t char_arc)noexcept{
+				auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
 					char_t up_char = move(char_arc);
 					size_t up_pos  = radix_table.find(up_char);
 					up_pos++;
 					if(up_pos == radix)
-						up_pos = 1;
+						up_pos = 0;
 					move(char_arc) = radix_table[up_pos];
+					return up_pos == 0;
+				};
+				auto rounding_up = lambda_with_catch(&) (string&str)noexcept{
+					size_t i = str.size();
+					while(i){
+						i--;
+						if(rounding_up_char(str[i])) {
+							//处理小数点.
+							if(str.back() == ec('.'))
+								str.pop_back();
+							continue;
+						}
+						else
+							break;
+					}
 				};
 				{
-					constexpr size_t list_length = 3;
-					//检查小数部分的返回值是否有list_length个连续的radix_table[0]
-					char_t zero_char = radix_table[0];
-					string zero_list_str{zero_char, list_length};
-					//检查小数部分的返回值是否有list_length个连续的radix_table[radix-1]
-					char_t last_char = radix_table[radix - 1];
-					string last_list_str{last_char, list_length};
-					size_t step_pos = dot_pos + 1;
-					string better_aret;
+					//二分法查找最合适的切割位点.
+					size_t left_pos	 = dot_pos + 1;
+					size_t right_pos = aret.size();
+					string better_aret,better_aret_last;
 					do {
-						size_t zero_list_pos = aret.find(zero_list_str, step_pos);
-						size_t last_list_pos = aret.find(last_list_str, step_pos);
-						step_pos			 = min(zero_list_pos, last_list_pos);
-
-						if(step_pos == string::npos)
-							break;
-						better_aret = aret.substr(0, step_pos);
-						if(better_aret.ends_with(ec('.')))
-							better_aret.pop_back();
-						if(step_pos == last_list_pos)
-							rounding_up(better_aret.back());
-						if(from_string_get<T>(better_aret, radix, radix_table) == num)
-							return better_aret;
-						step_pos++;
-					} while(1);
+						size_t step_pos = (left_pos + right_pos) / 2;
+						better_aret		= aret.substr(0, step_pos);
+						//判断是否需要进位.(当被截断内容在radix_table的后半部分.)
+						char_t cut_char = aret[step_pos];
+						size_t cut_num	= radix_table.find(cut_char);
+						if(cut_num >= radix / 2)
+							rounding_up(better_aret);
+						//判断当前切割位点有效性.
+						if(from_string_get<T>(better_aret, radix, radix_table) == num) {
+							right_pos = step_pos;
+							better_aret_last = better_aret;
+						}
+						elseif(left_pos != step_pos)
+							left_pos = step_pos;
+						else
+							left_pos++;
+					} while(left_pos < right_pos);
+					if(better_aret_last){
+						aret = better_aret_last;
+						if(aret.ends_with(ec('.')))
+							aret.pop_back();
+					}
 				}
-					
 			}
 		}
 		return aret;
