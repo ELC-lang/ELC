@@ -86,7 +86,7 @@ member内含有一个ptr
 `!a`是`(not a)`的缩写  
 
 `|`与`|`之间的部分将被当作整个符号看待，如：  
-`|data size|`是一个符号，而`data szie`是两个  
+`|data size|`是一个符号，而`data size`是两个  
 >>	Q:csharp的{}对吧 https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting  
 
 >>	A:与其说是Format，更像是转义序列  

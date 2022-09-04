@@ -36,7 +36,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		_to(str)
 	{
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
-		copy_assign[_used_size](note::form<const char_T*>(head.begin()),note::to<char_T*>(_m.end()-_used_size));
+		copy_assign[_used_size](note::from<const char_T*>(head.begin()),note::to<char_T*>(_m.end()-_used_size));
 	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
@@ -77,8 +77,8 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 				else{
 					char_T* orogin_head_begin=_m.end()-_used_size;
 					char_T* head_begin=orogin_head_begin-str.size();
-					copy_assign[pos](note::form<const char_T*>(orogin_head_begin),note::to<char_T*>(head_begin));
-					copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(head_begin+pos));
+					copy_assign[pos](note::from<const char_T*>(orogin_head_begin),note::to<char_T*>(head_begin));
+					copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(head_begin+pos));
 				}
 				_used_size+=str.size();
 				self_changed();
@@ -97,7 +97,7 @@ protected:
 			const char_T* copy_begin=pos+head_begin;
 			size_t size_of_copy_from_head=min(size_t(head_end-copy_begin),size);
 
-			copy_assign[size_of_copy_from_head](note::form(copy_begin),note::to(to));
+			copy_assign[size_of_copy_from_head](note::from(copy_begin),note::to(to));
 			if(size!=size_of_copy_from_head){
 				const size_t size_left=size-size_of_copy_from_head;
 				char_T* next_copy_begin_pos=to+size_of_copy_from_head;
@@ -137,7 +137,7 @@ public:
 				_m.insert_with_forward_resize(0,str.size(),str.begin(),size_new);
 			}
 			else
-				copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
+				copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
 			_used_size+=str.size();
 			self_changed();
 			return this;

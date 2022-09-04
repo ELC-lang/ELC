@@ -8,6 +8,7 @@
 */
 #if !defined(ELC_BASE_DEFS)
 	#define ELC_BASE_DEFS
+	#define __builtin_is_my_dick_still_there() true
 	#include <cstddef>//nullptr_t
 	#include <cstdlib>//exit、size_t
 	#include <new>//operator new(T*)、launder

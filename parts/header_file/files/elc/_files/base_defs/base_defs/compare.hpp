@@ -84,7 +84,7 @@ constexpr struct equal_t{
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr bool operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
-		while(true){
+		floop{
 			if(*a!=*b)
 				return false;
 			if(*a==T{0})
@@ -235,7 +235,7 @@ constexpr struct compare_t{
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		type<T,U> tmp=strong_ordering::equivalent;
-		while(true){
+		floop{
 			if(*a==T{0})
 				return *b==U{0}?tmp:strong_ordering::less;
 			if(tmp==0)
@@ -296,7 +296,7 @@ constexpr struct compare_t{
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
-		while(true){
+		floop{
 			if(*a==T{0})
 				return *b==U{0}?strong_ordering::equivalent:
 								strong_ordering::less;

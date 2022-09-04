@@ -167,7 +167,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with.begin() && a.size()==with.size())
 			return true;
-		while(true){
+		floop{
 			auto b=with.begin()+index;
 			const size_t step=min({a.size(),with.size()-index,size});
 			if(!equal(a.begin(),b,step))
@@ -188,7 +188,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with && with[a.size()]==char_T{})
 			return true;
-		while(true){
+		floop{
 			auto b=with+index;
 			if(!*b)
 				return false;
@@ -276,7 +276,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with.begin() && a.size()==with.size())
 			return strong_ordering::equivalent;
-		while(true){
+		floop{
 			auto b=with.begin()+index;
 			size_t step=min({a.size(),with.size()-index,size});
 			if(auto tmp=compare(a.begin(),b,step); tmp!=0)
@@ -297,7 +297,7 @@ public:
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with && with[a.size()]==char_T{})
 			return strong_ordering::equivalent;
-		while(true){
+		floop{
 			auto b=with+index;
 			if(!*b)
 				return strong_ordering::greater;

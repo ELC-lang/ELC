@@ -93,14 +93,14 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr T exp(const T v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::exp(v)) RT;
-			auto exp_impl = recursion_lambda(RT x,RT sum,RT n,size_t i,RT t)noexcept -> RT{
+			auto exp_impl = recursive_lambda(RT x,RT sum,RT n,size_t i,RT t)noexcept -> RT{
 				const auto epsilon=sum+t/n;
 				if(feq(sum,epsilon))
 					return sum;
 				else
 					return self_recursion(x,epsilon,n*i,i+1,t*x);
 			};
-			auto exp_impl_caller = get_recursion_lambda_caller(exp_impl);
+			auto exp_impl_caller = get_recursive_lambda_caller(exp_impl);
 			return exp_impl_caller(RT{v},RT{1},RT{1},2,RT{v});
 		}
 		else
@@ -112,14 +112,14 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto log(const T a)noexcept{
 		if in_consteval{
 			typedef decltype(::std::log(a)) RT;
-			auto log_impl = recursion_lambda(const RT x,const RT y)noexcept -> RT{
+			auto log_impl = recursive_lambda(const RT x,const RT y)noexcept -> RT{
 				auto log_iter = lambda(RT x,RT y)noexcept{
 					const auto exp_y = exp(y);
 					return y + T{2}*(x-exp_y)/(x+exp_y);
 				};
 				return RT(feq(y,log_iter(x,y)) ? y : self_recursion(x,log_iter(x,y)));
 			};
-			auto log_impl_caller = get_recursion_lambda_caller(log_impl);
+			auto log_impl_caller = get_recursive_lambda_caller(log_impl);
 			return log_impl_caller(RT(a),RT(0));
 		}
 		else

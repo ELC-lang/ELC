@@ -174,7 +174,7 @@ namespace forward_vector_n{
 			#endif
 		}
 		void remove(T a){
-			get<T>.remove(a,note::form(_m));
+			get<T>.remove(a,note::from(_m));
 			#if defined(DEBUG) || defined(_DEBUG)
 				_size_for_debug_view=size();
 			#endif

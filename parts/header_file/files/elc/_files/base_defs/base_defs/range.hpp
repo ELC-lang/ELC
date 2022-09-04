@@ -205,7 +205,7 @@ namespace range_n{
 		size_t off_set=0;
 		size_t matching_off_set=1;
 
-		while(true){
+		floop{
 			matching_off_set=1;
 			while(pattern.end()[0-matching_off_set]==range.begin()[off_set+pattern.size()-matching_off_set])
 				if(matching_off_set==pattern.size())
@@ -259,7 +259,7 @@ namespace range_n{
 		size_t off_set=0;
 		size_t matching_off_set=0;
 
-		while(true){
+		floop{
 			matching_off_set=0;
 			while(pattern.begin()[matching_off_set]==range.end()[0-(off_set+pattern.size()-matching_off_set)])
 				if(matching_off_set==pattern.size()-1)

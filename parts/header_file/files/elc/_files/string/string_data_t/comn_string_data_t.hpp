@@ -39,7 +39,7 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	}
 
 	comn_string_data_t(string_view_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str.size()+1)){
-		copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m));
+		copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m));
 	}
 	comn_string_data_t(ptr_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str->get_size()+1)){
 		str->copy_part_data_to((char_T*)_m,0,this->get_size());
@@ -65,7 +65,7 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _m.size()-1; }
 protected:
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{ copy_assign[size](note::form((const char_T*)_m+pos),note::to(to)); }
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{ copy_assign[size](note::from((const char_T*)_m+pos),note::to(to)); }
 public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{ return _m[index]; }
 	virtual void arec_set(size_t index,char_T a,ptr_t&p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{

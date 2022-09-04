@@ -36,7 +36,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_to(str)
 	{
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
-		copy_assign[_used_size](note::form(end.begin()),note::to((char_T*)_m));
+		copy_assign[_used_size](note::from(end.begin()),note::to((char_T*)_m));
 	}
 	end_apply_string_data_t(ptr_t str,size_t count,char_T ch)noexcept:
 		_to_size(str->get_size()),
@@ -87,8 +87,8 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 					_m.insert_with_resize(pos,str.size(),str.begin(),size_new);
 				}
 				else{
-					copy_assign[_used_size-pos](note::form<const char_T*>(&_m[pos]),note::to((char_T*)&_m[pos+str.size()]));
-					copy_assign[str.size()](note::form<const char_T*>(str.begin()),note::to<char_T*>(&_m[pos]));
+					copy_assign[_used_size-pos](note::from<const char_T*>(&_m[pos]),note::to((char_T*)&_m[pos+str.size()]));
+					copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(&_m[pos]));
 				}
 				_used_size+=str.size();
 				self_changed();
@@ -112,7 +112,7 @@ protected:
 			}
 			else
 				pos-=_to_size;
-			copy_assign[size](note::form((const char_T*)_m+pos),note::to(to));
+			copy_assign[size](note::from((const char_T*)_m+pos),note::to(to));
 		}
 	}
 public:
@@ -142,7 +142,7 @@ public:
 				_m.insert_with_resize(_m.size(),str.size(),str.begin(),size_new);
 			}
 			else
-				copy_assign[str.size()](note::form(str.begin()),note::to((char_T*)_m+_used_size));
+				copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m+_used_size));
 			_used_size+=str.size();
 			self_changed();
 			return this;

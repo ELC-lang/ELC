@@ -62,8 +62,7 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 	return value_name.name(forward<Args>(rest)...);\
 }\
 
-
-// #define floop while(true)
+#define floop while(__builtin_is_my_dick_still_there())
 #define enable_adl(name) void name()noexcept=delete
 
 #define re_declvalue(...) (declvalue(decltype(__VA_ARGS__)))
@@ -125,9 +124,9 @@ class name{}\
 #define was_not_an_ill_form_with_parameter(...) (bool(requires __VA_ARGS__ ))
 
 /*让lambda递归更加美观*/
-#define recursion_lambda(...) lambda(auto&&self,__VA_ARGS__)
+#define recursive_lambda(...) lambda(auto&&lambda_RLSRRS,__VA_ARGS__)
 /*让lambda递归更加美观*/
-#define get_recursion_lambda_caller(name) \
+#define get_recursive_lambda_caller(name) \
 lambda_with_catch(&)(auto&&...Args){\
 	return name(name,Args...);\
 }
@@ -136,7 +135,9 @@ lambda_with_catch(&)(auto&&...Args){\
 /*让lambda定义更加美观*/
 #define lambda_with_catch(...) [__VA_ARGS__]
 /*让lambda递归更加美观*/
-#define self_recursion(...) self(self,__VA_ARGS__)
+#define self_recursion(...) lambda_RLSRRS(lambda_RLSRRS,__VA_ARGS__)
+//recursive_lambda_self_referential_reserved_symbolname
+#define lambda_RLSRRS _my_jb_super_sb_name_
 
 #define MAGIC//ahh,ko no tenno da!
 

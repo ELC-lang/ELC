@@ -178,7 +178,7 @@ namespace from_string_get_n{
 					str.pop_back();
 					data_block<T> block;
 					size_t		  write_index = 0;
-					while(1) {
+					floop{
 						const size_t dot_pos = str.find(ec('.'));
 						auto byte_str			 = str.substr(0, dot_pos);
 						block[write_index++] = (byte)from_string_get<unsigned char>(byte_str, radix, radix_table);
