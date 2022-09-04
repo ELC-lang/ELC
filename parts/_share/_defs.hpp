@@ -124,10 +124,19 @@ class name{}\
 #define was_not_an_ill_form_and_noexcept(...) (bool(requires{__VA_ARGS__;{__VA_ARGS__}noexcept;}))
 #define was_not_an_ill_form_with_parameter(...) (bool(requires __VA_ARGS__ ))
 
+/*让lambda递归更加美观*/
+#define recursion_lambda(...) lambda(auto&&self,__VA_ARGS__)
+/*让lambda递归更加美观*/
+#define get_recursion_lambda_caller(name) \
+lambda_with_catch(&)(auto&&...Args){\
+	return name(name,Args...);\
+}
 /*让lambda定义更加美观*/
 #define lambda []
 /*让lambda定义更加美观*/
 #define lambda_with_catch(...) [__VA_ARGS__]
+/*让lambda递归更加美观*/
+#define self_recursion(...) self(self,__VA_ARGS__)
 
 #define MAGIC//ahh,ko no tenno da!
 

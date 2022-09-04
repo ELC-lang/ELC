@@ -67,8 +67,11 @@
 #undef was_not_an_ill_form_and_noexcept
 #undef was_not_an_ill_form_with_parameter
 
+#undef recursion_lambda
+#undef get_recursion_lambda_caller
 #undef lambda
 #undef lambda_with_catch
+#undef self_recursion
 
 #undef MAGIC
 
