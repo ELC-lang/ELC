@@ -151,11 +151,32 @@ namespace magic_number{
 			return rotr(v,0-r);
 		}
 	}
+	//pow
+	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
+	template<class T,class U> requires (::std::is_arithmetic_v<T> && ::std::is_arithmetic_v<U>)
+	[[nodiscard]]force_inline constexpr auto pow(const T a,const U b)noexcept{
+		if in_consteval{
+			typedef decltype(::std::pow(a,b)) RT;
+			if(b==0)
+				return RT(1);
+			elseif(b==1)
+				return RT(a);
+			else{
+				RT ans(a);
+				for(auto i=U(1);i<b;++i)
+					ans*=a;
+				return ans;
+			}
+		}
+		else
+			return ::std::pow(a,b);
+	}
 }
 using magic_number::get_next_gold_size_to_resize_for_array;
 using magic_number::get_next_gold_size_to_resize_for_hash;
 using magic_number::rotl;
 using magic_number::rotr;
+using magic_number::pow;
 
 //file_end
 
