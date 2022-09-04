@@ -11,6 +11,8 @@
 #if defined(_MSC_VER)
 	#pragma warning(pop)
 #endif
+//for basic_environment.hpp
+#undef BIT_POSSIBILITY
 //
 #if defined(ELC_VOID_NAME)
 	#define void the_void
