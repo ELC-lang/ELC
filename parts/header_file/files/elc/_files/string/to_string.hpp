@@ -32,7 +32,8 @@ namespace to_string_n{
 		string aret;
 		//Information threshold相关声明
 		//这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
-		constinit auto info_threshold = pow(BIT_POSSIBILITY,bitnumof<T>);
+		constinit auto info_threshold_base = pow(BIT_POSSIBILITY,bitnumof<T>);
+		auto		   info_threshold =	ceil(log(info_threshold_base,radix));
 		//浮点数精度浮动，所以需要确定何时开始使用Info threshold
 		bool is_mantissa_begined = false;
 		while(num){
@@ -45,8 +46,8 @@ namespace to_string_n{
 			if((size_t)first_char_index)
 				is_mantissa_begined = true;
 			if(is_mantissa_begined){
-				info_threshold/=radix;
-				if(info_threshold<1)
+				info_threshold--;
+				if(!info_threshold)
 					break;
 			}
 		}
