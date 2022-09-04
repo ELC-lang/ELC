@@ -9,6 +9,8 @@
 #include <benchmark/benchmark.h>
 
 
-#include "../../files/elc/string"
 #include <string>
 #include <functional>
+
+#define ELC_TEST_COUNT_MEMORY_ALLOC
+#include "../../files/elc/string"

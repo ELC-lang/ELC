@@ -57,6 +57,8 @@ elc依赖的基础函数.
 				inline void clear()noexcept{
 					alloc_count=0;
 					free_count=0;
+					alloc_size=0;
+					free_size=0;
 					memory_using=0;
 					memory_using_max=0;
 				}

@@ -331,8 +331,6 @@ static void ELC_StringFindFirstOf_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringFindFirstOf_Size5);
 
-BENCHMARK_MAIN();
-
 #pragma optimize("", on)
 
 //*/
