@@ -110,8 +110,11 @@ namespace to_string_n{
 				unum=UT(-num);
 			}
 		UT num_fractional{};
-		if constexpr(::std::is_floating_point_v<T>)
+		if constexpr(::std::is_floating_point_v<T>){
 			num_fractional=::std::modf(unum,&unum);
+			if(num_fractional && radix==1)//1进制怎么可能有小数？
+				return es"NaN"_elc_string;
+		}
 		aret+=num_base(unum,radix,radix_table);
 		if constexpr(::std::is_floating_point_v<T>)
 			if(num_fractional)
@@ -209,6 +212,8 @@ namespace from_string_get_n{
 		if constexpr(::std::is_floating_point_v<T>) {
 			const size_t dot_pos=str.find(ec('.'));
 			if(dot_pos!=string::npos){
+				if(radix==1)//1进制怎么可能有小数点？
+					return T();
 				auto mantissa_str=str.substr(dot_pos+1);
 				str=str.substr(0,dot_pos);
 				unum=num_base_mantissa<UT>(mantissa_str,radix,radix_table);
