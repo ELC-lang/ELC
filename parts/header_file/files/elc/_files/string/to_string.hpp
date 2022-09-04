@@ -30,11 +30,25 @@ namespace to_string_n{
 	template<typename T>
 	inline string num_base_mantissa(T num,size_t radix,const string radix_table)noexcept{
 		string aret;
+		//Information threshold相关声明
+		//这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
+		auto info_threshold = pow(BIT_POSSIBILITY,bitnumof<T>);
+		//浮点数精度浮动，所以需要确定何时开始使用Info threshold
+		bool is_mantissa_begined = false;
 		while(num){
+			//mantissa push部分
 			num*=radix;
 			T first_char_index;
 			num=::std::modf(num,&first_char_index);
 			aret+=radix_table[(size_t)first_char_index];
+			//Information threshold制御部分
+			if((size_t)first_char_index)
+				is_mantissa_begined = true;
+			if(is_mantissa_begined){
+				info_threshold/=radix;
+				if(info_threshold<1)
+					break;
+			}
 		}
 		return aret;
 	}
