@@ -106,7 +106,7 @@
 
 #undef with_no_vtable
 
-#undef if_in_consteval
+#undef in_consteval
 
 #undef no_vtable_struct
 #undef no_vtable_class
