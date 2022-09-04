@@ -30,27 +30,73 @@ elc依赖的基础函数.
 			#include "alloc/default_method/overhead.hpp"//overhead
 		#endif
 		#include "alloc/debug_info/source_location_guard.hpp"//operate_source_location & source_location_guard
+
+		//BLOCK: Counting memory allocations
+		#if defined(_MSC_VER)
+			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
+				#pragma detect_mismatch("ELC_TEST_COUNT_MEMORY_ALLOC","true")
+			#else
+				#pragma detect_mismatch("ELC_TEST_COUNT_MEMORY_ALLOC","false")
+			#endif
+		#endif
+
+		#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
+			[[nodiscard]]inline size_t get_size_of_alloc(const byte*p,size_t align)noexcept;
+			namespace count_info{
+				distinctive inline size_t alloc_count=0;
+				distinctive inline size_t free_count=0;
+				distinctive inline size_t alloc_size=0;
+				distinctive inline size_t free_size=0;
+				distinctive inline size_t memory_using=0;
+				distinctive inline size_t memory_using_max=0;
+				inline void update_memory_using(ptrdiff_t diff)noexcept{
+					memory_using+=diff;
+					if(memory_using>memory_using_max)
+						memory_using_max=memory_using;
+				}
+				inline void clear()noexcept{
+					alloc_count=0;
+					free_count=0;
+					memory_using=0;
+					memory_using_max=0;
+				}
+			}
+		#endif
+		//BLOCK_END
+
 		/*
 		aligned_alloc 内存分配函数，需提供对齐需求
 		return空指针被允许
 		size被保证不为0
 		*/
-		[[nodiscard]]inline void*aligned_alloc(size_t align,size_t size)noexcept{
+		[[nodiscard]]inline byte*aligned_alloc(size_t align,size_t size)noexcept{
+			void* aret;//返回值放这里
+
 			#if SYSTEM_TYPE == windows
 				#if defined(_DEBUG)
-					return _aligned_malloc_dbg(size,align,operate_source_location.file(),operate_source_location.line());
+					aret = _aligned_malloc_dbg(size,align,operate_source_location.file(),operate_source_location.line());
 				#else
-					return _aligned_malloc(size,align);
+					aret = _aligned_malloc(size,align);
 				#endif
 			#else
 				using namespace overhead_n;
 				void*tmp=::std::aligned_alloc(correct_align(align),correct_size(size,align));
 				if(tmp){
 					set_overhead(tmp,size);
-					return correct_pointer(tmp,align);
+					aret = correct_pointer(tmp,align);
 				}
-				else return nullptr;
+				else aret = nullptr;
 			#endif
+
+			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
+				if(aret){
+					count_info::alloc_count++;
+					count_info::alloc_size+=size;
+					count_info::update_memory_using(size);
+				}
+			#endif
+			
+			return(byte*)aret;
 		}
 		/*
 		realloc 重新规划分配的大小
@@ -59,28 +105,49 @@ elc依赖的基础函数.
 		align维持不变
 		但只允许在扩大数据块时可选的移动数据块
 		*/
-		[[nodiscard]]inline void*realloc(byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
+		[[nodiscard]]inline byte*realloc(byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
+			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
+				auto osize=get_size_of_alloc(ptr,align);
+			#endif
+			void* aret;//返回值放这里
+
 			#if SYSTEM_TYPE == windows
 				#if defined(_DEBUG)
-					return _aligned_realloc_dbg(ptr,nsize,align,operate_source_location.file(),operate_source_location.line());
+					aret = _aligned_realloc_dbg(ptr,nsize,align,operate_source_location.file(),operate_source_location.line());
 				#else
-					return _aligned_realloc(ptr,nsize,align);
+					aret = _aligned_realloc(ptr,nsize,align);
 				#endif
 			#else
 				using namespace overhead_n;
 				void*tmp=::std::realloc(recorrect_pointer(ptr,align),correct_size(nsize,align));
 				if(tmp){
 					set_overhead(tmp,nsize);
-					return correct_pointer(tmp,align);
+					aret = correct_pointer(tmp,align);
 				}
-				else return nullptr;
+				else aret = nullptr;
 			#endif
+
+			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
+				if(aret){
+					count_info::alloc_size+=nsize-osize;
+					count_info::update_memory_using(nsize-osize);
+				}
+			#endif
+			
+			return(byte*)aret;
 		}
 		/*
 		free 释放所分配的内存
 		传入需获取大小的数据块起始点与对齐
 		*/
-		inline void free(void*p,[[maybe_unused]]size_t align)noexcept{
+		inline void free(byte*p,[[maybe_unused]]size_t align)noexcept{
+			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
+				auto size=get_size_of_alloc(p,align);
+				count_info::free_count++;
+				count_info::free_size+=size;
+				count_info::update_memory_using(0-size);
+			#endif
+
 			#if SYSTEM_TYPE == windows
 				#if defined(_DEBUG)
 					_aligned_free_dbg(p);

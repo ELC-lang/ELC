@@ -16,8 +16,8 @@ namespace default_method{
 		#endif
 	#endif
 
-	[[nodiscard]]inline void*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
-		void*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
+	[[nodiscard]]inline byte*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
+		byte*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(nsize==0)
 				stest_uneventlog(ptr);
@@ -30,8 +30,8 @@ namespace default_method{
 		#endif
 		return p;
 	}
-	[[nodiscard]]inline void*base_aligned_alloc(size_t align,size_t size)noexcept{
-		void*p=::elc::APIs::alloc::aligned_alloc(align,size);
+	[[nodiscard]]inline byte*base_aligned_alloc(size_t align,size_t size)noexcept{
+		byte*p=::elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(p){
 				ELC_TEST_EVENTNAME("base_aligned_alloc调用");
@@ -40,7 +40,7 @@ namespace default_method{
 		#endif
 		return p;
 	}
-	inline void base_free(void*p,size_t align)noexcept{
+	inline void base_free(byte*p,size_t align)noexcept{
 		//传入需释放的数据块起始点与大小（字节）
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			auto tmp=stest_geteventlistfromlog(p);
@@ -83,7 +83,7 @@ namespace default_method{
 	}
 	template<typename T>
 	inline void free_method(T*arg)noexcept{
-		base_free(arg,alignof(T));
+		base_free(cast_to_data(arg),alignof(T));
 	}
 	template<typename T>
 	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{

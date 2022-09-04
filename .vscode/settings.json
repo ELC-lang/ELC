@@ -53,6 +53,7 @@
         "list": "cpp",
         "xhash": "cpp",
         "xtree": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "void_name": "cpp"
     }
 }
