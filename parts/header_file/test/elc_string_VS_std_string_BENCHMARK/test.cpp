@@ -1,13 +1,13 @@
 #include "pch.h"
 
-static_assert(sizeof(std::string)>=sizeof(elc::string));
+static_assert(sizeof(std::u32string)>=sizeof(elc::string));
 #pragma optimize("", off)
 
 //*
 
 static void Std_StringCreation_Size0(benchmark::State& state) {
 	for(auto _: state)
-		std::string empty_string;
+		std::u32string empty_string;
 	state.SetBytesProcessed(0);
 }
 BENCHMARK(Std_StringCreation_Size0);
@@ -21,8 +21,8 @@ BENCHMARK(ELC_StringCreation_Size0);
 
 static void Std_StringCreation_Size5(benchmark::State& state) {
 	for(auto _: state)
-		std::string string = "hello";
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::string::value_type));
+		std::u32string string = U"hello";
+	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringCreation_Size5);
 
@@ -43,11 +43,11 @@ BENCHMARK(ELC_StringCreation_Size5_MarkAsConstExprStr);
 
 
 static void Std_StringArec(benchmark::State& state) {
-	std::string x = "hello";
-	std::string::value_type c;
+	std::u32string x = U"hello";
+	std::u32string::value_type c;
 	for(auto _: state)
 		c = x[0];
-	state.SetBytesProcessed(state.iterations() * sizeof(std::string::value_type));
+	state.SetBytesProcessed(state.iterations() * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringArec);
 
@@ -61,10 +61,10 @@ static void ELC_StringArec(benchmark::State& state) {
 BENCHMARK(ELC_StringArec);
 
 static void Std_StringArecSet(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
 		x[0] = 'e';
-	state.SetBytesProcessed(state.iterations() * sizeof(std::string::value_type));
+	state.SetBytesProcessed(state.iterations() * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringArecSet);
 
@@ -77,10 +77,10 @@ static void ELC_StringArecSet(benchmark::State& state) {
 BENCHMARK(ELC_StringArecSet);
 
 static void Std_StringCopy_Size5(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		std::string copy(x);
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::string::value_type));
+		std::u32string copy(x);
+	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringCopy_Size5);
 
@@ -102,12 +102,12 @@ static void ELC_StringCopy_Size5_MarkAsConstExprStr(benchmark::State& state) {
 BENCHMARK(ELC_StringCopy_Size5_MarkAsConstExprStr);
 
 static void Std_StringCopy_Size20480(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(int i = 13; i; i--)
 		x += x;
 	for(auto _: state)
-		std::string copy(x);
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std::string::value_type));
+		std::u32string copy(x);
+	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringCopy_Size20480);
 
@@ -122,10 +122,10 @@ static void ELC_StringCopy_Size20480(benchmark::State& state) {
 BENCHMARK(ELC_StringCopy_Size20480);
 
 static void Std_StringApplyEnd(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		x += "o";
-	state.SetBytesProcessed(state.iterations() * sizeof(std::string::value_type));
+		x += U"o";
+	state.SetBytesProcessed(state.iterations() * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringApplyEnd);
 
@@ -138,10 +138,10 @@ static void ELC_StringApplyEnd(benchmark::State& state) {
 BENCHMARK(ELC_StringApplyEnd);
 
 static void Std_StringApplyHead(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		x = "o" + x;
-	state.SetBytesProcessed(state.iterations() * sizeof(std::string::value_type));
+		x = U"o" + x;
+	state.SetBytesProcessed(state.iterations() * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringApplyHead);
 
@@ -154,11 +154,11 @@ static void ELC_StringApplyHead(benchmark::State& state) {
 BENCHMARK(ELC_StringApplyHead);
 
 static void Std_StringEqual_Size5(benchmark::State& state) {
-	std::string x1 = "hello";
-	std::string x2 = "hello";
+	std::u32string x1 = U"hello";
+	std::u32string x2 = U"hello";
 	for(auto _: state)
 		x1 == x2;
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::string::value_type));
+	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringEqual_Size5);
 
@@ -172,15 +172,15 @@ static void ELC_StringEqual_Size5(benchmark::State& state) {
 BENCHMARK(ELC_StringEqual_Size5);
 
 static void Std_StringEqual_Size20480(benchmark::State& state) {
-	std::string x1 = "hello";
-	std::string x2 = "hello";
+	std::u32string x1 = U"hello";
+	std::u32string x2 = U"hello";
 	for(int i = 13; i; i--) {
 		x1 += x1;
 		x2 += x2;
 	}
 	for(auto _: state)
 		x1 == x2;
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std::string::value_type));
+	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringEqual_Size20480);
 
@@ -198,10 +198,10 @@ static void ELC_StringEqual_Size20480(benchmark::State& state) {
 BENCHMARK(ELC_StringEqual_Size20480);
 
 static void Std_StringHash_Size5(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		std::hash<std::string>()(x);
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::string::value_type));
+		std::hash<std::u32string>()(x);
+	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringHash_Size5);
 
@@ -223,12 +223,12 @@ static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state) {
 BENCHMARK(ELC_StringHash_Size5_MarkAsConstExprStr);
 
 static void Std_StringHash_Size20480(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(int i = 13; i; i--)
 		x += x;
 	for(auto _: state)
-		std::hash<std::string>()(x);
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std::string::value_type));
+		std::hash<std::u32string>()(x);
+	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringHash_Size20480);
 
@@ -243,7 +243,7 @@ static void ELC_StringHash_Size20480(benchmark::State& state) {
 BENCHMARK(ELC_StringHash_Size20480);
 
 static void Std_StringSize(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
 		x.size();
 	state.SetBytesProcessed(0);
@@ -268,7 +268,7 @@ static void ELC_StringSize_MarkAsConstExprStr(benchmark::State& state) {
 BENCHMARK(ELC_StringSize_MarkAsConstExprStr);
 
 static void Std_StringClear(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
 		x.clear();
 	state.SetBytesProcessed(0);
@@ -284,10 +284,10 @@ static void ELC_StringClear(benchmark::State& state) {
 BENCHMARK(ELC_StringClear);
 
 static void Std_StringInsert_ToPos1(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		x.insert(1, "e");
-	state.SetBytesProcessed(state.iterations() * sizeof(std::string::value_type));
+		x.insert(1, U"e");
+	state.SetBytesProcessed(state.iterations() * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringInsert_ToPos1);
 
@@ -300,10 +300,10 @@ static void ELC_StringInsert_ToPos1(benchmark::State& state) {
 BENCHMARK(ELC_StringInsert_ToPos1);
 
 static void Std_StringInsert_ToPos_1UnitForwardAtTheEnd(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		x.insert(x.size()-2, "e");
-	state.SetBytesProcessed(state.iterations() * sizeof(std::string::value_type));
+		x.insert(x.size()-2, U"e");
+	state.SetBytesProcessed(state.iterations() * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringInsert_ToPos_1UnitForwardAtTheEnd);
 
@@ -316,10 +316,10 @@ static void ELC_StringInsert_ToPos_1UnitForwardAtTheEnd(benchmark::State& state)
 BENCHMARK(ELC_StringInsert_ToPos_1UnitForwardAtTheEnd);
 
 static void Std_StringFindFirstOf_Size5(benchmark::State& state) {
-	std::string x = "hello";
+	std::u32string x = U"hello";
 	for(auto _: state)
-		x.find_first_of("e");
-	state.SetBytesProcessed(state.iterations() * 2 * sizeof(std::string::value_type));
+		x.find_first_of(U"e");
+	state.SetBytesProcessed(state.iterations() * 2 * sizeof(std::u32string::value_type));
 }
 BENCHMARK(Std_StringFindFirstOf_Size5);
 
