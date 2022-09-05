@@ -34,10 +34,6 @@ namespace magic_number{
 		else
 			return a%b;
 	}
-
-	#if defined(_MSC_VER)
-		#pragma warning(pop)
-	#endif
 	//位操作：循环左移
 	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
@@ -243,6 +239,9 @@ namespace magic_number{
 		*/
 		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
 	}
+	#if defined(_MSC_VER)
+		#pragma warning(pop)
+	#endif
 }
 using magic_number::mod;
 using magic_number::rotl;
