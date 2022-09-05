@@ -60,8 +60,8 @@ struct data_block:non_copyable,non_moveable{
 	用法: data_view<T>value{&value};
 */
 template<class T>
-struct data_view:array_like_view_t<const byte>{
-	using array_like_view_t<const byte>::array_like_view_t;
+struct data_view:array_like_view_t<byte>{
+	using array_like_view_t<byte>::array_like_view_t;
 	constexpr data_view(T*p):array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
 };
 
