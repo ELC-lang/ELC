@@ -62,7 +62,12 @@ struct data_block:non_copyable,non_moveable{
 template<class T>
 struct data_view:array_like_view_t<byte>{
 	using array_like_view_t<byte>::array_like_view_t;
-	constexpr data_view(T*p):array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
+	constexpr data_view(T*p):array_like_view_t<byte>{cast_to_data(p),sizeof(T)}{}
+};
+template<class T>
+struct data_view<const T>:array_like_view_t<const byte>{
+	using array_like_view_t<const byte>::array_like_view_t;
+	constexpr data_view(const T*p):array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
 };
 
 /*
