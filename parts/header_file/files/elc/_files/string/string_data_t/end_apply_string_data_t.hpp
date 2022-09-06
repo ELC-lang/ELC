@@ -60,7 +60,6 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			return base_t::get_c_str(p);
 	}
 	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
-		static_assert(noexcept(*a));//貌似msvc在这里有bug
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
 			if(_used_size==p->_used_size && _to!=p->_to)

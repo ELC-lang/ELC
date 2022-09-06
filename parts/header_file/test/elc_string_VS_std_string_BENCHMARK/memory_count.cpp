@@ -24,7 +24,7 @@ class ElcMemoryManager: public benchmark::MemoryManager {
 };
 
 int main(int argc, char** argv) {
-	std::unique_ptr<benchmark::MemoryManager> mm(new ElcMemoryManager());
+	std::unique_ptr<benchmark::MemoryManager> mm{std::make_unique<ElcMemoryManager>()};
 	::benchmark::Initialize(&argc, argv);
 	benchmark::RegisterMemoryManager(mm.get());
 	if(::benchmark::ReportUnrecognizedArguments(argc, argv))
