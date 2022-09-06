@@ -27,7 +27,7 @@ static void Std_StringCreation(benchmark::State& state) {
 		std_string tmp((size_t)state.range(0), rand<std_string::value_type>());
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringCreation)->Range(1, 1 << 16);
+BENCHMARK(Std_StringCreation)->Range(8, 1 << 16);
 
 static void ELC_StringCreation(benchmark::State& state) {
 	void claer_memory_count();
@@ -35,7 +35,7 @@ static void ELC_StringCreation(benchmark::State& state) {
 		elc::string tmp{(size_t)state.range(0), rand<std_string::value_type>()};
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(ELC_StringCreation)->Range(1, 1 << 16);
+BENCHMARK(ELC_StringCreation)->Range(8, 1 << 16);
 
 static void ELC_StringCreation_FromConstExprStr(benchmark::State& state) {
 	using namespace elc;
@@ -92,7 +92,7 @@ static void Std_StringCopy(benchmark::State& state) {
 		std_string copy(x);
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringCopy)->Range(1, 1 << 16);
+BENCHMARK(Std_StringCopy)->Range(8, 1 << 16);
 
 static void ELC_StringCopy(benchmark::State& state) {
 	elc::string x{(size_t)state.range(0), rand<elc::string::char_type>()};
@@ -101,7 +101,7 @@ static void ELC_StringCopy(benchmark::State& state) {
 		elc::string copy(x);
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringCopy)->Range(1, 1 << 16);
+BENCHMARK(ELC_StringCopy)->Range(8, 1 << 16);
 
 static void ELC_StringCopy_FromConstExprStr(benchmark::State& state) {
 	using namespace elc;
@@ -158,7 +158,7 @@ static void Std_StringEqual(benchmark::State& state) {
 		x == y;
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringEqual)->Range(1, 1 << 16);
+BENCHMARK(Std_StringEqual)->Range(8, 1 << 16);
 
 static void ELC_StringEqual(benchmark::State& state) {
 	auto	   mychar = rand<elc::string::char_type>();
@@ -169,7 +169,7 @@ static void ELC_StringEqual(benchmark::State& state) {
 		x == y;
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringEqual)->Range(1, 1 << 16);
+BENCHMARK(ELC_StringEqual)->Range(8, 1 << 16);
 
 static void Std_StringHash(benchmark::State& state) {
 	std_string x((size_t)state.range(0), rand<std_string::value_type>());
@@ -178,7 +178,7 @@ static void Std_StringHash(benchmark::State& state) {
 		std::hash<std_string>()(x);
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringHash)->Range(1, 1 << 16);
+BENCHMARK(Std_StringHash)->Range(8, 1 << 16);
 
 static void ELC_StringHash(benchmark::State& state) {
 	elc::string x{(size_t)state.range(0), rand<elc::string::char_type>()};
@@ -187,7 +187,7 @@ static void ELC_StringHash(benchmark::State& state) {
 		elc::defs::hash(x);
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringHash)->Range(1, 1 << 16);
+BENCHMARK(ELC_StringHash)->Range(8, 1 << 16);
 
 static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state) {
 	using namespace elc::defs;
