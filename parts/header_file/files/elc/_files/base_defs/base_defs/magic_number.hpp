@@ -44,15 +44,12 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto rotr(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		const auto r = R%d;
-		if(r>0){
+		if(r>0)
 			return static_cast<T>(static_cast<T>(v >> r) | static_cast<T>(v << (d - r)));
-		}
-		elseif(r==0){
+		elseif(r==0)
 			return v;
-		}
-		else{//r<0
+		else//r<0
 			return rotl(v,0-r);
-		}
 	}
 	//位操作：循环左移
 	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
@@ -60,15 +57,12 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto rotl(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		const auto r  = R%d;
-		if(r>0){
+		if(r>0)
 			return static_cast<T>(static_cast<T>(v << r) | static_cast<T>(v >> (d - r)));
-		}
-		elseif(r==0){
+		elseif(r==0)
 			return v;
-		}
-		else{//r<0
+		else//r<0
 			return rotr(v,0-r);
-		}
 	}
 	//abs
 	template<class T> requires ::std::is_arithmetic_v<T>
