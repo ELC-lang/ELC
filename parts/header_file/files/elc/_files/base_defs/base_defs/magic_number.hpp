@@ -94,6 +94,62 @@ namespace magic_number{
 		const auto r = mod(R,d);
 		return rotl_nomod(v,r);
 	}
+	template<class T> requires ::std::is_arithmetic_v<T>
+	class rot_iterator{
+		static constexpr auto rot_offset_npos = ::std::numeric_limits<T>::digits;//d
+		size_t _offset;
+	public:
+		force_inline constexpr rot_iterator(size_t offset)noexcept:_offset(offset%rot_offset_npos){}
+		force_inline constexpr rot_iterator&operator++()noexcept{
+			_offset++;
+			if(_offset==rot_offset_npos)
+				_offset=0;
+			return*this;
+		}
+		force_inline constexpr rot_iterator&operator--()noexcept{
+			if(_offset==0)
+				_offset=rot_offset_npos;
+			_offset--;
+			return*this;
+		}
+		force_inline constexpr rot_iterator operator++(int)noexcept{
+			rot_iterator tmp(*this);
+			operator++();
+			return tmp;
+		}
+		force_inline constexpr rot_iterator operator--(int)noexcept{
+			rot_iterator tmp(*this);
+			operator--();
+			return tmp;
+		}
+		[[nodiscard]]force_inline constexpr size_t value()const noexcept{
+			return _offset;
+		}
+	};
+	//位操作：循环左移（无mod）
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]force_inline constexpr auto rotl_nomod(const T v,const rot_iterator<T>&r)noexcept{
+		return rotl_nomod(v,r.value());
+	}
+	//位操作：循环右移（无mod）
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]force_inline constexpr auto rotr_nomod(const T v,const rot_iterator<T>&r)noexcept{
+		return rotr_nomod(v,r.value());
+	}
+	//位操作：循环左移
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]force_inline constexpr auto rotl(const T v,const rot_iterator<T>&r)noexcept{
+		return rotl_nomod(v,r);
+	}
+	//位操作：循环右移
+	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
+	template<class T> requires ::std::is_unsigned_v<T>
+	[[nodiscard]]force_inline constexpr auto rotr(const T v,const rot_iterator<T>&r)noexcept{
+		return rotr_nomod(v,r);
+	}
 	//abs
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr auto abs(const T v)noexcept{
@@ -272,6 +328,7 @@ using magic_number::rotl;
 using magic_number::rotr;
 using magic_number::rotl_nomod;
 using magic_number::rotr_nomod;
+using magic_number::rot_iterator;
 using magic_number::abs;
 using magic_number::exp;
 using magic_number::log;

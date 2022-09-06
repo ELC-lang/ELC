@@ -162,11 +162,6 @@ lambda_with_catch(&)(auto&&...Args){\
 /*退出名称空间，并不是很美观*/
 #define BREAK_NAMESPACE }
 
-/*防写错宏*/
-#define szie size
-/*防写错宏*/
-#define form from
-
 /*template说明符*/
 #define template_name template
 /*template说明符*/
