@@ -96,7 +96,29 @@ namespace lifetime_n{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t construct an array for never_in_array type.");
 				auto tmp=_size;
-				while(tmp--)new(&_to[tmp])T(forward<Args>(rest)...);
+				while(tmp--)new(_to+tmp)T(forward<Args>(rest)...);
+				return _to;
+			}
+			T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t construct an array for never_in_array type.");
+				if constexpr(::std::is_trivially_copyable_v<T>){
+					if constexpr(sizeof(T)==sizeof(unsigned char))
+						::std::memset((unsigned char*)_to,(unsigned char)v,_size);
+					elseif(sizeof(T)==sizeof(wchar_t))
+						::std::wmemset((wchar_t*)_to,(wchar_t)v,_size);
+					else{
+						if(is_all_byte_zero(v))
+							::std::memset(_to,zero,_size*sizeof(T));
+						else
+							::std::fill_n(_to,_size,v);
+						return _to;
+					}
+				}
+				else{
+					auto tmp=_size;
+					while(tmp--)new(_to+tmp)T(v);
+				}
 				return _to;
 			}
 		};
@@ -322,8 +344,22 @@ namespace lifetime_n{
 		static T*base_call(T*to,const T&from,size_t size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
-			while(size--)
-				base_call(to+size,from);
+			if constexpr(::std::is_trivially_copyable_v<T>){
+				if constexpr(sizeof(T)==sizeof(unsigned char))
+					::std::memset((unsigned char*)to,(unsigned char)from,size);
+				elseif(sizeof(T)==sizeof(wchar_t))
+					::std::wmemset((wchar_t*)to,(wchar_t)from,size);
+				else{
+					if(is_all_byte_zero(from))
+						::std::memset(to,zero,size*sizeof(T));
+					else
+						::std::fill_n(to,size,from);
+					return to;
+				}
+			}
+			else
+				while(size--)
+					base_call(to+size,from);
 			return to;
 		}
 
@@ -531,14 +567,15 @@ namespace lifetime_n{
 		static T* base_call(T* to,const T& from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>){
 				if constexpr(sizeof(T)==sizeof(unsigned char))
-					::std::memset(to,(unsigned char)from,size);
-				elseif constexpr(sizeof(T)==sizeof(wchar_t))
-					::std::wmemset(to,(wchar_t)from,size);
+					::std::memset((unsigned char*)to,(unsigned char)from,size);
+				elseif(sizeof(T)==sizeof(wchar_t))
+					::std::wmemset((wchar_t*)to,(wchar_t)from,size);
 				else{
-					if(is_all_byte_zero(from)){
+					if(is_all_byte_zero(from))
 						::std::memset(to,zero,size*sizeof(T));
-						return to;
-					}
+					else
+						::std::fill_n(to,size,from);
+					return to;
 				}
 			}
 			{
