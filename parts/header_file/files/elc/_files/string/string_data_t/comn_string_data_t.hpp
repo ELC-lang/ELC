@@ -47,6 +47,7 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	comn_string_data_t(ptr_t str,size_t pos,size_t size)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1)){
 		str->copy_part_data_to((char_T*)_m,pos,size);
 	}
+	comn_string_data_t(size_t size,char_T ch)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1),ch){}
 
 	virtual ~comn_string_data_t()noexcept(destruct_nothrow)override final{
 		clear_match_pattern();

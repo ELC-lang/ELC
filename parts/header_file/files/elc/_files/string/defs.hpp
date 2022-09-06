@@ -155,9 +155,8 @@ namespace string_n{
 		string_t(string_t&& str)noexcept:string_t(){
 			swap_with(str);
 		}
-		string_t(char_T ch,size_t size)noexcept:string_t(){
-			resize(size,ch);
-		}
+		string_t(char_T ch,size_t size)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size,ch));}
+		string_t(size_t size,char_T ch)noexcept:string_t(ch,size){}
 		//END_BLOCK
 		//析构函数
 		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
@@ -386,10 +385,12 @@ namespace string_n{
 				*this=substr(0,nsize);
 			elseif(size == nsize)
 				return;
-			else{
+			elseif(size){
 				_cso_check();
 				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size,ch);
 			}
+			else
+				*this=string_t{nsize,ch};
 		}
 		void clear()noexcept{ re_construct(this); }
 	private:

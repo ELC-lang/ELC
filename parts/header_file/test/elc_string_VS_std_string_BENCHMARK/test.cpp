@@ -1,289 +1,205 @@
 #include "pch.h"
-typedef elc::string::char_type test_char_type;
-typedef std::basic_string<test_char_type,std::char_traits<test_char_type>,TestAllocator<test_char_type>> std_string;
+typedef elc::string::char_type																			   test_char_type;
+typedef std::basic_string<test_char_type, std::char_traits<test_char_type>, TestAllocator<test_char_type>> std_string;
 
-static_assert(sizeof(std_string)>=sizeof(elc::string));
+static_assert(sizeof(std_string) >= sizeof(elc::string));
 #pragma optimize("", off)
 
-void claer_memory_count(){
+void claer_memory_count() {
 	elc::APIs::alloc::count_info::clear();
 }
 
 template<class T>
-T rand(){
+T rand() {
 	using namespace elc::defs;
-	T aret;
-	data_view<T>ret_data_view{&aret};
-	for(auto&i:ret_data_view)
-		i=::std::rand()%256;
+	T			 aret;
+	data_view<T> ret_data_view{&aret};
+	for(auto& i: ret_data_view)
+		i = byte(::std::rand() % 256);
 	return aret;
 }
 
 //*
 
-static void Std_StringCreation_Size0(benchmark::State& state) {
+static void Std_StringCreation(benchmark::State& state) {
 	void claer_memory_count();
 	for(auto _: state)
-		std_string empty_string;
-	state.SetBytesProcessed(0);
+		std_string tmp((size_t)state.range(0), rand<std_string::value_type>());
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringCreation_Size0);
+BENCHMARK(Std_StringCreation)->Range(1, 1 << 16);
 
-static void ELC_StringCreation_Size0(benchmark::State& state) {
+static void ELC_StringCreation(benchmark::State& state) {
 	void claer_memory_count();
 	for(auto _: state)
-		elc::string empty_string;
-	state.SetBytesProcessed(0);
+		elc::string tmp{(size_t)state.range(0), rand<std_string::value_type>()};
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(ELC_StringCreation_Size0);
+BENCHMARK(ELC_StringCreation)->Range(1, 1 << 16);
 
-static void Std_StringCreation_Size5(benchmark::State& state) {
-	void claer_memory_count();
-	for(auto _: state)
-		std_string string = U"hello";
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std_string::value_type));
-}
-BENCHMARK(Std_StringCreation_Size5);
-
-static void ELC_StringCreation_Size5(benchmark::State& state) {
-	void claer_memory_count();
-	for(auto _: state)
-		elc::string string = U"hello";
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
-}
-BENCHMARK(ELC_StringCreation_Size5);
-
-static void ELC_StringCreation_Size5_MarkAsConstExprStr(benchmark::State& state) {
+static void ELC_StringCreation_FromConstExprStr(benchmark::State& state) {
 	using namespace elc;
 	void claer_memory_count();
 	for(auto _: state)
 		elc::string string = U"hello"_constexpr_str;
 	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringCreation_Size5_MarkAsConstExprStr);
+BENCHMARK(ELC_StringCreation_FromConstExprStr);
 
 
 static void Std_StringArec(benchmark::State& state) {
-	std_string x = U"hello";
+	std_string			   x = U"hello";
 	std_string::value_type c;
-	void claer_memory_count();
+	void				   claer_memory_count();
 	for(auto _: state)
-		c = x[0];
+		c = x[rand<size_t>() % 5];
 	state.SetBytesProcessed(state.iterations() * sizeof(std_string::value_type));
 }
 BENCHMARK(Std_StringArec);
 
 static void ELC_StringArec(benchmark::State& state) {
-	elc::string x = U"hello";
+	elc::string			   x = U"hello";
 	elc::string::char_type c;
-	void claer_memory_count();
+	void				   claer_memory_count();
 	for(auto _: state)
-		c = x[0];
+		c = x[rand<size_t>() % 5];
 	state.SetBytesProcessed(state.iterations() * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringArec);
 
 static void Std_StringArecSet(benchmark::State& state) {
 	std_string x = U"hello";
-	void claer_memory_count();
+	void	   claer_memory_count();
 	for(auto _: state)
-		x[0] = 'e';
+		x[rand<size_t>() % 5] = rand<std_string::value_type>();
 	state.SetBytesProcessed(state.iterations() * sizeof(std_string::value_type));
 }
 BENCHMARK(Std_StringArecSet);
 
 static void ELC_StringArecSet(benchmark::State& state) {
 	elc::string x = U"hello";
-	void claer_memory_count();
+	void		claer_memory_count();
 	for(auto _: state)
-		x[0] = U'e';
+		x[rand<size_t>() % 5] = rand<elc::string::char_type>();
 	state.SetBytesProcessed(state.iterations() * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringArecSet);
 
-static void Std_StringCopy_Size5(benchmark::State& state) {
-	std_string x = U"hello";
-	void claer_memory_count();
+static void Std_StringCopy(benchmark::State& state) {
+	std_string x((size_t)state.range(0), rand<std_string::value_type>());
+	void	   claer_memory_count();
 	for(auto _: state)
 		std_string copy(x);
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std_string::value_type));
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringCopy_Size5);
+BENCHMARK(Std_StringCopy)->Range(1, 1 << 16);
 
-static void ELC_StringCopy_Size5(benchmark::State& state) {
-	elc::string x = U"hello";
-	void claer_memory_count();
+static void ELC_StringCopy(benchmark::State& state) {
+	elc::string x{(size_t)state.range(0), rand<elc::string::char_type>()};
+	void		claer_memory_count();
 	for(auto _: state)
 		elc::string copy(x);
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringCopy_Size5);
+BENCHMARK(ELC_StringCopy)->Range(1, 1 << 16);
 
-static void ELC_StringCopy_Size5_MarkAsConstExprStr(benchmark::State& state) {
+static void ELC_StringCopy_FromConstExprStr(benchmark::State& state) {
 	using namespace elc;
 	elc::string x = U"hello"_constexpr_str;
-	void claer_memory_count();
+	void		claer_memory_count();
 	for(auto _: state)
 		elc::string copy(x);
 	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringCopy_Size5_MarkAsConstExprStr);
-
-static void Std_StringCopy_Size20480(benchmark::State& state) {
-	std_string x = U"hello";
-	for(int i = 13; i; i--)
-		x += x;
-	void claer_memory_count();
-	for(auto _: state)
-		std_string copy(x);
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std_string::value_type));
-}
-BENCHMARK(Std_StringCopy_Size20480);
-
-static void ELC_StringCopy_Size20480(benchmark::State& state) {
-	elc::string x = U"hello";
-	for(int i = 13; i; i--)
-		x += x;
-	void claer_memory_count();
-	for(auto _: state)
-		elc::string copy(x);
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(elc::string::char_type));
-}
-BENCHMARK(ELC_StringCopy_Size20480);
+BENCHMARK(ELC_StringCopy_FromConstExprStr);
 
 static void Std_StringApplyEnd(benchmark::State& state) {
-	std_string x = U"hello";
-	void claer_memory_count();
+	std_string x;
+	void	   claer_memory_count();
 	for(auto _: state)
-		x += U"o";
+		x += rand<std_string::value_type>();
 	state.SetBytesProcessed(state.iterations() * sizeof(std_string::value_type));
 }
 BENCHMARK(Std_StringApplyEnd);
 
 static void ELC_StringApplyEnd(benchmark::State& state) {
-	elc::string x = U"hello";
-	void claer_memory_count();
+	elc::string x;
+	void		claer_memory_count();
 	for(auto _: state)
-		x += U"o";
+		x += rand<elc::string::char_type>();
 	state.SetBytesProcessed(state.iterations() * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringApplyEnd);
 
 static void Std_StringApplyHead(benchmark::State& state) {
-	std_string x = U"hello";
-	void claer_memory_count();
+	std_string x;
+	void	   claer_memory_count();
 	for(auto _: state)
-		x = U"o" + x;
+		x = rand<std_string::value_type>() + x;
 	state.SetBytesProcessed(state.iterations() * sizeof(std_string::value_type));
 }
 BENCHMARK(Std_StringApplyHead);
 
 static void ELC_StringApplyHead(benchmark::State& state) {
-	elc::string x = U"hello";
-	void claer_memory_count();
+	elc::string x;
+	void		claer_memory_count();
 	for(auto _: state)
-		x.push_front(U"o");
+		x.push_front(rand<elc::string::char_type>());
 	state.SetBytesProcessed(state.iterations() * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringApplyHead);
 
-static void Std_StringEqual_Size5(benchmark::State& state) {
-	std_string x1 = U"hello";
-	std_string x2 = U"hello";
-	void claer_memory_count();
+static void Std_StringEqual(benchmark::State& state) {
+	auto	   mychar = rand<std_string::value_type>();
+	std_string x((size_t)state.range(0), mychar);
+	std_string y((size_t)state.range(0), mychar);
+	void	   claer_memory_count();
 	for(auto _: state)
-		x1 == x2;
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std_string::value_type));
+		x == y;
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringEqual_Size5);
+BENCHMARK(Std_StringEqual)->Range(1, 1 << 16);
 
-static void ELC_StringEqual_Size5(benchmark::State& state) {
-	elc::string x1 = U"hello";
-	elc::string x2 = U"hello";
-	void claer_memory_count();
+static void ELC_StringEqual(benchmark::State& state) {
+	auto	   mychar = rand<elc::string::char_type>();
+	elc::string x{(size_t)state.range(0), mychar};
+	elc::string y{(size_t)state.range(0), mychar};
+	void	   claer_memory_count();
 	for(auto _: state)
-		x1 == x2;
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
+		x == y;
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringEqual_Size5);
+BENCHMARK(ELC_StringEqual)->Range(1, 1 << 16);
 
-static void Std_StringEqual_Size20480(benchmark::State& state) {
-	std_string x1 = U"hello";
-	std_string x2 = U"hello";
-	for(int i = 13; i; i--) {
-		x1 += x1;
-		x2 += x2;
-	}
-	void claer_memory_count();
-	for(auto _: state)
-		x1 == x2;
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std_string::value_type));
-}
-BENCHMARK(Std_StringEqual_Size20480);
-
-static void ELC_StringEqual_Size20480(benchmark::State& state) {
-	elc::string x1 = U"hello";
-	elc::string x2 = U"hello";
-	for(int i = 13; i; i--) {
-		x1 += x1;
-		x2 += x2;
-	}
-	void claer_memory_count();
-	for(auto _: state)
-		x1 == x2;
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(elc::string::char_type));
-}
-BENCHMARK(ELC_StringEqual_Size20480);
-
-static void Std_StringHash_Size5(benchmark::State& state) {
-	std_string x = U"hello";
-	void claer_memory_count();
+static void Std_StringHash(benchmark::State& state) {
+	std_string x((size_t)state.range(0), rand<std_string::value_type>());
+	void	   claer_memory_count();
 	for(auto _: state)
 		std::hash<std_string>()(x);
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(std_string::value_type));
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(std_string::value_type));
 }
-BENCHMARK(Std_StringHash_Size5);
+BENCHMARK(Std_StringHash)->Range(1, 1 << 16);
 
-static void ELC_StringHash_Size5(benchmark::State& state) {
-	elc::string x = U"hello";
-	void claer_memory_count();
+static void ELC_StringHash(benchmark::State& state) {
+	elc::string x{(size_t)state.range(0), rand<elc::string::char_type>()};
+	void		claer_memory_count();
 	for(auto _: state)
 		elc::defs::hash(x);
-	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
+	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringHash_Size5);
+BENCHMARK(ELC_StringHash)->Range(1, 1 << 16);
 
 static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state) {
 	using namespace elc::defs;
 	elc::string x = U"hello"_constexpr_str;
-	void claer_memory_count();
+	void		claer_memory_count();
 	for(auto _: state)
 		hash(x);
 	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringHash_Size5_MarkAsConstExprStr);
 
-static void Std_StringHash_Size20480(benchmark::State& state) {
-	std_string x = U"hello";
-	for(int i = 13; i; i--)
-		x += x;
-	void claer_memory_count();
-	for(auto _: state)
-		std::hash<std_string>()(x);
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(std_string::value_type));
-}
-BENCHMARK(Std_StringHash_Size20480);
-
-static void ELC_StringHash_Size20480(benchmark::State& state) {
-	elc::string x = U"hello";
-	for(int i = 13; i; i--)
-		x += x;
-	void claer_memory_count();
-	for(auto _: state)
-		elc::defs::hash(x);
-	state.SetBytesProcessed(state.iterations() * 20480 * sizeof(elc::string::char_type));
-}
-BENCHMARK(ELC_StringHash_Size20480);
+/*
 
 static void Std_StringSize(benchmark::State& state) {
 	std_string x = U"hello";
@@ -385,6 +301,6 @@ static void ELC_StringFindFirstOf_Size5(benchmark::State& state) {
 }
 BENCHMARK(ELC_StringFindFirstOf_Size5);
 
-#pragma optimize("", on)
-
 //*/
+
+#pragma optimize("", on)

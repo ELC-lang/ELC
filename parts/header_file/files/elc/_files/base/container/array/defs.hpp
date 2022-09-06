@@ -44,6 +44,12 @@ namespace array_n{
 				_size_for_debug_view=size.value;
 			#endif
 		}
+		explicit array_t(note::size_t<size_t>size,const T&elem)noexcept(get<T>.nothrow<>){
+			_m=get<T>[size.value](elem);
+			#if defined(DEBUG) || defined(_DEBUG)
+				_size_for_debug_view=size.value;
+			#endif
+		}
 		/*
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
 		*/
