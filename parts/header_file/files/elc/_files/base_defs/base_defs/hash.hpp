@@ -103,8 +103,17 @@ namespace hash_n{
 		template<class T>
 		[[nodiscard]]constexpr force_inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
 			size_t aret=before._value;
-			while(size--)
-				aret ^= rotl(get_hash_in_size_type(a[size]),before_size+size);
+			//while(size--)
+				//aret ^= rotl(get_hash_in_size_type(a[size]),before_size+size);
+			constexpr auto rotl_offset_npos = ::std::numeric_limits<decltype(aret)>::digits;
+			auto rotl_offset = (before_size+size) % rotl_offset_npos;
+			while(size--){
+				aret ^= rotl_nomod(get_hash_in_size_type(a[size]),rotl_offset);
+				if(rotl_offset)
+					rotl_offset--;
+				else
+					rotl_offset = rotl_offset_npos-1;
+			}
 			return{aret};
 		}
 		template<class T>

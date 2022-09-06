@@ -340,7 +340,8 @@ public:
 protected:
 	virtual hash_t get_hash_detail(ptr_t&p)noexcept(hash_nothrow){
 		const auto size=get_size();
-		return hash(get_data(p),size);
+		const auto data=get_data(p);
+		return hash(data,size);
 	}
 public:
 	hash_t get_others_hash_with_calculated_before(hash_t before,size_t before_size,ptr_t&p,size_t pos,size_t size)noexcept(hash_nothrow){
