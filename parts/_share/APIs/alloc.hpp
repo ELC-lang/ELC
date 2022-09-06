@@ -109,7 +109,7 @@ elc依赖的基础函数.
 		*/
 		[[nodiscard]]inline byte*realloc(byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
-				auto osize=get_size_of_alloc(ptr,align);
+				const auto osize=get_size_of_alloc(ptr,align);
 			#endif
 			void* aret;//返回值放这里
 
@@ -144,7 +144,7 @@ elc依赖的基础函数.
 		*/
 		inline void free(byte*p,[[maybe_unused]]size_t align)noexcept{
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
-				auto size=get_size_of_alloc(p,align);
+				const auto size=get_size_of_alloc(p,align);
 				count_info::free_count++;
 				count_info::free_size+=size;
 				count_info::update_memory_using(0-size);

@@ -105,7 +105,7 @@ namespace lifetime_n{
 				if constexpr(::std::is_trivially_copyable_v<T>){
 					if constexpr(sizeof(T)==sizeof(unsigned char))
 						::std::memset((unsigned char*)_to,(unsigned char)v,_size);
-					elseif(sizeof(T)==sizeof(wchar_t))
+					elseif constexpr(sizeof(T)==sizeof(wchar_t))
 						::std::wmemset((wchar_t*)_to,(wchar_t)v,_size);
 					else{
 						if(is_all_byte_zero(v))
@@ -347,7 +347,7 @@ namespace lifetime_n{
 			if constexpr(::std::is_trivially_copyable_v<T>){
 				if constexpr(sizeof(T)==sizeof(unsigned char))
 					::std::memset((unsigned char*)to,(unsigned char)from,size);
-				elseif(sizeof(T)==sizeof(wchar_t))
+				elseif constexpr(sizeof(T)==sizeof(wchar_t))
 					::std::wmemset((wchar_t*)to,(wchar_t)from,size);
 				else{
 					if(is_all_byte_zero(from))
@@ -568,7 +568,7 @@ namespace lifetime_n{
 			if constexpr(trivial<T>){
 				if constexpr(sizeof(T)==sizeof(unsigned char))
 					::std::memset((unsigned char*)to,(unsigned char)from,size);
-				elseif(sizeof(T)==sizeof(wchar_t))
+				elseif constexpr(sizeof(T)==sizeof(wchar_t))
 					::std::wmemset((wchar_t*)to,(wchar_t)from,size);
 				else{
 					if(is_all_byte_zero(from))
