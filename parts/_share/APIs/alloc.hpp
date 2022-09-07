@@ -21,9 +21,10 @@ elc依赖的基础函数.
 		#include <cstdlib>
 	#endif
 	#include "../../header_file/files/elc/base_defs"
-	#include "../../_share/_defs.hpp"
+	#include "_tools/decl_system_type.hpp"
 	namespace elc::APIs::alloc{
-		#include "_tools/decl_system_type.hpp"
+		#include "../../_share/_defs.hpp"
+
 		#if SYSTEM_TYPE == windows
 			using namespace elc::defs;//remove_const
 		#else
@@ -177,9 +178,11 @@ elc依赖的基础函数.
 				return get_overhead(recorrect_pointer(p,align));
 			#endif
 		}
-		#include "_tools/undef_decl_system_type.hpp"
+
+		#include "../../_share/_undefs.hpp"
 	}
-	#include "../../_share/_undefs.hpp"
+	//
+	#include "_tools/undef_decl_system_type.hpp"
 #endif
 
 //file_end

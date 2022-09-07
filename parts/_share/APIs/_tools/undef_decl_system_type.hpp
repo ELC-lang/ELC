@@ -1,4 +1,4 @@
-//_defs.hpp
+//undef_decl_system_type.hpp
 /*
 未完成的elc解释器_share文件
 由steve02081504与Alex0125设计、编写

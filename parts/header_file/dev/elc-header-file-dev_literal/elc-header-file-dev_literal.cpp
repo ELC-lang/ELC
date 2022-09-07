@@ -12,9 +12,10 @@
 #include <elc/core>
 #include <elc/string>
 
-#include "../../files/elc/_files/_share/_defs.hpp"
 
 namespace elc::defs{
+	#include "../../files/elc/_files/_share/_defs.hpp"
+
 	namespace base_read_n{
 		struct base_read_error:exception{
 			const char_t* _why;
@@ -28,12 +29,13 @@ namespace elc::defs{
 	auto operator ""_elc_code(const char_t*,size_t)noexcept(not_in_debug){
 		//return elc_code_t({L""});
 	}
+
+	#include "../../files/elc/_files/_share/_undefs.hpp"
 }
 namespace elc{
 	using defs::base_read_n::base_read_error;
 }
 
-#include "../../files/elc/_files/_share/_undefs.hpp"
 
 #define GET_CODE_STRUCT(...) ((__VA_ARGS__).get_code_struct())
 

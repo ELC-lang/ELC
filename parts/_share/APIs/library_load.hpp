@@ -26,6 +26,7 @@ elc依赖的基础函数.
 	#endif
 	namespace elc::APIs::library_load{
 		#include "../_defs.hpp"
+
 		using namespace elc::defs;
 
 		typedef
@@ -88,6 +89,7 @@ elc依赖的基础函数.
 			//可返回bool意义为空的值表示失败
 			return base_get_symbol(handle,to_char_str(symbol_name).c_str());
 		}
+
 		#include "../_undefs.hpp"
 	}
 	#include "_tools/undef_decl_system_type.hpp"

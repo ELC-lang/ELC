@@ -12,6 +12,7 @@
 #include "../../../../../_share/default_data_type.hpp"//char_t
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
+
 	namespace exception_n{
 		#include "exception/_body.hpp"
 	}

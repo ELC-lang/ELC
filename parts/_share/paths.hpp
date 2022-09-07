@@ -21,8 +21,9 @@
 		#include <cstdio>
 	#endif
 	//
-	#include "_defs.hpp"
 	namespace elc::paths{
+		#include "_defs.hpp"
+
 		using namespace elc::defs;
 		namespace defs{
 			#if SYSTEM_TYPE == windows
@@ -107,8 +108,9 @@
 		#endif
 
 		#undef DYNAMIC_LIBRARY_SUFFIX
+
+		#include "_undefs.hpp"
 	}
-	#include "_undefs.hpp"
 	//
 	#include "APIs/_tools/undef_decl_system_type.hpp"
 #endif

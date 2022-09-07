@@ -16,6 +16,8 @@ elc依赖的基础函数.
 	#include <clocale>
 	#include "../default_data_type.hpp"
 	namespace elc::APIs::die{
+		#include "../../_share/_defs.hpp"
+
 		[[noreturn]]inline void die()noexcept{
 			#if defined(_MSC_VER)
 				__debugbreak();
@@ -75,6 +77,8 @@ elc依赖的基础函数.
 				#pragma warning(pop)
 			#endif
 		}
+
+		#include "../../_share/_undefs.hpp"
 	}
 	namespace elc::defs{
 		using namespace elc::APIs::die;
