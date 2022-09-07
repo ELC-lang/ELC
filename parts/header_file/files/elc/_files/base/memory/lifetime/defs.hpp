@@ -64,6 +64,20 @@ namespace lifetime_n{
 	constexpr bool move_assign_trivial=::std::is_trivially_move_assignable_v<T>;
 	//
 
+	template<class T> requires(::std::is_trivially_copyable_v<T>)
+	force_inline T* super_speed_trivial_copy_from_one(T*to,const T&value,size_t size)noexcept{
+		if constexpr(sizeof(T)==sizeof(unsigned char))
+			::std::memset((unsigned char*)to,(unsigned char)value,size);
+		elseif constexpr(sizeof(T)==sizeof(wchar_t))
+			::std::wmemset((wchar_t*)to,(wchar_t)value,size);
+		else
+			if(is_all_byte_zero(value))
+				::std::memset(to,zero,size*sizeof(T));
+			else
+				::std::fill_n(to,size,value);
+		return to;
+	}
+
 	/*
 	lifetime_n的一部分
 	所有的construct_t实例都派生于此
@@ -102,19 +116,8 @@ namespace lifetime_n{
 			T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t construct an array for never_in_array type.");
-				if constexpr(::std::is_trivially_copyable_v<T>){
-					if constexpr(sizeof(T)==sizeof(unsigned char))
-						::std::memset((unsigned char*)_to,(unsigned char)v,_size);
-					elseif constexpr(sizeof(T)==sizeof(wchar_t))
-						::std::wmemset((wchar_t*)_to,(wchar_t)v,_size);
-					else{
-						if(is_all_byte_zero(v))
-							::std::memset(_to,zero,_size*sizeof(T));
-						else
-							::std::fill_n(_to,_size,v);
-						return _to;
-					}
-				}
+				if constexpr(::std::is_trivially_copyable_v<T>)
+					super_speed_trivial_copy_from_one(_to,v,_size);
 				else{
 					auto tmp=_size;
 					while(tmp--)new(_to+tmp)T(v);
@@ -344,19 +347,8 @@ namespace lifetime_n{
 		static T*base_call(T*to,const T&from,size_t size)noexcept(nothrow<T>){
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
-			if constexpr(::std::is_trivially_copyable_v<T>){
-				if constexpr(sizeof(T)==sizeof(unsigned char))
-					::std::memset((unsigned char*)to,(unsigned char)from,size);
-				elseif constexpr(sizeof(T)==sizeof(wchar_t))
-					::std::wmemset((wchar_t*)to,(wchar_t)from,size);
-				else{
-					if(is_all_byte_zero(from))
-						::std::memset(to,zero,size*sizeof(T));
-					else
-						::std::fill_n(to,size,from);
-					return to;
-				}
-			}
+			if constexpr(::std::is_trivially_copyable_v<T>)
+				super_speed_trivial_copy_from_one(to,from,size);
 			else
 				while(size--)
 					base_call(to+size,from);
@@ -565,23 +557,11 @@ namespace lifetime_n{
 		}
 		template<class T> requires able<T>
 		static T* base_call(T* to,const T& from,size_t size)noexcept(nothrow<T>){
-			if constexpr(trivial<T>){
-				if constexpr(sizeof(T)==sizeof(unsigned char))
-					::std::memset((unsigned char*)to,(unsigned char)from,size);
-				elseif constexpr(sizeof(T)==sizeof(wchar_t))
-					::std::wmemset((wchar_t*)to,(wchar_t)from,size);
-				else{
-					if(is_all_byte_zero(from))
-						::std::memset(to,zero,size*sizeof(T));
-					else
-						::std::fill_n(to,size,from);
-					return to;
-				}
-			}
-			{
+			if constexpr(trivial<T>)
+				super_speed_trivial_copy_from_one(to,from,size);
+			else
 				while(size--)
 					base_call(to[size],from);
-			}
 			return to;
 		}
 
