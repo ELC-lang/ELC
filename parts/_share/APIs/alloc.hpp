@@ -32,6 +32,7 @@ elc依赖的基础函数.
 		#if SYSTEM_TYPE == windows
 			using namespace ::elc::defs;//remove_const
 		#else
+			using ::std::byte;
 			#include "alloc/default_method/overhead.hpp"//overhead
 		#endif
 		#include "alloc/debug_info/source_location_guard.hpp"//operate_source_location & source_location_guard
@@ -92,6 +93,8 @@ elc依赖的基础函数.
 					set_overhead(tmp,size);
 					aret = correct_pointer(tmp,align);
 				}
+				else
+					aret = nullptr;
 			#endif
 
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
@@ -130,6 +133,8 @@ elc依赖的基础函数.
 					set_overhead(tmp,nsize);
 					aret = correct_pointer(tmp,align);
 				}
+				else
+					aret = nullptr;
 			#endif
 
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)

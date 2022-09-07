@@ -23,7 +23,7 @@ namespace get_n{
 
 	/*向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例*/
 	template<typename T>
-	void alloc_size_cut(T*arg,size_t to_size)noexcept{
+	void alloc_size_cut(T*&arg,size_t to_size)noexcept{
 		realloc(arg,to_size);
 	}
 	/*向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例*/

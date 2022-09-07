@@ -48,7 +48,7 @@ namespace default_method{
 				stest_putsf(L"释放了已释放或未分配指针%p，当前的事件记录如下：",p);
 				stest_printeventlist(stderr,stest_geteventlist());
 				stest_wait();
-				p=nullptr;
+				return;
 			}else{
 				stest_deleteevent(tmp);
 				stest_uneventlog(p);
