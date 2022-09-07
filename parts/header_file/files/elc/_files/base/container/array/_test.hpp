@@ -16,6 +16,7 @@ namespace array_n{
 			anarray.resize(5);
 			stest_accert(anarray.size()==5);
 			anarray[2]=99;
+			stest_accert(anarray[2]==99);
 			anarray.resize(3);
 			stest_accert(anarray[2]==99);
 			anarray=anarray;

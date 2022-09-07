@@ -15,8 +15,13 @@ namespace array_n{
 			size_t _size_for_debug_view=0;
 		#endif
 
+		#if defined(DEBUG) || defined(_DEBUG)
+		/*return{ptr,size};*/
+		constexpr array_t(T*a,size_t s):_m(a),_size_for_debug_view(s){}
+		#else
 		/*return{ptr};*/
 		constexpr array_t(T*a):_m(a){}
+		#endif
 		/*返回一个自身的副本*/
 		[[nodiscard]]this_t copy()const noexcept(copy_get.nothrow<T>) requires(copy_get.able<T>){
 			#if defined(DEBUG) || defined(_DEBUG)

@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+#if!defined(_MSC_VER)
 struct gc_tester:type_info_t<gc_tester>::template_name
 	with_common_attribute<can_map_all,can_shrink,count_able,mark_able_for_gc,never_in_array,ref_able>,
 	have_root,build_by_get_only,force_use_default_null_ptr{
@@ -26,7 +27,9 @@ void map_and_mark_for_gc(gc_tester*a){
 void destory_by_gc(gc_tester*a){
 	a->~gc_tester();
 }
+#endif
 inline void test(){
+	#if!defined(_MSC_VER)
 	ELC_TEST_EVENTNAME("gc部分测试");
 	using ::std::time;
 	using ::std::rand;
@@ -38,6 +41,7 @@ inline void test(){
 		int i;
 		root_ptr_t<gc_tester> name=get<gc_tester>();
 		for(i=rand()%72;i--;){
+			#pragma warning(suppress: 4189)
 			auto p=get<gc_tester>();
 		}
 		gc();
@@ -46,6 +50,7 @@ inline void test(){
 		stest_accert(get_size_of_get(&*name)==1);
 	}
 	check_memory_lack();
+	#endif
 }
 inline void test_log_out(){
 

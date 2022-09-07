@@ -15,13 +15,17 @@ elc依赖的基础函数.
 	#if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD)
 		#include <stacktrace>//for operate_source_location
 	#endif
+	#include "_tools/decl_system_type.hpp"
 	#if SYSTEM_TYPE == windows
-		#include <malloc.h>
+		#if defined(_DEBUG)
+			#include <crtdbg.h>
+		#else
+			#include <malloc.h>
+		#endif
 	#else
 		#include <cstdlib>
 	#endif
 	#include "../../header_file/files/elc/base_defs"
-	#include "_tools/decl_system_type.hpp"
 	namespace elc::APIs::alloc{
 		#include "../../_share/_defs.hpp"
 
@@ -88,7 +92,6 @@ elc依赖的基础函数.
 					set_overhead(tmp,size);
 					aret = correct_pointer(tmp,align);
 				}
-				else aret = nullptr;
 			#endif
 
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
@@ -127,7 +130,6 @@ elc依赖的基础函数.
 					set_overhead(tmp,nsize);
 					aret = correct_pointer(tmp,align);
 				}
-				else aret = nullptr;
 			#endif
 
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)

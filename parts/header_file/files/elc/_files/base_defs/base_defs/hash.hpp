@@ -80,7 +80,7 @@ namespace hash_n{
 		[[nodiscard]]inline hash_value_t operator()(const base_type_info_t&a)const noexcept{
 			return{a.get_hash()};
 		}
-		template<class T>
+		template<class T> requires able<T>
 		[[nodiscard]]constexpr_as_auto inline auto operator()(const T&a)const noexcept(nothrow<T>){
 			if constexpr(is_pointer<T>)
 				return pointer_hash(a);
@@ -92,7 +92,10 @@ namespace hash_n{
 				return a.hash();
 			elseif constexpr(was_not_an_ill_form(hash_value_t(declvalue(const T&))))
 				return hash_value_t(a);
-			else template_error("Please overload the function hash in the namespace where this type is defined.");
+			else{
+				template_error("Please overload the function hash in the namespace where this type is defined.");
+				return hash_value_t{};
+			}
 		}
 		template<class T>
 		[[nodiscard]]constexpr_as_auto inline size_t get_hash_in_size_type(const T&a)const noexcept(nothrow<T>){
@@ -121,11 +124,11 @@ namespace hash_n{
 			return{before._value^(rotl(after._value,before_size))};
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t operator()(array_like_view_t<T>a)const noexcept(nothrow<T>){
+		[[nodiscard]]constexpr inline hash_value_t operator()(const array_like_view_t<T>a)const noexcept(nothrow<T>){
 			return operator()(a.begin(),a.size());
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,array_like_view_t<T>a)const noexcept{
+		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>a)const noexcept{
 			return with_calculated_before(before,before_size,a.begin(),a.size());
 		}
 	}hash{};

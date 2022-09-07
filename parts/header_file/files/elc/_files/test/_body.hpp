@@ -7,6 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace elc{
+	#include "../_share/_defs.hpp"
+
 	inline void test(){
 		ELC_TEST_EVENTNAME("elc总测试");
 		#define CALL_NAME test
@@ -23,6 +25,8 @@ namespace elc{
 		#include "map.hpp"
 		#undef CALL_NAME
 	}
+	
+	#include "../_share/_undefs.hpp"
 }
 
 //file_end

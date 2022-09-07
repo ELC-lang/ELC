@@ -57,16 +57,16 @@ inline void test(){
 			a[7]=ec('6');
 			a[8]=ec('6');
 			stest_accert(a == es"123wq6666ra123");
-			for(char_t& c: a)
-				c ='7';
-			stest_accert(a == es"77777777777777");
+			//for(auto& c: a)
+			//	c ='7';
+			//stest_accert(a == es"77777777777777");
 		}
 		{
 			using namespace elc;
 			using elc::defs::hash;
 			auto a = es"ab"_elc_string;//constexpr_string_data_t
 			stest_accert(hash(a) == hash(string_view(es"ab")));
-			elc::string b = es"ab";//comn_string_data_t
+			string b = es"ab";//comn_string_data_t
 			stest_accert(hash(b) == hash(string_view(es"ab")));
 			stest_accert(b.memory_cost() > a.memory_cost());
 			a += b;//sum_string_data_t -> constexpr_string_data_t
@@ -86,7 +86,7 @@ inline void test(){
 }
 inline void test_log_out(){
 }
-inline void test_end{
+inline void test_end(){
 }
 
 //file_end

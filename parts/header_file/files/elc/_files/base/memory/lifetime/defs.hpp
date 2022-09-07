@@ -106,14 +106,15 @@ namespace lifetime_n{
 			T*_to;
 			size_t _size;
 			template<class...Args> requires able<Args...>
-			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+			force_inline T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t construct an array for never_in_array type.");
 				auto tmp=_size;
 				while(tmp--)new(_to+tmp)T(forward<Args>(rest)...);
 				return _to;
 			}
-			T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
+			//复制构造速度优化
+			force_inline T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t construct an array for never_in_array type.");
 				if constexpr(::std::is_trivially_copyable_v<T>)
@@ -124,12 +125,27 @@ namespace lifetime_n{
 				}
 				return _to;
 			}
+			//默认构造逻辑优化
+			force_inline T* operator()()const noexcept(nothrow<>)requires able<>{
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					template_error("You can\'t construct an array for never_in_array type.");
+				if constexpr(!trivial<>){
+					auto tmp=_size;
+					while(tmp--)new(_to+tmp)T();
+				}
+				return _to;
+			}
 		};
 		struct placement_construct_t{
 			T*_to;
 			template<class...Args> requires able<Args...>
 			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				new(_to)T(forward<Args>(rest)...);
+				return _to;
+			}
+			T* operator()()const noexcept(nothrow<>)requires able<>{
+				if constexpr(!trivial<>)
+					new(_to)T();
 				return _to;
 			}
 			[[nodiscard]]constexpr array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
