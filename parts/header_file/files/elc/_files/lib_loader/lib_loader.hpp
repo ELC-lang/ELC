@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace lib_loader_n{
-	using namespace elc::APIs::library_load;
+	using namespace ::elc::APIs::library_load;
 
 	struct library_info_t;
 	typedef comn_ptr_t<library_info_t> library_handle_t;

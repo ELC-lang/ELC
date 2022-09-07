@@ -27,7 +27,7 @@ elc依赖的基础函数.
 	namespace elc::APIs::library_load{
 		#include "../_defs.hpp"
 
-		using namespace elc::defs;
+		using namespace ::elc::defs;
 
 		typedef
 		#if SYSTEM_TYPE == linux

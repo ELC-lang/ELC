@@ -24,7 +24,7 @@
 	namespace elc::paths{
 		#include "_defs.hpp"
 
-		using namespace elc::defs;
+		using namespace ::elc::defs;
 		namespace defs{
 			#if SYSTEM_TYPE == windows
 				#define DYNAMIC_LIBRARY_SUFFIX ".dll"

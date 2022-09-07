@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace overhead_n{
-	using namespace elc::defs;
+	using namespace ::elc::defs;
 	constexpr size_t overhead_get_align(size_t align){
 		return max(align,alignof(size_t));//保证最高对齐需求
 	}

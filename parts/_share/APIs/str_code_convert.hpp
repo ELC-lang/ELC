@@ -17,6 +17,8 @@ elc依赖的基础函数.
 	#include "../default_data_type.hpp"
 	#include "../../header_file/files/elc/string"
 	namespace elc::APIs::str_code_convert{
+		#include "../_defs.hpp"
+		
 		using namespace ::elc::defs;//get def
 
 		[[nodiscard]]inline string_t<char> to_char_str(string_view_t<char_t> a)noexcept{
@@ -69,6 +71,8 @@ elc依赖的基础函数.
 			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return aret;
 		}
+		
+		#include "../_undefs.hpp"
 	}
 	namespace elc::defs{
 		using namespace elc::APIs::str_code_convert;
