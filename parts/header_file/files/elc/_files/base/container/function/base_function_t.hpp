@@ -26,7 +26,7 @@ namespace function_n{
 			return this->get_type_info()==a.get_type_info()&&this->equal_with(a.get_data_begin());
 		}
 		template<typename T>
-		[[nodiscard]]bool operator==(T&&a)const{
+		[[nodiscard]]bool operator==(const T&a)const{
 			return this->get_type_info()==type_info<T>&&this->equal_with(addressof(a));
 		}
 		typedef Ret_t(*func_ptr_t)(Args_t...);
