@@ -21,7 +21,6 @@ namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
 	#include "literal.hpp"
-	#include "to_string.hpp"
 
 	#if defined(ELC_TEST_ON)
 	namespace string_part_test{

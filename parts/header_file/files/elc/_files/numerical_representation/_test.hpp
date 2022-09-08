@@ -10,7 +10,7 @@ inline void test(){
 }
 inline void test_log_out(){
 }
-inline void test_end{
+inline void test_end(){
 }
 
 //file_end

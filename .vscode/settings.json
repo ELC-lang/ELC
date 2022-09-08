@@ -54,6 +54,23 @@
         "xhash": "cpp",
         "xtree": "cpp",
         "variant": "cpp",
-        "void_name": "cpp"
+        "void_name": "cpp",
+        "ratio": "cpp",
+        "sstream": "cpp",
+        "any": "cpp",
+        "condition_variable": "cpp",
+        "functional": "cpp",
+        "iomanip": "cpp",
+        "ios": "cpp",
+        "iostream": "cpp",
+        "istream": "cpp",
+        "map": "cpp",
+        "mutex": "cpp",
+        "optional": "cpp",
+        "ostream": "cpp",
+        "set": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "unordered_map": "cpp"
     }
 }

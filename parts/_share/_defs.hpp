@@ -37,6 +37,17 @@
 	#pragma warning(disable:26482)//非常数数组索引警告diss
 	#pragma warning(disable:26493)//c_cast转换警告diss：虽然有用但是太烦了，爬
 #endif
+#if defined(_MSC_VER)
+	#define suppress_msvc_warning(...) __pragma(warning(suppress:__VA_ARGS__))
+	#define disable_msvc_warning(...) __pragma(warning(disable:__VA_ARGS__))
+	#define push_msvc_warning() __pragma(warning(push))
+	#define pop_msvc_warning() __pragma(warning(pop))
+#else
+	#define suppress_msvc_warning(...)
+	#define disable_msvc_warning(...)
+	#define push_msvc_warning()
+	#define pop_msvc_warning()
+#endif
 //
 #if defined(ELC_VOID_NAME)
 	#undef void

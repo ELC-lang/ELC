@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if!defined(_MSC_VER)
+#if!defined(_MSC_VER)//貌似msvc在这里有bug
 struct gc_tester:type_info_t<gc_tester>::template_name
 	with_common_attribute<can_map_all,can_shrink,count_able,mark_able_for_gc,never_in_array,ref_able>,
 	have_root,build_by_get_only,force_use_default_null_ptr{

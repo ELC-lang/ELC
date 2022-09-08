@@ -26,6 +26,41 @@ namespace magic_number{
 
 	constexpr auto god=72;//神已死,神万岁.
 
+	/*符号位查询*/
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr bool is_negative(T x)noexcept{
+		if constexpr(::std::is_signed_v<T>){
+			if constexpr(::std::is_floating_point_v<T>)
+				return ::std::signbit(x);
+			else
+				return x<0;
+		}
+		else
+			return false;
+	}
+	/*符号位设置*/
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr T copy_as_negative(auto x,bool negative=1)noexcept{
+		if constexpr(::std::is_signed_v<decltype(x)>){
+			if constexpr(::std::is_floating_point_v<decltype(x)>)
+				return(T)::std::copysign(x,negative?-1:1);
+			else
+				return(T)negative?T{}-x:x;
+		}
+		else
+			return x;
+	}
+	[[nodiscard]]force_inline constexpr auto copy_as_negative(auto x,bool negative=1)noexcept{
+		return copy_as_negative<decltype(x)>(x,negative);
+	}
+	/*任意算数类型转size_t*/
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr size_t to_size_t(T x)noexcept{
+		if constexpr(::std::is_floating_point_v<T>)
+			return (size_t)(ptrdiff_t)x;
+		else
+			return (size_t)x;
+	}
 	/*求余*/
 	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
 	[[nodiscard]]force_inline constexpr auto mod(T1 a,T2 b){
@@ -196,7 +231,7 @@ namespace magic_number{
 				return RT(feq(y,log_iter(x,y)) ? y : self_recursion(x,log_iter(x,y)));
 			};
 			auto log_impl_caller = get_recursive_lambda_caller(log_impl);
-			return log_impl_caller(RT(a),RT(0));
+			return log_impl_caller((RT)a,RT{0});
 		}
 		else
 			return ::std::log(a);
@@ -222,7 +257,7 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto trunc(const T v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::trunc(v)) RT;
-			return RT(v/1);
+			return static_cast<RT>((::std::intmax_t)v);
 		}
 		else
 			return ::std::trunc(v);
@@ -233,7 +268,10 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto ceil(const T v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::ceil(v)) RT;
-			return RT(v/1+1);
+			auto ceil_impl = lambda(T x, T y)noexcept{
+				return feq(x,y) ? y : y+T{1};
+			};
+			return v<0 ? -static_cast<T>(static_cast<::std::uintmax_t>(-v)) : ceil_impl(v,static_cast<T>(static_cast<::std::uintmax_t>(v)));
 		}
 		else
 			return ::std::ceil(v);
@@ -323,6 +361,9 @@ namespace magic_number{
 		#pragma warning(pop)
 	#endif
 }
+using magic_number::is_negative;
+using magic_number::copy_as_negative;
+using magic_number::to_size_t;
 using magic_number::mod;
 using magic_number::rotl;
 using magic_number::rotr;

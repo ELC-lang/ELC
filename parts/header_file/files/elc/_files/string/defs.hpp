@@ -309,6 +309,7 @@ namespace string_n{
 		//END_BLOCK
 	private:
 		[[nodiscard]]char_T* unique_c_str()noexcept{ _cso_check(1);return _m->get_unique_c_str(_m); }
+	public:
 		[[nodiscard]]char_T	arec(size_t index)noexcept{
 			if(_in_cso())
 				return _get_cso_data()[index];
@@ -317,7 +318,6 @@ namespace string_n{
 		}
 		void	arec_set(size_t index,char_T a)noexcept{ _cso_check(1);return _m->arec_set(index,a,_m); }
 
-	public:
 		class arec_t: non_copyable,non_moveable{
 			string_t* _to;
 			size_t	  _index;
@@ -326,7 +326,6 @@ namespace string_n{
 		public:
 			arec_t(string_t* to,size_t index)noexcept:_to(to),_index(index){}
 			arec_t(special_init_t,const arec_t&ref)noexcept:_to(ref._to),_index(ref._index){}
-			[[nodiscard]]operator char_T()&&noexcept{ return _to->arec(_index); }
 			[[nodiscard]]operator char_T()const&&noexcept{ return _to->arec(_index); }
 			arec_t&&	 operator=(char_T a)&&noexcept{
 				_to->arec_set(_index,a);
@@ -478,8 +477,10 @@ namespace string_n{
 
 		//
 
-		operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
-		auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
+		[[nodiscard]]operator string_view_t()const&noexcept{ return string_view_t{data(),size()}; }
+		[[nodiscard]]auto to_string_view_t()const&noexcept{ return operator string_view_t(); }
+		[[nodiscard]]auto view()&noexcept{ return array_like_view_t<char_T>{writeable_data(),size()}; }
+		[[nodiscard]]auto view()const&noexcept{ return array_like_view_t<const char_T>{data(),size()}; }
 		[[nodiscard]]explicit operator hash_t()const noexcept{ return _in_cso()?_get_cso_hash():_m->get_hash(_m); }
 
 		//
@@ -841,9 +842,9 @@ namespace string_n{
 	template<class T>
 	[[nodiscard]]inline auto size_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return a.size(); }
 	template<class T>
-	[[nodiscard]]inline auto begin_of_array_like(string_t<remove_cv<T>>& a)noexcept{ return(T*)a.c_str(); }
+	[[nodiscard]]inline auto begin_of_array_like(string_t<remove_cv<T>>& a)noexcept{ return a.c_str(); }
 	template<class T>
-	[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return(const T*)a.c_str(); }
+	[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return a.c_str(); }
 
 	//typedef
 	typedef string_t<char_t>string;

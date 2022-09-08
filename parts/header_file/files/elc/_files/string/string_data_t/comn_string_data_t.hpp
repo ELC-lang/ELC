@@ -40,14 +40,20 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 
 	comn_string_data_t(string_view_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str.size()+1)){
 		copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m));
+		_m[str.size()]=zero;
 	}
 	comn_string_data_t(ptr_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str->get_size()+1)){
-		str->copy_part_data_to((char_T*)_m,0,this->get_size());
+		auto size=this->get_size();
+		str->copy_part_data_to((char_T*)_m,0,size);
+		_m[size]=zero;
 	}
 	comn_string_data_t(ptr_t str,size_t pos,size_t size)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1)){
 		str->copy_part_data_to((char_T*)_m,pos,size);
+		_m[size]=zero;
 	}
-	comn_string_data_t(size_t size,char_T ch)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1),ch){}
+	comn_string_data_t(size_t size,char_T ch)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1),ch){
+		_m[size]=zero;
+	}
 
 	virtual ~comn_string_data_t()noexcept(destruct_nothrow)override final{
 		clear_match_pattern();

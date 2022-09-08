@@ -57,9 +57,9 @@ inline void test(){
 			a[7]=ec('6');
 			a[8]=ec('6');
 			stest_accert(a == es"123wq6666ra123");
-			//for(auto& c: a)
-			//	c ='7';
-			//stest_accert(a == es"77777777777777");
+			for(char_t& c: a.view())
+				c ='7';
+			stest_accert(a == es"77777777777777");
 		}
 		{
 			using namespace elc;

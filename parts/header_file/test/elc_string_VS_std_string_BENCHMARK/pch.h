@@ -21,6 +21,7 @@
 
 #define ELC_TEST_COUNT_MEMORY_ALLOC
 #include "../../files/elc/string"
+#include "../../files/elc/numerical_representation"
 
 template<class T>
 struct TestAllocator {
