@@ -15,10 +15,7 @@ namespace to_string_n{
 		string aret;
 		do{//do while，在num为0时也有返值
 			T first_char_index{};
-			if constexpr(::std::is_floating_point_v<T>)
-				first_char_index= ::std::fmod(num,(T)radix);
-			else
-				first_char_index= num%radix;
+			first_char_index= mod(num,radix);
 			if constexpr(::std::is_floating_point_v<T>)
 				num-=first_char_index;
 			num/=(T)radix;
