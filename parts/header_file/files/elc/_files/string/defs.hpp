@@ -758,6 +758,10 @@ namespace string_n{
 		constexpr bool ends_with(const char_T*str)const noexcept{
 			return ends_with(string_view_t{str});
 		}
+
+		this_t& append(size_t size,char_T ch)noexcept{
+			return *this+=string_t{size,ch};
+		}
 		/*
 		compare
 		replace

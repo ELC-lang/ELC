@@ -94,40 +94,65 @@ public:
 	}
 private:
 	template<typename T>
-	inline string to_string_num_base_mantissa(T num)const noexcept{
-		string aret;
-		//Information threshold相关声明
-		//这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
-		constinit auto info_threshold_base = pow(BIT_POSSIBILITY,bitnumof<T>);
-		auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
-		//浮点数精度浮动，所以需要确定何时开始使用Info threshold
-		bool is_mantissa_begined = false;
-		while(num){
-			//mantissa push部分
-			num*=_radix;
-			T first_char_index;
-			num=::std::modf(num,&first_char_index);
-			aret+=_radix_table[(size_t)first_char_index];
-			//Information threshold制御部分
-			if(to_size_t(first_char_index))
-				is_mantissa_begined = true;
-			if(is_mantissa_begined){
-				info_threshold--;
-				if(!info_threshold)
+	inline string to_string_num_base(T num)const noexcept{
+		if constexpr(::std::is_floating_point_v<T>) {
+			string aret;
+			size_t order_of_magnitude;
+			if(num>1)
+				order_of_magnitude = to_size_t(floor(log(num,_radix)+1));
+			else {
+				order_of_magnitude = 0;
+				aret=_radix_table[0];
+				aret+=_fractional_sign;
+			}
+			num/=pow(_radix,order_of_magnitude);
+			if(num==1){
+				aret=_radix_table[1];
+				num=0;
+			}
+			//Information threshold相关声明
+			//这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
+			constinit auto info_threshold_base = pow(BIT_POSSIBILITY,bitnumof<T>);
+			auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
+			//浮点数精度浮动，所以需要确定何时开始使用Info threshold
+			bool is_mantissa_begined = false;
+			while(num){
+				//mantissa push部分
+				num*=_radix;
+				T first_char_index;
+				num=::std::modf(num,&first_char_index);
+				aret+=_radix_table[to_size_t(first_char_index)];
+				//Information threshold制御部分
+				if(to_size_t(first_char_index))
+					is_mantissa_begined = true;
+				if(is_mantissa_begined){
+					if(info_threshold)
+						info_threshold--;
+				}
+				//小数点计数部分
+				if(order_of_magnitude){
+					if(!--order_of_magnitude)
+						aret+=_fractional_sign;
+				}
+				//结束判断
+				if(!info_threshold && !order_of_magnitude)
 					break;
 			}
+			if(order_of_magnitude)
+				aret.append(order_of_magnitude,_radix_table[0]);
+			if(aret.ends_with(_fractional_sign))
+				aret.pop_back();
+			return aret;
 		}
-		return aret;
-	}
-	template<typename T>
-	inline string to_string_num_base_integer(T num)const noexcept{
-		string aret;
-		do{//do while，在num为0时也有返值
-			const auto first_char_index = mod(num,_radix);
-			num /= (T)_radix;
-			aret.push_front(_radix_table[(size_t)first_char_index]);
-		}while(num>=T{1});
-		return aret;
+		else{
+			string aret;
+			do{//do while，在num为0时也有返值
+				const auto first_char_index = mod(num,_radix);
+				num /= (T)_radix;
+				aret.push_front(_radix_table[(size_t)first_char_index]);
+			}while(num>=T{1});
+			return aret;
+		}
 	}
 	template<typename T>
 	inline bool to_string_special_value_check(T num,string&str,bool is_negative)const noexcept{
@@ -200,43 +225,33 @@ public:
 				aret=_negative_sign;
 				unum=UT(-num);
 			}
-		UT num_fractional{};
-		if constexpr(::std::is_floating_point_v<T>){
-			num_fractional=::std::modf(unum,&unum);
-			if(num_fractional && _radix==1)//1进制怎么可能有小数？
-				return _nan;
-		}
-		aret+=to_string_num_base_integer(unum);
-		if constexpr(::std::is_floating_point_v<T>)
-			if(num_fractional)
-				aret+=_fractional_sign+to_string_num_base_mantissa(num_fractional);
+		aret+=to_string_num_base(unum);
 		return aret;
 	}
 private:
 	template<typename T>
-	inline T from_string_get_num_base_mantissa(string str)const noexcept{
-		T aret{};
-		size_t i=str.size();
-		while(i){
-			i--;
-			const size_t index=_radix_table.find(str[i]);
-			if(index==string::npos)
-				return T();
-			aret+=(T)index;
-			aret/=_radix;
-		}
-		return aret;
-	}
-	template<typename T>
-	inline T from_string_get_num_base_integer(string str) const noexcept {
-		/*
+	inline T from_string_get_num_base(string str) const noexcept {
 		if constexpr(::std::is_floating_point_v<T>) {
 			size_t order_of_magnitude = str.size();
-			auto   num				  = from_string_get_num_base_mantissa<T>(str);
-			auto final_num = num * pow(_radix, order_of_magnitude);
-			return final_num;
+			T aret{};
+			size_t i=str.size();
+			while(i){
+				i--;
+				const size_t index=_radix_table.find(str[i]);
+				if(index==string::npos){
+					if(str[i] == _fractional_sign){
+						order_of_magnitude=i;
+						continue;
+					}
+					return T();
+				}
+				aret+=(T)index;
+				aret/=_radix;
+			}
+			aret*=pow(_radix, order_of_magnitude);
+			return aret;
 		}
-		else*/ {
+		else {
 			T aret{};
 			for(size_t i = 0; i < str.size(); i++) {
 				const size_t index = _radix_table.find(str[i]);
@@ -317,18 +332,7 @@ public:
 			else
 				return::std::make_unsigned_t<T>();
 		}()) UT;
-		UT unum{};
-		if constexpr(::std::is_floating_point_v<T>) {
-			const size_t dot_pos=str.find(_fractional_sign);
-			if(dot_pos!=string::npos){
-				if(_radix==1)//1进制怎么可能有小数点？
-					return T();
-				auto mantissa_str=str.substr(dot_pos+1);
-				str=str.substr(0,dot_pos);
-				unum=from_string_get_num_base_mantissa<UT>(mantissa_str);
-			}
-		}
-		unum+=from_string_get_num_base_integer<UT>(str);
+		UT unum=from_string_get_num_base<UT>(str);
 		return copy_as_negative<T>(unum,is_negative);
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
@@ -338,68 +342,72 @@ public:
 			return aret;
 		aret=to_string_rough(num);
 		if constexpr(::std::is_floating_point_v<T>){
-			//需要纠正小数部分精度
-			T tmp;
-			if(::std::modf(num,&tmp)){//如果有小数部分
-				const size_t dot_pos=aret.find(_fractional_sign);
-				if(dot_pos == string::npos)
-					return aret;//?
-
-				//进位器
-				auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
-					const char_t up_char = move(char_arc);
-					size_t up_pos  = _radix_table.find(up_char);
-					up_pos++;
-					if(up_pos == _radix)
-						up_pos = 0;
-					move(char_arc) = _radix_table[up_pos];
-					return up_pos == 0;
-				};
-				auto rounding_up = lambda_with_catch(&) (string&str)noexcept{
-					size_t i = str.size();
-					while(i--){
-						if(str[i] == _fractional_sign)
-							i--;
-						if(rounding_up_char(str[i]))
-							continue;
-						else
-							break;
-					}
-				};
-				{
-					//二分法查找最合适的切割位点.
-					size_t left_pos	 = dot_pos + 1;
-					size_t right_pos = aret.size();
-					string better_aret,better_aret_last;
-					do {
-						const size_t step_pos = (left_pos + right_pos) / 2;
-						better_aret		= aret.substr(0, step_pos);
-						//判断是否需要进位.(当被截断内容在radix_table的后半部分.)
-						const char_t cut_char = aret[step_pos];
-						const size_t cut_num	= _radix_table.find(cut_char);
-						if(cut_num >= _radix / 2)
-							rounding_up(better_aret);
-						//判断当前切割位点有效性.
-						if(from_string_get<T>(better_aret) == num) {
-							if(better_aret.back() == _radix_table[0]) {
-								const auto end_pos = better_aret.find_last_not_of(_radix_table[0]);
-								better_aret.resize(end_pos + 1);
-								if(better_aret.back() == _fractional_sign)
-									better_aret.pop_back();
-							}
-							right_pos		 = better_aret.size();
-							better_aret_last = better_aret;
+			//进位器
+			auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
+				const char_t up_char = move(char_arc);
+				size_t up_pos  = _radix_table.find(up_char);
+				up_pos++;
+				if(up_pos == _radix)
+					up_pos = 0;
+				move(char_arc) = _radix_table[up_pos];
+				return up_pos == 0;
+			};
+			auto rounding_up = lambda_with_catch(&) (string&str)noexcept{
+				size_t i = str.size();
+				while(i){
+					if(rounding_up_char(str[i])) {
+						if(i--) {
+							if(str[i] == _fractional_sign)
+								i--;
 						}
-						elseif(left_pos != step_pos)
-							left_pos = step_pos;
 						else
-							left_pos++;
-					} while(left_pos < right_pos);
-					if(better_aret_last){
-						aret = better_aret_last;
-						if(aret.ends_with(_fractional_sign))
-							aret.pop_back();
+							str.push_front(_radix_table[1]);
+						continue;
 					}
+					else
+						break;
+				}
+			};
+			size_t dot_pos=aret.find(_fractional_sign);
+			{
+				//二分法查找最合适的切割位点.
+				size_t left_pos	 = 0;
+				size_t right_pos = aret.size();
+				string better_aret,better_aret_last;
+				if(dot_pos==string::npos)
+					dot_pos=aret.size();
+				do {
+					size_t step_pos = (left_pos + right_pos) / 2;
+					better_aret		= aret.substr(0, step_pos);
+					if(step_pos==dot_pos)
+						step_pos++;
+					//判断是否需要进位.(当被截断内容在radix_table的后半部分.)
+					const char_t cut_char = aret[step_pos];
+					const size_t cut_num	= _radix_table.find(cut_char);
+					if(cut_num >= _radix / 2)
+						rounding_up(better_aret);
+					if(better_aret.size() < dot_pos)//0补全
+						better_aret.resize(dot_pos,_radix_table[0]);
+					//判断当前切割位点有效性.
+					if(from_string_get<T>(better_aret) == num) {
+						if(better_aret.back() == _radix_table[0]) {
+							const auto end_pos = max(better_aret.find_last_not_of(_radix_table[0])+1, dot_pos);
+							better_aret.resize(end_pos);
+							if(better_aret.back() == _fractional_sign)
+								better_aret.pop_back();
+						}
+						right_pos		 = min(better_aret.size(), step_pos);
+						better_aret_last = better_aret;
+					}
+					elseif(left_pos != step_pos)
+						left_pos = step_pos;
+					else
+						left_pos++;
+				} while(left_pos < right_pos);
+				if(better_aret_last){
+					aret = better_aret_last;
+					if(aret.ends_with(_fractional_sign))
+						aret.pop_back();
 				}
 			}
 		}

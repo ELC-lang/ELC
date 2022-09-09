@@ -11,7 +11,7 @@ void claer_memory_count()noexcept {
 
 template<class T>
 T rand() {
-	using namespace elc::defs;
+	using namespace elc::defs;//data_view
 	T			 aret;
 	data_view<T> ret_data_view{&aret};
 	for(auto& i: ret_data_view)
@@ -21,15 +21,6 @@ T rand() {
 
 //*
 
-static void Std_to_string(benchmark::State& state){
-	std::string str;
-	for(auto _ : state){
-		auto num=rand<double>();
-		str=std::to_string(num);
-	}
-}
-BENCHMARK(Std_to_string);
-
 static void ELC_to_string(benchmark::State& state){
 	elc::string str;
 	for(auto _ : state){
@@ -38,7 +29,7 @@ static void ELC_to_string(benchmark::State& state){
 		//check
 		state.PauseTiming();
 		auto check_num = elc::from_string_get<double>(str);
-		if(num != check_num) {
+		if(!elc::defs::magic_number::feq(num, check_num)) {
 			auto debug_view = str.c_str();
 			__debugbreak();
 		}
@@ -46,6 +37,15 @@ static void ELC_to_string(benchmark::State& state){
 	}
 }
 BENCHMARK(ELC_to_string);
+
+static void Std_to_string(benchmark::State& state){
+	std::string str;
+	for(auto _ : state){
+		auto num=rand<double>();
+		str=std::to_string(num);
+	}
+}
+BENCHMARK(Std_to_string);
 
 static void Std_StringCreation(benchmark::State& state) {
 	claer_memory_count();
