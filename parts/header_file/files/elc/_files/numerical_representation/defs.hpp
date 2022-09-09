@@ -123,12 +123,10 @@ private:
 	inline string to_string_num_base_integer(T num)const noexcept{
 		string aret;
 		do{//do while，在num为0时也有返值
-			const auto first_char_index = mod(num, _radix);
-			if constexpr(::std::is_floating_point_v<T>)
-				num -= first_char_index;
+			const auto first_char_index = mod(num,_radix);
 			num /= (T)_radix;
 			aret.push_front(_radix_table[(size_t)first_char_index]);
-		} while(num);
+		}while(num>=T{1});
 		return aret;
 	}
 	template<typename T>
