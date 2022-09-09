@@ -108,14 +108,8 @@ public:
 		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
 		//快速比较结束，实际比较段
 		{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
+			suppress_msvc_warning(26494)//未初始化警告diss
 			bool aret;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
 			{
 				//同结构比较优化比较方式
 				if(same_type(with)&&same_struct(with))
@@ -217,14 +211,8 @@ public:
 		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
 		//快速比较结束，实际比较段
 		{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
+			suppress_msvc_warning(26494)//未初始化警告diss
 			compare_type aret;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
 			{
 				//同结构比较优化比较方式
 				if(same_type(with)&&same_struct(with))

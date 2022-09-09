@@ -43,16 +43,11 @@ template<class T>
 */
 template<class...Ts>
 struct data_block:non_copyable,non_moveable{
-	#if defined(_MSC_VER)
-		#pragma warning(push)
-		#pragma warning(disable:4324)
-	#endif
+	push_and_disable_msvc_warning(4324);
 	alignas(max({alignof(Ts)...}))
 	byte _data[max({sizeof(Ts)...})];
 	constexpr operator byte*(){return _data;}
-	#if defined(_MSC_VER)
-		#pragma warning(pop)
-	#endif
+	pop_msvc_warning();
 };
 
 /*

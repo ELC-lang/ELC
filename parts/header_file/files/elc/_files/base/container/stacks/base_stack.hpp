@@ -49,14 +49,8 @@ public:
 	}
 	base_stack_t(const this_t&a)noexcept_as(declvalue(this_t).copy()):base_stack_t(a.copy()){}
 	~base_stack_t()noexcept(unget.nothrow<data_t>){
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26494)//未初始化警告diss
-		#endif
+		suppress_msvc_warning(26494)//未初始化警告diss
 		data_t*tmp;
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
 		while(_m!=null_ptr){
 			tmp=_m;
 			_m=_m->_next;

@@ -6,10 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if defined(_MSC_VER)
-	#pragma warning(push)
-	#pragma warning(disable:4250)
-#endif
+push_and_disable_msvc_warning(4250);
 enum seek_type{beg,end,cur};
 no_vtable_struct base_stream{
 	virtual ~base_stream()=default;
@@ -85,9 +82,7 @@ no_vtable_struct noexcept_data_istream: virtual noexcept_istream,virtual data_is
 no_vtable_struct noexcept_data_ostream: virtual noexcept_ostream,virtual data_ostream{};
 no_vtable_struct noexcept_data_iostream: virtual noexcept_data_istream,virtual noexcept_data_ostream,virtual noexcept_iostream,virtual data_iostream{};
 
-#if defined(_MSC_VER)
-	#pragma warning(pop)
-#endif
+pop_msvc_warning();
 
 //file_end
 

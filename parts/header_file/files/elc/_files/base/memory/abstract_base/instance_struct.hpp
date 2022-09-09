@@ -6,10 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if defined(_MSC_VER)
-	#pragma warning(push)
-	#pragma warning(disable:26436)//无虚析构函数警告diss
-#endif
+push_and_disable_msvc_warning(26436);//无虚析构函数警告diss
 template<class T>
 class instance_struct:is_common_attribute(instance_struct),virtual public abstract_base_vtable{
 protected:
@@ -43,9 +40,7 @@ protected:
 	}
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept override{return get_size_of_get(get_handle(this));}
 };
-#if defined(_MSC_VER)
-	#pragma warning(pop)
-#endif
+pop_msvc_warning();
 
 //file_end
 

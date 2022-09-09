@@ -97,15 +97,10 @@
 		}
 		inline constexpr auto package_symbol_loader_file_name = es"package_symbol_loader" DYNAMIC_LIBRARY_SUFFIX ""_constexpr_str;
 
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26426)//动态初始化警告diss
-		#endif
+		push_and_disable_msvc_warning(26426);//动态初始化警告diss
 		distinctive inline string elc_runtime_lib_path=defs::get_elc_runtime_lib_path();
 		distinctive inline string package_symbol_loader_path = elc_runtime_lib_path+es"/"_constexpr_str+package_symbol_loader_file_name;
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
+		pop_msvc_warning();
 
 		#undef DYNAMIC_LIBRARY_SUFFIX
 

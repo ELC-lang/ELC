@@ -364,10 +364,7 @@ namespace magic_number{
 			a++;
 		return a;
 	}
-	#if defined(_MSC_VER)
-		#pragma warning(push)
-		#pragma warning(disable:26467)//gold_of_resize永远为正数
-	#endif
+	push_and_disable_msvc_warning(26467);//gold_of_resize永远为正数
 	//已知当前array的size，求下一个合适的提前分配大小
 	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_array(size_t size){
 		/*
@@ -383,9 +380,7 @@ namespace magic_number{
 		*/
 		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
 	}
-	#if defined(_MSC_VER)
-		#pragma warning(pop)
-	#endif
+	pop_msvc_warning();
 }
 using magic_number::is_negative;
 using magic_number::copy_as_negative;

@@ -29,17 +29,12 @@ namespace string_n{
 			const constexpr_str_t* _str;
 			char_T _ch;
 
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26495)//未初始化警告diss
-			#endif
+			push_and_disable_msvc_warning(26495);//未初始化警告diss
 			constexpr _cso_info_t()noexcept{}
 			constexpr _cso_info_t(const _cso_info_t&a)noexcept{
 				copy_assign[sizeof(_cso_info_t)](cast_to_data(this),cast_to_data(&a));
 			}
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+			pop_msvc_warning();
 			constexpr void operator=(const _cso_info_t&a)noexcept{
 				copy_assign[sizeof(_cso_info_t)](cast_to_data(this),cast_to_data(&a));
 			}
@@ -787,14 +782,8 @@ namespace string_n{
 		typedef stream_t::traits_type	 traits_t;
 		typename stream_t::iostate		 state = stream_t::goodbit;
 
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26494)//未初始化警告diss
-		#endif
+		suppress_msvc_warning(26494);//未初始化警告diss
 		size_t pad;
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
 		size_t size = str.size();
 		if(stream.width() <= 0 || static_cast<size_t>(stream.width()) <= size)
 			pad = 0;

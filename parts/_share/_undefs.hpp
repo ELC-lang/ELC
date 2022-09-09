@@ -15,6 +15,7 @@
 #undef disable_msvc_warning
 #undef push_msvc_warning
 #undef pop_msvc_warning
+#undef push_and_disable_msvc_warning
 
 //for basic_environment.hpp
 #undef BIT_POSSIBILITY

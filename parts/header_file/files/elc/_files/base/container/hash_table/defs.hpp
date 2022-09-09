@@ -82,14 +82,8 @@ namespace hash_table_n{
 		template<typename U>
 		[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept(find_nothrow<U>){
 			auto&bucket=find_bucket(hash(a));
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26496)//?
-			#endif
+			suppress_msvc_warning(26496)//?
 			auto reference=bucket.find(a);
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
 			if constexpr(is_unstable_hash<T>)
 				if(reference.fail()){
 					for(auto&i:_m){

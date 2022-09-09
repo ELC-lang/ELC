@@ -193,14 +193,8 @@ public:
 	}
 protected:
 	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26494)//未初始化警告diss
-		#endif
+		suppress_msvc_warning(26494)//未初始化警告diss
 		hash_t result;
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
 		if(_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			result=hash(head_begin,_used_size);

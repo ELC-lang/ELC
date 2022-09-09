@@ -140,14 +140,8 @@ namespace function_n{
 			catch(void*){}
 			return note::fail;
 		}
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26440)//nothrow警告diss
-		#endif
+		suppress_msvc_warning(26440)//nothrow警告diss
 		void operator=(const this_t&a){_m=a._m;}
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
@@ -241,14 +235,8 @@ namespace function_n{
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26447)
-			#endif
+			suppress_msvc_warning(26447)
 			return base_t::call(forward<Args_t>(args)...);
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
 		}
 
 	private:
@@ -459,24 +447,12 @@ namespace function_n{
 		}
 
 		Ret_t operator()(Args_t...args)noexcept{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26447)
-			#endif
+			suppress_msvc_warning(26447)
 			return base_t::call(forward<Args_t>(args)...);
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
 		}
 		Ret_t operator()(Args_t...args)const noexcept{
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26447)
-			#endif
+			suppress_msvc_warning(26447)
 			return base_t::call(forward<Args_t>(args)...);
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
 		}
 
 	private:

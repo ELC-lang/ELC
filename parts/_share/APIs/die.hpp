@@ -33,26 +33,22 @@ elc依赖的基础函数.
 		[[noreturn]]inline void die_with(const char_t*err_msg)noexcept{
 			#if defined(_MSC_VER)
 				__debugbreak();
-				#pragma warning(push)
-				#pragma warning(disable:26485)//数组转型警告diss
-				#pragma warning(disable:26475)//强转警告diss
-				#pragma warning(disable:26481)//指针操作警告diss
-				#pragma warning(disable:26429)//nullness警告diss
 			#endif
+			push_and_disable_msvc_warning(
+				26485//数组转型警告diss
+				26475//强转警告diss
+				26481//指针操作警告diss
+				26429//nullness警告diss
+			)
 			if(err_msg){
 				::std::mbstate_t stat{};
 				if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
 					die();
-				#if defined(_MSC_VER)
-					#pragma warning(push)
-					#pragma warning(disable:26494)//未初始化警告diss
-				#endif
+				push_and_disable_msvc_warning(26494);//未初始化警告diss
 				char err_msg_in_char[2048];
 				char* err_msg_write = err_msg_in_char;
 				size_t s;
-				#if defined(_MSC_VER)
-					#pragma warning(pop)
-				#endif
+				pop_msvc_warning();
 				char_t c;
 				while(c = *(err_msg++)) {
 					s = ::std::c32rtomb(err_msg_write, c, &stat);
@@ -73,9 +69,7 @@ elc依赖的基础函数.
 				#endif
 			}
 			::std::abort();
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+			pop_msvc_warning();
 		}
 
 		#include "../../_share/_undefs.hpp"

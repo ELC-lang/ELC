@@ -406,12 +406,14 @@ public:
 		return aret;
 	}
 };
+push_and_disable_msvc_warning(26426);
 distinctive inline numerical_representation_t trinary{3,es"012"_constexpr_str};
 distinctive inline numerical_representation_t binary{2,es"01"_constexpr_str};
 distinctive inline numerical_representation_t octal{8,es"01234567"_constexpr_str};
 distinctive inline numerical_representation_t decimal{10,es"0123456789"_constexpr_str};
 distinctive inline numerical_representation_t hexadecimal{16,es"0123456789abcdef"_constexpr_str};
 distinctive inline numerical_representation_t hexadecimal_upper{16,es"0123456789ABCDEF"_constexpr_str};
+pop_msvc_warning();
 
 //字符串转换为数值
 template<typename T> requires ::std::is_arithmetic_v<T>

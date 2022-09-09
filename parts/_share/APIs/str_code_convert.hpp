@@ -27,15 +27,10 @@ elc依赖的基础函数.
 			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
 			if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
 				die_with(locale::str::setlocale_error);
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
+			push_and_disable_msvc_warning(26494)//未初始化警告diss
 			char r[MB_LEN_MAX];
 			ptrdiff_t s;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+			pop_msvc_warning();
 			for(auto c:a){
 				s=::std::c32rtomb(r,c,&stat);
 				if(s < 0)//-1
@@ -51,15 +46,10 @@ elc依赖的基础函数.
 			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
 			if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
 				die_with(locale::str::setlocale_error);
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26494)//未初始化警告diss
-			#endif
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			char_t c;
 			ptrdiff_t s;
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+			pop_msvc_warning();
 			auto i=a.cbegin(),e=a.cend();
 			while(i!=e){
 				s=::std::mbrtoc32(&c,i,MB_LEN_MAX,&stat);

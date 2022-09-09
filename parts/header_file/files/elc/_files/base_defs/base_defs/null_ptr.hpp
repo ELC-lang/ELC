@@ -23,14 +23,8 @@ namespace null_ptr_n{
 	enable_adl(the_get_null_ptr);
 	template<typename T>
 	[[nodiscard]]constexpr auto get_null_ptr()noexcept{
-		#if defined(_MSC_VER)
-			#pragma warning(push)
-			#pragma warning(disable:26462)//貌似msvc在这里有bug
-		#endif
+		suppress_msvc_warning(26462)//貌似msvc在这里有bug
 		constexpr auto null_as_T = static_cast<T*>(nullptr);
-		#if defined(_MSC_VER)
-			#pragma warning(pop)
-		#endif
 		if constexpr(was_not_an_ill_form(the_get_null_ptr(null_as_T)))
 			return the_get_null_ptr(null_as_T);
 		elseif constexpr(type_info<T>.has_attribute(can_t_use_default_null_ptr)&&type_info<T>.not_has_attribute(force_use_default_null_ptr)){

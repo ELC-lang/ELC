@@ -6,19 +6,14 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if defined(_MSC_VER)
-	#pragma warning(push)
-	#pragma warning(disable:26440)//nothrow警告diss
-#endif
+push_and_disable_msvc_warning(26440);//nothrow警告diss
 [[nodiscard]]inline value node_like::be_eval(){
 	return value(this);
 }
 [[nodiscard]]inline value node_like::be_call(ptr){
 	return value(this);
 }
-#if defined(_MSC_VER)
-	#pragma warning(pop)
-#endif
+pop_msvc_warning();
 
 [[nodiscard]]inline value node_like::operator[](const value index){
 	return arec(index);

@@ -42,11 +42,13 @@
 	#define disable_msvc_warning(...) __pragma(warning(disable:__VA_ARGS__))
 	#define push_msvc_warning() __pragma(warning(push))
 	#define pop_msvc_warning() __pragma(warning(pop))
+	#define push_and_disable_msvc_warning(...) push_msvc_warning() disable_msvc_warning(__VA_ARGS__)
 #else
 	#define suppress_msvc_warning(...)
 	#define disable_msvc_warning(...)
 	#define push_msvc_warning()
 	#define pop_msvc_warning()
+	#define push_and_disable_msvc_warning(...)
 #endif
 //
 #if defined(ELC_VOID_NAME)

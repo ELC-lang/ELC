@@ -20,10 +20,7 @@ namespace namespace_n{
 			_namespace_root = get<common_node>();
 			auto&nmsp	    = *_namespace_root;
 			_namespace_now  = &nmsp;
-			#if defined(_MSC_VER)
-				#pragma warning(push)
-				#pragma warning(disable:26447)//may throw警告diss
-			#endif
+			push_and_disable_msvc_warning(26447);//may throw警告diss
 			nmsp[es".."]	 = the_void;
 			nmsp[es"."]		 = nmsp;
 			nmsp[es"t"]		 = t;
@@ -32,9 +29,7 @@ namespace namespace_n{
 			value nmsptm	 = get_symbol_type_map(&nmsp);
 			nmsptm			 = get<common_node>();
 			nmsptm[es"void"] = es"void";
-			#if defined(_MSC_VER)
-				#pragma warning(pop)
-			#endif
+			pop_msvc_warning();
 		}
 		ptr get_symbol_namespace(const value index){
 			ptr namespace_now_p = _namespace_now;
