@@ -32,7 +32,7 @@
 #undef using_method_from_base_t
 #undef using_method_from_value
 
-// #undef floop
+#undef floop
 #undef enable_adl
 
 #undef re_declvalue

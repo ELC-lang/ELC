@@ -69,6 +69,32 @@ namespace magic_number{
 		else
 			return a%b;
 	}
+	/*设置浮点舍入*/
+	template<typename T>
+	[[nodiscard]]force_inline constexpr void set_rounding(int mode){
+		if constexpr(::std::is_floating_point_v<T>)
+			::std::fesetround(mode);
+	}
+	/*获取浮点舍入*/
+	template<typename T>
+	[[nodiscard]]force_inline constexpr int get_rounding(){
+		if constexpr(::std::is_floating_point_v<T>)
+			return ::std::fegetround();
+		else
+			return 0;
+	}
+	/*设置并自动恢复浮点舍入*/
+	template<typename T>
+	struct rounding_auto_setter{
+		int old_rounding;
+		rounding_auto_setter(int new_rounding){
+			old_rounding=get_rounding<T>();
+			set_rounding<T>(new_rounding);
+		}
+		~rounding_auto_setter(){
+			set_rounding<T>(old_rounding);
+		}
+	};
 	//位操作：循环左移（无mod）
 	//不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
@@ -365,6 +391,9 @@ using magic_number::is_negative;
 using magic_number::copy_as_negative;
 using magic_number::to_size_t;
 using magic_number::mod;
+using magic_number::set_rounding;
+using magic_number::get_rounding;
+using magic_number::rounding_auto_setter;
 using magic_number::rotl;
 using magic_number::rotr;
 using magic_number::rotl_nomod;

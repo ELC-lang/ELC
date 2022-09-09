@@ -16,6 +16,7 @@
 	#include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
 	#include <cmath>//sqrt
+	#include <cfenv>//rounding
 	#include <ranges>
 	#include "_files/base_defs/_body.hpp"
 #endif
