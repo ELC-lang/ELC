@@ -21,7 +21,16 @@ T rand() {
 
 //*
 
-static void ELC_to_string(benchmark::State& state){
+static void Std_double_to_string(benchmark::State& state){
+	std::string str;
+	for(auto _ : state){
+		auto num=rand<double>();
+		str=std::to_string(num);
+	}
+}
+BENCHMARK(Std_double_to_string);
+
+static void ELC_double_to_string(benchmark::State& state){
 	elc::string str;
 	for(auto _ : state){
 		auto num=rand<double>();
@@ -29,23 +38,40 @@ static void ELC_to_string(benchmark::State& state){
 		//check
 		state.PauseTiming();
 		auto check_num = elc::from_string_get<double>(str);
-		if(!elc::defs::magic_number::feq(num, check_num)) {
+		if(!elc::defs::full_equal_in_byte(num,check_num)) {
 			auto debug_view = str.c_str();
 			__debugbreak();
 		}
 		state.ResumeTiming();
 	}
 }
-BENCHMARK(ELC_to_string);
+BENCHMARK(ELC_double_to_string);
 
-static void Std_to_string(benchmark::State& state){
+static void Std_size_t_to_string(benchmark::State& state){
 	std::string str;
 	for(auto _ : state){
-		auto num=rand<double>();
+		auto num=rand<size_t>();
 		str=std::to_string(num);
 	}
 }
-BENCHMARK(Std_to_string);
+BENCHMARK(Std_size_t_to_string);
+
+static void ELC_size_t_to_string(benchmark::State& state){
+	elc::string str;
+	for(auto _ : state){
+		auto num=rand<size_t>();
+		str=elc::to_string(num);
+		//check
+		state.PauseTiming();
+		auto check_num = elc::from_string_get<size_t>(str);
+		if(!elc::defs::full_equal_in_byte(num,check_num)) {
+			auto debug_view = str.c_str();
+			__debugbreak();
+		}
+		state.ResumeTiming();
+	}
+}
+BENCHMARK(ELC_size_t_to_string);
 
 static void Std_StringCreation(benchmark::State& state) {
 	claer_memory_count();

@@ -93,6 +93,39 @@ public:
 		return _inf;
 	}
 private:
+	//信息尾部分
+	inline size_t get_info_tail_size_per_byte()const noexcept{
+		constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnumof<byte>);
+		auto		   info_threshold	   = to_size_t(ceil(log(info_threshold_base, _radix)));
+		return info_threshold;
+	}
+	template<typename T>
+	inline size_t get_info_tail_size()const noexcept{
+		return get_info_tail_size_per_byte()*sizeof(T);
+	}
+	template<typename T>
+	inline string get_info_tail(T x)const noexcept{
+		auto info_tail_size_per_byte = get_info_tail_size_per_byte();
+		string aret;
+		data_view<const T> view{&x};
+		for(const byte c: view) {
+			auto s= to_string_rough((unsigned char)c);
+			aret+=string{info_tail_size_per_byte-s.size(),_radix_table[0]}+s;
+		}
+		return aret;
+	}
+	template<typename T>
+	inline T get_from_info_tail(string str)const noexcept{
+		auto info_tail_size_per_byte = get_info_tail_size_per_byte();
+		T	aret{};
+		data_view<T> view{&aret};
+		for(byte&c: view) {
+			auto s=str.substr(0,info_tail_size_per_byte);
+			c=(byte)from_string_get<unsigned char>(s);
+			str=str.substr(info_tail_size_per_byte);
+		}
+		return aret;
+	}
 	template<typename T>
 	inline string to_string_num_base(T num)const noexcept{
 		if constexpr(::std::is_floating_point_v<T>) {
@@ -106,8 +139,8 @@ private:
 				aret+=_fractional_sign;
 			}
 			num/=pow(_radix,order_of_magnitude);
-			if(num==1){
-				aret=_radix_table[1];
+			if(num>=1){
+				aret=_radix_table[to_size_t(num)];
 				num=0;
 			}
 			//Information threshold相关声明
@@ -314,6 +347,23 @@ private:
 public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline T from_string_get(string str)const noexcept{
+		//信息尾检查
+		if constexpr(::std::is_floating_point_v<T>){
+			auto info_tail_size=get_info_tail_size<T>();
+			if(str.size()>info_tail_size){
+				auto tail_pos=str.size()-info_tail_size;
+				auto info_tail=str.substr(tail_pos);
+				auto str_with_out_tail=str.substr(0,tail_pos);
+				if(str_with_out_tail.back()==_fractional_sign)
+					str_with_out_tail.pop_back();
+				auto num=get_from_info_tail<T>(info_tail);
+				if(to_string_rough(num)==str_with_out_tail)
+					return num;
+				str_with_out_tail+=string{info_tail.size(),_radix_table[0]};
+				if(to_string_rough(num)==str_with_out_tail)
+					return num;
+			}
+		}
 		T num{};
 		suppress_msvc_warning(26496);
 		bool is_negative=false;
@@ -369,6 +419,19 @@ public:
 				}
 			};
 			size_t dot_pos=aret.find(_fractional_sign);
+			//检查是否可反向转换
+			if(from_string_get<T>(aret) != num) {
+				//获取并追加信息尾
+				string info_tail=get_info_tail(num);
+				if(dot_pos==string::npos){
+					if(aret.ends_with(string{info_tail.size(),_radix_table[0]}))
+						aret.pop_back(info_tail.size());
+					else
+						aret.push_back(_fractional_sign);
+				}
+				aret+=info_tail;
+				return aret;
+			}
 			{
 				//二分法查找最合适的切割位点.
 				size_t left_pos	 = 0;
