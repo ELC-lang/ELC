@@ -21,6 +21,7 @@ elc依赖的基础函数.
 		#include <Windows.h>
 		#include <Libloaderapi.h>
 		#include <Errhandlingapi.h>//GetLastError
+		#include "../../header_file/files/elc/numerical_representation"//to_string
 	#else
 		#error ERROR_MSG_UNABLE_OS
 	#endif
