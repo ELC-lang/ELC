@@ -61,6 +61,14 @@ namespace magic_number{
 		else
 			return (size_t)x;
 	}
+	/*任意算数类型转uintmax_t*/
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr ::std::uintmax_t to_uintmax_t(T x)noexcept{
+		if constexpr(::std::is_floating_point_v<T>)
+			return (::std::uintmax_t)(::std::intmax_t)x;
+		else
+			return (::std::uintmax_t)x;
+	}
 	/*求余*/
 	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
 	[[nodiscard]]force_inline constexpr auto mod(T1 a,T2 b){
@@ -297,7 +305,7 @@ namespace magic_number{
 			auto ceil_impl = lambda(T x, T y)noexcept{
 				return feq(x,y) ? y : y+T{1};
 			};
-			return v<0 ? -static_cast<T>(static_cast<::std::uintmax_t>(-v)) : ceil_impl(v,static_cast<T>(static_cast<::std::uintmax_t>(v)));
+			return v<0 ? -static_cast<T>(to_uintmax_t(-v)) : ceil_impl(v,static_cast<T>(to_uintmax_t(v)));
 		}
 		else
 			return ::std::ceil(v);

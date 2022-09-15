@@ -96,7 +96,7 @@ private:
 	//信息尾部分
 	inline size_t get_info_tail_size_per_byte()const noexcept{
 		constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnumof<byte>);
-		auto		   info_threshold	   = to_size_t(ceil(log(info_threshold_base, _radix)));
+		const auto	   info_threshold	   = to_size_t(ceil(log(info_threshold_base, _radix)));
 		return info_threshold;
 	}
 	template<typename T>
@@ -116,7 +116,7 @@ private:
 	}
 	template<typename T>
 	inline T get_from_info_tail(string str)const noexcept{
-		auto info_tail_size_per_byte = get_info_tail_size_per_byte();
+		const auto info_tail_size_per_byte = get_info_tail_size_per_byte();
 		T	aret{};
 		data_view<T> view{&aret};
 		for(byte&c: view) {
@@ -130,6 +130,7 @@ private:
 	inline string to_string_num_base(T num)const noexcept{
 		if constexpr(::std::is_floating_point_v<T>) {
 			string aret;
+			suppress_msvc_warning(26494)//未初始化警告diss
 			size_t order_of_magnitude;
 			if(num>1)
 				order_of_magnitude = to_size_t(floor(log(num,_radix)+1));
@@ -312,6 +313,7 @@ private:
 			if(str.starts_with(_nan+_unknown_data_start_sign)){
 				str.pop_front(_nan.size()+1);
 				str.pop_back();
+				suppress_msvc_warning(26494)//未初始化警告diss
 				data_block<T> block;
 				size_t		  write_index = 0;
 				floop{
@@ -349,9 +351,9 @@ public:
 	inline T from_string_get(string str)const noexcept{
 		//信息尾检查
 		if constexpr(::std::is_floating_point_v<T>){
-			auto info_tail_size=get_info_tail_size<T>();
+			const auto info_tail_size=get_info_tail_size<T>();
 			if(str.size()>info_tail_size){
-				auto tail_pos=str.size()-info_tail_size;
+				const auto tail_pos=str.size()-info_tail_size;
 				auto info_tail=str.substr(tail_pos);
 				auto str_with_out_tail=str.substr(0,tail_pos);
 				if(str_with_out_tail.back()==_fractional_sign)

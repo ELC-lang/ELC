@@ -105,34 +105,35 @@ namespace lifetime_n{
 		struct array_construct_t{
 			T*_to;
 			size_t _size;
-			template<class...Args> requires able<Args...>
-			force_inline T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+			constexpr void never_in_array_check()const noexcept{
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t construct an array for never_in_array type.");
+			}
+			template<class...Args> requires able<Args...>
+			force_inline void base_call(Args&&...rest)const noexcept(nothrow<Args...>){
 				auto tmp=_size;
 				while(tmp--)new(_to+tmp)T(forward<Args>(rest)...);
+			}
+			template<class...Args> requires able<Args...>
+			force_inline T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+				never_in_array_check();
+				base_call(forward<Args>(rest)...);
 				return _to;
 			}
 			//复制构造速度优化
 			force_inline T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
-				if constexpr(type_info<T>.has_attribute(never_in_array))
-					template_error("You can\'t construct an array for never_in_array type.");
+				never_in_array_check();
 				if constexpr(::std::is_trivially_copyable_v<T>)
 					super_speed_trivial_copy_from_one(_to,v,_size);
-				else{
-					auto tmp=_size;
-					while(tmp--)new(_to+tmp)T(v);
-				}
+				else
+					base_call(forward<const T&>(v));
 				return _to;
 			}
 			//默认构造逻辑优化
 			force_inline T* operator()()const noexcept(nothrow<>)requires able<>{
-				if constexpr(type_info<T>.has_attribute(never_in_array))
-					template_error("You can\'t construct an array for never_in_array type.");
-				if constexpr(!trivial<>){
-					auto tmp=_size;
-					while(tmp--)new(_to+tmp)T();
-				}
+				never_in_array_check();
+				if constexpr(!trivial<>)
+					base_call();
 				return _to;
 			}
 		};
