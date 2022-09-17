@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+struct type_name_t;//自动重整类型名并在析构时释放重整结果，对于gcc和clang的傻逼实现
 struct base_type_info_t{
 private:
 	struct type_id_t{
@@ -13,9 +14,7 @@ private:
 
 		constexpr type_id_t(const ::std::type_info&a)noexcept:_m(&a){}
 		constexpr type_id_t(const type_id_t&a)noexcept=default;
-		[[nodiscard]]const char*get_name()const noexcept{//-UF:对于gcc和clang应使用abi::__cxa_demangle重整//重整几把，麻烦死了，懒得管。
-			return _m->name();
-		}
+		[[nodiscard]]type_name_t get_name()const noexcept;//定义于type_name.hpp
 		[[nodiscard]]size_t get_hash()const noexcept{
 			return _m->hash_code();
 		}
@@ -26,9 +25,7 @@ private:
 public:
 	constexpr base_type_info_t(const ::std::type_info&a)noexcept:_tid(a){}
 	constexpr base_type_info_t(const base_type_info_t&)noexcept=default;
-	[[nodiscard]]const char*get_name()const noexcept{
-		return _tid.get_name();
-	}
+	[[nodiscard]]type_name_t get_name()const noexcept;//定义于type_name.hpp
 	[[nodiscard]]size_t get_hash()const noexcept{
 		return _tid.get_hash();
 	}
@@ -106,6 +103,10 @@ struct type_info_t{
 	constexpr type_info_t(const type_info_t&)noexcept=default;
 	[[nodiscard]]constexpr operator base_type_info_t()const noexcept{return base_type_info_t(typeid(T));}
 	[[nodiscard]]constexpr bool operator==(const ::std::type_info&a)const noexcept{return base_type_info_t(*this)==base_type_info_t(a);}
+	[[nodiscard]]type_name_t get_name()const noexcept;//定义于type_name.hpp
+	[[nodiscard]]size_t get_hash()const noexcept{
+		return base_type_info_t(*this).get_hash();
+	}
 };
 
 template<class T>

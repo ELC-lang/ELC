@@ -59,6 +59,12 @@ namespace array_like_n{
 		explicit constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)):array_like_view_t(begin_of_array_like<T>(a),size_of_array_like<T>(a)){}
 		constexpr array_like_view_t(const this_t&)noexcept=default;
 
+		void swap_with(this_t&b)noexcept_as(swap(_begin,b._begin),swap(_size,b._size)){
+			swap(_begin,b._begin);
+			swap(_size,b._size);
+		}
+
+		[[nodiscard]]constexpr const_iterator c_str()const noexcept{return _begin;}
 		[[nodiscard]]constexpr size_t size()const noexcept{return _size;}
 
 		[[nodiscard]]constexpr iterator begin()noexcept requires(type_info<iterator>!=type_info<const_iterator>){return _begin;}

@@ -30,6 +30,7 @@
 #include "hash.hpp"
 #include "range.hpp"
 #include "string_view.hpp"
+#include "type_name.hpp"
 #include "constexpr_str.hpp"
 #include "logical_bool.hpp"
 #include "zero.hpp"
