@@ -77,6 +77,17 @@ namespace lifetime_n{
 				::std::fill_n(to,size,value);
 		return to;
 	}
+	template<class T> requires(::std::is_trivially_copyable_v<T>)
+	force_inline T* super_speed_trivial_copy_from_one(T*to,const T&value)noexcept{
+		if constexpr(sizeof(T)>=sizeof(::std::max_align_t))
+			if(is_all_byte_zero(value))
+				::std::memset(to,zero,sizeof(T));
+			else
+				*to=value;
+		else
+			*to=value;
+		return to;
+	}
 
 	/*
 	lifetime_n的一部分
@@ -123,7 +134,7 @@ namespace lifetime_n{
 			//复制构造速度优化
 			force_inline T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
 				never_in_array_check();
-				if constexpr(::std::is_trivially_copyable_v<T>)
+				if constexpr(trivial<const T&> && ::std::is_trivially_copyable_v<T>)
 					super_speed_trivial_copy_from_one(_to,v,_size);
 				else
 					base_call(forward<const T&>(v));
@@ -140,13 +151,26 @@ namespace lifetime_n{
 		struct placement_construct_t{
 			T*_to;
 			template<class...Args> requires able<Args...>
-			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+			force_inline void base_call(Args&&...rest)const noexcept(nothrow<Args...>){
 				new(_to)T(forward<Args>(rest)...);
+			}
+			template<class...Args> requires able<Args...>
+			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+				base_call(forward<Args>(rest)...);
 				return _to;
 			}
-			T* operator()()const noexcept(nothrow<>)requires able<>{
+			//复制构造速度优化
+			force_inline T* operator()(const T&v)const noexcept(nothrow<const T&>)requires able<const T&>{
+				if constexpr(trivial<const T&> && ::std::is_trivially_copyable_v<T>)
+					super_speed_trivial_copy_from_one(_to,v);
+				else
+					base_call(forward<const T&>(v));
+				return _to;
+			}
+			//默认构造逻辑优化
+			force_inline T* operator()()const noexcept(nothrow<>)requires able<>{
 				if constexpr(!trivial<>)
-					new(_to)T();
+					base_call();
 				return _to;
 			}
 			[[nodiscard]]constexpr array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
