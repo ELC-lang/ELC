@@ -29,10 +29,8 @@ elc依赖的基础函数.
 	namespace elc::APIs::alloc{
 		#include "../../_share/_defs.hpp"
 
-		#if SYSTEM_TYPE == windows
-			using namespace ::elc::defs;//remove_const
-		#else
-			using ::std::byte;
+		using namespace ::elc::defs;//remove_const||byte
+		#if SYSTEM_TYPE != windows
 			#include "alloc/default_method/overhead.hpp"//overhead
 		#endif
 		#include "alloc/debug_info/source_location_guard.hpp"//operate_source_location & source_location_guard

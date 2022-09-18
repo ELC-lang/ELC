@@ -30,6 +30,11 @@ namespace elc::defs{ //在elc::defs中定义内容
 		#include "base_defs/_body.hpp"
 	}
 
+	//由于vcruntime的type_info在全局定义,这里需要额外声明使用base::type_info.
+	#if defined(_VCRUNTIME_H)
+		using base::type_info;
+	#endif
+
 	#include "../_share/_undefs.hpp"
 }
 
