@@ -54,6 +54,9 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	comn_string_data_t(size_t size,char_T ch)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1),ch){
 		_m[size]=zero;
 	}
+	comn_string_data_t(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1)){
+		_m[size]=zero;
+	}
 
 	virtual ~comn_string_data_t()noexcept(destruct_nothrow)override final{
 		clear_match_pattern();

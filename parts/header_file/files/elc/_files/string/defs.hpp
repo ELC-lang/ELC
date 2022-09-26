@@ -150,8 +150,10 @@ namespace string_n{
 		string_t(string_t&& str)noexcept:string_t(){
 			swap_with(str);
 		}
-		string_t(char_T ch,size_t size)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size,ch));}
-		string_t(size_t size,char_T ch)noexcept:string_t(ch,size){}
+		string_t(size_t size,char_T ch)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size,ch));}
+		string_t(char_T ch,size_t size)noexcept requires(type_info<size_t>!=type_info<char_T>):string_t(size,ch){}
+
+		string_t(size_t size)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size));}
 		//END_BLOCK
 		//析构函数
 		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
@@ -373,7 +375,7 @@ namespace string_n{
 		[[nodiscard]]explicit operator bool()const noexcept{ return size(); }
 		[[nodiscard]]bool			empty()const noexcept{ return !size(); }
 		[[nodiscard]]size_t			length()const noexcept{ return size(); }
-		void resize(size_t nsize,char_T ch ={})noexcept{
+		void resize(size_t nsize,char_T ch)noexcept{
 			const auto size=this->size();
 			if(size > nsize)
 				*this=substr(0,nsize);
@@ -385,6 +387,19 @@ namespace string_n{
 			}
 			else
 				*this=string_t{nsize,ch};
+		}
+		void resize(size_t nsize)noexcept{
+			const auto size=this->size();
+			if(size > nsize)
+				*this=substr(0,nsize);
+			elseif(size == nsize)
+				return;
+			elseif(size){
+				_cso_check();
+				_m=get<end_apply_string_data_t<char_T>>(_m,nsize-size);
+			}
+			else
+				*this=string_t{nsize};
 		}
 		void clear()noexcept{ re_construct(this); }
 	private:
@@ -398,8 +413,8 @@ namespace string_n{
 			[[nodiscard]]const arec_t				get_value()const noexcept{ return (*add_const(_to))[_index]; }
 			[[nodiscard]]char_T*					get_handle()noexcept{ return &get_value(); }
 			[[nodiscard]]const char_T*				get_handle()const noexcept{ return &get_value(); }
-			constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to && _index==a._index; }
-			constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to ? _index<=>a._index : partial_ordering::unordered; }
+			[[nodiscard]]constexpr bool operator==(const iterator_base_t& a)const noexcept{ return _to==a._to && _index==a._index; }
+			[[nodiscard]]constexpr auto operator<=>(const iterator_base_t& a)const noexcept{ return _to==a._to ? _index<=>a._index : partial_ordering::unordered; }
 		};
 		[[nodiscard]]iterator_base_t get_iterator_data_at(ptrdiff_t index)const noexcept{ return iterator_base_t{(string_t*)this,index}; }
 	public:

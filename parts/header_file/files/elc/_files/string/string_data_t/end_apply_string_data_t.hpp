@@ -46,6 +46,13 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
 		copy_assign[_used_size](ch,note::to((char_T*)_m));
 	}
+	end_apply_string_data_t(ptr_t str,size_t count)noexcept:
+		_to_size(str->get_size()),
+		_used_size(count),
+		_to(str)
+	{
+		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
+	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin+size<=_to_size)
