@@ -17,7 +17,7 @@ namespace range_n{
 		constexpr range_t(note::from_t<const T>begin,note::to_t<const T>end):_begin(begin),_end(end+1){}
 		constexpr range_t(note::to_t<const T>end,note::from_t<const T>begin):_begin(begin),_end(end+1){}
 		constexpr range_t(const T begin,note::size_t<const T>size):_begin(begin),_end(begin+size()){}
-		constexpr range_t(const T begin,note::size_t<::std::size_t>size):_begin(begin),_end(begin+size()){}
+		constexpr range_t(const T begin,note::size_t<size_t>size):_begin(begin),_end(begin+size()){}
 
 		constexpr size_t size()noexcept{return _end-_begin;}
 		constexpr auto end()noexcept{return _end;}

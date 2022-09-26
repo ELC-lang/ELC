@@ -150,7 +150,7 @@ namespace string_n{
 		string_t(string_t&& str)noexcept:string_t(){
 			swap_with(str);
 		}
-		string_t(size_t size,char_T ch)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size,ch));}
+		string_t(size_t size,char_T ch)noexcept{_ncso_construct_mptr(get<same_value_compress_string_data_t<char_T>>(size,ch));}
 		string_t(char_T ch,size_t size)noexcept requires(type_info<size_t>!=type_info<char_T>):string_t(size,ch){}
 
 		string_t(size_t size)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size));}

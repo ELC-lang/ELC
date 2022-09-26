@@ -33,5 +33,11 @@ struct erased_string_data_t;
 template<typename char_T>
 struct inserted_string_data_t;
 
+//template<typename char_T>
+//struct replaced_string_data_t;
+
+template<typename char_T>
+struct same_value_compress_string_data_t;
+
 //file_end
 

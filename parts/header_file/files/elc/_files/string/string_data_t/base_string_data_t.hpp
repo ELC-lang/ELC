@@ -35,6 +35,8 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	friend class sum_string_data_t<char_T>;
 	friend class erased_string_data_t<char_T>;
 	friend class inserted_string_data_t<char_T>;
+	//friend class replaced_string_data_t<char_T>;
+	friend class same_value_compress_string_data_t<char_T>;
 
 	base_string_data_t()noexcept=default;
 	base_string_data_t(never_ref_num_zero_t)noexcept{ attribute_ptr_cast<ref_able>(this)->init_never_ref_num_zero(); }

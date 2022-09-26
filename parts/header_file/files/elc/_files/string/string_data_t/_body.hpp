@@ -25,6 +25,10 @@ inline namespace string_data_n{
 
 	#include "erased_string_data_t.hpp"
 	#include "inserted_string_data_t.hpp"
+
+	//#include "replaced_string_data_t.hpp"
+
+	#include "same_value_compress_string_data_t.hpp"
 }
 
 //file_end

@@ -113,6 +113,21 @@ namespace hash_n{
 			}
 			return{aret};
 		}
+		/*计算此hash重复N次的数组的hash结果*/
+		[[nodiscard]]constexpr force_inline hash_value_t repeat_times(hash_value_t value,size_t size)const noexcept{
+			size_t aret=0;
+			rot_iterator<decltype(aret)>rotl_offset = size;
+			while(size--){
+				aret ^= rotl(value._value,rotl_offset);
+				rotl_offset--;
+			}
+			return{aret};
+		}
+		/*计算此hash重复N次的数组的hash结果*/
+		template<class T>
+		[[nodiscard]]constexpr force_inline hash_value_t repeat_times(T&&value,size_t size)const noexcept{
+			return repeat_times(operator()(value),size);
+		}
 		template<class T>
 		[[nodiscard]]constexpr inline hash_value_t operator()(const T*a,size_t size)const noexcept(nothrow<const T>){
 			return with_calculated_before(operator()(nothing),0,a,size);
