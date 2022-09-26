@@ -223,7 +223,7 @@ namespace magic_number{
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr auto abs(const T v)noexcept{
 		if constexpr(::std::is_signed_v<T>)
-			return v>=0?v:0-v;
+			return v>=0?v:-v;
 		else
 			return v;
 	}

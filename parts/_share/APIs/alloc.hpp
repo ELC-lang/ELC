@@ -153,7 +153,7 @@ elc依赖的基础函数.
 				const auto size=get_size_of_alloc(p,align);
 				count_info::free_count++;
 				count_info::free_size+=size;
-				count_info::update_memory_using(0-size);
+				count_info::update_memory_using(-ptrdiff_t(size));
 			#endif
 
 			#if SYSTEM_TYPE == windows
