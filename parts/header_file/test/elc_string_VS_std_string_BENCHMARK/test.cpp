@@ -22,6 +22,7 @@ T rand() {
 //*
 
 static void Std_double_to_string(benchmark::State& state){
+	claer_memory_count();
 	std::string str;
 	double		mismatch_num = 0;
 	for(auto _ : state){
@@ -40,6 +41,7 @@ static void Std_double_to_string(benchmark::State& state){
 BENCHMARK(Std_double_to_string);
 
 static void ELC_double_to_string(benchmark::State& state){
+	claer_memory_count();
 	elc::string str;
 	double		mismatch_num = 0;
 	for(auto _ : state){
@@ -62,6 +64,7 @@ static void ELC_double_to_string(benchmark::State& state){
 BENCHMARK(ELC_double_to_string);
 
 static void Std_size_t_to_string(benchmark::State& state){
+	claer_memory_count();
 	std::string str;
 	double		mismatch_num = 0;
 	for(auto _ : state){
@@ -80,6 +83,7 @@ static void Std_size_t_to_string(benchmark::State& state){
 BENCHMARK(Std_size_t_to_string);
 
 static void ELC_size_t_to_string(benchmark::State& state){
+	claer_memory_count();
 	elc::string str;
 	double		mismatch_num = 0;
 	for(auto _ : state){
