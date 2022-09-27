@@ -20,16 +20,30 @@ T rand(){
 
 //*
 
-static void Std_double_to_string(benchmark::State& state){
+namespace std{
+	//T from_string(string)
+	template<class T, class CharT, class Traits, class Alloc>
+	T from_string(std::basic_string<CharT,Traits,Alloc> const& str){
+		if constexpr(std::is_floating_point_v<T>)
+			return(T)std::stod(str);
+		else if constexpr(std::is_signed_v<T>)
+			return(T)std::stoll(str);
+		else
+			return(T)std::stoull(str);
+	}
+}
+
+template<typename T>
+static void Std_to_string(benchmark::State& state){
 	claer_memory_count();
 	std::string str;
-	double		mismatch_num = 0;
+	long double mismatch_num = 0;
 	for(auto _ : state){
-		auto num=rand<double>();
+		auto num=rand<T>();
 		str=std::to_string(num);
 		//check
 		state.PauseTiming();
-		auto check_num = std::stod(str);
+		auto check_num = std::from_string<T>(str);
 		if(!elc::defs::full_equal_in_byte(num, check_num)){
 			mismatch_num++;
 		}
@@ -37,18 +51,18 @@ static void Std_double_to_string(benchmark::State& state){
 	}
 	state.counters["mismatch_num"] = mismatch_num;
 }
-BENCHMARK(Std_double_to_string);
 
-static void ELC_double_to_string(benchmark::State& state){
+template<typename T>
+static void ELC_to_string(benchmark::State& state){
 	claer_memory_count();
 	elc::string str;
-	double		mismatch_num = 0;
+	long double mismatch_num = 0;
 	for(auto _ : state){
-		auto num=rand<double>();
+		auto num=rand<T>();
 		str=elc::to_string(num);
 		//check
 		state.PauseTiming();
-		auto check_num = elc::from_string_get<double>(str);
+		auto check_num = elc::from_string_get<T>(str);
 		if(!elc::defs::full_equal_in_byte(num,check_num)){
 			#if defined(_DEBUG)
 				auto debug_view = str.c_str();
@@ -60,49 +74,11 @@ static void ELC_double_to_string(benchmark::State& state){
 	}
 	state.counters["mismatch_num"] = mismatch_num;
 }
-BENCHMARK(ELC_double_to_string);
 
-static void Std_size_t_to_string(benchmark::State& state){
-	claer_memory_count();
-	std::string str;
-	double		mismatch_num = 0;
-	for(auto _ : state){
-		auto num=rand<size_t>();
-		str=std::to_string(num);
-		//check
-		state.PauseTiming();
-		auto check_num = (size_t)std::stoull(str);
-		if(!elc::defs::full_equal_in_byte(num, check_num)){
-			mismatch_num++;
-		}
-		state.ResumeTiming();
-	}
-	state.counters["mismatch_num"] = mismatch_num;
-}
-BENCHMARK(Std_size_t_to_string);
-
-static void ELC_size_t_to_string(benchmark::State& state){
-	claer_memory_count();
-	elc::string str;
-	double		mismatch_num = 0;
-	for(auto _ : state){
-		auto num=rand<size_t>();
-		str=elc::to_string(num);
-		//check
-		state.PauseTiming();
-		auto check_num = elc::from_string_get<size_t>(str);
-		if(!elc::defs::full_equal_in_byte(num,check_num)){
-			#if defined(_DEBUG)
-				auto debug_view = str.c_str();
-				__debugbreak();
-			#endif
-			mismatch_num++;
-		}
-		state.ResumeTiming();
-	}
-	state.counters["mismatch_num"] = mismatch_num;
-}
-BENCHMARK(ELC_size_t_to_string);
+BENCHMARK_TEMPLATE(Std_to_string,double);
+BENCHMARK_TEMPLATE(ELC_to_string,double);
+BENCHMARK_TEMPLATE(Std_to_string,size_t);
+BENCHMARK_TEMPLATE(ELC_to_string,size_t);
 
 static void Std_StringCreation(benchmark::State& state){
 	claer_memory_count();
