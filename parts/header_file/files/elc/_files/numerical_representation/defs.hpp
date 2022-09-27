@@ -108,7 +108,7 @@ private:
 		auto info_tail_size_per_byte = get_info_tail_size_per_byte();
 		string aret;
 		data_view<const T> view{&x};
-		for(const byte c: view) {
+		for(const byte c: view){
 			auto s= to_string_rough((unsigned char)c);
 			aret+=string{info_tail_size_per_byte-s.size(),_radix_table[0]}+s;
 		}
@@ -119,7 +119,7 @@ private:
 		const auto info_tail_size_per_byte = get_info_tail_size_per_byte();
 		T	aret{};
 		data_view<T> view{&aret};
-		for(byte&c: view) {
+		for(byte&c: view){
 			auto s=str.substr(0,info_tail_size_per_byte);
 			c=(byte)from_string_get<unsigned char>(s);
 			str=str.substr(info_tail_size_per_byte);
@@ -128,7 +128,7 @@ private:
 	}
 	template<typename T>
 	inline string to_string_num_base(T num)const noexcept{
-		if constexpr(::std::is_floating_point_v<T>) {
+		if constexpr(::std::is_floating_point_v<T>){
 			string aret;
 			suppress_msvc_warning(26494)//未初始化警告diss
 			size_t order_of_magnitude;
@@ -192,7 +192,7 @@ private:
 	inline bool to_string_special_value_check(T num,string&str,bool is_negative)const noexcept{
 		if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
 			if(::std::isnan(num)){
-				if constexpr(::std::numeric_limits<T>::has_signaling_NaN) {
+				if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
 					constexpr auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
 					if(full_equal_in_byte(signaling_NaN,num)){
 						str=_signaling_nan;
@@ -204,7 +204,7 @@ private:
 						return true;
 					}
 				}
-				if constexpr(::std::numeric_limits<T>::has_quiet_NaN) {
+				if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
 					constexpr auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
 					if(full_equal_in_byte(quiet_NaN,num)){
 						str=_quiet_nan;
@@ -218,7 +218,7 @@ private:
 				}
 				str=_nan+_unknown_data_start_sign;
 				data_view<T> view{&num};
-				for(const byte c: view) {
+				for(const byte c: view){
 					str += to_string_rough((unsigned char)c);
 					str += _unknown_data_split_sign;
 				}
@@ -229,7 +229,7 @@ private:
 		if constexpr(::std::numeric_limits<T>::has_infinity){
 			if(::std::isinf(num)){
 				if constexpr(!::std::is_unsigned_v<T>)
-					if(is_negative) {
+					if(is_negative){
 						str=_negative_sign+_inf;
 						return true;
 					}
@@ -270,8 +270,8 @@ public:
 	}
 private:
 	template<typename T>
-	inline T from_string_get_num_base(string str) const noexcept {
-		if constexpr(::std::is_floating_point_v<T>) {
+	inline T from_string_get_num_base(string str)const noexcept{
+		if constexpr(::std::is_floating_point_v<T>){
 			size_t order_of_magnitude = str.size();
 			T aret{};
 			size_t i=str.size();
@@ -293,7 +293,7 @@ private:
 		}
 		else {
 			T aret{};
-			for(size_t i = 0; i < str.size(); i++) {
+			for(size_t i = 0; i < str.size(); i++){
 				const size_t index = _radix_table.find(str[i]);
 				if(index == string::npos)
 					return T();
@@ -413,8 +413,8 @@ public:
 			auto rounding_up = lambda_with_catch(&) (string&str)noexcept{
 				size_t i = str.size();
 				while(i){
-					if(rounding_up_char(str[i])) {
-						if(i--) {
+					if(rounding_up_char(str[i])){
+						if(i--){
 							if(str[i] == _fractional_sign)
 								i--;
 						}
@@ -428,7 +428,7 @@ public:
 			};
 			size_t dot_pos=aret.find(_fractional_sign);
 			//检查是否可反向转换
-			if(from_string_get<T>(aret) != num) {
+			if(from_string_get<T>(aret) != num){
 				//获取并追加信息尾
 				string info_tail=get_info_tail(num);
 				if(dot_pos==string::npos){
@@ -460,8 +460,8 @@ public:
 					if(better_aret.size() < dot_pos)//0补全
 						better_aret.resize(dot_pos,_radix_table[0]);
 					//判断当前切割位点有效性.
-					if(from_string_get<T>(better_aret) == num) {
-						if(better_aret.back() == _radix_table[0]) {
+					if(from_string_get<T>(better_aret) == num){
+						if(better_aret.back() == _radix_table[0]){
 							const auto end_pos = max(better_aret.find_last_not_of(_radix_table[0])+1, dot_pos);
 							better_aret.resize(end_pos);
 							if(better_aret.back() == _fractional_sign)

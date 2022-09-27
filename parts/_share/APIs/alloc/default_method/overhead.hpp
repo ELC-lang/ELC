@@ -28,13 +28,13 @@ namespace overhead_n{
 	inline pointer recorrect_pointer(pointer a,size_t align){
 		return unapply_off_set(a,overhead_get_offset_value(align));
 	}
-	inline const_pointer recorrect_pointer(const_pointer a, size_t align) {
+	inline const_pointer recorrect_pointer(const_pointer a, size_t align){
 		return unapply_off_set(a,overhead_get_offset_value(align));
 	}
 	inline void set_overhead(pointer a,size_t size){
 		*reinterpret_cast<size_t*>(a)=size;
 	}
-	inline size_t get_overhead(const_pointer a) {
+	inline size_t get_overhead(const_pointer a){
 		return*reinterpret_cast<const size_t*>(a);
 	}
 }

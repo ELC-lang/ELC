@@ -83,7 +83,7 @@ namespace string_n{
 		constexpr void _cso_reinit(constexpr_str_t&str)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(str);}
 		constexpr void _cso_init(char_T ch)noexcept{_set_chr_cso();_cso_info._ch=ch;}
 		constexpr void _cso_reinit(char_T ch)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(ch);}
-		void _cso_fin(bool need_write) const noexcept {
+		void _cso_fin(bool need_write)const noexcept{
 			if(_in_str_cso()&&!need_write)
 				_ncso_construct_mptr(get<constexpr_string_data_t<char_T>>(*_cso_info._str));
 			else{
@@ -796,7 +796,7 @@ namespace string_n{
 
 	//std ostream支持
 	template<typename some_fucking_std_ostream, typename T>
-	decltype(auto) operator<<(some_fucking_std_ostream& stream, const string_t<T>& str) {
+	decltype(auto) operator<<(some_fucking_std_ostream& stream, const string_t<T>& str){
 		typedef some_fucking_std_ostream stream_t;
 		typedef stream_t::traits_type	 traits_t;
 		typename stream_t::iostate		 state = stream_t::goodbit;
@@ -815,9 +815,9 @@ namespace string_n{
 			state |= stream_t::badbit;
 		else {
 			try {
-				if((stream.flags() & stream_t::adjustfield) != stream_t::left) {
-					for(; 0 < pad; --pad) {		  // pad on left
-						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))) {
+				if((stream.flags() & stream_t::adjustfield) != stream_t::left){
+					for(; 0 < pad; --pad){		  // pad on left
+						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))){
 							state |= stream_t::badbit;		 // insertion failed, quit
 							break;
 						}
@@ -827,8 +827,8 @@ namespace string_n{
 				if(state == stream_t::goodbit && stream.rdbuf()->sputn(str.c_str(), static_cast<::std::streamsize>(size)) != static_cast<::std::streamsize>(size))
 					state |= stream_t::badbit;
 				else {
-					for(; 0 < pad; --pad) {		  // pad on right
-						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))) {
+					for(; 0 < pad; --pad){		  // pad on right
+						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))){
 							state |= stream_t::badbit;		 // insertion failed, quit
 							break;
 						}
@@ -837,7 +837,7 @@ namespace string_n{
 
 				stream.width(0);
 			}
-			catch(...) {
+			catch(...){
 				stream.setstate(stream_t::badbit, true);
 				return stream;
 			}

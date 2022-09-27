@@ -12,7 +12,7 @@ namespace package_symbol_loader_n{
 		function_t<ptr()noexcept>													 load_error_interface;
 
 		package_symbol_loader_t()noexcept{
-			if(package_symbol_loader_handle = load_lib(paths::package_symbol_loader_path)) {
+			if(package_symbol_loader_handle = load_lib(paths::package_symbol_loader_path)){
 				load_interface		 = package_symbol_loader_handle->get_symbol_as_function<ptr(string lib_name,size_t lib_ver,string symbol_name)noexcept>(es"load_interface");
 				load_error_interface = package_symbol_loader_handle->get_symbol_as_function<ptr()noexcept>(es"load_error_interface");
 			}

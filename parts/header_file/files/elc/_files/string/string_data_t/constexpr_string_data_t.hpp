@@ -87,7 +87,7 @@ public:
 			return true;
 		return equal(_m,wp->_m,_size);
 	}
-	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>) override final{
+	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		if(_m==wp->_m)
 			return strong_ordering::equivalent;

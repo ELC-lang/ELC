@@ -229,7 +229,7 @@ protected:
 		return _used_size==wp->_used_size;// && _to_size==wp->_to_size; //总size被保证一样
 	}
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
-		if(begin < _to_size) {
+		if(begin < _to_size){
 			return _to->get_the_largest_complete_data_block_begin_form(begin);
 		}
 		else {

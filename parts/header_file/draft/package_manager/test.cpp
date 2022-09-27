@@ -1,17 +1,17 @@
 #include "defs.hpp"
 #include <iostream>
 
-bool is_this_package_installed(package_info_t& package_info) {
+bool is_this_package_installed(package_info_t& package_info){
 	return true;
 }
 
-bool is_this_package_can_be_found(package_info_t& package_info) {
+bool is_this_package_can_be_found(package_info_t& package_info){
 	if(package_info.package_name != "C")
 		return true;
 	return false;
 }
 
-base_package_relay_info_ptr get_package_relay_info(const package_info_t& package_info) {
+base_package_relay_info_ptr get_package_relay_info(const package_info_t& package_info){
 	//for test:
 	//A relay on B
 	//B relay on C or (D&E)
@@ -48,7 +48,7 @@ base_package_relay_info_ptr get_package_relay_info(const package_info_t& package
 		return nullptr;
 }
 
-int main() {
+int main(){
 	auto load_list = get_package_load_list({"A",0,0});
 	for(auto package: load_list.package_list)
 		cout << package.package_name << " ";

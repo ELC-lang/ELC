@@ -12,7 +12,7 @@ void map_and_mark_for_gc(T*)noexcept{
 	template_error("this function should not be instantiated,please overload the function map_and_mark_for_gc in the namespace where this type is defined");
 }
 using ::elc::defs::memory::gc_n::root_of;
-template<class T,enable_if	(
+template<class T,enable_if(
 								was_ref_able<T> &&
 								comn_ptr_t<T>::replace_check_nothrow &&
 								type_info<T>.has_attribute(gc_n::have_root)

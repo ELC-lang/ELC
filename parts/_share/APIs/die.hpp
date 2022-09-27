@@ -50,7 +50,7 @@ elc依赖的基础函数.
 				size_t s;
 				pop_msvc_warning();
 				char_t c;
-				while(c = *(err_msg++)) {
+				while(c = *(err_msg++)){
 					s = ::std::c32rtomb(err_msg_write, c, &stat);
 					if(s == size_t(-1))
 						die();

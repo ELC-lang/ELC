@@ -50,7 +50,7 @@ namespace constexpr_str_n{
 			base_t(str, size),
 			hash_result(defs::hash(str, size)),
 			match_pattern(array_like_view_t<const char_T>{str, size}),
-			reverse_match_pattern(array_like_view_t<const char_T>{str, size}) {
+			reverse_match_pattern(array_like_view_t<const char_T>{str, size}){
 				is_bitmark_workable = bitmark_for_finds.mark(*this);
 			}
 		constexpr constexpr_str_t(const char_T* str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}

@@ -2,10 +2,10 @@
 #include <new>
 
 class ElcMemoryManager: public benchmark::MemoryManager {
-	void Start() noexcept override {
+	void Start()noexcept override{
 		elc::APIs::alloc::count_info::clear();
 	}
-	void Stop(Result* result) noexcept override {
+	void Stop(Result* result)noexcept override{
 		// The number of allocations made in total between Start and Stop.
 		result->num_allocs = elc::APIs::alloc::count_info::alloc_count;
 
@@ -23,7 +23,7 @@ class ElcMemoryManager: public benchmark::MemoryManager {
 	}
 };
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv){
 	std::unique_ptr<benchmark::MemoryManager> mm{std::make_unique<ElcMemoryManager>()};
 	::benchmark::Initialize(&argc, argv);
 	benchmark::RegisterMemoryManager(mm.get());
