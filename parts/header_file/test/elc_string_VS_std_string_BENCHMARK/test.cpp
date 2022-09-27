@@ -5,7 +5,7 @@ typedef std::basic_string<test_char_type, std::char_traits<test_char_type>, Test
 static_assert(sizeof(std_string) >= sizeof(elc::string));
 #pragma optimize("", off)
 
-void claer_memory_count()noexcept {
+void claer_memory_count()noexcept{
 	elc::APIs::alloc::count_info::clear();
 }
 
@@ -23,15 +23,25 @@ T rand() {
 
 static void Std_double_to_string(benchmark::State& state){
 	std::string str;
+	double		mismatch_num = 0;
 	for(auto _ : state){
 		auto num=rand<double>();
 		str=std::to_string(num);
+		//check
+		state.PauseTiming();
+		auto check_num = std::stod(str);
+		if(!elc::defs::full_equal_in_byte(num, check_num)) {
+			mismatch_num++;
+		}
+		state.ResumeTiming();
 	}
+	state.counters["mismatch_num"] = mismatch_num;
 }
 BENCHMARK(Std_double_to_string);
 
 static void ELC_double_to_string(benchmark::State& state){
 	elc::string str;
+	double		mismatch_num = 0;
 	for(auto _ : state){
 		auto num=rand<double>();
 		str=elc::to_string(num);
@@ -39,25 +49,39 @@ static void ELC_double_to_string(benchmark::State& state){
 		state.PauseTiming();
 		auto check_num = elc::from_string_get<double>(str);
 		if(!elc::defs::full_equal_in_byte(num,check_num)) {
-			auto debug_view = str.c_str();
-			__debugbreak();
+			#if defined(_DEBUG)
+				auto debug_view = str.c_str();
+				__debugbreak();
+			#endif
+			mismatch_num++;
 		}
 		state.ResumeTiming();
 	}
+	state.counters["mismatch_num"] = mismatch_num;
 }
 BENCHMARK(ELC_double_to_string);
 
 static void Std_size_t_to_string(benchmark::State& state){
 	std::string str;
+	double		mismatch_num = 0;
 	for(auto _ : state){
 		auto num=rand<size_t>();
 		str=std::to_string(num);
+		//check
+		state.PauseTiming();
+		auto check_num = (size_t)std::stoull(str);
+		if(!elc::defs::full_equal_in_byte(num, check_num)) {
+			mismatch_num++;
+		}
+		state.ResumeTiming();
 	}
+	state.counters["mismatch_num"] = mismatch_num;
 }
 BENCHMARK(Std_size_t_to_string);
 
 static void ELC_size_t_to_string(benchmark::State& state){
 	elc::string str;
+	double		mismatch_num = 0;
 	for(auto _ : state){
 		auto num=rand<size_t>();
 		str=elc::to_string(num);
@@ -65,11 +89,15 @@ static void ELC_size_t_to_string(benchmark::State& state){
 		state.PauseTiming();
 		auto check_num = elc::from_string_get<size_t>(str);
 		if(!elc::defs::full_equal_in_byte(num,check_num)) {
-			auto debug_view = str.c_str();
-			__debugbreak();
+			#if defined(_DEBUG)
+				auto debug_view = str.c_str();
+				__debugbreak();
+			#endif
+			mismatch_num++;
 		}
 		state.ResumeTiming();
 	}
+	state.counters["mismatch_num"] = mismatch_num;
 }
 BENCHMARK(ELC_size_t_to_string);
 

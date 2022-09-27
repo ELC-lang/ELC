@@ -239,13 +239,10 @@ private:
 		}
 		return false;
 	}
-public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	inline string to_string_rough(T num)const noexcept{
+	inline string to_string_rough_no_special_value_check(T num)const noexcept{
 		string aret;
 		const bool is_negative=magic_number::is_negative(num);
-		if(to_string_special_value_check(num,aret,is_negative))
-			return aret;
 		typedef decltype(lambda{
 			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
 				return T();
@@ -261,6 +258,15 @@ public:
 			}
 		aret+=to_string_num_base(unum);
 		return aret;
+	}
+public:
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline string to_string_rough(T num)const noexcept{
+		string aret;
+		const bool is_negative=magic_number::is_negative(num);
+		if(to_string_special_value_check(num,aret,is_negative))
+			return aret;
+		return to_string_rough_no_special_value_check(num);
 	}
 private:
 	template<typename T>
@@ -392,7 +398,7 @@ public:
 		string aret;
 		if(to_string_special_value_check(num,aret,is_negative(num)))
 			return aret;
-		aret=to_string_rough(num);
+		aret=to_string_rough_no_special_value_check(num);
 		if constexpr(::std::is_floating_point_v<T>){
 			//进位器
 			auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
