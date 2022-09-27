@@ -7,14 +7,14 @@
 */
 #if !defined(ELC_PATHS)
 	#define ELC_PATHS
-	#include "../../header_file/files/elc/base_defs"
-	#include "../../header_file/files/elc/string"
+	#include "../header_file/files/elc/base_defs"
+	#include "../header_file/files/elc/string"
 	#include "APIs/str_code_convert.hpp"
 	//
 	#include "APIs/_tools/decl_system_type.hpp"
 	//
 	#if SYSTEM_TYPE == windows
-		#include "shlobj_core.h"
+		#include <shlobj_core.h>
 	#elif SYSTEM_TYPE == linux
 		#include <unistd.h>
 	#else

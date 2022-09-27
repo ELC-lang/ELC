@@ -114,6 +114,8 @@
 
 #undef distinctive
 
+#undef force_inline
+
 #undef with_no_vtable
 
 #undef in_consteval
