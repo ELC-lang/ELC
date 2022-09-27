@@ -22,7 +22,7 @@ public:
 		_tie_with=ostm;
 		_destroyer=destroyer;
 	}
-	void new_line()(log_type type=info)noexcept{
+	void new_line(log_type type=info)noexcept{
 		if(_tie_with){
 			if(!_has_info)_tie_with->write("no info for this.\n");
 			_tie_with->write("[");

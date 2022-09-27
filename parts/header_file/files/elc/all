@@ -1,0 +1,31 @@
+//all
+//at namespace ::
+/*
+未完成的elc解释器include文件
+由steve02081504与Alex0125设计、编写
+转载时请在不对此文件做任何修改的同时注明出处
+项目地址：https://github.com/steve02081504/ELC
+*/
+//tool reg : \n[^\n]+\d+ (\S+)\n -> \n\t#include \"\1\"\n
+#if !defined(ELC_ALL)
+	#define ELC_ALL
+	#include "base"
+	#include "base_defs"
+	#include "base_exception"
+	#include "base_stream"
+	#include "core"
+	#include "lib_loader"
+	#include "literal"
+	//#include "log"
+	#include "memory_stream"
+	#include "namespace"
+	#include "numerical_representation"
+	#include "package_symbol_loader"
+	#include "stream"
+	#include "string"
+	//#include "test"
+	#include "void_name"
+#endif
+
+//file_end
+
