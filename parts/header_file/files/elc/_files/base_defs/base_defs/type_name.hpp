@@ -13,8 +13,10 @@ struct type_name_t:string_view_t<char>{
 	typedef string_view_t<char> base_t;
 	//重整器包装
 	static base_t demangle(const char*original_name)noexcept{
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		size_t len;
 		const char*demangled_name;
+		pop_msvc_warning();
 		#if defined(__clang__)||defined(__GNUC__)
 			//gcc和clang
 			//使用abi::__cxa_demangle重整

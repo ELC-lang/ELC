@@ -130,10 +130,12 @@ namespace hash_n{
 				if(value._value==0 || size==0)
 					return {void_hash};
 				if(size >= bit_range_max){
-					const bool is_npos = ::std::popcount(value._value)%2;
+					const bool is_npos = ::std::popcount(value._value)%BIT_POSSIBILITY;
 					aret = is_npos?npos_hash:void_hash;
 					size-=bit_range_max;
 				}
+				if(!size)
+					return {aret};
 			}
 			rot_iterator<decltype(aret)>rotl_offset = size;
 			while(size--){

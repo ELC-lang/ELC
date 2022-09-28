@@ -320,7 +320,7 @@ protected:
 	bool has_hash_cache()noexcept{return _has_hash_cache;}
 	void reset_hash_cache()noexcept{_has_hash_cache=false;}
 	hash_t get_hash_cache()noexcept{return _hash_cache;}
-	hash_t set_hash_cache(hash_t value)noexcept{return _hash_cache=value;}
+	hash_t set_hash_cache(hash_t value)noexcept{_has_hash_cache=true;return _hash_cache=value;}
 public:
 	hash_t get_hash(ptr_t&p)noexcept(hash_nothrow){
 		if(has_hash_cache())
