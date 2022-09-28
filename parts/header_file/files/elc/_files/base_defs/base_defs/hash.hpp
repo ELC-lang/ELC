@@ -7,9 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace hash_n{
+	typedef size_t hash_base_t;
 	struct hash_value_t{
-		size_t _value;
-		constexpr size_t operator%(auto&&a)const noexcept{
+		hash_base_t _value;
+		constexpr hash_base_t operator%(auto&&a)const noexcept{
 			return _value%a;
 		}
 		constexpr bool operator==(const hash_value_t&a)const noexcept{
@@ -31,7 +32,7 @@ namespace hash_n{
 		if constexpr(was_not_an_ill_form(the_pointer_hash(a)))
 			return the_pointer_hash(a);
 		else
-			return{size_t(a)};
+			return{hash_base_t(a)};
 	}
 
 	inline struct hash_t{
@@ -40,7 +41,7 @@ namespace hash_n{
 			if constexpr(is_pointer<T>)
 				return noexcept(pointer_hash(declvalue(const T&)));
 			elseif constexpr(is_fundamental_hash<T>)
-				return noexcept(hash_value_t{size_t(declvalue(const T&))});
+				return noexcept(hash_value_t{hash_base_t(declvalue(const T&))});
 			elseif constexpr(is_unstable_hash<T>)
 				return noexcept(unstable_hash_value_t(declvalue(const T&)));
 			elseif constexpr(was_not_an_ill_form(declvalue(const T&).hash()))
@@ -75,7 +76,7 @@ namespace hash_n{
 		static constexpr bool able=able_helper<T>();
 
 		[[nodiscard]]inline constexpr hash_value_t operator()(nothing)const noexcept{
-			return{size_t(nothing)};
+			return{hash_base_t(nothing)};
 		}
 		[[nodiscard]]inline hash_value_t operator()(const base_type_info_t&a)const noexcept{
 			return{a.get_hash()};
@@ -85,7 +86,7 @@ namespace hash_n{
 			if constexpr(is_pointer<T>)
 				return pointer_hash(a);
 			elseif constexpr(is_fundamental_hash<T>)
-				return hash_value_t{size_t(a)};
+				return hash_value_t{hash_base_t(a)};
 			elseif constexpr(is_unstable_hash<T>)
 				return unstable_hash_value_t(a);
 			elseif constexpr(was_not_an_ill_form(declvalue(const T&).hash()))
@@ -98,24 +99,42 @@ namespace hash_n{
 			}
 		}
 		template<class T>
-		[[nodiscard]]constexpr_as_auto inline size_t get_hash_in_size_type(const T&a)const noexcept(nothrow<T>){
+		[[nodiscard]]constexpr_as_auto inline hash_base_t get_hash_in_base_type(const T&a)const noexcept(nothrow<T>){
 			return operator()(a)._value;
 		}
 
 		/*从某个起始点算起的hash*/
 		template<class T>
 		[[nodiscard]]constexpr force_inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
-			size_t aret=before._value;
+			hash_base_t aret=before._value;
 			rot_iterator<decltype(aret)>rotl_offset = before_size+size;
 			while(size--){
-				aret ^= rotl(get_hash_in_size_type(a[size]),rotl_offset);
+				aret ^= rotl(get_hash_in_base_type(a[size]),rotl_offset);
 				rotl_offset--;
 			}
 			return{aret};
 		}
 		/*计算此hash重复N次的数组的hash结果*/
 		[[nodiscard]]constexpr force_inline hash_value_t repeat_times(hash_value_t value,size_t size)const noexcept{
-			size_t aret=0;
+			hash_base_t aret=0;
+			{
+				//优化.
+				//关於此,咱确信咱发现一种美妙的证法来保证这个优化不影响结果,但可惜凋可怜的脑容量不足以让他看懂.
+				constexpr size_t bit_range_max=bitnumof<hash_base_t>;
+				constexpr hash_base_t void_hash{nothing};
+				suppress_msvc_warning(26475)//强制转换警告diss.
+				constexpr hash_base_t npos_hash{hash_base_t(-1)};
+				constexpr size_t bitnumof_void=bit_range_max*BIT_POSSIBILITY;
+
+				size=size%bitnumof_void;
+				if(value._value==0 || size==0)
+					return {void_hash};
+				if(size >= bit_range_max){
+					const bool is_npos = ::std::popcount(value._value)%2;
+					aret = is_npos?npos_hash:void_hash;
+					size-=bit_range_max;
+				}
+			}
 			rot_iterator<decltype(aret)>rotl_offset = size;
 			while(size--){
 				aret ^= rotl(value._value,rotl_offset);
