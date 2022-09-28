@@ -85,6 +85,7 @@ namespace hash_n{
 		}
 		template<class T> requires able<T>
 		[[nodiscard]]constexpr_as_auto inline auto hash(const T&a)const noexcept(nothrow<T>){
+			#undef hash
 			if constexpr(is_pointer<T>)
 				return pointer_hash(a);
 			elseif constexpr(is_fundamental_hash<T>)
@@ -99,6 +100,7 @@ namespace hash_n{
 				template_error("Please overload the function hash in the namespace where this type is defined.");
 				return hash_value_t{};
 			}
+			#define hash operator()
 		}
 		template<class T>
 		[[nodiscard]]constexpr_as_auto inline hash_base_t get_hash_in_base_type(const T&a)const noexcept(nothrow<T>){
