@@ -75,14 +75,16 @@ namespace hash_n{
 		template<class T>
 		static constexpr bool able=able_helper<T>();
 
-		[[nodiscard]]inline constexpr hash_value_t operator()(nothing)const noexcept{
+		#define hash operator()
+
+		[[nodiscard]]inline constexpr hash_value_t hash(nothing)const noexcept{
 			return{hash_base_t(nothing)};
 		}
-		[[nodiscard]]inline hash_value_t operator()(const base_type_info_t&a)const noexcept{
+		[[nodiscard]]inline hash_value_t hash(const base_type_info_t&a)const noexcept{
 			return{a.get_hash()};
 		}
 		template<class T> requires able<T>
-		[[nodiscard]]constexpr_as_auto inline auto operator()(const T&a)const noexcept(nothrow<T>){
+		[[nodiscard]]constexpr_as_auto inline auto hash(const T&a)const noexcept(nothrow<T>){
 			if constexpr(is_pointer<T>)
 				return pointer_hash(a);
 			elseif constexpr(is_fundamental_hash<T>)
@@ -100,7 +102,7 @@ namespace hash_n{
 		}
 		template<class T>
 		[[nodiscard]]constexpr_as_auto inline hash_base_t get_hash_in_base_type(const T&a)const noexcept(nothrow<T>){
-			return operator()(a)._value;
+			return hash(a)._value;
 		}
 
 		/*从某个起始点算起的hash*/
@@ -147,11 +149,11 @@ namespace hash_n{
 		/*计算此hash重复N次的数组的hash结果*/
 		template<class T>
 		[[nodiscard]]constexpr force_inline hash_value_t repeat_times(T&&value,size_t size)const noexcept{
-			return repeat_times(operator()(value),size);
+			return repeat_times(hash(value),size);
 		}
 		template<class T>
-		[[nodiscard]]constexpr inline hash_value_t operator()(const T*a,size_t size)const noexcept(nothrow<const T>){
-			return with_calculated_before(operator()(nothing),0,a,size);
+		[[nodiscard]]constexpr inline hash_value_t hash(const T*a,size_t size)const noexcept(nothrow<const T>){
+			return with_calculated_before(hash(nothing),0,a,size);
 		}
 		/*合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般*/
 		[[nodiscard]]force_inline hash_value_t merge_array_hash_results(
@@ -160,13 +162,16 @@ namespace hash_n{
 			return{before._value^(rotl(after._value,before_size))};
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t operator()(const array_like_view_t<T>a)const noexcept(nothrow<T>){
-			return operator()(a.begin(),a.size());
+		[[nodiscard]]constexpr inline hash_value_t hash(const array_like_view_t<T>a)const noexcept(nothrow<T>){
+			return hash(a.begin(),a.size());
 		}
 		template<class T> requires is_not_signal_value_for_array_like<T>
 		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>a)const noexcept{
 			return with_calculated_before(before,before_size,a.begin(),a.size());
 		}
+
+		#undef hash
+
 	}hash{};
 }
 typedef hash_n::hash_value_t hash_t;
