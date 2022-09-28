@@ -102,7 +102,7 @@ elc依赖的基础函数.
 					count_info::update_memory_using(size);
 				}
 			#endif
-			
+
 			return(byte*)aret;
 		}
 		/*
@@ -141,7 +141,7 @@ elc依赖的基础函数.
 					count_info::update_memory_using(nsize-osize);
 				}
 			#endif
-			
+
 			return(byte*)aret;
 		}
 		/*

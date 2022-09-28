@@ -84,7 +84,7 @@ struct common_package_relay_info_t: public base_package_relay_info_t {
 };
 struct signal_package_relay_info_t: public base_package_relay_info_t {
 	package_info_t package_info;
-	
+
 	signal_package_relay_info_t(package_info_t package_info){
 		this->package_info = package_info;
 	}
@@ -95,7 +95,7 @@ struct signal_package_relay_info_t: public base_package_relay_info_t {
 };
 struct pick_one_package_relay_info_t: public base_package_relay_info_t {
 	vector<base_package_relay_info_ptr> pick_one_list;
-	
+
 	pick_one_package_relay_info_t(vector<base_package_relay_info_ptr> pick_one_list){
 		this->pick_one_list = pick_one_list;
 	}

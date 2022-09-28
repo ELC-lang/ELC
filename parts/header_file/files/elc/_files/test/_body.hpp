@@ -25,7 +25,7 @@ namespace elc{
 		#include "map.hpp"
 		#undef CALL_NAME
 	}
-	
+
 	#include "../_share/_undefs.hpp"
 }
 

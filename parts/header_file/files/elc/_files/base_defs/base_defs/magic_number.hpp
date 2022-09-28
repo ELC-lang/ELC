@@ -310,7 +310,7 @@ namespace magic_number{
 		else
 			return ::std::ceil(v);
 	}
-	
+
 	/*判断某数是否是素数*/
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]inline constexpr bool is_prime_num(T a)

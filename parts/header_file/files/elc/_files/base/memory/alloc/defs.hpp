@@ -15,7 +15,7 @@ namespace alloc_n{
 	//允许自定义对象的alloc/free/realloc/get_size_of_alloc方法：为pool留的后门（大概）
 	//这里是缺省时的默认方法定义
 	#include "default_method/defs.hpp"
-	
+
 	enable_adl(the_alloc_method);
 	template<typename T>
 	inline void*alloc_method(type_info_t<T>)noexcept{
