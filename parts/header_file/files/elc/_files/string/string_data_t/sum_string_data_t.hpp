@@ -24,6 +24,7 @@ struct sum_string_data_t final:base_string_data_t<char_T>,instance_struct<sum_st
 	using base_t::hash_nothrow;
 	using base_t::get_data_nothrow;
 	using base_t::apply_data_nothrow;
+	using base_t::set_hash_cache;
 
 	ptr_t  _before;
 	ptr_t  _after;

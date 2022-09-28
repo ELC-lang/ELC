@@ -23,6 +23,7 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	using base_t::hash_nothrow;
 	using base_t::get_data_nothrow;
 	using base_t::apply_data_nothrow;
+	using base_t::set_hash_cache;
 
 	null_string_data_t()noexcept:base_t(never_ref_num_zero){}
 

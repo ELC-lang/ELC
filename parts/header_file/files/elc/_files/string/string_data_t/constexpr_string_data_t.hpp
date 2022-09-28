@@ -23,6 +23,7 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	using base_t::hash_nothrow;
 	using base_t::get_data_nothrow;
 	using base_t::apply_data_nothrow;
+	using base_t::set_hash_cache;
 
 	const char_T* _m;
 	size_t _size;
@@ -43,7 +44,7 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	constexpr_string_data_t(const constexpr_str_t<char_T>&str)noexcept{
 		_m=str.begin();
 		_size=str.size();
-		base_t::hash_cache=hash(str);
+		set_hash_cache(hash(str));
 		_p_match_pattern=&str.match_pattern;
 		_p_reverse_match_pattern=&str.reverse_match_pattern;
 		match_pattern_by_get=0;

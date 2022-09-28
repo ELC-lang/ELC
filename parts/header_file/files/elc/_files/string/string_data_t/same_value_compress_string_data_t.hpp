@@ -24,6 +24,7 @@ struct same_value_compress_string_data_t final:base_string_data_t<char_T>,instan
 	using base_t::hash_nothrow;
 	using base_t::get_data_nothrow;
 	using base_t::apply_data_nothrow;
+	using base_t::set_hash_cache;
 
 	size_t _size;
 	char_T _value;
