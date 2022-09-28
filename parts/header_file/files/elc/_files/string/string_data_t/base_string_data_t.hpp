@@ -105,7 +105,7 @@ public:
 			return true;
 		//hash_diff->not_equal优化
 		if(this->has_hash_cache()&&with->has_hash_cache())
-			if(this->hash_cache!=with->hash_cache)
+			if(this->get_hash_cache()!=with->get_hash_cache())
 				return false;
 		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
 		//快速比较结束，实际比较段
@@ -315,16 +315,19 @@ public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)=0;
 protected:
-	hash_t hash_cache=hash(-1);
-	bool has_hash_cache()noexcept{return hash_cache!=hash(-1);}
-	void reset_hash_cache()noexcept{hash_cache=hash(-1);}
+	hash_t _hash_cache{};
+	bool _has_hash_cache=false;
+	bool has_hash_cache()noexcept{return _has_hash_cache;}
+	void reset_hash_cache()noexcept{_has_hash_cache=false;}
+	hash_t get_hash_cache()noexcept{return _hash_cache;}
+	hash_t set_hash_cache(hash_t value)noexcept{return _hash_cache=value;}
 public:
 	hash_t get_hash(ptr_t&p)noexcept(hash_nothrow){
 		if(has_hash_cache())
-			return hash_cache;
+			return get_hash_cache();
 		else{
 			const auto tmp=this->get_hash_detail(p);
-			return p->hash_cache=tmp;
+			return p->set_hash_cache(tmp);
 		}
 	}
 protected:
