@@ -100,6 +100,8 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 
 //for float_size_t
 #define float_size_of(...) (float_size_t{sizeof(__VA_ARGS__)})
+//bitnum_of
+#define bitnum_of(...) (bitnumof<__VA_ARGS__>)
 
 //for attribute
 #define def_common_attribute_with_nothing(name) \

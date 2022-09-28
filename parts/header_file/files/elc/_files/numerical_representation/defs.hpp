@@ -95,7 +95,7 @@ public:
 private:
 	//信息尾部分
 	inline size_t get_info_tail_size_per_byte()const noexcept{
-		constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnumof<byte>);
+		constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnum_of(byte));
 		const auto	   info_threshold	   = to_size_t(ceil(log(info_threshold_base, _radix)));
 		return info_threshold;
 	}
@@ -146,7 +146,7 @@ private:
 			}
 			//Information threshold相关声明
 			//这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
-			constinit auto info_threshold_base = pow(BIT_POSSIBILITY,bitnumof<T>);
+			constinit auto info_threshold_base = pow(BIT_POSSIBILITY,bitnum_of(T));
 			auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
 			//浮点数精度浮动，所以需要确定何时开始使用Info threshold
 			bool is_mantissa_begined = false;
