@@ -15,17 +15,6 @@ namespace for_each_n{
 	)noexcept(){
 
 	}
-	template<class T>
-	[[nodiscard]]inline hash_t hash(const T*a,size_t size)noexcept_as(hash(*a)){
-		hash_t aret=0;
-		while(size--)
-			aret=hash(a[size])+aret._value*13;
-		return aret;
-	}
-	template<class T> requires is_not_signal_value_for_array_like<T>
-	[[nodiscard]]inline hash_t hash(array_like_view_t<T>a)noexcept_as(hash(declvalue(T))){
-		return hash(a.begin(),a.size());
-	}
 }
 
 //file_end
