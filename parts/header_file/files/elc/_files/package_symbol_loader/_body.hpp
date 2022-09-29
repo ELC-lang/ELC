@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #if defined(ELC_TEST)
-#error "this part cannot be tested."
+	#error "this part cannot be tested."
 #endif
 //include locale：自然语言相关的字符串
 #include "../../../../../_share/locale/using.hpp"//strings

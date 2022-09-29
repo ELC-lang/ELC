@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #if defined(ELC_TEST)
-#error "this part cannot be tested."
+	#error "this part cannot be tested."
 #endif
 //include APIs：elc中可能根据编译环境而修改的底层函数
 #include "../../../../../_share/APIs/str_code_convert.hpp"
