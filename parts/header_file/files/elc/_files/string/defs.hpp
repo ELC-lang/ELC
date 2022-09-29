@@ -335,8 +335,10 @@ namespace string_n{
 		public:
 			[[nodiscard]]char_T*		operator&()&&noexcept{ return get_address(); }
 			[[nodiscard]]const char_T*	operator&()const&&noexcept{ return get_address(); }
+			/*
 			[[nodiscard]]explicit operator char_T&()&&noexcept{ return *get_address(); }
 			[[nodiscard]]explicit operator const char_T&()const&&noexcept{ return *get_address(); }
+			*/
 		};
 
 		[[nodiscard]]arec_t		  operator[](size_t index)noexcept{ return{this,index}; }
