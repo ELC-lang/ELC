@@ -110,7 +110,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=construct_trivial<T,Args...>;
 
 		template<class...Args> requires able<Args...>
-		[[nodiscard]]T operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+		[[nodiscard]]force_inline T operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			return T(forward<Args>(rest)...);
 		}
 		struct array_construct_t{
@@ -155,7 +155,7 @@ namespace lifetime_n{
 				new(_to)T(forward<Args>(rest)...);
 			}
 			template<class...Args> requires able<Args...>
-			T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
+			force_inline T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 				base_call(forward<Args>(rest)...);
 				return _to;
 			}
@@ -173,9 +173,9 @@ namespace lifetime_n{
 					base_call();
 				return _to;
 			}
-			[[nodiscard]]constexpr array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
+			[[nodiscard]]constexpr force_inline array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
 		};
-		[[nodiscard]]constexpr placement_construct_t operator[](T*p)const noexcept{return{p};}
+		[[nodiscard]]constexpr force_inline placement_construct_t operator[](T*p)const noexcept{return{p};}
 	};
 	/*
 	lifetime_n的一部分
@@ -210,7 +210,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
 
 		template<class T> requires able<T>
-		static void base_call(T*to)noexcept(nothrow<T>){
+		static force_inline void base_call(T*to)noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)
 				if constexpr(::std::is_array_v<T>)
 					for(auto&i : *to)
@@ -229,23 +229,23 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		void operator()(T*begin)const noexcept(nothrow<T>){
+		force_inline void operator()(T*begin)const noexcept(nothrow<T>){
 			base_call(begin);
 		}
 
 		struct array_destruct_t{
 			size_t _size;
 			template<class T> requires able<T>
-			void operator()(T*begin)const noexcept(nothrow<T>){
+			force_inline void operator()(T*begin)const noexcept(nothrow<T>){
 				base_call(begin,_size);
 			}
 		};
 
-		[[nodiscard]]constexpr array_destruct_t operator[](size_t size)const noexcept{return{size};}
+		[[nodiscard]]constexpr force_inline array_destruct_t operator[](size_t size)const noexcept{return{size};}
 
 		struct not_t{};
 		/*适用于unget(this,not destruct);*/
-		not_t operator!()const noexcept{return not_t{};}
+		constexpr force_inline not_t operator!()const noexcept{return not_t{};}
 	}destruct{};
 
 	/*
@@ -270,7 +270,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=destruct.trivial<T>&&construct<T>.trivial<Args...>;
 
 		template<class T> requires able<T>
-		T* operator()(T*to)const noexcept(nothrow<T>){
+		force_inline T* operator()(T*to)const noexcept(nothrow<T>){
 			destruct(to);
 			construct<T>[to]();
 			return to;
@@ -297,10 +297,10 @@ namespace lifetime_n{
 				construct<T>[_to](forward<Args>(rest)...);
 				return _to;
 			}
-			[[nodiscard]]constexpr array_re_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
+			[[nodiscard]]constexpr force_inline array_re_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
 		};
 		template<class T>
-		[[nodiscard]]constexpr placement_re_construct_t<T> operator[](T*p)const noexcept{return{p};}
+		[[nodiscard]]constexpr force_inline placement_re_construct_t<T> operator[](T*p)const noexcept{return{p};}
 	}re_construct;
 
 	constexpr struct copy_construct_t{
@@ -344,28 +344,28 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		T*operator()(T*to,const T*from)const noexcept(nothrow<T>)
+		force_inline T*operator()(T*to,const T*from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
 		template<class T> requires able<T>
-		T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		template<class T> requires able<T>
-		T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 
 		template<class T> requires able<T>
-		T*operator()(T*to,const T*from,size_t size)const noexcept(nothrow<T>)
+		force_inline T*operator()(T*to,const T*from,size_t size)const noexcept(nothrow<T>)
 		{return base_call(to,from,size);}
 
 		template<class T> requires able<T>
-		T*operator()(note::to_t<T*>to,note::from_t<const T*>from,size_t size)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::to_t<T*>to,note::from_t<const T*>from,size_t size)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		template<class T> requires able<T>
-		T*operator()(note::from_t<const T*>from,note::to_t<T*>to,size_t size)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::from_t<const T*>from,note::to_t<T*>to,size_t size)const noexcept(nothrow<T>)
 		{return base_call(to(),from(),size);}
 
 		template<class T> requires able<T>
@@ -392,29 +392,29 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		T*operator()(T*to,const T&from)const noexcept(nothrow<T>)
+		force_inline T*operator()(T*to,const T&from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
 		struct array_copy_construct_t{
 			size_t _size;
 			template<class T> requires able<T>
-			T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
+			force_inline T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(T*to,const T&from)const noexcept(nothrow<T>){
+			force_inline T*operator()(T*to,const T&from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 			template<class T> requires able<T>
-			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]array_copy_construct_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline array_copy_construct_t operator[](size_t a)const noexcept{return{a};}
 	}copy_construct{};
 
 	constexpr struct move_construct_t{
@@ -460,33 +460,33 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		T*operator()(T*to,T*from)const noexcept(nothrow<T>)
+		force_inline T*operator()(T*to,T*from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
 		template<class T> requires able<T>
-		T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		template<class T> requires able<T>
-		T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		struct array_move_construct_t{
 			size_t _size;
 			template<class T> requires able<T>
-			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
+			force_inline T*operator()(T*to,T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 			template<class T> requires able<T>
-			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]array_move_construct_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline array_move_construct_t operator[](size_t a)const noexcept{return{a};}
 	}move_construct{};
 
 	constexpr struct move_t{
@@ -513,33 +513,33 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		T*operator()(T*to,T*from)const noexcept(nothrow<T>)
+		force_inline T*operator()(T*to,T*from)const noexcept(nothrow<T>)
 		{return base_call(to,from);}
 
 		template<class T> requires able<T>
-		T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		template<class T> requires able<T>
-		T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
+		force_inline T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>)
 		{return base_call(to(),from());}
 
 		struct array_move_t{
 			size_t _size;
 			template<class T> requires able<T>
-			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
+			force_inline T*operator()(T*to,T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 			template<class T> requires able<T>
-			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]array_move_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline array_move_t operator[](size_t a)const noexcept{return{a};}
 
 		//特殊使用
 		template<class T>
@@ -602,34 +602,34 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		T& operator()(T&a,const T&b)const noexcept(nothrow<T>){
+		force_inline T& operator()(T&a,const T&b)const noexcept(nothrow<T>){
 			return base_call(a,b);
 		}
 
 		struct array_copy_assign_t{
 			size_t _size;
 			template<class T> requires able<T>
-			T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
+			force_inline T*operator()(T*to,const T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 			template<class T> requires able<T>
-			T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::from_t<const T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 			template<class T> requires able<T>
-			T*operator()(const T&from,note::to_t<T*>to)const noexcept(nothrow<T>){
+			force_inline T*operator()(const T&from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return base_call(to(),from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,const T&from)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::to_t<T*>to,const T&from)const noexcept(nothrow<T>){
 				return base_call(to(),from,_size);
 			}
 		};
-		[[nodiscard]]array_copy_assign_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline array_copy_assign_t operator[](size_t a)const noexcept{return{a};}
 	}copy_assign{};
 
 	constexpr struct move_assign_t{
@@ -663,26 +663,26 @@ namespace lifetime_n{
 		}
 
 		template<class T> requires able<T>
-		T& operator()(T&a,T&b)const noexcept(nothrow<T>){
+		force_inline T& operator()(T&a,T&b)const noexcept(nothrow<T>){
 			return base_call(a,move(b));
 		}
 
 		struct array_move_assign_t{
 			size_t _size;
 			template<class T> requires able<T>
-			T*operator()(T*to,T*from)const noexcept(nothrow<T>){
+			force_inline T*operator()(T*to,T*from)const noexcept(nothrow<T>){
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
-			T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 			template<class T> requires able<T>
-			T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+			force_inline T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]array_move_assign_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline array_move_assign_t operator[](size_t a)const noexcept{return{a};}
 	}move_assign{};
 }
 

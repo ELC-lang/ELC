@@ -84,13 +84,13 @@ namespace alloc_n{
 				return reinterpret_cast<T*>(tmp);
 			}else return null_ptr;
 		}
-		[[nodiscard]]/*static*/T*operator()()const noexcept{return base_call();}
-		[[nodiscard]]/*static*/T*operator()(size_t size)const noexcept{return base_call(size);}
+		[[nodiscard]]/*static*/force_inline T*operator()()const noexcept{return base_call();}
+		[[nodiscard]]/*static*/force_inline T*operator()(size_t size)const noexcept{return base_call(size);}
 		struct alloc_array_t{
 			size_t _size;
-			[[nodiscard]]T*operator()()const noexcept{return base_call(_size);}
+			[[nodiscard]]force_inline T*operator()()const noexcept{return base_call(_size);}
 		};
-		[[nodiscard]]alloc_array_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline alloc_array_t operator[](size_t a)const noexcept{return{a};}
 	};
 	template<class T>
 	constexpr alloc_t<T>alloc{};
@@ -104,7 +104,7 @@ namespace alloc_n{
 				free_method(p);
 		}
 		template<class T>
-		/*static*/void operator()(T*p)const noexcept{base_call(p);}
+		/*static*/force_inline void operator()(T*p)const noexcept{base_call(p);}
 	}free{};
 
 	constexpr struct realloc_t{
@@ -127,15 +127,15 @@ namespace alloc_n{
 			}
 		}
 		template<class T>
-		/*static*/void operator()(T*&ptr,size_t nsize)const noexcept{
+		/*static*/force_inline void operator()(T*&ptr,size_t nsize)const noexcept{
 			base_call(ptr,nsize);
 		}
 		struct realloc_array_t{
 			size_t _size;
 			template<class T>
-			[[nodiscard]]T*operator()(T*&ptr)const noexcept{return base_call(ptr,_size);}
+			[[nodiscard]]force_inline T*operator()(T*&ptr)const noexcept{return base_call(ptr,_size);}
 		};
-		[[nodiscard]]realloc_array_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]constexpr force_inline realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};
 
 	constexpr struct get_size_of_alloc_t{
@@ -153,7 +153,7 @@ namespace alloc_n{
 		}
 
 		template<typename T> requires able<T>
-		size_t operator()(const T*arg)const noexcept(nothrow<T>){
+		force_inline size_t operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}
 	}get_size_of_alloc{};
@@ -171,7 +171,7 @@ namespace alloc_n{
 		}
 
 		template<typename T> requires able<T>
-		T*operator()(const T*arg)const noexcept(nothrow<T>){
+		force_inline T*operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}
 	}copy_alloc{};
