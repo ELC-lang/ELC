@@ -241,15 +241,22 @@ namespace function_n{
 
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-		static ptr_t _func_ptr_data;
-		static Ret_t _func_ptr_value(Args_t...args)noexcept(nothrow){
-			return _func_ptr_data->call(forward<Args_t>(args)...);
+		static thread_local inline base_t::base_t_w* _func_ptr_data_local=nullptr;
+		static inline ::std::atomic<decltype(_func_ptr_data_local)> _func_ptr_data_gobal=nullptr;
+		static Ret_t _func_ptr_value(Args_t...args)noexcept{
+			if(!_func_ptr_data_local)
+				_func_ptr_data_local=_func_ptr_data_gobal.load(::std::memory_order_relaxed);
+			return _func_ptr_data_local->call(forward<Args_t>(args)...);
 		}
 	public:
+		//自当前function对象生成一个函数指针，具有与当前function对象相同的行为
+		//注意：该函数指针的有效性保留到当前线程下一个同类型的函数指针生成时或当前function对象析构时
+		//若自该函数指针创建一个新的线程，该函数指针在新线程中的行为与调用时以前所有线程中最后一个生成的同类型的函数指针行为相同
 		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
 			func_ptr_t a=(func_ptr_t)_m->get_func_ptr();
 			if(a)return a;
-			_func_ptr_data=base_t::_m;
+			_func_ptr_data_local=base_t::_m.get();
+			_func_ptr_data_gobal.store(_func_ptr_data_local,::std::memory_order_relaxed);
 			return _func_ptr_value;
 		}
 	};
@@ -349,15 +356,22 @@ namespace function_n{
 
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-		static base_t::ptr_t _func_ptr_data;
-		static Ret_t _func_ptr_value(Args_t...args){
-			return _func_ptr_data->call(forward<Args_t>(args)...);
+		static thread_local inline base_t::base_t_w* _func_ptr_data_local=nullptr;
+		static inline ::std::atomic<decltype(_func_ptr_data_local)> _func_ptr_data_gobal=nullptr;
+		static Ret_t _func_ptr_value(Args_t...args)noexcept{
+			if(!_func_ptr_data_local)
+				_func_ptr_data_local=_func_ptr_data_gobal.load(::std::memory_order_relaxed);
+			return _func_ptr_data_local->call(forward<Args_t>(args)...);
 		}
 	public:
+		//自当前function对象生成一个函数指针，具有与当前function对象相同的行为
+		//注意：该函数指针的有效性保留到当前线程下一个同类型的函数指针生成时或当前function对象析构时
+		//若自该函数指针创建一个新的线程，该函数指针在新线程中的行为与调用时以前所有线程中最后一个生成的同类型的函数指针行为相同
 		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
 			func_ptr_t a=(func_ptr_t)_m->get_func_ptr();
 			if(a)return a;
-			_func_ptr_data=base_t::_m;
+			_func_ptr_data_local=base_t::_m.get();
+			_func_ptr_data_gobal.store(_func_ptr_data_local,::std::memory_order_relaxed);
 			return _func_ptr_value;
 		}
 	};
@@ -457,15 +471,22 @@ namespace function_n{
 
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).
-		static base_t::ptr_t _func_ptr_data;
+		static thread_local inline base_t::base_t_w* _func_ptr_data_local=nullptr;
+		static inline ::std::atomic<decltype(_func_ptr_data_local)> _func_ptr_data_gobal=nullptr;
 		static Ret_t _func_ptr_value(Args_t...args)noexcept{
-			return _func_ptr_data->call(forward<Args_t>(args)...);
+			if(!_func_ptr_data_local)
+				_func_ptr_data_local=_func_ptr_data_gobal.load(::std::memory_order_relaxed);
+			return _func_ptr_data_local->call(forward<Args_t>(args)...);
 		}
 	public:
+		//自当前function对象生成一个函数指针，具有与当前function对象相同的行为
+		//注意：该函数指针的有效性保留到当前线程下一个同类型的函数指针生成时或当前function对象析构时
+		//若自该函数指针创建一个新的线程，该函数指针在新线程中的行为与调用时以前所有线程中最后一个生成的同类型的函数指针行为相同
 		[[nodiscard]]explicit operator func_ptr_t()const noexcept(promise_nothrow_at_destruct){
 			func_ptr_t a=(func_ptr_t)_m->get_func_ptr();
 			if(a)return a;
-			_func_ptr_data=base_t::_m;
+			_func_ptr_data_local=base_t::_m.get();
+			_func_ptr_data_gobal.store(_func_ptr_data_local,::std::memory_order_relaxed);
 			return _func_ptr_value;
 		}
 	};

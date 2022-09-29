@@ -10,6 +10,7 @@
 	#define ELC_BASE
 	#include "base_defs"//原base的一小部分，但由于过于底层，底层到API定义都需要使用。。
 	#include <cstring>//memcpy、memmove
+	#include <atomic>//atomic
 	#if defined(ELC_TEST_ON)
 		#include <ctime>//time
 	#endif
