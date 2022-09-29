@@ -173,9 +173,9 @@ namespace lifetime_n{
 					base_call();
 				return _to;
 			}
-			[[nodiscard]]constexpr force_inline array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
+			[[nodiscard]]force_inline constexpr array_construct_t operator[](size_t size)const noexcept{return{_to,size};}
 		};
-		[[nodiscard]]constexpr force_inline placement_construct_t operator[](T*p)const noexcept{return{p};}
+		[[nodiscard]]force_inline constexpr placement_construct_t operator[](T*p)const noexcept{return{p};}
 	};
 	/*
 	lifetime_n的一部分
@@ -241,11 +241,11 @@ namespace lifetime_n{
 			}
 		};
 
-		[[nodiscard]]constexpr force_inline array_destruct_t operator[](size_t size)const noexcept{return{size};}
+		[[nodiscard]]force_inline constexpr array_destruct_t operator[](size_t size)const noexcept{return{size};}
 
 		struct not_t{};
 		/*适用于unget(this,not destruct);*/
-		constexpr force_inline not_t operator!()const noexcept{return not_t{};}
+		force_inline constexpr not_t operator!()const noexcept{return not_t{};}
 	}destruct{};
 
 	/*
@@ -297,10 +297,10 @@ namespace lifetime_n{
 				construct<T>[_to](forward<Args>(rest)...);
 				return _to;
 			}
-			[[nodiscard]]constexpr force_inline array_re_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
+			[[nodiscard]]force_inline constexpr array_re_construct_t<T> operator[](size_t size)const noexcept{return{_to,size};}
 		};
 		template<class T>
-		[[nodiscard]]constexpr force_inline placement_re_construct_t<T> operator[](T*p)const noexcept{return{p};}
+		[[nodiscard]]force_inline constexpr placement_re_construct_t<T> operator[](T*p)const noexcept{return{p};}
 	}re_construct;
 
 	constexpr struct copy_construct_t{
@@ -414,7 +414,7 @@ namespace lifetime_n{
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]constexpr force_inline array_copy_construct_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr array_copy_construct_t operator[](size_t a)const noexcept{return{a};}
 	}copy_construct{};
 
 	constexpr struct move_construct_t{
@@ -486,7 +486,7 @@ namespace lifetime_n{
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]constexpr force_inline array_move_construct_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr array_move_construct_t operator[](size_t a)const noexcept{return{a};}
 	}move_construct{};
 
 	constexpr struct move_t{
@@ -539,7 +539,7 @@ namespace lifetime_n{
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]constexpr force_inline array_move_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr array_move_t operator[](size_t a)const noexcept{return{a};}
 
 		//特殊使用
 		template<class T>
@@ -629,7 +629,7 @@ namespace lifetime_n{
 				return base_call(to(),from,_size);
 			}
 		};
-		[[nodiscard]]constexpr force_inline array_copy_assign_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr array_copy_assign_t operator[](size_t a)const noexcept{return{a};}
 	}copy_assign{};
 
 	constexpr struct move_assign_t{
@@ -682,7 +682,7 @@ namespace lifetime_n{
 				return operator()(to(),from());
 			}
 		};
-		[[nodiscard]]constexpr force_inline array_move_assign_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr array_move_assign_t operator[](size_t a)const noexcept{return{a};}
 	}move_assign{};
 }
 

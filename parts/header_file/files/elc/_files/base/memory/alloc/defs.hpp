@@ -90,7 +90,7 @@ namespace alloc_n{
 			size_t _size;
 			[[nodiscard]]force_inline T*operator()()const noexcept{return base_call(_size);}
 		};
-		[[nodiscard]]constexpr force_inline alloc_array_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr alloc_array_t operator[](size_t a)const noexcept{return{a};}
 	};
 	template<class T>
 	constexpr alloc_t<T>alloc{};
@@ -135,7 +135,7 @@ namespace alloc_n{
 			template<class T>
 			[[nodiscard]]force_inline T*operator()(T*&ptr)const noexcept{return base_call(ptr,_size);}
 		};
-		[[nodiscard]]constexpr force_inline realloc_array_t operator[](size_t a)const noexcept{return{a};}
+		[[nodiscard]]force_inline constexpr realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};
 
 	constexpr struct get_size_of_alloc_t{

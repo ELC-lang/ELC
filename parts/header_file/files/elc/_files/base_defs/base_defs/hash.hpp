@@ -109,7 +109,7 @@ namespace hash_n{
 
 		/*从某个起始点算起的hash*/
 		template<class T>
-		[[nodiscard]]constexpr force_inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
+		[[nodiscard]]force_inline constexpr hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
 			hash_base_t aret=before._value;
 			rot_iterator<decltype(aret)>rotl_offset = before_size+size;
 			while(size--){
@@ -119,7 +119,7 @@ namespace hash_n{
 			return{aret};
 		}
 		/*计算此hash重复N次的数组的hash结果*/
-		[[nodiscard]]constexpr force_inline hash_value_t repeat_times(hash_value_t value,size_t size)const noexcept{
+		[[nodiscard]]force_inline constexpr hash_value_t repeat_times(hash_value_t value,size_t size)const noexcept{
 			hash_base_t aret=0;
 			{
 				//优化.
@@ -150,7 +150,7 @@ namespace hash_n{
 		}
 		/*计算此hash重复N次的数组的hash结果*/
 		template<class T>
-		[[nodiscard]]constexpr force_inline hash_value_t repeat_times(T&&value,size_t size)const noexcept{
+		[[nodiscard]]force_inline constexpr hash_value_t repeat_times(T&&value,size_t size)const noexcept{
 			return repeat_times(hash(value),size);
 		}
 		template<class T>
