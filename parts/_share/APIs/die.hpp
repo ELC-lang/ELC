@@ -48,9 +48,12 @@ elc依赖的基础函数.
 				char err_msg_in_char[2048];
 				char* err_msg_write = err_msg_in_char;
 				size_t s;
-				pop_msvc_warning();
 				char_t c;
-				while(c = *(err_msg++)){
+				pop_msvc_warning();
+				floop{
+					c=*err_msg++;
+					if(c==0)
+						break;
 					s = ::std::c32rtomb(err_msg_write, c, &stat);
 					if(s == size_t(-1))
 						die();
