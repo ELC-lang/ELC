@@ -232,6 +232,20 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr bool feq(const T a,const T b)noexcept{
 		return abs(a-b)<=::std::numeric_limits<T>::epsilon();
 	}
+	//sub
+	template<class T1,class T2> requires was_not_an_ill_form(declvalue(T1)-declvalue(T2))
+	[[nodiscard]]force_inline constexpr auto sub(const T1 a,const T2 b)noexcept{
+		if constexpr(::std::is_arithmetic_v<T1>&&::std::is_arithmetic_v<T2>){
+			if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
+				return a-b;
+			else{
+				using signedT = ::std::make_signed_t<::std::common_type_t<T1,T2>>;
+				return static_cast<signedT>(a)-static_cast<signedT>(b);
+			}
+		}
+		else
+			return a-b;
+	}
 	//exp
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<class T> requires ::std::is_floating_point_v<T>
@@ -389,6 +403,26 @@ namespace magic_number{
 		return size_t(get_prime_num_big_or_eq_than(size*gold_of_resize));
 	}
 	pop_msvc_warning();
+
+	//线性插值.
+	namespace linear_interpolation{
+		[[nodiscard]]inline constexpr auto get_k(auto y1,auto y2,auto δx)noexcept{
+			auto δy=sub(y2,y1);
+			auto k=δy/δx;
+			return k;
+		}
+		[[nodiscard]]inline constexpr auto get_k(auto y1,auto y2)noexcept{
+			return get_k(y1,y2,1.0);
+		}
+		[[nodiscard]]inline constexpr auto get_result(auto y1,auto k,auto δx)noexcept{
+			auto diff=k*δx;
+			return y1+diff;
+		}
+		[[nodiscard]]inline constexpr auto get_reverse_result(auto k,auto δx,auto y)noexcept{
+			auto diff=k*δx;
+			return y-diff;
+		}
+	}
 }
 using magic_number::is_negative;
 using magic_number::copy_as_negative;

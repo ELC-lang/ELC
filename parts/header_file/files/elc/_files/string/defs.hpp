@@ -359,6 +359,82 @@ namespace string_n{
 			return *this+=move(ch).operator char_T();
 		}
 
+		//floating arec.
+	private:
+		static constexpr bool floating_arec_result_able=was_not_an_ill_form(
+			magic_number::linear_interpolation::get_result(declvalue(size_t),
+				 magic_number::linear_interpolation::get_k(declvalue(char_T),declvalue(char_T)),
+														   declvalue(float_t))
+		);
+		static auto floating_arec_result_type_helper()noexcept{
+			if constexpr(floating_arec_result_able)
+				return magic_number::linear_interpolation::get_result(size_t{},
+					 magic_number::linear_interpolation::get_k(char_T{},char_T{}),
+															   float_t{});
+		}
+		typedef decltype(floating_arec_result_type_helper()) floating_arec_result_type;
+		static constexpr bool floating_arec_set_able=was_not_an_ill_form(
+			magic_number::linear_interpolation::get_reverse_result(
+				 magic_number::linear_interpolation::get_k(declvalue(char_T),declvalue(char_T)),
+														   declvalue(float_t),declvalue(char_T))
+		);
+	public:
+		static constexpr bool floating_arec_able=floating_arec_result_able||floating_arec_set_able;
+		class floating_arec_t: non_copyable,non_moveable{
+			string_t* _to;
+			float_t	  _index;
+			size_t	  _index_x1;
+			size_t	  _index_x2;
+
+			friend class string_t;
+		public:
+			static constexpr bool result_able=floating_arec_result_able;
+			static constexpr bool set_able=floating_arec_set_able;
+
+			floating_arec_t(string_t* to,float_t index)noexcept:_to(to),_index(index){
+				_index_x1=static_cast<size_t>(index);
+				_index_x2=_index_x1+1;
+			}
+			floating_arec_t(special_init_t,const floating_arec_t&ref)noexcept:_to(ref._to),_index(ref._index){}
+			[[nodiscard]]operator floating_arec_result_type()const&&noexcept requires result_able{
+				char_T y1=_to->arec(_index_x1);
+				char_T y2=_to->arec(_index_x2);
+				auto δx=_index-_index_x1;
+				return magic_number::linear_interpolation::get_result(y1,
+							magic_number::linear_interpolation::get_k(y1,y2),
+														   			  δx);
+			}
+			floating_arec_t&& operator=(floating_arec_result_type a)&&noexcept requires set_able{
+				char_T y1=_to->arec(_index_x1);
+				char_T y2=_to->arec(_index_x2);
+				auto k=magic_number::linear_interpolation::get_k(y1,y2);
+				auto δx1=_index-_index_x1;
+				auto δx2=_index-_index_x2;
+				y1=(char_T)magic_number::linear_interpolation::get_reverse_result(k,δx1,a);
+				y2=(char_T)magic_number::linear_interpolation::get_reverse_result(k,δx2,a);
+				_to->arec_set(_index_x1,y1);
+				_to->arec_set(_index_x2,y2);
+				return move(*this);
+			}
+		};
+		[[nodiscard]]floating_arec_t operator[](float_t index)noexcept requires(floating_arec_able){ return{this,index}; }
+		[[nodiscard]]const floating_arec_t operator[](float_t index)const noexcept requires(floating_arec_able){ return{remove_const(this),index}; }
+
+		//泛型arec.
+		template<typename T> requires ::std::is_arithmetic_v<T>
+		[[nodiscard]]auto operator[](T index)noexcept{
+			if constexpr(::std::is_floating_point_v<T>)
+				return operator[](static_cast<float_t>(index));
+			else
+				return operator[](static_cast<size_t>(index));
+		}
+		template<typename T> requires ::std::is_arithmetic_v<T>
+		[[nodiscard]]const auto operator[](T index)const noexcept{
+			if constexpr(::std::is_floating_point_v<T>)
+				return operator[](static_cast<float_t>(index));
+			else
+				return operator[](static_cast<size_t>(index));
+		}
 
 		[[nodiscard]]string_t substr(size_t begin,size_t size=npos)const noexcept{
 			size=min(size,this->size()-begin);
