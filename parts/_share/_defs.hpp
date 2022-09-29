@@ -128,7 +128,7 @@ class name{}\
 /*默认不参与模板候选*/
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
 /*若参数为病式，那么此模板不会实例化*/
-#define enable_if_not_ill_from(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
+#define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
 /*用于模板声明*/
 #define enable_flag class enable_state
 

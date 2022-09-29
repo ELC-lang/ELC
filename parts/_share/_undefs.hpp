@@ -65,7 +65,7 @@
 #undef enable_if
 #undef enabled_by_default
 #undef disabled_by_default
-#undef enable_if_not_ill_from
+#undef enable_if_not_ill_form
 #undef enable_flag
 
 #undef was_an_ill_form
