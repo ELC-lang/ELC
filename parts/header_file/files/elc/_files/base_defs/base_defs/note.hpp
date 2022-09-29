@@ -11,11 +11,11 @@ namespace note_n{
 	template<typename T>\
 	struct name##_t{\
 		T value;\
-		constexpr name##_t(T a):value(a){}\
+		force_inline constexpr name##_t(T a):value(a){}\
 		template<class U>\
-		constexpr name##_t(name##_t<U>a):value(a.value){}\
-		constexpr operator T(){return value;}\
-		constexpr T operator()(){return value;}\
+		force_inline constexpr name##_t(name##_t<U>a):value(a.value){}\
+		force_inline constexpr operator T(){return value;}\
+		force_inline constexpr T operator()(){return value;}\
 	};\
 	template<typename T>\
 	constexpr name##_t<T>name(T v){return{v};}
