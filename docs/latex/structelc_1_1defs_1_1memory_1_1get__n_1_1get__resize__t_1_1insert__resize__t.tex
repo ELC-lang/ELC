@@ -1,0 +1,77 @@
+\hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t}{}\doxysection{elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+resize\+\_\+t\+::insert\+\_\+resize\+\_\+t结构体 参考}
+\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t}\index{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires (able$<$T$>$ \&\& construct$<$T$>$.able$<$$>$ \&\& copy\+\_\+construct.\+able$<$T$>$)}\\void \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_af3b4ea3fbaaf69d0717fbd7ad3e6f3c1}{operator()}} (T $\ast$\&arg, size\+\_\+t insert\+\_\+pos, size\+\_\+t insert\+\_\+size, const T $\ast$insert\+\_\+data, size\+\_\+t to\+\_\+size) const noexcept(nothrow$<$ T $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_a2ef4c767dbe40fda4ffbe1ef0298f5b9}{able}} =get\+\_\+resize\+\_\+t\+::able$<$T$>$
+\item 
+{\footnotesize template$<$typename T $>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_abd0f8bd404ea1a01f3c47cbc1404c1e6}{nothrow}} =get\+\_\+resize\+\_\+t\+::nothrow$<$T$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07710}{7710}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_af3b4ea3fbaaf69d0717fbd7ad3e6f3c1}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_af3b4ea3fbaaf69d0717fbd7ad3e6f3c1}} 
+\index{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires (able$<$T$>$ \&\& construct$<$T$>$.able$<$$>$ \&\& copy\+\_\+construct.\+able$<$T$>$)\\
+void elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+resize\+\_\+t\+::insert\+\_\+resize\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$\&}]{arg,  }\item[{size\+\_\+t}]{insert\+\_\+pos,  }\item[{size\+\_\+t}]{insert\+\_\+size,  }\item[{const T $\ast$}]{insert\+\_\+data,  }\item[{size\+\_\+t}]{to\+\_\+size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07716}{7716}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{07716                                                                                                                                                      \{}
+\DoxyCodeLine{07717                                 \textcolor{keyword}{const} APIs::alloc::source\_location\_guard slg;}
+\DoxyCodeLine{07718                                 \textcolor{keyword}{auto} end\_grow\_size=alloc\_size\_grow\_with\_insert\_uninitialized\_data(arg,to\_size,insert\_pos,insert\_size);}
+\DoxyCodeLine{07719                                 copy\_construct[insert\_size](note::from(insert\_data),note::to(arg+insert\_pos));}
+\DoxyCodeLine{07720                                 construct<T>[arg+to\_size-\/end\_grow\_size][end\_grow\_size]();}
+\DoxyCodeLine{07721                             \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_a2ef4c767dbe40fda4ffbe1ef0298f5b9}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_a2ef4c767dbe40fda4ffbe1ef0298f5b9}} 
+\index{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}!able@{able}}
+\index{able@{able}!elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}}
+\doxysubsubsection{\texorpdfstring{able}{able}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+resize\+\_\+t\+::insert\+\_\+resize\+\_\+t\+::able =get\+\_\+resize\+\_\+t\+::able$<$T$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07712}{7712}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_abd0f8bd404ea1a01f3c47cbc1404c1e6}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t_abd0f8bd404ea1a01f3c47cbc1404c1e6}} 
+\index{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}!nothrow@{nothrow}}
+\index{nothrow@{nothrow}!elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t@{elc::defs::memory::get\_n::get\_resize\_t::insert\_resize\_t}}
+\doxysubsubsection{\texorpdfstring{nothrow}{nothrow}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+resize\+\_\+t\+::insert\+\_\+resize\+\_\+t\+::nothrow =get\+\_\+resize\+\_\+t\+::nothrow$<$T$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07714}{7714}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,769 @@
+\hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{}\doxysection{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t\texorpdfstring{$<$}{<} char\+\_\+T \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+类 elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t\texorpdfstring{$<$}{<} char\+\_\+T \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.217391cm]{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}
+\end{center}
+\end{figure}
+\doxysubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9c955fd05658010e6ca65343bd32080f}{this\+\_\+t}}
+\item 
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aa52d545b5aed98629b1e775a3eea8efd}{base\+\_\+t}}
+\item 
+typedef comn\+\_\+ptr\+\_\+t$<$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{this\+\_\+t}} $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}{ptr\+\_\+t}}
+\item 
+typedef string\+\_\+view\+\_\+t$<$ char\+\_\+T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9249ad63f84f905260064d15b23b404d}{string\+\_\+view\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_afacd630ddef85be53291e4bc13ae8bab}{clear\+\_\+match\+\_\+pattern}} () noexcept
+\item 
+\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a85a36d731544472192b5342f007dcc6a}{constexpr\+\_\+string\+\_\+data\+\_\+t}} (const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t}{constexpr\+\_\+str\+\_\+t}}$<$ char\+\_\+T $>$ \&str) noexcept
+\item 
+\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a969f3b55d41f7a608b02447d3d7da0de}{constexpr\+\_\+string\+\_\+data\+\_\+t}} (string\+\_\+view\+\_\+t str) noexcept
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a915668dbce894a4f5b1217fae51fbddf}{get\+\_\+substr\+\_\+data}} (size\+\_\+t begin, size\+\_\+t size) noexcept override final
+\item 
+virtual const char\+\_\+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a7736a54c44e14c384679d4a9cc4f4a82}{get\+\_\+data}} (ptr\+\_\+t \&) noexcept(get\+\_\+data\+\_\+nothrow) override final
+\item 
+virtual const char\+\_\+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a42d443d471c5fd86217e44ad82a376c7}{get\+\_\+const\+\_\+c\+\_\+str}} (ptr\+\_\+t \&p) noexcept(get\+\_\+data\+\_\+nothrow) override final
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a83afce0fe5cec9f5e5c96bd12e18a377}{get\+\_\+size}} () noexcept override final
+\item 
+virtual char\+\_\+T \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_adcc6da0d8a2f2230bb335648394a829d}{arec}} (size\+\_\+t index) noexcept(copy\+\_\+construct\+\_\+nothrow \&\&move\+\_\+construct\+\_\+nothrow) override final
+\item 
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aafd91764b6df4616636f705973f7d053}{be\+\_\+replace\+\_\+as}} (ptr\+\_\+t a) noexcept(clear\+\_\+nothrow) override final
+\item 
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_abc84a8c3809e1108f6c7293224b81b31}{arec\+\_\+set}} (size\+\_\+t index, char\+\_\+T a, ptr\+\_\+t \&p) noexcept override final
+\item 
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a586de2b60bc235757c89d6ce69a8f9f5}{same\+\_\+struct}} (ptr\+\_\+t with) noexcept override final
+\item 
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1range__t}{range\+\_\+t}}$<$ const char\+\_\+T $\ast$ $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a135f23ad8fe1efcfaccb448e44551db0}{get\+\_\+the\+\_\+largest\+\_\+complete\+\_\+data\+\_\+block\+\_\+begin\+\_\+form}} (size\+\_\+t begin) noexcept override final
+\item 
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a599ed691d0052bdb26f1a8916f16551a}{same\+\_\+struct\+\_\+equal}} (ptr\+\_\+t with) noexcept(equal.\+nothrow$<$ char\+\_\+T $>$) override final
+\item 
+virtual base\+\_\+t\+::compare\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a839542d4de0e832d72fdc74a56e02cf4}{same\+\_\+struct\+\_\+compare}} (ptr\+\_\+t with) noexcept(compare.\+nothrow$<$ char\+\_\+T $>$) override final
+\item 
+virtual const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern}{range\+\_\+n\+::match\+\_\+pattern}}$<$ const char\+\_\+T $>$ \& \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2182fb49f76ee8a6ee2b330d056418df}{get\+\_\+match\+\_\+pattern\+\_\+from\+\_\+self}} (ptr\+\_\+t \&self) noexcept(copy\+\_\+assign\+\_\+nothrow \&\&move\+\_\+construct\+\_\+nothrow) override final
+\item 
+virtual const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ const char\+\_\+T $>$ \& \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a868ab48f782c4792873bf9a82b11f860}{get\+\_\+reverse\+\_\+match\+\_\+pattern\+\_\+from\+\_\+self}} (ptr\+\_\+t \&self) noexcept(copy\+\_\+assign\+\_\+nothrow \&\&move\+\_\+construct\+\_\+nothrow) override final
+\item 
+\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_acaebf29956bb83c20086734c06fd2954}{set\+\_\+hash\+\_\+cache}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} value) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+const char\+\_\+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2f5c1fcc2ce50eb47a5ed0827e7a25ef}{\+\_\+m}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a5955b0eacbf343b125545b3aaf5fe4a4}{\+\_\+size}}
+\item 
+const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern}{range\+\_\+n\+::match\+\_\+pattern}}$<$ const char\+\_\+T $>$ $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a27656b5c682f9b6cba113c9020e6bdb7}{\+\_\+p\+\_\+match\+\_\+pattern}} = nullptr
+\item 
+const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ const char\+\_\+T $>$ $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a7f695b75bd1af2fc05871dff45ef996e}{\+\_\+p\+\_\+reverse\+\_\+match\+\_\+pattern}} = nullptr
+\item 
+bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_afe1cdda2575288d8ca93744a73143d3b}{match\+\_\+pattern\+\_\+by\+\_\+get}} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2200c7bdb5470f60ef8e45d927c9b15a}{copy\+\_\+assign\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a925a42a1d4fc152cfffbec57e16a79b0}{copy\+\_\+construct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_ac3b9c8a8fef31964704634b62903539e}{move\+\_\+construct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aba4ce812fd44719c42f7a7dcdeaa60cb}{construct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a3ef69917aab5f5787400f52f7725ad12}{destruct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9aa5cc8b259b45a95b3d36379754f02a}{clear\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_ac75a28befed966fb3105b58e5cf4cf04}{ptr\+\_\+reset\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2a356e4276e94d3636427e3d61ee9092}{hash\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a05a11959b21c4bcb3696d92ead4247fc}{get\+\_\+data\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}{apply\+\_\+data\+\_\+nothrow}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a85e0df200f39990393f4218120a1259e}{copy\+\_\+part\+\_\+data\+\_\+to}} (char\+\_\+T $\ast$to, size\+\_\+t pos, size\+\_\+t size) noexcept(copy\+\_\+assign\+\_\+nothrow) override final
+\item 
+virtual float\+\_\+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a674c8e46a3f35dd8772cd506f45d6075}{get\+\_\+base\+\_\+memory\+\_\+cost}} () noexcept override final
+\end{DoxyCompactItemize}
+\doxysubsection*{额外继承的成员函数}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename char\+\_\+T$>$\newline
+struct elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15269}{15269}} 行定义.
+
+
+
+\doxysubsection{成员类型定义说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aa52d545b5aed98629b1e775a3eea8efd}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aa52d545b5aed98629b1e775a3eea8efd}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!base\_t@{base\_t}}
+\index{base\_t@{base\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{base\_t}{base\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{base\+\_\+string\+\_\+data\+\_\+t}}$<$char\+\_\+T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::base\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15271}{15271}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!ptr\_t@{ptr\_t}}
+\index{ptr\_t@{ptr\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{ptr\_t}{ptr\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef comn\+\_\+ptr\+\_\+t$<$\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{this\+\_\+t}}$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::ptr\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14805}{14805}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9249ad63f84f905260064d15b23b404d}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9249ad63f84f905260064d15b23b404d}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!string\_view\_t@{string\_view\_t}}
+\index{string\_view\_t@{string\_view\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{string\_view\_t}{string\_view\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef string\+\_\+view\+\_\+t$<$char\+\_\+T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::string\+\_\+view\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14806}{14806}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9c955fd05658010e6ca65343bd32080f}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9c955fd05658010e6ca65343bd32080f}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!this\_t@{this\_t}}
+\index{this\_t@{this\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{this\_t}{this\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$char\+\_\+T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::this\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15270}{15270}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a85a36d731544472192b5342f007dcc6a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a85a36d731544472192b5342f007dcc6a}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!constexpr\_string\_data\_t@{constexpr\_string\_data\_t}}
+\index{constexpr\_string\_data\_t@{constexpr\_string\_data\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{constexpr\_string\_data\_t()}{constexpr\_string\_data\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::constexpr\+\_\+string\+\_\+data\+\_\+t (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t}{constexpr\+\_\+str\+\_\+t}}$<$ char\+\_\+T $>$ \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15303}{15303}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15303                                                                                               \{}
+\DoxyCodeLine{15304                                 \_m=str.begin();}
+\DoxyCodeLine{15305                                 \_size=str.size();}
+\DoxyCodeLine{15306                                 set\_hash\_cache(hash(str));}
+\DoxyCodeLine{15307                                 \_p\_match\_pattern=\&str.match\_pattern;}
+\DoxyCodeLine{15308                                 \_p\_reverse\_match\_pattern=\&str.reverse\_match\_pattern;}
+\DoxyCodeLine{15309                                 match\_pattern\_by\_get=0;}
+\DoxyCodeLine{15310                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a969f3b55d41f7a608b02447d3d7da0de}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a969f3b55d41f7a608b02447d3d7da0de}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!constexpr\_string\_data\_t@{constexpr\_string\_data\_t}}
+\index{constexpr\_string\_data\_t@{constexpr\_string\_data\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{constexpr\_string\_data\_t()}{constexpr\_string\_data\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::constexpr\+\_\+string\+\_\+data\+\_\+t (\begin{DoxyParamCaption}\item[{string\+\_\+view\+\_\+t}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15311}{15311}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15311                                                                               \{}
+\DoxyCodeLine{15312                                 \_m=str.begin();}
+\DoxyCodeLine{15313                                 \_size=str.size();}
+\DoxyCodeLine{15314                                 \textcolor{keywordflow}{if}(!\_size)}
+\DoxyCodeLine{15315                                     be\_replace\_as(null\_ptr);}
+\DoxyCodeLine{15316                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aa61f3d56fcbbc07b78de3e6fc337405e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aa61f3d56fcbbc07b78de3e6fc337405e}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!````~constexpr\_string\_data\_t@{$\sim$constexpr\_string\_data\_t}}
+\index{````~constexpr\_string\_data\_t@{$\sim$constexpr\_string\_data\_t}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$constexpr\_string\_data\_t()}{~constexpr\_string\_data\_t()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::$\sim$\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{constexpr\+\_\+string\+\_\+data\+\_\+t}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15317}{15317}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15317                                                                                                       \{}
+\DoxyCodeLine{15318                                 clear\_match\_pattern();}
+\DoxyCodeLine{15319                             \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_adcc6da0d8a2f2230bb335648394a829d}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_adcc6da0d8a2f2230bb335648394a829d}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!arec@{arec}}
+\index{arec@{arec}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{arec()}{arec()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual char\+\_\+T \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::arec (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15335}{15335}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15335 \{ \textcolor{keywordflow}{return} \_m[index]; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_abc84a8c3809e1108f6c7293224b81b31}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_abc84a8c3809e1108f6c7293224b81b31}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!arec\_set@{arec\_set}}
+\index{arec\_set@{arec\_set}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{arec\_set()}{arec\_set()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::arec\+\_\+set (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{char\+\_\+T}]{a,  }\item[{ptr\+\_\+t \&}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15338}{15338}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15338 \{base\_t::arec\_set(index,a,p);\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aafd91764b6df4616636f705973f7d053}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aafd91764b6df4616636f705973f7d053}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!be\_replace\_as@{be\_replace\_as}}
+\index{be\_replace\_as@{be\_replace\_as}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{be\_replace\_as()}{be\_replace\_as()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::be\+\_\+replace\+\_\+as (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15337}{15337}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15337 \{base\_t::be\_replace\_as(a);\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_afacd630ddef85be53291e4bc13ae8bab}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_afacd630ddef85be53291e4bc13ae8bab}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!clear\_match\_pattern@{clear\_match\_pattern}}
+\index{clear\_match\_pattern@{clear\_match\_pattern}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{clear\_match\_pattern()}{clear\_match\_pattern()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::clear\+\_\+match\+\_\+pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15294}{15294}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15294                                                               \{}
+\DoxyCodeLine{15295                                 \textcolor{keywordflow}{if}(match\_pattern\_by\_get)\{}
+\DoxyCodeLine{15296                                     unget(remove\_const(\_p\_match\_pattern));}
+\DoxyCodeLine{15297                                     unget(remove\_const(\_p\_reverse\_match\_pattern));}
+\DoxyCodeLine{15298                                     \_p\_match\_pattern = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{15299                                     \_p\_reverse\_match\_pattern = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{15300                                 \}}
+\DoxyCodeLine{15301                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a85e0df200f39990393f4218120a1259e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a85e0df200f39990393f4218120a1259e}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!copy\_part\_data\_to@{copy\_part\_data\_to}}
+\index{copy\_part\_data\_to@{copy\_part\_data\_to}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{copy\_part\_data\_to()}{copy\_part\_data\_to()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::copy\+\_\+part\+\_\+data\+\_\+to (\begin{DoxyParamCaption}\item[{char\+\_\+T $\ast$}]{to,  }\item[{size\+\_\+t}]{pos,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15333}{15333}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15333 \{ copy\_assign[size](note::from(\_m+pos),note::to(to)); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a674c8e46a3f35dd8772cd506f45d6075}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a674c8e46a3f35dd8772cd506f45d6075}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_base\_memory\_cost@{get\_base\_memory\_cost}}
+\index{get\_base\_memory\_cost@{get\_base\_memory\_cost}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_base\_memory\_cost()}{get\_base\_memory\_cost()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual float\+\_\+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+base\+\_\+memory\+\_\+cost (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15357}{15357}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15357                                                                                                            \{}
+\DoxyCodeLine{15358                                 \textcolor{keywordflow}{return} float\_size\_of(*\textcolor{keyword}{this});}
+\DoxyCodeLine{15359                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a42d443d471c5fd86217e44ad82a376c7}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a42d443d471c5fd86217e44ad82a376c7}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_const\_c\_str@{get\_const\_c\_str}}
+\index{get\_const\_c\_str@{get\_const\_c\_str}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_const\_c\_str()}{get\_const\_c\_str()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual const char\+\_\+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+const\+\_\+c\+\_\+str (\begin{DoxyParamCaption}\item[{ptr\+\_\+t \&}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15325}{15325}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15325                                                                                                                                \{}
+\DoxyCodeLine{15326                                 \textcolor{keywordflow}{if}(!\_m[\_size])}
+\DoxyCodeLine{15327                                     \textcolor{keywordflow}{return} \_m;}
+\DoxyCodeLine{15328                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{15329                                     \textcolor{keywordflow}{return} base\_t::get\_const\_c\_str(p);}
+\DoxyCodeLine{15330                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a7736a54c44e14c384679d4a9cc4f4a82}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a7736a54c44e14c384679d4a9cc4f4a82}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_data@{get\_data}}
+\index{get\_data@{get\_data}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_data()}{get\_data()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual const char\+\_\+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+data (\begin{DoxyParamCaption}\item[{ptr\+\_\+t \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15324}{15324}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15324 \{\textcolor{keywordflow}{return} \_m;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2182fb49f76ee8a6ee2b330d056418df}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2182fb49f76ee8a6ee2b330d056418df}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_match\_pattern\_from\_self@{get\_match\_pattern\_from\_self}}
+\index{get\_match\_pattern\_from\_self@{get\_match\_pattern\_from\_self}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_match\_pattern\_from\_self()}{get\_match\_pattern\_from\_self()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern}{range\+\_\+n\+::match\+\_\+pattern}}$<$ const char\+\_\+T $>$ \& \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+match\+\_\+pattern\+\_\+from\+\_\+self (\begin{DoxyParamCaption}\item[{ptr\+\_\+t \&}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15361}{15361}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15361                                                                                                                                                                                                      \{}
+\DoxyCodeLine{15362                                 \textcolor{keywordflow}{if}(!\_p\_match\_pattern)\{}
+\DoxyCodeLine{15363                                     \_p\_match\_pattern=get<range\_n::match\_pattern<const char\_T>>(array\_like\_view\_t\{this-\/>get\_data(self),this-\/>get\_size()\});}
+\DoxyCodeLine{15364                                     match\_pattern\_by\_get = 1;}
+\DoxyCodeLine{15365                                 \}}
+\DoxyCodeLine{15366                                 \textcolor{keywordflow}{return} *\_p\_match\_pattern;}
+\DoxyCodeLine{15367                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a868ab48f782c4792873bf9a82b11f860}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a868ab48f782c4792873bf9a82b11f860}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_reverse\_match\_pattern\_from\_self@{get\_reverse\_match\_pattern\_from\_self}}
+\index{get\_reverse\_match\_pattern\_from\_self@{get\_reverse\_match\_pattern\_from\_self}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_reverse\_match\_pattern\_from\_self()}{get\_reverse\_match\_pattern\_from\_self()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ const char\+\_\+T $>$ \& \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+reverse\+\_\+match\+\_\+pattern\+\_\+from\+\_\+self (\begin{DoxyParamCaption}\item[{ptr\+\_\+t \&}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15368}{15368}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15368                                                                                                                                                                                                                     \{}
+\DoxyCodeLine{15369                                 \textcolor{keywordflow}{if}(!\_p\_reverse\_match\_pattern)\{}
+\DoxyCodeLine{15370                                     \_p\_reverse\_match\_pattern=get<range\_n::reverse\_match\_pattern<const char\_T>>(array\_like\_view\_t\{this-\/>get\_data(self),this-\/>get\_size()\});}
+\DoxyCodeLine{15371                                     match\_pattern\_by\_get = 1;}
+\DoxyCodeLine{15372                                 \}}
+\DoxyCodeLine{15373                                 \textcolor{keywordflow}{return} *\_p\_reverse\_match\_pattern;}
+\DoxyCodeLine{15374                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a83afce0fe5cec9f5e5c96bd12e18a377}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a83afce0fe5cec9f5e5c96bd12e18a377}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_size@{get\_size}}
+\index{get\_size@{get\_size}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_size()}{get\_size()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15331}{15331}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15331 \{ \textcolor{keywordflow}{return} \_size; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a915668dbce894a4f5b1217fae51fbddf}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a915668dbce894a4f5b1217fae51fbddf}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_substr\_data@{get\_substr\_data}}
+\index{get\_substr\_data@{get\_substr\_data}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_substr\_data()}{get\_substr\_data()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+substr\+\_\+data (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15321}{15321}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15321                                                                                                                        \{}
+\DoxyCodeLine{15322                                 \textcolor{keywordflow}{return} get<this\_t>(string\_view\_t\{\_m+begin,size\});}
+\DoxyCodeLine{15323                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a135f23ad8fe1efcfaccb448e44551db0}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a135f23ad8fe1efcfaccb448e44551db0}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_the\_largest\_complete\_data\_block\_begin\_form@{get\_the\_largest\_complete\_data\_block\_begin\_form}}
+\index{get\_the\_largest\_complete\_data\_block\_begin\_form@{get\_the\_largest\_complete\_data\_block\_begin\_form}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_the\_largest\_complete\_data\_block\_begin\_form()}{get\_the\_largest\_complete\_data\_block\_begin\_form()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1range__t}{range\+\_\+t}}$<$ const char\+\_\+T $\ast$ $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+the\+\_\+largest\+\_\+complete\+\_\+data\+\_\+block\+\_\+begin\+\_\+form (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15343}{15343}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15343 \{\textcolor{keywordflow}{return} \{\&\_m[begin],note::size(\_size-\/begin)\};\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a586de2b60bc235757c89d6ce69a8f9f5}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a586de2b60bc235757c89d6ce69a8f9f5}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!same\_struct@{same\_struct}}
+\index{same\_struct@{same\_struct}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{same\_struct()}{same\_struct()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::same\+\_\+struct (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{with }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15340}{15340}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15340                                                                                                     \{}
+\DoxyCodeLine{15341                                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};\textcolor{comment}{//总size被保证一样}}
+\DoxyCodeLine{15342                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a839542d4de0e832d72fdc74a56e02cf4}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a839542d4de0e832d72fdc74a56e02cf4}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!same\_struct\_compare@{same\_struct\_compare}}
+\index{same\_struct\_compare@{same\_struct\_compare}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{same\_struct\_compare()}{same\_struct\_compare()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual base\+\_\+t\+::compare\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::same\+\_\+struct\+\_\+compare (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{with }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15350}{15350}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15350                                                                                                                                                   \{}
+\DoxyCodeLine{15351                                 \textcolor{keyword}{auto} wp=down\_cast<this\_t*>(with.get());}
+\DoxyCodeLine{15352                                 \textcolor{keywordflow}{if}(\_m==wp-\/>\_m)}
+\DoxyCodeLine{15353                                     \textcolor{keywordflow}{return} strong\_ordering::equivalent;}
+\DoxyCodeLine{15354                                 \textcolor{keywordflow}{return} compare(\_m,wp-\/>\_m,\_size);}
+\DoxyCodeLine{15355                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a599ed691d0052bdb26f1a8916f16551a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a599ed691d0052bdb26f1a8916f16551a}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!same\_struct\_equal@{same\_struct\_equal}}
+\index{same\_struct\_equal@{same\_struct\_equal}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{same\_struct\_equal()}{same\_struct\_equal()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::same\+\_\+struct\+\_\+equal (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{with }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15344}{15344}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15344                                                                                                                                 \{}
+\DoxyCodeLine{15345                                 \textcolor{keyword}{auto} wp=down\_cast<this\_t*>(with.get());}
+\DoxyCodeLine{15346                                 \textcolor{keywordflow}{if}(\_m==wp-\/>\_m)}
+\DoxyCodeLine{15347                                     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{15348                                 \textcolor{keywordflow}{return} equal(\_m,wp-\/>\_m,\_size);}
+\DoxyCodeLine{15349                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_acaebf29956bb83c20086734c06fd2954}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_acaebf29956bb83c20086734c06fd2954}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!set\_hash\_cache@{set\_hash\_cache}}
+\index{set\_hash\_cache@{set\_hash\_cache}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_hash\_cache()}{set\_hash\_cache()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::set\+\_\+hash\+\_\+cache (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15115}{15115}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15115 \{\_has\_hash\_cache=\textcolor{keyword}{true};\textcolor{keywordflow}{return} \_hash\_cache=value;\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2f5c1fcc2ce50eb47a5ed0827e7a25ef}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2f5c1fcc2ce50eb47a5ed0827e7a25ef}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!\_m@{\_m}}
+\index{\_m@{\_m}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_m}{\_m}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+const char\+\_\+T$\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+m}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15287}{15287}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a27656b5c682f9b6cba113c9020e6bdb7}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a27656b5c682f9b6cba113c9020e6bdb7}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!\_p\_match\_pattern@{\_p\_match\_pattern}}
+\index{\_p\_match\_pattern@{\_p\_match\_pattern}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_p\_match\_pattern}{\_p\_match\_pattern}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern}{range\+\_\+n\+::match\+\_\+pattern}}$<$const char\+\_\+T$>$$\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+p\+\_\+match\+\_\+pattern = nullptr}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15290}{15290}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a7f695b75bd1af2fc05871dff45ef996e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a7f695b75bd1af2fc05871dff45ef996e}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!\_p\_reverse\_match\_pattern@{\_p\_reverse\_match\_pattern}}
+\index{\_p\_reverse\_match\_pattern@{\_p\_reverse\_match\_pattern}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_p\_reverse\_match\_pattern}{\_p\_reverse\_match\_pattern}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$const char\+\_\+T$>$$\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+p\+\_\+reverse\+\_\+match\+\_\+pattern = nullptr}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15291}{15291}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a5955b0eacbf343b125545b3aaf5fe4a4}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a5955b0eacbf343b125545b3aaf5fe4a4}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!\_size@{\_size}}
+\index{\_size@{\_size}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_size}{\_size}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+size}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15288}{15288}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!apply\_data\_nothrow@{apply\_data\_nothrow}}
+\index{apply\_data\_nothrow@{apply\_data\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_data\_nothrow}{apply\_data\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::apply\+\_\+data\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14819}{14819}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9aa5cc8b259b45a95b3d36379754f02a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a9aa5cc8b259b45a95b3d36379754f02a}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!clear\_nothrow@{clear\_nothrow}}
+\index{clear\_nothrow@{clear\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{clear\_nothrow}{clear\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::clear\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14815}{14815}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aba4ce812fd44719c42f7a7dcdeaa60cb}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_aba4ce812fd44719c42f7a7dcdeaa60cb}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!construct\_nothrow@{construct\_nothrow}}
+\index{construct\_nothrow@{construct\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{construct\_nothrow}{construct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::construct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14813}{14813}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2200c7bdb5470f60ef8e45d927c9b15a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2200c7bdb5470f60ef8e45d927c9b15a}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!copy\_assign\_nothrow@{copy\_assign\_nothrow}}
+\index{copy\_assign\_nothrow@{copy\_assign\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{copy\_assign\_nothrow}{copy\_assign\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::copy\+\_\+assign\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14810}{14810}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a925a42a1d4fc152cfffbec57e16a79b0}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a925a42a1d4fc152cfffbec57e16a79b0}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!copy\_construct\_nothrow@{copy\_construct\_nothrow}}
+\index{copy\_construct\_nothrow@{copy\_construct\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{copy\_construct\_nothrow}{copy\_construct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::copy\+\_\+construct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14811}{14811}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a3ef69917aab5f5787400f52f7725ad12}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a3ef69917aab5f5787400f52f7725ad12}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!destruct\_nothrow@{destruct\_nothrow}}
+\index{destruct\_nothrow@{destruct\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{destruct\_nothrow}{destruct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::destruct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14814}{14814}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a05a11959b21c4bcb3696d92ead4247fc}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a05a11959b21c4bcb3696d92ead4247fc}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!get\_data\_nothrow@{get\_data\_nothrow}}
+\index{get\_data\_nothrow@{get\_data\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_data\_nothrow}{get\_data\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+data\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14818}{14818}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2a356e4276e94d3636427e3d61ee9092}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_a2a356e4276e94d3636427e3d61ee9092}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!hash\_nothrow@{hash\_nothrow}}
+\index{hash\_nothrow@{hash\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{hash\_nothrow}{hash\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::hash\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14817}{14817}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_afe1cdda2575288d8ca93744a73143d3b}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_afe1cdda2575288d8ca93744a73143d3b}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!match\_pattern\_by\_get@{match\_pattern\_by\_get}}
+\index{match\_pattern\_by\_get@{match\_pattern\_by\_get}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{match\_pattern\_by\_get}{match\_pattern\_by\_get}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::constexpr\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::match\+\_\+pattern\+\_\+by\+\_\+get = 0}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15292}{15292}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_ac3b9c8a8fef31964704634b62903539e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_ac3b9c8a8fef31964704634b62903539e}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!move\_construct\_nothrow@{move\_construct\_nothrow}}
+\index{move\_construct\_nothrow@{move\_construct\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{move\_construct\_nothrow}{move\_construct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::move\+\_\+construct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14812}{14812}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_ac75a28befed966fb3105b58e5cf4cf04}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t_ac75a28befed966fb3105b58e5cf4cf04}} 
+\index{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}!ptr\_reset\_nothrow@{ptr\_reset\_nothrow}}
+\index{ptr\_reset\_nothrow@{ptr\_reset\_nothrow}!elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::constexpr\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{ptr\_reset\_nothrow}{ptr\_reset\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::ptr\+\_\+reset\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14816}{14816}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,79 @@
+\hypertarget{structelc_1_1defs_1_1base_1_1invoke__t}{}\doxysection{elc\+::defs\+::base\+::invoke\+\_\+t\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1base_1_1invoke__t}\index{elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class... Args$>$ \newline
+requires able$<$Args...$>$}\\auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1invoke__t_a66c70e0207ab9242e0bc995669830f09}{\+\_\+as}} (Args \&\&...rest) const noexcept(nothrow$<$ Args... $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class... Args$>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1invoke__t_aaff4036146c390b94fd0ab82452daeb8}{able}} = \+::std\+::is\+\_\+invocable\+\_\+v$<$T,Args...$>$
+\item 
+{\footnotesize template$<$class... Args$>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1invoke__t_af688e10c43a4b5bbb6d3492a35aefdc7}{nothrow}} = \+::std\+::is\+\_\+nothrow\+\_\+invocable\+\_\+v$<$T,Args...$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T$>$\newline
+struct elc\+::defs\+::base\+::invoke\+\_\+t$<$ T $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l03273}{3273}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1invoke__t_a66c70e0207ab9242e0bc995669830f09}\label{structelc_1_1defs_1_1base_1_1invoke__t_a66c70e0207ab9242e0bc995669830f09}} 
+\index{elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}!\_as@{\_as}}
+\index{\_as@{\_as}!elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_as()}{\_as()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$class... Args$>$ \newline
+requires able$<$Args...$>$\\
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1invoke__t}{elc\+::defs\+::base\+::invoke\+\_\+t}}$<$ T $>$\+::\+\_\+as (\begin{DoxyParamCaption}\item[{Args \&\&...}]{rest }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l03280}{3280}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03280                                                                                \{\textcolor{comment}{//invoke<T>.\_as(...)}}
+\DoxyCodeLine{03281                             \textcolor{keywordflow}{return} lambda\_with\_catch(rest...)(\textcolor{keyword}{const} T\&a)\textcolor{keyword}{noexcept}(nothrow<Args...>)\{\textcolor{keywordflow}{return} a(forward<Args>(rest)...);\};}
+\DoxyCodeLine{03282                         \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1invoke__t_aaff4036146c390b94fd0ab82452daeb8}\label{structelc_1_1defs_1_1base_1_1invoke__t_aaff4036146c390b94fd0ab82452daeb8}} 
+\index{elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}!able@{able}}
+\index{able@{able}!elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{able}{able}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$class... Args$>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1invoke__t}{elc\+::defs\+::base\+::invoke\+\_\+t}}$<$ T $>$\+::able = \+::std\+::is\+\_\+invocable\+\_\+v$<$T,Args...$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l03275}{3275}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1invoke__t_af688e10c43a4b5bbb6d3492a35aefdc7}\label{structelc_1_1defs_1_1base_1_1invoke__t_af688e10c43a4b5bbb6d3492a35aefdc7}} 
+\index{elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}!nothrow@{nothrow}}
+\index{nothrow@{nothrow}!elc::defs::base::invoke\_t$<$ T $>$@{elc::defs::base::invoke\_t$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{nothrow}{nothrow}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$class... Args$>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1invoke__t}{elc\+::defs\+::base\+::invoke\+\_\+t}}$<$ T $>$\+::nothrow = \+::std\+::is\+\_\+nothrow\+\_\+invocable\+\_\+v$<$T,Args...$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l03277}{3277}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

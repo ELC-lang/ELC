@@ -1,0 +1,304 @@
+\hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t}{}\doxysection{elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t结构体 参考}
+\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t}\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+value \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a93cc5782c73c0dbcbab53b64307359f7}{get\+\_\+symbol\+\_\+type\+\_\+map}} (ptr thenamespace)
+\item 
+ptr \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac77d58a28105a6bc6f4ee593f2dcaa4c}{get\+\_\+symbol\+\_\+namespace}} (const value index)
+\item 
+ptr \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ab7c38d181b5727ec778b7f1d611cc943}{get\+\_\+symbol\+\_\+namespace}} (auto \&\&index)
+\item 
+bool \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ae72727a3d5aac568934642acbc9cd1e2}{has\+\_\+symbol}} (const value index)
+\item 
+bool \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a5e6be143b2c0e4a744f77d45ed54b447}{has\+\_\+symbol}} (auto \&\&index)
+\item 
+value \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_acc554c39ef032608ed7313d0979cd64b}{get\+\_\+symbol}} (const value index)
+\item 
+value \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ad8022076b39adb3ed73ffe06dbbbc394}{get\+\_\+symbol}} (auto \&\&index)
+\item 
+value \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_afe2b5f6d1fe3cdb53ad2f31029b4d240}{get\+\_\+symbol\+\_\+type}} (const value index)
+\item 
+value \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_af7fe51d8822f703a0eeb6dda35ab8ec2}{get\+\_\+symbol\+\_\+type}} (auto \&\&index)
+\item 
+void \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a4a68970b6308e8c8ad2c332e9122f631}{inter\+\_\+namespace}} (const value namespace\+\_\+name)
+\item 
+void \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a5f7e707c7161a3791833c9ff486f3b8b}{inter\+\_\+namespace}} (auto \&\&index)
+\item 
+void \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac71e7d31ce609b88130c7fc0e089de01}{leave\+\_\+namespace}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+ptr \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac1afd0e92c1c58932cbeceff22175f22}{\+\_\+namespace\+\_\+root}}
+\item 
+weak\+\_\+ptr \mbox{\hyperlink{structelc_1_1defs_1_1namespace__n_1_1namespace__t_acfe4348454b3c83ec157d785ca3dcec0}{\+\_\+namespace\+\_\+now}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23305}{23305}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ace260d2875d03bf69aa2b02fa36fe6eb}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ace260d2875d03bf69aa2b02fa36fe6eb}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!namespace\_t@{namespace\_t}}
+\index{namespace\_t@{namespace\_t}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{namespace\_t()}{namespace\_t()}}
+{\footnotesize\ttfamily elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::namespace\+\_\+t (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23311}{23311}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23311                                          \{}
+\DoxyCodeLine{23312                         \_namespace\_root = get<common\_node>();}
+\DoxyCodeLine{23313                         \textcolor{keyword}{auto}\&nmsp       = *\_namespace\_root;}
+\DoxyCodeLine{23314                         \_namespace\_now  = \&nmsp;}
+\DoxyCodeLine{23315                         push\_and\_disable\_msvc\_warning(26447);\textcolor{comment}{//may throw警告diss}}
+\DoxyCodeLine{23316                         nmsp[es\textcolor{stringliteral}{"{}.."{}}]     = the\_void;}
+\DoxyCodeLine{23317                         nmsp[es\textcolor{stringliteral}{"{}."{}}]      = nmsp;}
+\DoxyCodeLine{23318                         nmsp[es\textcolor{stringliteral}{"{}t"{}}]      = t;}
+\DoxyCodeLine{23319                         nmsp[es\textcolor{stringliteral}{"{}nil"{}}]    = nil;}
+\DoxyCodeLine{23320                         nmsp[es\textcolor{stringliteral}{"{}void"{}}]   = the\_void;}
+\DoxyCodeLine{23321                         value nmsptm     = get\_symbol\_type\_map(\&nmsp);}
+\DoxyCodeLine{23322                         nmsptm           = get<common\_node>();}
+\DoxyCodeLine{23323                         nmsptm[es\textcolor{stringliteral}{"{}void"{}}] = es\textcolor{stringliteral}{"{}void"{}};}
+\DoxyCodeLine{23324                         pop\_msvc\_warning();}
+\DoxyCodeLine{23325                     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ad8022076b39adb3ed73ffe06dbbbc394}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ad8022076b39adb3ed73ffe06dbbbc394}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol@{get\_symbol}}
+\index{get\_symbol@{get\_symbol}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol()}{get\_symbol()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily value elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol (\begin{DoxyParamCaption}\item[{auto \&\&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23343}{23343}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23343 \{ \textcolor{keywordflow}{return} get\_symbol(as\_value(index)); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_acc554c39ef032608ed7313d0979cd64b}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_acc554c39ef032608ed7313d0979cd64b}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol@{get\_symbol}}
+\index{get\_symbol@{get\_symbol}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol()}{get\_symbol()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily value elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol (\begin{DoxyParamCaption}\item[{const value}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23340}{23340}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23340                                                        \{}
+\DoxyCodeLine{23341                         \textcolor{keywordflow}{return} (*get\_symbol\_namespace(index))[index];}
+\DoxyCodeLine{23342                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ab7c38d181b5727ec778b7f1d611cc943}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ab7c38d181b5727ec778b7f1d611cc943}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol\_namespace@{get\_symbol\_namespace}}
+\index{get\_symbol\_namespace@{get\_symbol\_namespace}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol\_namespace()}{get\_symbol\_namespace()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ptr elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol\+\_\+namespace (\begin{DoxyParamCaption}\item[{auto \&\&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23332}{23332}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23332 \{ \textcolor{keywordflow}{return} get\_symbol\_namespace(as\_value(index)); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac77d58a28105a6bc6f4ee593f2dcaa4c}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac77d58a28105a6bc6f4ee593f2dcaa4c}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol\_namespace@{get\_symbol\_namespace}}
+\index{get\_symbol\_namespace@{get\_symbol\_namespace}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol\_namespace()}{get\_symbol\_namespace()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ptr elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol\+\_\+namespace (\begin{DoxyParamCaption}\item[{const value}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23326}{23326}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23326                                                                \{}
+\DoxyCodeLine{23327                         ptr namespace\_now\_p = \_namespace\_now;}
+\DoxyCodeLine{23328                         \textcolor{keywordflow}{while}(namespace\_now\_p \&\& !(*namespace\_now\_p)[index] \&\& !get\_symbol\_type\_map(namespace\_now\_p)[index])}
+\DoxyCodeLine{23329                             namespace\_now\_p = (*namespace\_now\_p)[es\textcolor{stringliteral}{"{}.."{}}];}
+\DoxyCodeLine{23330                         \textcolor{keywordflow}{return} namespace\_now\_p;}
+\DoxyCodeLine{23331                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_af7fe51d8822f703a0eeb6dda35ab8ec2}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_af7fe51d8822f703a0eeb6dda35ab8ec2}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol\_type@{get\_symbol\_type}}
+\index{get\_symbol\_type@{get\_symbol\_type}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol\_type()}{get\_symbol\_type()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily value elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol\+\_\+type (\begin{DoxyParamCaption}\item[{auto \&\&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23347}{23347}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23347 \{ \textcolor{keywordflow}{return} get\_symbol\_type(as\_value(index)); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_afe2b5f6d1fe3cdb53ad2f31029b4d240}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_afe2b5f6d1fe3cdb53ad2f31029b4d240}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol\_type@{get\_symbol\_type}}
+\index{get\_symbol\_type@{get\_symbol\_type}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol\_type()}{get\_symbol\_type()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily value elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol\+\_\+type (\begin{DoxyParamCaption}\item[{const value}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23344}{23344}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23344                                                             \{}
+\DoxyCodeLine{23345                         \textcolor{keywordflow}{return} get\_symbol\_type\_map(get\_symbol\_namespace(index))[index];}
+\DoxyCodeLine{23346                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a93cc5782c73c0dbcbab53b64307359f7}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a93cc5782c73c0dbcbab53b64307359f7}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!get\_symbol\_type\_map@{get\_symbol\_type\_map}}
+\index{get\_symbol\_type\_map@{get\_symbol\_type\_map}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{get\_symbol\_type\_map()}{get\_symbol\_type\_map()}}
+{\footnotesize\ttfamily value elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::get\+\_\+symbol\+\_\+type\+\_\+map (\begin{DoxyParamCaption}\item[{ptr}]{thenamespace }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23308}{23308}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23308                                                                \{}
+\DoxyCodeLine{23309                         \textcolor{keywordflow}{return} (*thenamespace)[es\textcolor{stringliteral}{"{}.symbol\_type\_map"{}}];}
+\DoxyCodeLine{23310                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a5e6be143b2c0e4a744f77d45ed54b447}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a5e6be143b2c0e4a744f77d45ed54b447}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!has\_symbol@{has\_symbol}}
+\index{has\_symbol@{has\_symbol}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{has\_symbol()}{has\_symbol()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::has\+\_\+symbol (\begin{DoxyParamCaption}\item[{auto \&\&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23339}{23339}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23339 \{ \textcolor{keywordflow}{return} has\_symbol(as\_value(index)); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ae72727a3d5aac568934642acbc9cd1e2}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ae72727a3d5aac568934642acbc9cd1e2}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!has\_symbol@{has\_symbol}}
+\index{has\_symbol@{has\_symbol}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{has\_symbol()}{has\_symbol()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::has\+\_\+symbol (\begin{DoxyParamCaption}\item[{const value}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23333}{23333}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23333                                                       \{}
+\DoxyCodeLine{23334                         \textcolor{keyword}{auto} nmsp=get\_symbol\_namespace(index);}
+\DoxyCodeLine{23335                         \textcolor{keywordflow}{if}((*nmsp)[index] || get\_symbol\_type\_map(nmsp)[index])}
+\DoxyCodeLine{23336                             \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{23337                         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{23338                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a5f7e707c7161a3791833c9ff486f3b8b}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a5f7e707c7161a3791833c9ff486f3b8b}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!inter\_namespace@{inter\_namespace}}
+\index{inter\_namespace@{inter\_namespace}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{inter\_namespace()}{inter\_namespace()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::inter\+\_\+namespace (\begin{DoxyParamCaption}\item[{auto \&\&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23352}{23352}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23352 \{ inter\_namespace(as\_value(index)); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a4a68970b6308e8c8ad2c332e9122f631}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_a4a68970b6308e8c8ad2c332e9122f631}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!inter\_namespace@{inter\_namespace}}
+\index{inter\_namespace@{inter\_namespace}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{inter\_namespace()}{inter\_namespace()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::inter\+\_\+namespace (\begin{DoxyParamCaption}\item[{const value}]{namespace\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23349}{23349}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23349                                                                     \{}
+\DoxyCodeLine{23350                         \_namespace\_now = get\_symbol(namespace\_name);}
+\DoxyCodeLine{23351                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac71e7d31ce609b88130c7fc0e089de01}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac71e7d31ce609b88130c7fc0e089de01}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!leave\_namespace@{leave\_namespace}}
+\index{leave\_namespace@{leave\_namespace}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{leave\_namespace()}{leave\_namespace()}}
+{\footnotesize\ttfamily void elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::leave\+\_\+namespace (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23354}{23354}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23354 \{ inter\_namespace(es\textcolor{stringliteral}{"{}.."{}}); \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_acfe4348454b3c83ec157d785ca3dcec0}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_acfe4348454b3c83ec157d785ca3dcec0}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!\_namespace\_now@{\_namespace\_now}}
+\index{\_namespace\_now@{\_namespace\_now}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{\_namespace\_now}{\_namespace\_now}}
+{\footnotesize\ttfamily weak\+\_\+ptr elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::\+\_\+namespace\+\_\+now}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23307}{23307}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac1afd0e92c1c58932cbeceff22175f22}\label{structelc_1_1defs_1_1namespace__n_1_1namespace__t_ac1afd0e92c1c58932cbeceff22175f22}} 
+\index{elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}!\_namespace\_root@{\_namespace\_root}}
+\index{\_namespace\_root@{\_namespace\_root}!elc::defs::namespace\_n::namespace\_t@{elc::defs::namespace\_n::namespace\_t}}
+\doxysubsubsection{\texorpdfstring{\_namespace\_root}{\_namespace\_root}}
+{\footnotesize\ttfamily ptr elc\+::defs\+::namespace\+\_\+n\+::namespace\+\_\+t\+::\+\_\+namespace\+\_\+root}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l23306}{23306}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

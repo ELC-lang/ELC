@@ -1,0 +1,216 @@
+\hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{}\doxysection{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_ab85b555b66d09bf590781c9ebc0179d7}{index\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+constexpr void \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a7bfd413452d0a4063f34b2e4b85beb04}{build\+\_\+table}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$pattern) noexcept
+\item 
+constexpr \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a4975e88929225b3b8f868362c78e1bb6}{reverse\+\_\+match\+\_\+pattern}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$pattern) noexcept
+\item 
+constexpr T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a20c601d609c1439901499558fefe45d8}{match}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$range) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr index\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a78c501bda7071d8e2cbeb7f277cc9361}{get\+\_\+index\+\_\+of}} (T \&ch) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a3977888520996a91157c8bd9b25e301a}{\+\_\+pattern}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a27545a81a99780b8d37537daff5461f5}{skip\+\_\+table}} \mbox{[}number\+\_\+of\+\_\+possible\+\_\+values\+\_\+per$<$ index\+\_\+type $>$\mbox{]} \{\}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_aedb38b67b0ba9a3b78c2d2d282115124}{radical\+\_\+skip\+\_\+table}} \mbox{[}number\+\_\+of\+\_\+possible\+\_\+values\+\_\+per$<$ index\+\_\+type $>$\mbox{]} \{\}
+\item 
+index\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a21f303f8f076c7d8553be1e5dec59f22}{pre\+\_\+index\+\_\+table}} \mbox{[}number\+\_\+of\+\_\+possible\+\_\+values\+\_\+per$<$ index\+\_\+type $>$\mbox{]} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T$>$\newline
+struct elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern$<$ T $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02359}{2359}} 行定义.
+
+
+
+\doxysubsection{成员类型定义说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_ab85b555b66d09bf590781c9ebc0179d7}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_ab85b555b66d09bf590781c9ebc0179d7}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!index\_type@{index\_type}}
+\index{index\_type@{index\_type}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{index\_type}{index\_type}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+typedef unsigned char \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::index\+\_\+type}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02361}{2361}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a4975e88929225b3b8f868362c78e1bb6}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a4975e88929225b3b8f868362c78e1bb6}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!reverse\_match\_pattern@{reverse\_match\_pattern}}
+\index{reverse\_match\_pattern@{reverse\_match\_pattern}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{reverse\_match\_pattern()}{reverse\_match\_pattern()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::reverse\+\_\+match\+\_\+pattern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$}]{pattern }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02385}{2385}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02385                                                                                                 :\_pattern(pattern)\{}
+\DoxyCodeLine{02386                                 build\_table(\_pattern);}
+\DoxyCodeLine{02387                             \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a7bfd413452d0a4063f34b2e4b85beb04}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a7bfd413452d0a4063f34b2e4b85beb04}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!build\_table@{build\_table}}
+\index{build\_table@{build\_table}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{build\_table()}{build\_table()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr void \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::build\+\_\+table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$}]{pattern }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02370}{2370}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02370                                                                                            \{}
+\DoxyCodeLine{02371                                 \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} m=pattern.size();}
+\DoxyCodeLine{02372                                 \textcolor{keywordflow}{if}(!m)}
+\DoxyCodeLine{02373                                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{02374                                 \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i=0;i<number\_of\_possible\_values\_per<index\_type>;i++)\{}
+\DoxyCodeLine{02375                                     skip\_table[i]=radical\_skip\_table[i]=m;}
+\DoxyCodeLine{02376                                 \}}
+\DoxyCodeLine{02377                                 skip\_table[get\_index\_of(pattern[m-\/1])]=radical\_skip\_table[get\_index\_of(pattern[m-\/1])]=m-\/1;\textcolor{comment}{//单独处理pattern[m-\/1]的情况}}
+\DoxyCodeLine{02378                                 \textcolor{keywordflow}{for}(ptrdiff\_t i=m-\/2;i>=0;i-\/-\/)\{}
+\DoxyCodeLine{02379                                     index\_type index=get\_index\_of(pattern[i]);\textcolor{comment}{//radical\_skip\_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离}}
+\DoxyCodeLine{02380                                     radical\_skip\_table[index]=skip\_table[index];\textcolor{comment}{//当index在pattern中出现0次或1次时，radical\_skip\_table[index]等于模式串长度m}}
+\DoxyCodeLine{02381                                     skip\_table[index]=i;\textcolor{comment}{//skip数组的定义与BMH算法相同}}
+\DoxyCodeLine{02382                                     pre\_index\_table[index]=get\_index\_of(pattern[i+1]);}
+\DoxyCodeLine{02383                                 \}}
+\DoxyCodeLine{02384                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a78c501bda7071d8e2cbeb7f277cc9361}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a78c501bda7071d8e2cbeb7f277cc9361}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!get\_index\_of@{get\_index\_of}}
+\index{get\_index\_of@{get\_index\_of}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_index\_of()}{get\_index\_of()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+static constexpr index\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::get\+\_\+index\+\_\+of (\begin{DoxyParamCaption}\item[{T \&}]{ch }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02367}{2367}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02367                                                                                   \{}
+\DoxyCodeLine{02368                                 \textcolor{keywordflow}{return} index\_type(hash(ch) \% number\_of\_possible\_values\_per<index\_type>);}
+\DoxyCodeLine{02369                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a20c601d609c1439901499558fefe45d8}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a20c601d609c1439901499558fefe45d8}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!match@{match}}
+\index{match@{match}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{match()}{match()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::match (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ T $>$}]{range }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02388}{2388}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02388                                                                                                     \{}
+\DoxyCodeLine{02389                                 \textcolor{keywordtype}{size\_t} m=\_pattern.size();}
+\DoxyCodeLine{02390                                 \textcolor{keywordflow}{if}(!m)}
+\DoxyCodeLine{02391                                     \textcolor{keywordflow}{return} range.begin();}
+\DoxyCodeLine{02392                                 \textcolor{keywordtype}{size\_t} n= range.size();}
+\DoxyCodeLine{02393                                 ptrdiff\_t i= n-\/m;}
+\DoxyCodeLine{02394                                 \textcolor{keywordflow}{while}(i>=0)\{}
+\DoxyCodeLine{02395                                     \textcolor{keywordtype}{size\_t} k=i;}
+\DoxyCodeLine{02396                                     \textcolor{keywordtype}{size\_t} j=0;\textcolor{comment}{//k记录text中每次从右至左开始比较的起始位置}}
+\DoxyCodeLine{02397                                     \textcolor{keywordflow}{while}((j<=m-\/1)\&\&(\_pattern[j]==range[i]))\{}
+\DoxyCodeLine{02398                                         i++;j++;}
+\DoxyCodeLine{02399                                     \}}
+\DoxyCodeLine{02400                                     \textcolor{keywordflow}{if}(j==m)}
+\DoxyCodeLine{02401                                         \textcolor{keywordflow}{return} addressof(range[k]);\textcolor{comment}{//在range[k]处匹配成功}}
+\DoxyCodeLine{02402                                     index\_type index\_k=get\_index\_of(range[k]);}
+\DoxyCodeLine{02403                                     \textcolor{keywordflow}{if}(get\_index\_of(range[k+1])!=pre\_index\_table[index\_k])}
+\DoxyCodeLine{02404                                         i=k-\/radical\_skip\_table[index\_k];\textcolor{comment}{//采用激进策略移动文本指针}}
+\DoxyCodeLine{02405                                     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{02406                                         i=k-\/skip\_table[index\_k];}
+\DoxyCodeLine{02407                                 \}}
+\DoxyCodeLine{02408                                 \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};\textcolor{comment}{//匹配失败}}
+\DoxyCodeLine{02409                             \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a3977888520996a91157c8bd9b25e301a}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a3977888520996a91157c8bd9b25e301a}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!\_pattern@{\_pattern}}
+\index{\_pattern@{\_pattern}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_pattern}{\_pattern}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::\+\_\+pattern}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02360}{2360}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a21f303f8f076c7d8553be1e5dec59f22}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a21f303f8f076c7d8553be1e5dec59f22}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!pre\_index\_table@{pre\_index\_table}}
+\index{pre\_index\_table@{pre\_index\_table}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{pre\_index\_table}{pre\_index\_table}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+index\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::pre\+\_\+index\+\_\+table\mbox{[}number\+\_\+of\+\_\+possible\+\_\+values\+\_\+per$<$ index\+\_\+type $>$\mbox{]} \{\}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02365}{2365}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_aedb38b67b0ba9a3b78c2d2d282115124}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_aedb38b67b0ba9a3b78c2d2d282115124}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!radical\_skip\_table@{radical\_skip\_table}}
+\index{radical\_skip\_table@{radical\_skip\_table}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{radical\_skip\_table}{radical\_skip\_table}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::radical\+\_\+skip\+\_\+table\mbox{[}number\+\_\+of\+\_\+possible\+\_\+values\+\_\+per$<$ index\+\_\+type $>$\mbox{]} \{\}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02364}{2364}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a27545a81a99780b8d37537daff5461f5}\label{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_a27545a81a99780b8d37537daff5461f5}} 
+\index{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}!skip\_table@{skip\_table}}
+\index{skip\_table@{skip\_table}!elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$@{elc::defs::base::range\_n::reverse\_match\_pattern$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{skip\_table}{skip\_table}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}{elc\+::defs\+::base\+::range\+\_\+n\+::reverse\+\_\+match\+\_\+pattern}}$<$ T $>$\+::skip\+\_\+table\mbox{[}number\+\_\+of\+\_\+possible\+\_\+values\+\_\+per$<$ index\+\_\+type $>$\mbox{]} \{\}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l02363}{2363}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

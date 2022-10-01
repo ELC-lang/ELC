@@ -1,0 +1,103 @@
+\hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t}{}\doxysection{elc\+::defs\+::memory\+::get\+\_\+n\+::copy\+\_\+get\+\_\+t结构体 参考}
+\label{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t}\index{elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires able$<$T$>$}\\T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_aee3ce3a56ee2c6b3960b2e352f5c98d2}{operator()}} (const T $\ast$arg) const noexcept(nothrow$<$ T $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires able$<$T$>$}\\static T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a85a0014514bc14fada309d751fb3c1be}{base\+\_\+call}} (const T $\ast$arg) noexcept(nothrow$<$ T $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a17baca4732f5645fdee7d2f44992f075}{able}} =copy\+\_\+construct.\+able$<$T$>$ $\vert$$\vert$ type\+\_\+info$<$T$>$. template has\+\_\+attribute\+\_\+helper$<$ \mbox{\hyperlink{classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base}{abstract\+\_\+base}} $>$()
+\item 
+{\footnotesize template$<$typename T $>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a3ee450fbc51e01d1071d86823aec71a8}{nothrow}} =copy\+\_\+construct.\+nothrow$<$T$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07819}{7819}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a85a0014514bc14fada309d751fb3c1be}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a85a0014514bc14fada309d751fb3c1be}} 
+\index{elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}!base\_call@{base\_call}}
+\index{base\_call@{base\_call}!elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}}
+\doxysubsubsection{\texorpdfstring{base\_call()}{base\_call()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires able$<$T$>$\\
+static T $\ast$ elc\+::defs\+::memory\+::get\+\_\+n\+::copy\+\_\+get\+\_\+t\+::base\+\_\+call (\begin{DoxyParamCaption}\item[{const T $\ast$}]{arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07826}{7826}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{07826                                                                            \{}
+\DoxyCodeLine{07827                             \textcolor{keyword}{const} APIs::alloc::source\_location\_guard slg\{1\};}
+\DoxyCodeLine{07828                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<T>.has\_attribute(abstract\_base))}
+\DoxyCodeLine{07829                                 \textcolor{keywordflow}{return} remove\_const(attribute\_ptr\_cast<abstract\_base>(arg))-\/>abstract\_method\_copy\_get\_this();}
+\DoxyCodeLine{07830                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{07831                                 \textcolor{keywordflow}{return} copy\_construct(note::from(arg),note::to(copy\_alloc(arg)),get\_size\_of\_get(arg));}
+\DoxyCodeLine{07832                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_aee3ce3a56ee2c6b3960b2e352f5c98d2}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_aee3ce3a56ee2c6b3960b2e352f5c98d2}} 
+\index{elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires able$<$T$>$\\
+T $\ast$ elc\+::defs\+::memory\+::get\+\_\+n\+::copy\+\_\+get\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{const T $\ast$}]{arg }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07835}{7835}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{07835                                                                            \{}
+\DoxyCodeLine{07836                             \textcolor{keywordflow}{return} base\_call(arg);}
+\DoxyCodeLine{07837                         \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a17baca4732f5645fdee7d2f44992f075}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a17baca4732f5645fdee7d2f44992f075}} 
+\index{elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}!able@{able}}
+\index{able@{able}!elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}}
+\doxysubsubsection{\texorpdfstring{able}{able}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool elc\+::defs\+::memory\+::get\+\_\+n\+::copy\+\_\+get\+\_\+t\+::able =copy\+\_\+construct.\+able$<$T$>$ $\vert$$\vert$ type\+\_\+info$<$T$>$. template has\+\_\+attribute\+\_\+helper$<$ \mbox{\hyperlink{classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base}{abstract\+\_\+base}} $>$()\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07821}{7821}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a3ee450fbc51e01d1071d86823aec71a8}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_a3ee450fbc51e01d1071d86823aec71a8}} 
+\index{elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}!nothrow@{nothrow}}
+\index{nothrow@{nothrow}!elc::defs::memory::get\_n::copy\_get\_t@{elc::defs::memory::get\_n::copy\_get\_t}}
+\doxysubsubsection{\texorpdfstring{nothrow}{nothrow}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool elc\+::defs\+::memory\+::get\+\_\+n\+::copy\+\_\+get\+\_\+t\+::nothrow =copy\+\_\+construct.\+nothrow$<$T$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07823}{7823}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

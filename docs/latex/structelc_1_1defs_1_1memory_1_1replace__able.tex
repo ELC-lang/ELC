@@ -1,0 +1,150 @@
+\hypertarget{structelc_1_1defs_1_1memory_1_1replace__able}{}\doxysection{elc\+::defs\+::memory\+::replace\+\_\+able\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1memory_1_1replace__able}\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+类 elc\+::defs\+::memory\+::replace\+\_\+able\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.135135cm]{structelc_1_1defs_1_1memory_1_1replace__able}
+\end{center}
+\end{figure}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able_a9009a39d70132d6f85bc5d68b28d7fa9}{replaced}} () const noexcept
+\item 
+constexpr T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able_ae0b6745b0b47a16639f1140a8fac47ba}{get\+\_\+ptr}} () const noexcept
+\item 
+constexpr void \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able_a2022942b4f2029f3aba78f80cf3c4d68}{be\+\_\+replace\+\_\+as}} (T $\ast$new\+\_\+p) noexcept
+\item 
+constexpr void \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able_a468aee793fab645704bd97bffaceb99a}{be\+\_\+replace\+\_\+as}} (nullptr\+\_\+t) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{额外继承的成员函数}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T$>$\newline
+struct elc\+::defs\+::memory\+::replace\+\_\+able$<$ T $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08636}{8636}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1replace__able_aed9c941007e81758fe50197a04b89da7}\label{structelc_1_1defs_1_1memory_1_1replace__able_aed9c941007e81758fe50197a04b89da7}} 
+\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}!replace\_able@{replace\_able}}
+\index{replace\_able@{replace\_able}!elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{replace\_able()}{replace\_able()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{elc\+::defs\+::memory\+::replace\+\_\+able}}$<$ T $>$\+::replace\+\_\+able (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08640}{8640}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{08640 :\_m(get\_handle(\textcolor{keyword}{this}))\{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1replace__able_a3df6631a8f2066fc6ac1cb1426430ed0}\label{structelc_1_1defs_1_1memory_1_1replace__able_a3df6631a8f2066fc6ac1cb1426430ed0}} 
+\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}!````~replace\_able@{$\sim$replace\_able}}
+\index{````~replace\_able@{$\sim$replace\_able}!elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$replace\_able()}{~replace\_able()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{elc\+::defs\+::memory\+::replace\+\_\+able}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{replace\+\_\+able}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08641}{8641}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{08641                                                      \{}
+\DoxyCodeLine{08642                         \textcolor{keywordflow}{if}(replaced())}
+\DoxyCodeLine{08643                             attribute\_ptr\_cast<ref\_able>(\_m)-\/>cut\_ref();}
+\DoxyCodeLine{08644                     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1replace__able_a468aee793fab645704bd97bffaceb99a}\label{structelc_1_1defs_1_1memory_1_1replace__able_a468aee793fab645704bd97bffaceb99a}} 
+\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}!be\_replace\_as@{be\_replace\_as}}
+\index{be\_replace\_as@{be\_replace\_as}!elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{be\_replace\_as()}{be\_replace\_as()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr void \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{elc\+::defs\+::memory\+::replace\+\_\+able}}$<$ T $>$\+::be\+\_\+replace\+\_\+as (\begin{DoxyParamCaption}\item[{nullptr\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08659}{8659}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{08659 \{be\_replace\_as(null\_ptr);\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1replace__able_a2022942b4f2029f3aba78f80cf3c4d68}\label{structelc_1_1defs_1_1memory_1_1replace__able_a2022942b4f2029f3aba78f80cf3c4d68}} 
+\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}!be\_replace\_as@{be\_replace\_as}}
+\index{be\_replace\_as@{be\_replace\_as}!elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{be\_replace\_as()}{be\_replace\_as()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr void \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{elc\+::defs\+::memory\+::replace\+\_\+able}}$<$ T $>$\+::be\+\_\+replace\+\_\+as (\begin{DoxyParamCaption}\item[{T $\ast$}]{new\+\_\+p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08652}{8652}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{08652                                                                  \{}
+\DoxyCodeLine{08653                         \textcolor{keywordflow}{if}(replaced())}
+\DoxyCodeLine{08654                             attribute\_ptr\_cast<ref\_able>(\_m)-\/>cut\_ref();}
+\DoxyCodeLine{08655                         \_m=new\_p;}
+\DoxyCodeLine{08656                         \textcolor{keywordflow}{if}(replaced())}
+\DoxyCodeLine{08657                             attribute\_ptr\_cast<ref\_able>(\_m)-\/>add\_ref();}
+\DoxyCodeLine{08658                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1replace__able_ae0b6745b0b47a16639f1140a8fac47ba}\label{structelc_1_1defs_1_1memory_1_1replace__able_ae0b6745b0b47a16639f1140a8fac47ba}} 
+\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}!get\_ptr@{get\_ptr}}
+\index{get\_ptr@{get\_ptr}!elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_ptr()}{get\_ptr()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{elc\+::defs\+::memory\+::replace\+\_\+able}}$<$ T $>$\+::get\+\_\+ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08646}{8646}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{08646                                                        \{}
+\DoxyCodeLine{08647                         \textcolor{keywordflow}{if}(!replaced())}
+\DoxyCodeLine{08648                             \textcolor{keywordflow}{return} \_m;}
+\DoxyCodeLine{08649                         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{08650                             \textcolor{keywordflow}{return} attribute\_ptr\_cast<replace\_able>(\_m)-\/>get\_ptr();}
+\DoxyCodeLine{08651                     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1replace__able_a9009a39d70132d6f85bc5d68b28d7fa9}\label{structelc_1_1defs_1_1memory_1_1replace__able_a9009a39d70132d6f85bc5d68b28d7fa9}} 
+\index{elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}!replaced@{replaced}}
+\index{replaced@{replaced}!elc::defs::memory::replace\_able$<$ T $>$@{elc::defs::memory::replace\_able$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{replaced()}{replaced()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1replace__able}{elc\+::defs\+::memory\+::replace\+\_\+able}}$<$ T $>$\+::replaced (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l08645}{8645}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{08645 \{\textcolor{keywordflow}{return} \_m!=get\_handle(\textcolor{keyword}{this});\}}
+
+\end{DoxyCode}
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

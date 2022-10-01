@@ -1,0 +1,924 @@
+\hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{}\doxysection{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t\texorpdfstring{$<$}{<} char\+\_\+T \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+类 elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t\texorpdfstring{$<$}{<} char\+\_\+T \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.217391cm]{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}
+\end{center}
+\end{figure}
+\doxysubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3130a200bad96e2ef723ed35f1b12b51}{this\+\_\+t}}
+\item 
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af88cfbefa522dcbb8dcccbf512193702}{base\+\_\+t}}
+\item 
+typedef comn\+\_\+ptr\+\_\+t$<$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{this\+\_\+t}} $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}{ptr\+\_\+t}}
+\item 
+typedef string\+\_\+view\+\_\+t$<$ char\+\_\+T $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a9249ad63f84f905260064d15b23b404d}{string\+\_\+view\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a17702f42669b13f000bfc45ee4d200ae}{sum\+\_\+string\+\_\+data\+\_\+t}} (ptr\+\_\+t before, ptr\+\_\+t after) noexcept
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af9a8308adb68a18b73a767b44cdffde5}{get\+\_\+substr\+\_\+data}} (size\+\_\+t begin, size\+\_\+t size) noexcept override final
+\item 
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6b889800779e81f23ec5b2ae67db5b50}{be\+\_\+replace\+\_\+as}} (ptr\+\_\+t a) noexcept(clear\+\_\+nothrow) override final
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ade919b013a096e4d7347e5c35ee95a1e}{get\+\_\+size}} () noexcept override final
+\item 
+virtual char\+\_\+T \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a1283b42d1af03055d3b2e20ada0bb931}{arec}} (size\+\_\+t index) noexcept(copy\+\_\+construct\+\_\+nothrow \&\&move\+\_\+construct\+\_\+nothrow) override final
+\item 
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ade6f8af9527480bef903a0b60d1bcb35}{arec\+\_\+set}} (size\+\_\+t index, char\+\_\+T a, ptr\+\_\+t \&p) noexcept(copy\+\_\+assign\+\_\+nothrow \&\&move\+\_\+construct\+\_\+nothrow) override final
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6b222ea316a6f833627fd1e133385f20}{apply\+\_\+str\+\_\+to\+\_\+begin}} (string\+\_\+view\+\_\+t str) noexcept(copy\+\_\+construct\+\_\+nothrow \&\&apply\+\_\+data\+\_\+nothrow) override final
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aa108ce3d80c778db4adf7ba470ca1477}{apply\+\_\+str\+\_\+to\+\_\+begin}} (ptr\+\_\+t str) noexcept(apply\+\_\+data\+\_\+nothrow) override final
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a03ca3bd1f1c1f74ec9eb5038123e0a21}{apply\+\_\+str\+\_\+to\+\_\+end}} (string\+\_\+view\+\_\+t str) noexcept(copy\+\_\+construct\+\_\+nothrow \&\&apply\+\_\+data\+\_\+nothrow) override final
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3f17a6390b9062aca396f8c9709791e3}{apply\+\_\+str\+\_\+to\+\_\+end}} (ptr\+\_\+t str) noexcept(apply\+\_\+data\+\_\+nothrow) override final
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6a88dd80c04598de80af5e16a437ab6d}{do\+\_\+pop\+\_\+front}} (size\+\_\+t size, ptr\+\_\+t \&self) noexcept(construct\+\_\+nothrow \&\&copy\+\_\+assign\+\_\+nothrow) override final
+\item 
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a1651316c2f4907c0a5b23459afeb7b5c}{do\+\_\+pop\+\_\+back}} (size\+\_\+t size, ptr\+\_\+t \&self) noexcept(construct\+\_\+nothrow \&\&copy\+\_\+assign\+\_\+nothrow) override final
+\item 
+void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a62865e7b3d202fdfbca6fbe36379a4cc}{self\+\_\+changed}} () noexcept
+\item 
+\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_acaebf29956bb83c20086734c06fd2954}{set\+\_\+hash\+\_\+cache}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} value) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af0ed1d9d6686c65ff1794abe29b0ee01}{\+\_\+before}}
+\item 
+ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ab84de1c9616dfe5239d0c61641e77dcf}{\+\_\+after}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2d0682ba30b0bfc9b5d4b70c15780424}{\+\_\+before\+\_\+size}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ad9f0bf17131f05f177a0060218e61f0f}{\+\_\+after\+\_\+size}}
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2200c7bdb5470f60ef8e45d927c9b15a}{copy\+\_\+assign\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a925a42a1d4fc152cfffbec57e16a79b0}{copy\+\_\+construct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ac3b9c8a8fef31964704634b62903539e}{move\+\_\+construct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aba4ce812fd44719c42f7a7dcdeaa60cb}{construct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3ef69917aab5f5787400f52f7725ad12}{destruct\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a9aa5cc8b259b45a95b3d36379754f02a}{clear\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ac75a28befed966fb3105b58e5cf4cf04}{ptr\+\_\+reset\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2a356e4276e94d3636427e3d61ee9092}{hash\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a05a11959b21c4bcb3696d92ead4247fc}{get\+\_\+data\+\_\+nothrow}}
+\item 
+static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}{apply\+\_\+data\+\_\+nothrow}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ae21303edf53c117bf56b9ed1377ba930}{copy\+\_\+part\+\_\+data\+\_\+to}} (char\+\_\+T $\ast$to, size\+\_\+t pos, size\+\_\+t size) noexcept(copy\+\_\+assign\+\_\+nothrow) override final
+\item 
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a850e94b1ddbfc7c56fe312b37c4b814e}{get\+\_\+hash\+\_\+detail}} (ptr\+\_\+t \&) noexcept(hash\+\_\+nothrow) override final
+\item 
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a50aad7efc72a06e06ad6006039b95758}{get\+\_\+others\+\_\+hash\+\_\+with\+\_\+calculated\+\_\+before\+\_\+detail}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} before, size\+\_\+t before\+\_\+size, ptr\+\_\+t \&, size\+\_\+t pos, size\+\_\+t size) noexcept(hash\+\_\+nothrow) override final
+\item 
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a616a30e7d1f434b217b29984f872d0f7}{same\+\_\+struct}} (ptr\+\_\+t with) noexcept override final
+\item 
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1range__t}{range\+\_\+t}}$<$ const char\+\_\+T $\ast$ $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_acb5efb238ecfebabcd608326d2378262}{get\+\_\+the\+\_\+largest\+\_\+complete\+\_\+data\+\_\+block\+\_\+begin\+\_\+form}} (size\+\_\+t begin) noexcept override final
+\item 
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a93586e0e82fa5f40286eeb845041f9eb}{same\+\_\+struct\+\_\+equal}} (ptr\+\_\+t with) noexcept(equal.\+nothrow$<$ char\+\_\+T $>$) override final
+\item 
+virtual base\+\_\+t\+::compare\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aa88379e41e0a94a4bb60fc1df1b6c743}{same\+\_\+struct\+\_\+compare}} (ptr\+\_\+t with) noexcept(compare.\+nothrow$<$ char\+\_\+T $>$) override final
+\item 
+virtual float\+\_\+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_adbb20c65abe5afdcb02d10fcad66b1e3}{get\+\_\+base\+\_\+memory\+\_\+cost}} () noexcept override final
+\end{DoxyCompactItemize}
+\doxysubsection*{额外继承的成员函数}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename char\+\_\+T$>$\newline
+struct elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16268}{16268}} 行定义.
+
+
+
+\doxysubsection{成员类型定义说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af88cfbefa522dcbb8dcccbf512193702}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af88cfbefa522dcbb8dcccbf512193702}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!base\_t@{base\_t}}
+\index{base\_t@{base\_t}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{base\_t}{base\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{base\+\_\+string\+\_\+data\+\_\+t}}$<$char\+\_\+T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::base\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16270}{16270}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!ptr\_t@{ptr\_t}}
+\index{ptr\_t@{ptr\_t}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{ptr\_t}{ptr\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef comn\+\_\+ptr\+\_\+t$<$\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{this\+\_\+t}}$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::ptr\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14805}{14805}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a9249ad63f84f905260064d15b23b404d}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a9249ad63f84f905260064d15b23b404d}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!string\_view\_t@{string\_view\_t}}
+\index{string\_view\_t@{string\_view\_t}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{string\_view\_t}{string\_view\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef string\+\_\+view\+\_\+t$<$char\+\_\+T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::string\+\_\+view\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14806}{14806}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3130a200bad96e2ef723ed35f1b12b51}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3130a200bad96e2ef723ed35f1b12b51}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!this\_t@{this\_t}}
+\index{this\_t@{this\_t}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{this\_t}{this\_t}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{sum\+\_\+string\+\_\+data\+\_\+t}}$<$char\+\_\+T$>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::this\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16269}{16269}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a17702f42669b13f000bfc45ee4d200ae}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a17702f42669b13f000bfc45ee4d200ae}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!sum\_string\_data\_t@{sum\_string\_data\_t}}
+\index{sum\_string\_data\_t@{sum\_string\_data\_t}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{sum\_string\_data\_t()}{sum\_string\_data\_t()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+\mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::sum\+\_\+string\+\_\+data\+\_\+t (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{before,  }\item[{ptr\+\_\+t}]{after }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16292}{16292}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16292                                                                                :\_before(before),\_after(after),\_before\_size(\_before-\/>get\_size()),\_after\_size(\_after-\/>get\_size())\{}
+\DoxyCodeLine{16293                                 \textcolor{keywordflow}{if}(!\_before\_size)}
+\DoxyCodeLine{16294                                     be\_replace\_as(\_after);}
+\DoxyCodeLine{16295                                 elseif(!\_after\_size)}
+\DoxyCodeLine{16296                                     be\_replace\_as(\_before);}
+\DoxyCodeLine{16297                             \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aa108ce3d80c778db4adf7ba470ca1477}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aa108ce3d80c778db4adf7ba470ca1477}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!apply\_str\_to\_begin@{apply\_str\_to\_begin}}
+\index{apply\_str\_to\_begin@{apply\_str\_to\_begin}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_str\_to\_begin()}{apply\_str\_to\_begin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::apply\+\_\+str\+\_\+to\+\_\+begin (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16366}{16366}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16366                                                                                                                               \{}
+\DoxyCodeLine{16367                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
+\DoxyCodeLine{16368                                     \_before=\_before-\/>apply\_str\_to\_begin(str);}
+\DoxyCodeLine{16369                                     \_before\_size+=str-\/>get\_size();}
+\DoxyCodeLine{16370                                     self\_changed();}
+\DoxyCodeLine{16371                                     \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
+\DoxyCodeLine{16372                                 \}}
+\DoxyCodeLine{16373                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16374                                     \textcolor{keywordflow}{return} base\_t::apply\_str\_to\_begin(str);}
+\DoxyCodeLine{16375                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6b222ea316a6f833627fd1e133385f20}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6b222ea316a6f833627fd1e133385f20}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!apply\_str\_to\_begin@{apply\_str\_to\_begin}}
+\index{apply\_str\_to\_begin@{apply\_str\_to\_begin}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_str\_to\_begin()}{apply\_str\_to\_begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::apply\+\_\+str\+\_\+to\+\_\+begin (\begin{DoxyParamCaption}\item[{string\+\_\+view\+\_\+t}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16356}{16356}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16356                                                                                                                                                               \{}
+\DoxyCodeLine{16357                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
+\DoxyCodeLine{16358                                     \_before=\_before-\/>apply\_str\_to\_begin(str);}
+\DoxyCodeLine{16359                                     \_before\_size+=str.size();}
+\DoxyCodeLine{16360                                     self\_changed();}
+\DoxyCodeLine{16361                                     \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
+\DoxyCodeLine{16362                                 \}}
+\DoxyCodeLine{16363                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16364                                     \textcolor{keywordflow}{return} base\_t::apply\_str\_to\_begin(str);}
+\DoxyCodeLine{16365                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3f17a6390b9062aca396f8c9709791e3}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3f17a6390b9062aca396f8c9709791e3}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!apply\_str\_to\_end@{apply\_str\_to\_end}}
+\index{apply\_str\_to\_end@{apply\_str\_to\_end}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_str\_to\_end()}{apply\_str\_to\_end()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::apply\+\_\+str\+\_\+to\+\_\+end (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16386}{16386}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16386                                                                                                                             \{}
+\DoxyCodeLine{16387                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
+\DoxyCodeLine{16388                                     \_after=\_after-\/>apply\_str\_to\_end(str);}
+\DoxyCodeLine{16389                                     \_after\_size+=str-\/>get\_size();}
+\DoxyCodeLine{16390                                     self\_changed();}
+\DoxyCodeLine{16391                                     \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
+\DoxyCodeLine{16392                                 \}}
+\DoxyCodeLine{16393                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16394                                     \textcolor{keywordflow}{return} base\_t::apply\_str\_to\_end(str);}
+\DoxyCodeLine{16395                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a03ca3bd1f1c1f74ec9eb5038123e0a21}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a03ca3bd1f1c1f74ec9eb5038123e0a21}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!apply\_str\_to\_end@{apply\_str\_to\_end}}
+\index{apply\_str\_to\_end@{apply\_str\_to\_end}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_str\_to\_end()}{apply\_str\_to\_end()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::apply\+\_\+str\+\_\+to\+\_\+end (\begin{DoxyParamCaption}\item[{string\+\_\+view\+\_\+t}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16376}{16376}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16376                                                                                                                                                             \{}
+\DoxyCodeLine{16377                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
+\DoxyCodeLine{16378                                     \_after=\_after-\/>apply\_str\_to\_end(str);}
+\DoxyCodeLine{16379                                     \_after\_size+=str.size();}
+\DoxyCodeLine{16380                                     self\_changed();}
+\DoxyCodeLine{16381                                     \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
+\DoxyCodeLine{16382                                 \}}
+\DoxyCodeLine{16383                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16384                                     \textcolor{keywordflow}{return} base\_t::apply\_str\_to\_end(str);}
+\DoxyCodeLine{16385                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a1283b42d1af03055d3b2e20ada0bb931}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a1283b42d1af03055d3b2e20ada0bb931}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!arec@{arec}}
+\index{arec@{arec}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{arec()}{arec()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual char\+\_\+T \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::arec (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16339}{16339}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16339                                                                                                                                                 \{}
+\DoxyCodeLine{16340                                 \textcolor{keywordflow}{if}(index<\_before\_size)}
+\DoxyCodeLine{16341                                     \textcolor{keywordflow}{return} \_before-\/>arec(index);}
+\DoxyCodeLine{16342                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16343                                     \textcolor{keywordflow}{return} \_after-\/>arec(index-\/\_before\_size);}
+\DoxyCodeLine{16344                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ade6f8af9527480bef903a0b60d1bcb35}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ade6f8af9527480bef903a0b60d1bcb35}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!arec\_set@{arec\_set}}
+\index{arec\_set@{arec\_set}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{arec\_set()}{arec\_set()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::arec\+\_\+set (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{char\+\_\+T}]{a,  }\item[{ptr\+\_\+t \&}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16345}{16345}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16345                                                                                                                                                     \{}
+\DoxyCodeLine{16346                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
+\DoxyCodeLine{16347                                     \textcolor{keywordflow}{if}(index<\_before\_size)}
+\DoxyCodeLine{16348                                         \_before-\/>arec\_set(index,a,\_before);}
+\DoxyCodeLine{16349                                     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16350                                         \_after-\/>arec\_set(index-\/\_before\_size,a,\_after);}
+\DoxyCodeLine{16351                                     self\_changed();}
+\DoxyCodeLine{16352                                 \}}
+\DoxyCodeLine{16353                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16354                                     base\_t::arec\_set(index,a,p);}
+\DoxyCodeLine{16355                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6b889800779e81f23ec5b2ae67db5b50}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6b889800779e81f23ec5b2ae67db5b50}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!be\_replace\_as@{be\_replace\_as}}
+\index{be\_replace\_as@{be\_replace\_as}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{be\_replace\_as()}{be\_replace\_as()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::be\+\_\+replace\+\_\+as (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16307}{16307}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16307                                                                                                     \{}
+\DoxyCodeLine{16308                                 \textcolor{keywordflow}{if}(type\_info<this\_t> == \textcolor{keyword}{typeid}(*a))\{}
+\DoxyCodeLine{16309                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} p = down\_cast<this\_t*>(a.get());}
+\DoxyCodeLine{16310                                     \textcolor{keywordflow}{if}(\_before\_size==p-\/>\_before\_size)\{}
+\DoxyCodeLine{16311                                         \textcolor{keywordflow}{if}(\_before!=p-\/>\_before)}
+\DoxyCodeLine{16312                                             base\_t::equivalent\_optimization(\_before, p-\/>\_before);}
+\DoxyCodeLine{16313                                         \textcolor{keywordflow}{if}(\_after!=p-\/>\_after)}
+\DoxyCodeLine{16314                                             base\_t::equivalent\_optimization(\_after, p-\/>\_after);}
+\DoxyCodeLine{16315                                     \}}
+\DoxyCodeLine{16316                                 \}}
+\DoxyCodeLine{16317                                 \_before.reset();}
+\DoxyCodeLine{16318                                 \_after.reset();}
+\DoxyCodeLine{16319                                 base\_t::be\_replace\_as(a);}
+\DoxyCodeLine{16320                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ae21303edf53c117bf56b9ed1377ba930}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ae21303edf53c117bf56b9ed1377ba930}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!copy\_part\_data\_to@{copy\_part\_data\_to}}
+\index{copy\_part\_data\_to@{copy\_part\_data\_to}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{copy\_part\_data\_to()}{copy\_part\_data\_to()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::copy\+\_\+part\+\_\+data\+\_\+to (\begin{DoxyParamCaption}\item[{char\+\_\+T $\ast$}]{to,  }\item[{size\+\_\+t}]{pos,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16323}{16323}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16323                                                                                                                                         \{}
+\DoxyCodeLine{16324                                 \textcolor{keywordflow}{if}(pos<\_before\_size)\{}
+\DoxyCodeLine{16325                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} copy\_before\_begin=pos;}
+\DoxyCodeLine{16326                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} copy\_before\_end=min(pos+size,\_before\_size);}
+\DoxyCodeLine{16327                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} copy\_before\_size=copy\_before\_end-\/copy\_before\_begin;}
+\DoxyCodeLine{16328                                     \_before-\/>copy\_part\_data\_to(to,copy\_before\_begin,copy\_before\_size);}
+\DoxyCodeLine{16329                                     \textcolor{keywordflow}{if}(size!=copy\_before\_size)\{}
+\DoxyCodeLine{16330                                         \textcolor{keyword}{const} \textcolor{keyword}{auto} copy\_after\_size=size-\/copy\_before\_size;}
+\DoxyCodeLine{16331                                         to+=copy\_before\_size;}
+\DoxyCodeLine{16332                                         \_after-\/>copy\_part\_data\_to(to,0,copy\_after\_size);}
+\DoxyCodeLine{16333                                     \}}
+\DoxyCodeLine{16334                                 \}}
+\DoxyCodeLine{16335                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16336                                     \_after-\/>copy\_part\_data\_to(to,pos-\/\_before\_size,size);}
+\DoxyCodeLine{16337                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a1651316c2f4907c0a5b23459afeb7b5c}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a1651316c2f4907c0a5b23459afeb7b5c}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!do\_pop\_back@{do\_pop\_back}}
+\index{do\_pop\_back@{do\_pop\_back}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{do\_pop\_back()}{do\_pop\_back()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::do\+\_\+pop\+\_\+back (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size,  }\item[{ptr\+\_\+t \&}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16412}{16412}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16412                                                                                                                                                          \{}
+\DoxyCodeLine{16413                                 \textcolor{keywordflow}{if}(this-\/>is\_unique() \&\& \_after\_size>=size)\{}
+\DoxyCodeLine{16414                                     ptr\_t aret;}
+\DoxyCodeLine{16415                                     \textcolor{keywordflow}{if}(\_before\_size==size)}
+\DoxyCodeLine{16416                                         swap(aret,\_after);}
+\DoxyCodeLine{16417                                     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16418                                         aret=\_after-\/>do\_pop\_back(size,\_after);}
+\DoxyCodeLine{16419                                     \_after\_size-\/=size;}
+\DoxyCodeLine{16420                                     \textcolor{keywordflow}{if}(!\_after\_size)}
+\DoxyCodeLine{16421                                         be\_replace\_as(\_before);}
+\DoxyCodeLine{16422                                     self\_changed();}
+\DoxyCodeLine{16423                                     \textcolor{keywordflow}{return} aret;}
+\DoxyCodeLine{16424                                 \}}
+\DoxyCodeLine{16425                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16426                                     \textcolor{keywordflow}{return} base\_t::do\_pop\_back(size,self);}
+\DoxyCodeLine{16427                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6a88dd80c04598de80af5e16a437ab6d}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a6a88dd80c04598de80af5e16a437ab6d}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!do\_pop\_front@{do\_pop\_front}}
+\index{do\_pop\_front@{do\_pop\_front}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{do\_pop\_front()}{do\_pop\_front()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::do\+\_\+pop\+\_\+front (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size,  }\item[{ptr\+\_\+t \&}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16396}{16396}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16396                                                                                                                                                           \{}
+\DoxyCodeLine{16397                                 \textcolor{keywordflow}{if}(this-\/>is\_unique() \&\& \_before\_size>=size)\{}
+\DoxyCodeLine{16398                                     ptr\_t aret;}
+\DoxyCodeLine{16399                                     \textcolor{keywordflow}{if}(\_before\_size==size)}
+\DoxyCodeLine{16400                                         swap(aret,\_before);}
+\DoxyCodeLine{16401                                     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16402                                         aret=\_before-\/>do\_pop\_front(size,\_before);}
+\DoxyCodeLine{16403                                     \_before\_size-\/=size;}
+\DoxyCodeLine{16404                                     \textcolor{keywordflow}{if}(!\_before\_size)}
+\DoxyCodeLine{16405                                         be\_replace\_as(\_after);}
+\DoxyCodeLine{16406                                     self\_changed();}
+\DoxyCodeLine{16407                                     \textcolor{keywordflow}{return} aret;}
+\DoxyCodeLine{16408                                 \}}
+\DoxyCodeLine{16409                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16410                                     \textcolor{keywordflow}{return} base\_t::do\_pop\_front(size,self);}
+\DoxyCodeLine{16411                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_adbb20c65abe5afdcb02d10fcad66b1e3}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_adbb20c65abe5afdcb02d10fcad66b1e3}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_base\_memory\_cost@{get\_base\_memory\_cost}}
+\index{get\_base\_memory\_cost@{get\_base\_memory\_cost}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_base\_memory\_cost()}{get\_base\_memory\_cost()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual float\+\_\+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+base\+\_\+memory\+\_\+cost (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16480}{16480}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16480                                                                                                            \{}
+\DoxyCodeLine{16481                                 \textcolor{keywordflow}{return} float\_size\_of(*\textcolor{keyword}{this})+\_before-\/>get\_memory\_cost()+\_after-\/>get\_memory\_cost();}
+\DoxyCodeLine{16482                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a850e94b1ddbfc7c56fe312b37c4b814e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a850e94b1ddbfc7c56fe312b37c4b814e}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_hash\_detail@{get\_hash\_detail}}
+\index{get\_hash\_detail@{get\_hash\_detail}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_hash\_detail()}{get\_hash\_detail()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+hash\+\_\+detail (\begin{DoxyParamCaption}\item[{ptr\+\_\+t \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16429}{16429}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16429                                                                                                       \{}
+\DoxyCodeLine{16430                                 suppress\_msvc\_warning(26494)\textcolor{comment}{//未初始化警告diss}}
+\DoxyCodeLine{16431                                 hash\_t result;}
+\DoxyCodeLine{16432                                 if(\_before\_size)\{}
+\DoxyCodeLine{16433                                     result=\_before-\/>get\_hash(\_before);}
+\DoxyCodeLine{16434                                     \textcolor{keywordflow}{if}(\_after\_size)}
+\DoxyCodeLine{16435                                         result=hash.merge\_array\_hash\_results(result,\_before\_size,\_after-\/>get\_hash(\_after),\_after\_size);}
+\DoxyCodeLine{16436                                 \}}
+\DoxyCodeLine{16437                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16438                                     result=\_after-\/>get\_hash(\_after);}
+\DoxyCodeLine{16439                                 \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{16440                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a50aad7efc72a06e06ad6006039b95758}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a50aad7efc72a06e06ad6006039b95758}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_others\_hash\_with\_calculated\_before\_detail@{get\_others\_hash\_with\_calculated\_before\_detail}}
+\index{get\_others\_hash\_with\_calculated\_before\_detail@{get\_others\_hash\_with\_calculated\_before\_detail}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_others\_hash\_with\_calculated\_before\_detail()}{get\_others\_hash\_with\_calculated\_before\_detail()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+others\+\_\+hash\+\_\+with\+\_\+calculated\+\_\+before\+\_\+detail (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}}}]{before,  }\item[{size\+\_\+t}]{before\+\_\+size,  }\item[{ptr\+\_\+t \&}]{,  }\item[{size\+\_\+t}]{pos,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16441}{16441}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16441                                                                                                                                                                                             \{}
+\DoxyCodeLine{16442                                 \textcolor{keywordflow}{if}(pos<\_before\_size)\{}
+\DoxyCodeLine{16443                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} calculate\_before\_begin=pos;}
+\DoxyCodeLine{16444                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} calculate\_before\_end=min(pos+size,\_before\_size);}
+\DoxyCodeLine{16445                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} calculate\_before\_size=calculate\_before\_end-\/calculate\_before\_begin;}
+\DoxyCodeLine{16446                                     before=\_before-\/>get\_others\_hash\_with\_calculated\_before(before,before\_size,\_before,calculate\_before\_begin,calculate\_before\_size);}
+\DoxyCodeLine{16447                                     \textcolor{keywordflow}{if}(size!=calculate\_before\_size)\{}
+\DoxyCodeLine{16448                                         \textcolor{keyword}{const} \textcolor{keyword}{auto} calculate\_after\_size=size-\/calculate\_before\_size;}
+\DoxyCodeLine{16449                                         before\_size+=calculate\_before\_size;}
+\DoxyCodeLine{16450                                         before=\_after-\/>get\_others\_hash\_with\_calculated\_before(before,before\_size,\_after,0,calculate\_after\_size);}
+\DoxyCodeLine{16451                                     \}}
+\DoxyCodeLine{16452                                 \}}
+\DoxyCodeLine{16453                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16454                                     before=\_after-\/>get\_others\_hash\_with\_calculated\_before(before,before\_size,\_after,pos-\/\_before\_size,size);}
+\DoxyCodeLine{16455                                 \textcolor{keywordflow}{return} before;}
+\DoxyCodeLine{16456                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ade919b013a096e4d7347e5c35ee95a1e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ade919b013a096e4d7347e5c35ee95a1e}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_size@{get\_size}}
+\index{get\_size@{get\_size}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_size()}{get\_size()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16321}{16321}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16321 \{ \textcolor{keywordflow}{return} \_before\_size+\_after\_size; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af9a8308adb68a18b73a767b44cdffde5}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af9a8308adb68a18b73a767b44cdffde5}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_substr\_data@{get\_substr\_data}}
+\index{get\_substr\_data@{get\_substr\_data}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_substr\_data()}{get\_substr\_data()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+substr\+\_\+data (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+重载 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}} .
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16299}{16299}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16299                                                                                                                        \{}
+\DoxyCodeLine{16300                                 \textcolor{keywordflow}{if}(begin+size<=\_before\_size)}
+\DoxyCodeLine{16301                                     \textcolor{keywordflow}{return} \_before-\/>get\_substr\_data(begin,size);}
+\DoxyCodeLine{16302                                 elseif(begin>=\_before\_size)}
+\DoxyCodeLine{16303                                     \textcolor{keywordflow}{return} \_after-\/>get\_substr\_data(begin-\/\_before\_size,size);}
+\DoxyCodeLine{16304                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16305                                     \textcolor{keywordflow}{return} base\_t::get\_substr\_data(begin,size);}
+\DoxyCodeLine{16306                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_acb5efb238ecfebabcd608326d2378262}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_acb5efb238ecfebabcd608326d2378262}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_the\_largest\_complete\_data\_block\_begin\_form@{get\_the\_largest\_complete\_data\_block\_begin\_form}}
+\index{get\_the\_largest\_complete\_data\_block\_begin\_form@{get\_the\_largest\_complete\_data\_block\_begin\_form}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_the\_largest\_complete\_data\_block\_begin\_form()}{get\_the\_largest\_complete\_data\_block\_begin\_form()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1range__n_1_1range__t}{range\+\_\+t}}$<$ const char\+\_\+T $\ast$ $>$ \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+the\+\_\+largest\+\_\+complete\+\_\+data\+\_\+block\+\_\+begin\+\_\+form (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16462}{16462}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16462                                                                                                                                                            \{}
+\DoxyCodeLine{16463                                 \textcolor{keywordflow}{if}(begin < \_before\_size)}
+\DoxyCodeLine{16464                                     \textcolor{keywordflow}{return} \_before-\/>get\_the\_largest\_complete\_data\_block\_begin\_form(begin);}
+\DoxyCodeLine{16465                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16466                                     \textcolor{keywordflow}{return} \_after-\/>get\_the\_largest\_complete\_data\_block\_begin\_form(begin -\/ \_before\_size);}
+\DoxyCodeLine{16467                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a616a30e7d1f434b217b29984f872d0f7}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a616a30e7d1f434b217b29984f872d0f7}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!same\_struct@{same\_struct}}
+\index{same\_struct@{same\_struct}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{same\_struct()}{same\_struct()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::same\+\_\+struct (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{with }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16458}{16458}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16458                                                                                                     \{}
+\DoxyCodeLine{16459                                 \textcolor{keyword}{auto} wp=down\_cast<this\_t*>(with.get());}
+\DoxyCodeLine{16460                                 \textcolor{keywordflow}{return} \_before\_size==wp-\/>\_before\_size;\textcolor{comment}{//总size被保证一样}}
+\DoxyCodeLine{16461                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aa88379e41e0a94a4bb60fc1df1b6c743}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aa88379e41e0a94a4bb60fc1df1b6c743}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!same\_struct\_compare@{same\_struct\_compare}}
+\index{same\_struct\_compare@{same\_struct\_compare}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{same\_struct\_compare()}{same\_struct\_compare()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual base\+\_\+t\+::compare\+\_\+type \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::same\+\_\+struct\+\_\+compare (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{with }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16474}{16474}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16474                                                                                                                                                   \{}
+\DoxyCodeLine{16475                                 \textcolor{keyword}{auto} wp=down\_cast<this\_t*>(with.get());}
+\DoxyCodeLine{16476                                 \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=this-\/>\_before-\/>compare\_with(wp-\/>\_before); tmp!=0)}
+\DoxyCodeLine{16477                                     \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{16478                                 \textcolor{keywordflow}{return} this-\/>\_after-\/>compare\_with(wp-\/>\_after);}
+\DoxyCodeLine{16479                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a93586e0e82fa5f40286eeb845041f9eb}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a93586e0e82fa5f40286eeb845041f9eb}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!same\_struct\_equal@{same\_struct\_equal}}
+\index{same\_struct\_equal@{same\_struct\_equal}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{same\_struct\_equal()}{same\_struct\_equal()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+virtual bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::same\+\_\+struct\+\_\+equal (\begin{DoxyParamCaption}\item[{ptr\+\_\+t}]{with }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+实现了 \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}}.
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16468}{16468}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16468                                                                                                                                 \{}
+\DoxyCodeLine{16469                                 \textcolor{keyword}{auto} wp=down\_cast<this\_t*>(with.get());}
+\DoxyCodeLine{16470                                 \textcolor{keywordflow}{if}(!this-\/>\_before-\/>equal\_with(wp-\/>\_before))}
+\DoxyCodeLine{16471                                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{16472                                 \textcolor{keywordflow}{return} this-\/>\_after-\/>equal\_with(wp-\/>\_after);}
+\DoxyCodeLine{16473                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a62865e7b3d202fdfbca6fbe36379a4cc}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a62865e7b3d202fdfbca6fbe36379a4cc}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!self\_changed@{self\_changed}}
+\index{self\_changed@{self\_changed}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{self\_changed()}{self\_changed()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::self\+\_\+changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15142}{15142}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15142                                                        \{}
+\DoxyCodeLine{15143                                 reset\_hash\_cache();}
+\DoxyCodeLine{15144                             \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_acaebf29956bb83c20086734c06fd2954}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_acaebf29956bb83c20086734c06fd2954}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!set\_hash\_cache@{set\_hash\_cache}}
+\index{set\_hash\_cache@{set\_hash\_cache}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_hash\_cache()}{set\_hash\_cache()}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}} \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::set\+\_\+hash\+\_\+cache (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}{hash\+\_\+t}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l15115}{15115}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15115 \{\_has\_hash\_cache=\textcolor{keyword}{true};\textcolor{keywordflow}{return} \_hash\_cache=value;\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ab84de1c9616dfe5239d0c61641e77dcf}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ab84de1c9616dfe5239d0c61641e77dcf}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!\_after@{\_after}}
+\index{\_after@{\_after}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_after}{\_after}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+after}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16288}{16288}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ad9f0bf17131f05f177a0060218e61f0f}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ad9f0bf17131f05f177a0060218e61f0f}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!\_after\_size@{\_after\_size}}
+\index{\_after\_size@{\_after\_size}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_after\_size}{\_after\_size}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+after\+\_\+size}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16290}{16290}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af0ed1d9d6686c65ff1794abe29b0ee01}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_af0ed1d9d6686c65ff1794abe29b0ee01}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!\_before@{\_before}}
+\index{\_before@{\_before}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_before}{\_before}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+before}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16287}{16287}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2d0682ba30b0bfc9b5d4b70c15780424}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2d0682ba30b0bfc9b5d4b70c15780424}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!\_before\_size@{\_before\_size}}
+\index{\_before\_size@{\_before\_size}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{\_before\_size}{\_before\_size}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::sum\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::\+\_\+before\+\_\+size}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16289}{16289}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!apply\_data\_nothrow@{apply\_data\_nothrow}}
+\index{apply\_data\_nothrow@{apply\_data\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_data\_nothrow}{apply\_data\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::apply\+\_\+data\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14819}{14819}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a9aa5cc8b259b45a95b3d36379754f02a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a9aa5cc8b259b45a95b3d36379754f02a}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!clear\_nothrow@{clear\_nothrow}}
+\index{clear\_nothrow@{clear\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{clear\_nothrow}{clear\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::clear\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14815}{14815}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aba4ce812fd44719c42f7a7dcdeaa60cb}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_aba4ce812fd44719c42f7a7dcdeaa60cb}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!construct\_nothrow@{construct\_nothrow}}
+\index{construct\_nothrow@{construct\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{construct\_nothrow}{construct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::construct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14813}{14813}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2200c7bdb5470f60ef8e45d927c9b15a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2200c7bdb5470f60ef8e45d927c9b15a}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!copy\_assign\_nothrow@{copy\_assign\_nothrow}}
+\index{copy\_assign\_nothrow@{copy\_assign\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{copy\_assign\_nothrow}{copy\_assign\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::copy\+\_\+assign\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14810}{14810}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a925a42a1d4fc152cfffbec57e16a79b0}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a925a42a1d4fc152cfffbec57e16a79b0}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!copy\_construct\_nothrow@{copy\_construct\_nothrow}}
+\index{copy\_construct\_nothrow@{copy\_construct\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{copy\_construct\_nothrow}{copy\_construct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::copy\+\_\+construct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14811}{14811}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3ef69917aab5f5787400f52f7725ad12}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a3ef69917aab5f5787400f52f7725ad12}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!destruct\_nothrow@{destruct\_nothrow}}
+\index{destruct\_nothrow@{destruct\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{destruct\_nothrow}{destruct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::destruct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14814}{14814}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a05a11959b21c4bcb3696d92ead4247fc}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a05a11959b21c4bcb3696d92ead4247fc}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!get\_data\_nothrow@{get\_data\_nothrow}}
+\index{get\_data\_nothrow@{get\_data\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_data\_nothrow}{get\_data\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::get\+\_\+data\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14818}{14818}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2a356e4276e94d3636427e3d61ee9092}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_a2a356e4276e94d3636427e3d61ee9092}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!hash\_nothrow@{hash\_nothrow}}
+\index{hash\_nothrow@{hash\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{hash\_nothrow}{hash\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::hash\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14817}{14817}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ac3b9c8a8fef31964704634b62903539e}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ac3b9c8a8fef31964704634b62903539e}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!move\_construct\_nothrow@{move\_construct\_nothrow}}
+\index{move\_construct\_nothrow@{move\_construct\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{move\_construct\_nothrow}{move\_construct\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::move\+\_\+construct\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14812}{14812}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ac75a28befed966fb3105b58e5cf4cf04}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t_ac75a28befed966fb3105b58e5cf4cf04}} 
+\index{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}!ptr\_reset\_nothrow@{ptr\_reset\_nothrow}}
+\index{ptr\_reset\_nothrow@{ptr\_reset\_nothrow}!elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::sum\_string\_data\_t$<$ char\_T $>$}}
+\doxysubsubsection{\texorpdfstring{ptr\_reset\_nothrow}{ptr\_reset\_nothrow}}
+{\footnotesize\ttfamily template$<$typename char\+\_\+T $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}{elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::base\+\_\+string\+\_\+data\+\_\+t}}$<$ char\+\_\+T $>$\+::ptr\+\_\+reset\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l14816}{14816}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

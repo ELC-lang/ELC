@@ -8,3 +8,4 @@
 *.bak
 Makefile.win
 temp_tool
+docs/all_defs.cpp

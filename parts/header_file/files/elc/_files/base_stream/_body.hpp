@@ -12,7 +12,10 @@
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
-	#include "base_streams/_body.hpp"
+	namespace stream_n{
+		#include "base_streams/_body.hpp"
+	}
+	using namespace stream_n;
 
 	#if defined(ELC_TEST_ON)
 	namespace base_stream_part_test{

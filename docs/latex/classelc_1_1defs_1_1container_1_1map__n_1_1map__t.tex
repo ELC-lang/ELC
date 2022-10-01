@@ -1,0 +1,299 @@
+\hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{}\doxysection{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t\texorpdfstring{$<$}{<} T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size \texorpdfstring{$>$}{>} 模板类 参考}
+\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a79cec8c955cdd65308faef73559a0788}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a79cec8c955cdd65308faef73559a0788}} 
+{\bfseries map\+\_\+t} (const \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&a) noexcept=default
+\item 
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aff1f0abb6e6e97fd389a883d4ebf08be}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aff1f0abb6e6e97fd389a883d4ebf08be}} 
+{\bfseries map\+\_\+t} (\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&\&a) noexcept=default
+\item 
+\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a1fdd5b29b86a9ebae79bb4e537a3cd56}{operator=}} (\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&\&a) noexcept
+\item 
+\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a576afe4541a3b899d40af99e5417f5a3}{operator=}} (const \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&a) noexcept
+\item 
+{\footnotesize template$<$size\+\_\+t \+\_\+$>$ }\\void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_ada8fc348fec6e3660aae93c0dbb4f400}{swap}} (\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, \+\_\+ $>$ \&a) noexcept
+\item 
+T \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a7b2e0e3aa0fcb3af7c586239bea9ce59}{operator\mbox{[}$\,$\mbox{]}}} (const key\+\_\+t \&a) noexcept(noexcept((\+\_\+m.\+add(\{a, T()\}))))
+\item 
+const T \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a5dac26d53087f8d58baa10af409df509}{operator\mbox{[}$\,$\mbox{]}}} (const key\+\_\+t \&a) const noexcept
+\item 
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a4fb2a1e9e74f7d20908a6049c6e60571}{clear}} () noexcept(re\+\_\+construct.\+nothrow$<$ \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} $>$)
+\item 
+{\footnotesize template$<$typename func\+\_\+t $>$ \newline
+requires (bool(requires\{ (\+::std\+::declval$<$ func\+\_\+t $>$())((\+::std\+::declval$<$ T\& $>$())) ;\}))}\\void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a2f1a5eee2b70f52ee39f99d840e7b0d2}{for\+\_\+each}} (func\+\_\+t \&\&func) noexcept(noexcept(((\+::std\+::declval$<$ func\+\_\+t $>$())((\+::std\+::declval$<$ T \& $>$())))))
+\item 
+{\footnotesize template$<$typename func\+\_\+t $>$ \newline
+requires (bool(requires\{ (\+::std\+::declval$<$ func\+\_\+t $>$())((\+::std\+::declval$<$ const T\& $>$())) ;\}))}\\void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aabf26fc2c4d26a1a2223e24d8c55ce03}{for\+\_\+each}} (func\+\_\+t \&\&func) const noexcept(noexcept(((\+::std\+::declval$<$ func\+\_\+t $>$())((\+::std\+::declval$<$ const T \& $>$())))))
+\item 
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_ab2a0fe31fd8ed4985080ecd3e8340377}{shrink}} () const noexcept(shrink\+\_\+nothow)
+\item 
+{\footnotesize template$<$class... Args$>$ \newline
+requires (bool(requires\{ ((\+::std\+::declval$<$ decltype( \+\_\+m ) $>$())). size ((\+::std\+::declval$<$ Args $>$())...) ;\}))}\\auto \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a0c8b7ee16ddf7a1eacece7af46ebeb67}{size}} (Args \&\&...rest) const noexcept(noexcept((((\+::std\+::declval$<$ decltype(\+\_\+m) $>$())). size((\+::std\+::declval$<$ Args $>$())...))))
+\item 
+bool \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a8317866c5fcde8e7002fdcf6e2a1aa11}{operator==}} (const \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&a) const noexcept(shrink\+\_\+nothow \&\&equal.\+nothrow$<$ T $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aa3c27de019fc8a64abd9a95966fad8ef}{shrink\+\_\+nothow}} =stack\+\_\+t$<$data\+\_\+t$>$\+::remove\+\_\+nothrow
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T, typename key\+\_\+t, template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$\newline
+class elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10267}{10267}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a4fb2a1e9e74f7d20908a6049c6e60571}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a4fb2a1e9e74f7d20908a6049c6e60571}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!clear@{clear}}
+\index{clear@{clear}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10335}{10335}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10335                                                                           \{}
+\DoxyCodeLine{10336                             re\_construct(\textcolor{keyword}{this});}
+\DoxyCodeLine{10337                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aabf26fc2c4d26a1a2223e24d8c55ce03}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aabf26fc2c4d26a1a2223e24d8c55ce03}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!for\_each@{for\_each}}
+\index{for\_each@{for\_each}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{for\_each()}{for\_each()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+template$<$typename func\+\_\+t $>$ \newline
+requires (bool(requires\{ (\+::std\+::declval$<$ func\+\_\+t $>$())((\+::std\+::declval$<$ const T\& $>$())) ;\}))\\
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::for\+\_\+each (\begin{DoxyParamCaption}\item[{func\+\_\+t \&\&}]{func }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10350}{10350}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10350                                                                           \{}
+\DoxyCodeLine{10351                             \_m.for\_each(lambda(data\_t\&a)noexcept\_as(expr)\{}
+\DoxyCodeLine{10352                                 func(add\_const<T\&>(a.\_value));}
+\DoxyCodeLine{10353                             \});}
+\DoxyCodeLine{10354                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a2f1a5eee2b70f52ee39f99d840e7b0d2}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a2f1a5eee2b70f52ee39f99d840e7b0d2}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!for\_each@{for\_each}}
+\index{for\_each@{for\_each}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{for\_each()}{for\_each()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+template$<$typename func\+\_\+t $>$ \newline
+requires (bool(requires\{ (\+::std\+::declval$<$ func\+\_\+t $>$())((\+::std\+::declval$<$ T\& $>$())) ;\}))\\
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::for\+\_\+each (\begin{DoxyParamCaption}\item[{func\+\_\+t \&\&}]{func }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10341}{10341}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10341                                                                     \{}
+\DoxyCodeLine{10342                             \_m.for\_each(lambda(data\_t\&a)noexcept\_as(expr)\{}
+\DoxyCodeLine{10343                                 func(a.\_value);}
+\DoxyCodeLine{10344                             \});}
+\DoxyCodeLine{10345                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a576afe4541a3b899d40af99e5417f5a3}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a576afe4541a3b899d40af99e5417f5a3}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10316}{10316}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10316                                                                 \{}
+\DoxyCodeLine{10317                             \textcolor{keywordflow}{return} operator=(a.copy());}
+\DoxyCodeLine{10318                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a1fdd5b29b86a9ebae79bb4e537a3cd56}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a1fdd5b29b86a9ebae79bb4e537a3cd56}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&\&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10312}{10312}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10312                                                            \{}
+\DoxyCodeLine{10313                             swap(\_m,a.\_m);}
+\DoxyCodeLine{10314                             \textcolor{keywordflow}{return}*\textcolor{keyword}{this};}
+\DoxyCodeLine{10315                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a8317866c5fcde8e7002fdcf6e2a1aa11}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a8317866c5fcde8e7002fdcf6e2a1aa11}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+bool \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{this\+\_\+t}} \&}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10366}{10366}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10366                                                                                                         \{}
+\DoxyCodeLine{10367                             shrink();}
+\DoxyCodeLine{10368                             a.shrink();}
+\DoxyCodeLine{10369                             \textcolor{keywordflow}{if}(size()!=a.size())}
+\DoxyCodeLine{10370                                 \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{10371                             \textcolor{keywordflow}{try}\{}
+\DoxyCodeLine{10372                                 \_m.for\_each(lambda\_with\_catch(\&a)(data\_t\&b)\{}
+\DoxyCodeLine{10373                                     \textcolor{keywordflow}{if}(a[b.\_key]!=b.\_value)}
+\DoxyCodeLine{10374                                         throw (this\_t*)(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{10375                                 \});}
+\DoxyCodeLine{10376                             \}}
+\DoxyCodeLine{10377                             \textcolor{keywordflow}{catch}(this\_t*)\{}
+\DoxyCodeLine{10378                                 \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{10379                             \}}
+\DoxyCodeLine{10380                             \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{10381                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a5dac26d53087f8d58baa10af409df509}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a5dac26d53087f8d58baa10af409df509}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+const T \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const key\+\_\+t \&}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10331}{10331}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10331                                                                                     \{}
+\DoxyCodeLine{10332                             \textcolor{keyword}{auto} tmp=\_m.find(a);}
+\DoxyCodeLine{10333                             \textcolor{keywordflow}{return} tmp.fail()?const\_default\_value\_of<T>:tmp.get\_ref().\_value;}
+\DoxyCodeLine{10334                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a7b2e0e3aa0fcb3af7c586239bea9ce59}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a7b2e0e3aa0fcb3af7c586239bea9ce59}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+T \& \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const key\+\_\+t \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10323}{10323}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10323                                                                                    \{a,T()\}))\{}
+\DoxyCodeLine{10324                             \textcolor{keyword}{auto} tmp=\_m.find(a);}
+\DoxyCodeLine{10325                             \textcolor{keywordflow}{if}(tmp.fail())\{}
+\DoxyCodeLine{10326                                 \_m.add(\{a,T()\});}
+\DoxyCodeLine{10327                                 tmp=\_m.find(a);}
+\DoxyCodeLine{10328                             \}}
+\DoxyCodeLine{10329                             \textcolor{keywordflow}{return} tmp.get\_ref().\_value;}
+\DoxyCodeLine{10330                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_ab2a0fe31fd8ed4985080ecd3e8340377}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_ab2a0fe31fd8ed4985080ecd3e8340377}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!shrink@{shrink}}
+\index{shrink@{shrink}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{shrink()}{shrink()}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::shrink (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10358}{10358}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10358                                                                   \{}
+\DoxyCodeLine{10359                             \_m.for\_each\_bucket(lambda(stack\_t<data\_t>\&a)\textcolor{keyword}{noexcept}(shrink\_nothow \&\& equal.nothrow<T>)\{}
+\DoxyCodeLine{10360                                 while(a.remove(data\_t::seek\_value\_t(const\_default\_value\_of<T>)));}
+\DoxyCodeLine{10361                             \});}
+\DoxyCodeLine{10362                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a0c8b7ee16ddf7a1eacece7af46ebeb67}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_a0c8b7ee16ddf7a1eacece7af46ebeb67}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!size@{size}}
+\index{size@{size}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+template$<$class... Args$>$ \newline
+requires (bool(requires\{ ((\+::std\+::declval$<$ decltype( \+\_\+m ) $>$())). size ((\+::std\+::declval$<$ Args $>$())...) ;\}))\\
+auto \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::size (\begin{DoxyParamCaption}\item[{Args \&\&...}]{rest }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10364}{10364}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10366 \{}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_ada8fc348fec6e3660aae93c0dbb4f400}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_ada8fc348fec6e3660aae93c0dbb4f400}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!swap@{swap}}
+\index{swap@{swap}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+template$<$size\+\_\+t \+\_\+$>$ \\
+void \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, \+\_\+ $>$ \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10321}{10321}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10321 \{swap(\_m,a.\_m);\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aa3c27de019fc8a64abd9a95966fad8ef}\label{classelc_1_1defs_1_1container_1_1map__n_1_1map__t_aa3c27de019fc8a64abd9a95966fad8ef}} 
+\index{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}!shrink\_nothow@{shrink\_nothow}}
+\index{shrink\_nothow@{shrink\_nothow}!elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$@{elc::defs::container::map\_n::map\_t$<$ T, key\_t, stack\_t, bucket\_max\_size $>$}}
+\doxysubsubsection{\texorpdfstring{shrink\_nothow}{shrink\_nothow}}
+{\footnotesize\ttfamily template$<$typename T , typename key\+\_\+t , template$<$ typename $>$class stack\+\_\+t = auto\+\_\+stack\+\_\+t, size\+\_\+t bucket\+\_\+max\+\_\+size = 256$>$ \\
+constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}{elc\+::defs\+::container\+::map\+\_\+n\+::map\+\_\+t}}$<$ T, key\+\_\+t, stack\+\_\+t, bucket\+\_\+max\+\_\+size $>$\+::shrink\+\_\+nothow =stack\+\_\+t$<$data\+\_\+t$>$\+::remove\+\_\+nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10357}{10357}} 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

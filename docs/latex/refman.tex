@@ -1,0 +1,422 @@
+  % Handle batch mode
+  % to overcome problems with too many open files
+  \let\mypdfximage\pdfximage\def\pdfximage{\immediate\mypdfximage}
+  % Set document class depending on configuration
+  \documentclass[twoside]{book}
+  %% moved from doxygen.sty due to workaround for LaTex 2019 version and unmaintained tabu package
+  \usepackage{ifthen}
+  \ifx\requestedLaTeXdate\undefined
+    \usepackage{array}
+  \else
+    \usepackage{array}[=2016-10-06]
+  \fi
+  %%
+  % Packages required by doxygen
+  \usepackage{fixltx2e} % for \textsubscript
+  \usepackage{doxygen}
+  \usepackage{graphicx}
+  \usepackage[utf8]{inputenc}
+  \usepackage{makeidx}
+  \PassOptionsToPackage{warn}{textcomp}
+  \usepackage{textcomp}
+  \usepackage[nointegrals]{wasysym}
+  \usepackage{ifxetex}
+  % NLS support packages
+  \usepackage{CJKutf8}
+  % Define default fonts
+  % Font selection
+  % set main and monospaced font
+  \usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\renewcommand{\familydefault}{\sfdefault}
+  \usepackage{sectsty}
+  \allsectionsfont{%
+    \fontseries{bc}\selectfont%
+    \color{darkgray}%
+  }
+  \renewcommand{\DoxyLabelFont}{%
+    \fontseries{bc}\selectfont%
+    \color{darkgray}%
+  }
+  \newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+   % Arguments of doxygenemoji:
+   % 1) ':<text>:' form of the emoji, already LaTeX-escaped
+   % 2) file with the name of the emoji without the .png extension
+   % in case image exist use this otherwise use the ':<text>:' form
+   \newcommand{\doxygenemoji}[2]{%
+     \IfFileExists{./#2.png}{\raisebox{-0.1em}{\includegraphics[height=0.9em]{./#2.png}}}{#1}%
+   }
+  % Page & text layout
+  \usepackage{geometry}
+  \geometry{%
+    a4paper,%
+    top=2.5cm,%
+    bottom=2.5cm,%
+    left=2.5cm,%
+    right=2.5cm%
+  }
+  % Allow a bit of overflow to go unnoticed by other means
+  \tolerance=750
+  \hfuzz=15pt
+  \hbadness=750
+  \setlength{\emergencystretch}{15pt}
+  \setlength{\parindent}{0cm}
+  \newcommand{\doxynormalparskip}{\setlength{\parskip}{3ex plus 2ex minus 2ex}}
+  \newcommand{\doxytocparskip}{\setlength{\parskip}{1ex plus 0ex minus 0ex}}
+  \doxynormalparskip
+  % Redefine paragraph/subparagraph environments, using sectsty fonts
+  \makeatletter
+  \renewcommand{\paragraph}{%
+    \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
+      \normalfont\normalsize\bfseries\SS@parafont%
+    }%
+  }
+  \renewcommand{\subparagraph}{%
+    \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
+      \normalfont\normalsize\bfseries\SS@subparafont%
+    }%
+  }
+  \makeatother
+  \makeatletter
+  \newcommand\hrulefilll{\leavevmode\leaders\hrule\hskip 0pt plus 1filll\kern\z@}
+  \makeatother
+  % Headers & footers
+  \usepackage{fancyhdr}
+  \pagestyle{fancyplain}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancypagestyle{fancyplain}{
+    \fancyhf{}
+    \fancyhead[LE, RO]{\bfseries\thepage}
+    \fancyhead[LO]{\bfseries\rightmark}
+    \fancyhead[RE]{\bfseries\leftmark}
+    \fancyfoot[LO, RE]{\bfseries\scriptsize 制作者 Doxygen }
+  }
+  \fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LO, RE]{\bfseries\scriptsize 制作者 Doxygen }
+    \renewcommand{\headrulewidth}{0pt}
+  }
+  \pagestyle{fancyplain}
+  \renewcommand{\chaptermark}[1]{%
+    \markboth{#1}{}%
+  }
+  \renewcommand{\sectionmark}[1]{%
+    \markright{\thesection\ #1}%
+  }
+  % ToC, LoF, LoT, bibliography, and index
+  % Indices & bibliography
+  \usepackage{natbib}
+  \usepackage[titles]{tocloft}
+  \setcounter{tocdepth}{3}
+  \setcounter{secnumdepth}{5}
+  % creating indexes
+  \makeindex
+  \usepackage{newunicodechar}
+  \newunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \newunicodechar{²}{${}^{2}$}% Superscript two
+  \newunicodechar{³}{${}^{3}$}% Superscript three
+  % Hyperlinks
+    % Hyperlinks (required, but should be loaded last)
+    \ifpdf
+      \usepackage[pdftex,pagebackref=true]{hyperref}
+    \else
+      \ifxetex
+        \usepackage[pagebackref=true]{hyperref}
+      \else
+        \usepackage[ps2pdf,pagebackref=true]{hyperref}
+      \fi
+    \fi
+    \hypersetup{%
+      colorlinks=true,%
+      linkcolor=blue,%
+      citecolor=blue,%
+      unicode,%
+      pdftitle={ELC},%
+      pdfsubject={ELC-\/lang}%
+    }
+  % Custom commands used by the header
+  % Custom commands
+  \newcommand{\clearemptydoublepage}{%
+    \newpage{\pagestyle{empty}\cleardoublepage}%
+  }
+  % caption style definition
+  \usepackage{caption}
+  \captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
+  % in page table of contents
+  \usepackage{etoc}
+  \etocsettocstyle{\doxytocparskip}{\doxynormalparskip}
+  % prevent numbers overlap the titles in toc
+  \renewcommand{\numberline}[1]{#1~}
+% End of preamble, now comes the document contents
+%===== C O N T E N T S =====
+\begin{document}
+  \raggedbottom
+  \begin{CJK}{UTF8}{gbsn}
+  % Titlepage & ToC
+    % To avoid duplicate page anchors due to reuse of same numbers for
+    % the index (be it as roman numbers)
+    \hypersetup{pageanchor=false,
+                bookmarksnumbered=true,
+                pdfencoding=unicode
+               }
+  \pagenumbering{alph}
+  \begin{titlepage}
+  \vspace*{7cm}
+  \begin{center}%
+  {\Large ELC}\\
+  \vspace*{1cm}
+  {\large 制作者 Doxygen 1.9.5}\\
+  \end{center}
+  \end{titlepage}
+  \clearemptydoublepage
+  \pagenumbering{roman}
+  \tableofcontents
+  \clearemptydoublepage
+  \pagenumbering{arabic}
+  % re-enable anchors again
+  \hypersetup{pageanchor=true}
+%--- Begin generated contents ---
+\chapter{继承关系索引}
+\input{hierarchy}
+\chapter{类索引}
+\input{annotated}
+\chapter{文件索引}
+\input{files}
+\chapter{类说明}
+\input{classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base}
+\input{classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base__vtable}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1alloc__t_1_1alloc__array__t}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1alloc__t}
+\input{structelc_1_1defs_1_1base_1_1type__info__t_1_1with__special__attribute_1_1and__common__attribute}
+\input{structelc_1_1defs_1_1base_1_1type__info__t_1_1with__common__attribute_1_1and__special__attribute}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1apply__end__t}
+\input{classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1construct__t_1_1array__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__assign__t_1_1array__copy__assign__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t_1_1array__copy__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t_1_1array__destruct__t}
+\input{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__end__by__zero__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t}
+\input{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__assign__t_1_1array__move__assign__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__construct__t_1_1array__move__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t_1_1array__move__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t}
+\input{classelc_1_1defs_1_1container_1_1array__n_1_1array__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t}
+\input{structelc_1_1defs_1_1base_1_1attribute}
+\input{structelc_1_1defs_1_1container_1_1stack__n_1_1auto__stack__t}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1base__alloc__t}
+\input{structelc_1_1defs_1_1core_1_1base__binary__function__node}
+\input{structelc_1_1defs_1_1core_1_1base__constexpr__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1base__construct__t}
+\input{structelc_1_1defs_1_1core_1_1value_1_1base__data__t}
+\input{classelc_1_1defs_1_1container_1_1function__n_1_1base__func__data__t}
+\input{structelc_1_1defs_1_1container_1_1function__n_1_1base__func__data__t_3_01_ret__t_07_args__t_8_8_8_08_4}
+\input{classelc_1_1defs_1_1container_1_1function__n_1_1base__function__t}
+\input{structelc_1_1defs_1_1container_1_1function__n_1_1base__function__t_3_01_ret__t_07_args__t_8_8_8_310c941e7c419e39706c0e5e5435efbe}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1base__get__t}
+\input{structelc_1_1defs_1_1stream__n_1_1base__iostream}
+\input{structelc_1_1defs_1_1stream__n_1_1base__istream}
+\input{structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t}
+\input{structelc_1_1defs_1_1stream__n_1_1base__ostream}
+\input{structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t}
+\input{structelc_1_1defs_1_1core_1_1base__runtime__exception}
+\input{classelc_1_1defs_1_1container_1_1stack__n_1_1base__stack__t}
+\input{structelc_1_1defs_1_1stream__n_1_1base__stream}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t}
+\input{structelc_1_1defs_1_1lib__loader__n_1_1base__symbol__t}
+\input{structelc_1_1defs_1_1core_1_1core__runtime__internal__helper__n_1_1base__t}
+\input{structelc_1_1defs_1_1base_1_1base__type__info__t}
+\input{structelc_1_1defs_1_1core_1_1binary__node__base__t}
+\input{structelc_1_1defs_1_1core_1_1binary__node__t}
+\input{structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds}
+\input{classelc_1_1defs_1_1base_1_1build__by__get__only}
+\input{structelc_1_1defs_1_1memory_1_1can__map__all}
+\input{classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all}
+\input{classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink}
+\input{classelc_1_1defs_1_1base_1_1null__ptr__n_1_1can__t__use__default__null__ptr}
+\input{structelc_1_1defs_1_1core_1_1code__list}
+\input{structelc_1_1defs_1_1base_1_1common__attribute__pack}
+\input{structelc_1_1defs_1_1core_1_1common__node}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1comn__string__data__t}
+\input{structelc_1_1defs_1_1base_1_1compare__t}
+\input{structelc_1_1defs_1_1core_1_1cons}
+\input{structelc_1_1defs_1_1base_1_1cons__t}
+\input{structelc_1_1defs_1_1core_1_1value_1_1constexpr__data__t}
+\input{structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t}
+\input{structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t__literal__helper}
+\input{structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1constexpr__string__data__t}
+\input{classelc_1_1defs_1_1memory_1_1lifetime__n_1_1construct__t}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__assign__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__t}
+\input{structelc_1_1defs_1_1base_1_1count__able}
+\input{structelc_1_1defs_1_1base_1_1data__block}
+\input{structelc_1_1defs_1_1stream__n_1_1data__iostream}
+\input{structelc_1_1defs_1_1stream__n_1_1data__istream}
+\input{structelc_1_1defs_1_1stream__n_1_1data__ostream}
+\input{structelc_1_1defs_1_1container_1_1stack__n_1_1base__stack__t_1_1data__t}
+\input{structelc_1_1defs_1_1base_1_1data__view}
+\input{structelc_1_1defs_1_1base_1_1data__view_3_01const_01_t_01_4}
+\input{classelc_1_1defs_1_1container_1_1function__n_1_1default__func__data__t}
+\input{structelc_1_1defs_1_1container_1_1function__n_1_1default__func__data__t_3_01_ret__t_07_args__t_8_8_8_08_4}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t}
+\input{classelc_1_1defs_1_1base_1_1empty__type}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1end__apply__string__data__t}
+\input{structelc_1_1defs_1_1base_1_1end__by__zero__t}
+\input{structelc_1_1defs_1_1base_1_1equal__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1erased__string__data__t}
+\input{classelc_1_1defs_1_1exception__n_1_1exception}
+\input{structelc_1_1defs_1_1core_1_1expr}
+\input{structelc_1_1defs_1_1base_1_1note__n_1_1fail__t}
+\input{classelc_1_1defs_1_1base_1_1flag}
+\input{classelc_1_1defs_1_1string__n_1_1string__t_1_1floating__arec__t}
+\input{classelc_1_1defs_1_1base_1_1null__ptr__n_1_1force__use__default__null__ptr}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t}
+\input{structelc_1_1defs_1_1base_1_1note__n_1_1from__t}
+\input{classelc_1_1defs_1_1container_1_1function__n_1_1func__data__t}
+\input{structelc_1_1defs_1_1container_1_1function__n_1_1func__data__t_3_01_t_00_01_ret__t_07_args__t_8_8_8_08_4}
+\input{classelc_1_1defs_1_1container_1_1function__n_1_1function__data__saver__t}
+\input{classelc_1_1defs_1_1container_1_1function__n_1_1function__data__saver__t_3_01_ret__t_07_args__t_8_8_8_08_4}
+\input{classelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper_3_01_ret__t_07_975c5853e1b440eaa7745ade83e6fcb2}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper_3_01_ret__t_07_b827ad20fa18e9e793bf10b91341ef04}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper_3_01_ret__t_07_2fa548c2413293270ebff8dcaa83ee3e}
+\input{structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper_3_01_ret__t_07_cca8166a9f0129417584a04b3b11939a}
+\input{classelc_1_1defs_1_1memory_1_1gc__n_1_1gc__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__size__of__get__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t}
+\input{structelc_1_1defs_1_1core_1_1core__runtime__internal__helper__n_1_1goto__t}
+\input{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t}
+\input{classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t}
+\input{structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t}
+\input{structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1head__apply__string__data__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t_1_1insert__resize__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t_1_1insert__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t}
+\input{classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1instance__struct}
+\input{structelc_1_1defs_1_1base_1_1invoke__t}
+\input{structelc_1_1defs_1_1base_1_1just__an__part__t}
+\input{structelc_1_1defs_1_1lib__loader__n_1_1library__info__t}
+\input{classelc_1_1defs_1_1base_1_1list__t}
+\input{structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider}
+\input{structelc_1_1defs_1_1base_1_1logical__bool}
+\input{classelc_1_1defs_1_1container_1_1map__n_1_1map__t}
+\input{classelc_1_1defs_1_1base_1_1mark__able}
+\input{structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc}
+\input{structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern}
+\input{structelc_1_1defs_1_1base_1_1max__t}
+\input{classelc_1_1defs_1_1base_1_1maybe__fail__reference}
+\input{structelc_1_1defs_1_1stream__n_1_1memory__stream}
+\input{structelc_1_1defs_1_1base_1_1min__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__assign__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t}
+\input{structelc_1_1defs_1_1namespace__n_1_1namespace__t}
+\input{classelc_1_1defs_1_1base_1_1never__in__array}
+\input{structelc_1_1defs_1_1base_1_1never__ref__num__zero__t}
+\input{structelc_1_1defs_1_1core_1_1nil__t}
+\input{structelc_1_1defs_1_1core_1_1node__like}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__data__iostream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__data__istream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__data__ostream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__iostream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__istream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__ostream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__stream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__string__iostream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__string__istream}
+\input{structelc_1_1defs_1_1stream__n_1_1noexcept__string__ostream}
+\input{structelc_1_1defs_1_1base_1_1non__copy__assign__able}
+\input{structelc_1_1defs_1_1base_1_1non__copy__construct__able}
+\input{structelc_1_1defs_1_1base_1_1non__copyable}
+\input{structelc_1_1defs_1_1base_1_1non__default__assign__able}
+\input{structelc_1_1defs_1_1base_1_1non__default__construct__able}
+\input{structelc_1_1defs_1_1base_1_1non__move__assign__able}
+\input{structelc_1_1defs_1_1base_1_1non__move__construct__able}
+\input{structelc_1_1defs_1_1base_1_1non__moveable}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t_1_1not__t}
+\input{structelc_1_1defs_1_1core_1_1value_1_1null__data__t}
+\input{structelc_1_1defs_1_1base_1_1null__ptr__n_1_1null__ptr__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1null__string__data__t}
+\input{structelc_1_1defs_1_1base_1_1common__attribute__pack_1_1on__type}
+\input{structelc_1_1defs_1_1base_1_1special__attribute__pack_1_1on__type}
+\input{structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1construct__t_1_1placement__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1placement__re__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t}
+\input{structelc_1_1defs_1_1base_1_1range__n_1_1range__t}
+\input{structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t_1_1realloc__array__t}
+\input{structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t}
+\input{classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able}
+\input{classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1remove__t}
+\input{structelc_1_1defs_1_1memory_1_1replace__able}
+\input{structelc_1_1defs_1_1core_1_1core__runtime__internal__helper__n_1_1return__t}
+\input{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}
+\input{structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern}
+\input{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of}
+\input{structelc_1_1defs_1_1memory_1_1ptr__n_1_1root__ptr__t}
+\input{classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t}
+\input{classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator}
+\input{structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter}
+\input{structelc_1_1defs_1_1exception__n_1_1runtime__exception}
+\input{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}
+\input{structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t}
+\input{structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1same__value__compress__string__data__t}
+\input{structelc_1_1defs_1_1container_1_1map__n_1_1map__t_1_1data__t_1_1seek__value__t}
+\input{structelc_1_1defs_1_1base_1_1note__n_1_1size__t}
+\input{structelc_1_1_a_p_is_1_1alloc_1_1source__location__guard}
+\input{structelc_1_1_a_p_is_1_1alloc_1_1source__location__info__t}
+\input{structelc_1_1defs_1_1base_1_1special__attribute__pack}
+\input{structelc_1_1defs_1_1base_1_1special__init__t}
+\input{structelc_1_1defs_1_1stream__n_1_1string__iostream}
+\input{structelc_1_1defs_1_1stream__n_1_1string__istream}
+\input{structelc_1_1defs_1_1stream__n_1_1string__ostream}
+\input{structelc_1_1defs_1_1string__n_1_1string__t}
+\input{structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1substr__string__data__t}
+\input{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1sum__string__data__t}
+\input{structelc_1_1defs_1_1lib__loader__n_1_1symbol__t}
+\input{structelc_1_1defs_1_1lib__loader__n_1_1symbol__t_3_01_ret__t_07_args__t_8_8_8_08_01noexcept_07nothrow_08_4}
+\input{structelc_1_1defs_1_1core_1_1t__t}
+\input{structelc_1_1defs_1_1base_1_1note__n_1_1to__t}
+\input{structelc_1_1defs_1_1base_1_1type__info__t}
+\input{structelc_1_1defs_1_1base_1_1type__name__t}
+\input{structelc_1_1defs_1_1memory_1_1get__n_1_1unget__t}
+\input{structelc_1_1defs_1_1base_1_1hash__n_1_1unstable__hash__value__t}
+\input{structelc_1_1defs_1_1core_1_1value}
+\input{structelc_1_1defs_1_1core_1_1value_1_1variable__data__t}
+\input{structelc_1_1defs_1_1core_1_1void__t}
+\input{classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able}
+\input{structelc_1_1defs_1_1base_1_1type__info__t_1_1with__common__attribute}
+\input{structelc_1_1defs_1_1base_1_1type__info__t_1_1with__special__attribute}
+\input{structelc_1_1defs_1_1base_1_1zero__t}
+\chapter{文件说明}
+\input{all__defs_8cpp_source}
+%--- End generated contents ---
+% Index
+  \backmatter
+  \newpage
+  \phantomsection
+  \clearemptydoublepage
+  \addcontentsline{toc}{chapter}{\indexname}
+  \printindex
+% Required for some languages (in combination with latexdocumentpre from the header)
+\end{CJK}
+\end{document}

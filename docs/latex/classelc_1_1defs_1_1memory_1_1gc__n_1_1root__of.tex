@@ -1,0 +1,79 @@
+\hypertarget{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of}{}\doxysection{elc\+::defs\+::memory\+::gc\+\_\+n\+::root\+\_\+of\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} 模板类 参考}
+\label{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of}\index{elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual T \& \mbox{\hyperlink{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_ac355760af7c3cdef6a30c970ffd50ae7}{get}} () noexcept=0
+\item 
+virtual void \mbox{\hyperlink{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_a6db5e78e97b5575e5cc0da7cc86596de}{map\+\_\+and\+\_\+mark}} () noexcept=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T$>$\newline
+class elc\+::defs\+::memory\+::gc\+\_\+n\+::root\+\_\+of$<$ T $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10542}{10542}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_a437528c9190095bd5ed601d5733c635f}\label{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_a437528c9190095bd5ed601d5733c635f}} 
+\index{elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}!root\_of@{root\_of}}
+\index{root\_of@{root\_of}!elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{root\_of()}{root\_of()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of}{elc\+::defs\+::memory\+::gc\+\_\+n\+::root\+\_\+of}}$<$ T $>$\+::root\+\_\+of (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10545}{10545}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10545                                                                              \{}
+\DoxyCodeLine{10546                         roots\_of<T>.add(\textcolor{keyword}{this});}
+\DoxyCodeLine{10547                     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_ac355760af7c3cdef6a30c970ffd50ae7}\label{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_ac355760af7c3cdef6a30c970ffd50ae7}} 
+\index{elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}!get@{get}}
+\index{get@{get}!elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& root\+\_\+of\+::get\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10552}{10552}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10552 \{\textcolor{keywordflow}{return} const\_default\_value\_of<T>;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_a6db5e78e97b5575e5cc0da7cc86596de}\label{classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of_a6db5e78e97b5575e5cc0da7cc86596de}} 
+\index{elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}!map\_and\_mark@{map\_and\_mark}}
+\index{map\_and\_mark@{map\_and\_mark}!elc::defs::memory::gc\_n::root\_of$<$ T $>$@{elc::defs::memory::gc\_n::root\_of$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{map\_and\_mark()}{map\_and\_mark()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void root\+\_\+of\+::map\+\_\+and\+\_\+mark\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l10554}{10554}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10554 \{\}}
+
+\end{DoxyCode}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

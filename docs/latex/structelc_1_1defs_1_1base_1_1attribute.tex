@@ -1,0 +1,73 @@
+\hypertarget{structelc_1_1defs_1_1base_1_1attribute}{}\doxysection{elc\+::defs\+::base\+::attribute\texorpdfstring{$<$}{<} T, attribute\+\_\+name \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1base_1_1attribute}\index{elc::defs::base::attribute$<$ T, attribute\_name $>$@{elc::defs::base::attribute$<$ T, attribute\_name $>$}}
+类 elc\+::defs\+::base\+::attribute\texorpdfstring{$<$}{<} T, attribute\+\_\+name \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.463343cm]{structelc_1_1defs_1_1base_1_1attribute}
+\end{center}
+\end{figure}
+\doxysubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+constexpr T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1attribute_acb7fd98bd51f0c284405cb8e5216b7a4}{get\+\_\+handle}} () noexcept
+\item 
+constexpr const T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1attribute_aa4c705a6811c3b814731cfb86bf815f9}{get\+\_\+handle}} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{友元}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1attribute_a2c16612ef82864c37d86ab754ce1582c}\label{structelc_1_1defs_1_1base_1_1attribute_a2c16612ef82864c37d86ab754ce1582c}} 
+{\footnotesize template$<$class U , class another\+\_\+attribute\+\_\+name $>$ }\\U $\ast$ {\bfseries get\+\_\+handle} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1attribute}{attribute}}$<$ U, another\+\_\+attribute\+\_\+name $>$ $\ast$) noexcept
+\item 
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1attribute_a02e83e4a58b61a7b6d4984dc44c090dd}\label{structelc_1_1defs_1_1base_1_1attribute_a02e83e4a58b61a7b6d4984dc44c090dd}} 
+{\footnotesize template$<$class U , class another\+\_\+attribute\+\_\+name $>$ }\\const U $\ast$ {\bfseries get\+\_\+handle} (const \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1attribute}{attribute}}$<$ U, another\+\_\+attribute\+\_\+name $>$ $\ast$) noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class T, typename attribute\+\_\+name$>$\newline
+struct elc\+::defs\+::base\+::attribute$<$ T, attribute\+\_\+name $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01061}{1061}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1attribute_aa4c705a6811c3b814731cfb86bf815f9}\label{structelc_1_1defs_1_1base_1_1attribute_aa4c705a6811c3b814731cfb86bf815f9}} 
+\index{elc::defs::base::attribute$<$ T, attribute\_name $>$@{elc::defs::base::attribute$<$ T, attribute\_name $>$}!get\_handle@{get\_handle}}
+\index{get\_handle@{get\_handle}!elc::defs::base::attribute$<$ T, attribute\_name $>$@{elc::defs::base::attribute$<$ T, attribute\_name $>$}}
+\doxysubsubsection{\texorpdfstring{get\_handle()}{get\_handle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T , typename attribute\+\_\+name $>$ \\
+constexpr const T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1attribute}{elc\+::defs\+::base\+::attribute}}$<$ T, attribute\+\_\+name $>$\+::get\+\_\+handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01069}{1069}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01069 \{\textcolor{keywordflow}{return} down\_cast<const T*>(down\_cast<const attribute\_name*>(\textcolor{keyword}{this}));\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1attribute_acb7fd98bd51f0c284405cb8e5216b7a4}\label{structelc_1_1defs_1_1base_1_1attribute_acb7fd98bd51f0c284405cb8e5216b7a4}} 
+\index{elc::defs::base::attribute$<$ T, attribute\_name $>$@{elc::defs::base::attribute$<$ T, attribute\_name $>$}!get\_handle@{get\_handle}}
+\index{get\_handle@{get\_handle}!elc::defs::base::attribute$<$ T, attribute\_name $>$@{elc::defs::base::attribute$<$ T, attribute\_name $>$}}
+\doxysubsubsection{\texorpdfstring{get\_handle()}{get\_handle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T , typename attribute\+\_\+name $>$ \\
+constexpr T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1attribute}{elc\+::defs\+::base\+::attribute}}$<$ T, attribute\+\_\+name $>$\+::get\+\_\+handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01065}{1065}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01065 \{\textcolor{keywordflow}{return} down\_cast<T*>(down\_cast<attribute\_name*>(\textcolor{keyword}{this}));\}}
+
+\end{DoxyCode}
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

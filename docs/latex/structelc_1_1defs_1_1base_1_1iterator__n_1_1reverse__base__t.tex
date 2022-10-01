@@ -1,0 +1,151 @@
+\hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{}\doxysection{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t\texorpdfstring{$<$}{<} base\+\_\+t\+\_\+w \texorpdfstring{$>$}{>} 模板结构体 参考}
+\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a9edd4ac7d608ba6de660cc34856a1129}{this\+\_\+t}}
+\item 
+typedef remove\+\_\+cv$<$ base\+\_\+t\+\_\+w $>$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a79cd225b28b0a1a8b34cb073645b624f}{base\+\_\+t\+\_\+rw}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename build\+\_\+base\+\_\+t\+\_\+T $>$ \newline
+requires (construct$<$base\+\_\+t\+\_\+rw$>$.able$<$build\+\_\+base\+\_\+t\+\_\+T$>$)}\\constexpr \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a7eb10ecae0afc52595d7ace7d4567ae5}{reverse\+\_\+base\+\_\+t}} (build\+\_\+base\+\_\+t\+\_\+T \&\&a) noexcept(construct$<$ base\+\_\+t\+\_\+rw $>$.nothrow$<$ build\+\_\+base\+\_\+t\+\_\+T $>$)
+\item 
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_aebaa6af4a22a61ad9396f26ca0ae810c}{get\+\_\+before}} () noexcept(noexcept(((\+::std\+::declval$<$ base\+\_\+t\+\_\+w $>$()).get\+\_\+next())))
+\item 
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_ab75147b95948915b55e53841a13e69a2}{get\+\_\+next}} () noexcept(noexcept(((\+::std\+::declval$<$ base\+\_\+t\+\_\+w $>$()).get\+\_\+before())))
+\item 
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a8280ee4a7e195293e5640de28f1f613a}{get\+\_\+handle}} () noexcept(noexcept(((\+::std\+::declval$<$ base\+\_\+t\+\_\+w $>$()).get\+\_\+handle())))
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+base\+\_\+t\+\_\+rw \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a1a93c07cc7b334b30380ff6ae1b9dd3a}{\+\_\+m}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename base\+\_\+t\+\_\+w$>$\newline
+struct elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t$<$ base\+\_\+t\+\_\+w $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06365}{6365}} 行定义.
+
+
+
+\doxysubsection{成员类型定义说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a79cd225b28b0a1a8b34cb073645b624f}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a79cd225b28b0a1a8b34cb073645b624f}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!base\_t\_rw@{base\_t\_rw}}
+\index{base\_t\_rw@{base\_t\_rw}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{base\_t\_rw}{base\_t\_rw}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+typedef remove\+\_\+cv$<$base\+\_\+t\+\_\+w$>$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::base\+\_\+t\+\_\+rw}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06367}{6367}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a9edd4ac7d608ba6de660cc34856a1129}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a9edd4ac7d608ba6de660cc34856a1129}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!this\_t@{this\_t}}
+\index{this\_t@{this\_t}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{this\_t}{this\_t}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+typedef \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{reverse\+\_\+base\+\_\+t}}$<$base\+\_\+t\+\_\+w$>$ \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::this\+\_\+t}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06366}{6366}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a7eb10ecae0afc52595d7ace7d4567ae5}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a7eb10ecae0afc52595d7ace7d4567ae5}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!reverse\_base\_t@{reverse\_base\_t}}
+\index{reverse\_base\_t@{reverse\_base\_t}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{reverse\_base\_t()}{reverse\_base\_t()}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+template$<$typename build\+\_\+base\+\_\+t\+\_\+T $>$ \newline
+requires (construct$<$base\+\_\+t\+\_\+rw$>$.able$<$build\+\_\+base\+\_\+t\+\_\+T$>$)\\
+constexpr \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::reverse\+\_\+base\+\_\+t (\begin{DoxyParamCaption}\item[{build\+\_\+base\+\_\+t\+\_\+T \&\&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06370}{6370}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06370 :\_m(a)\{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_aebaa6af4a22a61ad9396f26ca0ae810c}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_aebaa6af4a22a61ad9396f26ca0ae810c}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!get\_before@{get\_before}}
+\index{get\_before@{get\_before}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{get\_before()}{get\_before()}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::get\+\_\+before (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06371}{6371}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06371 \{ \textcolor{keywordflow}{return} ((base\_t\_w\&)\_m).get\_next(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a8280ee4a7e195293e5640de28f1f613a}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a8280ee4a7e195293e5640de28f1f613a}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!get\_handle@{get\_handle}}
+\index{get\_handle@{get\_handle}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{get\_handle()}{get\_handle()}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::get\+\_\+handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06373}{6373}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06373 \{ \textcolor{keywordflow}{return} ((base\_t\_w\&)\_m).get\_handle(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_ab75147b95948915b55e53841a13e69a2}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_ab75147b95948915b55e53841a13e69a2}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!get\_next@{get\_next}}
+\index{get\_next@{get\_next}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{get\_next()}{get\_next()}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::get\+\_\+next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06372}{6372}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06372 \{ \textcolor{keywordflow}{return} ((base\_t\_w\&)\_m).get\_before(); \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a1a93c07cc7b334b30380ff6ae1b9dd3a}\label{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t_a1a93c07cc7b334b30380ff6ae1b9dd3a}} 
+\index{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}!\_m@{\_m}}
+\index{\_m@{\_m}!elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$@{elc::defs::base::iterator\_n::reverse\_base\_t$<$ base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{\_m}{\_m}}
+{\footnotesize\ttfamily template$<$typename base\+\_\+t\+\_\+w $>$ \\
+base\+\_\+t\+\_\+rw \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1iterator__n_1_1reverse__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::reverse\+\_\+base\+\_\+t}}$<$ base\+\_\+t\+\_\+w $>$\+::\+\_\+m}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06368}{6368}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

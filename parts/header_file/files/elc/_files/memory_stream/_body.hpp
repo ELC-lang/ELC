@@ -12,7 +12,9 @@
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
-	#include "memory_stream.hpp"
+	namespace stream_n{
+		#include "memory_stream.hpp"
+	}
 
 	#if defined(ELC_TEST_ON)
 	namespace memory_stream_part_test{

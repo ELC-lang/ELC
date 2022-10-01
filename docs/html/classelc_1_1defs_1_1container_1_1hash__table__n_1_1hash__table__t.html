@@ -1,0 +1,945 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ELC: elc::defs::container::hash_table_n::hash_table_t&lt; T, stack_t, bucket_max_size &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo_for_doc.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">ELC
+   </div>
+   <div id="projectbrief">ELC-lang</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>elc</b></li><li class="navelem"><b>defs</b></li><li class="navelem"><b>container</b></li><li class="navelem"><b>hash_table_n</b></li><li class="navelem"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">hash_table_t</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">elc::defs::container::hash_table_n::hash_table_t&lt; T, stack_t, bucket_max_size &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a7b60fa68a268cab8a014ce25f2f10b93"><td class="memItemLeft" align="right" valign="top">typedef array_t&lt; bucket_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a7b60fa68a268cab8a014ce25f2f10b93">base_t_w</a></td></tr>
+<tr class="separator:a7b60fa68a268cab8a014ce25f2f10b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a26f2d5e28e965f4cca9757abe265df4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a26f2d5e28e965f4cca9757abe265df4a">swap</a> (base_t_w &amp;a) noexcept</td></tr>
+<tr class="separator:a26f2d5e28e965f4cca9757abe265df4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e282189f6c32d1a7917da9ae203e15c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a7e282189f6c32d1a7917da9ae203e15c">hash_table_t</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1special__init__t.html">special_init_t</a>, size_t bucket_size) noexcept</td></tr>
+<tr class="separator:a7e282189f6c32d1a7917da9ae203e15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7177713f1012efcbbe1ec6588b2bab4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#af7177713f1012efcbbe1ec6588b2bab4">operator base_t_w &amp;</a> () noexcept</td></tr>
+<tr class="separator:af7177713f1012efcbbe1ec6588b2bab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaec0ae9f65ee86b3a1a81c40f9a0211d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#aaec0ae9f65ee86b3a1a81c40f9a0211d">operator const base_t_w &amp;</a> () const noexcept</td></tr>
+<tr class="separator:aaec0ae9f65ee86b3a1a81c40f9a0211d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacd8e0791bb7ae657d0d6b8ebbb5ba76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#aacd8e0791bb7ae657d0d6b8ebbb5ba76">hash_table_t</a> (const <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp;a) noexcept</td></tr>
+<tr class="separator:aacd8e0791bb7ae657d0d6b8ebbb5ba76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39c519d248979e5ca192b6ff8f21449"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#ac39c519d248979e5ca192b6ff8f21449">hash_table_t</a> (<a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp;&amp;a) noexcept</td></tr>
+<tr class="separator:ac39c519d248979e5ca192b6ff8f21449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a828d8f22757096a80511f8b71559b8f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a828d8f22757096a80511f8b71559b8f8">operator=</a> (base_t_w &amp;&amp;a) &amp;noexcept</td></tr>
+<tr class="separator:a828d8f22757096a80511f8b71559b8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab74a9de4e08f97c0f7c3b319fc84fc01"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#ab74a9de4e08f97c0f7c3b319fc84fc01">operator=</a> (const base_t_w &amp;a) &amp;noexcept</td></tr>
+<tr class="separator:ab74a9de4e08f97c0f7c3b319fc84fc01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bd256d9dfa45a253052f3bd1b9961ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a6bd256d9dfa45a253052f3bd1b9961ff">add</a> (const T &amp;a) noexcept(hash_nothrow&lt; const T &amp; &gt; &amp;&amp;bucket_t::add_nothrow)</td></tr>
+<tr class="separator:a6bd256d9dfa45a253052f3bd1b9961ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f05e565bced5222d17d04da6b359ee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a6f05e565bced5222d17d04da6b359ee1">remove</a> (const T &amp;a) noexcept(bucket_t::remove_nothrow)</td></tr>
+<tr class="separator:a6f05e565bced5222d17d04da6b359ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa816ddd47857dd047c06f87f3da6dba9"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:aa816ddd47857dd047c06f87f3da6dba9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classelc_1_1defs_1_1base_1_1maybe__fail__reference.html">maybe_fail_reference</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#aa816ddd47857dd047c06f87f3da6dba9">find</a> (U &amp;&amp;a) noexcept(find_nothrow&lt; U &gt;)</td></tr>
+<tr class="separator:aa816ddd47857dd047c06f87f3da6dba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac162bc86a874e481a8d0a0b8c8100f63"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#ac162bc86a874e481a8d0a0b8c8100f63">in_table</a> (const T &amp;a) noexcept(noexcept(((::std::declval&lt; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &gt;()).find(a).not_fail())))</td></tr>
+<tr class="separator:ac162bc86a874e481a8d0a0b8c8100f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4df906fd10f8e69a62c0f76510e5b13"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#ac4df906fd10f8e69a62c0f76510e5b13">not_in_table</a> (const T &amp;a) noexcept(noexcept(((::std::declval&lt; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &gt;()).in_table(a))))</td></tr>
+<tr class="separator:ac4df906fd10f8e69a62c0f76510e5b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b04fe65f68d8967d6ae79bc3689540f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a1b04fe65f68d8967d6ae79bc3689540f">size</a> () noexcept</td></tr>
+<tr class="separator:a1b04fe65f68d8967d6ae79bc3689540f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeb5d7edbddb7c0c04522be73cf4cc27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#adeb5d7edbddb7c0c04522be73cf4cc27">clear</a> () noexcept(re_construct.nothrow&lt; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &gt;)</td></tr>
+<tr class="separator:adeb5d7edbddb7c0c04522be73cf4cc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72660c2f87a5e3cf308406ab70f6780a"><td class="memTemplParams" colspan="2">template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; T&amp; &gt;())) ;}))</td></tr>
+<tr class="memitem:a72660c2f87a5e3cf308406ab70f6780a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a72660c2f87a5e3cf308406ab70f6780a">for_each</a> (func_t &amp;&amp;func) noexcept(noexcept(((::std::declval&lt; func_t &gt;())((::std::declval&lt; T &amp; &gt;())))))</td></tr>
+<tr class="separator:a72660c2f87a5e3cf308406ab70f6780a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d5a82e1dcef0b29b015fe0a5f70a9a"><td class="memTemplParams" colspan="2">template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; const T&amp; &gt;())) ;}))</td></tr>
+<tr class="memitem:ab5d5a82e1dcef0b29b015fe0a5f70a9a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#ab5d5a82e1dcef0b29b015fe0a5f70a9a">for_each</a> (func_t &amp;&amp;func) const noexcept(noexcept(((::std::declval&lt; func_t &gt;())((::std::declval&lt; const T &amp; &gt;())))))</td></tr>
+<tr class="separator:ab5d5a82e1dcef0b29b015fe0a5f70a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbcf3e87e87710bf0d39e3ce05ff422a"><td class="memTemplParams" colspan="2">template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; bucket_t&amp; &gt;())) ;}))</td></tr>
+<tr class="memitem:acbcf3e87e87710bf0d39e3ce05ff422a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#acbcf3e87e87710bf0d39e3ce05ff422a">for_each_bucket</a> (func_t &amp;&amp;func) noexcept(noexcept(((::std::declval&lt; func_t &gt;())((::std::declval&lt; bucket_t &amp; &gt;())))))</td></tr>
+<tr class="separator:acbcf3e87e87710bf0d39e3ce05ff422a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac281bfaec7f6fa0597f91f0d2cfb7919"><td class="memTemplParams" colspan="2">template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; const bucket_t&amp; &gt;())) ;}))</td></tr>
+<tr class="memitem:ac281bfaec7f6fa0597f91f0d2cfb7919"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#ac281bfaec7f6fa0597f91f0d2cfb7919">for_each_bucket</a> (func_t &amp;&amp;func) const noexcept(noexcept(((::std::declval&lt; func_t &gt;())((::std::declval&lt; const bucket_t &amp; &gt;())))))</td></tr>
+<tr class="separator:ac281bfaec7f6fa0597f91f0d2cfb7919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:a1dbfd5fd775874c9db3c84656974e662"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a1dbfd5fd775874c9db3c84656974e662"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#a1dbfd5fd775874c9db3c84656974e662">hash_nothrow</a> =noexcept(hash((::std::declval&lt; U &gt;())))</td></tr>
+<tr class="separator:a1dbfd5fd775874c9db3c84656974e662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7e337d590087bd6807e4a9f345ba9a5"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:aa7e337d590087bd6807e4a9f345ba9a5"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html#aa7e337d590087bd6807e4a9f345ba9a5">find_nothrow</a> =hash_nothrow&lt;U&gt;&amp;&amp;noexcept((::std::declval&lt; bucket_t &gt;()).find((::std::declval&lt; U &gt;())))</td></tr>
+<tr class="separator:aa7e337d590087bd6807e4a9f345ba9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T, template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt;<br />
+class elc::defs::container::hash_table_n::hash_table_t&lt; T, stack_t, bucket_max_size &gt;</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10046">10046</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="a7b60fa68a268cab8a014ce25f2f10b93" name="a7b60fa68a268cab8a014ce25f2f10b93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b60fa68a268cab8a014ce25f2f10b93">&#9670;&#160;</a></span>base_t_w</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef array_t&lt;bucket_t&gt; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::base_t_w</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10050">10050</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a4dd1825ff3d43209862e4725273d05a8" name="a4dd1825ff3d43209862e4725273d05a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dd1825ff3d43209862e4725273d05a8">&#9670;&#160;</a></span>hash_table_t() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::hash_table_t </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10072">10072</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10072</span>:_m(5){}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7e282189f6c32d1a7917da9ae203e15c" name="a7e282189f6c32d1a7917da9ae203e15c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e282189f6c32d1a7917da9ae203e15c">&#9670;&#160;</a></span>hash_table_t() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::hash_table_t </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1special__init__t.html">special_init_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>bucket_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10073">10073</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10073</span>:_m(bucket_size){}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aacd8e0791bb7ae657d0d6b8ebbb5ba76" name="aacd8e0791bb7ae657d0d6b8ebbb5ba76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacd8e0791bb7ae657d0d6b8ebbb5ba76">&#9670;&#160;</a></span>hash_table_t() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::hash_table_t </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10079">10079</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10079</span>:_m(a._m){}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac39c519d248979e5ca192b6ff8f21449" name="ac39c519d248979e5ca192b6ff8f21449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac39c519d248979e5ca192b6ff8f21449">&#9670;&#160;</a></span>hash_table_t() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::hash_table_t </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10080">10080</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10080</span>:_m(a._m){}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a6bd256d9dfa45a253052f3bd1b9961ff" name="a6bd256d9dfa45a253052f3bd1b9961ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bd256d9dfa45a253052f3bd1b9961ff">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10096">10096</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10096</span>                                                                                                {</div>
+<div class="line"><span class="lineno">10097</span>                            <span class="keyword">auto</span>&amp;bucket=find_bucket(hash(a));</div>
+<div class="line"><span class="lineno">10098</span>                            bucket.add(a);</div>
+<div class="line"><span class="lineno">10099</span>                            <span class="keywordflow">if</span>(bucket.size() &gt; bucket_max_size)</div>
+<div class="line"><span class="lineno">10100</span>                                bucket_count_grow();</div>
+<div class="line"><span class="lineno">10101</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adeb5d7edbddb7c0c04522be73cf4cc27" name="adeb5d7edbddb7c0c04522be73cf4cc27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeb5d7edbddb7c0c04522be73cf4cc27">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10149">10149</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10149</span>                                                                          {</div>
+<div class="line"><span class="lineno">10150</span>                            re_construct(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">10151</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa816ddd47857dd047c06f87f3da6dba9" name="aa816ddd47857dd047c06f87f3da6dba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa816ddd47857dd047c06f87f3da6dba9">&#9670;&#160;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1base_1_1maybe__fail__reference.html">maybe_fail_reference</a>&lt; T &gt; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">U &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10118">10118</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10118</span>                                                                                               {</div>
+<div class="line"><span class="lineno">10119</span>                            <span class="keyword">auto</span>&amp;bucket=find_bucket(hash(a));</div>
+<div class="line"><span class="lineno">10120</span>                            suppress_msvc_warning(26496)<span class="comment">//?</span></div>
+<div class="line"><span class="lineno">10121</span>                            auto reference=bucket.find(a);</div>
+<div class="line"><span class="lineno">10122</span>                            if constexpr(is_unstable_hash&lt;T&gt;)</div>
+<div class="line"><span class="lineno">10123</span>                                if(reference.fail()){</div>
+<div class="line"><span class="lineno">10124</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i:_m){</div>
+<div class="line"><span class="lineno">10125</span>                                        <span class="keywordflow">if</span>(is_eq(i,bucket))</div>
+<div class="line"><span class="lineno">10126</span>                                            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">10127</span>                                        re_construct[&amp;reference](i.find(a));</div>
+<div class="line"><span class="lineno">10128</span>                                        <span class="keywordflow">if</span>(reference.not_fail())</div>
+<div class="line"><span class="lineno">10129</span>                                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">10130</span>                                    }</div>
+<div class="line"><span class="lineno">10131</span>                                }</div>
+<div class="line"><span class="lineno">10132</span>                            <span class="keywordflow">return</span> reference;</div>
+<div class="line"><span class="lineno">10133</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab5d5a82e1dcef0b29b015fe0a5f70a9a" name="ab5d5a82e1dcef0b29b015fe0a5f70a9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5d5a82e1dcef0b29b015fe0a5f70a9a">&#9670;&#160;</a></span>for_each() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; const T&amp; &gt;())) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::for_each </td>
+          <td>(</td>
+          <td class="paramtype">func_t &amp;&amp;&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10164">10164</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10164</span>                                                                          {</div>
+<div class="line"><span class="lineno">10165</span>                            <span class="keywordflow">for</span>(bucket_t&amp;a:_m){</div>
+<div class="line"><span class="lineno">10166</span>                                a.for_each(func);</div>
+<div class="line"><span class="lineno">10167</span>                            }</div>
+<div class="line"><span class="lineno">10168</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a72660c2f87a5e3cf308406ab70f6780a" name="a72660c2f87a5e3cf308406ab70f6780a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72660c2f87a5e3cf308406ab70f6780a">&#9670;&#160;</a></span>for_each() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; T&amp; &gt;())) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::for_each </td>
+          <td>(</td>
+          <td class="paramtype">func_t &amp;&amp;&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10155">10155</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10155</span>                                                                    {</div>
+<div class="line"><span class="lineno">10156</span>                            <span class="keywordflow">for</span>(bucket_t&amp;a:_m){</div>
+<div class="line"><span class="lineno">10157</span>                                a.for_each(func);</div>
+<div class="line"><span class="lineno">10158</span>                            }</div>
+<div class="line"><span class="lineno">10159</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac281bfaec7f6fa0597f91f0d2cfb7919" name="ac281bfaec7f6fa0597f91f0d2cfb7919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac281bfaec7f6fa0597f91f0d2cfb7919">&#9670;&#160;</a></span>for_each_bucket() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; const bucket_t&amp; &gt;())) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::for_each_bucket </td>
+          <td>(</td>
+          <td class="paramtype">func_t &amp;&amp;&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10180">10180</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10180</span>                                                                                 {</div>
+<div class="line"><span class="lineno">10181</span>                            _m.for_each(func);</div>
+<div class="line"><span class="lineno">10182</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acbcf3e87e87710bf0d39e3ce05ff422a" name="acbcf3e87e87710bf0d39e3ce05ff422a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbcf3e87e87710bf0d39e3ce05ff422a">&#9670;&#160;</a></span>for_each_bucket() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename func_t &gt; <br />
+requires (bool(requires{ (::std::declval&lt; func_t &gt;())((::std::declval&lt; bucket_t&amp; &gt;())) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::for_each_bucket </td>
+          <td>(</td>
+          <td class="paramtype">func_t &amp;&amp;&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10173">10173</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10173</span>                                                                           {</div>
+<div class="line"><span class="lineno">10174</span>                            _m.for_each(func);</div>
+<div class="line"><span class="lineno">10175</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac162bc86a874e481a8d0a0b8c8100f63" name="ac162bc86a874e481a8d0a0b8c8100f63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac162bc86a874e481a8d0a0b8c8100f63">&#9670;&#160;</a></span>in_table()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::in_table </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10134">10134</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10134</span>                                                                                                              {</div>
+<div class="line"><span class="lineno">10135</span>                            <span class="keywordflow">return</span> find(a).not_fail();</div>
+<div class="line"><span class="lineno">10136</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac4df906fd10f8e69a62c0f76510e5b13" name="ac4df906fd10f8e69a62c0f76510e5b13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4df906fd10f8e69a62c0f76510e5b13">&#9670;&#160;</a></span>not_in_table()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::not_in_table </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10137">10137</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10137</span>                                                                                                           {</div>
+<div class="line"><span class="lineno">10138</span>                            <span class="keywordflow">return</span> not in_table(a);</div>
+<div class="line"><span class="lineno">10139</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af7177713f1012efcbbe1ec6588b2bab4" name="af7177713f1012efcbbe1ec6588b2bab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7177713f1012efcbbe1ec6588b2bab4">&#9670;&#160;</a></span>operator base_t_w &amp;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::operator base_t_w &amp; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10076">10076</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10076</span>{<span class="keywordflow">return</span> _m;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaec0ae9f65ee86b3a1a81c40f9a0211d" name="aaec0ae9f65ee86b3a1a81c40f9a0211d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec0ae9f65ee86b3a1a81c40f9a0211d">&#9670;&#160;</a></span>operator const base_t_w &amp;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::operator const base_t_w &amp; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10077">10077</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10077</span>{<span class="keywordflow">return</span> _m;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a828d8f22757096a80511f8b71559b8f8" name="a828d8f22757096a80511f8b71559b8f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a828d8f22757096a80511f8b71559b8f8">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">base_t_w &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10082">10082</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10082</span>                                                              {</div>
+<div class="line"><span class="lineno">10083</span>                            swap(_m,a);</div>
+<div class="line"><span class="lineno">10084</span>                            <span class="keywordflow">return</span>*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">10085</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab74a9de4e08f97c0f7c3b319fc84fc01" name="ab74a9de4e08f97c0f7c3b319fc84fc01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab74a9de4e08f97c0f7c3b319fc84fc01">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">this_t</a> &amp; <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const base_t_w &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10086">10086</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10086</span>                                                                   {</div>
+<div class="line"><span class="lineno">10087</span>                            _m=a;</div>
+<div class="line"><span class="lineno">10088</span>                            <span class="keywordflow">return</span>*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">10089</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6f05e565bced5222d17d04da6b359ee1" name="a6f05e565bced5222d17d04da6b359ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f05e565bced5222d17d04da6b359ee1">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::remove </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10102">10102</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10102</span>                                                                              {</div>
+<div class="line"><span class="lineno">10103</span>                            <span class="keyword">auto</span>&amp;bucket=find_bucket(hash(a));</div>
+<div class="line"><span class="lineno">10104</span>                            <span class="keywordtype">bool</span> remove_success=bucket.remove(a);</div>
+<div class="line"><span class="lineno">10105</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(is_unstable_hash&lt;T&gt;)</div>
+<div class="line"><span class="lineno">10106</span>                                <span class="keywordflow">if</span>(not remove_success){</div>
+<div class="line"><span class="lineno">10107</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i:_m){</div>
+<div class="line"><span class="lineno">10108</span>                                        <span class="keywordflow">if</span>(is_eq(i,bucket))</div>
+<div class="line"><span class="lineno">10109</span>                                            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">10110</span>                                        remove_success=i.remove(a);</div>
+<div class="line"><span class="lineno">10111</span>                                        <span class="keywordflow">if</span>(remove_success)</div>
+<div class="line"><span class="lineno">10112</span>                                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">10113</span>                                    }</div>
+<div class="line"><span class="lineno">10114</span>                                }</div>
+<div class="line"><span class="lineno">10115</span>                            <span class="keywordflow">return</span> remove_success;</div>
+<div class="line"><span class="lineno">10116</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1b04fe65f68d8967d6ae79bc3689540f" name="a1b04fe65f68d8967d6ae79bc3689540f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b04fe65f68d8967d6ae79bc3689540f">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10141">10141</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10141</span>                                             {</div>
+<div class="line"><span class="lineno">10142</span>                            <span class="keywordtype">size_t</span> aret=0;</div>
+<div class="line"><span class="lineno">10143</span>                            <span class="keywordflow">for</span>(<span class="keyword">const</span> bucket_t&amp;a:_m){</div>
+<div class="line"><span class="lineno">10144</span>                                aret+=a.size();</div>
+<div class="line"><span class="lineno">10145</span>                            }</div>
+<div class="line"><span class="lineno">10146</span>                            <span class="keywordflow">return</span> aret;</div>
+<div class="line"><span class="lineno">10147</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a26f2d5e28e965f4cca9757abe265df4a" name="a26f2d5e28e965f4cca9757abe265df4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26f2d5e28e965f4cca9757abe265df4a">&#9670;&#160;</a></span>swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::swap </td>
+          <td>(</td>
+          <td class="paramtype">base_t_w &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10054">10054</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10054</span>{_m.swap_with(a);}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="aa7e337d590087bd6807e4a9f345ba9a5" name="aa7e337d590087bd6807e4a9f345ba9a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7e337d590087bd6807e4a9f345ba9a5">&#9670;&#160;</a></span>find_nothrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::find_nothrow =hash_nothrow&lt;U&gt;&amp;&amp;noexcept((::std::declval&lt; bucket_t &gt;()).find((::std::declval&lt; U &gt;())))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10094">10094</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1dbfd5fd775874c9db3c84656974e662" name="a1dbfd5fd775874c9db3c84656974e662"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dbfd5fd775874c9db3c84656974e662">&#9670;&#160;</a></span>hash_nothrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt;class stack_t = auto_stack_t, size_t bucket_max_size = 256&gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classelc_1_1defs_1_1container_1_1hash__table__n_1_1hash__table__t.html">elc::defs::container::hash_table_n::hash_table_t</a>&lt; T, stack_t, bucket_max_size &gt;::hash_nothrow =noexcept(hash((::std::declval&lt; U &gt;())))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10092">10092</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>docs/<a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+</small></address>
+</body>
+</html>

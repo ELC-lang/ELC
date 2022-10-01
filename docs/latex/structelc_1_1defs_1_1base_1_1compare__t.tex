@@ -1,0 +1,570 @@
+\hypertarget{structelc_1_1defs_1_1base_1_1compare__t}{}\doxysection{elc\+::defs\+::base\+::compare\+\_\+t结构体 参考}
+\label{structelc_1_1defs_1_1base_1_1compare__t}\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T , class U  = T$>$ }\\using \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a63efeb4e3d6c518ec57d6fe6c1b173de}{type}} = decltype(base\+\_\+call((\+::std\+::declval$<$ T $>$()),(\+::std\+::declval$<$ U $>$())))
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ab3042ecd7692c8c94e6f6844887bfb78}{operator()}} (T \&\&a, U \&\&b) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a8ccabdcb74ae041910e742d65c3e6a05}{operator()}} (T $\ast$a, U $\ast$b, size\+\_\+t size) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U , size\+\_\+t N1, size\+\_\+t N2$>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a2ab200dd9a7d7114dc95fb7d2be9ab43}{operator()}} (T(\&a)\mbox{[}N1\mbox{]}, U(\&b)\mbox{[}N2\mbox{]}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a6178faedeca9f4de9bad508385349c88}{operator()}} (T $\ast$a, size\+\_\+t size1, U $\ast$b, size\+\_\+t size2) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a0fe2b609ee2d5142c7553420c7ff382b}{operator()}} (T $\ast$a, size\+\_\+t size1, U $\ast$b, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ad8b6e85a2681c0210a60067a84762946}{operator()}} (T $\ast$a, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}, U $\ast$b, size\+\_\+t size2) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_acf842f7226ccd8d002eb3bcd995d8d31}{operator()}} (T $\ast$a, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}, U $\ast$b, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_aa4ae2fe8c93a039eec39dad2698eea26}{operator()}} (T $\ast$a, size\+\_\+t size1, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1just__an__part__t}{just\+\_\+an\+\_\+part\+\_\+t}}, U $\ast$b, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ac218d091711cefaa4eda1705255af4ba}{lexicographical}} (T $\ast$a, size\+\_\+t size1, U $\ast$b, size\+\_\+t size2) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U , size\+\_\+t N1, size\+\_\+t N2$>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ab8e189daceae86e22f0e3f1345412b16}{lexicographical}} (T(\&a)\mbox{[}N1\mbox{]}, U(\&b)\mbox{[}N2\mbox{]}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_aabce403f744231bb71ed2a79f03bc7df}{lexicographical}} (T $\ast$a, size\+\_\+t size1, U $\ast$b, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ae5fba189fd541462058c497f179ebe43}{lexicographical}} (T $\ast$a, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}, U $\ast$b, size\+\_\+t size2) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_af1508a67a8194650a08af8b39059fcb8}{lexicographical}} (T $\ast$a, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}, U $\ast$b, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a8cc25b65c6105a0f0a03e7371262fcef}{lexicographical}} (T $\ast$a, size\+\_\+t size1, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1just__an__part__t}{just\+\_\+an\+\_\+part\+\_\+t}}, U $\ast$b, \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}) const noexcept(nothrow$<$ T, U $>$)
+\item 
+constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a49571c43618a4d1b445ff7fbbf8808c5}{reverse}} (partial\+\_\+ordering odr) const noexcept
+\item 
+constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a62dc48a30d00b0be9ec5a1f21618ef58}{reverse}} (weak\+\_\+ordering odr) const noexcept
+\item 
+constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a11e8b7b4ce1c10c1a73ad2442f0f7cb5}{reverse}} (strong\+\_\+ordering odr) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T , class U $>$ }\\static constexpr auto \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ae93cfa3da47dda23711a1e2b8ad7d29c}{base\+\_\+call}} (T \&\&a, U \&\&b) noexcept(nothrow$<$ T, U $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T , class U  = T$>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_a69c33f31db14ccf06ceddffeb2acf970}{r\+\_\+able}} = (bool(requires\{ (\+::std\+::declval$<$ T $>$())$<$=$>$(\+::std\+::declval$<$ U $>$()) ;\}))
+\item 
+{\footnotesize template$<$class T , class U  = T$>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_acafe8973cd922ab76111ce4f7c0a4148}{able}}
+\item 
+{\footnotesize template$<$class T , class U  = T$>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1base_1_1compare__t_ada9b506b65f2d97c77ae27d80a3a987a}{nothrow}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01552}{1552}} 行定义.
+
+
+
+\doxysubsection{成员类型定义说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a63efeb4e3d6c518ec57d6fe6c1b173de}\label{structelc_1_1defs_1_1base_1_1compare__t_a63efeb4e3d6c518ec57d6fe6c1b173de}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!type@{type}}
+\index{type@{type}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily template$<$class T , class U  = T$>$ \\
+using elc\+::defs\+::base\+::compare\+\_\+t\+::type =  decltype(base\+\_\+call((\+::std\+::declval$<$ T $>$()),(\+::std\+::declval$<$ U $>$())))}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01584}{1584}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ae93cfa3da47dda23711a1e2b8ad7d29c}\label{structelc_1_1defs_1_1base_1_1compare__t_ae93cfa3da47dda23711a1e2b8ad7d29c}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!base\_call@{base\_call}}
+\index{base\_call@{base\_call}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{base\_call()}{base\_call()}}
+{\footnotesize\ttfamily template$<$class T , class U $>$ \\
+static constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::base\+\_\+call (\begin{DoxyParamCaption}\item[{T \&\&}]{a,  }\item[{U \&\&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01573}{1573}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01573                                                                                                      \{}
+\DoxyCodeLine{01574                             \textcolor{comment}{//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>}}
+\DoxyCodeLine{01575                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(r\_able<T,U>)}
+\DoxyCodeLine{01576                                 \textcolor{keywordflow}{return} a<=>b;}
+\DoxyCodeLine{01577                             \textcolor{keywordflow}{else} \textcolor{keywordflow}{return} a == b  ? partial\_ordering::equivalent  :}
+\DoxyCodeLine{01578                                         a < b   ? partial\_ordering::less        :}
+\DoxyCodeLine{01579                                         b < a   ? partial\_ordering::greater     :}
+\DoxyCodeLine{01580                                                   partial\_ordering::unordered   ;}
+\DoxyCodeLine{01581                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_af1508a67a8194650a08af8b39059fcb8}\label{structelc_1_1defs_1_1base_1_1compare__t_af1508a67a8194650a08af8b39059fcb8}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!lexicographical@{lexicographical}}
+\index{lexicographical@{lexicographical}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{lexicographical()}{lexicographical()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::lexicographical (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{,  }\item[{U $\ast$}]{b,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01704}{1704}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01704                                                                                                                                     \{}
+\DoxyCodeLine{01705                             floop\{}
+\DoxyCodeLine{01706                                 \textcolor{keywordflow}{if}(*a==T\{0\})}
+\DoxyCodeLine{01707                                     \textcolor{keywordflow}{return} *b==U\{0\}?strong\_ordering::equivalent:}
+\DoxyCodeLine{01708                                                     strong\_ordering::less;}
+\DoxyCodeLine{01709                                 \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=base\_call(*a,*b); tmp!=0)}
+\DoxyCodeLine{01710                                     \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01711                                 a++;}
+\DoxyCodeLine{01712                                 b++;}
+\DoxyCodeLine{01713                             \}}
+\DoxyCodeLine{01714                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ae5fba189fd541462058c497f179ebe43}\label{structelc_1_1defs_1_1base_1_1compare__t_ae5fba189fd541462058c497f179ebe43}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!lexicographical@{lexicographical}}
+\index{lexicographical@{lexicographical}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{lexicographical()}{lexicographical()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::lexicographical (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{,  }\item[{U $\ast$}]{b,  }\item[{size\+\_\+t}]{size2 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01691}{1691}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01691                                                                                                                                    \{}
+\DoxyCodeLine{01692                             \textcolor{keywordflow}{while}(size2-\/-\/)\{}
+\DoxyCodeLine{01693                                 \textcolor{keywordflow}{if}(*a==T\{0\})}
+\DoxyCodeLine{01694                                     \textcolor{keywordflow}{return} strong\_ordering::less;}
+\DoxyCodeLine{01695                                 \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=base\_call(*a,*b); tmp!=0)}
+\DoxyCodeLine{01696                                     \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01697                                 a++;}
+\DoxyCodeLine{01698                                 b++;}
+\DoxyCodeLine{01699                             \}}
+\DoxyCodeLine{01700                             \textcolor{keywordflow}{return} *b==U\{0\}?strong\_ordering::equivalent:}
+\DoxyCodeLine{01701                                             strong\_ordering::less;}
+\DoxyCodeLine{01702                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a8cc25b65c6105a0f0a03e7371262fcef}\label{structelc_1_1defs_1_1base_1_1compare__t_a8cc25b65c6105a0f0a03e7371262fcef}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!lexicographical@{lexicographical}}
+\index{lexicographical@{lexicographical}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{lexicographical()}{lexicographical()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::lexicographical (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{size\+\_\+t}]{size1,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1just__an__part__t}{just\+\_\+an\+\_\+part\+\_\+t}}}]{,  }\item[{U $\ast$}]{b,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01716}{1716}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01716                                                                                                                                                   \{}
+\DoxyCodeLine{01717                             \textcolor{keywordflow}{while}(size1-\/-\/)\{}
+\DoxyCodeLine{01718                                 \textcolor{keywordflow}{if}(*b==U\{0\})}
+\DoxyCodeLine{01719                                     \textcolor{keywordflow}{return} strong\_ordering::greater;}
+\DoxyCodeLine{01720                                 \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=base\_call(*a,*b); tmp!=0)}
+\DoxyCodeLine{01721                                     \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01722                                 a++;}
+\DoxyCodeLine{01723                                 b++;}
+\DoxyCodeLine{01724                             \}}
+\DoxyCodeLine{01725                             \textcolor{keywordflow}{return} strong\_ordering::equivalent;}
+\DoxyCodeLine{01726                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_aabce403f744231bb71ed2a79f03bc7df}\label{structelc_1_1defs_1_1base_1_1compare__t_aabce403f744231bb71ed2a79f03bc7df}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!lexicographical@{lexicographical}}
+\index{lexicographical@{lexicographical}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{lexicographical()}{lexicographical()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::lexicographical (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{size\+\_\+t}]{size1,  }\item[{U $\ast$}]{b,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01678}{1678}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01678                                                                                                                                    \{}
+\DoxyCodeLine{01679                             \textcolor{keywordflow}{while}(size1-\/-\/)\{}
+\DoxyCodeLine{01680                                 \textcolor{keywordflow}{if}(*b==U\{0\})}
+\DoxyCodeLine{01681                                     \textcolor{keywordflow}{return} strong\_ordering::greater;}
+\DoxyCodeLine{01682                                 \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=base\_call(*a,*b); tmp!=0)}
+\DoxyCodeLine{01683                                     \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01684                                 a++;}
+\DoxyCodeLine{01685                                 b++;}
+\DoxyCodeLine{01686                             \}}
+\DoxyCodeLine{01687                             \textcolor{keywordflow}{return} *b==U\{0\}?strong\_ordering::equivalent:}
+\DoxyCodeLine{01688                                             strong\_ordering::less;}
+\DoxyCodeLine{01689                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ac218d091711cefaa4eda1705255af4ba}\label{structelc_1_1defs_1_1base_1_1compare__t_ac218d091711cefaa4eda1705255af4ba}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!lexicographical@{lexicographical}}
+\index{lexicographical@{lexicographical}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{lexicographical()}{lexicographical()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::lexicographical (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{size\+\_\+t}]{size1,  }\item[{U $\ast$}]{b,  }\item[{size\+\_\+t}]{size2 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01667}{1667}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01667                                                                                                                                   \{}
+\DoxyCodeLine{01668                             \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=\textcolor{keyword}{operator}()(a,b,min(size1,size2)); tmp!=0)}
+\DoxyCodeLine{01669                                 \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01670                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01671                                 \textcolor{keywordflow}{return} size1<=>size2;}
+\DoxyCodeLine{01672                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ab8e189daceae86e22f0e3f1345412b16}\label{structelc_1_1defs_1_1base_1_1compare__t_ab8e189daceae86e22f0e3f1345412b16}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!lexicographical@{lexicographical}}
+\index{lexicographical@{lexicographical}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{lexicographical()}{lexicographical()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily template$<$typename T , typename U , size\+\_\+t N1, size\+\_\+t N2$>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::lexicographical (\begin{DoxyParamCaption}\item[{T(\&)}]{a\mbox{[}\+N1\mbox{]},  }\item[{U(\&)}]{b\mbox{[}\+N2\mbox{]} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01674}{1674}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01674                                                                                                                     \{}
+\DoxyCodeLine{01675                             \textcolor{keywordflow}{return} lexicographical(a,N1,b,N2);}
+\DoxyCodeLine{01676                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ab3042ecd7692c8c94e6f6844887bfb78}\label{structelc_1_1defs_1_1base_1_1compare__t_ab3042ecd7692c8c94e6f6844887bfb78}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T \&\&}]{a,  }\item[{U \&\&}]{b }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01587}{1587}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01587                                                                                                      \{}
+\DoxyCodeLine{01588                             \textcolor{keywordflow}{return} base\_call(a,b);}
+\DoxyCodeLine{01589                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_acf842f7226ccd8d002eb3bcd995d8d31}\label{structelc_1_1defs_1_1base_1_1compare__t_acf842f7226ccd8d002eb3bcd995d8d31}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{,  }\item[{U $\ast$}]{b,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01642}{1642}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01642                                                                                                                                \{}
+\DoxyCodeLine{01643                             type<T,U> tmp=strong\_ordering::equivalent;}
+\DoxyCodeLine{01644                             floop\{}
+\DoxyCodeLine{01645                                 \textcolor{keywordflow}{if}(*a==T\{0\})}
+\DoxyCodeLine{01646                                     \textcolor{keywordflow}{return} *b==U\{0\}?tmp:strong\_ordering::less;}
+\DoxyCodeLine{01647                                 \textcolor{keywordflow}{if}(tmp==0)}
+\DoxyCodeLine{01648                                     tmp=base\_call(*a,*b);}
+\DoxyCodeLine{01649                                 a++;}
+\DoxyCodeLine{01650                                 b++;}
+\DoxyCodeLine{01651                             \}}
+\DoxyCodeLine{01652                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ad8b6e85a2681c0210a60067a84762946}\label{structelc_1_1defs_1_1base_1_1compare__t_ad8b6e85a2681c0210a60067a84762946}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{,  }\item[{U $\ast$}]{b,  }\item[{size\+\_\+t}]{size2 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01629}{1629}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01629                                                                                                                               \{}
+\DoxyCodeLine{01630                             type<T,U> tmp=strong\_ordering::equivalent;}
+\DoxyCodeLine{01631                             \textcolor{keywordflow}{while}(size2-\/-\/)\{}
+\DoxyCodeLine{01632                                 \textcolor{keywordflow}{if}(*a==T\{0\})}
+\DoxyCodeLine{01633                                     \textcolor{keywordflow}{return} strong\_ordering::less;}
+\DoxyCodeLine{01634                                 \textcolor{keywordflow}{if}(tmp==0)}
+\DoxyCodeLine{01635                                     tmp=base\_call(*a,*b);}
+\DoxyCodeLine{01636                                 a++;}
+\DoxyCodeLine{01637                                 b++;}
+\DoxyCodeLine{01638                             \}}
+\DoxyCodeLine{01639                             \textcolor{keywordflow}{return} *b==U\{0\}?tmp:strong\_ordering::less;}
+\DoxyCodeLine{01640                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_aa4ae2fe8c93a039eec39dad2698eea26}\label{structelc_1_1defs_1_1base_1_1compare__t_aa4ae2fe8c93a039eec39dad2698eea26}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{size\+\_\+t}]{size1,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1just__an__part__t}{just\+\_\+an\+\_\+part\+\_\+t}}}]{,  }\item[{U $\ast$}]{b,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01654}{1654}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01654                                                                                                                                              \{}
+\DoxyCodeLine{01655                             type<T,U> tmp=strong\_ordering::equivalent;}
+\DoxyCodeLine{01656                             \textcolor{keywordflow}{while}(size1-\/-\/)\{}
+\DoxyCodeLine{01657                                 \textcolor{keywordflow}{if}(*b==U\{0\})}
+\DoxyCodeLine{01658                                     \textcolor{keywordflow}{return} strong\_ordering::greater;}
+\DoxyCodeLine{01659                                 \textcolor{keywordflow}{if}(tmp==0)}
+\DoxyCodeLine{01660                                     tmp=base\_call(*a,*b);}
+\DoxyCodeLine{01661                                 a++;}
+\DoxyCodeLine{01662                                 b++;}
+\DoxyCodeLine{01663                             \}}
+\DoxyCodeLine{01664                             \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01665                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a0fe2b609ee2d5142c7553420c7ff382b}\label{structelc_1_1defs_1_1base_1_1compare__t_a0fe2b609ee2d5142c7553420c7ff382b}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{size\+\_\+t}]{size1,  }\item[{U $\ast$}]{b,  }\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1end__by__zero__t}{end\+\_\+by\+\_\+zero\+\_\+t}}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01616}{1616}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01616                                                                                                                               \{}
+\DoxyCodeLine{01617                             type<T,U> tmp=strong\_ordering::equivalent;}
+\DoxyCodeLine{01618                             \textcolor{keywordflow}{while}(size1-\/-\/)\{}
+\DoxyCodeLine{01619                                 \textcolor{keywordflow}{if}(*b==U\{0\})}
+\DoxyCodeLine{01620                                     \textcolor{keywordflow}{return} strong\_ordering::greater;}
+\DoxyCodeLine{01621                                 \textcolor{keywordflow}{if}(tmp==0)}
+\DoxyCodeLine{01622                                     tmp=base\_call(*a,*b);}
+\DoxyCodeLine{01623                                 a++;}
+\DoxyCodeLine{01624                                 b++;}
+\DoxyCodeLine{01625                             \}}
+\DoxyCodeLine{01626                             \textcolor{keywordflow}{return} *b==U\{0\}?tmp:strong\_ordering::less;}
+\DoxyCodeLine{01627                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a6178faedeca9f4de9bad508385349c88}\label{structelc_1_1defs_1_1base_1_1compare__t_a6178faedeca9f4de9bad508385349c88}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{size\+\_\+t}]{size1,  }\item[{U $\ast$}]{b,  }\item[{size\+\_\+t}]{size2 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01608}{1608}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01608                                                                                                                              \{}
+\DoxyCodeLine{01609                             type<T,U> tmp=size1<=>size2;}
+\DoxyCodeLine{01610                             \textcolor{keywordflow}{if}(tmp!=0)}
+\DoxyCodeLine{01611                                 \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01612                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01613                                 \textcolor{keywordflow}{return} operator()(a,b,size1);}
+\DoxyCodeLine{01614                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a8ccabdcb74ae041910e742d65c3e6a05}\label{structelc_1_1defs_1_1base_1_1compare__t_a8ccabdcb74ae041910e742d65c3e6a05}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T $\ast$}]{a,  }\item[{U $\ast$}]{b,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01591}{1591}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01591                                                                                                                \{}
+\DoxyCodeLine{01592                             \textcolor{keywordflow}{while}(size-\/-\/)\{}
+\DoxyCodeLine{01593                                 \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tmp=base\_call(*(a++),*(b++)); tmp!=0)}
+\DoxyCodeLine{01594                                     \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{01595                             \}}
+\DoxyCodeLine{01596                             \textcolor{keywordflow}{return} strong\_ordering::equivalent;}
+\DoxyCodeLine{01597                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a2ab200dd9a7d7114dc95fb7d2be9ab43}\label{structelc_1_1defs_1_1base_1_1compare__t_a2ab200dd9a7d7114dc95fb7d2be9ab43}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily template$<$typename T , typename U , size\+\_\+t N1, size\+\_\+t N2$>$ \\
+constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{T(\&)}]{a\mbox{[}\+N1\mbox{]},  }\item[{U(\&)}]{b\mbox{[}\+N2\mbox{]} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01599}{1599}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01599                                                                                                                \{}
+\DoxyCodeLine{01600                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(N1==N2)}
+\DoxyCodeLine{01601                                 \textcolor{keywordflow}{return} \textcolor{keyword}{operator}()(a,b,N1);}
+\DoxyCodeLine{01602                             \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{01603                                 template\_warning(\textcolor{stringliteral}{"{}N1!=N2"{}});}
+\DoxyCodeLine{01604                                 \textcolor{keywordflow}{return} N1<=>N2;}
+\DoxyCodeLine{01605                             \}}
+\DoxyCodeLine{01606                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a49571c43618a4d1b445ff7fbbf8808c5}\label{structelc_1_1defs_1_1base_1_1compare__t_a49571c43618a4d1b445ff7fbbf8808c5}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!reverse@{reverse}}
+\index{reverse@{reverse}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{reverse()}{reverse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::reverse (\begin{DoxyParamCaption}\item[{partial\+\_\+ordering}]{odr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01728}{1728}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01728                                                                                                \{}
+\DoxyCodeLine{01729                             \textcolor{keywordflow}{if}(odr==partial\_ordering::greater)}
+\DoxyCodeLine{01730                                 \textcolor{keywordflow}{return} partial\_ordering::less;}
+\DoxyCodeLine{01731                             elseif(odr==partial\_ordering::less)}
+\DoxyCodeLine{01732                                 \textcolor{keywordflow}{return} partial\_ordering::greater;}
+\DoxyCodeLine{01733                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01734                                 \textcolor{keywordflow}{return} odr;}
+\DoxyCodeLine{01735                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a11e8b7b4ce1c10c1a73ad2442f0f7cb5}\label{structelc_1_1defs_1_1base_1_1compare__t_a11e8b7b4ce1c10c1a73ad2442f0f7cb5}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!reverse@{reverse}}
+\index{reverse@{reverse}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{reverse()}{reverse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::reverse (\begin{DoxyParamCaption}\item[{strong\+\_\+ordering}]{odr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01744}{1744}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01744                                                                                               \{}
+\DoxyCodeLine{01745                             \textcolor{keywordflow}{if}(odr==strong\_ordering::greater)}
+\DoxyCodeLine{01746                                 \textcolor{keywordflow}{return} strong\_ordering::less;}
+\DoxyCodeLine{01747                             elseif(odr==strong\_ordering::less)}
+\DoxyCodeLine{01748                                 \textcolor{keywordflow}{return} strong\_ordering::greater;}
+\DoxyCodeLine{01749                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01750                                 \textcolor{keywordflow}{return} odr;}
+\DoxyCodeLine{01751                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a62dc48a30d00b0be9ec5a1f21618ef58}\label{structelc_1_1defs_1_1base_1_1compare__t_a62dc48a30d00b0be9ec5a1f21618ef58}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!reverse@{reverse}}
+\index{reverse@{reverse}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{reverse()}{reverse()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily constexpr auto elc\+::defs\+::base\+::compare\+\_\+t\+::reverse (\begin{DoxyParamCaption}\item[{weak\+\_\+ordering}]{odr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01736}{1736}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01736                                                                                             \{}
+\DoxyCodeLine{01737                             \textcolor{keywordflow}{if}(odr==weak\_ordering::greater)}
+\DoxyCodeLine{01738                                 \textcolor{keywordflow}{return} weak\_ordering::less;}
+\DoxyCodeLine{01739                             elseif(odr==weak\_ordering::less)}
+\DoxyCodeLine{01740                                 \textcolor{keywordflow}{return} weak\_ordering::greater;}
+\DoxyCodeLine{01741                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01742                                 \textcolor{keywordflow}{return} odr;}
+\DoxyCodeLine{01743                         \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_acafe8973cd922ab76111ce4f7c0a4148}\label{structelc_1_1defs_1_1base_1_1compare__t_acafe8973cd922ab76111ce4f7c0a4148}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!able@{able}}
+\index{able@{able}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{able}{able}}
+{\footnotesize\ttfamily template$<$class T , class U  = T$>$ \\
+constexpr bool elc\+::defs\+::base\+::compare\+\_\+t\+::able\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries 初始值\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= r\_able<T,U> ||}
+\DoxyCodeLine{                                                    }
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{(bool(\textcolor{keyword}{requires}\{ (::std::declval< T >())==(::std::declval< U >()),                                                                           (::std::declval< T >())<(::std::declval< U >()),                                                                            (::std::declval< U >())<(::std::declval< T >()) ;\}))}
+
+\end{DoxyCode}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01557}{1557}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_ada9b506b65f2d97c77ae27d80a3a987a}\label{structelc_1_1defs_1_1base_1_1compare__t_ada9b506b65f2d97c77ae27d80a3a987a}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!nothrow@{nothrow}}
+\index{nothrow@{nothrow}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{nothrow}{nothrow}}
+{\footnotesize\ttfamily template$<$class T , class U  = T$>$ \\
+constexpr bool elc\+::defs\+::base\+::compare\+\_\+t\+::nothrow\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries 初始值\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= (bool(\textcolor{keyword}{requires}\{ (::std::declval< T >())<=>(::std::declval< U >()) ;\{ (::std::declval< T >())<=>(::std::declval< U >()) \}\textcolor{keyword}{noexcept};\})) ||}
+\DoxyCodeLine{                                                       }
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{(bool(\textcolor{keyword}{requires}\{ (::std::declval< T >())==(::std::declval< U >()),                                                                           (::std::declval< T >())<(::std::declval< U >()),                                                                            (::std::declval< U >())<(::std::declval< T >()) ;\{ (::std::declval< T >())==(::std::declval< U >()),                                                                            (::std::declval< T >())<(::std::declval< U >()),                                                                            (::std::declval< U >())<(::std::declval< T >()) \}\textcolor{keyword}{noexcept};\}))}
+
+\end{DoxyCode}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01564}{1564}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1base_1_1compare__t_a69c33f31db14ccf06ceddffeb2acf970}\label{structelc_1_1defs_1_1base_1_1compare__t_a69c33f31db14ccf06ceddffeb2acf970}} 
+\index{elc::defs::base::compare\_t@{elc::defs::base::compare\_t}!r\_able@{r\_able}}
+\index{r\_able@{r\_able}!elc::defs::base::compare\_t@{elc::defs::base::compare\_t}}
+\doxysubsubsection{\texorpdfstring{r\_able}{r\_able}}
+{\footnotesize\ttfamily template$<$class T , class U  = T$>$ \\
+constexpr bool elc\+::defs\+::base\+::compare\+\_\+t\+::r\+\_\+able = (bool(requires\{ (\+::std\+::declval$<$ T $>$())$<$=$>$(\+::std\+::declval$<$ U $>$()) ;\}))\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l01554}{1554}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

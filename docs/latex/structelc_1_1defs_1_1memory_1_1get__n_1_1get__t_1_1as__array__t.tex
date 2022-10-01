@@ -1,0 +1,82 @@
+\hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t}{}\doxysection{elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+t\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+::as\+\_\+array\+\_\+t结构体 参考}
+\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t}\index{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_a40b96ac528f302092b724f648c8992ea}{operator()}} (\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ const T $>$a) const noexcept(nothrow$<$ void $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename U $>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_ae9bb2e200043583ff99c1aca87ef23cf}{able}} =copy\+\_\+construct.\+able$<$T$>$\&\&destruct.\+able$<$T$>$\&\&is\+\_\+array\+\_\+like\+\_\+for$<$T,U$>$
+\item 
+{\footnotesize template$<$typename U $>$ }\\static constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_a15eb48756d23dbffc7925c5ffd36c581}{nothrow}} =copy\+\_\+construct.\+nothrow$<$T$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T$>$\newline
+struct elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+t$<$ T $>$\+::as\+\_\+array\+\_\+t}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07535}{7535}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_a40b96ac528f302092b724f648c8992ea}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_a40b96ac528f302092b724f648c8992ea}} 
+\index{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}!operator()@{operator()}}
+\index{operator()@{operator()}!elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t}{elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+t}}$<$ T $>$\+::as\+\_\+array\+\_\+t\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t}{array\+\_\+like\+\_\+view\+\_\+t}}$<$ const T $>$}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07541}{7541}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{07541                                                                                                                 \{}
+\DoxyCodeLine{07542                                 \textcolor{keyword}{const} APIs::alloc::source\_location\_guard slg;}
+\DoxyCodeLine{07543                                 \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<T>.has\_attribute(never\_in\_array))}
+\DoxyCodeLine{07544                                     template\_error(\textcolor{stringliteral}{"{}You can\(\backslash\)'t get an array for never\_in\_array type."{}});}
+\DoxyCodeLine{07545                                 \textcolor{keyword}{auto} size=a.size();}
+\DoxyCodeLine{07546                                 \textcolor{keyword}{auto} aret=alloc<T>[size]();}
+\DoxyCodeLine{07547                                 copy\_construct[size](note::from(a.begin()),note::to(aret));}
+\DoxyCodeLine{07548                                 \textcolor{keywordflow}{return} aret;}
+\DoxyCodeLine{07549                             \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_ae9bb2e200043583ff99c1aca87ef23cf}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_ae9bb2e200043583ff99c1aca87ef23cf}} 
+\index{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}!able@{able}}
+\index{able@{able}!elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}}
+\doxysubsubsection{\texorpdfstring{able}{able}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename U $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t}{elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+t}}$<$ T $>$\+::as\+\_\+array\+\_\+t\+::able =copy\+\_\+construct.\+able$<$T$>$\&\&destruct.\+able$<$T$>$\&\&is\+\_\+array\+\_\+like\+\_\+for$<$T,U$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07537}{7537}} 行定义.
+
+\mbox{\Hypertarget{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_a15eb48756d23dbffc7925c5ffd36c581}\label{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t_a15eb48756d23dbffc7925c5ffd36c581}} 
+\index{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}!nothrow@{nothrow}}
+\index{nothrow@{nothrow}!elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t@{elc::defs::memory::get\_n::get\_t$<$ T $>$::as\_array\_t}}
+\doxysubsubsection{\texorpdfstring{nothrow}{nothrow}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename U $>$ \\
+constexpr bool \mbox{\hyperlink{structelc_1_1defs_1_1memory_1_1get__n_1_1get__t}{elc\+::defs\+::memory\+::get\+\_\+n\+::get\+\_\+t}}$<$ T $>$\+::as\+\_\+array\+\_\+t\+::nothrow =copy\+\_\+construct.\+nothrow$<$T$>$\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l07539}{7539}} 行定义.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

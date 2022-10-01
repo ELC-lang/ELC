@@ -1,0 +1,576 @@
+\hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{}\doxysection{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t\texorpdfstring{$<$}{<} value\+\_\+t, base\+\_\+t\+\_\+w \texorpdfstring{$>$}{>} 模板类 参考}
+\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+类 elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t\texorpdfstring{$<$}{<} value\+\_\+t, base\+\_\+t\+\_\+w \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}
+\end{center}
+\end{figure}
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+constexpr void \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a726bff94028581f0aea873090739a94b}{swap\+\_\+with}} (\mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&a) noexcept(noexcept((swap((\+::std\+::declval$<$ base\+\_\+t\+\_\+rw \& $>$()),(\+::std\+::declval$<$ base\+\_\+t\+\_\+rw \& $>$())))))
+\item 
+{\footnotesize template$<$typename build\+\_\+base\+\_\+t\+\_\+T $>$ \newline
+requires (construct$<$base\+\_\+t\+\_\+rw$>$.able$<$build\+\_\+base\+\_\+t\+\_\+T$>$)}\\constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a100089b5914941d27d44c67589677068}{same\+\_\+base\+\_\+t}} (build\+\_\+base\+\_\+t\+\_\+T \&\&a) noexcept(construct$<$ base\+\_\+t\+\_\+rw $>$.nothrow$<$ build\+\_\+base\+\_\+t\+\_\+T $>$)
+\item 
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a4db8ffd998a54217b3b62a021ec216c3}{same\+\_\+base\+\_\+t}} (const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&a) noexcept(construct$<$ base\+\_\+t\+\_\+rw $>$.nothrow$<$ const base\+\_\+t\+\_\+rw $>$)
+\item 
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_aa188a67323be336146e0bc293d41c66d}{same\+\_\+base\+\_\+t}} (\mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&\&a) noexcept(noexcept(((\+::std\+::declval$<$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} $>$()).swap\+\_\+with(a))))
+\item 
+{\footnotesize template$<$typename other\+\_\+T , typename other\+\_\+base\+\_\+t $>$ \newline
+requires (construct$<$base\+\_\+t\+\_\+rw$>$.able$<$other\+\_\+base\+\_\+t$>$)}\\constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a1e9cb01750b5afc91964bbcdddf0808a}{same\+\_\+base\+\_\+t}} (const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ other\+\_\+T, other\+\_\+base\+\_\+t $>$ \&a) noexcept(construct$<$ base\+\_\+t\+\_\+rw $>$.nothrow$<$ other\+\_\+base\+\_\+t $>$)
+\item 
+constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a62bd11cafe36d51dc484a874241c4ccf}{operator==}} (const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&a) const noexcept(noexcept(((\+::std\+::declval$<$ base\+\_\+t\+\_\+rw $>$())==(\+::std\+::declval$<$ base\+\_\+t\+\_\+rw $>$()))))
+\item 
+constexpr value\+\_\+t $\ast$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ad70baa695182c4de433370304d500c80}{operator-\/$>$}} () noexcept(is\+\_\+handle\+\_\+getter\+\_\+noexcept())
+\item 
+constexpr value\+\_\+type \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a23d951106cfda26a10802565a5317c65}{operator$\ast$}} () noexcept(noexcept((is\+\_\+value\+\_\+getter\+\_\+noexcept())))
+\item 
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abaf45cebfb25a52035650dbb729f5b52}{operator value\+\_\+t $\ast$}} () noexcept(noexcept(((\+::std\+::declval$<$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} $>$()).operator-\/$>$())))
+\item 
+constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_af84e94988c8f28e61c38763fd2939ce0}{operator==}} (value\+\_\+t $\ast$a) const noexcept(is\+\_\+handle\+\_\+getter\+\_\+noexcept()\&\&noexcept(pointer\+\_\+equal((\+::std\+::declval$<$ value\+\_\+t $\ast$ $>$()),(\+::std\+::declval$<$ value\+\_\+t $\ast$ $>$()))))
+\item 
+{\footnotesize template$<$typename other\+\_\+value\+\_\+t , typename other\+\_\+base\+\_\+t\+\_\+w $>$ \newline
+requires (equal.\+able$<$base\+\_\+t\+\_\+rw,other\+\_\+base\+\_\+t\+\_\+w$>$)}\\constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abcf0e8c95c182dba269cc23c07c09dfc}{operator==}} (const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ other\+\_\+value\+\_\+t, other\+\_\+base\+\_\+t\+\_\+w $>$ \&a) const noexcept(equal.\+nothrow$<$ base\+\_\+t\+\_\+rw, other\+\_\+base\+\_\+t\+\_\+w $>$)
+\item 
+{\footnotesize template$<$typename other\+\_\+value\+\_\+t , typename other\+\_\+base\+\_\+t\+\_\+w $>$ }\\constexpr auto \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a8f8515be81ba519d58523ca077d7895e}{operator$<$=$>$}} (const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ other\+\_\+value\+\_\+t, other\+\_\+base\+\_\+t\+\_\+w $>$ \&a) const noexcept(compare.\+nothrow$<$ base\+\_\+t\+\_\+rw, other\+\_\+base\+\_\+t\+\_\+w $>$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ae35c511490ed4285ed435993ca6360dd}{this\+\_\+t}}
+\item 
+typedef remove\+\_\+cv$<$ base\+\_\+t\+\_\+w $>$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a83b9c119174f4c48739ed4d8d489c783}{base\+\_\+t\+\_\+rw}}
+\item 
+typedef decltype(value\+\_\+type\+\_\+getter()) \+::template type \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a79c00d0aaaeaa70986106c2a3bf4dfa6}{value\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+value\+\_\+t $\ast$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a672e4e845ba4964b82822f5f69f5bb63}{handle\+\_\+getter}} () const noexcept(is\+\_\+handle\+\_\+getter\+\_\+noexcept())
+\item 
+value\+\_\+type \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_aed39bed6e7e52366f1d3bbfe2fae3733}{value\+\_\+getter}} () const noexcept(is\+\_\+handle\+\_\+getter\+\_\+noexcept())
+\item 
+base\+\_\+t\+\_\+w \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a30fd77280b26ac5c4841a0ac7dfc7e1d}{next\+\_\+getter}} () const noexcept(is\+\_\+next\+\_\+getter\+\_\+noexcept())
+\item 
+base\+\_\+t\+\_\+w \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abe32cd88f0d3fcb3d6a3b7546f043957}{before\+\_\+getter}} () const noexcept(is\+\_\+before\+\_\+getter\+\_\+noexcept())
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a35141ca419118090c7c662982969cb9b}{is\+\_\+handle\+\_\+getter\+\_\+noexcept}} () noexcept
+\item 
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a9b5c79404ac77f13b09581b61a93759e}{is\+\_\+value\+\_\+getter\+\_\+noexcept}} () noexcept
+\item 
+static constexpr auto \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ad7f1a8a5314acee3e57d4b0bed39146f}{value\+\_\+type\+\_\+getter}} ()
+\item 
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ae7a567982c559408e0396b7ae8865072}{is\+\_\+next\+\_\+getter\+\_\+noexcept}} () noexcept
+\item 
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ac71044d896348eaa2571fc4dba006d1c}{is\+\_\+before\+\_\+getter\+\_\+noexcept}} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+base\+\_\+t\+\_\+rw \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a1ba3247a405a528a1e4354ce3b795074}{\+\_\+m}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename value\+\_\+t, typename base\+\_\+t\+\_\+w$>$\newline
+class elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$}
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06397}{6397}} 行定义.
+
+
+
+\doxysubsection{成员类型定义说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a83b9c119174f4c48739ed4d8d489c783}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a83b9c119174f4c48739ed4d8d489c783}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!base\_t\_rw@{base\_t\_rw}}
+\index{base\_t\_rw@{base\_t\_rw}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{base\_t\_rw}{base\_t\_rw}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+typedef remove\+\_\+cv$<$base\+\_\+t\+\_\+w$>$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::base\+\_\+t\+\_\+rw\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06402}{6402}} 行定义.
+
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ae35c511490ed4285ed435993ca6360dd}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ae35c511490ed4285ed435993ca6360dd}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!this\_t@{this\_t}}
+\index{this\_t@{this\_t}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{this\_t}{this\_t}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+typedef \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$value\+\_\+t,base\+\_\+t\+\_\+w$>$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::this\+\_\+t\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06401}{6401}} 行定义.
+
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a79c00d0aaaeaa70986106c2a3bf4dfa6}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a79c00d0aaaeaa70986106c2a3bf4dfa6}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!value\_type@{value\_type}}
+\index{value\_type@{value\_type}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{value\_type}{value\_type}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+typedef decltype(value\+\_\+type\+\_\+getter()) \+::template type \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::value\+\_\+type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06442}{6442}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a100089b5914941d27d44c67589677068}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a100089b5914941d27d44c67589677068}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!same\_base\_t@{same\_base\_t}}
+\index{same\_base\_t@{same\_base\_t}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{same\_base\_t()}{same\_base\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+template$<$typename build\+\_\+base\+\_\+t\+\_\+T $>$ \newline
+requires (construct$<$base\+\_\+t\+\_\+rw$>$.able$<$build\+\_\+base\+\_\+t\+\_\+T$>$)\\
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::same\+\_\+base\+\_\+t (\begin{DoxyParamCaption}\item[{build\+\_\+base\+\_\+t\+\_\+T \&\&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06493}{6493}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06493 :\_m(a)\{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a4db8ffd998a54217b3b62a021ec216c3}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a4db8ffd998a54217b3b62a021ec216c3}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!same\_base\_t@{same\_base\_t}}
+\index{same\_base\_t@{same\_base\_t}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{same\_base\_t()}{same\_base\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::same\+\_\+base\+\_\+t (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06494}{6494}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06494 :\_m(a.\_m)\{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_aa188a67323be336146e0bc293d41c66d}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_aa188a67323be336146e0bc293d41c66d}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!same\_base\_t@{same\_base\_t}}
+\index{same\_base\_t@{same\_base\_t}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{same\_base\_t()}{same\_base\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::same\+\_\+base\+\_\+t (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&\&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06495}{6495}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06495 \{swap\_with(a);\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a1e9cb01750b5afc91964bbcdddf0808a}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a1e9cb01750b5afc91964bbcdddf0808a}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!same\_base\_t@{same\_base\_t}}
+\index{same\_base\_t@{same\_base\_t}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{same\_base\_t()}{same\_base\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+template$<$typename other\+\_\+T , typename other\+\_\+base\+\_\+t $>$ \newline
+requires (construct$<$base\+\_\+t\+\_\+rw$>$.able$<$other\+\_\+base\+\_\+t$>$)\\
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::same\+\_\+base\+\_\+t (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ other\+\_\+T, other\+\_\+base\+\_\+t $>$ \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06497}{6497}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06497 :\_m(a.\_m)\{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abe32cd88f0d3fcb3d6a3b7546f043957}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abe32cd88f0d3fcb3d6a3b7546f043957}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!before\_getter@{before\_getter}}
+\index{before\_getter@{before\_getter}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{before\_getter()}{before\_getter()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+base\+\_\+t\+\_\+w \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::before\+\_\+getter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06480}{6480}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06480                                                                                                                \{}
+\DoxyCodeLine{06481                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06482                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m)-\/1;}
+\DoxyCodeLine{06483                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_before()))}
+\DoxyCodeLine{06484                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m)-\/>get\_before();}
+\DoxyCodeLine{06485                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_before()))}
+\DoxyCodeLine{06486                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m).get\_before();}
+\DoxyCodeLine{06487                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a672e4e845ba4964b82822f5f69f5bb63}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a672e4e845ba4964b82822f5f69f5bb63}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!handle\_getter@{handle\_getter}}
+\index{handle\_getter@{handle\_getter}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{handle\_getter()}{handle\_getter()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+value\+\_\+t $\ast$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::handle\+\_\+getter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06414}{6414}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06414                                                                                                               \{}
+\DoxyCodeLine{06415                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06416                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m);}
+\DoxyCodeLine{06417                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_handle()))}
+\DoxyCodeLine{06418                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m)-\/>get\_handle();}
+\DoxyCodeLine{06419                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_handle()))}
+\DoxyCodeLine{06420                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m).get\_handle();}
+\DoxyCodeLine{06421                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ac71044d896348eaa2571fc4dba006d1c}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ac71044d896348eaa2571fc4dba006d1c}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!is\_before\_getter\_noexcept@{is\_before\_getter\_noexcept}}
+\index{is\_before\_getter\_noexcept@{is\_before\_getter\_noexcept}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{is\_before\_getter\_noexcept()}{is\_before\_getter\_noexcept()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::is\+\_\+before\+\_\+getter\+\_\+noexcept (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06472}{6472}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06472                                                                                               \{}
+\DoxyCodeLine{06473                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06474                                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{06475                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_before()))}
+\DoxyCodeLine{06476                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w)-\/>get\_before());}
+\DoxyCodeLine{06477                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_before()))}
+\DoxyCodeLine{06478                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w).get\_before());}
+\DoxyCodeLine{06479                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a35141ca419118090c7c662982969cb9b}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a35141ca419118090c7c662982969cb9b}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!is\_handle\_getter\_noexcept@{is\_handle\_getter\_noexcept}}
+\index{is\_handle\_getter\_noexcept@{is\_handle\_getter\_noexcept}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{is\_handle\_getter\_noexcept()}{is\_handle\_getter\_noexcept()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::is\+\_\+handle\+\_\+getter\+\_\+noexcept (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06406}{6406}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06406                                                                                               \{}
+\DoxyCodeLine{06407                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06408                                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{06409                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_handle()))}
+\DoxyCodeLine{06410                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w)-\/>get\_handle());}
+\DoxyCodeLine{06411                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_handle()))}
+\DoxyCodeLine{06412                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w).get\_handle());}
+\DoxyCodeLine{06413                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ae7a567982c559408e0396b7ae8865072}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ae7a567982c559408e0396b7ae8865072}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!is\_next\_getter\_noexcept@{is\_next\_getter\_noexcept}}
+\index{is\_next\_getter\_noexcept@{is\_next\_getter\_noexcept}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{is\_next\_getter\_noexcept()}{is\_next\_getter\_noexcept()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::is\+\_\+next\+\_\+getter\+\_\+noexcept (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06455}{6455}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06455                                                                                             \{}
+\DoxyCodeLine{06456                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06457                                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{06458                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_next()))}
+\DoxyCodeLine{06459                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w)-\/>get\_next());}
+\DoxyCodeLine{06460                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_next()))}
+\DoxyCodeLine{06461                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w).get\_next());}
+\DoxyCodeLine{06462                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a9b5c79404ac77f13b09581b61a93759e}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a9b5c79404ac77f13b09581b61a93759e}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!is\_value\_getter\_noexcept@{is\_value\_getter\_noexcept}}
+\index{is\_value\_getter\_noexcept@{is\_value\_getter\_noexcept}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{is\_value\_getter\_noexcept()}{is\_value\_getter\_noexcept()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+static constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::is\+\_\+value\+\_\+getter\+\_\+noexcept (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06423}{6423}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06423                                                                                              \{}
+\DoxyCodeLine{06424                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06425                                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{06426                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_value()))}
+\DoxyCodeLine{06427                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w)-\/>get\_value());}
+\DoxyCodeLine{06428                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_value()))}
+\DoxyCodeLine{06429                                 \textcolor{keywordflow}{return} \textcolor{keyword}{noexcept}(declvalue(base\_t\_w).get\_value());}
+\DoxyCodeLine{06430                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a30fd77280b26ac5c4841a0ac7dfc7e1d}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a30fd77280b26ac5c4841a0ac7dfc7e1d}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!next\_getter@{next\_getter}}
+\index{next\_getter@{next\_getter}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{next\_getter()}{next\_getter()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+base\+\_\+t\+\_\+w \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::next\+\_\+getter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06463}{6463}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06463                                                                                                            \{}
+\DoxyCodeLine{06464                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06465                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m)+1;}
+\DoxyCodeLine{06466                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_next()))}
+\DoxyCodeLine{06467                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m)-\/>get\_next();}
+\DoxyCodeLine{06468                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_next()))}
+\DoxyCodeLine{06469                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m).get\_next();}
+\DoxyCodeLine{06470                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abaf45cebfb25a52035650dbb729f5b52}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abaf45cebfb25a52035650dbb729f5b52}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator value\_t $\ast$@{operator value\_t $\ast$}}
+\index{operator value\_t $\ast$@{operator value\_t $\ast$}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator value\_t $\ast$()}{operator value\_t *()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator value\+\_\+t $\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06502}{6502}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06502 \{ \textcolor{keywordflow}{return} operator-\/>(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a23d951106cfda26a10802565a5317c65}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a23d951106cfda26a10802565a5317c65}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr value\+\_\+type \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06501}{6501}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06501 \{ \textcolor{keywordflow}{return} value\_getter(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ad70baa695182c4de433370304d500c80}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ad70baa695182c4de433370304d500c80}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr value\+\_\+t $\ast$ \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06500}{6500}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06500 \{ \textcolor{keywordflow}{return} handle\_getter(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a8f8515be81ba519d58523ca077d7895e}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a8f8515be81ba519d58523ca077d7895e}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator$<$=$>$@{operator$<$=$>$}}
+\index{operator$<$=$>$@{operator$<$=$>$}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$=$>$()}{operator<=>()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+template$<$typename other\+\_\+value\+\_\+t , typename other\+\_\+base\+\_\+t\+\_\+w $>$ \\
+constexpr auto \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator$<$=$>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ other\+\_\+value\+\_\+t, other\+\_\+base\+\_\+t\+\_\+w $>$ \&}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06509}{6509}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06509                                                                                                                                                                             \{}
+\DoxyCodeLine{06510                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(compare.able<base\_t\_rw,other\_base\_t\_w>)}
+\DoxyCodeLine{06511                                 \textcolor{keywordflow}{return} compare(\_m,a.\_m);}
+\DoxyCodeLine{06512                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abcf0e8c95c182dba269cc23c07c09dfc}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_abcf0e8c95c182dba269cc23c07c09dfc}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+template$<$typename other\+\_\+value\+\_\+t , typename other\+\_\+base\+\_\+t\+\_\+w $>$ \newline
+requires (equal.\+able$<$base\+\_\+t\+\_\+rw,other\+\_\+base\+\_\+t\+\_\+w$>$)\\
+constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}$<$ other\+\_\+value\+\_\+t, other\+\_\+base\+\_\+t\+\_\+w $>$ \&}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06505}{6505}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06505                                                                                                                                                                          \{}
+\DoxyCodeLine{06506                             \textcolor{keywordflow}{return} equal(\_m,a.\_m);}
+\DoxyCodeLine{06507                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a62bd11cafe36d51dc484a874241c4ccf}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a62bd11cafe36d51dc484a874241c4ccf}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06499}{6499}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06499 \{ \textcolor{keywordflow}{return} \_m == a.\_m; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_af84e94988c8f28e61c38763fd2939ce0}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_af84e94988c8f28e61c38763fd2939ce0}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr bool \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::operator== (\begin{DoxyParamCaption}\item[{value\+\_\+t $\ast$}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06503}{6503}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06503 \{ \textcolor{keywordflow}{return} pointer\_equal(handle\_getter(),a); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a726bff94028581f0aea873090739a94b}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a726bff94028581f0aea873090739a94b}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!swap\_with@{swap\_with}}
+\index{swap\_with@{swap\_with}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{swap\_with()}{swap\_with()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+constexpr void \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::swap\+\_\+with (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{this\+\_\+t}} \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06489}{6489}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06489 \{swap(\_m,a.\_m);\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_aed39bed6e7e52366f1d3bbfe2fae3733}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_aed39bed6e7e52366f1d3bbfe2fae3733}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!value\_getter@{value\_getter}}
+\index{value\_getter@{value\_getter}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{value\_getter()}{value\_getter()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+value\+\_\+type \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::value\+\_\+getter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06444}{6444}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06444                                                                                                                 \{}
+\DoxyCodeLine{06445                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06446                                 \textcolor{keywordflow}{return} *((base\_t\_w)\_m);}
+\DoxyCodeLine{06447                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_value()))}
+\DoxyCodeLine{06448                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m)-\/>get\_value();}
+\DoxyCodeLine{06449                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_value()))}
+\DoxyCodeLine{06450                                 \textcolor{keywordflow}{return} ((base\_t\_w)\_m).get\_value();}
+\DoxyCodeLine{06451                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{06452                                 \textcolor{keywordflow}{return} *handle\_getter();}
+\DoxyCodeLine{06453                         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ad7f1a8a5314acee3e57d4b0bed39146f}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_ad7f1a8a5314acee3e57d4b0bed39146f}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!value\_type\_getter@{value\_type\_getter}}
+\index{value\_type\_getter@{value\_type\_getter}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{value\_type\_getter()}{value\_type\_getter()}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+static constexpr auto \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::value\+\_\+type\+\_\+getter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06432}{6432}} 行定义.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{06432                                                                               \{}
+\DoxyCodeLine{06433                             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr}(type\_info<::std::remove\_pointer\_t<base\_t\_w>> == type\_info<value\_t>)}
+\DoxyCodeLine{06434                                 \textcolor{keywordflow}{return} type\_info<\textcolor{keyword}{decltype}(*((base\_t\_w)\_m))>;}
+\DoxyCodeLine{06435                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w)-\/>get\_value()))}
+\DoxyCodeLine{06436                                 \textcolor{keywordflow}{return} type\_info<\textcolor{keyword}{decltype}(((base\_t\_w)\_m)-\/>get\_value())>;}
+\DoxyCodeLine{06437                             elseif \textcolor{keyword}{constexpr}(was\_not\_an\_ill\_form(declvalue(base\_t\_w).get\_value()))}
+\DoxyCodeLine{06438                                 \textcolor{keywordflow}{return} type\_info<\textcolor{keyword}{decltype}(((base\_t\_w)\_m).get\_value())>;}
+\DoxyCodeLine{06439                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{06440                                 \textcolor{keywordflow}{return} type\_info<\textcolor{keyword}{decltype}(*declvalue(value\_t*))>;}
+\DoxyCodeLine{06441                         \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{友元及相关函数文档}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a818c5c59e279cd8deeacb051e7a2ae74}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a818c5c59e279cd8deeacb051e7a2ae74}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!same\_base\_t@{same\_base\_t}}
+\index{same\_base\_t@{same\_base\_t}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{same\_base\_t}{same\_base\_t}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+template$<$typename , typename $>$ \\
+friend class \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{same\+\_\+base\+\_\+t}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06399}{6399}} 行定义.
+
+
+
+\doxysubsection{类成员变量说明}
+\mbox{\Hypertarget{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a1ba3247a405a528a1e4354ce3b795074}\label{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_a1ba3247a405a528a1e4354ce3b795074}} 
+\index{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}!\_m@{\_m}}
+\index{\_m@{\_m}!elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$@{elc::defs::base::iterator\_n::same\_base\_t$<$ value\_t, base\_t\_w $>$}}
+\doxysubsubsection{\texorpdfstring{\_m}{\_m}}
+{\footnotesize\ttfamily template$<$typename value\+\_\+t , typename base\+\_\+t\+\_\+w $>$ \\
+base\+\_\+t\+\_\+rw \mbox{\hyperlink{classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t}{elc\+::defs\+::base\+::iterator\+\_\+n\+::same\+\_\+base\+\_\+t}}$<$ value\+\_\+t, base\+\_\+t\+\_\+w $>$\+::\+\_\+m\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [protected]}}
+
+
+
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l06404}{6404}} 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+docs/all\+\_\+defs.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ELC: elc::defs::memory::gc_n::roots_t&lt; T &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo_for_doc.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">ELC
+   </div>
+   <div id="projectbrief">ELC-lang</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>elc</b></li><li class="navelem"><b>defs</b></li><li class="navelem"><b>memory</b></li><li class="navelem"><b>gc_n</b></li><li class="navelem"><a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html">roots_t</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">elc::defs::memory::gc_n::roots_t&lt; T &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a8f31f49bb4824cddcab17047d655e2ef"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). map ((::std::declval&lt; Args &gt;())...) ;}))</td></tr>
+<tr class="memitem:a8f31f49bb4824cddcab17047d655e2ef"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html#a8f31f49bb4824cddcab17047d655e2ef">map</a> (Args &amp;&amp;...rest) noexcept(noexcept((((::std::declval&lt; decltype(_roots) &gt;())). map((::std::declval&lt; Args &gt;())...))))</td></tr>
+<tr class="separator:a8f31f49bb4824cddcab17047d655e2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af08c7bd41f91b970ffa818be7ab74413"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). add ((::std::declval&lt; Args &gt;())...) ;}))</td></tr>
+<tr class="memitem:af08c7bd41f91b970ffa818be7ab74413"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html#af08c7bd41f91b970ffa818be7ab74413">add</a> (Args &amp;&amp;...rest) noexcept(noexcept((((::std::declval&lt; decltype(_roots) &gt;())). add((::std::declval&lt; Args &gt;())...))))</td></tr>
+<tr class="separator:af08c7bd41f91b970ffa818be7ab74413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af44ddb5daaefe9d73abc68c3ebf3684a"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). remove ((::std::declval&lt; Args &gt;())...) ;}))</td></tr>
+<tr class="memitem:af44ddb5daaefe9d73abc68c3ebf3684a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html#af44ddb5daaefe9d73abc68c3ebf3684a">remove</a> (Args &amp;&amp;...rest) noexcept(noexcept((((::std::declval&lt; decltype(_roots) &gt;())). remove((::std::declval&lt; Args &gt;())...))))</td></tr>
+<tr class="separator:af44ddb5daaefe9d73abc68c3ebf3684a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb5a405fe57cfef29019133d686f661b"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). for_each ((::std::declval&lt; Args &gt;())...) ;}))</td></tr>
+<tr class="memitem:adb5a405fe57cfef29019133d686f661b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html#adb5a405fe57cfef29019133d686f661b">for_each</a> (Args &amp;&amp;...rest) noexcept(noexcept((((::std::declval&lt; decltype(_roots) &gt;())). for_each((::std::declval&lt; Args &gt;())...))))</td></tr>
+<tr class="separator:adb5a405fe57cfef29019133d686f661b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf9f266011648358731c8935099f4496"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html#acf9f266011648358731c8935099f4496">map_and_mark</a> () noexcept(noexcept(((::std::declval&lt; <a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1root__of.html">value_t</a> &gt;()) -&gt;map_and_mark())))</td></tr>
+<tr class="separator:acf9f266011648358731c8935099f4496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class elc::defs::memory::gc_n::roots_t&lt; T &gt;</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10514">10514</a> 行定义.</p>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="af08c7bd41f91b970ffa818be7ab74413" name="af08c7bd41f91b970ffa818be7ab74413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af08c7bd41f91b970ffa818be7ab74413">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). add ((::std::declval&lt; Args &gt;())...) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html">elc::defs::memory::gc_n::roots_t</a>&lt; T &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>rest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10525">10525</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10529</span>{</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adb5a405fe57cfef29019133d686f661b" name="adb5a405fe57cfef29019133d686f661b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb5a405fe57cfef29019133d686f661b">&#9670;&#160;</a></span>for_each()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). for_each ((::std::declval&lt; Args &gt;())...) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html">elc::defs::memory::gc_n::roots_t</a>&lt; T &gt;::for_each </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>rest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10527">10527</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10529</span>{</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8f31f49bb4824cddcab17047d655e2ef" name="a8f31f49bb4824cddcab17047d655e2ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f31f49bb4824cddcab17047d655e2ef">&#9670;&#160;</a></span>map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). map ((::std::declval&lt; Args &gt;())...) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html">elc::defs::memory::gc_n::roots_t</a>&lt; T &gt;::map </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>rest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10524">10524</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10529</span>{</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acf9f266011648358731c8935099f4496" name="acf9f266011648358731c8935099f4496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf9f266011648358731c8935099f4496">&#9670;&#160;</a></span>map_and_mark()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html">elc::defs::memory::gc_n::roots_t</a>&lt; T &gt;::map_and_mark </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10529">10529</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10529</span>                                                                                      {</div>
+<div class="line"><span class="lineno">10530</span>                        _roots.for_each(</div>
+<div class="line"><span class="lineno">10531</span>                            lambda(value_t&amp;a)noexcept_as(a-&gt;map_and_mark())</div>
+<div class="line"><span class="lineno">10532</span>                            {</div>
+<div class="line"><span class="lineno">10533</span>                                a-&gt;map_and_mark();</div>
+<div class="line"><span class="lineno">10534</span>                            }</div>
+<div class="line"><span class="lineno">10535</span>                        );</div>
+<div class="line"><span class="lineno">10536</span>                    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af44ddb5daaefe9d73abc68c3ebf3684a" name="af44ddb5daaefe9d73abc68c3ebf3684a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af44ddb5daaefe9d73abc68c3ebf3684a">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;class... Args&gt; <br />
+requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). remove ((::std::declval&lt; Args &gt;())...) ;}))</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html">elc::defs::memory::gc_n::roots_t</a>&lt; T &gt;::remove </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>rest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10526">10526</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10529</span>{</div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>docs/<a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+</small></address>
+</body>
+</html>

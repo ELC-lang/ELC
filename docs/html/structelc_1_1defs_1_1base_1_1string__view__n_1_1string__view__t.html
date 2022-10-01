@@ -1,0 +1,1227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ELC: elc::defs::base::string_view_n::string_view_t&lt; char_T &gt; 模板结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo_for_doc.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">ELC
+   </div>
+   <div id="projectbrief">ELC-lang</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>elc</b></li><li class="navelem"><b>defs</b></li><li class="navelem"><b>base</b></li><li class="navelem"><b>string_view_n</b></li><li class="navelem"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">elc::defs::base::string_view_n::string_view_t&lt; char_T &gt; 模板结构体 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 elc::defs::base::string_view_n::string_view_t&lt; char_T &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.png" usemap="#elc::defs::base::string_5Fview_5Fn::string_5Fview_5Ft_3C_20char_5FT_20_3E_map" alt=""/>
+  <map id="elc::defs::base::string_5Fview_5Fn::string_5Fview_5Ft_3C_20char_5FT_20_3E_map" name="elc::defs::base::string_5Fview_5Fn::string_5Fview_5Ft_3C_20char_5FT_20_3E_map">
+<area href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html" alt="elc::defs::base::array_like_n::array_like_view_t&lt; T &gt;" shape="rect" coords="193,0,570,24"/>
+<area href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html" alt="elc::defs::base::constexpr_str_n::constexpr_str_view_t&lt; char_T &gt;" shape="rect" coords="0,112,377,136"/>
+<area href="structelc_1_1defs_1_1base_1_1type__name__t.html" alt="elc::defs::base::type_name_t" shape="rect" coords="387,112,764,136"/>
+<area href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html" alt="elc::defs::base::constexpr_str_n::constexpr_str_t&lt; char_T &gt;" shape="rect" coords="0,168,377,192"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a48e82bca2e69ad699878e0d4ba3768c8"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">array_like_view_t</a>&lt; const char_T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a48e82bca2e69ad699878e0d4ba3768c8">base_t</a></td></tr>
+<tr class="separator:a48e82bca2e69ad699878e0d4ba3768c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td colspan="2" onclick="javascript:toggleInherit('pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t')"><img src="closed.png" alt="-"/>&#160;Public 类型 继承自 <a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">elc::defs::base::array_like_n::array_like_view_t&lt; T &gt;</a></td></tr>
+<tr class="memitem:afc347e2e5bb8e92720a550f77b6cc7a1 inherit pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">typedef T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#afc347e2e5bb8e92720a550f77b6cc7a1">iterator</a></td></tr>
+<tr class="separator:afc347e2e5bb8e92720a550f77b6cc7a1 inherit pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac455ebd58bf1463a7160407be9566d6 inherit pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">typedef const T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#aac455ebd58bf1463a7160407be9566d6">const_iterator</a></td></tr>
+<tr class="separator:aac455ebd58bf1463a7160407be9566d6 inherit pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace679d49adae3fed6a2310504163f4de inherit pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">array_like_view_t</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ace679d49adae3fed6a2310504163f4de">this_t</a></td></tr>
+<tr class="separator:ace679d49adae3fed6a2310504163f4de inherit pub_types_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a799bfbfa3d27c71bc694ac0504700517"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a799bfbfa3d27c71bc694ac0504700517">string_view_t</a> (const char_T *str) noexcept</td></tr>
+<tr class="separator:a799bfbfa3d27c71bc694ac0504700517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15811ca4aaed6dc1b49873a45062e85a"><td class="memItemLeft" align="right" valign="top">constexpr const char_T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a15811ca4aaed6dc1b49873a45062e85a">str</a> () const noexcept</td></tr>
+<tr class="separator:a15811ca4aaed6dc1b49873a45062e85a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa30357641e2ff7ecadeaa3011f8fa53"><td class="memItemLeft" align="right" valign="top">constexpr const char_T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#afa30357641e2ff7ecadeaa3011f8fa53">data</a> () const noexcept</td></tr>
+<tr class="separator:afa30357641e2ff7ecadeaa3011f8fa53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada04a48b9f5798f7f503b481714a6a9d"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ada04a48b9f5798f7f503b481714a6a9d">operator const char_T *</a> () const noexcept</td></tr>
+<tr class="separator:ada04a48b9f5798f7f503b481714a6a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5d9381e952775b7147a88ce3bce65d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#acc5d9381e952775b7147a88ce3bce65d">substr</a> (size_t pos, size_t len) const noexcept</td></tr>
+<tr class="separator:acc5d9381e952775b7147a88ce3bce65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8622202e82e96ea1675103217fa9524"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ab8622202e82e96ea1675103217fa9524">substr</a> (size_t pos) const noexcept</td></tr>
+<tr class="separator:ab8622202e82e96ea1675103217fa9524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9bd106b12db4d872a361adb5d03faeb"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ad9bd106b12db4d872a361adb5d03faeb">substr</a> (size_t pos, const char_T *end) const noexcept</td></tr>
+<tr class="separator:ad9bd106b12db4d872a361adb5d03faeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a654d7afb2cd8a5cd68a76302fd067101"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a654d7afb2cd8a5cd68a76302fd067101">substr</a> (const char_T *begin, size_t len) const noexcept</td></tr>
+<tr class="separator:a654d7afb2cd8a5cd68a76302fd067101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a089006d88f1cc58555fe27a74c50c305"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a089006d88f1cc58555fe27a74c50c305">substr</a> (const char_T *begin) const noexcept</td></tr>
+<tr class="separator:a089006d88f1cc58555fe27a74c50c305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa198a1786cc9341bf9b90645a238dec"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#aaa198a1786cc9341bf9b90645a238dec">substr</a> (const char_T *begin, const char_T *end) const noexcept</td></tr>
+<tr class="separator:aaa198a1786cc9341bf9b90645a238dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af85e3f9fdd79a7e3604eaeddcf50d113"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#af85e3f9fdd79a7e3604eaeddcf50d113">find</a> (const char_T ch) const</td></tr>
+<tr class="separator:af85e3f9fdd79a7e3604eaeddcf50d113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6993dce63fa54963c7b22c70232e41e0"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a6993dce63fa54963c7b22c70232e41e0">reverse_find</a> (const char_T ch) const</td></tr>
+<tr class="separator:a6993dce63fa54963c7b22c70232e41e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab45eaa6d06fb89a1666958c82b0dd5dd"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ab45eaa6d06fb89a1666958c82b0dd5dd">find</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> str) const</td></tr>
+<tr class="separator:ab45eaa6d06fb89a1666958c82b0dd5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fc4d315563b2bc351c34c8ee5dbe308"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a2fc4d315563b2bc351c34c8ee5dbe308">reverse_find</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> str) const</td></tr>
+<tr class="separator:a2fc4d315563b2bc351c34c8ee5dbe308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce3aef18928dc539be87e524b46d767"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#adce3aef18928dc539be87e524b46d767">find</a> (const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;str) const</td></tr>
+<tr class="separator:adce3aef18928dc539be87e524b46d767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b430ee270d200d7c184c7bb16a48b7"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ab3b430ee270d200d7c184c7bb16a48b7">reverse_find</a> (const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;str) const</td></tr>
+<tr class="separator:ab3b430ee270d200d7c184c7bb16a48b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae84890fb345691c47030c5a6b788d313"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ae84890fb345691c47030c5a6b788d313">find_first_of</a> (const char_T ch) const</td></tr>
+<tr class="separator:ae84890fb345691c47030c5a6b788d313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9527d9dfe01191ff6a2c1ea1a0180048"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a9527d9dfe01191ff6a2c1ea1a0180048">find_last_of</a> (const char_T ch) const</td></tr>
+<tr class="separator:a9527d9dfe01191ff6a2c1ea1a0180048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37acd8189ee4df31c239508ad1eb1b3"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#ac37acd8189ee4df31c239508ad1eb1b3">find_first_not_of</a> (const char_T ch) const</td></tr>
+<tr class="separator:ac37acd8189ee4df31c239508ad1eb1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6c35f102f3a264b0229b10ccdb9bf56"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#af6c35f102f3a264b0229b10ccdb9bf56">find_last_not_of</a> (const char_T ch) const</td></tr>
+<tr class="separator:af6c35f102f3a264b0229b10ccdb9bf56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8ca58a833d6457795d001a7ee8d8e3"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a5b8ca58a833d6457795d001a7ee8d8e3">find_first_of</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> str) const</td></tr>
+<tr class="separator:a5b8ca58a833d6457795d001a7ee8d8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f1e17d5c1cd27d7b45ab826d42f3129"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a9f1e17d5c1cd27d7b45ab826d42f3129">find_last_of</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> str) const</td></tr>
+<tr class="separator:a9f1e17d5c1cd27d7b45ab826d42f3129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2021c2180891d883020ab85db2730e1e"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a2021c2180891d883020ab85db2730e1e">find_first_not_of</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> str) const</td></tr>
+<tr class="separator:a2021c2180891d883020ab85db2730e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30001644538594f71c5eb283e009d85a"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a30001644538594f71c5eb283e009d85a">find_last_not_of</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> str) const</td></tr>
+<tr class="separator:a30001644538594f71c5eb283e009d85a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf392f4da6d5bccd8e67e9b984e0e2c"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#adbf392f4da6d5bccd8e67e9b984e0e2c">find_first_of</a> (const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;str) const</td></tr>
+<tr class="separator:adbf392f4da6d5bccd8e67e9b984e0e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a448f56e79c2be5de2e59f3207a943468"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a448f56e79c2be5de2e59f3207a943468">find_last_of</a> (const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;str) const</td></tr>
+<tr class="separator:a448f56e79c2be5de2e59f3207a943468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8466b2790b88c8b82dcfb755017b9189"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a8466b2790b88c8b82dcfb755017b9189">find_first_not_of</a> (const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;str) const</td></tr>
+<tr class="separator:a8466b2790b88c8b82dcfb755017b9189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17fdf2dffb989e11be3b6d529f84777c"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a17fdf2dffb989e11be3b6d529f84777c">find_last_not_of</a> (const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;str) const</td></tr>
+<tr class="separator:a17fdf2dffb989e11be3b6d529f84777c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">elc::defs::base::array_like_n::array_like_view_t&lt; T &gt;</a></td></tr>
+<tr class="memitem:a54cbaa778f3ac77f3ad93540d7e9677e inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a54cbaa778f3ac77f3ad93540d7e9677e">array_like_view_t</a> (T *a, size_t b) noexcept</td></tr>
+<tr class="separator:a54cbaa778f3ac77f3ad93540d7e9677e inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac46b507403e830572f22fc1f2c4a4361 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memTemplParams" colspan="2">template&lt;class U &gt; <br />
+requires is_array_like_for&lt;T,U&gt;</td></tr>
+<tr class="memitem:ac46b507403e830572f22fc1f2c4a4361 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac46b507403e830572f22fc1f2c4a4361">array_like_view_t</a> (U &amp;&amp;a) noexcept(noexcept((begin_of_array_like&lt; T &gt;(a), size_of_array_like&lt; T &gt;(a))))</td></tr>
+<tr class="separator:ac46b507403e830572f22fc1f2c4a4361 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ecf37ea489acb3a430866fde99c9ec0 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top"><a id="a5ecf37ea489acb3a430866fde99c9ec0" name="a5ecf37ea489acb3a430866fde99c9ec0"></a>
+constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>array_like_view_t</b> (const <a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">this_t</a> &amp;) noexcept=default</td></tr>
+<tr class="separator:a5ecf37ea489acb3a430866fde99c9ec0 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc28dffc89c5aa6da9cd6a04d0429449 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#acc28dffc89c5aa6da9cd6a04d0429449">swap_with</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">this_t</a> &amp;b) noexcept(noexcept((swap(_begin, b._begin), swap(_size, b._size))))</td></tr>
+<tr class="separator:acc28dffc89c5aa6da9cd6a04d0429449 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20f5eccddce62971c246b99791ac67f9 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a20f5eccddce62971c246b99791ac67f9">c_str</a> () const noexcept</td></tr>
+<tr class="separator:a20f5eccddce62971c246b99791ac67f9 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a117c302e797b7abf98c037211c3a1753 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a> () const noexcept</td></tr>
+<tr class="separator:a117c302e797b7abf98c037211c3a1753 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a613a7a28045bb8efd320108a432ad775 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a> () noexcept</td></tr>
+<tr class="separator:a613a7a28045bb8efd320108a432ad775 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac89cec36abae10678ac1cced715c99c5 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a> () noexcept</td></tr>
+<tr class="separator:ac89cec36abae10678ac1cced715c99c5 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22d3d76865c00e996e0bba0f7bc2d430 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a22d3d76865c00e996e0bba0f7bc2d430">begin</a> () const noexcept</td></tr>
+<tr class="separator:a22d3d76865c00e996e0bba0f7bc2d430 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae90784514a694b1dc87715801d5831be inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ae90784514a694b1dc87715801d5831be">end</a> () const noexcept</td></tr>
+<tr class="separator:ae90784514a694b1dc87715801d5831be inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acccc3655a0125cc9d3065590796f8383 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#acccc3655a0125cc9d3065590796f8383">cbegin</a> () const noexcept</td></tr>
+<tr class="separator:acccc3655a0125cc9d3065590796f8383 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0925246b65b042ca267fbbd11c13880 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#af0925246b65b042ca267fbbd11c13880">cend</a> () const noexcept</td></tr>
+<tr class="separator:af0925246b65b042ca267fbbd11c13880 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb06ec698739ae7e173cd9742b6d883 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a9fb06ec698739ae7e173cd9742b6d883">empty</a> () const noexcept</td></tr>
+<tr class="separator:a9fb06ec698739ae7e173cd9742b6d883 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48bac3bcea9fdc21fdfeef2989d50607 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a48bac3bcea9fdc21fdfeef2989d50607">operator[]</a> (size_t pos) noexcept</td></tr>
+<tr class="separator:a48bac3bcea9fdc21fdfeef2989d50607 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cfd987fd86f599b63b5121a4c78744a inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a5cfd987fd86f599b63b5121a4c78744a">operator[]</a> (size_t pos) const noexcept</td></tr>
+<tr class="separator:a5cfd987fd86f599b63b5121a4c78744a inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb499871bf65c05786490eb43945e98 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a7fb499871bf65c05786490eb43945e98">operator&lt;=&gt;</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">this_t</a> a) noexcept(compare.nothrow&lt; T &gt;)</td></tr>
+<tr class="separator:a7fb499871bf65c05786490eb43945e98 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3aa241a76cd9c2b33209331e1fb647 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#aae3aa241a76cd9c2b33209331e1fb647">operator==</a> (<a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">this_t</a> a) noexcept(equal.nothrow&lt; T &gt;)</td></tr>
+<tr class="separator:aae3aa241a76cd9c2b33209331e1fb647 inherit pub_methods_structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:a97fb85150f14279e65094271d1b07d3d"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#a97fb85150f14279e65094271d1b07d3d">npos</a> =range_n::npos</td></tr>
+<tr class="separator:a97fb85150f14279e65094271d1b07d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename char_T&gt;<br />
+struct elc::defs::base::string_view_n::string_view_t&lt; char_T &gt;</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02817">2817</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="a48e82bca2e69ad699878e0d4ba3768c8" name="a48e82bca2e69ad699878e0d4ba3768c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48e82bca2e69ad699878e0d4ba3768c8">&#9670;&#160;</a></span>base_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html">array_like_view_t</a>&lt;const char_T&gt; <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::base_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02819">2819</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a799bfbfa3d27c71bc694ac0504700517" name="a799bfbfa3d27c71bc694ac0504700517"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a799bfbfa3d27c71bc694ac0504700517">&#9670;&#160;</a></span>string_view_t()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::string_view_t </td>
+          <td>(</td>
+          <td class="paramtype">const char_T *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02822">2822</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2822</span>:string_view_t(array_end_by_zero_t&lt;const char_T&gt;(str)){}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="afa30357641e2ff7ecadeaa3011f8fa53" name="afa30357641e2ff7ecadeaa3011f8fa53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa30357641e2ff7ecadeaa3011f8fa53">&#9670;&#160;</a></span>data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const char_T * <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::data </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02825">2825</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2825</span>{<span class="keywordflow">return</span> base_t::cbegin();}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af85e3f9fdd79a7e3604eaeddcf50d113" name="af85e3f9fdd79a7e3604eaeddcf50d113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af85e3f9fdd79a7e3604eaeddcf50d113">&#9670;&#160;</a></span>find() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">const char_T&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02847">2847</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2847</span>                                                                                    {</div>
+<div class="line"><span class="lineno"> 2848</span>                                <span class="keywordflow">return</span> in_range_size_t(ch, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2849</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adce3aef18928dc539be87e524b46d767" name="adce3aef18928dc539be87e524b46d767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce3aef18928dc539be87e524b46d767">&#9670;&#160;</a></span>find() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02859">2859</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2859</span>                                                                                                      {</div>
+<div class="line"><span class="lineno"> 2860</span>                                <span class="keywordflow">return</span> in_range_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2861</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab45eaa6d06fb89a1666958c82b0dd5dd" name="ab45eaa6d06fb89a1666958c82b0dd5dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab45eaa6d06fb89a1666958c82b0dd5dd">&#9670;&#160;</a></span>find() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&lt; char_T &gt;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02853">2853</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2853</span>                                                                                      {</div>
+<div class="line"><span class="lineno"> 2854</span>                                <span class="keywordflow">return</span> in_range_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2855</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac37acd8189ee4df31c239508ad1eb1b3" name="ac37acd8189ee4df31c239508ad1eb1b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac37acd8189ee4df31c239508ad1eb1b3">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const char_T&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02872">2872</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2872</span>                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2873</span>                                <span class="keywordflow">return</span> range_n::find_first_not_of_size_t(ch, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2874</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8466b2790b88c8b82dcfb755017b9189" name="a8466b2790b88c8b82dcfb755017b9189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8466b2790b88c8b82dcfb755017b9189">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02896">2896</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2896</span>                                                                                                                   {</div>
+<div class="line"><span class="lineno"> 2897</span>                                <span class="keywordflow">return</span> range_n::find_first_not_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2898</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2021c2180891d883020ab85db2730e1e" name="a2021c2180891d883020ab85db2730e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2021c2180891d883020ab85db2730e1e">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&lt; char_T &gt;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02884">2884</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2884</span>                                                                                                   {</div>
+<div class="line"><span class="lineno"> 2885</span>                                <span class="keywordflow">return</span> range_n::find_first_not_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2886</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae84890fb345691c47030c5a6b788d313" name="ae84890fb345691c47030c5a6b788d313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae84890fb345691c47030c5a6b788d313">&#9670;&#160;</a></span>find_first_of() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_first_of </td>
+          <td>(</td>
+          <td class="paramtype">const char_T&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02866">2866</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2866</span>                                                                                             {</div>
+<div class="line"><span class="lineno"> 2867</span>                                <span class="keywordflow">return</span> range_n::find_first_of_size_t(ch, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2868</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adbf392f4da6d5bccd8e67e9b984e0e2c" name="adbf392f4da6d5bccd8e67e9b984e0e2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbf392f4da6d5bccd8e67e9b984e0e2c">&#9670;&#160;</a></span>find_first_of() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_first_of </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02890">2890</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2890</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 2891</span>                                <span class="keywordflow">return</span> range_n::find_first_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2892</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5b8ca58a833d6457795d001a7ee8d8e3" name="a5b8ca58a833d6457795d001a7ee8d8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b8ca58a833d6457795d001a7ee8d8e3">&#9670;&#160;</a></span>find_first_of() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_first_of </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&lt; char_T &gt;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02878">2878</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2878</span>                                                                                               {</div>
+<div class="line"><span class="lineno"> 2879</span>                                <span class="keywordflow">return</span> range_n::find_first_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2880</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af6c35f102f3a264b0229b10ccdb9bf56" name="af6c35f102f3a264b0229b10ccdb9bf56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6c35f102f3a264b0229b10ccdb9bf56">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_last_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const char_T&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02875">2875</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2875</span>                                                                                                {</div>
+<div class="line"><span class="lineno"> 2876</span>                                <span class="keywordflow">return</span> range_n::find_last_not_of_size_t(ch, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2877</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a17fdf2dffb989e11be3b6d529f84777c" name="a17fdf2dffb989e11be3b6d529f84777c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17fdf2dffb989e11be3b6d529f84777c">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_last_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02899">2899</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2899</span>                                                                                                                  {</div>
+<div class="line"><span class="lineno"> 2900</span>                                <span class="keywordflow">return</span> range_n::find_last_not_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2901</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a30001644538594f71c5eb283e009d85a" name="a30001644538594f71c5eb283e009d85a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30001644538594f71c5eb283e009d85a">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_last_not_of </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&lt; char_T &gt;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02887">2887</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2887</span>                                                                                                  {</div>
+<div class="line"><span class="lineno"> 2888</span>                                <span class="keywordflow">return</span> range_n::find_last_not_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2889</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9527d9dfe01191ff6a2c1ea1a0180048" name="a9527d9dfe01191ff6a2c1ea1a0180048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9527d9dfe01191ff6a2c1ea1a0180048">&#9670;&#160;</a></span>find_last_of() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_last_of </td>
+          <td>(</td>
+          <td class="paramtype">const char_T&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02869">2869</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2869</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 2870</span>                                <span class="keywordflow">return</span> range_n::find_last_of_size_t(ch, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2871</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a448f56e79c2be5de2e59f3207a943468" name="a448f56e79c2be5de2e59f3207a943468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a448f56e79c2be5de2e59f3207a943468">&#9670;&#160;</a></span>find_last_of() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_last_of </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02893">2893</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2893</span>                                                                                                              {</div>
+<div class="line"><span class="lineno"> 2894</span>                                <span class="keywordflow">return</span> range_n::find_last_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2895</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9f1e17d5c1cd27d7b45ab826d42f3129" name="a9f1e17d5c1cd27d7b45ab826d42f3129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1e17d5c1cd27d7b45ab826d42f3129">&#9670;&#160;</a></span>find_last_of() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::find_last_of </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&lt; char_T &gt;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02881">2881</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2881</span>                                                                                              {</div>
+<div class="line"><span class="lineno"> 2882</span>                                <span class="keywordflow">return</span> range_n::find_last_of_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2883</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ada04a48b9f5798f7f503b481714a6a9d" name="ada04a48b9f5798f7f503b481714a6a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada04a48b9f5798f7f503b481714a6a9d">&#9670;&#160;</a></span>operator const char_T *()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::operator const char_T * </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02826">2826</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2826</span>{<span class="keywordflow">return</span> str();}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6993dce63fa54963c7b22c70232e41e0" name="a6993dce63fa54963c7b22c70232e41e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6993dce63fa54963c7b22c70232e41e0">&#9670;&#160;</a></span>reverse_find() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::reverse_find </td>
+          <td>(</td>
+          <td class="paramtype">const char_T&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02850">2850</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2850</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 2851</span>                                <span class="keywordflow">return</span> in_range_but_reverse_size_t(ch, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2852</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab3b430ee270d200d7c184c7bb16a48b7" name="ab3b430ee270d200d7c184c7bb16a48b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b430ee270d200d7c184c7bb16a48b7">&#9670;&#160;</a></span>reverse_find() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::reverse_find </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>&lt; char_T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02862">2862</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2862</span>                                                                                                              {</div>
+<div class="line"><span class="lineno"> 2863</span>                                <span class="keywordflow">return</span> in_range_but_reverse_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2864</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2fc4d315563b2bc351c34c8ee5dbe308" name="a2fc4d315563b2bc351c34c8ee5dbe308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fc4d315563b2bc351c34c8ee5dbe308">&#9670;&#160;</a></span>reverse_find() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::reverse_find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a>&lt; char_T &gt;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02856">2856</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2856</span>                                                                                              {</div>
+<div class="line"><span class="lineno"> 2857</span>                                <span class="keywordflow">return</span> in_range_but_reverse_size_t(str, *<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 2858</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a15811ca4aaed6dc1b49873a45062e85a" name="a15811ca4aaed6dc1b49873a45062e85a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15811ca4aaed6dc1b49873a45062e85a">&#9670;&#160;</a></span>str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const char_T * <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::str </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02824">2824</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2824</span>{<span class="keywordflow">return</span> base_t::cbegin();}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a089006d88f1cc58555fe27a74c50c305" name="a089006d88f1cc58555fe27a74c50c305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a089006d88f1cc58555fe27a74c50c305">&#9670;&#160;</a></span>substr() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::substr </td>
+          <td>(</td>
+          <td class="paramtype">const char_T *&#160;</td>
+          <td class="paramname"><em>begin</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02840">2840</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2840</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 2841</span>                                <span class="keywordflow">return</span> string_view_t(begin,base_t::size());</div>
+<div class="line"><span class="lineno"> 2842</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaa198a1786cc9341bf9b90645a238dec" name="aaa198a1786cc9341bf9b90645a238dec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa198a1786cc9341bf9b90645a238dec">&#9670;&#160;</a></span>substr() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::substr </td>
+          <td>(</td>
+          <td class="paramtype">const char_T *&#160;</td>
+          <td class="paramname"><em>begin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char_T *&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02843">2843</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2843</span>                                                                                                                          {</div>
+<div class="line"><span class="lineno"> 2844</span>                                <span class="keywordflow">return</span> string_view_t(begin,end-begin);</div>
+<div class="line"><span class="lineno"> 2845</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a654d7afb2cd8a5cd68a76302fd067101" name="a654d7afb2cd8a5cd68a76302fd067101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a654d7afb2cd8a5cd68a76302fd067101">&#9670;&#160;</a></span>substr() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::substr </td>
+          <td>(</td>
+          <td class="paramtype">const char_T *&#160;</td>
+          <td class="paramname"><em>begin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02837">2837</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2837</span>                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 2838</span>                                <span class="keywordflow">return</span> string_view_t(begin,len);</div>
+<div class="line"><span class="lineno"> 2839</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab8622202e82e96ea1675103217fa9524" name="ab8622202e82e96ea1675103217fa9524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8622202e82e96ea1675103217fa9524">&#9670;&#160;</a></span>substr() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::substr </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02831">2831</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2831</span>                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2832</span>                                <span class="keywordflow">return</span> string_view_t(base_t::cbegin()+pos,base_t::size()-pos);</div>
+<div class="line"><span class="lineno"> 2833</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad9bd106b12db4d872a361adb5d03faeb" name="ad9bd106b12db4d872a361adb5d03faeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9bd106b12db4d872a361adb5d03faeb">&#9670;&#160;</a></span>substr() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::substr </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char_T *&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02834">2834</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2834</span>                                                                                                                  {</div>
+<div class="line"><span class="lineno"> 2835</span>                                <span class="keywordflow">return</span> string_view_t(base_t::cbegin()+pos,end-base_t::cbegin());</div>
+<div class="line"><span class="lineno"> 2836</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acc5d9381e952775b7147a88ce3bce65d" name="acc5d9381e952775b7147a88ce3bce65d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc5d9381e952775b7147a88ce3bce65d">&#9670;&#160;</a></span>substr() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">string_view_t</a> <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::substr </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02828">2828</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2828</span>                                                                                                            {</div>
+<div class="line"><span class="lineno"> 2829</span>                                <span class="keywordflow">return</span> string_view_t(base_t::cbegin()+pos,len);</div>
+<div class="line"><span class="lineno"> 2830</span>                            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a97fb85150f14279e65094271d1b07d3d" name="a97fb85150f14279e65094271d1b07d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97fb85150f14279e65094271d1b07d3d">&#9670;&#160;</a></span>npos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename char_T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t <a class="el" href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html">elc::defs::base::string_view_n::string_view_t</a>&lt; char_T &gt;::npos =range_n::npos</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02818">2818</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>docs/<a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+</small></address>
+</body>
+</html>
