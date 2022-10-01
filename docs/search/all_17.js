@@ -28,7 +28,7 @@ var searchData=
   ['_7enull_5fdata_5ft_25',['~null_data_t',['../structelc_1_1defs_1_1core_1_1value_1_1null__data__t.html#a0a77271dfcf0d43562fd59b77ef99d04',1,'elc::defs::core::value::null_data_t']]],
   ['_7epackage_5fsymbol_5floader_5ft_26',['~package_symbol_loader_t',['../structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#abb064dbb57ce0dc823c6a0bb668d0b1a',1,'elc::defs::package_symbol_loader_n::package_symbol_loader_t']]],
   ['_7eptr_5ft_27',['~ptr_t',['../structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#add24bcbbf717f4c9b2dec43d1114935a',1,'elc::defs::memory::ptr_n::ptr_t']]],
-  ['_7ereplace_5fable_28',['~replace_able',['../structelc_1_1defs_1_1memory_1_1replace__able.html#a3df6631a8f2066fc6ac1cb1426430ed0',1,'elc::defs::memory::replace_able']]],
+  ['_7ereplace_5fable_28',['~replace_able',['../structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html#a77c44ea2a8bb3c116a084bb910282e18',1,'elc::defs::memory::others_n::replace_able']]],
   ['_7eroots_5ft_29',['~roots_t',['../classelc_1_1defs_1_1memory_1_1gc__n_1_1roots__t.html#a597718cc189c8acf7807e5d33f1b4e62',1,'elc::defs::memory::gc_n::roots_t']]],
   ['_7erounding_5fauto_5fsetter_30',['~rounding_auto_setter',['../structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#a470122a12cd78d67a6a1937bfc020e37',1,'elc::defs::base::magic_number::rounding_auto_setter']]],
   ['_7esame_5fbase_5ft_31',['~same_base_t',['../classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a57de13ae1da39639f872b2678abd2e69',1,'elc::defs::base::iterator_n::same_base_t']]],

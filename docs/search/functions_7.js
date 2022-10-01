@@ -43,7 +43,7 @@ var searchData=
   ['get_5foverhead_40',['get_overhead',['../namespaceelc_1_1_a_p_is_1_1alloc_1_1overhead__n.html#aab52bd932fa571b42ecbc1c78d3ae00e',1,'elc::APIs::alloc::overhead_n']]],
   ['get_5fprime_5fnum_5fbig_5for_5feq_5fthan_41',['get_prime_num_big_or_eq_than',['../namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5',1,'elc::defs::base::magic_number']]],
   ['get_5fprogram_5fdata_5fpath_42',['get_program_data_path',['../namespaceelc_1_1paths_1_1defs.html#ae0e62f4ea0225b62c566312a1791ec07',1,'elc::paths::defs']]],
-  ['get_5fptr_43',['get_ptr',['../structelc_1_1defs_1_1memory_1_1replace__able.html#ae0b6745b0b47a16639f1140a8fac47ba',1,'elc::defs::memory::replace_able']]],
+  ['get_5fptr_43',['get_ptr',['../structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html#ae0241cbb5ed33548158dee200878a2b3',1,'elc::defs::memory::others_n::replace_able']]],
   ['get_5fptr_5fafter_5foff_5fset_44',['get_ptr_after_off_set',['../namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#a409d45f6a9500d1ec67a070eb5e7ccb0',1,'elc::defs::memory::abstract_base_n']]],
   ['get_5fref_45',['get_ref',['../classelc_1_1defs_1_1base_1_1maybe__fail__reference.html#a171a341dce8b23ce808fac76c9c2fb02',1,'elc::defs::base::maybe_fail_reference']]],
   ['get_5fref_5fnum_46',['get_ref_num',['../namespaceelc_1_1defs_1_1memory_1_1ptr__n.html#a8566a7395c4f16a2426d578a2dfbe776',1,'elc::defs::memory::ptr_n']]],

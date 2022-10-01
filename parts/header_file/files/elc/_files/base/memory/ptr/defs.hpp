@@ -6,8 +6,11 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-template<typename T>
-struct replace_able;
+namespace others_n{
+	template<typename T>
+	struct replace_able;
+}
+using others_n::replace_able;
 namespace ptr_n{
 	#include "ref/_body.hpp"
 	#include "ptr/_body.hpp"

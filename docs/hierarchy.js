@@ -35,14 +35,14 @@ var hierarchy =
     [ "elc::defs::memory::get_n::get_t< T >::as_array_t", "structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1as__array__t.html", null ],
     [ "elc::defs::base::attribute< T, attribute_name >", "structelc_1_1defs_1_1base_1_1attribute.html", [
       [ "elc::defs::base::cons_t< can_map_all< T > >", "structelc_1_1defs_1_1base_1_1cons__t.html", [
-        [ "elc::defs::memory::can_map_all< T >", "structelc_1_1defs_1_1memory_1_1can__map__all.html", null ]
+        [ "elc::defs::memory::others_n::can_map_all< T >", "structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html", null ]
       ] ],
-      [ "elc::defs::base::cons_t< elc::defs::memory::can_map_all >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ]
+      [ "elc::defs::base::cons_t< elc::defs::memory::others_n::can_map_all >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ]
     ] ],
     [ "elc::defs::base::attribute< can_map_all< T >, cons_t< can_map_all< T > > >", "structelc_1_1defs_1_1base_1_1attribute.html", null ],
-    [ "elc::defs::base::attribute< elc::defs::memory::can_map_all, cons_t< elc::defs::memory::can_map_all > >", "structelc_1_1defs_1_1base_1_1attribute.html", null ],
+    [ "elc::defs::base::attribute< elc::defs::memory::others_n::can_map_all, cons_t< elc::defs::memory::others_n::can_map_all > >", "structelc_1_1defs_1_1base_1_1attribute.html", null ],
     [ "elc::defs::base::attribute< T, can_map_all< T > >", "structelc_1_1defs_1_1base_1_1attribute.html", [
-      [ "elc::defs::memory::can_map_all< T >", "structelc_1_1defs_1_1memory_1_1can__map__all.html", null ]
+      [ "elc::defs::memory::others_n::can_map_all< T >", "structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html", null ]
     ] ],
     [ "elc::defs::base::attribute< T, cons_t< T > >", "structelc_1_1defs_1_1base_1_1attribute.html", [
       [ "elc::defs::base::cons_t< T >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ]
@@ -57,7 +57,7 @@ var hierarchy =
       [ "elc::defs::memory::ptr_n::ref_able< T >", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able.html", null ]
     ] ],
     [ "elc::defs::base::attribute< T, replace_able< T > >", "structelc_1_1defs_1_1base_1_1attribute.html", [
-      [ "elc::defs::memory::replace_able< T >", "structelc_1_1defs_1_1memory_1_1replace__able.html", null ]
+      [ "elc::defs::memory::others_n::replace_able< T >", "structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html", null ]
     ] ],
     [ "elc::defs::base::attribute< T, weak_ref_able< T > >", "structelc_1_1defs_1_1base_1_1attribute.html", [
       [ "elc::defs::memory::ptr_n::weak_ref_able< T >", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html", null ]
@@ -261,7 +261,7 @@ var hierarchy =
     [ "elc::defs::base::invoke_t< T >", "structelc_1_1defs_1_1base_1_1invoke__t.html", null ],
     [ "elc::defs::base::just_an_part_t", "structelc_1_1defs_1_1base_1_1just__an__part__t.html", null ],
     [ "elc::defs::base::list_t< T >", "classelc_1_1defs_1_1base_1_1list__t.html", null ],
-    [ "elc::defs::base::list_t< elc::defs::memory::can_map_all >", "classelc_1_1defs_1_1base_1_1list__t.html", null ],
+    [ "elc::defs::base::list_t< elc::defs::memory::others_n::can_map_all >", "classelc_1_1defs_1_1base_1_1list__t.html", null ],
     [ "elc::defs::base::constexpr_str_n::literal_result_provider< v >", "structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider.html", null ],
     [ "elc::defs::base::logical_bool", "structelc_1_1defs_1_1base_1_1logical__bool.html", null ],
     [ "elc::defs::container::map_n::map_t< T, key_t, stack_t, bucket_max_size >", "classelc_1_1defs_1_1container_1_1map__n_1_1map__t.html", null ],
@@ -279,7 +279,7 @@ var hierarchy =
     [ "elc::defs::base::non_copy_assign_able", "structelc_1_1defs_1_1base_1_1non__copy__assign__able.html", [
       [ "elc::defs::base::non_copyable", "structelc_1_1defs_1_1base_1_1non__copyable.html", [
         [ "elc::defs::base::cons_t< can_map_all< T > >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
-        [ "elc::defs::base::cons_t< elc::defs::memory::can_map_all >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
+        [ "elc::defs::base::cons_t< elc::defs::memory::others_n::can_map_all >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
         [ "elc::defs::base::cons_t< T >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
         [ "elc::defs::base::data_block< Ts >", "structelc_1_1defs_1_1base_1_1data__block.html", null ],
         [ "elc::defs::base::mark_able< T >", "classelc_1_1defs_1_1base_1_1mark__able.html", [
@@ -288,11 +288,11 @@ var hierarchy =
         [ "elc::defs::container::stack_n::base_stack_t< T >", "classelc_1_1defs_1_1container_1_1stack__n_1_1base__stack__t.html", [
           [ "elc::defs::container::stack_n::auto_stack_t< T >", "structelc_1_1defs_1_1container_1_1stack__n_1_1auto__stack__t.html", null ]
         ] ],
+        [ "elc::defs::memory::others_n::replace_able< T >", "structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html", null ],
         [ "elc::defs::memory::ptr_n::ref_t", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__t.html", [
           [ "elc::defs::memory::ptr_n::ref_able< T >", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able.html", null ],
           [ "elc::defs::memory::ptr_n::weak_ref_able< T >", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html", null ]
         ] ],
-        [ "elc::defs::memory::replace_able< T >", "structelc_1_1defs_1_1memory_1_1replace__able.html", null ],
         [ "elc::defs::string_n::string_t< char_T >::arec_t", "classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html", null ],
         [ "elc::defs::string_n::string_t< char_T >::floating_arec_t", "classelc_1_1defs_1_1string__n_1_1string__t_1_1floating__arec__t.html", null ]
       ] ],
@@ -307,12 +307,12 @@ var hierarchy =
       [ "elc::defs::base::non_default_assign_able", "structelc_1_1defs_1_1base_1_1non__default__assign__able.html", null ],
       [ "elc::defs::base::non_moveable", "structelc_1_1defs_1_1base_1_1non__moveable.html", [
         [ "elc::defs::base::cons_t< can_map_all< T > >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
-        [ "elc::defs::base::cons_t< elc::defs::memory::can_map_all >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
+        [ "elc::defs::base::cons_t< elc::defs::memory::others_n::can_map_all >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
         [ "elc::defs::base::cons_t< T >", "structelc_1_1defs_1_1base_1_1cons__t.html", null ],
         [ "elc::defs::base::data_block< Ts >", "structelc_1_1defs_1_1base_1_1data__block.html", null ],
         [ "elc::defs::base::mark_able< T >", "classelc_1_1defs_1_1base_1_1mark__able.html", null ],
+        [ "elc::defs::memory::others_n::replace_able< T >", "structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html", null ],
         [ "elc::defs::memory::ptr_n::ref_t", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__t.html", null ],
-        [ "elc::defs::memory::replace_able< T >", "structelc_1_1defs_1_1memory_1_1replace__able.html", null ],
         [ "elc::defs::string_n::string_t< char_T >::arec_t", "classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html", null ],
         [ "elc::defs::string_n::string_t< char_T >::floating_arec_t", "classelc_1_1defs_1_1string__n_1_1string__t_1_1floating__arec__t.html", null ]
       ] ]

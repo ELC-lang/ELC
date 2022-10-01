@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['can_5fmap_5fall_0',['can_map_all',['../structelc_1_1defs_1_1memory_1_1can__map__all.html',1,'elc::defs::memory::can_map_all&lt; T &gt;'],['../classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all.html',1,'elc::defs::memory::gc_n::can_map_all&lt; T &gt;']]],
+  ['can_5fmap_5fall_0',['can_map_all',['../classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all.html',1,'elc::defs::memory::gc_n::can_map_all&lt; T &gt;'],['../structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html',1,'elc::defs::memory::others_n::can_map_all&lt; T &gt;']]],
   ['can_5fshrink_1',['can_shrink',['../classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html',1,'elc::defs::memory::gc_n']]],
   ['can_5ft_5fuse_5fdefault_5fnull_5fptr_2',['can_t_use_default_null_ptr',['../classelc_1_1defs_1_1base_1_1null__ptr__n_1_1can__t__use__default__null__ptr.html',1,'elc::defs::base::null_ptr_n']]],
   ['code_5flist_3',['code_list',['../structelc_1_1defs_1_1core_1_1code__list.html',1,'elc::defs::core']]],
@@ -11,7 +11,7 @@ var searchData=
   ['cons_8',['cons',['../structelc_1_1defs_1_1core_1_1cons.html',1,'elc::defs::core']]],
   ['cons_5ft_9',['cons_t',['../structelc_1_1defs_1_1base_1_1cons__t.html',1,'elc::defs::base']]],
   ['cons_5ft_3c_20can_5fmap_5fall_3c_20t_20_3e_20_3e_10',['cons_t&lt; can_map_all&lt; T &gt; &gt;',['../structelc_1_1defs_1_1base_1_1cons__t.html',1,'elc::defs::base']]],
-  ['cons_5ft_3c_20elc_3a_3adefs_3a_3amemory_3a_3acan_5fmap_5fall_20_3e_11',['cons_t&lt; elc::defs::memory::can_map_all &gt;',['../structelc_1_1defs_1_1base_1_1cons__t.html',1,'elc::defs::base']]],
+  ['cons_5ft_3c_20elc_3a_3adefs_3a_3amemory_3a_3aothers_5fn_3a_3acan_5fmap_5fall_20_3e_11',['cons_t&lt; elc::defs::memory::others_n::can_map_all &gt;',['../structelc_1_1defs_1_1base_1_1cons__t.html',1,'elc::defs::base']]],
   ['constexpr_5fdata_5ft_12',['constexpr_data_t',['../structelc_1_1defs_1_1core_1_1value_1_1constexpr__data__t.html',1,'elc::defs::core::value']]],
   ['constexpr_5fstr_5ft_13',['constexpr_str_t',['../structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html',1,'elc::defs::base::constexpr_str_n']]],
   ['constexpr_5fstr_5ft_5fliteral_5fhelper_14',['constexpr_str_t_literal_helper',['../structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t__literal__helper.html',1,'elc::defs::base::constexpr_str_n']]],

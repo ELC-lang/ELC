@@ -203,6 +203,10 @@ var annotated_dup =
             [ "move_t", "structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html", "structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t" ],
             [ "re_construct_t", "structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t.html", "structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t" ]
           ] ],
+          [ "others_n", "namespaceelc_1_1defs_1_1memory_1_1others__n.html", [
+            [ "can_map_all", "structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html", "structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all" ],
+            [ "replace_able", "structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html", "structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able" ]
+          ] ],
           [ "ptr_n", "namespaceelc_1_1defs_1_1memory_1_1ptr__n.html", [
             [ "base_ptr_t", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t" ],
             [ "ptr_t", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t" ],
@@ -212,9 +216,7 @@ var annotated_dup =
             [ "same_ptr_p_t", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t" ],
             [ "same_ref_p_t", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html", "structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t" ],
             [ "weak_ref_able", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html", "classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able" ]
-          ] ],
-          [ "can_map_all", "structelc_1_1defs_1_1memory_1_1can__map__all.html", "structelc_1_1defs_1_1memory_1_1can__map__all" ],
-          [ "replace_able", "structelc_1_1defs_1_1memory_1_1replace__able.html", "structelc_1_1defs_1_1memory_1_1replace__able" ]
+          ] ]
         ] ],
         [ "namespace_n", "namespaceelc_1_1defs_1_1namespace__n.html", [
           [ "namespace_t", "structelc_1_1defs_1_1namespace__n_1_1namespace__t.html", "structelc_1_1defs_1_1namespace__n_1_1namespace__t" ]

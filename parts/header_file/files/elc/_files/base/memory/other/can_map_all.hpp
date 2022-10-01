@@ -1,5 +1,5 @@
 //can_map_all.hpp
-//at namespace elc::defs::memory
+//at namespace elc::defs::memory::others_n
 /*
 未完成的elc解释器base文件
 由steve02081504与Alex0125设计、编写
