@@ -17,6 +17,7 @@ var namespaceelc_1_1defs_1_1string__n =
     [ "arec_as_value", "namespaceelc_1_1defs_1_1string__n.html#acb6cd9725c3766e50a80d74e498db457", null ],
     [ "begin_of_array_like", "namespaceelc_1_1defs_1_1string__n.html#a1fc9b76f4170af799926f7724d09213b", null ],
     [ "begin_of_array_like", "namespaceelc_1_1defs_1_1string__n.html#ae9eb79a96e9bf8c03552332107fb9dbf", null ],
+    [ "operator\"\"_elc_string", "namespaceelc_1_1defs_1_1string__n.html#a1036fdb4b588ace82ad1bce37324621f", null ],
     [ "operator<<", "namespaceelc_1_1defs_1_1string__n.html#ab060f063d67cd4ca22e9b111bd2c6973", null ],
     [ "size_of_array_like", "namespaceelc_1_1defs_1_1string__n.html#aad0e74cd09c2a390dd33d8ad6c3f95ff", null ],
     [ "string_t", "namespaceelc_1_1defs_1_1string__n.html#a5a16d1bb8cb7977f95cd0e66c7ea4377", null ],

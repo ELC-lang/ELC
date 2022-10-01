@@ -137,7 +137,7 @@ Public 属性</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23305">23305</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23308">23308</a> 行定义.</p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="ace260d2875d03bf69aa2b02fa36fe6eb" name="ace260d2875d03bf69aa2b02fa36fe6eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace260d2875d03bf69aa2b02fa36fe6eb">&#9670;&#160;</a></span>namespace_t()</h2>
@@ -162,31 +162,31 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23311">23311</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23311</span>                                         {</div>
-<div class="line"><span class="lineno">23312</span>                        <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac1afd0e92c1c58932cbeceff22175f22">_namespace_root</a> = get&lt;common_node&gt;();</div>
-<div class="line"><span class="lineno">23313</span>                        <span class="keyword">auto</span>&amp;nmsp       = *<a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac1afd0e92c1c58932cbeceff22175f22">_namespace_root</a>;</div>
-<div class="line"><span class="lineno">23314</span>                        <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">_namespace_now</a>  = &amp;nmsp;</div>
-<div class="line"><span class="lineno">23315</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a>(26447);<span class="comment">//may throw警告diss</span></div>
-<div class="line"><span class="lineno">23316</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;..&quot;</span>]     = <a class="code hl_typedef" href="all__defs_8cpp.html#ad6d87a95f7d0c6adf82318ef9b2b1899">the_void</a>;</div>
-<div class="line"><span class="lineno">23317</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;.&quot;</span>]      = nmsp;</div>
-<div class="line"><span class="lineno">23318</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;t&quot;</span>]      = <a class="code hl_variable" href="namespaceelc_1_1defs_1_1core.html#ae5b2eb3b048adbede4ecf6a6d18a8b64">t</a>;</div>
-<div class="line"><span class="lineno">23319</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;nil&quot;</span>]    = <a class="code hl_variable" href="namespaceelc_1_1defs_1_1core.html#ae41054cb197a19535518ec9b0ce1fa37">nil</a>;</div>
-<div class="line"><span class="lineno">23320</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;void&quot;</span>]   = <a class="code hl_typedef" href="all__defs_8cpp.html#ad6d87a95f7d0c6adf82318ef9b2b1899">the_void</a>;</div>
-<div class="line"><span class="lineno">23321</span>                        value nmsptm     = <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(&amp;nmsp);</div>
-<div class="line"><span class="lineno">23322</span>                        nmsptm           = get&lt;common_node&gt;();</div>
-<div class="line"><span class="lineno">23323</span>                        nmsptm[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;void&quot;</span>] = <a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;void&quot;</span>;</div>
-<div class="line"><span class="lineno">23324</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a>();</div>
-<div class="line"><span class="lineno">23325</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6e3188ea32f5c6716f6de6c5cdef21a8"><div class="ttname"><a href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a></div><div class="ttdeci">#define pop_msvc_warning()</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24834">all_defs.cpp:24834</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ea5a3995fc5de169b1bb02bb1107bea"><div class="ttname"><a href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a></div><div class="ttdeci">#define es</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24975">all_defs.cpp:24975</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a7d3d7d49477dde42c78efdf612bace7c"><div class="ttname"><a href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a></div><div class="ttdeci">#define push_and_disable_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24835">all_defs.cpp:24835</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_ad6d87a95f7d0c6adf82318ef9b2b1899"><div class="ttname"><a href="all__defs_8cpp.html#ad6d87a95f7d0c6adf82318ef9b2b1899">the_void</a></div><div class="ttdeci">void the_void</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25244">all_defs.cpp:25244</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23314">23314</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23314</span>                                         {</div>
+<div class="line"><span class="lineno">23315</span>                        <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac1afd0e92c1c58932cbeceff22175f22">_namespace_root</a> = get&lt;common_node&gt;();</div>
+<div class="line"><span class="lineno">23316</span>                        <span class="keyword">auto</span>&amp;nmsp       = *<a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac1afd0e92c1c58932cbeceff22175f22">_namespace_root</a>;</div>
+<div class="line"><span class="lineno">23317</span>                        <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">_namespace_now</a>  = &amp;nmsp;</div>
+<div class="line"><span class="lineno">23318</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a>(26447);<span class="comment">//may throw警告diss</span></div>
+<div class="line"><span class="lineno">23319</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;..&quot;</span>]     = <a class="code hl_typedef" href="all__defs_8cpp.html#ad6d87a95f7d0c6adf82318ef9b2b1899">the_void</a>;</div>
+<div class="line"><span class="lineno">23320</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;.&quot;</span>]      = nmsp;</div>
+<div class="line"><span class="lineno">23321</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;t&quot;</span>]      = <a class="code hl_variable" href="namespaceelc_1_1defs_1_1core.html#ae5b2eb3b048adbede4ecf6a6d18a8b64">t</a>;</div>
+<div class="line"><span class="lineno">23322</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;nil&quot;</span>]    = <a class="code hl_variable" href="namespaceelc_1_1defs_1_1core.html#ae41054cb197a19535518ec9b0ce1fa37">nil</a>;</div>
+<div class="line"><span class="lineno">23323</span>                        nmsp[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;void&quot;</span>]   = <a class="code hl_typedef" href="all__defs_8cpp.html#ad6d87a95f7d0c6adf82318ef9b2b1899">the_void</a>;</div>
+<div class="line"><span class="lineno">23324</span>                        value nmsptm     = <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(&amp;nmsp);</div>
+<div class="line"><span class="lineno">23325</span>                        nmsptm           = get&lt;common_node&gt;();</div>
+<div class="line"><span class="lineno">23326</span>                        nmsptm[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;void&quot;</span>] = <a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;void&quot;</span>;</div>
+<div class="line"><span class="lineno">23327</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a>();</div>
+<div class="line"><span class="lineno">23328</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6e3188ea32f5c6716f6de6c5cdef21a8"><div class="ttname"><a href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a></div><div class="ttdeci">#define pop_msvc_warning()</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24837">all_defs.cpp:24837</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ea5a3995fc5de169b1bb02bb1107bea"><div class="ttname"><a href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a></div><div class="ttdeci">#define es</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24978">all_defs.cpp:24978</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a7d3d7d49477dde42c78efdf612bace7c"><div class="ttname"><a href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a></div><div class="ttdeci">#define push_and_disable_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24838">all_defs.cpp:24838</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_ad6d87a95f7d0c6adf82318ef9b2b1899"><div class="ttname"><a href="all__defs_8cpp.html#ad6d87a95f7d0c6adf82318ef9b2b1899">the_void</a></div><div class="ttdeci">void the_void</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25247">all_defs.cpp:25247</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_ae41054cb197a19535518ec9b0ce1fa37"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#ae41054cb197a19535518ec9b0ce1fa37">elc::defs::core::nil</a></div><div class="ttdeci">elc::defs::core::nil_t nil</div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_ae5b2eb3b048adbede4ecf6a6d18a8b64"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#ae5b2eb3b048adbede4ecf6a6d18a8b64">elc::defs::core::t</a></div><div class="ttdeci">elc::defs::core::t_t t</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_a93cc5782c73c0dbcbab53b64307359f7"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">elc::defs::namespace_n::namespace_t::get_symbol_type_map</a></div><div class="ttdeci">value get_symbol_type_map(ptr thenamespace)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23308">all_defs.cpp:23308</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_ac1afd0e92c1c58932cbeceff22175f22"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac1afd0e92c1c58932cbeceff22175f22">elc::defs::namespace_n::namespace_t::_namespace_root</a></div><div class="ttdeci">ptr _namespace_root</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23306">all_defs.cpp:23306</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_acfe4348454b3c83ec157d785ca3dcec0"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">elc::defs::namespace_n::namespace_t::_namespace_now</a></div><div class="ttdeci">weak_ptr _namespace_now</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23307">all_defs.cpp:23307</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_a93cc5782c73c0dbcbab53b64307359f7"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">elc::defs::namespace_n::namespace_t::get_symbol_type_map</a></div><div class="ttdeci">value get_symbol_type_map(ptr thenamespace)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23311">all_defs.cpp:23311</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_ac1afd0e92c1c58932cbeceff22175f22"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac1afd0e92c1c58932cbeceff22175f22">elc::defs::namespace_n::namespace_t::_namespace_root</a></div><div class="ttdeci">ptr _namespace_root</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23309">all_defs.cpp:23309</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_acfe4348454b3c83ec157d785ca3dcec0"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">elc::defs::namespace_n::namespace_t::_namespace_now</a></div><div class="ttdeci">weak_ptr _namespace_now</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23310">all_defs.cpp:23310</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -215,10 +215,10 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23343">23343</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23343</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acc554c39ef032608ed7313d0979cd64b">get_symbol</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23346">23346</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23346</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acc554c39ef032608ed7313d0979cd64b">get_symbol</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a476a30e4da2e29b52c54c7a59dc3f4f3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">elc::defs::core::as_value</a></div><div class="ttdeci">decltype(auto) as_value(T &amp;&amp;a) noexcept(as_value_nothrow_helper&lt; T &gt;())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12822">all_defs.cpp:12822</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_acc554c39ef032608ed7313d0979cd64b"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acc554c39ef032608ed7313d0979cd64b">elc::defs::namespace_n::namespace_t::get_symbol</a></div><div class="ttdeci">value get_symbol(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23340">all_defs.cpp:23340</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_acc554c39ef032608ed7313d0979cd64b"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acc554c39ef032608ed7313d0979cd64b">elc::defs::namespace_n::namespace_t::get_symbol</a></div><div class="ttdeci">value get_symbol(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23343">all_defs.cpp:23343</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -246,11 +246,11 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23340">23340</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23340</span>                                                       {</div>
-<div class="line"><span class="lineno">23341</span>                        <span class="keywordflow">return</span> (*<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(index))[index];</div>
-<div class="line"><span class="lineno">23342</span>                    }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_ac77d58a28105a6bc6f4ee593f2dcaa4c"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">elc::defs::namespace_n::namespace_t::get_symbol_namespace</a></div><div class="ttdeci">ptr get_symbol_namespace(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23326">all_defs.cpp:23326</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23343">23343</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23343</span>                                                       {</div>
+<div class="line"><span class="lineno">23344</span>                        <span class="keywordflow">return</span> (*<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(index))[index];</div>
+<div class="line"><span class="lineno">23345</span>                    }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_ac77d58a28105a6bc6f4ee593f2dcaa4c"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">elc::defs::namespace_n::namespace_t::get_symbol_namespace</a></div><div class="ttdeci">ptr get_symbol_namespace(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23329">all_defs.cpp:23329</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -278,8 +278,8 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23332">23332</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23332</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23335">23335</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23335</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -307,13 +307,13 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23326">23326</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23326</span>                                                               {</div>
-<div class="line"><span class="lineno">23327</span>                        <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a> namespace_now_p = <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">_namespace_now</a>;</div>
-<div class="line"><span class="lineno">23328</span>                        <span class="keywordflow">while</span>(namespace_now_p &amp;&amp; !(*namespace_now_p)[index] &amp;&amp; !<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(namespace_now_p)[index])</div>
-<div class="line"><span class="lineno">23329</span>                            namespace_now_p = (*namespace_now_p)[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;..&quot;</span>];</div>
-<div class="line"><span class="lineno">23330</span>                        <span class="keywordflow">return</span> namespace_now_p;</div>
-<div class="line"><span class="lineno">23331</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23329">23329</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23329</span>                                                               {</div>
+<div class="line"><span class="lineno">23330</span>                        <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a> namespace_now_p = <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">_namespace_now</a>;</div>
+<div class="line"><span class="lineno">23331</span>                        <span class="keywordflow">while</span>(namespace_now_p &amp;&amp; !(*namespace_now_p)[index] &amp;&amp; !<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(namespace_now_p)[index])</div>
+<div class="line"><span class="lineno">23332</span>                            namespace_now_p = (*namespace_now_p)[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;..&quot;</span>];</div>
+<div class="line"><span class="lineno">23333</span>                        <span class="keywordflow">return</span> namespace_now_p;</div>
+<div class="line"><span class="lineno">23334</span>                    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12721">all_defs.cpp:12721</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -342,9 +342,9 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23347">23347</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23347</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#afe2b5f6d1fe3cdb53ad2f31029b4d240">get_symbol_type</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_afe2b5f6d1fe3cdb53ad2f31029b4d240"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#afe2b5f6d1fe3cdb53ad2f31029b4d240">elc::defs::namespace_n::namespace_t::get_symbol_type</a></div><div class="ttdeci">value get_symbol_type(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23344">all_defs.cpp:23344</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23350">23350</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23350</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#afe2b5f6d1fe3cdb53ad2f31029b4d240">get_symbol_type</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_afe2b5f6d1fe3cdb53ad2f31029b4d240"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#afe2b5f6d1fe3cdb53ad2f31029b4d240">elc::defs::namespace_n::namespace_t::get_symbol_type</a></div><div class="ttdeci">value get_symbol_type(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23347">all_defs.cpp:23347</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -372,10 +372,10 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23344">23344</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23344</span>                                                            {</div>
-<div class="line"><span class="lineno">23345</span>                        <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(index))[index];</div>
-<div class="line"><span class="lineno">23346</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23347">23347</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23347</span>                                                            {</div>
+<div class="line"><span class="lineno">23348</span>                        <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(index))[index];</div>
+<div class="line"><span class="lineno">23349</span>                    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -403,10 +403,10 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23308">23308</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23308</span>                                                               {</div>
-<div class="line"><span class="lineno">23309</span>                        <span class="keywordflow">return</span> (*thenamespace)[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;.symbol_type_map&quot;</span>];</div>
-<div class="line"><span class="lineno">23310</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23311">23311</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23311</span>                                                               {</div>
+<div class="line"><span class="lineno">23312</span>                        <span class="keywordflow">return</span> (*thenamespace)[<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;.symbol_type_map&quot;</span>];</div>
+<div class="line"><span class="lineno">23313</span>                    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -434,9 +434,9 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23339">23339</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23339</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ae72727a3d5aac568934642acbc9cd1e2">has_symbol</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_ae72727a3d5aac568934642acbc9cd1e2"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ae72727a3d5aac568934642acbc9cd1e2">elc::defs::namespace_n::namespace_t::has_symbol</a></div><div class="ttdeci">bool has_symbol(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23333">all_defs.cpp:23333</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23342">23342</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23342</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ae72727a3d5aac568934642acbc9cd1e2">has_symbol</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_ae72727a3d5aac568934642acbc9cd1e2"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ae72727a3d5aac568934642acbc9cd1e2">elc::defs::namespace_n::namespace_t::has_symbol</a></div><div class="ttdeci">bool has_symbol(const value index)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23336">all_defs.cpp:23336</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -464,13 +464,13 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23333">23333</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23333</span>                                                      {</div>
-<div class="line"><span class="lineno">23334</span>                        <span class="keyword">auto</span> nmsp=<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(index);</div>
-<div class="line"><span class="lineno">23335</span>                        <span class="keywordflow">if</span>((*nmsp)[index] || <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(nmsp)[index])</div>
-<div class="line"><span class="lineno">23336</span>                            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">23337</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">23338</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23336">23336</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23336</span>                                                      {</div>
+<div class="line"><span class="lineno">23337</span>                        <span class="keyword">auto</span> nmsp=<a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#ac77d58a28105a6bc6f4ee593f2dcaa4c">get_symbol_namespace</a>(index);</div>
+<div class="line"><span class="lineno">23338</span>                        <span class="keywordflow">if</span>((*nmsp)[index] || <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a93cc5782c73c0dbcbab53b64307359f7">get_symbol_type_map</a>(nmsp)[index])</div>
+<div class="line"><span class="lineno">23339</span>                            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">23340</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">23341</span>                    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -498,9 +498,9 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23352">23352</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23352</span>{ <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a4a68970b6308e8c8ad2c332e9122f631">inter_namespace</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_a4a68970b6308e8c8ad2c332e9122f631"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a4a68970b6308e8c8ad2c332e9122f631">elc::defs::namespace_n::namespace_t::inter_namespace</a></div><div class="ttdeci">void inter_namespace(const value namespace_name)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23349">all_defs.cpp:23349</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23355">23355</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23355</span>{ <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a4a68970b6308e8c8ad2c332e9122f631">inter_namespace</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3">as_value</a>(index)); }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1namespace__n_1_1namespace__t_html_a4a68970b6308e8c8ad2c332e9122f631"><div class="ttname"><a href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a4a68970b6308e8c8ad2c332e9122f631">elc::defs::namespace_n::namespace_t::inter_namespace</a></div><div class="ttdeci">void inter_namespace(const value namespace_name)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l23352">all_defs.cpp:23352</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -528,10 +528,10 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23349">23349</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23349</span>                                                                    {</div>
-<div class="line"><span class="lineno">23350</span>                        <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">_namespace_now</a> = <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acc554c39ef032608ed7313d0979cd64b">get_symbol</a>(namespace_name);</div>
-<div class="line"><span class="lineno">23351</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23352">23352</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23352</span>                                                                    {</div>
+<div class="line"><span class="lineno">23353</span>                        <a class="code hl_variable" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acfe4348454b3c83ec157d785ca3dcec0">_namespace_now</a> = <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#acc554c39ef032608ed7313d0979cd64b">get_symbol</a>(namespace_name);</div>
+<div class="line"><span class="lineno">23354</span>                    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -558,8 +558,8 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23354">23354</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">23354</span>{ <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a4a68970b6308e8c8ad2c332e9122f631">inter_namespace</a>(<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;..&quot;</span>); }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23357">23357</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">23357</span>{ <a class="code hl_function" href="structelc_1_1defs_1_1namespace__n_1_1namespace__t.html#a4a68970b6308e8c8ad2c332e9122f631">inter_namespace</a>(<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;..&quot;</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -576,7 +576,7 @@ Public 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23307">23307</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23310">23310</a> 行定义.</p>
 
 </div>
 </div>
@@ -592,7 +592,7 @@ Public 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23306">23306</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l23309">23309</a> 行定义.</p>
 
 </div>
 </div>
