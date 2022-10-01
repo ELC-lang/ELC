@@ -18,11 +18,11 @@ namespace string_n{
 	template<typename char_T>
 	struct string_t;
 	typedef string_t<char_t> string;
+	template<constexpr_str_n::constexpr_str_t_literal_helper str_helper>
+	inline constexpr string operator""_elc_string()noexcept;
 }
 using string_n::string_t;
 using string_n::string;
-template<constexpr_str_n::constexpr_str_t_literal_helper str_helper>
-inline constexpr string operator""_elc_string()noexcept;
 INTER_NAMESPACE(core)
 
 template<typename T>
