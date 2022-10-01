@@ -86,22 +86,18 @@ public:
 			if(pos>=_insert_pos && pos<=_insert_pos+_insert_size){
 				_insert_data=_insert_data->do_insert(pos-_insert_pos,str);
 				_insert_size+=str.size();
-				self_changed();
-				return this;
 			}
 			elseif(pos<_insert_pos){
 				_to=_to->do_insert(pos,str);
 				_to_size+=str.size();
 				_insert_pos+=str.size();
-				self_changed();
-				return this;
 			}
 			elseif(pos>_insert_pos+_insert_size){
 				_to=_to->do_insert(pos-_insert_size,str);
 				_to_size+=str.size();
-				self_changed();
-				return this;
 			}
+			self_changed();
+			return this;
 		}
 		return base_t::do_insert(pos,str);
 	}

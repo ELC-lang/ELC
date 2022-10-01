@@ -115,7 +115,7 @@ virtual float\+\_\+size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1
 struct elc\+::defs\+::string\+\_\+n\+::string\+\_\+data\+\_\+n\+::inserted\+\_\+string\+\_\+data\+\_\+t$<$ char\+\_\+\+T $>$}
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16744}{16744}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16748}{16748}} 行定义.
 
 
 
@@ -129,7 +129,7 @@ typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1ba
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16746}{16746}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16750}{16750}} 行定义.
 
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a40f96d6a7c888bdd8f529f4b46c463a5}} 
 \index{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$}!ptr\_t@{ptr\_t}}
@@ -162,7 +162,7 @@ typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1in
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16745}{16745}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16749}{16749}} 行定义.
 
 
 
@@ -176,11 +176,11 @@ typedef \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1in
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16769}{16769}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16773}{16773}} 行定义.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{16769 :\_to(to),\_insert\_data(insert\_data),\_insert\_pos(insert\_pos),\_to\_size(to-\/>get\_size()),\_insert\_size(insert\_data-\/>get\_size())\{\}}
+\DoxyCodeLine{16773 :\_to(to),\_insert\_data(insert\_data),\_insert\_pos(insert\_pos),\_to\_size(to-\/>get\_size()),\_insert\_size(insert\_data-\/>get\_size())\{\}}
 
 \end{DoxyCode}
 
@@ -402,24 +402,24 @@ virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16781}{16781}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16785}{16785}} 行定义.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{16781                                                                                                     \{}
-\DoxyCodeLine{16782                                 \textcolor{keywordflow}{if}(type\_info<this\_t> == \textcolor{keyword}{typeid}(*a))\{}
-\DoxyCodeLine{16783                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} p = down\_cast<this\_t*>(a.get());}
-\DoxyCodeLine{16784                                     \textcolor{keywordflow}{if}(\_insert\_pos==p-\/>\_insert\_pos \&\& \_insert\_size==p-\/>\_insert\_size)\{}
-\DoxyCodeLine{16785                                         \textcolor{keywordflow}{if}(\_to!=p-\/>\_to)}
-\DoxyCodeLine{16786                                             base\_t::equivalent\_optimization(\_to, p-\/>\_to);}
-\DoxyCodeLine{16787                                         \textcolor{keywordflow}{if}(\_insert\_data!=p-\/>\_insert\_data)}
-\DoxyCodeLine{16788                                             base\_t::equivalent\_optimization(\_insert\_data, p-\/>\_insert\_data);}
-\DoxyCodeLine{16789                                     \}}
-\DoxyCodeLine{16790                                 \}}
-\DoxyCodeLine{16791                                 \_to.reset();}
-\DoxyCodeLine{16792                                 \_insert\_data.reset();}
-\DoxyCodeLine{16793                                 base\_t::be\_replace\_as(a);}
-\DoxyCodeLine{16794                             \}}
+\DoxyCodeLine{16785                                                                                                     \{}
+\DoxyCodeLine{16786                                 \textcolor{keywordflow}{if}(type\_info<this\_t> == \textcolor{keyword}{typeid}(*a))\{}
+\DoxyCodeLine{16787                                     \textcolor{keyword}{const} \textcolor{keyword}{auto} p = down\_cast<this\_t*>(a.get());}
+\DoxyCodeLine{16788                                     \textcolor{keywordflow}{if}(\_insert\_pos==p-\/>\_insert\_pos \&\& \_insert\_size==p-\/>\_insert\_size)\{}
+\DoxyCodeLine{16789                                         \textcolor{keywordflow}{if}(\_to!=p-\/>\_to)}
+\DoxyCodeLine{16790                                             base\_t::equivalent\_optimization(\_to, p-\/>\_to);}
+\DoxyCodeLine{16791                                         \textcolor{keywordflow}{if}(\_insert\_data!=p-\/>\_insert\_data)}
+\DoxyCodeLine{16792                                             base\_t::equivalent\_optimization(\_insert\_data, p-\/>\_insert\_data);}
+\DoxyCodeLine{16793                                     \}}
+\DoxyCodeLine{16794                                 \}}
+\DoxyCodeLine{16795                                 \_to.reset();}
+\DoxyCodeLine{16796                                 \_insert\_data.reset();}
+\DoxyCodeLine{16797                                 base\_t::be\_replace\_as(a);}
+\DoxyCodeLine{16798                             \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a746f39e471fea57920b5a6a5ec830b44}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a746f39e471fea57920b5a6a5ec830b44}} 
@@ -435,30 +435,30 @@ virtual void \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16797}{16797}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16801}{16801}} 行定义.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{16797                                                                                                                                         \{}
-\DoxyCodeLine{16798                                 \textcolor{keywordflow}{if}(pos+size<\_insert\_pos)}
-\DoxyCodeLine{16799                                     \_to-\/>copy\_part\_data\_to(to,pos,size);}
-\DoxyCodeLine{16800                                 elseif(pos>\_insert\_pos+\_insert\_size)}
-\DoxyCodeLine{16801                                     \_to-\/>copy\_part\_data\_to(to,pos-\/\_insert\_size,size);}
-\DoxyCodeLine{16802                                 \textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{16803                                     \textcolor{keywordflow}{if}(\_insert\_pos>pos)\{}
-\DoxyCodeLine{16804                                         \textcolor{keyword}{auto} size\_before\_insert\_pos=\_insert\_pos-\/pos;}
-\DoxyCodeLine{16805                                         \_to-\/>copy\_part\_data\_to(to,pos,size\_before\_insert\_pos);}
-\DoxyCodeLine{16806                                         to+=size\_before\_insert\_pos;}
-\DoxyCodeLine{16807                                         size-\/=size\_before\_insert\_pos;}
-\DoxyCodeLine{16808                                     \}}
-\DoxyCodeLine{16809                                     \textcolor{keyword}{auto} size\_before\_insert\_end=min(size,\_insert\_size);}
-\DoxyCodeLine{16810                                     \_insert\_data-\/>copy\_part\_data\_to(to,0,size\_before\_insert\_end);}
-\DoxyCodeLine{16811                                     to+=size\_before\_insert\_end;}
-\DoxyCodeLine{16812                                     size-\/=size\_before\_insert\_end;}
-\DoxyCodeLine{16813                                     \textcolor{keywordflow}{if}(size)}
-\DoxyCodeLine{16814                                         \_to-\/>copy\_part\_data\_to(to,\_insert\_pos,size);}
-\DoxyCodeLine{16815                                 \}}
-\DoxyCodeLine{16816                             \}}
+\DoxyCodeLine{16801                                                                                                                                         \{}
+\DoxyCodeLine{16802                                 \textcolor{keywordflow}{if}(pos+size<\_insert\_pos)}
+\DoxyCodeLine{16803                                     \_to-\/>copy\_part\_data\_to(to,pos,size);}
+\DoxyCodeLine{16804                                 elseif(pos>\_insert\_pos+\_insert\_size)}
+\DoxyCodeLine{16805                                     \_to-\/>copy\_part\_data\_to(to,pos-\/\_insert\_size,size);}
+\DoxyCodeLine{16806                                 \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{16807                                     \textcolor{keywordflow}{if}(\_insert\_pos>pos)\{}
+\DoxyCodeLine{16808                                         \textcolor{keyword}{auto} size\_before\_insert\_pos=\_insert\_pos-\/pos;}
+\DoxyCodeLine{16809                                         \_to-\/>copy\_part\_data\_to(to,pos,size\_before\_insert\_pos);}
+\DoxyCodeLine{16810                                         to+=size\_before\_insert\_pos;}
+\DoxyCodeLine{16811                                         size-\/=size\_before\_insert\_pos;}
+\DoxyCodeLine{16812                                     \}}
+\DoxyCodeLine{16813                                     \textcolor{keyword}{auto} size\_before\_insert\_end=min(size,\_insert\_size);}
+\DoxyCodeLine{16814                                     \_insert\_data-\/>copy\_part\_data\_to(to,0,size\_before\_insert\_end);}
+\DoxyCodeLine{16815                                     to+=size\_before\_insert\_end;}
+\DoxyCodeLine{16816                                     size-\/=size\_before\_insert\_end;}
+\DoxyCodeLine{16817                                     \textcolor{keywordflow}{if}(size)}
+\DoxyCodeLine{16818                                         \_to-\/>copy\_part\_data\_to(to,\_insert\_pos,size);}
+\DoxyCodeLine{16819                                 \}}
+\DoxyCodeLine{16820                             \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_ace4ac7cea47d8770116aaa242e7cf13a}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_ace4ac7cea47d8770116aaa242e7cf13a}} 
@@ -517,31 +517,27 @@ virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__da
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16818}{16818}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16822}{16822}} 行定义.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{16818                                                                                                                                             \{}
-\DoxyCodeLine{16819                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
-\DoxyCodeLine{16820                                     \textcolor{keywordflow}{if}(pos>=\_insert\_pos \&\& pos<=\_insert\_pos+\_insert\_size)\{}
-\DoxyCodeLine{16821                                         \_insert\_data=\_insert\_data-\/>do\_insert(pos-\/\_insert\_pos,str);}
-\DoxyCodeLine{16822                                         \_insert\_size+=str.size();}
-\DoxyCodeLine{16823                                         self\_changed();}
-\DoxyCodeLine{16824                                         \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
-\DoxyCodeLine{16825                                     \}}
-\DoxyCodeLine{16826                                     elseif(pos<\_insert\_pos)\{}
-\DoxyCodeLine{16827                                         \_to=\_to-\/>do\_insert(pos,str);}
-\DoxyCodeLine{16828                                         \_to\_size+=str.size();}
-\DoxyCodeLine{16829                                         \_insert\_pos+=str.size();}
-\DoxyCodeLine{16830                                         self\_changed();}
-\DoxyCodeLine{16831                                         \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
+\DoxyCodeLine{16822                                                                                                                                             \{}
+\DoxyCodeLine{16823                                 \textcolor{keywordflow}{if}(this-\/>is\_unique())\{}
+\DoxyCodeLine{16824                                     \textcolor{keywordflow}{if}(pos>=\_insert\_pos \&\& pos<=\_insert\_pos+\_insert\_size)\{}
+\DoxyCodeLine{16825                                         \_insert\_data=\_insert\_data-\/>do\_insert(pos-\/\_insert\_pos,str);}
+\DoxyCodeLine{16826                                         \_insert\_size+=str.size();}
+\DoxyCodeLine{16827                                     \}}
+\DoxyCodeLine{16828                                     elseif(pos<\_insert\_pos)\{}
+\DoxyCodeLine{16829                                         \_to=\_to-\/>do\_insert(pos,str);}
+\DoxyCodeLine{16830                                         \_to\_size+=str.size();}
+\DoxyCodeLine{16831                                         \_insert\_pos+=str.size();}
 \DoxyCodeLine{16832                                     \}}
 \DoxyCodeLine{16833                                     elseif(pos>\_insert\_pos+\_insert\_size)\{}
 \DoxyCodeLine{16834                                         \_to=\_to-\/>do\_insert(pos-\/\_insert\_size,str);}
 \DoxyCodeLine{16835                                         \_to\_size+=str.size();}
-\DoxyCodeLine{16836                                         self\_changed();}
-\DoxyCodeLine{16837                                         \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
-\DoxyCodeLine{16838                                     \}}
+\DoxyCodeLine{16836                                     \}}
+\DoxyCodeLine{16837                                     self\_changed();}
+\DoxyCodeLine{16838                                     \textcolor{keywordflow}{return} \textcolor{keyword}{this};}
 \DoxyCodeLine{16839                                 \}}
 \DoxyCodeLine{16840                                 \textcolor{keywordflow}{return} base\_t::do\_insert(pos,str);}
 \DoxyCodeLine{16841                             \}}
@@ -725,11 +721,11 @@ virtual size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__d
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16795}{16795}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16799}{16799}} 行定义.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{16795 \{ \textcolor{keywordflow}{return} \_to\_size+\_insert\_size; \}}
+\DoxyCodeLine{16799 \{ \textcolor{keywordflow}{return} \_to\_size+\_insert\_size; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_abbd9a573314cc99dcf53931b035deea7}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_abbd9a573314cc99dcf53931b035deea7}} 
@@ -745,20 +741,20 @@ virtual ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__da
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16771}{16771}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16775}{16775}} 行定义.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{16771                                                                                                                        \{}
-\DoxyCodeLine{16772                                 \textcolor{keywordflow}{if}(begin+size<\_insert\_pos)}
-\DoxyCodeLine{16773                                     \textcolor{keywordflow}{return} \_to-\/>get\_substr\_data(begin,size);}
-\DoxyCodeLine{16774                                 elseif(begin>\_insert\_pos+\_insert\_size)}
-\DoxyCodeLine{16775                                     \textcolor{keywordflow}{return} \_to-\/>get\_substr\_data(begin-\/\_insert\_size,size);}
-\DoxyCodeLine{16776                                 elseif(begin>=\_insert\_pos \&\& begin+size<=\_insert\_pos+\_insert\_size)}
-\DoxyCodeLine{16777                                     \textcolor{keywordflow}{return} \_insert\_data-\/>get\_substr\_data(begin-\/\_insert\_pos,size);}
-\DoxyCodeLine{16778                                 \textcolor{keywordflow}{else}}
-\DoxyCodeLine{16779                                     \textcolor{keywordflow}{return} base\_t::get\_substr\_data(begin,size);}
-\DoxyCodeLine{16780                             \}}
+\DoxyCodeLine{16775                                                                                                                        \{}
+\DoxyCodeLine{16776                                 \textcolor{keywordflow}{if}(begin+size<\_insert\_pos)}
+\DoxyCodeLine{16777                                     \textcolor{keywordflow}{return} \_to-\/>get\_substr\_data(begin,size);}
+\DoxyCodeLine{16778                                 elseif(begin>\_insert\_pos+\_insert\_size)}
+\DoxyCodeLine{16779                                     \textcolor{keywordflow}{return} \_to-\/>get\_substr\_data(begin-\/\_insert\_size,size);}
+\DoxyCodeLine{16780                                 elseif(begin>=\_insert\_pos \&\& begin+size<=\_insert\_pos+\_insert\_size)}
+\DoxyCodeLine{16781                                     \textcolor{keywordflow}{return} \_insert\_data-\/>get\_substr\_data(begin-\/\_insert\_pos,size);}
+\DoxyCodeLine{16782                                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{16783                                     \textcolor{keywordflow}{return} base\_t::get\_substr\_data(begin,size);}
+\DoxyCodeLine{16784                             \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_ac8fcd02a0639a4a3979ea5291e1aa977}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_ac8fcd02a0639a4a3979ea5291e1aa977}} 
@@ -913,7 +909,7 @@ ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16764}{16764}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16768}{16768}} 行定义.
 
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a436de38d9f854963ee027387314899bb}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a436de38d9f854963ee027387314899bb}} 
 \index{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$}!\_insert\_pos@{\_insert\_pos}}
@@ -924,7 +920,7 @@ size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16766}{16766}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16770}{16770}} 行定义.
 
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a2c7d763e50714f738b1c80d62f1de2b6}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a2c7d763e50714f738b1c80d62f1de2b6}} 
 \index{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$}!\_insert\_size@{\_insert\_size}}
@@ -935,7 +931,7 @@ size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16767}{16767}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16771}{16771}} 行定义.
 
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a8885b43e97c8d039ab75ffaefbfb3657}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a8885b43e97c8d039ab75ffaefbfb3657}} 
 \index{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$}!\_to@{\_to}}
@@ -946,7 +942,7 @@ ptr\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1_
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16763}{16763}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16767}{16767}} 行定义.
 
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a31cd01aed46d628643902f98d1c86041}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a31cd01aed46d628643902f98d1c86041}} 
 \index{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$}!\_to\_size@{\_to\_size}}
@@ -957,7 +953,7 @@ size\+\_\+t \mbox{\hyperlink{structelc_1_1defs_1_1string__n_1_1string__data__n_1
 
 
 
-在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16765}{16765}} 行定义.
+在文件 \mbox{\hyperlink{all__defs_8cpp_source}{all\+\_\+defs.\+cpp}} 第 \mbox{\hyperlink{all__defs_8cpp_source_l16769}{16769}} 行定义.
 
 \mbox{\Hypertarget{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}\label{structelc_1_1defs_1_1string__n_1_1string__data__n_1_1inserted__string__data__t_a837dedd5229ad68ca7fa1d9df83fb336}} 
 \index{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$@{elc::defs::string\_n::string\_data\_n::inserted\_string\_data\_t$<$ char\_T $>$}!apply\_data\_nothrow@{apply\_data\_nothrow}}

@@ -84,8 +84,10 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		elseif(pos==get_size())
 			return this->apply_str_to_end(str);
 		elseif(this->is_unique()){
-			if(pos<_to_size)
-				return _to->do_insert(pos-_used_size,str);
+			if(pos<_to_size){
+				_to=_to->do_insert(pos-_used_size,str);
+				_to_size=_to->get_size();
+			}
 			else{
 				pos-=_to_size;
 				if(_m.size()-_used_size<str.size()){
@@ -98,9 +100,9 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 					copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(&_m[pos]));
 				}
 				_used_size+=str.size();
-				self_changed();
-				return this;
 			}
+			self_changed();
+			return this;
 		}
 		else
 			return base_t::do_insert(pos,str);

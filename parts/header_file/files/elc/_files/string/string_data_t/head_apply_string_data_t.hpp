@@ -82,10 +82,12 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 					copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(head_begin+pos));
 				}
 				_used_size+=str.size();
-				self_changed();
-				return this;
-			}else
-				return _to->do_insert(pos-_used_size,str);
+			}else{
+				_to=_to->do_insert(pos-_used_size,str);
+				_to_size=_to->get_size();
+			}
+			self_changed();
+			return this;
 		}
 		else
 			return base_t::do_insert(pos,str);

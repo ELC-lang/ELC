@@ -363,7 +363,7 @@ virtual float_size_t&#160;</td><td class="memItemRight" valign="bottom"><b>get_b
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename char_T&gt;<br />
 struct elc::defs::string_n::string_data_n::end_apply_string_data_t&lt; char_T &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l15999">15999</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16001">16001</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="a8130cb3e2f3b9bf0697e1255d97fc690" name="a8130cb3e2f3b9bf0697e1255d97fc690"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8130cb3e2f3b9bf0697e1255d97fc690">&#9670;&#160;</a></span>base_t</h2>
@@ -379,7 +379,7 @@ template&lt;typename char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16001">16001</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16003">16003</a> 行定义.</p>
 
 </div>
 </div>
@@ -433,7 +433,7 @@ template&lt;typename char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16000">16000</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16002">16002</a> 行定义.</p>
 
 </div>
 </div>
@@ -474,15 +474,15 @@ template&lt;typename char_T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16023">16023</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16023</span>                                                                                                                                :</div>
-<div class="line"><span class="lineno">16024</span>                                _to_size(str-&gt;get_size()),</div>
-<div class="line"><span class="lineno">16025</span>                                _used_size(end.size()),</div>
-<div class="line"><span class="lineno">16026</span>                                _to(str)</div>
-<div class="line"><span class="lineno">16027</span>                            {</div>
-<div class="line"><span class="lineno">16028</span>                                _m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));</div>
-<div class="line"><span class="lineno">16029</span>                                copy_assign[_used_size](note::from(end.begin()),note::to((char_T*)_m));</div>
-<div class="line"><span class="lineno">16030</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16025">16025</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16025</span>                                                                                                                                :</div>
+<div class="line"><span class="lineno">16026</span>                                _to_size(str-&gt;get_size()),</div>
+<div class="line"><span class="lineno">16027</span>                                _used_size(end.size()),</div>
+<div class="line"><span class="lineno">16028</span>                                _to(str)</div>
+<div class="line"><span class="lineno">16029</span>                            {</div>
+<div class="line"><span class="lineno">16030</span>                                _m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));</div>
+<div class="line"><span class="lineno">16031</span>                                copy_assign[_used_size](note::from(end.begin()),note::to((char_T*)_m));</div>
+<div class="line"><span class="lineno">16032</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -528,15 +528,15 @@ template&lt;typename char_T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16031">16031</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16031</span>                                                                                             :</div>
-<div class="line"><span class="lineno">16032</span>                                _to_size(str-&gt;get_size()),</div>
-<div class="line"><span class="lineno">16033</span>                                _used_size(count),</div>
-<div class="line"><span class="lineno">16034</span>                                _to(str)</div>
-<div class="line"><span class="lineno">16035</span>                            {</div>
-<div class="line"><span class="lineno">16036</span>                                _m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));</div>
-<div class="line"><span class="lineno">16037</span>                                copy_assign[_used_size](ch,note::to((char_T*)_m));</div>
-<div class="line"><span class="lineno">16038</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16033">16033</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16033</span>                                                                                             :</div>
+<div class="line"><span class="lineno">16034</span>                                _to_size(str-&gt;get_size()),</div>
+<div class="line"><span class="lineno">16035</span>                                _used_size(count),</div>
+<div class="line"><span class="lineno">16036</span>                                _to(str)</div>
+<div class="line"><span class="lineno">16037</span>                            {</div>
+<div class="line"><span class="lineno">16038</span>                                _m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));</div>
+<div class="line"><span class="lineno">16039</span>                                copy_assign[_used_size](ch,note::to((char_T*)_m));</div>
+<div class="line"><span class="lineno">16040</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -576,14 +576,14 @@ template&lt;typename char_T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16039">16039</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16039</span>                                                                                   :</div>
-<div class="line"><span class="lineno">16040</span>                                _to_size(str-&gt;get_size()),</div>
-<div class="line"><span class="lineno">16041</span>                                _used_size(count),</div>
-<div class="line"><span class="lineno">16042</span>                                _to(str)</div>
-<div class="line"><span class="lineno">16043</span>                            {</div>
-<div class="line"><span class="lineno">16044</span>                                _m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));</div>
-<div class="line"><span class="lineno">16045</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16041">16041</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16041</span>                                                                                   :</div>
+<div class="line"><span class="lineno">16042</span>                                _to_size(str-&gt;get_size()),</div>
+<div class="line"><span class="lineno">16043</span>                                _used_size(count),</div>
+<div class="line"><span class="lineno">16044</span>                                _to(str)</div>
+<div class="line"><span class="lineno">16045</span>                            {</div>
+<div class="line"><span class="lineno">16046</span>                                _m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));</div>
+<div class="line"><span class="lineno">16047</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -616,17 +616,17 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16163">16163</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16163</span>                                                                                                                              {</div>
-<div class="line"><span class="lineno">16164</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
-<div class="line"><span class="lineno">16165</span>                                    _to=_to-&gt;apply_str_to_begin(str);</div>
-<div class="line"><span class="lineno">16166</span>                                    _to_size+=str-&gt;get_size();</div>
-<div class="line"><span class="lineno">16167</span>                                    self_changed();</div>
-<div class="line"><span class="lineno">16168</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">16169</span>                                }</div>
-<div class="line"><span class="lineno">16170</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16171</span>                                    <span class="keywordflow">return</span> base_t::apply_str_to_begin(str);</div>
-<div class="line"><span class="lineno">16172</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16167">16167</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16167</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno">16168</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
+<div class="line"><span class="lineno">16169</span>                                    _to=_to-&gt;apply_str_to_begin(str);</div>
+<div class="line"><span class="lineno">16170</span>                                    _to_size+=str-&gt;get_size();</div>
+<div class="line"><span class="lineno">16171</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16172</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">16173</span>                                }</div>
+<div class="line"><span class="lineno">16174</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16175</span>                                    <span class="keywordflow">return</span> base_t::apply_str_to_begin(str);</div>
+<div class="line"><span class="lineno">16176</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -658,17 +658,17 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16153">16153</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16153</span>                                                                                                                                                              {</div>
-<div class="line"><span class="lineno">16154</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
-<div class="line"><span class="lineno">16155</span>                                    _to=_to-&gt;apply_str_to_begin(str);</div>
-<div class="line"><span class="lineno">16156</span>                                    _to_size+=str.size();</div>
-<div class="line"><span class="lineno">16157</span>                                    self_changed();</div>
-<div class="line"><span class="lineno">16158</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">16159</span>                                }</div>
-<div class="line"><span class="lineno">16160</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16161</span>                                    <span class="keywordflow">return</span> base_t::apply_str_to_begin(str);</div>
-<div class="line"><span class="lineno">16162</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16157">16157</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16157</span>                                                                                                                                                              {</div>
+<div class="line"><span class="lineno">16158</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
+<div class="line"><span class="lineno">16159</span>                                    _to=_to-&gt;apply_str_to_begin(str);</div>
+<div class="line"><span class="lineno">16160</span>                                    _to_size+=str.size();</div>
+<div class="line"><span class="lineno">16161</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16162</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">16163</span>                                }</div>
+<div class="line"><span class="lineno">16164</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16165</span>                                    <span class="keywordflow">return</span> base_t::apply_str_to_begin(str);</div>
+<div class="line"><span class="lineno">16166</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -700,11 +700,11 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16149">16149</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16149</span>                                                                                                                            {</div>
-<div class="line"><span class="lineno">16150</span>                                this-&gt;shrink();</div>
-<div class="line"><span class="lineno">16151</span>                                <span class="keywordflow">return</span> base_t::apply_str_to_end(str);</div>
-<div class="line"><span class="lineno">16152</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16153">16153</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16153</span>                                                                                                                            {</div>
+<div class="line"><span class="lineno">16154</span>                                this-&gt;shrink();</div>
+<div class="line"><span class="lineno">16155</span>                                <span class="keywordflow">return</span> base_t::apply_str_to_end(str);</div>
+<div class="line"><span class="lineno">16156</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -736,23 +736,23 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16133">16133</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16133</span>                                                                                                                                                            {</div>
-<div class="line"><span class="lineno">16134</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
-<div class="line"><span class="lineno">16135</span>                                    <span class="keywordflow">if</span>(_m.size()-_used_size &lt; str.size()){</div>
-<div class="line"><span class="lineno">16136</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> size_now=this-&gt;get_size()+str.size();</div>
-<div class="line"><span class="lineno">16137</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> size_new=get_next_gold_size_to_resize_for_array(size_now);</div>
-<div class="line"><span class="lineno">16138</span>                                        _m.insert_with_resize(_used_size,str.size(),str.begin(),size_new);</div>
-<div class="line"><span class="lineno">16139</span>                                    }</div>
-<div class="line"><span class="lineno">16140</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16141</span>                                        copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m+_used_size));</div>
-<div class="line"><span class="lineno">16142</span>                                    _used_size+=str.size();</div>
-<div class="line"><span class="lineno">16143</span>                                    self_changed();</div>
-<div class="line"><span class="lineno">16144</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">16145</span>                                }</div>
-<div class="line"><span class="lineno">16146</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16147</span>                                    <span class="keywordflow">return</span> base_t::apply_str_to_end(str);</div>
-<div class="line"><span class="lineno">16148</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16137">16137</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16137</span>                                                                                                                                                            {</div>
+<div class="line"><span class="lineno">16138</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
+<div class="line"><span class="lineno">16139</span>                                    <span class="keywordflow">if</span>(_m.size()-_used_size &lt; str.size()){</div>
+<div class="line"><span class="lineno">16140</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> size_now=this-&gt;get_size()+str.size();</div>
+<div class="line"><span class="lineno">16141</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> size_new=get_next_gold_size_to_resize_for_array(size_now);</div>
+<div class="line"><span class="lineno">16142</span>                                        _m.insert_with_resize(_used_size,str.size(),str.begin(),size_new);</div>
+<div class="line"><span class="lineno">16143</span>                                    }</div>
+<div class="line"><span class="lineno">16144</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16145</span>                                        copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m+_used_size));</div>
+<div class="line"><span class="lineno">16146</span>                                    _used_size+=str.size();</div>
+<div class="line"><span class="lineno">16147</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16148</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">16149</span>                                }</div>
+<div class="line"><span class="lineno">16150</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16151</span>                                    <span class="keywordflow">return</span> base_t::apply_str_to_end(str);</div>
+<div class="line"><span class="lineno">16152</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -784,13 +784,13 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16115">16115</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16115</span>                                                                                                                                                {</div>
-<div class="line"><span class="lineno">16116</span>                                <span class="keywordflow">if</span>(index&lt;_to_size)</div>
-<div class="line"><span class="lineno">16117</span>                                    <span class="keywordflow">return</span> _to-&gt;arec(index);</div>
-<div class="line"><span class="lineno">16118</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16119</span>                                    <span class="keywordflow">return</span> _m[index-_to_size];</div>
-<div class="line"><span class="lineno">16120</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16119">16119</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16119</span>                                                                                                                                                {</div>
+<div class="line"><span class="lineno">16120</span>                                <span class="keywordflow">if</span>(index&lt;_to_size)</div>
+<div class="line"><span class="lineno">16121</span>                                    <span class="keywordflow">return</span> _to-&gt;arec(index);</div>
+<div class="line"><span class="lineno">16122</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16123</span>                                    <span class="keywordflow">return</span> _m[index-_to_size];</div>
+<div class="line"><span class="lineno">16124</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -838,18 +838,18 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16121">16121</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16121</span>                                                                                                                                                    {</div>
-<div class="line"><span class="lineno">16122</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
-<div class="line"><span class="lineno">16123</span>                                    <span class="keywordflow">if</span>(index&lt;_to_size)</div>
-<div class="line"><span class="lineno">16124</span>                                        _to-&gt;arec_set(index,a,_to);</div>
-<div class="line"><span class="lineno">16125</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16126</span>                                        copy_assign(_m[index - _to_size],a);</div>
-<div class="line"><span class="lineno">16127</span>                                    self_changed();</div>
-<div class="line"><span class="lineno">16128</span>                                }</div>
-<div class="line"><span class="lineno">16129</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16130</span>                                    base_t::arec_set(index,a,p);</div>
-<div class="line"><span class="lineno">16131</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16125">16125</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16125</span>                                                                                                                                                    {</div>
+<div class="line"><span class="lineno">16126</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
+<div class="line"><span class="lineno">16127</span>                                    <span class="keywordflow">if</span>(index&lt;_to_size)</div>
+<div class="line"><span class="lineno">16128</span>                                        _to-&gt;arec_set(index,a,_to);</div>
+<div class="line"><span class="lineno">16129</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16130</span>                                        copy_assign(_m[index - _to_size],a);</div>
+<div class="line"><span class="lineno">16131</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16132</span>                                }</div>
+<div class="line"><span class="lineno">16133</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16134</span>                                    base_t::arec_set(index,a,p);</div>
+<div class="line"><span class="lineno">16135</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -881,17 +881,17 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16059">16059</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16059</span>                                                                                                    {</div>
-<div class="line"><span class="lineno">16060</span>                                <span class="keywordflow">if</span>(type_info&lt;this_t&gt; == <span class="keyword">typeid</span>(*a)){</div>
-<div class="line"><span class="lineno">16061</span>                                    <span class="keyword">const</span> <span class="keyword">auto</span> p = down_cast&lt;this_t*&gt;(a.get());</div>
-<div class="line"><span class="lineno">16062</span>                                    <span class="keywordflow">if</span>(_used_size==p-&gt;_used_size &amp;&amp; _to!=p-&gt;_to)</div>
-<div class="line"><span class="lineno">16063</span>                                        base_t::equivalent_optimization(_to, p-&gt;_to);</div>
-<div class="line"><span class="lineno">16064</span>                                }</div>
-<div class="line"><span class="lineno">16065</span>                                _m.clear();</div>
-<div class="line"><span class="lineno">16066</span>                                _to.reset();</div>
-<div class="line"><span class="lineno">16067</span>                                base_t::be_replace_as(a);</div>
-<div class="line"><span class="lineno">16068</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16061">16061</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16061</span>                                                                                                    {</div>
+<div class="line"><span class="lineno">16062</span>                                <span class="keywordflow">if</span>(type_info&lt;this_t&gt; == <span class="keyword">typeid</span>(*a)){</div>
+<div class="line"><span class="lineno">16063</span>                                    <span class="keyword">const</span> <span class="keyword">auto</span> p = down_cast&lt;this_t*&gt;(a.get());</div>
+<div class="line"><span class="lineno">16064</span>                                    <span class="keywordflow">if</span>(_used_size==p-&gt;_used_size &amp;&amp; _to!=p-&gt;_to)</div>
+<div class="line"><span class="lineno">16065</span>                                        base_t::equivalent_optimization(_to, p-&gt;_to);</div>
+<div class="line"><span class="lineno">16066</span>                                }</div>
+<div class="line"><span class="lineno">16067</span>                                _m.clear();</div>
+<div class="line"><span class="lineno">16068</span>                                _to.reset();</div>
+<div class="line"><span class="lineno">16069</span>                                base_t::be_replace_as(a);</div>
+<div class="line"><span class="lineno">16070</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -939,23 +939,23 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16098">16098</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16098</span>                                                                                                                                        {</div>
-<div class="line"><span class="lineno">16099</span>                                <span class="keywordflow">if</span>(pos+size&lt;=_to_size)</div>
-<div class="line"><span class="lineno">16100</span>                                    _to-&gt;copy_part_data_to(to,pos,size);</div>
-<div class="line"><span class="lineno">16101</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">16102</span>                                    <span class="keywordflow">if</span>(pos&lt;_to_size){</div>
-<div class="line"><span class="lineno">16103</span>                                        _to-&gt;copy_part_data_to(to,pos,_to_size-pos);</div>
-<div class="line"><span class="lineno">16104</span>                                        <span class="keyword">auto</span> copied_size=_to_size-pos;</div>
-<div class="line"><span class="lineno">16105</span>                                        pos=0;</div>
-<div class="line"><span class="lineno">16106</span>                                        size-=copied_size;</div>
-<div class="line"><span class="lineno">16107</span>                                        to+=copied_size;</div>
-<div class="line"><span class="lineno">16108</span>                                    }</div>
-<div class="line"><span class="lineno">16109</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16110</span>                                        pos-=_to_size;</div>
-<div class="line"><span class="lineno">16111</span>                                    copy_assign[size](note::from((<span class="keyword">const</span> char_T*)_m+pos),note::to(to));</div>
-<div class="line"><span class="lineno">16112</span>                                }</div>
-<div class="line"><span class="lineno">16113</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16102">16102</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16102</span>                                                                                                                                        {</div>
+<div class="line"><span class="lineno">16103</span>                                <span class="keywordflow">if</span>(pos+size&lt;=_to_size)</div>
+<div class="line"><span class="lineno">16104</span>                                    _to-&gt;copy_part_data_to(to,pos,size);</div>
+<div class="line"><span class="lineno">16105</span>                                <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">16106</span>                                    <span class="keywordflow">if</span>(pos&lt;_to_size){</div>
+<div class="line"><span class="lineno">16107</span>                                        _to-&gt;copy_part_data_to(to,pos,_to_size-pos);</div>
+<div class="line"><span class="lineno">16108</span>                                        <span class="keyword">auto</span> copied_size=_to_size-pos;</div>
+<div class="line"><span class="lineno">16109</span>                                        pos=0;</div>
+<div class="line"><span class="lineno">16110</span>                                        size-=copied_size;</div>
+<div class="line"><span class="lineno">16111</span>                                        to+=copied_size;</div>
+<div class="line"><span class="lineno">16112</span>                                    }</div>
+<div class="line"><span class="lineno">16113</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16114</span>                                        pos-=_to_size;</div>
+<div class="line"><span class="lineno">16115</span>                                    copy_assign[size](note::from((<span class="keyword">const</span> char_T*)_m+pos),note::to(to));</div>
+<div class="line"><span class="lineno">16116</span>                                }</div>
+<div class="line"><span class="lineno">16117</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -997,34 +997,36 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16070">16070</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16070</span>                                                                                                                                            {</div>
-<div class="line"><span class="lineno">16071</span>                                <span class="keywordflow">if</span>(pos==0)</div>
-<div class="line"><span class="lineno">16072</span>                                    <span class="keywordflow">return</span> this-&gt;apply_str_to_begin(str);</div>
-<div class="line"><span class="lineno">16073</span>                                elseif(pos==get_size())</div>
-<div class="line"><span class="lineno">16074</span>                                    return this-&gt;apply_str_to_end(str);</div>
-<div class="line"><span class="lineno">16075</span>                                elseif(this-&gt;is_unique()){</div>
-<div class="line"><span class="lineno">16076</span>                                    <span class="keywordflow">if</span>(pos&lt;_to_size)</div>
-<div class="line"><span class="lineno">16077</span>                                        <span class="keywordflow">return</span> _to-&gt;do_insert(pos-_used_size,str);</div>
-<div class="line"><span class="lineno">16078</span>                                    <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">16079</span>                                        pos-=_to_size;</div>
-<div class="line"><span class="lineno">16080</span>                                        <span class="keywordflow">if</span>(_m.size()-_used_size&lt;str.size()){</div>
-<div class="line"><span class="lineno">16081</span>                                            <span class="keyword">const</span> <span class="keyword">auto</span> size_now=this-&gt;get_size()+str.size();</div>
-<div class="line"><span class="lineno">16082</span>                                            <span class="keyword">const</span> <span class="keyword">auto</span> size_new=get_next_gold_size_to_resize_for_array(size_now);</div>
-<div class="line"><span class="lineno">16083</span>                                            _m.insert_with_resize(pos,str.size(),str.begin(),size_new);</div>
-<div class="line"><span class="lineno">16084</span>                                        }</div>
-<div class="line"><span class="lineno">16085</span>                                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">16086</span>                                            copy_assign[_used_size-pos](note::from&lt;const char_T*&gt;(&amp;_m[pos]),note::to((char_T*)&amp;_m[pos+str.size()]));</div>
-<div class="line"><span class="lineno">16087</span>                                            copy_assign[str.size()](note::from&lt;const char_T*&gt;(str.begin()),note::to&lt;char_T*&gt;(&amp;_m[pos]));</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16072">16072</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16072</span>                                                                                                                                            {</div>
+<div class="line"><span class="lineno">16073</span>                                <span class="keywordflow">if</span>(pos==0)</div>
+<div class="line"><span class="lineno">16074</span>                                    <span class="keywordflow">return</span> this-&gt;apply_str_to_begin(str);</div>
+<div class="line"><span class="lineno">16075</span>                                elseif(pos==get_size())</div>
+<div class="line"><span class="lineno">16076</span>                                    return this-&gt;apply_str_to_end(str);</div>
+<div class="line"><span class="lineno">16077</span>                                elseif(this-&gt;is_unique()){</div>
+<div class="line"><span class="lineno">16078</span>                                    <span class="keywordflow">if</span>(pos&lt;_to_size){</div>
+<div class="line"><span class="lineno">16079</span>                                        _to=_to-&gt;do_insert(pos-_used_size,str);</div>
+<div class="line"><span class="lineno">16080</span>                                        _to_size=_to-&gt;get_size();</div>
+<div class="line"><span class="lineno">16081</span>                                    }</div>
+<div class="line"><span class="lineno">16082</span>                                    <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">16083</span>                                        pos-=_to_size;</div>
+<div class="line"><span class="lineno">16084</span>                                        <span class="keywordflow">if</span>(_m.size()-_used_size&lt;str.size()){</div>
+<div class="line"><span class="lineno">16085</span>                                            <span class="keyword">const</span> <span class="keyword">auto</span> size_now=this-&gt;get_size()+str.size();</div>
+<div class="line"><span class="lineno">16086</span>                                            <span class="keyword">const</span> <span class="keyword">auto</span> size_new=get_next_gold_size_to_resize_for_array(size_now);</div>
+<div class="line"><span class="lineno">16087</span>                                            _m.insert_with_resize(pos,str.size(),str.begin(),size_new);</div>
 <div class="line"><span class="lineno">16088</span>                                        }</div>
-<div class="line"><span class="lineno">16089</span>                                        _used_size+=str.size();</div>
-<div class="line"><span class="lineno">16090</span>                                        self_changed();</div>
-<div class="line"><span class="lineno">16091</span>                                        <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">16092</span>                                    }</div>
-<div class="line"><span class="lineno">16093</span>                                }</div>
-<div class="line"><span class="lineno">16094</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16095</span>                                    <span class="keywordflow">return</span> base_t::do_insert(pos,str);</div>
-<div class="line"><span class="lineno">16096</span>                            }</div>
+<div class="line"><span class="lineno">16089</span>                                        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">16090</span>                                            copy_assign[_used_size-pos](note::from&lt;const char_T*&gt;(&amp;_m[pos]),note::to((char_T*)&amp;_m[pos+str.size()]));</div>
+<div class="line"><span class="lineno">16091</span>                                            copy_assign[str.size()](note::from&lt;const char_T*&gt;(str.begin()),note::to&lt;char_T*&gt;(&amp;_m[pos]));</div>
+<div class="line"><span class="lineno">16092</span>                                        }</div>
+<div class="line"><span class="lineno">16093</span>                                        _used_size+=str.size();</div>
+<div class="line"><span class="lineno">16094</span>                                    }</div>
+<div class="line"><span class="lineno">16095</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16096</span>                                    <span class="keywordflow">return</span> <span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">16097</span>                                }</div>
+<div class="line"><span class="lineno">16098</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16099</span>                                    <span class="keywordflow">return</span> base_t::do_insert(pos,str);</div>
+<div class="line"><span class="lineno">16100</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1066,16 +1068,16 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16183">16183</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16183</span>                                                                                                                                                         {</div>
-<div class="line"><span class="lineno">16184</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique() &amp;&amp; _used_size&gt;=size){</div>
-<div class="line"><span class="lineno">16185</span>                                    _used_size-=size;</div>
-<div class="line"><span class="lineno">16186</span>                                    self_changed();</div>
-<div class="line"><span class="lineno">16187</span>                                    <span class="keywordflow">return</span> get&lt;comn_string_data_t&lt;char_T&gt;&gt;(string_view_t{(char_T*)_m+_used_size,size});</div>
-<div class="line"><span class="lineno">16188</span>                                }</div>
-<div class="line"><span class="lineno">16189</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16190</span>                                    <span class="keywordflow">return</span> base_t::do_pop_back(size,self);</div>
-<div class="line"><span class="lineno">16191</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16187">16187</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16187</span>                                                                                                                                                         {</div>
+<div class="line"><span class="lineno">16188</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique() &amp;&amp; _used_size&gt;=size){</div>
+<div class="line"><span class="lineno">16189</span>                                    _used_size-=size;</div>
+<div class="line"><span class="lineno">16190</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16191</span>                                    <span class="keywordflow">return</span> get&lt;comn_string_data_t&lt;char_T&gt;&gt;(string_view_t{(char_T*)_m+_used_size,size});</div>
+<div class="line"><span class="lineno">16192</span>                                }</div>
+<div class="line"><span class="lineno">16193</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16194</span>                                    <span class="keywordflow">return</span> base_t::do_pop_back(size,self);</div>
+<div class="line"><span class="lineno">16195</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1117,17 +1119,17 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16173">16173</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16173</span>                                                                                                                                                          {</div>
-<div class="line"><span class="lineno">16174</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
-<div class="line"><span class="lineno">16175</span>                                    <span class="keyword">auto</span> aret=_to-&gt;do_pop_front(size,_to);</div>
-<div class="line"><span class="lineno">16176</span>                                    _to_size-=size;</div>
-<div class="line"><span class="lineno">16177</span>                                    self_changed();</div>
-<div class="line"><span class="lineno">16178</span>                                    <span class="keywordflow">return</span> aret;</div>
-<div class="line"><span class="lineno">16179</span>                                }</div>
-<div class="line"><span class="lineno">16180</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16181</span>                                    <span class="keywordflow">return</span> base_t::do_pop_front(size,self);</div>
-<div class="line"><span class="lineno">16182</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16177">16177</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16177</span>                                                                                                                                                          {</div>
+<div class="line"><span class="lineno">16178</span>                                <span class="keywordflow">if</span>(this-&gt;is_unique()){</div>
+<div class="line"><span class="lineno">16179</span>                                    <span class="keyword">auto</span> aret=_to-&gt;do_pop_front(size,_to);</div>
+<div class="line"><span class="lineno">16180</span>                                    _to_size-=size;</div>
+<div class="line"><span class="lineno">16181</span>                                    self_changed();</div>
+<div class="line"><span class="lineno">16182</span>                                    <span class="keywordflow">return</span> aret;</div>
+<div class="line"><span class="lineno">16183</span>                                }</div>
+<div class="line"><span class="lineno">16184</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16185</span>                                    <span class="keywordflow">return</span> base_t::do_pop_front(size,self);</div>
+<div class="line"><span class="lineno">16186</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1158,10 +1160,10 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16242">16242</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16242</span>                                                                                                           {</div>
-<div class="line"><span class="lineno">16243</span>                                <span class="keywordflow">return</span> _to-&gt;get_memory_cost()+float_size_of(*<span class="keyword">this</span>)+_m.size_in_byte();</div>
-<div class="line"><span class="lineno">16244</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16246">16246</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16246</span>                                                                                                           {</div>
+<div class="line"><span class="lineno">16247</span>                                <span class="keywordflow">return</span> _to-&gt;get_memory_cost()+float_size_of(*<span class="keyword">this</span>)+_m.size_in_byte();</div>
+<div class="line"><span class="lineno">16248</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1193,13 +1195,13 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16053">16053</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16053</span>                                                                                                                   {</div>
-<div class="line"><span class="lineno">16054</span>                                <span class="keywordflow">if</span>(!_used_size)</div>
-<div class="line"><span class="lineno">16055</span>                                    <span class="keywordflow">return</span> _to-&gt;get_c_str(_to);</div>
-<div class="line"><span class="lineno">16056</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16057</span>                                    <span class="keywordflow">return</span> base_t::get_c_str(p);</div>
-<div class="line"><span class="lineno">16058</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16055">16055</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16055</span>                                                                                                                   {</div>
+<div class="line"><span class="lineno">16056</span>                                <span class="keywordflow">if</span>(!_used_size)</div>
+<div class="line"><span class="lineno">16057</span>                                    <span class="keywordflow">return</span> _to-&gt;get_c_str(_to);</div>
+<div class="line"><span class="lineno">16058</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16059</span>                                    <span class="keywordflow">return</span> base_t::get_c_str(p);</div>
+<div class="line"><span class="lineno">16060</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1231,10 +1233,10 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16193">16193</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16193</span>                                                                                                      {</div>
-<div class="line"><span class="lineno">16194</span>                                <span class="keywordflow">return</span> hash.with_calculated_before(_to-&gt;get_hash(_to),_to_size,string_view_t(_m.begin(),_used_size));</div>
-<div class="line"><span class="lineno">16195</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16197">16197</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16197</span>                                                                                                      {</div>
+<div class="line"><span class="lineno">16198</span>                                <span class="keywordflow">return</span> hash.with_calculated_before(_to-&gt;get_hash(_to),_to_size,string_view_t(_m.begin(),_used_size));</div>
+<div class="line"><span class="lineno">16199</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1294,24 +1296,24 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16196">16196</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16196</span>                                                                                                                                                                                            {</div>
-<div class="line"><span class="lineno">16197</span>                                <span class="keywordflow">if</span>(pos+size&lt;=_to_size)</div>
-<div class="line"><span class="lineno">16198</span>                                    before=_to-&gt;get_others_hash_with_calculated_before(before,before_size,_to,pos,size);</div>
-<div class="line"><span class="lineno">16199</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">16200</span>                                    <span class="keywordflow">if</span>(pos&lt;_to_size){</div>
-<div class="line"><span class="lineno">16201</span>                                        before=_to-&gt;get_others_hash_with_calculated_before(before,before_size,_to,pos,_to_size-pos);</div>
-<div class="line"><span class="lineno">16202</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> calculated_size=_to_size-pos;</div>
-<div class="line"><span class="lineno">16203</span>                                        pos=0;</div>
-<div class="line"><span class="lineno">16204</span>                                        size-=calculated_size;</div>
-<div class="line"><span class="lineno">16205</span>                                        before_size+=calculated_size;</div>
-<div class="line"><span class="lineno">16206</span>                                    }</div>
-<div class="line"><span class="lineno">16207</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16208</span>                                        pos-=_to_size;</div>
-<div class="line"><span class="lineno">16209</span>                                    before=hash.with_calculated_before(before,before_size,(<span class="keyword">const</span> char_T*)_m+pos,size);</div>
-<div class="line"><span class="lineno">16210</span>                                }</div>
-<div class="line"><span class="lineno">16211</span>                                <span class="keywordflow">return</span> before;</div>
-<div class="line"><span class="lineno">16212</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16200">16200</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16200</span>                                                                                                                                                                                            {</div>
+<div class="line"><span class="lineno">16201</span>                                <span class="keywordflow">if</span>(pos+size&lt;=_to_size)</div>
+<div class="line"><span class="lineno">16202</span>                                    before=_to-&gt;get_others_hash_with_calculated_before(before,before_size,_to,pos,size);</div>
+<div class="line"><span class="lineno">16203</span>                                <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">16204</span>                                    <span class="keywordflow">if</span>(pos&lt;_to_size){</div>
+<div class="line"><span class="lineno">16205</span>                                        before=_to-&gt;get_others_hash_with_calculated_before(before,before_size,_to,pos,_to_size-pos);</div>
+<div class="line"><span class="lineno">16206</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> calculated_size=_to_size-pos;</div>
+<div class="line"><span class="lineno">16207</span>                                        pos=0;</div>
+<div class="line"><span class="lineno">16208</span>                                        size-=calculated_size;</div>
+<div class="line"><span class="lineno">16209</span>                                        before_size+=calculated_size;</div>
+<div class="line"><span class="lineno">16210</span>                                    }</div>
+<div class="line"><span class="lineno">16211</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16212</span>                                        pos-=_to_size;</div>
+<div class="line"><span class="lineno">16213</span>                                    before=hash.with_calculated_before(before,before_size,(<span class="keyword">const</span> char_T*)_m+pos,size);</div>
+<div class="line"><span class="lineno">16214</span>                                }</div>
+<div class="line"><span class="lineno">16215</span>                                <span class="keywordflow">return</span> before;</div>
+<div class="line"><span class="lineno">16216</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1342,8 +1344,8 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16069">16069</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16069</span>{ <span class="keywordflow">return</span> _used_size+_to_size; }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16071">16071</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16071</span>{ <span class="keywordflow">return</span> _used_size+_to_size; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1385,13 +1387,13 @@ template&lt;typename char_T &gt; </div>
 
 <p>重载 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a> .</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16047">16047</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16047</span>                                                                                                                       {</div>
-<div class="line"><span class="lineno">16048</span>                                <span class="keywordflow">if</span>(begin+size&lt;=_to_size)</div>
-<div class="line"><span class="lineno">16049</span>                                    <span class="keywordflow">return</span> _to-&gt;get_substr_data(begin,size);</div>
-<div class="line"><span class="lineno">16050</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">16051</span>                                    <span class="keywordflow">return</span> base_t::get_substr_data(begin,size);</div>
-<div class="line"><span class="lineno">16052</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16049">16049</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16049</span>                                                                                                                       {</div>
+<div class="line"><span class="lineno">16050</span>                                <span class="keywordflow">if</span>(begin+size&lt;=_to_size)</div>
+<div class="line"><span class="lineno">16051</span>                                    <span class="keywordflow">return</span> _to-&gt;get_substr_data(begin,size);</div>
+<div class="line"><span class="lineno">16052</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">16053</span>                                    <span class="keywordflow">return</span> base_t::get_substr_data(begin,size);</div>
+<div class="line"><span class="lineno">16054</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1423,16 +1425,16 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16221">16221</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16221</span>                                                                                                                                                           {</div>
-<div class="line"><span class="lineno">16222</span>                                <span class="keywordflow">if</span>(begin &lt; _to_size){</div>
-<div class="line"><span class="lineno">16223</span>                                    <span class="keywordflow">return</span> _to-&gt;get_the_largest_complete_data_block_begin_form(begin);</div>
-<div class="line"><span class="lineno">16224</span>                                }</div>
-<div class="line"><span class="lineno">16225</span>                                <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">16226</span>                                    begin-=_to_size;</div>
-<div class="line"><span class="lineno">16227</span>                                    <span class="keywordflow">return</span> {_m.begin()+begin,note::size(_used_size-begin)};</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16225">16225</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16225</span>                                                                                                                                                           {</div>
+<div class="line"><span class="lineno">16226</span>                                <span class="keywordflow">if</span>(begin &lt; _to_size){</div>
+<div class="line"><span class="lineno">16227</span>                                    <span class="keywordflow">return</span> _to-&gt;get_the_largest_complete_data_block_begin_form(begin);</div>
 <div class="line"><span class="lineno">16228</span>                                }</div>
-<div class="line"><span class="lineno">16229</span>                            }</div>
+<div class="line"><span class="lineno">16229</span>                                <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">16230</span>                                    begin-=_to_size;</div>
+<div class="line"><span class="lineno">16231</span>                                    <span class="keywordflow">return</span> {_m.begin()+begin,note::size(_used_size-begin)};</div>
+<div class="line"><span class="lineno">16232</span>                                }</div>
+<div class="line"><span class="lineno">16233</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1464,11 +1466,11 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16217">16217</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16217</span>                                                                                                    {</div>
-<div class="line"><span class="lineno">16218</span>                                <span class="keyword">auto</span> wp = down_cast&lt;this_t*&gt;(with.get());</div>
-<div class="line"><span class="lineno">16219</span>                                <span class="keywordflow">return</span> _used_size==wp-&gt;_used_size;<span class="comment">// &amp;&amp; _to_size==wp-&gt;_to_size; //总size被保证一样</span></div>
-<div class="line"><span class="lineno">16220</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16221">16221</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16221</span>                                                                                                    {</div>
+<div class="line"><span class="lineno">16222</span>                                <span class="keyword">auto</span> wp = down_cast&lt;this_t*&gt;(with.get());</div>
+<div class="line"><span class="lineno">16223</span>                                <span class="keywordflow">return</span> _used_size==wp-&gt;_used_size;<span class="comment">// &amp;&amp; _to_size==wp-&gt;_to_size; //总size被保证一样</span></div>
+<div class="line"><span class="lineno">16224</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1500,13 +1502,13 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16236">16236</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16236</span>                                                                                                                                                  {</div>
-<div class="line"><span class="lineno">16237</span>                                <span class="keyword">auto</span> wp=down_cast&lt;this_t*&gt;(with.get());</div>
-<div class="line"><span class="lineno">16238</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=_to-&gt;compare_with(wp-&gt;_to); tmp!=0)</div>
-<div class="line"><span class="lineno">16239</span>                                    <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno">16240</span>                                <span class="keywordflow">return</span> compare((char_T*)_m.begin(),(char_T*)wp-&gt;_m.begin(),_used_size);</div>
-<div class="line"><span class="lineno">16241</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16240">16240</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16240</span>                                                                                                                                                  {</div>
+<div class="line"><span class="lineno">16241</span>                                <span class="keyword">auto</span> wp=down_cast&lt;this_t*&gt;(with.get());</div>
+<div class="line"><span class="lineno">16242</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=_to-&gt;compare_with(wp-&gt;_to); tmp!=0)</div>
+<div class="line"><span class="lineno">16243</span>                                    <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno">16244</span>                                <span class="keywordflow">return</span> compare((char_T*)_m.begin(),(char_T*)wp-&gt;_m.begin(),_used_size);</div>
+<div class="line"><span class="lineno">16245</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1538,13 +1540,13 @@ template&lt;typename char_T &gt; </div>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1string__n_1_1string__data__n_1_1base__string__data__t.html">elc::defs::string_n::string_data_n::base_string_data_t&lt; char_T &gt;</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16230">16230</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16230</span>                                                                                                                                {</div>
-<div class="line"><span class="lineno">16231</span>                                <span class="keyword">auto</span> wp=down_cast&lt;this_t*&gt;(with.get());</div>
-<div class="line"><span class="lineno">16232</span>                                <span class="keywordflow">if</span>(!_to-&gt;equal_with(wp-&gt;_to))</div>
-<div class="line"><span class="lineno">16233</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">16234</span>                                <span class="keywordflow">return</span> equal((char_T*)_m.begin(),(char_T*)wp-&gt;_m.begin(),_used_size);</div>
-<div class="line"><span class="lineno">16235</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16234">16234</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16234</span>                                                                                                                                {</div>
+<div class="line"><span class="lineno">16235</span>                                <span class="keyword">auto</span> wp=down_cast&lt;this_t*&gt;(with.get());</div>
+<div class="line"><span class="lineno">16236</span>                                <span class="keywordflow">if</span>(!_to-&gt;equal_with(wp-&gt;_to))</div>
+<div class="line"><span class="lineno">16237</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">16238</span>                                <span class="keywordflow">return</span> equal((char_T*)_m.begin(),(char_T*)wp-&gt;_m.begin(),_used_size);</div>
+<div class="line"><span class="lineno">16239</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1636,10 +1638,10 @@ template&lt;typename char_T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16213">16213</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">16213</span>                                                                    {</div>
-<div class="line"><span class="lineno">16214</span>                                _m.resize(_used_size);</div>
-<div class="line"><span class="lineno">16215</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16217">16217</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">16217</span>                                                                    {</div>
+<div class="line"><span class="lineno">16218</span>                                _m.resize(_used_size);</div>
+<div class="line"><span class="lineno">16219</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1658,7 +1660,7 @@ template&lt;typename char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16018">16018</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16020">16020</a> 行定义.</p>
 
 </div>
 </div>
@@ -1676,7 +1678,7 @@ template&lt;typename char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16019">16019</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16021">16021</a> 行定义.</p>
 
 </div>
 </div>
@@ -1694,7 +1696,7 @@ template&lt;typename char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16020">16020</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16022">16022</a> 行定义.</p>
 
 </div>
 </div>
@@ -1712,7 +1714,7 @@ template&lt;typename char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16021">16021</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l16023">16023</a> 行定义.</p>
 
 </div>
 </div>
