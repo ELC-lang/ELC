@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['operator_26_26_0',['operator&amp;&amp;',['../structelc_1_1defs_1_1base_1_1logical__bool.html#ab3d8d3fa61704b89f59e1aa5a2acbd9e',1,'elc::defs::base::logical_bool']]],
+  ['operator_2b_1',['operator+',['../classelc_1_1defs_1_1container_1_1array__n_1_1array__t.html#a103275c2ccdafd2326e106bd31957a38',1,'elc::defs::container::array_n::array_t::operator+()'],['../classelc_1_1defs_1_1container_1_1array__n_1_1array__t.html#a247f8e11151ff37b56b86951e58f7d9e',1,'elc::defs::container::array_n::array_t::operator+()'],['../structelc_1_1defs_1_1string__n_1_1string__t.html#af0e3df264a76200021dd5e680f222a14',1,'elc::defs::string_n::string_t::operator+()'],['../structelc_1_1defs_1_1string__n_1_1string__t.html#a3e4aa8c9acef04ba468747ff5068044c',1,'elc::defs::string_n::string_t::operator+()'],['../structelc_1_1defs_1_1string__n_1_1string__t.html#a3d4829e06193edd74834482df317ebc8',1,'elc::defs::string_n::string_t::operator+()']]],
+  ['operator_2b_3d_2',['operator+=',['../classelc_1_1defs_1_1container_1_1array__n_1_1array__t.html#a56b7041d3e2a2d8ffa0f259a2ac69170',1,'elc::defs::container::array_n::array_t::operator+=()'],['../classelc_1_1defs_1_1container_1_1array__n_1_1array__t.html#a31c0c499bf50e904c452761d7aeab7ef',1,'elc::defs::container::array_n::array_t::operator+=()']]],
+  ['operator_3d_3d_3',['operator==',['../structelc_1_1defs_1_1base_1_1logical__bool.html#af7a84f69d77a74752c006400c221691c',1,'elc::defs::base::logical_bool']]],
+  ['operator_7c_7c_4',['operator||',['../structelc_1_1defs_1_1base_1_1logical__bool.html#ae8af3f39a1bb838840fddd4cda7b22ad',1,'elc::defs::base::logical_bool']]]
+];

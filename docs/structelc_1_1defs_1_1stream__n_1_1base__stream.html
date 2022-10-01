@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ELC: elc::defs::stream_n::base_stream结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo_for_doc.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">ELC<span id="projectnumber">&#160;in dev</span>
+   </div>
+   <div id="projectbrief">ELC-lang</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structelc_1_1defs_1_1stream__n_1_1base__stream.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="structelc_1_1defs_1_1stream__n_1_1base__stream-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">elc::defs::stream_n::base_stream结构体 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 elc::defs::stream_n::base_stream 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structelc_1_1defs_1_1stream__n_1_1base__stream.png" usemap="#elc::defs::stream_5Fn::base_5Fstream_map" alt=""/>
+  <map id="elc::defs::stream_5Fn::base_5Fstream_map" name="elc::defs::stream_5Fn::base_5Fstream_map">
+<area href="structelc_1_1defs_1_1stream__n_1_1base__istream.html" alt="elc::defs::stream_n::base_istream" shape="rect" coords="0,56,224,80"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1base__ostream.html" alt="elc::defs::stream_n::base_ostream" shape="rect" coords="468,56,692,80"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html" alt="elc::defs::stream_n::noexcept_stream" shape="rect" coords="936,56,1160,80"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1base__iostream.html" alt="elc::defs::stream_n::base_iostream" shape="rect" coords="234,112,458,136"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1data__istream.html" alt="elc::defs::stream_n::data_istream" shape="rect" coords="234,168,458,192"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1noexcept__istream.html" alt="elc::defs::stream_n::noexcept_istream" shape="rect" coords="234,224,458,248"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1string__istream.html" alt="elc::defs::stream_n::string_istream" shape="rect" coords="234,280,458,304"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1base__iostream.html" alt="elc::defs::stream_n::base_iostream" shape="rect" coords="702,112,926,136"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1data__ostream.html" alt="elc::defs::stream_n::data_ostream" shape="rect" coords="702,168,926,192"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1noexcept__ostream.html" alt="elc::defs::stream_n::noexcept_ostream" shape="rect" coords="702,224,926,248"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1string__ostream.html" alt="elc::defs::stream_n::string_ostream" shape="rect" coords="702,280,926,304"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1noexcept__istream.html" alt="elc::defs::stream_n::noexcept_istream" shape="rect" coords="1170,112,1394,136"/>
+<area href="structelc_1_1defs_1_1stream__n_1_1noexcept__ostream.html" alt="elc::defs::stream_n::noexcept_ostream" shape="rect" coords="1170,168,1394,192"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a0db1de2cb2514cc031efda05f3ba898b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#a0db1de2cb2514cc031efda05f3ba898b">~base_stream</a> ()=default</td></tr>
+<tr class="separator:a0db1de2cb2514cc031efda05f3ba898b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab463bd0197414f635211e3f3f4241ba7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#ab463bd0197414f635211e3f3f4241ba7">seek</a> (<a class="el" href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3">seek_type</a>, <a class="el" href="namespaceelc.html#aa1005ca010fbc65ea838853f6bf61092">int_t</a>)=0</td></tr>
+<tr class="separator:ab463bd0197414f635211e3f3f4241ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74f4760118ec47efdd201de30967f146"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#a74f4760118ec47efdd201de30967f146">tell</a> ()</td></tr>
+<tr class="separator:a74f4760118ec47efdd201de30967f146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69bc1b3ab040abb1b1e3d70ac39e8098"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#a69bc1b3ab040abb1b1e3d70ac39e8098">seek_to</a> (<a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> *)=0</td></tr>
+<tr class="separator:a69bc1b3ab040abb1b1e3d70ac39e8098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3f9210a118bd90288f2ca784b41d422"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#ab3f9210a118bd90288f2ca784b41d422">sync</a> ()=0</td></tr>
+<tr class="separator:ab3f9210a118bd90288f2ca784b41d422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d44aed0a16a0f3ddee0111aa684792"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#a21d44aed0a16a0f3ddee0111aa684792">flush</a> ()=0</td></tr>
+<tr class="separator:a21d44aed0a16a0f3ddee0111aa684792"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a4c80775cfdb34703caf2ff909877dc"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#a0a4c80775cfdb34703caf2ff909877dc">close</a> ()=0</td></tr>
+<tr class="separator:a0a4c80775cfdb34703caf2ff909877dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l12090">12090</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a0db1de2cb2514cc031efda05f3ba898b" name="a0db1de2cb2514cc031efda05f3ba898b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0db1de2cb2514cc031efda05f3ba898b">&#9670;&#160;</a></span>~base_stream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual elc::defs::stream_n::base_stream::~base_stream </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a0a4c80775cfdb34703caf2ff909877dc" name="a0a4c80775cfdb34703caf2ff909877dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a4c80775cfdb34703caf2ff909877dc">&#9670;&#160;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> elc::defs::stream_n::base_stream::close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1memory__stream.html#a6505b855a02b9c855b9ef5ff6febaeaa">elc::defs::stream_n::memory_stream</a> , 以及 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html#a7bec931e1762d984b6f2d228003faffa">elc::defs::stream_n::noexcept_stream</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="a21d44aed0a16a0f3ddee0111aa684792" name="a21d44aed0a16a0f3ddee0111aa684792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21d44aed0a16a0f3ddee0111aa684792">&#9670;&#160;</a></span>flush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> elc::defs::stream_n::base_stream::flush </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1memory__stream.html#a19a3f476ef9cbfe6fbaaf525de60100e">elc::defs::stream_n::memory_stream</a> , 以及 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html#ae1a0d9ed4a8ebc72019ab38a809aae94">elc::defs::stream_n::noexcept_stream</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="ab463bd0197414f635211e3f3f4241ba7" name="ab463bd0197414f635211e3f3f4241ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab463bd0197414f635211e3f3f4241ba7">&#9670;&#160;</a></span>seek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> * elc::defs::stream_n::base_stream::seek </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3">seek_type</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceelc.html#aa1005ca010fbc65ea838853f6bf61092">int_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1memory__stream.html#aaf7f3857fc378bbd9589a596dd05d94d">elc::defs::stream_n::memory_stream</a> , 以及 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html#adceea69755546e3db147f9cc01052dfa">elc::defs::stream_n::noexcept_stream</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="a69bc1b3ab040abb1b1e3d70ac39e8098" name="a69bc1b3ab040abb1b1e3d70ac39e8098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69bc1b3ab040abb1b1e3d70ac39e8098">&#9670;&#160;</a></span>seek_to()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> elc::defs::stream_n::base_stream::seek_to </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html#abaa1e99b53ccca9612d6970a50d16deb">elc::defs::stream_n::noexcept_stream</a> , 以及 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1memory__stream.html#a57c3030a702396666b80c3ea5fcb28fd">elc::defs::stream_n::memory_stream</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="ab3f9210a118bd90288f2ca784b41d422" name="ab3f9210a118bd90288f2ca784b41d422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f9210a118bd90288f2ca784b41d422">&#9670;&#160;</a></span>sync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> elc::defs::stream_n::base_stream::sync </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1memory__stream.html#a263ff469402ae12999924a739a14e9d0">elc::defs::stream_n::memory_stream</a> , 以及 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html#a7b4f2ef5c14e23f0f51a954cc30b39e7">elc::defs::stream_n::noexcept_stream</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="a74f4760118ec47efdd201de30967f146" name="a74f4760118ec47efdd201de30967f146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74f4760118ec47efdd201de30967f146">&#9670;&#160;</a></span>tell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> * elc::defs::stream_n::base_stream::tell </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>被 <a class="el" href="structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html#a7c09b7b2c22179a900ad721120d9d235">elc::defs::stream_n::noexcept_stream</a> 重载.</p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l12093">12093</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">12093</span>{<span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#ab463bd0197414f635211e3f3f4241ba7">seek</a>(<a class="code hl_enumvalue" href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3a590d910bf66557298f741dd0caa5ad63">cur</a>,0);}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1stream__n_html_a1ae307d710e1d2219d15bf6886cfb9f3a590d910bf66557298f741dd0caa5ad63"><div class="ttname"><a href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3a590d910bf66557298f741dd0caa5ad63">elc::defs::stream_n::cur</a></div><div class="ttdeci">@ cur</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12089">all_defs.cpp:12089</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1stream__n_1_1base__stream_html_ab463bd0197414f635211e3f3f4241ba7"><div class="ttname"><a href="structelc_1_1defs_1_1stream__n_1_1base__stream.html#ab463bd0197414f635211e3f3f4241ba7">elc::defs::stream_n::base_stream::seek</a></div><div class="ttdeci">virtual void * seek(seek_type, int_t)=0</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>docs/<a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceelc.html">elc</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs.html">defs</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs_1_1stream__n.html">stream_n</a></li><li class="navelem"><a class="el" href="structelc_1_1defs_1_1stream__n_1_1base__stream.html">base_stream</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

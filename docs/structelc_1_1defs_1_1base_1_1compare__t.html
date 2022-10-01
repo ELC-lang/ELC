@@ -1,0 +1,1295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ELC: elc::defs::base::compare_t结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo_for_doc.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">ELC<span id="projectnumber">&#160;in dev</span>
+   </div>
+   <div id="projectbrief">ELC-lang</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structelc_1_1defs_1_1base_1_1compare__t.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="structelc_1_1defs_1_1base_1_1compare__t-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">elc::defs::base::compare_t结构体 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a63efeb4e3d6c518ec57d6fe6c1b173de"><td class="memTemplParams" colspan="2">template&lt;class T , class U  = T&gt; </td></tr>
+<tr class="memitem:a63efeb4e3d6c518ec57d6fe6c1b173de"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a63efeb4e3d6c518ec57d6fe6c1b173de">type</a> = decltype(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>((::std::declval&lt; T &gt;()),(::std::declval&lt; U &gt;())))</td></tr>
+<tr class="separator:a63efeb4e3d6c518ec57d6fe6c1b173de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ab3042ecd7692c8c94e6f6844887bfb78"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ab3042ecd7692c8c94e6f6844887bfb78"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">operator()</a> (T &amp;&amp;a, U &amp;&amp;b) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:ab3042ecd7692c8c94e6f6844887bfb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ccabdcb74ae041910e742d65c3e6a05"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a8ccabdcb74ae041910e742d65c3e6a05"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a8ccabdcb74ae041910e742d65c3e6a05">operator()</a> (T *a, U *b, size_t size) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:a8ccabdcb74ae041910e742d65c3e6a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ab200dd9a7d7114dc95fb7d2be9ab43"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , size_t N1, size_t N2&gt; </td></tr>
+<tr class="memitem:a2ab200dd9a7d7114dc95fb7d2be9ab43"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a2ab200dd9a7d7114dc95fb7d2be9ab43">operator()</a> (T(&amp;a)[N1], U(&amp;b)[N2]) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:a2ab200dd9a7d7114dc95fb7d2be9ab43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6178faedeca9f4de9bad508385349c88"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a6178faedeca9f4de9bad508385349c88"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a6178faedeca9f4de9bad508385349c88">operator()</a> (T *a, size_t size1, U *b, size_t size2) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:a6178faedeca9f4de9bad508385349c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fe2b609ee2d5142c7553420c7ff382b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a0fe2b609ee2d5142c7553420c7ff382b"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a0fe2b609ee2d5142c7553420c7ff382b">operator()</a> (T *a, size_t size1, U *b, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:a0fe2b609ee2d5142c7553420c7ff382b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8b6e85a2681c0210a60067a84762946"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ad8b6e85a2681c0210a60067a84762946"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ad8b6e85a2681c0210a60067a84762946">operator()</a> (T *a, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>, U *b, size_t size2) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:ad8b6e85a2681c0210a60067a84762946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf842f7226ccd8d002eb3bcd995d8d31"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:acf842f7226ccd8d002eb3bcd995d8d31"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#acf842f7226ccd8d002eb3bcd995d8d31">operator()</a> (T *a, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>, U *b, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:acf842f7226ccd8d002eb3bcd995d8d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4ae2fe8c93a039eec39dad2698eea26"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:aa4ae2fe8c93a039eec39dad2698eea26"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#aa4ae2fe8c93a039eec39dad2698eea26">operator()</a> (T *a, size_t size1, <a class="el" href="structelc_1_1defs_1_1base_1_1just__an__part__t.html">just_an_part_t</a>, U *b, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:aa4ae2fe8c93a039eec39dad2698eea26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac218d091711cefaa4eda1705255af4ba"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ac218d091711cefaa4eda1705255af4ba"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">lexicographical</a> (T *a, size_t size1, U *b, size_t size2) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:ac218d091711cefaa4eda1705255af4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8e189daceae86e22f0e3f1345412b16"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , size_t N1, size_t N2&gt; </td></tr>
+<tr class="memitem:ab8e189daceae86e22f0e3f1345412b16"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ab8e189daceae86e22f0e3f1345412b16">lexicographical</a> (T(&amp;a)[N1], U(&amp;b)[N2]) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:ab8e189daceae86e22f0e3f1345412b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabce403f744231bb71ed2a79f03bc7df"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:aabce403f744231bb71ed2a79f03bc7df"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#aabce403f744231bb71ed2a79f03bc7df">lexicographical</a> (T *a, size_t size1, U *b, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:aabce403f744231bb71ed2a79f03bc7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5fba189fd541462058c497f179ebe43"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ae5fba189fd541462058c497f179ebe43"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae5fba189fd541462058c497f179ebe43">lexicographical</a> (T *a, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>, U *b, size_t size2) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:ae5fba189fd541462058c497f179ebe43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1508a67a8194650a08af8b39059fcb8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:af1508a67a8194650a08af8b39059fcb8"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#af1508a67a8194650a08af8b39059fcb8">lexicographical</a> (T *a, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>, U *b, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:af1508a67a8194650a08af8b39059fcb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc25b65c6105a0f0a03e7371262fcef"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a8cc25b65c6105a0f0a03e7371262fcef"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a8cc25b65c6105a0f0a03e7371262fcef">lexicographical</a> (T *a, size_t size1, <a class="el" href="structelc_1_1defs_1_1base_1_1just__an__part__t.html">just_an_part_t</a>, U *b, <a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:a8cc25b65c6105a0f0a03e7371262fcef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49571c43618a4d1b445ff7fbbf8808c5"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a49571c43618a4d1b445ff7fbbf8808c5">reverse</a> (partial_ordering odr) const noexcept</td></tr>
+<tr class="separator:a49571c43618a4d1b445ff7fbbf8808c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62dc48a30d00b0be9ec5a1f21618ef58"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a62dc48a30d00b0be9ec5a1f21618ef58">reverse</a> (weak_ordering odr) const noexcept</td></tr>
+<tr class="separator:a62dc48a30d00b0be9ec5a1f21618ef58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e8b7b4ce1c10c1a73ad2442f0f7cb5"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a11e8b7b4ce1c10c1a73ad2442f0f7cb5">reverse</a> (strong_ordering odr) const noexcept</td></tr>
+<tr class="separator:a11e8b7b4ce1c10c1a73ad2442f0f7cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:ae93cfa3da47dda23711a1e2b8ad7d29c"><td class="memTemplParams" colspan="2">template&lt;class T , class U &gt; </td></tr>
+<tr class="memitem:ae93cfa3da47dda23711a1e2b8ad7d29c"><td class="memTemplItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a> (T &amp;&amp;a, U &amp;&amp;b) noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a>&lt; T, U &gt;)</td></tr>
+<tr class="separator:ae93cfa3da47dda23711a1e2b8ad7d29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:a69c33f31db14ccf06ceddffeb2acf970"><td class="memTemplParams" colspan="2">template&lt;class T , class U  = T&gt; </td></tr>
+<tr class="memitem:a69c33f31db14ccf06ceddffeb2acf970"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a69c33f31db14ccf06ceddffeb2acf970">r_able</a> = (bool(requires{ (::std::declval&lt; T &gt;())&lt;=&gt;(::std::declval&lt; U &gt;()) ;}))</td></tr>
+<tr class="separator:a69c33f31db14ccf06ceddffeb2acf970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acafe8973cd922ab76111ce4f7c0a4148"><td class="memTemplParams" colspan="2">template&lt;class T , class U  = T&gt; </td></tr>
+<tr class="memitem:acafe8973cd922ab76111ce4f7c0a4148"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#acafe8973cd922ab76111ce4f7c0a4148">able</a></td></tr>
+<tr class="separator:acafe8973cd922ab76111ce4f7c0a4148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada9b506b65f2d97c77ae27d80a3a987a"><td class="memTemplParams" colspan="2">template&lt;class T , class U  = T&gt; </td></tr>
+<tr class="memitem:ada9b506b65f2d97c77ae27d80a3a987a"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ada9b506b65f2d97c77ae27d80a3a987a">nothrow</a></td></tr>
+<tr class="separator:ada9b506b65f2d97c77ae27d80a3a987a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01552">1552</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="a63efeb4e3d6c518ec57d6fe6c1b173de" name="a63efeb4e3d6c518ec57d6fe6c1b173de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63efeb4e3d6c518ec57d6fe6c1b173de">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U  = T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#a63efeb4e3d6c518ec57d6fe6c1b173de">elc::defs::base::compare_t::type</a> =  decltype(<a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>((::std::declval&lt; T &gt;()),(::std::declval&lt; U &gt;())))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01584">1584</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ae93cfa3da47dda23711a1e2b8ad7d29c" name="ae93cfa3da47dda23711a1e2b8ad7d29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93cfa3da47dda23711a1e2b8ad7d29c">&#9670;&#160;</a></span>base_call()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr auto elc::defs::base::compare_t::base_call </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U &amp;&amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01573">1573</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1573</span>                                                                                                     {</div>
+<div class="line"><span class="lineno"> 1574</span>                            <span class="comment">//在 &lt;=&gt; 不可用时以 &lt; 和 == 为后备，优于直接 &lt;=&gt;</span></div>
+<div class="line"><span class="lineno"> 1575</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T,U&gt;)</div>
+<div class="line"><span class="lineno"> 1576</span>                                <span class="keywordflow">return</span> a&lt;=&gt;b;</div>
+<div class="line"><span class="lineno"> 1577</span>                            <span class="keywordflow">else</span> <span class="keywordflow">return</span> a == b  ? partial_ordering::equivalent  :</div>
+<div class="line"><span class="lineno"> 1578</span>                                        a &lt; b   ? partial_ordering::less        :</div>
+<div class="line"><span class="lineno"> 1579</span>                                        b &lt; a   ? partial_ordering::greater     :</div>
+<div class="line"><span class="lineno"> 1580</span>                                                  partial_ordering::unordered   ;</div>
+<div class="line"><span class="lineno"> 1581</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af1508a67a8194650a08af8b39059fcb8" name="af1508a67a8194650a08af8b39059fcb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1508a67a8194650a08af8b39059fcb8">&#9670;&#160;</a></span>lexicographical() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::lexicographical </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01704">1704</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1704</span>                                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 1705</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
+<div class="line"><span class="lineno"> 1706</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1707</span>                                    <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
+<div class="line"><span class="lineno"> 1708</span>                                                    strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1709</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1710</span>                                    <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1711</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1712</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1713</span>                            }</div>
+<div class="line"><span class="lineno"> 1714</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24862">all_defs.cpp:24862</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ae93cfa3da47dda23711a1e2b8ad7d29c"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">elc::defs::base::compare_t::base_call</a></div><div class="ttdeci">static constexpr auto base_call(T &amp;&amp;a, U &amp;&amp;b) noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01573">all_defs.cpp:1573</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae5fba189fd541462058c497f179ebe43" name="ae5fba189fd541462058c497f179ebe43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5fba189fd541462058c497f179ebe43">&#9670;&#160;</a></span>lexicographical() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::lexicographical </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01691">1691</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1691</span>                                                                                                                                   {</div>
+<div class="line"><span class="lineno"> 1692</span>                            <span class="keywordflow">while</span>(size2--){</div>
+<div class="line"><span class="lineno"> 1693</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1694</span>                                    <span class="keywordflow">return</span> strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1695</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1696</span>                                    <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1697</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1698</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1699</span>                            }</div>
+<div class="line"><span class="lineno"> 1700</span>                            <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
+<div class="line"><span class="lineno"> 1701</span>                                            strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1702</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8cc25b65c6105a0f0a03e7371262fcef" name="a8cc25b65c6105a0f0a03e7371262fcef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc25b65c6105a0f0a03e7371262fcef">&#9670;&#160;</a></span>lexicographical() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::lexicographical </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1just__an__part__t.html">just_an_part_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01716">1716</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1716</span>                                                                                                                                                  {</div>
+<div class="line"><span class="lineno"> 1717</span>                            <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1718</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1719</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1720</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1721</span>                                    <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1722</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1723</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1724</span>                            }</div>
+<div class="line"><span class="lineno"> 1725</span>                            <span class="keywordflow">return</span> strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1726</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aabce403f744231bb71ed2a79f03bc7df" name="aabce403f744231bb71ed2a79f03bc7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabce403f744231bb71ed2a79f03bc7df">&#9670;&#160;</a></span>lexicographical() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::lexicographical </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01678">1678</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1678</span>                                                                                                                                   {</div>
+<div class="line"><span class="lineno"> 1679</span>                            <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1680</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1681</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1682</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1683</span>                                    <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1684</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1685</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1686</span>                            }</div>
+<div class="line"><span class="lineno"> 1687</span>                            <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
+<div class="line"><span class="lineno"> 1688</span>                                            strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1689</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac218d091711cefaa4eda1705255af4ba" name="ac218d091711cefaa4eda1705255af4ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac218d091711cefaa4eda1705255af4ba">&#9670;&#160;</a></span>lexicographical() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::lexicographical </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01667">1667</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1667</span>                                                                                                                                  {</div>
+<div class="line"><span class="lineno"> 1668</span>                            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<span class="keyword">operator</span>()(a,b,<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">min</a>(size1,size2)); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1669</span>                                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1670</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1671</span>                                <span class="keywordflow">return</span> size1&lt;=&gt;size2;</div>
+<div class="line"><span class="lineno"> 1672</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a291dcbceb24caddde3502c77154d2bf7"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">elc::defs::base::min</a></div><div class="ttdeci">constexpr struct elc::defs::base::min_t min</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab8e189daceae86e22f0e3f1345412b16" name="ab8e189daceae86e22f0e3f1345412b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8e189daceae86e22f0e3f1345412b16">&#9670;&#160;</a></span>lexicographical() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::lexicographical </td>
+          <td>(</td>
+          <td class="paramtype">T(&amp;)&#160;</td>
+          <td class="paramname"><em>a</em>[N1], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U(&amp;)&#160;</td>
+          <td class="paramname"><em>b</em>[N2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01674">1674</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1674</span>                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 1675</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">lexicographical</a>(a,N1,b,N2);</div>
+<div class="line"><span class="lineno"> 1676</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ac218d091711cefaa4eda1705255af4ba"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">elc::defs::base::compare_t::lexicographical</a></div><div class="ttdeci">constexpr auto lexicographical(T *a, size_t size1, U *b, size_t size2) const noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01667">all_defs.cpp:1667</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab3042ecd7692c8c94e6f6844887bfb78" name="ab3042ecd7692c8c94e6f6844887bfb78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3042ecd7692c8c94e6f6844887bfb78">&#9670;&#160;</a></span>operator()() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U &amp;&amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01587">1587</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1587</span>                                                                                                     {</div>
+<div class="line"><span class="lineno"> 1588</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(a,b);</div>
+<div class="line"><span class="lineno"> 1589</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acf842f7226ccd8d002eb3bcd995d8d31" name="acf842f7226ccd8d002eb3bcd995d8d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf842f7226ccd8d002eb3bcd995d8d31">&#9670;&#160;</a></span>operator()() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01642">1642</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1642</span>                                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1643</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1644</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
+<div class="line"><span class="lineno"> 1645</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1646</span>                                    <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1647</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1648</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1649</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1650</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1651</span>                            }</div>
+<div class="line"><span class="lineno"> 1652</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad8b6e85a2681c0210a60067a84762946" name="ad8b6e85a2681c0210a60067a84762946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8b6e85a2681c0210a60067a84762946">&#9670;&#160;</a></span>operator()() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01629">1629</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1629</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno"> 1630</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1631</span>                            <span class="keywordflow">while</span>(size2--){</div>
+<div class="line"><span class="lineno"> 1632</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1633</span>                                    <span class="keywordflow">return</span> strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1634</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1635</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1636</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1637</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1638</span>                            }</div>
+<div class="line"><span class="lineno"> 1639</span>                            <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1640</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa4ae2fe8c93a039eec39dad2698eea26" name="aa4ae2fe8c93a039eec39dad2698eea26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4ae2fe8c93a039eec39dad2698eea26">&#9670;&#160;</a></span>operator()() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1just__an__part__t.html">just_an_part_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01654">1654</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1654</span>                                                                                                                                             {</div>
+<div class="line"><span class="lineno"> 1655</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1656</span>                            <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1657</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1658</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1659</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1660</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1661</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1662</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1663</span>                            }</div>
+<div class="line"><span class="lineno"> 1664</span>                            <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1665</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0fe2b609ee2d5142c7553420c7ff382b" name="a0fe2b609ee2d5142c7553420c7ff382b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fe2b609ee2d5142c7553420c7ff382b">&#9670;&#160;</a></span>operator()() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1base_1_1end__by__zero__t.html">end_by_zero_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01616">1616</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1616</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno"> 1617</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1618</span>                            <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1619</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1620</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1621</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1622</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1623</span>                                a++;</div>
+<div class="line"><span class="lineno"> 1624</span>                                b++;</div>
+<div class="line"><span class="lineno"> 1625</span>                            }</div>
+<div class="line"><span class="lineno"> 1626</span>                            <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1627</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6178faedeca9f4de9bad508385349c88" name="a6178faedeca9f4de9bad508385349c88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6178faedeca9f4de9bad508385349c88">&#9670;&#160;</a></span>operator()() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01608">1608</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1608</span>                                                                                                                             {</div>
+<div class="line"><span class="lineno"> 1609</span>                            type&lt;T,U&gt; tmp=size1&lt;=&gt;size2;</div>
+<div class="line"><span class="lineno"> 1610</span>                            <span class="keywordflow">if</span>(tmp!=0)</div>
+<div class="line"><span class="lineno"> 1611</span>                                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1612</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1613</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">operator()</a>(a,b,size1);</div>
+<div class="line"><span class="lineno"> 1614</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ab3042ecd7692c8c94e6f6844887bfb78"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">elc::defs::base::compare_t::operator()</a></div><div class="ttdeci">constexpr auto operator()(T &amp;&amp;a, U &amp;&amp;b) const noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01587">all_defs.cpp:1587</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8ccabdcb74ae041910e742d65c3e6a05" name="a8ccabdcb74ae041910e742d65c3e6a05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ccabdcb74ae041910e742d65c3e6a05">&#9670;&#160;</a></span>operator()() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01591">1591</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1591</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1592</span>                            <span class="keywordflow">while</span>(size--){</div>
+<div class="line"><span class="lineno"> 1593</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*(a++),*(b++)); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1594</span>                                    <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1595</span>                            }</div>
+<div class="line"><span class="lineno"> 1596</span>                            <span class="keywordflow">return</span> strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1597</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2ab200dd9a7d7114dc95fb7d2be9ab43" name="a2ab200dd9a7d7114dc95fb7d2be9ab43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab200dd9a7d7114dc95fb7d2be9ab43">&#9670;&#160;</a></span>operator()() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::operator() </td>
+          <td>(</td>
+          <td class="paramtype">T(&amp;)&#160;</td>
+          <td class="paramname"><em>a</em>[N1], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">U(&amp;)&#160;</td>
+          <td class="paramname"><em>b</em>[N2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01599">1599</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1599</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1600</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(N1==N2)</div>
+<div class="line"><span class="lineno"> 1601</span>                                <span class="keywordflow">return</span> <span class="keyword">operator</span>()(a,b,N1);</div>
+<div class="line"><span class="lineno"> 1602</span>                            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 1603</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;N1!=N2&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1604</span>                                <span class="keywordflow">return</span> N1&lt;=&gt;N2;</div>
+<div class="line"><span class="lineno"> 1605</span>                            }</div>
+<div class="line"><span class="lineno"> 1606</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24873">all_defs.cpp:24873</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a49571c43618a4d1b445ff7fbbf8808c5" name="a49571c43618a4d1b445ff7fbbf8808c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49571c43618a4d1b445ff7fbbf8808c5">&#9670;&#160;</a></span>reverse() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::reverse </td>
+          <td>(</td>
+          <td class="paramtype">partial_ordering&#160;</td>
+          <td class="paramname"><em>odr</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01728">1728</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1728</span>                                                                                               {</div>
+<div class="line"><span class="lineno"> 1729</span>                            <span class="keywordflow">if</span>(odr==partial_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1730</span>                                <span class="keywordflow">return</span> partial_ordering::less;</div>
+<div class="line"><span class="lineno"> 1731</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==partial_ordering::less)</div>
+<div class="line"><span class="lineno"> 1732</span>                                <span class="keywordflow">return</span> partial_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1733</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1734</span>                                <span class="keywordflow">return</span> odr;</div>
+<div class="line"><span class="lineno"> 1735</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24947">all_defs.cpp:24947</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a11e8b7b4ce1c10c1a73ad2442f0f7cb5" name="a11e8b7b4ce1c10c1a73ad2442f0f7cb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11e8b7b4ce1c10c1a73ad2442f0f7cb5">&#9670;&#160;</a></span>reverse() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::reverse </td>
+          <td>(</td>
+          <td class="paramtype">strong_ordering&#160;</td>
+          <td class="paramname"><em>odr</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01744">1744</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1744</span>                                                                                              {</div>
+<div class="line"><span class="lineno"> 1745</span>                            <span class="keywordflow">if</span>(odr==strong_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1746</span>                                <span class="keywordflow">return</span> strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1747</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==strong_ordering::less)</div>
+<div class="line"><span class="lineno"> 1748</span>                                <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1749</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1750</span>                                <span class="keywordflow">return</span> odr;</div>
+<div class="line"><span class="lineno"> 1751</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a62dc48a30d00b0be9ec5a1f21618ef58" name="a62dc48a30d00b0be9ec5a1f21618ef58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62dc48a30d00b0be9ec5a1f21618ef58">&#9670;&#160;</a></span>reverse() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto elc::defs::base::compare_t::reverse </td>
+          <td>(</td>
+          <td class="paramtype">weak_ordering&#160;</td>
+          <td class="paramname"><em>odr</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01736">1736</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1736</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 1737</span>                            <span class="keywordflow">if</span>(odr==weak_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1738</span>                                <span class="keywordflow">return</span> weak_ordering::less;</div>
+<div class="line"><span class="lineno"> 1739</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==weak_ordering::less)</div>
+<div class="line"><span class="lineno"> 1740</span>                                <span class="keywordflow">return</span> weak_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1741</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1742</span>                                <span class="keywordflow">return</span> odr;</div>
+<div class="line"><span class="lineno"> 1743</span>                        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="acafe8973cd922ab76111ce4f7c0a4148" name="acafe8973cd922ab76111ce4f7c0a4148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acafe8973cd922ab76111ce4f7c0a4148">&#9670;&#160;</a></span>able</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool elc::defs::base::compare_t::able</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>初始值:</b><div class="fragment"><div class="line">= r_able&lt;T,U&gt; ||</div>
+<div class="line">                                                    </div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">(bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                                           (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) ;}))</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01557">1557</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ada9b506b65f2d97c77ae27d80a3a987a" name="ada9b506b65f2d97c77ae27d80a3a987a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada9b506b65f2d97c77ae27d80a3a987a">&#9670;&#160;</a></span>nothrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool elc::defs::base::compare_t::nothrow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>初始值:</b><div class="fragment"><div class="line">= (bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())&lt;=&gt;(::std::declval&lt; U &gt;()) ;{ (::std::declval&lt; T &gt;())&lt;=&gt;(::std::declval&lt; U &gt;()) }<span class="keyword">noexcept</span>;})) ||</div>
+<div class="line">                                                       </div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">(bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                                           (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) ;{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) }<span class="keyword">noexcept</span>;}))</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01564">1564</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a69c33f31db14ccf06ceddffeb2acf970" name="a69c33f31db14ccf06ceddffeb2acf970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69c33f31db14ccf06ceddffeb2acf970">&#9670;&#160;</a></span>r_able</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool elc::defs::base::compare_t::r_able = (bool(requires{ (::std::declval&lt; T &gt;())&lt;=&gt;(::std::declval&lt; U &gt;()) ;}))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01554">1554</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>docs/<a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceelc.html">elc</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs.html">defs</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs_1_1base.html">base</a></li><li class="navelem"><a class="el" href="structelc_1_1defs_1_1base_1_1compare__t.html">compare_t</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

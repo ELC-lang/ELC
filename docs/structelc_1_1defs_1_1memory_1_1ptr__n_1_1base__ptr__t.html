@@ -1,0 +1,1162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ELC: elc::defs::memory::ptr_n::base_ptr_t&lt; T, ref_type, do_replace_check &gt; 模板结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo_for_doc.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">ELC<span id="projectnumber">&#160;in dev</span>
+   </div>
+   <div id="projectbrief">ELC-lang</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">elc::defs::memory::ptr_n::base_ptr_t&lt; T, ref_type, do_replace_check &gt; 模板结构体 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 elc::defs::memory::ptr_n::base_ptr_t&lt; T, ref_type, do_replace_check &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.png" usemap="#elc::defs::memory::ptr_5Fn::base_5Fptr_5Ft_3C_20T_2C_20ref_5Ftype_2C_20do_5Freplace_5Fcheck_20_3E_map" alt=""/>
+  <map id="elc::defs::memory::ptr_5Fn::base_5Fptr_5Ft_3C_20T_2C_20ref_5Ftype_2C_20do_5Freplace_5Fcheck_20_3E_map" name="elc::defs::memory::ptr_5Fn::base_5Fptr_5Ft_3C_20T_2C_20ref_5Ftype_2C_20do_5Freplace_5Fcheck_20_3E_map">
+<area href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html" alt="elc::defs::memory::ptr_n::ptr_t&lt; T, ref_type, do_replace_check &gt;" shape="rect" coords="0,112,410,136"/>
+<area href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html" alt="elc::defs::memory::ptr_n::same_ref_p_t&lt; T, ref_type &gt;" shape="rect" coords="0,56,410,80"/>
+<area href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html" alt="elc::defs::memory::ptr_n::same_ptr_p_t&lt; T &gt;" shape="rect" coords="0,0,410,24"/>
+<area href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1root__ptr__t.html" alt="elc::defs::memory::ptr_n::root_ptr_t&lt; T, enable_state &gt;" shape="rect" coords="0,224,410,248"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a4bf045a4c3c1e36692093e9db47d3875"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; T, ref_type, do_replace_check &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4bf045a4c3c1e36692093e9db47d3875">base_t</a></td></tr>
+<tr class="separator:a4bf045a4c3c1e36692093e9db47d3875"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f53ef27dd8aab6db118835d765e5da6"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a9f53ef27dd8aab6db118835d765e5da6">this_t</a></td></tr>
+<tr class="separator:a9f53ef27dd8aab6db118835d765e5da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf70df175d602973360c90bdd831b41"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a>&lt; T, ref_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a7bf70df175d602973360c90bdd831b41">same_ref</a></td></tr>
+<tr class="separator:a7bf70df175d602973360c90bdd831b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad242329192ae7a84049d79e66c6b319a"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">same_ptr_p_t</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#ad242329192ae7a84049d79e66c6b319a">same_ptr</a></td></tr>
+<tr class="separator:ad242329192ae7a84049d79e66c6b319a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af78a6f3ba3fc8b5f6c7cc8b981ab0d21"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a>&lt; T, ref_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#af78a6f3ba3fc8b5f6c7cc8b981ab0d21">base_t</a></td></tr>
+<tr class="separator:af78a6f3ba3fc8b5f6c7cc8b981ab0d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td colspan="2" onclick="javascript:toggleInherit('pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t')"><img src="closed.png" alt="-"/>&#160;Public 类型 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t&lt; T, ref_type, do_replace_check &gt;</a></td></tr>
+<tr class="memitem:aeed1c50c285fdff841636f91b607354c inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; T, ref_type, do_replace_check &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#aeed1c50c285fdff841636f91b607354c">this_t</a></td></tr>
+<tr class="separator:aeed1c50c285fdff841636f91b607354c inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af78a6f3ba3fc8b5f6c7cc8b981ab0d21 inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a>&lt; T, ref_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#af78a6f3ba3fc8b5f6c7cc8b981ab0d21">base_t</a></td></tr>
+<tr class="separator:af78a6f3ba3fc8b5f6c7cc8b981ab0d21 inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf70df175d602973360c90bdd831b41 inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a>&lt; T, ref_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a7bf70df175d602973360c90bdd831b41">same_ref</a></td></tr>
+<tr class="separator:a7bf70df175d602973360c90bdd831b41 inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad242329192ae7a84049d79e66c6b319a inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">same_ptr_p_t</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ad242329192ae7a84049d79e66c6b319a">same_ptr</a></td></tr>
+<tr class="separator:ad242329192ae7a84049d79e66c6b319a inherit pub_types_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a5d1874cfc91a9f3f877b752387d03150"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5d1874cfc91a9f3f877b752387d03150">base_ptr_t</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;a) noexcept</td></tr>
+<tr class="separator:a5d1874cfc91a9f3f877b752387d03150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9312dba8e5edf793e92824225ff8c83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#ad9312dba8e5edf793e92824225ff8c83">base_ptr_t</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&amp;a) noexcept</td></tr>
+<tr class="separator:ad9312dba8e5edf793e92824225ff8c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f476e6f5ff22f85494d86ac2125fb3"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a44f476e6f5ff22f85494d86ac2125fb3">operator-&gt;</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a44f476e6f5ff22f85494d86ac2125fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01704df2c5d7644d23f29ad567e5b481"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a01704df2c5d7644d23f29ad567e5b481">operator*</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a01704df2c5d7644d23f29ad567e5b481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e045028b5acab647323071f23391d80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a8e045028b5acab647323071f23391d80">operator bool</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a8e045028b5acab647323071f23391d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eda5fddac6e960cd3986db545dca68b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a9eda5fddac6e960cd3986db545dca68b">operator!</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a9eda5fddac6e960cd3986db545dca68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fb3824eea7ac2faee4d388d1ea8e277"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5fb3824eea7ac2faee4d388d1ea8e277">operator T*</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a5fb3824eea7ac2faee4d388d1ea8e277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe9eff7345c606ca7d7b860d05ee7b3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afe9eff7345c606ca7d7b860d05ee7b3a">operator=</a> (T *a) &amp;noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:afe9eff7345c606ca7d7b860d05ee7b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a145161e074a26342128088443eee94cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a145161e074a26342128088443eee94cf">operator=</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#ad242329192ae7a84049d79e66c6b319a">same_ptr</a> &amp;a) &amp;noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a> &amp;&amp;<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a145161e074a26342128088443eee94cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1906db732ac8bfbf51c4abcb0300d5da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a1906db732ac8bfbf51c4abcb0300d5da">operator=</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;a) &amp;noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a> &amp;&amp;<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a1906db732ac8bfbf51c4abcb0300d5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0104c6c4d44b9e2eac358a0ec8da223"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#ad0104c6c4d44b9e2eac358a0ec8da223">operator=</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a7bf70df175d602973360c90bdd831b41">same_ref</a> &amp;&amp;a) &amp;noexcept</td></tr>
+<tr class="separator:ad0104c6c4d44b9e2eac358a0ec8da223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3bf801e2f54b9b67b3cd77db9b13f44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#af3bf801e2f54b9b67b3cd77db9b13f44">operator=</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&amp;a) &amp;noexcept</td></tr>
+<tr class="separator:af3bf801e2f54b9b67b3cd77db9b13f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d538873dd620f630c046c7cef1bac77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a1d538873dd620f630c046c7cef1bac77">operator=</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a9551363069bf8ca7df6fb0713cfd51ef">null_ptr_t</a>) &amp;noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:a1d538873dd620f630c046c7cef1bac77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e8c004b69b29450f5c5d9a4226a8d5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a9e8c004b69b29450f5c5d9a4226a8d5e">operator=</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>) &amp;noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:a9e8c004b69b29450f5c5d9a4226a8d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e7627506a3fece1d07acb6df50cdf38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a7e7627506a3fece1d07acb6df50cdf38">operator bool</a> () noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a7e7627506a3fece1d07acb6df50cdf38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45c6e82f5ea8a6320627840e306f6328"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a45c6e82f5ea8a6320627840e306f6328">operator for_delete_t *</a> () noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:a45c6e82f5ea8a6320627840e306f6328"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89a483a9e7d655443b4e0a65cbbf6411"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
+requires (<a class="el" href="namespaceelc_1_1defs_1_1base.html#add0bce447ecc5c987d7a1c375318ca6c">invoke</a>&lt;T&gt;.able&lt;Args...&gt;)</td></tr>
+<tr class="memitem:a89a483a9e7d655443b4e0a65cbbf6411"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a89a483a9e7d655443b4e0a65cbbf6411">operator()</a> (Args &amp;&amp;... rest) noexcept(<a class="el" href="namespaceelc_1_1defs_1_1base.html#add0bce447ecc5c987d7a1c375318ca6c">invoke</a>&lt; T &gt;.nothrow&lt; Args... &gt;)</td></tr>
+<tr class="separator:a89a483a9e7d655443b4e0a65cbbf6411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3c898aa02cdaed7481c64e4bb663515"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a> (T *a) const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:aa3c898aa02cdaed7481c64e4bb663515"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fe3b1c4199fa11472f3262900479a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#ae7fe3b1c4199fa11472f3262900479a5">reset</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>=nullptr) const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:ae7fe3b1c4199fa11472f3262900479a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7ec8ea3b1c71df95fdfc05b7d726d8"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:afa7ec8ea3b1c71df95fdfc05b7d726d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22e25e0ec2658570171c6e276d4ec6e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">swap_with</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a> &amp;a) noexcept</td></tr>
+<tr class="separator:a22e25e0ec2658570171c6e276d4ec6e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t&lt; T, ref_type, do_replace_check &gt;</a></td></tr>
+<tr class="memitem:ac9f4c13bad24e00264994c3d75dad1a6 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ac9f4c13bad24e00264994c3d75dad1a6">ptr_t</a> (T *a, <a class="el" href="structelc_1_1defs_1_1base_1_1special__init__t.html">special_init_t</a>) noexcept</td></tr>
+<tr class="separator:ac9f4c13bad24e00264994c3d75dad1a6 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af746fdaf85002d746d3facdf07631f19 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#af746fdaf85002d746d3facdf07631f19">ptr_t</a> (T *a) noexcept</td></tr>
+<tr class="separator:af746fdaf85002d746d3facdf07631f19 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a882065c884ad89682be4d9ed07c2c57b inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a882065c884ad89682be4d9ed07c2c57b">ptr_t</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ad242329192ae7a84049d79e66c6b319a">same_ptr</a> &amp;a) noexcept</td></tr>
+<tr class="separator:a882065c884ad89682be4d9ed07c2c57b inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362cff13a05214070aa9d08ec4bf10fe inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a362cff13a05214070aa9d08ec4bf10fe">ptr_t</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a7bf70df175d602973360c90bdd831b41">same_ref</a> &amp;a) noexcept</td></tr>
+<tr class="separator:a362cff13a05214070aa9d08ec4bf10fe inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87bc543bbbecf196d223a5817fb0bff inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ad87bc543bbbecf196d223a5817fb0bff">ptr_t</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a> &amp;a) noexcept</td></tr>
+<tr class="separator:ad87bc543bbbecf196d223a5817fb0bff inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe2abe93bc71df9f1e0f3dbb99d295ad inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afe2abe93bc71df9f1e0f3dbb99d295ad">ptr_t</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; <a class="el" href="namespaceelc_1_1defs_1_1base.html#a8e4037c89456ea8a53defdd27156f4c6">remove_cv</a>&lt; T &gt;, ref_type, do_replace_check &gt; &amp;a) noexcept</td></tr>
+<tr class="separator:afe2abe93bc71df9f1e0f3dbb99d295ad inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe32e12c2baece0d4fb3a6d242935154 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#abe32e12c2baece0d4fb3a6d242935154">ptr_t</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a> &amp;&amp;a) noexcept</td></tr>
+<tr class="separator:abe32e12c2baece0d4fb3a6d242935154 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a21c2995e157fb834ecf7db562c2d6d inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a2a21c2995e157fb834ecf7db562c2d6d">ptr_t</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>=nullptr) noexcept</td></tr>
+<tr class="separator:a2a21c2995e157fb834ecf7db562c2d6d inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ff71fa6bbf47b74cfd3796252a4a720 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a5ff71fa6bbf47b74cfd3796252a4a720">ptr_t</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a9551363069bf8ca7df6fb0713cfd51ef">null_ptr_t</a>) noexcept</td></tr>
+<tr class="separator:a5ff71fa6bbf47b74cfd3796252a4a720 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add24bcbbf717f4c9b2dec43d1114935a inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#add24bcbbf717f4c9b2dec43d1114935a">~ptr_t</a> () noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a21b193e85ff65a82345cb71f02e5e247">cut_nothrow</a>)</td></tr>
+<tr class="separator:add24bcbbf717f4c9b2dec43d1114935a inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3c898aa02cdaed7481c64e4bb663515 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a> (T *a) const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:aa3c898aa02cdaed7481c64e4bb663515 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fe3b1c4199fa11472f3262900479a5 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ae7fe3b1c4199fa11472f3262900479a5">reset</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>=nullptr) const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:ae7fe3b1c4199fa11472f3262900479a5 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ddc2cf5279d67e43eedad6d7301ae1 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab0ddc2cf5279d67e43eedad6d7301ae1">replace_check</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab416f9aab94aaba99329ad94bbc91461">replace_check_nothrow</a>)</td></tr>
+<tr class="separator:ab0ddc2cf5279d67e43eedad6d7301ae1 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fe27bd4e7be829a2d1c9491db1031f4 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a0fe27bd4e7be829a2d1c9491db1031f4">do_replace</a> (T *p) noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab416f9aab94aaba99329ad94bbc91461">replace_check_nothrow</a> &amp;&amp;<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:a0fe27bd4e7be829a2d1c9491db1031f4 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2e53199729b1f65c8dc00bff5991885 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplParams" colspan="2">template&lt;typename ref_type_ , bool do_replace_check_&gt; </td></tr>
+<tr class="memitem:ae2e53199729b1f65c8dc00bff5991885 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ae2e53199729b1f65c8dc00bff5991885">do_replace</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; T, ref_type_, do_replace_check_ &gt; &amp;p) noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab416f9aab94aaba99329ad94bbc91461">replace_check_nothrow</a> &amp;&amp;<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a>)</td></tr>
+<tr class="separator:ae2e53199729b1f65c8dc00bff5991885 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7ec8ea3b1c71df95fdfc05b7d726d8 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a> () const noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a>)</td></tr>
+<tr class="separator:afa7ec8ea3b1c71df95fdfc05b7d726d8 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24b9fdc134346820811f0bb0d028dc9a inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a24b9fdc134346820811f0bb0d028dc9a">unique</a> () const noexcept</td></tr>
+<tr class="separator:a24b9fdc134346820811f0bb0d028dc9a inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f70dd5b3a35ca48ec71ad30c0d1e91 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="namespaceelc_1_1defs_1_1base.html#a94a7c52abbec426cb9cf741d37f27c7f">conditional</a>&lt; do_replace_check &amp;&amp;<a class="el" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt; T &gt;. template has_attribute_helper&lt; <a class="el" href="structelc_1_1defs_1_1memory_1_1replace__able.html">replace_able</a> &gt;(), <a class="el" href="namespaceelc_1_1defs_1_1base.html#a0ca33053b185c5160dbb8e2731a1b72c">unstable_hash_t</a>, <a class="el" href="namespaceelc_1_1defs_1_1base.html#a94bc05ff81e0b106669b04ead2a33955">hash_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a33f70dd5b3a35ca48ec71ad30c0d1e91">hash</a> () const noexcept(noexcept((elc::defs::hash(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>()))))</td></tr>
+<tr class="separator:a33f70dd5b3a35ca48ec71ad30c0d1e91 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9682cf972fe2d787451a4ca6a0ab828 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ae9682cf972fe2d787451a4ca6a0ab828">operator==</a> (const T *a) const noexcept(noexcept((<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7d7867f29ab0c6027c3d983f5f249fa0">pointer_equal</a>(<a class="el" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>((::std::declval&lt; const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#aeed1c50c285fdff841636f91b607354c">this_t</a> &amp; &gt;()).<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>()), a))))</td></tr>
+<tr class="separator:ae9682cf972fe2d787451a4ca6a0ab828 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a107711e64a56c4d1a467e0cdaf0a33f6 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a107711e64a56c4d1a467e0cdaf0a33f6">operator==</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>) const noexcept(noexcept((operator==(null_ptr))))</td></tr>
+<tr class="separator:a107711e64a56c4d1a467e0cdaf0a33f6 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad58b6e6a128876c84a10a881f295b3b7 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ad58b6e6a128876c84a10a881f295b3b7">operator==</a> (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a9551363069bf8ca7df6fb0713cfd51ef">null_ptr_t</a>) const noexcept(noexcept((operator==((T *) null_ptr))))</td></tr>
+<tr class="separator:ad58b6e6a128876c84a10a881f295b3b7 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c91b65d29f7dce56ed7c6f0f48e57c8 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplParams" colspan="2">template&lt;typename ref_type_ , bool do_replace_check_&gt; </td></tr>
+<tr class="memitem:a1c91b65d29f7dce56ed7c6f0f48e57c8 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a1c91b65d29f7dce56ed7c6f0f48e57c8">operator==</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; T, ref_type_, do_replace_check_ &gt; &amp;b) const noexcept(noexcept((<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7d7867f29ab0c6027c3d983f5f249fa0">pointer_equal</a>((::std::declval&lt; const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#aeed1c50c285fdff841636f91b607354c">this_t</a> &amp; &gt;()).<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>(), b.get()))))</td></tr>
+<tr class="separator:a1c91b65d29f7dce56ed7c6f0f48e57c8 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050dfaf902123aee7dd52d8605f13248 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplParams" colspan="2">template&lt;typename ref_type_ , bool do_replace_check_&gt; <br />
+requires (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;<a class="el" href="namespaceelc_1_1defs_1_1base.html#a8e4037c89456ea8a53defdd27156f4c6">remove_cv</a>&lt;T&gt;&gt;!=<a class="el" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;T&gt;)</td></tr>
+<tr class="memitem:a050dfaf902123aee7dd52d8605f13248 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a050dfaf902123aee7dd52d8605f13248">operator==</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; const T, ref_type_, do_replace_check_ &gt; &amp;b) const noexcept(noexcept((<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7d7867f29ab0c6027c3d983f5f249fa0">pointer_equal</a>((::std::declval&lt; const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#aeed1c50c285fdff841636f91b607354c">this_t</a> &amp; &gt;()).<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>(), b.get()))))</td></tr>
+<tr class="separator:a050dfaf902123aee7dd52d8605f13248 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac191551dbfac7be4450a98f5b3ef59fc inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplParams" colspan="2">template&lt;typename ref_type_ , bool do_replace_check_&gt; <br />
+requires (<a class="el" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;<a class="el" href="namespaceelc_1_1defs_1_1base.html#a8e4037c89456ea8a53defdd27156f4c6">remove_cv</a>&lt;T&gt;&gt;!=<a class="el" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;T&gt;)</td></tr>
+<tr class="memitem:ac191551dbfac7be4450a98f5b3ef59fc inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ac191551dbfac7be4450a98f5b3ef59fc">operator==</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt; <a class="el" href="namespaceelc_1_1defs_1_1base.html#a8e4037c89456ea8a53defdd27156f4c6">remove_cv</a>&lt; T &gt;, ref_type_, do_replace_check_ &gt; &amp;b) const noexcept(noexcept((<a class="el" href="namespaceelc_1_1defs_1_1base.html#a7d7867f29ab0c6027c3d983f5f249fa0">pointer_equal</a>((::std::declval&lt; const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#aeed1c50c285fdff841636f91b607354c">this_t</a> &amp; &gt;()).<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>(), <a class="el" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(b.get())))))</td></tr>
+<tr class="separator:ac191551dbfac7be4450a98f5b3ef59fc inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00512beb07a9fcafdfb45cb344cd8093 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a00512beb07a9fcafdfb45cb344cd8093">add_ref</a> () const noexcept</td></tr>
+<tr class="separator:a00512beb07a9fcafdfb45cb344cd8093 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5afe99972c48b363c3b82e70153e1480 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a5afe99972c48b363c3b82e70153e1480">cut_ref</a> () const noexcept(noexcept((cut_ref(nullptr))))</td></tr>
+<tr class="separator:a5afe99972c48b363c3b82e70153e1480 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22e25e0ec2658570171c6e276d4ec6e7 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">swap_with</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a> &amp;a) noexcept</td></tr>
+<tr class="separator:a22e25e0ec2658570171c6e276d4ec6e7 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">elc::defs::memory::ptr_n::same_ref_p_t&lt; T, ref_type &gt;</a></td></tr>
+<tr class="memitem:a9b76d6d24b1db370d48a7a59db47a9ae inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a9b76d6d24b1db370d48a7a59db47a9ae">same_ref_p_t</a> (T *a) noexcept</td></tr>
+<tr class="separator:a9b76d6d24b1db370d48a7a59db47a9ae inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e748171e2577fd0c0d4c76182e4aed inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a41e748171e2577fd0c0d4c76182e4aed">same_ref_p_t</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">same_ptr_p_t</a>&lt; T &gt; &amp;a) noexcept</td></tr>
+<tr class="separator:a41e748171e2577fd0c0d4c76182e4aed inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22e25e0ec2658570171c6e276d4ec6e7 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a22e25e0ec2658570171c6e276d4ec6e7">swap_with</a> (<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a> &amp;a) noexcept</td></tr>
+<tr class="separator:a22e25e0ec2658570171c6e276d4ec6e7 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">elc::defs::memory::ptr_n::same_ptr_p_t&lt; T &gt;</a></td></tr>
+<tr class="memitem:a4b7c356432fc572d5bb514b87eebbe38 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html#a4b7c356432fc572d5bb514b87eebbe38">same_ptr_p_t</a> (const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">same_ptr_p_t</a> &amp;) noexcept=default</td></tr>
+<tr class="separator:a4b7c356432fc572d5bb514b87eebbe38 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0db6ba733da732104b55aa7f1e19089 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html#ad0db6ba733da732104b55aa7f1e19089">get</a> () const noexcept</td></tr>
+<tr class="separator:ad0db6ba733da732104b55aa7f1e19089 inherit pub_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:a542f64173b8f22f461c78ce3254d3c76"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a542f64173b8f22f461c78ce3254d3c76">_to</a></td></tr>
+<tr class="separator:a542f64173b8f22f461c78ce3254d3c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t')"><img src="closed.png" alt="-"/>&#160;Public 属性 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t&lt; T, ref_type, do_replace_check &gt;</a></td></tr>
+<tr class="memitem:a542f64173b8f22f461c78ce3254d3c76 inherit pub_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a542f64173b8f22f461c78ce3254d3c76">_to</a></td></tr>
+<tr class="separator:a542f64173b8f22f461c78ce3254d3c76 inherit pub_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:a5cd3da24c677d7a9f0a84f15c7d329b4"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a></td></tr>
+<tr class="separator:a5cd3da24c677d7a9f0a84f15c7d329b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4813c258d0f4aa6f383c830c689696cf"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a></td></tr>
+<tr class="separator:a4813c258d0f4aa6f383c830c689696cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t')"><img src="closed.png" alt="-"/>&#160;静态 Public 属性 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t&lt; T, ref_type, do_replace_check &gt;</a></td></tr>
+<tr class="memitem:a4813c258d0f4aa6f383c830c689696cf inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a> =<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a21b193e85ff65a82345cb71f02e5e247">cut_nothrow</a></td></tr>
+<tr class="separator:a4813c258d0f4aa6f383c830c689696cf inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab416f9aab94aaba99329ad94bbc91461 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab416f9aab94aaba99329ad94bbc91461">replace_check_nothrow</a> =(<a class="el" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;T&gt;. template not_has_has_attribute_helper&lt; <a class="el" href="structelc_1_1defs_1_1memory_1_1replace__able.html">replace_able</a> &gt;())||<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a4813c258d0f4aa6f383c830c689696cf">reset_nothrow</a></td></tr>
+<tr class="separator:ab416f9aab94aaba99329ad94bbc91461 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cd3da24c677d7a9f0a84f15c7d329b4 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a5cd3da24c677d7a9f0a84f15c7d329b4">get_nothrow</a> =<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab416f9aab94aaba99329ad94bbc91461">replace_check_nothrow</a></td></tr>
+<tr class="separator:a5cd3da24c677d7a9f0a84f15c7d329b4 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21b193e85ff65a82345cb71f02e5e247 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a21b193e85ff65a82345cb71f02e5e247">cut_nothrow</a></td></tr>
+<tr class="separator:a21b193e85ff65a82345cb71f02e5e247 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t')"><img src="closed.png" alt="-"/>&#160;静态 Public 属性 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">elc::defs::memory::ptr_n::same_ref_p_t&lt; T, ref_type &gt;</a></td></tr>
+<tr class="memitem:a21b193e85ff65a82345cb71f02e5e247 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a21b193e85ff65a82345cb71f02e5e247">cut_nothrow</a> =noexcept((::std::declval&lt; ref_type &gt;()).<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a05dd6c177ee4381b1bd4b78d4056c353">cut_ref</a>())</td></tr>
+<tr class="separator:a21b193e85ff65a82345cb71f02e5e247 inherit pub_static_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pub_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t')"><img src="closed.png" alt="-"/>&#160;静态 Public 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t&lt; T, ref_type, do_replace_check &gt;</a></td></tr>
+<tr class="memitem:acf0ccd4b6a254074e9e16721ff208215 inherit pub_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#acf0ccd4b6a254074e9e16721ff208215">add_ref</a> (T *a) noexcept</td></tr>
+<tr class="separator:acf0ccd4b6a254074e9e16721ff208215 inherit pub_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05dd6c177ee4381b1bd4b78d4056c353 inherit pub_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a05dd6c177ee4381b1bd4b78d4056c353">cut_ref</a> (T *a) noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a21b193e85ff65a82345cb71f02e5e247">cut_nothrow</a>)</td></tr>
+<tr class="separator:a05dd6c177ee4381b1bd4b78d4056c353 inherit pub_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">elc::defs::memory::ptr_n::same_ref_p_t&lt; T, ref_type &gt;</a></td></tr>
+<tr class="memitem:a5afe99972c48b363c3b82e70153e1480 inherit pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a5afe99972c48b363c3b82e70153e1480">cut_ref</a> () const noexcept(noexcept((cut_ref(nullptr))))</td></tr>
+<tr class="separator:a5afe99972c48b363c3b82e70153e1480 inherit pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00512beb07a9fcafdfb45cb344cd8093 inherit pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a00512beb07a9fcafdfb45cb344cd8093">add_ref</a> () const noexcept</td></tr>
+<tr class="separator:a00512beb07a9fcafdfb45cb344cd8093 inherit pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">elc::defs::memory::ptr_n::same_ptr_p_t&lt; T &gt;</a></td></tr>
+<tr class="memitem:aa15f90f69a7415402c2e566b2ad4f556 inherit pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html#aa15f90f69a7415402c2e566b2ad4f556">same_ptr_p_t</a> (T *a) noexcept</td></tr>
+<tr class="separator:aa15f90f69a7415402c2e566b2ad4f556 inherit pro_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t')"><img src="closed.png" alt="-"/>&#160;静态 Protected 成员函数 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">elc::defs::memory::ptr_n::same_ref_p_t&lt; T, ref_type &gt;</a></td></tr>
+<tr class="memitem:a05dd6c177ee4381b1bd4b78d4056c353 inherit pro_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a05dd6c177ee4381b1bd4b78d4056c353">cut_ref</a> (T *a) noexcept(<a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#a21b193e85ff65a82345cb71f02e5e247">cut_nothrow</a>)</td></tr>
+<tr class="separator:a05dd6c177ee4381b1bd4b78d4056c353 inherit pro_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf0ccd4b6a254074e9e16721ff208215 inherit pro_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html#acf0ccd4b6a254074e9e16721ff208215">add_ref</a> (T *a) noexcept</td></tr>
+<tr class="separator:acf0ccd4b6a254074e9e16721ff208215 inherit pro_static_methods_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">elc::defs::memory::ptr_n::same_ptr_p_t&lt; T &gt;</a></td></tr>
+<tr class="memitem:a542f64173b8f22f461c78ce3254d3c76 inherit pro_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html#a542f64173b8f22f461c78ce3254d3c76">_to</a></td></tr>
+<tr class="separator:a542f64173b8f22f461c78ce3254d3c76 inherit pro_attribs_structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class T, typename ref_type, bool do_replace_check&gt;<br />
+struct elc::defs::memory::ptr_n::base_ptr_t&lt; T, ref_type, do_replace_check &gt;</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08430">8430</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="a4bf045a4c3c1e36692093e9db47d3875" name="a4bf045a4c3c1e36692093e9db47d3875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bf045a4c3c1e36692093e9db47d3875">&#9670;&#160;</a></span>base_t <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">ptr_t</a>&lt;T,ref_type,do_replace_check&gt; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::base_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08432">8432</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af78a6f3ba3fc8b5f6c7cc8b981ab0d21" name="af78a6f3ba3fc8b5f6c7cc8b981ab0d21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af78a6f3ba3fc8b5f6c7cc8b981ab0d21">&#9670;&#160;</a></span>base_t <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a>&lt;T,ref_type&gt; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::base_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08308">8308</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad242329192ae7a84049d79e66c6b319a" name="ad242329192ae7a84049d79e66c6b319a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad242329192ae7a84049d79e66c6b319a">&#9670;&#160;</a></span>same_ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">same_ptr_p_t</a>&lt;T&gt; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::same_ptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08310">8310</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a7bf70df175d602973360c90bdd831b41" name="a7bf70df175d602973360c90bdd831b41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf70df175d602973360c90bdd831b41">&#9670;&#160;</a></span>same_ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a>&lt;T,ref_type&gt; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::same_ref</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08309">8309</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9f53ef27dd8aab6db118835d765e5da6" name="a9f53ef27dd8aab6db118835d765e5da6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f53ef27dd8aab6db118835d765e5da6">&#9670;&#160;</a></span>this_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a>&lt;T,ref_type,do_replace_check&gt; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::this_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08433">8433</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a5d1874cfc91a9f3f877b752387d03150" name="a5d1874cfc91a9f3f877b752387d03150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d1874cfc91a9f3f877b752387d03150">&#9670;&#160;</a></span>base_ptr_t() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::base_ptr_t </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08446">8446</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8446</span>:<a class="code hl_typedef" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4bf045a4c3c1e36692093e9db47d3875">base_t</a>(a){}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_a4bf045a4c3c1e36692093e9db47d3875"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4bf045a4c3c1e36692093e9db47d3875">elc::defs::memory::ptr_n::base_ptr_t::base_t</a></div><div class="ttdeci">ptr_t&lt; T, ref_type, do_replace_check &gt; base_t</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08432">all_defs.cpp:8432</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad9312dba8e5edf793e92824225ff8c83" name="ad9312dba8e5edf793e92824225ff8c83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9312dba8e5edf793e92824225ff8c83">&#9670;&#160;</a></span>base_ptr_t() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::base_ptr_t </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08447">8447</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8447</span>:<a class="code hl_typedef" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4bf045a4c3c1e36692093e9db47d3875">base_t</a>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#abf74a7c63d0956c8d86aed57334e781e">move</a>(a)){}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_abf74a7c63d0956c8d86aed57334e781e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#abf74a7c63d0956c8d86aed57334e781e">elc::defs::memory::lifetime_n::move</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::move_t move</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="afa7ec8ea3b1c71df95fdfc05b7d726d8" name="afa7ec8ea3b1c71df95fdfc05b7d726d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa7ec8ea3b1c71df95fdfc05b7d726d8">&#9670;&#160;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08372">8372</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8372</span>                                                                       {</div>
+<div class="line"><span class="lineno"> 8373</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab0ddc2cf5279d67e43eedad6d7301ae1">replace_check</a>();</div>
+<div class="line"><span class="lineno"> 8374</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">base_t::get</a>();</div>
+<div class="line"><span class="lineno"> 8375</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t_html_ab0ddc2cf5279d67e43eedad6d7301ae1"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab0ddc2cf5279d67e43eedad6d7301ae1">elc::defs::memory::ptr_n::ptr_t::replace_check</a></div><div class="ttdeci">void replace_check() const noexcept(replace_check_nothrow)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08356">all_defs.cpp:8356</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t_html_afa7ec8ea3b1c71df95fdfc05b7d726d8"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">elc::defs::memory::ptr_n::ptr_t::get</a></div><div class="ttdeci">T * get() const noexcept(get_nothrow)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08372">all_defs.cpp:8372</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8e045028b5acab647323071f23391d80" name="a8e045028b5acab647323071f23391d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e045028b5acab647323071f23391d80">&#9670;&#160;</a></span>operator bool() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08451">8451</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8451</span>{<span class="keywordflow">return</span> bool(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb">pointer_to_bool</a>(<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>()));}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a74fb2bbf391bf7c5ed945d4f63e08bcb"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb">elc::defs::base::pointer_to_bool</a></div><div class="ttdeci">constexpr auto pointer_to_bool(T *a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02011">all_defs.cpp:2011</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_afa7ec8ea3b1c71df95fdfc05b7d726d8"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">elc::defs::memory::ptr_n::base_ptr_t::get</a></div><div class="ttdeci">T * get() const noexcept(get_nothrow)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08372">all_defs.cpp:8372</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7e7627506a3fece1d07acb6df50cdf38" name="a7e7627506a3fece1d07acb6df50cdf38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e7627506a3fece1d07acb6df50cdf38">&#9670;&#160;</a></span>operator bool() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08477">8477</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8477</span>{<span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(<span class="keyword">this</span>)-&gt;operator bool();}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_aae9be6874a7dd367db08a9a6e1d65639"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">elc::defs::base::add_const</a></div><div class="ttdeci">constexpr const T add_const(T a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00962">all_defs.cpp:962</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a45c6e82f5ea8a6320627840e306f6328" name="a45c6e82f5ea8a6320627840e306f6328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45c6e82f5ea8a6320627840e306f6328">&#9670;&#160;</a></span>operator for_delete_t *()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator for_delete_t * </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08478">8478</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8478</span>{<span class="keywordflow">return</span> for_delete(<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>());}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5fb3824eea7ac2faee4d388d1ea8e277" name="a5fb3824eea7ac2faee4d388d1ea8e277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fb3824eea7ac2faee4d388d1ea8e277">&#9670;&#160;</a></span>operator T*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator T* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08453">8453</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8453</span>{<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>();}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9eda5fddac6e960cd3986db545dca68b" name="a9eda5fddac6e960cd3986db545dca68b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eda5fddac6e960cd3986db545dca68b">&#9670;&#160;</a></span>operator!()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator! </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08452">8452</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8452</span>{<span class="keywordflow">return</span>!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb">pointer_to_bool</a>(<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>());}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a89a483a9e7d655443b4e0a65cbbf6411" name="a89a483a9e7d655443b4e0a65cbbf6411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89a483a9e7d655443b4e0a65cbbf6411">&#9670;&#160;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; <br />
+requires (<a class="el" href="namespaceelc_1_1defs_1_1base.html#add0bce447ecc5c987d7a1c375318ca6c">invoke</a>&lt;T&gt;.able&lt;Args...&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>rest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08481">8481</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8481</span>{<span class="keywordflow">return</span>(<span class="keyword">operator</span>*())(forward&lt;Args&gt;(rest)...);}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a01704df2c5d7644d23f29ad567e5b481" name="a01704df2c5d7644d23f29ad567e5b481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01704df2c5d7644d23f29ad567e5b481">&#9670;&#160;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08450">8450</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8450</span>{<span class="keywordflow">return</span>*<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>();}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a44f476e6f5ff22f85494d86ac2125fb3" name="a44f476e6f5ff22f85494d86ac2125fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44f476e6f5ff22f85494d86ac2125fb3">&#9670;&#160;</a></span>operator-&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08449">8449</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8449</span>{<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>();}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af3bf801e2f54b9b67b3cd77db9b13f44" name="af3bf801e2f54b9b67b3cd77db9b13f44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3bf801e2f54b9b67b3cd77db9b13f44">&#9670;&#160;</a></span>operator=() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08459">8459</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8459</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">swap_with</a>(a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_a22e25e0ec2658570171c6e276d4ec6e7"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">elc::defs::memory::ptr_n::base_ptr_t::swap_with</a></div><div class="ttdeci">void swap_with(same_ref_p_t &amp;a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08288">all_defs.cpp:8288</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1906db732ac8bfbf51c4abcb0300d5da" name="a1906db732ac8bfbf51c4abcb0300d5da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1906db732ac8bfbf51c4abcb0300d5da">&#9670;&#160;</a></span>operator=() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08457">8457</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8457</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(a.get());<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_aa3c898aa02cdaed7481c64e4bb663515"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">elc::defs::memory::ptr_n::base_ptr_t::reset</a></div><div class="ttdeci">void reset(T *a) const noexcept(reset_nothrow)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08352">all_defs.cpp:8352</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a145161e074a26342128088443eee94cf" name="a145161e074a26342128088443eee94cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a145161e074a26342128088443eee94cf">&#9670;&#160;</a></span>operator=() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#ad242329192ae7a84049d79e66c6b319a">same_ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08456">8456</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8456</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(a.get());<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1d538873dd620f630c046c7cef1bac77" name="a1d538873dd620f630c046c7cef1bac77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d538873dd620f630c046c7cef1bac77">&#9670;&#160;</a></span>operator=() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceelc_1_1defs_1_1base.html#a9551363069bf8ca7df6fb0713cfd51ef">null_ptr_t</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08460">8460</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8460</span>{<span class="keywordflow">return</span>*<span class="keyword">this</span>=(T*)null_ptr;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9e8c004b69b29450f5c5d9a4226a8d5e" name="a9e8c004b69b29450f5c5d9a4226a8d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e8c004b69b29450f5c5d9a4226a8d5e">&#9670;&#160;</a></span>operator=() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08461">8461</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8461</span>{<span class="keywordflow">return</span>*<span class="keyword">this</span>=<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1null__ptr__n.html#a6976fcde13db6d2126644c67b309ff66">null_ptr</a>;}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1null__ptr__n_html_a6976fcde13db6d2126644c67b309ff66"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1null__ptr__n.html#a6976fcde13db6d2126644c67b309ff66">elc::defs::base::null_ptr_n::null_ptr</a></div><div class="ttdeci">constexpr struct elc::defs::base::null_ptr_n::null_ptr_t null_ptr</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad0104c6c4d44b9e2eac358a0ec8da223" name="ad0104c6c4d44b9e2eac358a0ec8da223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0104c6c4d44b9e2eac358a0ec8da223">&#9670;&#160;</a></span>operator=() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a7bf70df175d602973360c90bdd831b41">same_ref</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08458">8458</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8458</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">swap_with</a>(a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="afe9eff7345c606ca7d7b860d05ee7b3a" name="afe9eff7345c606ca7d7b860d05ee7b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe9eff7345c606ca7d7b860d05ee7b3a">&#9670;&#160;</a></span>operator=() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a> &amp; <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">elc::defs::memory::ptr_n::base_ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08455">8455</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8455</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae7fe3b1c4199fa11472f3262900479a5" name="ae7fe3b1c4199fa11472f3262900479a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7fe3b1c4199fa11472f3262900479a5">&#9670;&#160;</a></span>reset() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceelc_1_1defs_1_1base.html#a7fde50ec1de10fcdb55c3c1874f46006">nullptr_t</a>&#160;</td>
+          <td class="paramname"> = <code>nullptr</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08353">8353</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8353</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(null_ptr);}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa3c898aa02cdaed7481c64e4bb663515" name="aa3c898aa02cdaed7481c64e4bb663515"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3c898aa02cdaed7481c64e4bb663515">&#9670;&#160;</a></span>reset() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::reset </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08352">8352</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8352</span>{<span class="keyword">auto</span> tmp=<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a542f64173b8f22f461c78ce3254d3c76">_to</a>;<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a00512beb07a9fcafdfb45cb344cd8093">add_ref</a>(<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a542f64173b8f22f461c78ce3254d3c76">_to</a>=a);<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a5afe99972c48b363c3b82e70153e1480">cut_ref</a>(tmp);}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_a542f64173b8f22f461c78ce3254d3c76"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a542f64173b8f22f461c78ce3254d3c76">elc::defs::memory::ptr_n::base_ptr_t::_to</a></div><div class="ttdeci">T * _to</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08276">all_defs.cpp:8276</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t_html_a00512beb07a9fcafdfb45cb344cd8093"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a00512beb07a9fcafdfb45cb344cd8093">elc::defs::memory::ptr_n::ptr_t::add_ref</a></div><div class="ttdeci">void add_ref() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08296">all_defs.cpp:8296</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t_html_a5afe99972c48b363c3b82e70153e1480"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#a5afe99972c48b363c3b82e70153e1480">elc::defs::memory::ptr_n::ptr_t::cut_ref</a></div><div class="ttdeci">void cut_ref() const noexcept(noexcept((cut_ref(nullptr))))</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08295">all_defs.cpp:8295</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a22e25e0ec2658570171c6e276d4ec6e7" name="a22e25e0ec2658570171c6e276d4ec6e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22e25e0ec2658570171c6e276d4ec6e7">&#9670;&#160;</a></span>swap_with()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="all__defs_8cpp.html#a06f4a6c60c1cacd41e9a961c91348e88">void</a> <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">elc::defs::memory::ptr_n::same_ref_p_t</a>&lt; T, ref_type &gt;::swap_with </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ref__p__t.html">same_ref_p_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08288">8288</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8288</span>{<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1ptr__n.html#a06c4228def62bbc7985af760d81a8c40">swap</a>(<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a542f64173b8f22f461c78ce3254d3c76">_to</a>,a._to);}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1ptr__n_html_a06c4228def62bbc7985af760d81a8c40"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1ptr__n.html#a06c4228def62bbc7985af760d81a8c40">elc::defs::memory::ptr_n::swap</a></div><div class="ttdeci">void swap(same_ref_p_t&lt; T, ref_type &gt; &amp;a, same_ref_p_t&lt; T, ref_type &gt; &amp;b) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08300">all_defs.cpp:8300</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a542f64173b8f22f461c78ce3254d3c76" name="a542f64173b8f22f461c78ce3254d3c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a542f64173b8f22f461c78ce3254d3c76">&#9670;&#160;</a></span>_to</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1same__ptr__p__t.html">elc::defs::memory::ptr_n::same_ptr_p_t</a>&lt; T &gt;::_to</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08276">8276</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a5cd3da24c677d7a9f0a84f15c7d329b4" name="a5cd3da24c677d7a9f0a84f15c7d329b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cd3da24c677d7a9f0a84f15c7d329b4">&#9670;&#160;</a></span>get_nothrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::get_nothrow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08371">8371</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4813c258d0f4aa6f383c830c689696cf" name="a4813c258d0f4aa6f383c830c689696cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4813c258d0f4aa6f383c830c689696cf">&#9670;&#160;</a></span>reset_nothrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html">elc::defs::memory::ptr_n::ptr_t</a>&lt; T, ref_type, do_replace_check &gt;::reset_nothrow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08351">8351</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>docs/<a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceelc.html">elc</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs.html">defs</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs_1_1memory.html">memory</a></li><li class="navelem"><a class="el" href="namespaceelc_1_1defs_1_1memory_1_1ptr__n.html">ptr_n</a></li><li class="navelem"><a class="el" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html">base_ptr_t</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>
