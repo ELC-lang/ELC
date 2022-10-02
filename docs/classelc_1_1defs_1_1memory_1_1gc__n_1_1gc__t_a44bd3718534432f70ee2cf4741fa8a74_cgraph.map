@@ -1,0 +1,7 @@
+<map id="elc::defs::memory::gc_n::gc_t::operator()" name="elc::defs::memory::gc_n::gc_t::operator()">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,152,111"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293" title="同 die ，但是有详细的错误信息" alt="" coords="203,29,358,55"/>
+<area shape="rect" id="node4" href="$classelc_1_1defs_1_1base_1_1flag.html#a276b6522d8614b03a610d6ed8640982e" title=" " alt="" coords="200,79,361,104"/>
+<area shape="rect" id="node5" href="$classelc_1_1defs_1_1base_1_1flag.html#a52efee8cf2903f94119aafaf8f1335f4" title=" " alt="" coords="213,129,348,169"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1_a_p_is_1_1die.html#a3ccd3adb91ebb3e2322baf0fed97fce6" title="终止整个程序并可能的触发断点或输出错误信息" alt="" coords="409,29,535,55"/>
+</map>

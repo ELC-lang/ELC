@@ -1,0 +1,20 @@
+<map id="elc::defs::base::non_copy_construct_able" name="elc::defs::base::non_copy_construct_able">
+<area shape="rect" id="node1" title=" " alt="" coords="5,345,155,385"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copyable.html" title=" " alt="" coords="214,313,350,353"/>
+<area shape="rect" id="node18" href="$structelc_1_1defs_1_1base_1_1non__default__construct__able.html" title=" " alt="" coords="203,377,361,417"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="421,5,582,45"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="415,70,588,125"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="430,149,573,189"/>
+<area shape="rect" id="node7" href="$structelc_1_1defs_1_1base_1_1data__block.html" title=" " alt="" coords="431,213,571,253"/>
+<area shape="rect" id="node8" href="$classelc_1_1defs_1_1base_1_1mark__able.html" title=" " alt="" coords="429,277,573,317"/>
+<area shape="rect" id="node10" href="$classelc_1_1defs_1_1container_1_1stack__n_1_1base__stack__t.html" title=" " alt="" coords="426,342,577,397"/>
+<area shape="rect" id="node12" href="$structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html" title=" " alt="" coords="409,421,593,461"/>
+<area shape="rect" id="node13" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__t.html" title=" " alt="" coords="434,485,569,525"/>
+<area shape="rect" id="node16" href="$classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html" title=" " alt="" coords="433,550,569,605"/>
+<area shape="rect" id="node17" href="$classelc_1_1defs_1_1string__n_1_1string__t_1_1floating__arec__t.html" title=" " alt="" coords="433,629,569,683"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html" title=" " alt="" coords="641,5,825,45"/>
+<area shape="rect" id="node9" href="$structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html" title=" " alt="" coords="664,267,803,322"/>
+<area shape="rect" id="node11" href="$structelc_1_1defs_1_1container_1_1stack__n_1_1auto__stack__t.html" title=" " alt="" coords="659,346,807,401"/>
+<area shape="rect" id="node14" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able.html" title=" " alt="" coords="666,457,801,497"/>
+<area shape="rect" id="node15" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html" title=" " alt="" coords="647,521,819,561"/>
+</map>

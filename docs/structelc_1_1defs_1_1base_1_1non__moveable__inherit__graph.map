@@ -1,0 +1,18 @@
+<map id="elc::defs::base::non_moveable" name="elc::defs::base::non_moveable">
+<area shape="rect" id="node1" title=" " alt="" coords="204,277,340,317"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="399,5,561,45"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="393,70,567,125"/>
+<area shape="rect" id="node7" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="409,149,551,189"/>
+<area shape="rect" id="node8" href="$structelc_1_1defs_1_1base_1_1data__block.html" title=" " alt="" coords="410,213,550,253"/>
+<area shape="rect" id="node9" href="$classelc_1_1defs_1_1base_1_1mark__able.html" title=" " alt="" coords="408,277,552,317"/>
+<area shape="rect" id="node11" href="$structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html" title=" " alt="" coords="388,341,572,381"/>
+<area shape="rect" id="node12" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__t.html" title=" " alt="" coords="413,405,547,445"/>
+<area shape="rect" id="node15" href="$classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html" title=" " alt="" coords="412,470,548,525"/>
+<area shape="rect" id="node16" href="$classelc_1_1defs_1_1string__n_1_1string__t_1_1floating__arec__t.html" title=" " alt="" coords="412,549,548,603"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__move__assign__able.html" title=" " alt="" coords="13,245,149,285"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__move__construct__able.html" title=" " alt="" coords="5,309,156,349"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html" title=" " alt="" coords="620,5,804,45"/>
+<area shape="rect" id="node10" href="$structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html" title=" " alt="" coords="643,270,781,325"/>
+<area shape="rect" id="node13" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able.html" title=" " alt="" coords="645,377,779,417"/>
+<area shape="rect" id="node14" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html" title=" " alt="" coords="626,441,798,481"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="elc::defs::base::magic_number::rotl" name="elc::defs::base::magic_number::rotl">
+<area shape="rect" id="node1" title="位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="5,89,156,129"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960" title="位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="204,60,355,100"/>
+<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97" title="位操作：循环左移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="403,117,553,157"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60" title=" " alt="" coords="403,29,553,69"/>
+<area shape="rect" id="node5" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b" title="位操作：循环右移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="601,117,752,157"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="elc::defs::memory::gc_n::gc_for_alloc" name="elc::defs::memory::gc_n::gc_for_alloc">
+<area shape="rect" id="node1" title="当alloc失败时调用此函数" alt="" coords="5,29,140,69"/>
+</map>

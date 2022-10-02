@@ -1,0 +1,4 @@
+<map id="elc::APIs::die::die_with" name="elc::APIs::die::die_with">
+<area shape="rect" id="node1" title="同 die ，但是有详细的错误信息" alt="" coords="5,29,160,55"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1_a_p_is_1_1die.html#a3ccd3adb91ebb3e2322baf0fed97fce6" title="终止整个程序并可能的触发断点或输出错误信息" alt="" coords="208,29,333,55"/>
+</map>

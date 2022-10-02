@@ -1,0 +1,28 @@
+<map id="elc::defs::base::cast_to_data" name="elc::defs::base::cast_to_data">
+<area shape="rect" id="node1" title=" " alt="" coords="667,565,807,605"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#abe3691006936be1ed88f8529b52edf33" title="应用偏移" alt="" coords="453,37,600,77"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1data__view_3_01const_01_t_01_4.html#a9a654b8b1e004f3eb7c39851a598476d" title=" " alt="" coords="435,101,619,141"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1data__view.html#a38f115aca42907ecdc655602500964e2" title=" " alt="" coords="457,165,597,205"/>
+<area shape="rect" id="node6" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a600bffa825c0c2c1695723ba33b28d74" title=" " alt="" coords="447,253,606,308"/>
+<area shape="rect" id="node7" href="$namespaceelc_1_1defs_1_1base.html#ac29b9f157a5ac4e510a11155ffa41d85" title=" " alt="" coords="461,333,592,373"/>
+<area shape="rect" id="node8" href="$namespaceelc_1_1defs_1_1base.html#a41806589ddf17cdf0a2da4977ab0dd48" title="获取两个指针的偏移" alt="" coords="460,397,593,437"/>
+<area shape="rect" id="node13" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a194a17a9531372111b53268415765327" title=" " alt="" coords="437,485,617,540"/>
+<area shape="rect" id="node14" href="$namespaceelc_1_1defs_1_1base_1_1range__n.html#a3c8c840b05866c9a0bd49e158cd0ea55" title="判断一个指针是否在某个byte指针范围内" alt="" coords="453,565,600,605"/>
+<area shape="rect" id="node15" href="$namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396" title="Returns true if all bytes in the input are zero." alt="" coords="464,629,589,669"/>
+<area shape="rect" id="node21" href="$structelc_1_1defs_1_1stream__n_1_1base__istream.html#a6305f6cd5919f10edc06ec7a7d5a428a" title=" " alt="" coords="456,693,597,733"/>
+<area shape="rect" id="node22" href="$structelc_1_1defs_1_1stream__n_1_1noexcept__istream.html#ac7672c869f5367a1bddd6762a051ad25" title=" " alt="" coords="443,757,610,797"/>
+<area shape="rect" id="node23" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a7006a2426096a4f9cdf039371a44971b" title=" " alt="" coords="447,845,606,900"/>
+<area shape="rect" id="node24" href="$namespaceelc_1_1defs_1_1base.html#a4ff83f1b9ac3ab11fc56336bb0480c1e" title="反向应用偏移" alt="" coords="447,925,607,965"/>
+<area shape="rect" id="node25" href="$structelc_1_1defs_1_1stream__n_1_1base__ostream.html#a1d35841c32943e079447be7eabb8ab2c" title=" " alt="" coords="453,989,600,1029"/>
+<area shape="rect" id="node26" href="$structelc_1_1defs_1_1stream__n_1_1noexcept__ostream.html#aa9800d44893de982bfd1cda092169a6b" title=" " alt="" coords="441,1053,613,1093"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#a409d45f6a9500d1ec67a070eb5e7ccb0" title=" " alt="" coords="235,29,379,84"/>
+<area shape="rect" id="node9" href="$namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6" title=" " alt="" coords="239,376,375,431"/>
+<area shape="rect" id="node10" href="$classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1instance__struct.html#adbea8bf8db6092b9db87a4e459e19f41" title=" " alt="" coords="5,269,180,338"/>
+<area shape="rect" id="node11" href="$classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1instance__struct.html#a425b31f18514a0ef6c67b368b24b7809" title=" " alt="" coords="5,362,180,431"/>
+<area shape="rect" id="node12" href="$classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1instance__struct.html#a840e798c30250fd531aa814d416fa894" title=" " alt="" coords="5,455,180,525"/>
+<area shape="rect" id="node16" href="$namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a3538502ddcc1662696b0ae3144d249a2" title=" " alt="" coords="228,628,387,683"/>
+<area shape="rect" id="node17" href="$structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a75b915df2e2b4e93193e334bb7c42268" title=" " alt="" coords="5,549,180,604"/>
+<area shape="rect" id="node18" href="$structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__assign__t.html#a366c255258da93e353c0d6697737fb43" title=" " alt="" coords="13,628,172,683"/>
+<area shape="rect" id="node19" href="$structelc_1_1defs_1_1memory_1_1lifetime__n_1_1construct__t_1_1array__construct__t.html#a0aceccd57ab2896b35c9d34c4405543f" title=" " alt="" coords="21,707,164,777"/>
+<area shape="rect" id="node20" href="$structelc_1_1defs_1_1memory_1_1lifetime__n_1_1construct__t_1_1placement__construct__t.html#aefbbeca8eefbcdd2b1361f82168e9ed8" title=" " alt="" coords="11,801,174,870"/>
+</map>

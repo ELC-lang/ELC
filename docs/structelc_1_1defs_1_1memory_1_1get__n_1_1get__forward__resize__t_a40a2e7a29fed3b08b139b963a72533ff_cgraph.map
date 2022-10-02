@@ -1,0 +1,6 @@
+<map id="elc::defs::memory::get_n::get_forward_resize_t::base_call" name="elc::defs::memory::get_n::get_forward_resize_t::base_call">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,176,136"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1get__n.html#a7c74be8ab8b9c29fb3ba00941808499a" title="向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例" alt="" coords="224,29,361,84"/>
+<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1memory_1_1get__n.html#afdcf942befe9ac401b133e08e2f72609" title="向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例" alt="" coords="224,132,361,187"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639" title="对值追加const" alt="" coords="409,89,545,129"/>
+</map>

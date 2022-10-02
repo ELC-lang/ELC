@@ -1,0 +1,11 @@
+<map id="类继承关系图" name="类继承关系图">
+<area shape="rect" id="node1" href="$structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html" title=" " alt="" coords="5,156,164,211"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html" title=" " alt="" coords="212,5,361,60"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1array__like__n_1_1array__end__by__zero__t.html" title=" " alt="" coords="212,84,361,139"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1data__view.html" title=" " alt="" coords="217,163,357,203"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1data__view_3_01const_01_t_01_4.html" title=" " alt="" coords="217,227,357,267"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html" title="array_like_view_t的特化类型，表明这是字符串" alt="" coords="212,292,361,347"/>
+<area shape="rect" id="node7" href="$structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html" title="constexpr_str_t的退化类型，表明这是常量字符串，但没有可用的额外信息" alt="" coords="409,256,585,311"/>
+<area shape="rect" id="node9" href="$structelc_1_1defs_1_1base_1_1type__name__t.html" title=" " alt="" coords="427,335,567,375"/>
+<area shape="rect" id="node8" href="$structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html" title="告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作" alt="" coords="633,256,805,311"/>
+</map>

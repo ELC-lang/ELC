@@ -1,0 +1,9 @@
+<map id="elc::defs::base::mark_able&lt; T &gt;" name="elc::defs::base::mark_able&lt; T &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="388,101,532,141"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copyable.html" title=" " alt="" coords="204,69,340,109"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title=" " alt="" coords="13,5,149,45"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" title=" " alt="" coords="6,69,155,109"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1non__moveable.html" title=" " alt="" coords="204,133,340,173"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1non__move__assign__able.html" title=" " alt="" coords="13,133,149,173"/>
+<area shape="rect" id="node7" href="$structelc_1_1defs_1_1base_1_1non__move__construct__able.html" title=" " alt="" coords="5,197,156,237"/>
+</map>

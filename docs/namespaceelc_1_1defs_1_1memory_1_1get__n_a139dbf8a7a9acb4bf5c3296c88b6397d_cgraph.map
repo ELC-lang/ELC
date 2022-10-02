@@ -1,0 +1,3 @@
+<map id="elc::defs::memory::get_n::forward_alloc_size_grow_with_insert_uninitialized_data" name="elc::defs::memory::get_n::forward_alloc_size_grow_with_insert_uninitialized_data">
+<area shape="rect" id="node1" title="在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例 若有多余的大小，追加到前端" alt="" coords="5,29,161,99"/>
+</map>

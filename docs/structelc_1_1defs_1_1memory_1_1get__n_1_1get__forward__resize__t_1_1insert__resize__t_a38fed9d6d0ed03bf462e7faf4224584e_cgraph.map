@@ -1,0 +1,4 @@
+<map id="elc::defs::memory::get_n::get_forward_resize_t::insert_resize_t::operator()" name="elc::defs::memory::get_n::get_forward_resize_t::insert_resize_t::operator()">
+<area shape="rect" id="node1" title=" " alt="" coords="5,37,195,91"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1get__n.html#a139dbf8a7a9acb4bf5c3296c88b6397d" title="在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例 若有多余的大小，追加到前端" alt="" coords="243,29,399,99"/>
+</map>

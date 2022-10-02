@@ -1,0 +1,3 @@
+<map id="类继承关系图" name="类继承关系图">
+<area shape="rect" id="node1" href="$structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t.html" title="用于自特定类型的内存分配结果获取分配大小 对于null_ptr，返回0 对于单个对象的分配，返回1" alt="" coords="5,5,143,60"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="elc::defs::base::pointer_to_bool" name="elc::defs::base::pointer_to_bool">
+<area shape="rect" id="node1" title="指针转bool的重载接口，允许类对此进行自定义 elc内部的指针转bool应当视情况使用默认配置或此重载接口" alt="" coords="256,37,411,77"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a8e045028b5acab647323071f23391d80" title=" " alt="" coords="5,5,208,45"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a9eda5fddac6e960cd3986db545dca68b" title=" " alt="" coords="17,69,196,109"/>
+</map>

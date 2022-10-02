@@ -1,0 +1,5 @@
+<map id="elc::defs::memory::get_n::alloc_size_grow" name="elc::defs::memory::get_n::alloc_size_grow">
+<area shape="rect" id="node1" title="向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例" alt="" coords="188,53,343,93"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#a8d53d8b101c60956d97b008b07e2dd1c" title=" " alt="" coords="5,5,140,60"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1apply__end__t.html#a33a1f68ebf8115a4d59e201856a9be21" title=" " alt="" coords="5,84,140,139"/>
+</map>

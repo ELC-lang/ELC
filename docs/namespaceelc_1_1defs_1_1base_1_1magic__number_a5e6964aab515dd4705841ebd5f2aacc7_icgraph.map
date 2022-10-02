@@ -1,0 +1,11 @@
+<map id="elc::defs::base::magic_number::abs" name="elc::defs::base::magic_number::abs">
+<area shape="rect" id="node1" title=" " alt="" coords="1047,197,1197,237"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a30e067e5edbc32b8c5bbc09c1b56d04e" title=" " alt="" coords="848,128,999,168"/>
+<area shape="rect" id="node6" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#abe10e28dd1b440665a49ca358a141e0d" title=" " alt="" coords="440,225,601,265"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a77e063b37c7eb298dcf3bb43d462265e" title=" " alt="" coords="649,168,800,208"/>
+<area shape="rect" id="node7" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#af617871fb504f70d5e186aa33f6ae187" title=" " alt="" coords="649,29,800,69"/>
+<area shape="rect" id="node8" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6" title=" " alt="" coords="445,87,596,127"/>
+<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5" title="求大于某数的素数" alt="" coords="223,189,392,243"/>
+<area shape="rect" id="node5" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5a0615480539fa32fb57f797cab6b87e" title="已知当前hash table的size，求下一个合适的桶大小" alt="" coords="5,189,175,243"/>
+<area shape="rect" id="node9" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a4e85faf4c3b39c3c8246f799eca1d941" title=" " alt="" coords="232,47,383,87"/>
+</map>

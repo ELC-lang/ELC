@@ -1,0 +1,4 @@
+<map id="elc::defs::memory::get_n::get_t::remove_t::operator()" name="elc::defs::memory::get_n::get_t::remove_t::operator()">
+<area shape="rect" id="node1" title=" " alt="" coords="5,22,145,77"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1get__n.html#aad566c4cd179e4b1465bb3a5aaaa5040" title="向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例" alt="" coords="193,29,339,69"/>
+</map>

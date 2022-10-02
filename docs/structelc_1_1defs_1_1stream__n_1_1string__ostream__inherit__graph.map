@@ -1,0 +1,8 @@
+<map id="elc::defs::stream_n::string_ostream" name="elc::defs::stream_n::string_ostream">
+<area shape="rect" id="node1" title=" " alt="" coords="116,181,249,221"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1stream__n_1_1noexcept__string__ostream.html" title=" " alt="" coords="5,269,181,309"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1stream__n_1_1string__iostream.html" title=" " alt="" coords="205,269,339,309"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1stream__n_1_1base__ostream.html" title=" " alt="" coords="116,93,249,133"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1stream__n_1_1base__stream.html" title=" " alt="" coords="116,5,249,45"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1stream__n_1_1noexcept__string__iostream.html" title=" " alt="" coords="93,357,272,397"/>
+</map>

@@ -1,0 +1,34 @@
+<map id="类继承关系图" name="类继承关系图">
+<area shape="rect" id="node1" href="$structelc_1_1defs_1_1base_1_1attribute.html" title=" " alt="" coords="205,124,368,164"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="429,213,590,253"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="423,134,596,189"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html" title=" " alt="" coords="649,141,833,181"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1attribute.html" title=" " alt="" coords="427,69,592,109"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1attribute.html" title=" " alt="" coords="205,5,368,45"/>
+<area shape="rect" id="node7" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="438,5,581,45"/>
+<area shape="rect" id="node8" href="$structelc_1_1defs_1_1base_1_1attribute.html" title=" " alt="" coords="428,421,591,461"/>
+<area shape="rect" id="node9" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able.html" title=" " alt="" coords="674,421,809,461"/>
+<area shape="rect" id="node10" href="$structelc_1_1defs_1_1base_1_1attribute.html" title=" " alt="" coords="204,303,369,343"/>
+<area shape="rect" id="node11" href="$structelc_1_1defs_1_1memory_1_1others__n_1_1replace__able.html" title=" " alt="" coords="417,277,601,317"/>
+<area shape="rect" id="node12" href="$structelc_1_1defs_1_1base_1_1attribute.html" title=" " alt="" coords="422,709,597,749"/>
+<area shape="rect" id="node13" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html" title=" " alt="" coords="655,565,827,605"/>
+<area shape="rect" id="node14" href="$classelc_1_1defs_1_1base_1_1null__ptr__n_1_1can__t__use__default__null__ptr.html" title=" " alt="" coords="424,486,595,541"/>
+<area shape="rect" id="node15" href="$classelc_1_1defs_1_1base_1_1null__ptr__n_1_1force__use__default__null__ptr.html" title=" " alt="" coords="658,486,825,541"/>
+<area shape="rect" id="node16" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title=" " alt="" coords="13,252,149,292"/>
+<area shape="rect" id="node17" href="$structelc_1_1defs_1_1base_1_1non__copyable.html" title=" " alt="" coords="219,431,355,471"/>
+<area shape="rect" id="node26" href="$structelc_1_1defs_1_1base_1_1non__default__assign__able.html" title=" " alt="" coords="215,188,358,228"/>
+<area shape="rect" id="node27" href="$structelc_1_1defs_1_1core_1_1value.html" title=" " alt="" coords="216,253,357,278"/>
+<area shape="rect" id="node18" href="$structelc_1_1defs_1_1base_1_1data__block.html" title=" " alt="" coords="439,837,579,877"/>
+<area shape="rect" id="node19" href="$classelc_1_1defs_1_1base_1_1mark__able.html" title=" " alt="" coords="437,773,581,813"/>
+<area shape="rect" id="node21" href="$classelc_1_1defs_1_1container_1_1stack__n_1_1base__stack__t.html" title=" " alt="" coords="434,902,585,957"/>
+<area shape="rect" id="node23" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__t.html" title=" " alt="" coords="442,565,577,605"/>
+<area shape="rect" id="node24" href="$classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html" title=" " alt="" coords="441,342,577,397"/>
+<area shape="rect" id="node25" href="$classelc_1_1defs_1_1string__n_1_1string__t_1_1floating__arec__t.html" title=" " alt="" coords="441,630,577,685"/>
+<area shape="rect" id="node20" href="$structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html" title=" " alt="" coords="672,766,811,821"/>
+<area shape="rect" id="node22" href="$structelc_1_1defs_1_1container_1_1stack__n_1_1auto__stack__t.html" title=" " alt="" coords="667,902,815,957"/>
+<area shape="rect" id="node28" href="$structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" title=" " alt="" coords="6,479,155,519"/>
+<area shape="rect" id="node29" href="$structelc_1_1defs_1_1base_1_1non__default__construct__able.html" title=" " alt="" coords="207,495,366,535"/>
+<area shape="rect" id="node30" href="$structelc_1_1defs_1_1base_1_1non__move__assign__able.html" title=" " alt="" coords="13,188,149,228"/>
+<area shape="rect" id="node31" href="$structelc_1_1defs_1_1base_1_1non__moveable.html" title=" " alt="" coords="219,367,355,407"/>
+<area shape="rect" id="node32" href="$structelc_1_1defs_1_1base_1_1non__move__construct__able.html" title=" " alt="" coords="5,399,156,439"/>
+</map>

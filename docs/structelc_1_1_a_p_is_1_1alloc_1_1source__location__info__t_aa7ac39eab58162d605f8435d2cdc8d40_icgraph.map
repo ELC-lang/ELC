@@ -1,0 +1,9 @@
+<map id="elc::APIs::alloc::source_location_info_t::line" name="elc::APIs::alloc::source_location_info_t::line">
+<area shape="rect" id="node1" title=" " alt="" coords="625,89,783,129"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1_a_p_is_1_1alloc.html#af1389f594af5ccc37accd580df042dd3" title=" " alt="" coords="419,49,577,89"/>
+<area shape="rect" id="node5" href="$namespaceelc_1_1_a_p_is_1_1alloc.html#af68837cedb7d0167128e99014d1f836c" title=" " alt="" coords="420,124,576,149"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a78a0fa1d20f89ed4b04c66ea762e9051" title="Allocates aligned memory." alt="" coords="212,29,371,84"/>
+<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a0304b5366d9907f769dac7e6dac8cd42" title=" " alt="" coords="5,29,164,84"/>
+<area shape="rect" id="node6" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a8ee321f9ab5577ba520976ffa2c49e2d" title="Reallocates a block of memory." alt="" coords="212,132,371,187"/>
+<area shape="rect" id="node7" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a7006a2426096a4f9cdf039371a44971b" title=" " alt="" coords="5,132,164,187"/>
+</map>

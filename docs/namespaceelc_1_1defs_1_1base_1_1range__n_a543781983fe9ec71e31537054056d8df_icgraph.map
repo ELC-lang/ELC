@@ -1,0 +1,4 @@
+<map id="elc::defs::base::range_n::find_last_of" name="elc::defs::base::range_n::find_last_of">
+<area shape="rect" id="node1" title="若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr" alt="" coords="204,29,351,69"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1range__n.html#a67bc8bf901f9fde202c8a61db93221c3" title="若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos" alt="" coords="5,29,156,69"/>
+</map>
