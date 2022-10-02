@@ -126,7 +126,7 @@ Public 属性</h2></td></tr>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 struct elc::defs::base::range_n::bitmark_for_finds&lt; T &gt;</div><p >bitmark提供了一种快速进行四种泛搜索的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。 若bitmark构建失败，程序应当使用正在进行的泛搜索的朴素实现版本。 </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02529">2529</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02621">2621</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="a74bd9559cb6731157479380913dc5485" name="a74bd9559cb6731157479380913dc5485"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74bd9559cb6731157479380913dc5485">&#9670;&#160;</a></span>index_type</h2>
@@ -142,7 +142,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02530">2530</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02622">2622</a> 行定义.</p>
 
 </div>
 </div>
@@ -201,23 +201,23 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02534">2534</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2534</span>                                                                                                 {</div>
-<div class="line"><span class="lineno"> 2535</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(number_of_possible_values_per&lt;T&gt; &gt; number_of_possible_values_per&lt;index_type&gt;){</div>
-<div class="line"><span class="lineno"> 2536</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: pattern){</div>
-<div class="line"><span class="lineno"> 2537</span>                                        <span class="keywordflow">if</span>(::std::make_unsigned_t&lt;T&gt;(i) &gt;= number_of_possible_values_per&lt;index_type&gt;)</div>
-<div class="line"><span class="lineno"> 2538</span>                                            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno"> 2539</span>                                        <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">_bitmark</a>[<a class="code hl_typedef" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">index_type</a>(i)] = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 2540</span>                                    }</div>
-<div class="line"><span class="lineno"> 2541</span>                                }</div>
-<div class="line"><span class="lineno"> 2542</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 2543</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: pattern)</div>
-<div class="line"><span class="lineno"> 2544</span>                                        <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">_bitmark</a>[<a class="code hl_typedef" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">index_type</a>(i)] = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 2545</span>                                }</div>
-<div class="line"><span class="lineno"> 2546</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 2547</span>                            }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html_a19f8c88da113b03fe7790579efde68ab"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">elc::defs::base::range_n::bitmark_for_finds::_bitmark</a></div><div class="ttdeci">bool _bitmark[number_of_possible_values_per&lt; index_type &gt;]</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02531">all_defs.cpp:2531</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html_a74bd9559cb6731157479380913dc5485"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">elc::defs::base::range_n::bitmark_for_finds::index_type</a></div><div class="ttdeci">unsigned char index_type</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02530">all_defs.cpp:2530</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02626">2626</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2626</span>                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2627</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(number_of_possible_values_per&lt;T&gt; &gt; number_of_possible_values_per&lt;index_type&gt;){</div>
+<div class="line"><span class="lineno"> 2628</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: pattern){</div>
+<div class="line"><span class="lineno"> 2629</span>                                        <span class="keywordflow">if</span>(::std::make_unsigned_t&lt;T&gt;(i) &gt;= number_of_possible_values_per&lt;index_type&gt;)</div>
+<div class="line"><span class="lineno"> 2630</span>                                            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 2631</span>                                        <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">_bitmark</a>[<a class="code hl_typedef" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">index_type</a>(i)] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 2632</span>                                    }</div>
+<div class="line"><span class="lineno"> 2633</span>                                }</div>
+<div class="line"><span class="lineno"> 2634</span>                                <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 2635</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: pattern)</div>
+<div class="line"><span class="lineno"> 2636</span>                                        <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">_bitmark</a>[<a class="code hl_typedef" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">index_type</a>(i)] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 2637</span>                                }</div>
+<div class="line"><span class="lineno"> 2638</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 2639</span>                            }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html_a19f8c88da113b03fe7790579efde68ab"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">elc::defs::base::range_n::bitmark_for_finds::_bitmark</a></div><div class="ttdeci">bool _bitmark[number_of_possible_values_per&lt; index_type &gt;]</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02623">all_defs.cpp:2623</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html_a74bd9559cb6731157479380913dc5485"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">elc::defs::base::range_n::bitmark_for_finds::index_type</a></div><div class="ttdeci">unsigned char index_type</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02622">all_defs.cpp:2622</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -247,13 +247,13 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02548">2548</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2548</span>                                                                                         {</div>
-<div class="line"><span class="lineno"> 2549</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(number_of_possible_values_per&lt;T&gt; &gt; number_of_possible_values_per&lt;index_type&gt;)</div>
-<div class="line"><span class="lineno"> 2550</span>                                    <span class="keywordflow">if</span>(::std::make_unsigned_t&lt;T&gt;(index) &gt;= number_of_possible_values_per&lt;index_type&gt;)</div>
-<div class="line"><span class="lineno"> 2551</span>                                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno"> 2552</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">_bitmark</a>[<a class="code hl_typedef" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">index_type</a>(index)];</div>
-<div class="line"><span class="lineno"> 2553</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02640">2640</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2640</span>                                                                                         {</div>
+<div class="line"><span class="lineno"> 2641</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(number_of_possible_values_per&lt;T&gt; &gt; number_of_possible_values_per&lt;index_type&gt;)</div>
+<div class="line"><span class="lineno"> 2642</span>                                    <span class="keywordflow">if</span>(::std::make_unsigned_t&lt;T&gt;(index) &gt;= number_of_possible_values_per&lt;index_type&gt;)</div>
+<div class="line"><span class="lineno"> 2643</span>                                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 2644</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a19f8c88da113b03fe7790579efde68ab">_bitmark</a>[<a class="code hl_typedef" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#a74bd9559cb6731157479380913dc5485">index_type</a>(index)];</div>
+<div class="line"><span class="lineno"> 2645</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -272,7 +272,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02531">2531</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02623">2623</a> 行定义.</p>
 
 </div>
 </div>

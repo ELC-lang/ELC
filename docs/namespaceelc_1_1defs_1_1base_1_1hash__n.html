@@ -120,6 +120,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1defs_1_1base_1_1hash__
 <tr class="separator:a0fffe4324b4de8519efc8b007f077418"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a283ac78c2359bd59925093a9da4db995"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a283ac78c2359bd59925093a9da4db995"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__value__t.html">hash_value_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">pointer_hash</a> (T *a) noexcept</td></tr>
+<tr class="memdesc:a283ac78c2359bd59925093a9da4db995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the hash value of a pointer.  <a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">更多...</a><br /></td></tr>
 <tr class="separator:a283ac78c2359bd59925093a9da4db995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -177,14 +178,23 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02086">2086</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2086</span>                                                                                            {</div>
-<div class="line"><span class="lineno"> 2087</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a0fffe4324b4de8519efc8b007f077418">the_pointer_hash</a>(a)))</div>
-<div class="line"><span class="lineno"> 2088</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a0fffe4324b4de8519efc8b007f077418">the_pointer_hash</a>(a);</div>
-<div class="line"><span class="lineno"> 2089</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2090</span>                                <span class="keywordflow">return</span>{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(a)};</div>
-<div class="line"><span class="lineno"> 2091</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24947">all_defs.cpp:24947</a></div></div>
+<p>Computes the hash value of a pointer. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The pointer to hash.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>The hash value of the pointer. </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02093">2093</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2093</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 2094</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a0fffe4324b4de8519efc8b007f077418">the_pointer_hash</a>(a)))</div>
+<div class="line"><span class="lineno"> 2095</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a0fffe4324b4de8519efc8b007f077418">the_pointer_hash</a>(a);</div>
+<div class="line"><span class="lineno"> 2096</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2097</span>                                <span class="keywordflow">return</span>{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(a)};</div>
+<div class="line"><span class="lineno"> 2098</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25177">all_defs.cpp:25177</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a018284b26fd839cbeb4f27a5fe8cfe2c"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">elc::defs::base::hash_n::hash_base_t</a></div><div class="ttdeci">size_t hash_base_t</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02065">all_defs.cpp:2065</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a0fffe4324b4de8519efc8b007f077418"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a0fffe4324b4de8519efc8b007f077418">elc::defs::base::hash_n::the_pointer_hash</a></div><div class="ttdeci">void the_pointer_hash() noexcept=delete</div></div>
 </div><!-- fragment -->

@@ -177,7 +177,11 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:ada9b506b65f2d97c77ae27d80a3a987a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock">
+<div class="textblock"><p >若大小相同则以字典序三路比较任意支持比较的类型或其数组,并在 &lt;=&gt; 不可用时以 &lt; 和 == 为后备. 用法: 判断两者是否可真的进行三路比较。 compare.r_able&lt;类型1,类型2(可选，默认与1相同)&gt; -&gt; bool 判断两者是否可进行compare操作。 compare.able&lt;类型1,类型2(可选，默认与1相同)&gt; -&gt; bool 判断将两者进行三路比较是否会抛出异常。 compare.nothrow&lt;类型1,类型2（可选，默认与1相同）&gt; -&gt; bool</p>
+<p ><a class="el" href="namespaceelc_1_1defs_1_1base.html#a01c17c41391a0e59ca05812f117a8b89">compare(T1,T2)</a> <a class="el" href="namespaceelc_1_1defs_1_1base.html#a01c17c41391a0e59ca05812f117a8b89">compare(T1[N1],T2[N2])</a> <a class="el" href="namespaceelc_1_1defs_1_1base.html#a01c17c41391a0e59ca05812f117a8b89">compare(T1*,size1,T2*,size2)</a> <a class="el" href="namespaceelc_1_1defs_1_1base.html#a01c17c41391a0e59ca05812f117a8b89">compare(T1*,T2*,size)</a> 返回类型语义上是三路比较的结果类型,具体类型视情况而定.</p>
+<p >以字典序进行三路比较。 compare.lexicographical(T1,T2) compare.lexicographical(T1[N1],T2[N2]) compare.lexicographical(T1*,size1,T2*,size2) compare.lexicographical(T1*,T2*,size) 返回类型语义上是三路比较的结果类型,具体类型视情况而定.</p>
+<p >翻转三路比较的结果类型。 compare.reverse(order) 返回对应结果类型的反义，与零相等或无法比较时则返回其本身。 </p>
+
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01552">1552</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="a63efeb4e3d6c518ec57d6fe6c1b173de" name="a63efeb4e3d6c518ec57d6fe6c1b173de"></a>
@@ -308,7 +312,7 @@ template&lt;typename T , typename U &gt; </div>
 <div class="line"><span class="lineno"> 1712</span>                                b++;</div>
 <div class="line"><span class="lineno"> 1713</span>                            }</div>
 <div class="line"><span class="lineno"> 1714</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24888">all_defs.cpp:24888</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25118">all_defs.cpp:25118</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ae93cfa3da47dda23711a1e2b8ad7d29c"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">elc::defs::base::compare_t::base_call</a></div><div class="ttdeci">static constexpr auto base_call(T &amp;&amp;a, U &amp;&amp;b) noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01573">all_defs.cpp:1573</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1075,7 +1079,7 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 <div class="line"><span class="lineno"> 1604</span>                                <span class="keywordflow">return</span> N1&lt;=&gt;N2;</div>
 <div class="line"><span class="lineno"> 1605</span>                            }</div>
 <div class="line"><span class="lineno"> 1606</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24899">all_defs.cpp:24899</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25129">all_defs.cpp:25129</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1112,7 +1116,7 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 <div class="line"><span class="lineno"> 1733</span>                            <span class="keywordflow">else</span></div>
 <div class="line"><span class="lineno"> 1734</span>                                <span class="keywordflow">return</span> odr;</div>
 <div class="line"><span class="lineno"> 1735</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24973">all_defs.cpp:24973</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -147,15 +147,15 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21171">21171</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21171</span>                                                                            {</div>
-<div class="line"><span class="lineno">21172</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
-<div class="line"><span class="lineno">21173</span>                        dlclose(handle)</div>
-<div class="line"><span class="lineno">21174</span>                    <span class="preprocessor">#elif SYSTEM_TYPE == windows</span></div>
-<div class="line"><span class="lineno">21175</span>                        FreeLibrary(handle)</div>
-<div class="line"><span class="lineno">21176</span>                    <span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">21177</span>                    ;</div>
-<div class="line"><span class="lineno">21178</span>                }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21401">21401</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21401</span>                                                                            {</div>
+<div class="line"><span class="lineno">21402</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
+<div class="line"><span class="lineno">21403</span>                        dlclose(handle)</div>
+<div class="line"><span class="lineno">21404</span>                    <span class="preprocessor">#elif SYSTEM_TYPE == windows</span></div>
+<div class="line"><span class="lineno">21405</span>                        FreeLibrary(handle)</div>
+<div class="line"><span class="lineno">21406</span>                    <span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">21407</span>                    ;</div>
+<div class="line"><span class="lineno">21408</span>                }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -182,17 +182,17 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21162">21162</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21162</span>                                                                        {</div>
-<div class="line"><span class="lineno">21163</span>                    <span class="keywordflow">return</span></div>
-<div class="line"><span class="lineno">21164</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
-<div class="line"><span class="lineno">21165</span>                        to_char_t_str(dlerror());</div>
-<div class="line"><span class="lineno">21166</span><span class="preprocessor">                    #elif SYSTEM_TYPE == windows</span></div>
-<div class="line"><span class="lineno">21167</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;ERROR CODE:&quot;</span>_constexpr_str+to_string((DWORD)GetLastError());<span class="comment">//傻逼微软设计的jb端口，再您妈的见</span></div>
-<div class="line"><span class="lineno">21168</span><span class="preprocessor">                    #endif</span></div>
-<div class="line"><span class="lineno">21169</span>                    ;</div>
-<div class="line"><span class="lineno">21170</span>                }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ea5a3995fc5de169b1bb02bb1107bea"><div class="ttname"><a href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a></div><div class="ttdeci">#define es</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25001">all_defs.cpp:25001</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21392">21392</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21392</span>                                                                        {</div>
+<div class="line"><span class="lineno">21393</span>                    <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">21394</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
+<div class="line"><span class="lineno">21395</span>                        to_char_t_str(dlerror());</div>
+<div class="line"><span class="lineno">21396</span><span class="preprocessor">                    #elif SYSTEM_TYPE == windows</span></div>
+<div class="line"><span class="lineno">21397</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;ERROR CODE:&quot;</span>_constexpr_str+to_string((DWORD)GetLastError());<span class="comment">//傻逼微软设计的jb端口，再您妈的见</span></div>
+<div class="line"><span class="lineno">21398</span><span class="preprocessor">                    #endif</span></div>
+<div class="line"><span class="lineno">21399</span>                    ;</div>
+<div class="line"><span class="lineno">21400</span>                }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ea5a3995fc5de169b1bb02bb1107bea"><div class="ttname"><a href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a></div><div class="ttdeci">#define es</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25231">all_defs.cpp:25231</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -230,17 +230,17 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21179">21179</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21179</span>                                                                                                               {</div>
-<div class="line"><span class="lineno">21180</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
-<div class="line"><span class="lineno">21181</span>                    <span class="keywordflow">return</span></div>
-<div class="line"><span class="lineno">21182</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
-<div class="line"><span class="lineno">21183</span>                        dlsym(handle,symbol_name)</div>
-<div class="line"><span class="lineno">21184</span>                    <span class="preprocessor">#elif SYSTEM_TYPE == windows</span></div>
-<div class="line"><span class="lineno">21185</span>                        (<span class="keywordtype">void</span>*)GetProcAddress(handle,(LPCSTR)symbol_name)</div>
-<div class="line"><span class="lineno">21186</span>                    #endif</div>
-<div class="line"><span class="lineno">21187</span>                    ;</div>
-<div class="line"><span class="lineno">21188</span>                }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21409">21409</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21409</span>                                                                                                               {</div>
+<div class="line"><span class="lineno">21410</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
+<div class="line"><span class="lineno">21411</span>                    <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">21412</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
+<div class="line"><span class="lineno">21413</span>                        dlsym(handle,symbol_name)</div>
+<div class="line"><span class="lineno">21414</span>                    <span class="preprocessor">#elif SYSTEM_TYPE == windows</span></div>
+<div class="line"><span class="lineno">21415</span>                        (<span class="keywordtype">void</span>*)GetProcAddress(handle,(LPCSTR)symbol_name)</div>
+<div class="line"><span class="lineno">21416</span>                    #endif</div>
+<div class="line"><span class="lineno">21417</span>                    ;</div>
+<div class="line"><span class="lineno">21418</span>                }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -268,17 +268,17 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21152">21152</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21152</span>                                                                                                  {</div>
-<div class="line"><span class="lineno">21153</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
-<div class="line"><span class="lineno">21154</span>                    <span class="keywordflow">return</span></div>
-<div class="line"><span class="lineno">21155</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
-<div class="line"><span class="lineno">21156</span>                        dlopen(file_name,RTLD_LAZY)</div>
-<div class="line"><span class="lineno">21157</span>                    <span class="preprocessor">#elif SYSTEM_TYPE == windows</span></div>
-<div class="line"><span class="lineno">21158</span>                        LoadLibraryA((LPCSTR)file_name)</div>
-<div class="line"><span class="lineno">21159</span>                    <span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">21160</span>                    ;</div>
-<div class="line"><span class="lineno">21161</span>                }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21382">21382</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21382</span>                                                                                                  {</div>
+<div class="line"><span class="lineno">21383</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
+<div class="line"><span class="lineno">21384</span>                    <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">21385</span><span class="preprocessor">                    #if SYSTEM_TYPE == linux</span></div>
+<div class="line"><span class="lineno">21386</span>                        dlopen(file_name,RTLD_LAZY)</div>
+<div class="line"><span class="lineno">21387</span>                    <span class="preprocessor">#elif SYSTEM_TYPE == windows</span></div>
+<div class="line"><span class="lineno">21388</span>                        LoadLibraryA((LPCSTR)file_name)</div>
+<div class="line"><span class="lineno">21389</span>                    <span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">21390</span>                    ;</div>
+<div class="line"><span class="lineno">21391</span>                }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -306,11 +306,11 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21197">21197</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21197</span>                                                                       {</div>
-<div class="line"><span class="lineno">21198</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#a14758a5e1c71278c7cc365b9bd44619d">base_free_library</a>(handle);</div>
-<div class="line"><span class="lineno">21199</span>                }</div>
-<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_a14758a5e1c71278c7cc365b9bd44619d"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#a14758a5e1c71278c7cc365b9bd44619d">elc::APIs::library_load::base_free_library</a></div><div class="ttdeci">void base_free_library(library_handle handle) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21171">all_defs.cpp:21171</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21427">21427</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21427</span>                                                                       {</div>
+<div class="line"><span class="lineno">21428</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#a14758a5e1c71278c7cc365b9bd44619d">base_free_library</a>(handle);</div>
+<div class="line"><span class="lineno">21429</span>                }</div>
+<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_a14758a5e1c71278c7cc365b9bd44619d"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#a14758a5e1c71278c7cc365b9bd44619d">elc::APIs::library_load::base_free_library</a></div><div class="ttdeci">void base_free_library(library_handle handle) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21401">all_defs.cpp:21401</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -337,11 +337,11 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21194">21194</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21194</span>                                                                   {</div>
-<div class="line"><span class="lineno">21195</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#ab6d2372953f2983d27957fecaaeb9f62">base_get_load_error</a>();</div>
-<div class="line"><span class="lineno">21196</span>                }</div>
-<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_ab6d2372953f2983d27957fecaaeb9f62"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#ab6d2372953f2983d27957fecaaeb9f62">elc::APIs::library_load::base_get_load_error</a></div><div class="ttdeci">string base_get_load_error() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21162">all_defs.cpp:21162</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21424">21424</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21424</span>                                                                   {</div>
+<div class="line"><span class="lineno">21425</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#ab6d2372953f2983d27957fecaaeb9f62">base_get_load_error</a>();</div>
+<div class="line"><span class="lineno">21426</span>                }</div>
+<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_ab6d2372953f2983d27957fecaaeb9f62"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#ab6d2372953f2983d27957fecaaeb9f62">elc::APIs::library_load::base_get_load_error</a></div><div class="ttdeci">string base_get_load_error() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21392">all_defs.cpp:21392</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -379,12 +379,12 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21200">21200</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21200</span>                                                                                                      {</div>
-<div class="line"><span class="lineno">21201</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
-<div class="line"><span class="lineno">21202</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#a73963cef687e3ef85177db9457f353bb">base_get_symbol</a>(handle,to_char_str(symbol_name).c_str());</div>
-<div class="line"><span class="lineno">21203</span>                }</div>
-<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_a73963cef687e3ef85177db9457f353bb"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#a73963cef687e3ef85177db9457f353bb">elc::APIs::library_load::base_get_symbol</a></div><div class="ttdeci">void * base_get_symbol(library_handle handle, const char *symbol_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21179">all_defs.cpp:21179</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21430">21430</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21430</span>                                                                                                      {</div>
+<div class="line"><span class="lineno">21431</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
+<div class="line"><span class="lineno">21432</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#a73963cef687e3ef85177db9457f353bb">base_get_symbol</a>(handle,to_char_str(symbol_name).c_str());</div>
+<div class="line"><span class="lineno">21433</span>                }</div>
+<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_a73963cef687e3ef85177db9457f353bb"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#a73963cef687e3ef85177db9457f353bb">elc::APIs::library_load::base_get_symbol</a></div><div class="ttdeci">void * base_get_symbol(library_handle handle, const char *symbol_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21409">all_defs.cpp:21409</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -412,12 +412,12 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21190">21190</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">21190</span>                                                                                         {</div>
-<div class="line"><span class="lineno">21191</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
-<div class="line"><span class="lineno">21192</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#aa00efce7abe1cddefa9d4dfaafc66acf">base_load_library</a>(to_char_str(file_name).c_str());</div>
-<div class="line"><span class="lineno">21193</span>                }</div>
-<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_aa00efce7abe1cddefa9d4dfaafc66acf"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#aa00efce7abe1cddefa9d4dfaafc66acf">elc::APIs::library_load::base_load_library</a></div><div class="ttdeci">library_handle base_load_library(const char *file_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21152">all_defs.cpp:21152</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21420">21420</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">21420</span>                                                                                         {</div>
+<div class="line"><span class="lineno">21421</span>                    <span class="comment">//可返回bool意义为空的值表示失败</span></div>
+<div class="line"><span class="lineno">21422</span>                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1library__load.html#aa00efce7abe1cddefa9d4dfaafc66acf">base_load_library</a>(to_char_str(file_name).c_str());</div>
+<div class="line"><span class="lineno">21423</span>                }</div>
+<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1library__load_html_aa00efce7abe1cddefa9d4dfaafc66acf"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1library__load.html#aa00efce7abe1cddefa9d4dfaafc66acf">elc::APIs::library_load::base_load_library</a></div><div class="ttdeci">library_handle base_load_library(const char *file_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21382">all_defs.cpp:21382</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -434,7 +434,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1library__lo
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21150">21150</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l21380">21380</a> 行定义.</p>
 
 </div>
 </div>

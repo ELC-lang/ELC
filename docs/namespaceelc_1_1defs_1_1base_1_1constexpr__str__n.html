@@ -102,10 +102,12 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1defs_1_1base_1_1conste
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 类</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作  <a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#details">更多...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t__literal__helper.html">constexpr_str_t_literal_helper</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">constexpr_str_t的退化类型，表明这是常量字符串，但没有可用的额外信息  <a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html#details">更多...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider.html">literal_result_provider</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,12 +116,14 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1defs_1_1base_1_1conste
 函数</h2></td></tr>
 <tr class="memitem:a34eace64056a74c9de97a51ac116ec1b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t__literal__helper.html">constexpr_str_t_literal_helper</a> str_helper&gt; </td></tr>
 <tr class="memitem:a34eace64056a74c9de97a51ac116ec1b"><td class="memTemplItemLeft" align="right" valign="top">consteval auto &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceelc_1_1defs_1_1base_1_1constexpr__str__n.html#a34eace64056a74c9de97a51ac116ec1b">operator&quot;&quot;_constexpr_str</a> () noexcept</td></tr>
+<tr class="memdesc:a34eace64056a74c9de97a51ac116ec1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作  <a href="namespaceelc_1_1defs_1_1base_1_1constexpr__str__n.html#a34eace64056a74c9de97a51ac116ec1b">更多...</a><br /></td></tr>
 <tr class="separator:a34eace64056a74c9de97a51ac116ec1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 变量</h2></td></tr>
 <tr class="memitem:aab1724795f10209e3ed1f6c2e4173f0c"><td class="memTemplParams" colspan="2">template&lt;class char_T &gt; </td></tr>
 <tr class="memitem:aab1724795f10209e3ed1f6c2e4173f0c"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceelc_1_1defs_1_1base_1_1constexpr__str__n.html#aab1724795f10209e3ed1f6c2e4173f0c">empty_constexpr_str_of</a> = <a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html">constexpr_str_t</a>(&amp;<a class="el" href="namespaceelc_1_1defs_1_1base.html#a02555c9f4b1529e33ee944f3842879a1">const_default_value_of</a>&lt;char_T&gt;,0)</td></tr>
+<tr class="memdesc:aab1724795f10209e3ed1f6c2e4173f0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">空字串常量且str或begin会指向一个0终止字符串（而不是nullptr），便于安全初始化  <a href="namespaceelc_1_1defs_1_1base_1_1constexpr__str__n.html#aab1724795f10209e3ed1f6c2e4173f0c">更多...</a><br /></td></tr>
 <tr class="separator:aab1724795f10209e3ed1f6c2e4173f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">函数说明</h2>
@@ -148,11 +152,13 @@ template&lt;<a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03073">3073</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3073</span>                                                                                               {</div>
-<div class="line"><span class="lineno"> 3074</span>                            <span class="keywordflow">return</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider.html">literal_result_provider&lt;str_helper&gt;::value</a>;</div>
-<div class="line"><span class="lineno"> 3075</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider.html">elc::defs::base::constexpr_str_n::literal_result_provider</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03067">all_defs.cpp:3067</a></div></div>
+<p>告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作 </p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03165">3165</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3165</span>                                                                                               {</div>
+<div class="line"><span class="lineno"> 3166</span>                            <span class="keywordflow">return</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider.html">literal_result_provider&lt;str_helper&gt;::value</a>;</div>
+<div class="line"><span class="lineno"> 3167</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1literal__result__provider.html">elc::defs::base::constexpr_str_n::literal_result_provider</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03159">all_defs.cpp:3159</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -179,7 +185,9 @@ template&lt;class char_T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03078">3078</a> 行定义.</p>
+<p>空字串常量且str或begin会指向一个0终止字符串（而不是nullptr），便于安全初始化 </p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03170">3170</a> 行定义.</p>
 
 </div>
 </div>

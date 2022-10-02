@@ -126,7 +126,7 @@ requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). for_e
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 class elc::defs::memory::gc_n::roots_t&lt; T &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10537">10537</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10767">10767</a> 行定义.</p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="a4dc2085359ecb1fea5b05b4e2893fe9e" name="a4dc2085359ecb1fea5b05b4e2893fe9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4dc2085359ecb1fea5b05b4e2893fe9e">&#9670;&#160;</a></span>roots_t()</h2>
@@ -212,8 +212,8 @@ requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). add (
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10548">10548</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10552</span>{</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10778">10778</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10782</span>{</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -246,8 +246,8 @@ requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). for_e
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10550">10550</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10552</span>{</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10780">10780</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10782</span>{</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -280,8 +280,8 @@ requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). map (
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10547">10547</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10552</span>{</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10777">10777</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10782</span>{</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -310,17 +310,17 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10552">10552</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10552</span>                                                                                      {</div>
-<div class="line"><span class="lineno">10553</span>                        _roots.for_each(</div>
-<div class="line"><span class="lineno">10554</span>                            <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(value_t&amp;a)<a class="code hl_define" href="all__defs_8cpp.html#add671a288dc2754c18f320fd2648e204">noexcept_as</a>(a-&gt;map_and_mark())</div>
-<div class="line"><span class="lineno">10555</span>                            {</div>
-<div class="line"><span class="lineno">10556</span>                                a-&gt;map_and_mark();</div>
-<div class="line"><span class="lineno">10557</span>                            }</div>
-<div class="line"><span class="lineno">10558</span>                        );</div>
-<div class="line"><span class="lineno">10559</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_add671a288dc2754c18f320fd2648e204"><div class="ttname"><a href="all__defs_8cpp.html#add671a288dc2754c18f320fd2648e204">noexcept_as</a></div><div class="ttdeci">#define noexcept_as(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24869">all_defs.cpp:24869</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_ae58c3260bfb1facea39e0aec11acee3a"><div class="ttname"><a href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a></div><div class="ttdeci">#define lambda</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24959">all_defs.cpp:24959</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10782">10782</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10782</span>                                                                                      {</div>
+<div class="line"><span class="lineno">10783</span>                        _roots.for_each(</div>
+<div class="line"><span class="lineno">10784</span>                            <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(value_t&amp;a)<a class="code hl_define" href="all__defs_8cpp.html#add671a288dc2754c18f320fd2648e204">noexcept_as</a>(a-&gt;map_and_mark())</div>
+<div class="line"><span class="lineno">10785</span>                            {</div>
+<div class="line"><span class="lineno">10786</span>                                a-&gt;map_and_mark();</div>
+<div class="line"><span class="lineno">10787</span>                            }</div>
+<div class="line"><span class="lineno">10788</span>                        );</div>
+<div class="line"><span class="lineno">10789</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_add671a288dc2754c18f320fd2648e204"><div class="ttname"><a href="all__defs_8cpp.html#add671a288dc2754c18f320fd2648e204">noexcept_as</a></div><div class="ttdeci">#define noexcept_as(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25099">all_defs.cpp:25099</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_ae58c3260bfb1facea39e0aec11acee3a"><div class="ttname"><a href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a></div><div class="ttdeci">#define lambda</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25189">all_defs.cpp:25189</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -353,8 +353,8 @@ requires (bool(requires{ ((::std::declval&lt; decltype( _roots ) &gt;())). remov
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10549">10549</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10552</span>{</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10779">10779</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10782</span>{</div>
 </div><!-- fragment -->
 </div>
 </div>

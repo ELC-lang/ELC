@@ -126,7 +126,7 @@ Public 成员函数</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><p >混沌布尔值。 允许输出介于真假之间的内容的布尔值。 混沌布尔值会有五个可能的值，分别为true,false,neither,either。unknown视为不合法。 用在if与while中时，true，either被判定为真，其与均为假。 用法： <a class="el" href="structelc_1_1defs_1_1base_1_1logical__bool.html#a8654a79e521d836d81d0608e9a19dc4b">logical_bool(bool)</a> 输出logical_bool,将布尔值转换为混沌布尔值。 bool(logical_bool) 输出bool，将混沌布尔值转化为布尔值。 允许与或非运算：输出结果仍然为混沌布尔值,参与运算的值如果有unknown则均输出unknown. 允许判定相等，输出结果为混沌布尔值,参与运算的值如果有unknown则均输出unknown，否则仅有true和false两个合法值。 </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03169">3169</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03261">3261</a> 行定义.</p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="aaee8e88187c47a2bf8045a2d1c4bc42b" name="aaee8e88187c47a2bf8045a2d1c4bc42b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaee8e88187c47a2bf8045a2d1c4bc42b">&#9670;&#160;</a></span>logical_bool() <span class="overload">[1/3]</span></h2>
@@ -174,8 +174,8 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03175">3175</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3175</span>:_is_true(is_true),_is_false(is_false),_is_unknown(is_unknown){}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03267">3267</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3267</span>:_is_true(is_true),_is_false(is_false),_is_unknown(is_unknown){}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -203,8 +203,8 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03176">3176</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3176</span>:_is_true(a),_is_false(!a),_is_unknown(0){}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03268">3268</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3268</span>:_is_true(a),_is_false(!a),_is_unknown(0){}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -258,8 +258,8 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03179">3179</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3179</span>{<span class="keywordflow">return</span> _is_true &amp;&amp; !_is_unknown;}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03271">3271</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3271</span>{<span class="keywordflow">return</span> _is_true &amp;&amp; !_is_unknown;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -286,14 +286,14 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03180">3180</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3180</span>                                                               {</div>
-<div class="line"><span class="lineno"> 3181</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a> aret=*<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno"> 3182</span>                            <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1iterator__n.html#a7c83468dadf68e32797e9993a87f4483">swap</a>(aret._is_true,aret._is_false);</div>
-<div class="line"><span class="lineno"> 3183</span>                            <span class="keywordflow">return</span> aret;</div>
-<div class="line"><span class="lineno"> 3184</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1iterator__n_html_a7c83468dadf68e32797e9993a87f4483"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1iterator__n.html#a7c83468dadf68e32797e9993a87f4483">elc::defs::base::iterator_n::swap</a></div><div class="ttdeci">void swap(same_base_t&lt; value_t, base_t_w &gt; &amp;a, same_base_t&lt; value_t, base_t_w &gt; &amp;b) noexcept(noexcept((a.swap_with(b))))</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06514">all_defs.cpp:6514</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1logical__bool_html_aaee8e88187c47a2bf8045a2d1c4bc42b"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">elc::defs::base::logical_bool::logical_bool</a></div><div class="ttdeci">constexpr logical_bool(special_init_t, bool is_true, bool is_false, bool is_unknown=0)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03175">all_defs.cpp:3175</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03272">3272</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3272</span>                                                               {</div>
+<div class="line"><span class="lineno"> 3273</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a> aret=*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno"> 3274</span>                            <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1iterator__n.html#a7c83468dadf68e32797e9993a87f4483">swap</a>(aret._is_true,aret._is_false);</div>
+<div class="line"><span class="lineno"> 3275</span>                            <span class="keywordflow">return</span> aret;</div>
+<div class="line"><span class="lineno"> 3276</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1iterator__n_html_a7c83468dadf68e32797e9993a87f4483"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1iterator__n.html#a7c83468dadf68e32797e9993a87f4483">elc::defs::base::iterator_n::swap</a></div><div class="ttdeci">void swap(same_base_t&lt; value_t, base_t_w &gt; &amp;a, same_base_t&lt; value_t, base_t_w &gt; &amp;b) noexcept(noexcept((a.swap_with(b))))</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06636">all_defs.cpp:6636</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1logical__bool_html_aaee8e88187c47a2bf8045a2d1c4bc42b"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">elc::defs::base::logical_bool::logical_bool</a></div><div class="ttdeci">constexpr logical_bool(special_init_t, bool is_true, bool is_false, bool is_unknown=0)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03267">all_defs.cpp:3267</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -358,10 +358,10 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03185">3185</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3185</span>                                                                                             {</div>
-<div class="line"><span class="lineno"> 3186</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a307c7cf8aaa202dc2bf2f477c01c5f98">special_init</a>,a._is_true &amp;&amp; b._is_true,a._is_false || b._is_false,a._is_unknown || b._is_unknown};</div>
-<div class="line"><span class="lineno"> 3187</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03277">3277</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3277</span>                                                                                             {</div>
+<div class="line"><span class="lineno"> 3278</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a307c7cf8aaa202dc2bf2f477c01c5f98">special_init</a>,a._is_true &amp;&amp; b._is_true,a._is_false || b._is_false,a._is_unknown || b._is_unknown};</div>
+<div class="line"><span class="lineno"> 3279</span>                        }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a307c7cf8aaa202dc2bf2f477c01c5f98"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a307c7cf8aaa202dc2bf2f477c01c5f98">elc::defs::base::special_init</a></div><div class="ttdeci">constexpr struct elc::defs::base::special_init_t special_init</div></div>
 </div><!-- fragment -->
 </div>
@@ -400,12 +400,12 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03191">3191</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3191</span>                                                                                             {</div>
-<div class="line"><span class="lineno"> 3192</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a> aret(a._is_true == b._is_true &amp;&amp; a._is_false == b._is_false);</div>
-<div class="line"><span class="lineno"> 3193</span>                            aret._is_unknown = a._is_unknown || b._is_unknown;</div>
-<div class="line"><span class="lineno"> 3194</span>                            <span class="keywordflow">return</span> aret;</div>
-<div class="line"><span class="lineno"> 3195</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03283">3283</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3283</span>                                                                                             {</div>
+<div class="line"><span class="lineno"> 3284</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a> aret(a._is_true == b._is_true &amp;&amp; a._is_false == b._is_false);</div>
+<div class="line"><span class="lineno"> 3285</span>                            aret._is_unknown = a._is_unknown || b._is_unknown;</div>
+<div class="line"><span class="lineno"> 3286</span>                            <span class="keywordflow">return</span> aret;</div>
+<div class="line"><span class="lineno"> 3287</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -443,10 +443,10 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03188">3188</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3188</span>                                                                                             {</div>
-<div class="line"><span class="lineno"> 3189</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a307c7cf8aaa202dc2bf2f477c01c5f98">special_init</a>,a._is_true || b._is_true,a._is_false &amp;&amp; b._is_false,a._is_unknown || b._is_unknown};</div>
-<div class="line"><span class="lineno"> 3190</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03280">3280</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3280</span>                                                                                             {</div>
+<div class="line"><span class="lineno"> 3281</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1logical__bool.html#aaee8e88187c47a2bf8045a2d1c4bc42b">logical_bool</a>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a307c7cf8aaa202dc2bf2f477c01c5f98">special_init</a>,a._is_true || b._is_true,a._is_false &amp;&amp; b._is_false,a._is_unknown || b._is_unknown};</div>
+<div class="line"><span class="lineno"> 3282</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -121,7 +121,7 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1get__n_1_1unget__t.h
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07629">7629</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07859">7859</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a0c5d573c81dca579fe400da98e76410c" name="a0c5d573c81dca579fe400da98e76410c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c5d573c81dca579fe400da98e76410c">&#9670;&#160;</a></span>operator()() <span class="overload">[1/2]</span></h2>
@@ -150,31 +150,31 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1get__n_1_1unget__t.h
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07636">7636</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7636</span>                                                                      {</div>
-<div class="line"><span class="lineno"> 7637</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
-<div class="line"><span class="lineno"> 7638</span>                            <span class="keywordflow">if</span>(a!=null_ptr){</div>
-<div class="line"><span class="lineno"> 7639</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(abstract_base))</div>
-<div class="line"><span class="lineno"> 7640</span>                                    #<span class="keywordflow">if</span> defined(_MSC_VER)</div>
-<div class="line"><span class="lineno"> 7641</span>                                        [[gsl::suppress(f.6)]]</div>
-<div class="line"><span class="lineno"> 7642</span><span class="preprocessor">                                    #endif</span></div>
-<div class="line"><span class="lineno"> 7643</span>                                    attribute_ptr_cast&lt;abstract_base&gt;(a)-&gt;abstract_method_unget_this();</div>
-<div class="line"><span class="lineno"> 7644</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7645</span>                                    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#abeeb256840ae63300da22b470ef4ea40">nothrow</a>&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 7646</span>                                        <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the destructer of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7647</span>                                    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 7648</span>                                        <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>(a);</div>
-<div class="line"><span class="lineno"> 7649</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7650</span>                                        <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>[<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">get_size_of_alloc</a>(a)](a);</div>
-<div class="line"><span class="lineno"> 7651</span>                                    <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(a);</div>
-<div class="line"><span class="lineno"> 7652</span>                                }</div>
-<div class="line"><span class="lineno"> 7653</span>                            }</div>
-<div class="line"><span class="lineno"> 7654</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24899">all_defs.cpp:24899</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07866">7866</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7866</span>                                                                      {</div>
+<div class="line"><span class="lineno"> 7867</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
+<div class="line"><span class="lineno"> 7868</span>                            <span class="keywordflow">if</span>(a!=null_ptr){</div>
+<div class="line"><span class="lineno"> 7869</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(abstract_base))</div>
+<div class="line"><span class="lineno"> 7870</span>                                    #<span class="keywordflow">if</span> defined(_MSC_VER)</div>
+<div class="line"><span class="lineno"> 7871</span>                                        [[gsl::suppress(f.6)]]</div>
+<div class="line"><span class="lineno"> 7872</span><span class="preprocessor">                                    #endif</span></div>
+<div class="line"><span class="lineno"> 7873</span>                                    attribute_ptr_cast&lt;abstract_base&gt;(a)-&gt;abstract_method_unget_this();</div>
+<div class="line"><span class="lineno"> 7874</span>                                <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7875</span>                                    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#abeeb256840ae63300da22b470ef4ea40">nothrow</a>&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 7876</span>                                        <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the destructer of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7877</span>                                    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 7878</span>                                        <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>(a);</div>
+<div class="line"><span class="lineno"> 7879</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7880</span>                                        <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>[<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">get_size_of_alloc</a>(a)](a);</div>
+<div class="line"><span class="lineno"> 7881</span>                                    <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(a);</div>
+<div class="line"><span class="lineno"> 7882</span>                                }</div>
+<div class="line"><span class="lineno"> 7883</span>                            }</div>
+<div class="line"><span class="lineno"> 7884</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25129">all_defs.cpp:25129</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ab3de15a7bb31a5dd66d7129effe17351"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">elc::defs::memory::alloc_n::get_size_of_alloc</a></div><div class="ttdeci">constexpr struct elc::defs::memory::alloc_n::get_size_of_alloc_t get_size_of_alloc</div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ad25eff1192fc3f7e04091aa42eb5d41e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">elc::defs::memory::alloc_n::free</a></div><div class="ttdeci">constexpr struct elc::defs::memory::alloc_n::free_t free</div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a87faccffed48c44e57afc7da9fbd49b0"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">elc::defs::memory::lifetime_n::destruct</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::destruct_t destruct</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t_html_abeeb256840ae63300da22b470ef4ea40"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#abeeb256840ae63300da22b470ef4ea40">elc::defs::memory::lifetime_n::destruct_t::nothrow</a></div><div class="ttdeci">static constexpr bool nothrow</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05740">all_defs.cpp:5740</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t_html_abeeb256840ae63300da22b470ef4ea40"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#abeeb256840ae63300da22b470ef4ea40">elc::defs::memory::lifetime_n::destruct_t::nothrow</a></div><div class="ttdeci">static constexpr bool nothrow</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05862">all_defs.cpp:5862</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -215,11 +215,11 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1get__n_1_1unget__t.h
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07657">7657</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7657</span>                                                                                              {</div>
-<div class="line"><span class="lineno"> 7658</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
-<div class="line"><span class="lineno"> 7659</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(a);</div>
-<div class="line"><span class="lineno"> 7660</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07887">7887</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7887</span>                                                                                              {</div>
+<div class="line"><span class="lineno"> 7888</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
+<div class="line"><span class="lineno"> 7889</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(a);</div>
+<div class="line"><span class="lineno"> 7890</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -246,7 +246,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07631">7631</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07861">7861</a> 行定义.</p>
 
 </div>
 </div>
@@ -272,7 +272,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07633">7633</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07863">7863</a> 行定义.</p>
 
 </div>
 </div>

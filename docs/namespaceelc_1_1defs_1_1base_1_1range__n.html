@@ -314,15 +314,15 @@ template&lt;typename T &gt; </div>
 
 <p>find_first_not_of的朴素实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02647">2647</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2647</span>                                                                                                                               {</div>
-<div class="line"><span class="lineno"> 2648</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
-<div class="line"><span class="lineno"> 2649</span>                                <span class="keywordflow">if</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
-<div class="line"><span class="lineno"> 2650</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2651</span>                            }</div>
-<div class="line"><span class="lineno"> 2652</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2653</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_ace6a3a9d079214ee7bcce5acbef1e07f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">elc::defs::base::range_n::in_range</a></div><div class="ttdeci">constexpr bool in_range(T pattern, const range_t&lt; T &gt;range) noexcept(noexcept((bool((::std::declval&lt; T &gt;())&gt;=(::std::declval&lt; const T &gt;()) &amp;&amp;(::std::declval&lt; T &gt;())&lt;=(::std::declval&lt; const T &gt;())))))</div><div class="ttdoc">判断一个值是否在某个范围内</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02290">all_defs.cpp:2290</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02739">2739</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2739</span>                                                                                                                               {</div>
+<div class="line"><span class="lineno"> 2740</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
+<div class="line"><span class="lineno"> 2741</span>                                <span class="keywordflow">if</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
+<div class="line"><span class="lineno"> 2742</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2743</span>                            }</div>
+<div class="line"><span class="lineno"> 2744</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2745</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_ace6a3a9d079214ee7bcce5acbef1e07f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">elc::defs::base::range_n::in_range</a></div><div class="ttdeci">constexpr bool in_range(T pattern, const range_t&lt; T &gt;range) noexcept(noexcept((bool((::std::declval&lt; T &gt;())&gt;=(::std::declval&lt; const T &gt;()) &amp;&amp;(::std::declval&lt; T &gt;())&lt;=(::std::declval&lt; const T &gt;())))))</div><div class="ttdoc">判断一个值是否在某个范围内</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02382">all_defs.cpp:2382</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -364,14 +364,14 @@ template&lt;typename T &gt; </div>
 
 <p>find_first_of的朴素实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02568">2568</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2568</span>                                                                                                                           {</div>
-<div class="line"><span class="lineno"> 2569</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
-<div class="line"><span class="lineno"> 2570</span>                                <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
-<div class="line"><span class="lineno"> 2571</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2572</span>                            }</div>
-<div class="line"><span class="lineno"> 2573</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2574</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02660">2660</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2660</span>                                                                                                                           {</div>
+<div class="line"><span class="lineno"> 2661</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
+<div class="line"><span class="lineno"> 2662</span>                                <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
+<div class="line"><span class="lineno"> 2663</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2664</span>                            }</div>
+<div class="line"><span class="lineno"> 2665</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2666</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -413,14 +413,14 @@ template&lt;typename T &gt; </div>
 
 <p>find_last_not_of的朴素实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02687">2687</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2687</span>                                                                                                                              {</div>
-<div class="line"><span class="lineno"> 2688</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range|::std::views::reverse){</div>
-<div class="line"><span class="lineno"> 2689</span>                                <span class="keywordflow">if</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
-<div class="line"><span class="lineno"> 2690</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2691</span>                            }</div>
-<div class="line"><span class="lineno"> 2692</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2693</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02779">2779</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2779</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno"> 2780</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range|::std::views::reverse){</div>
+<div class="line"><span class="lineno"> 2781</span>                                <span class="keywordflow">if</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
+<div class="line"><span class="lineno"> 2782</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2783</span>                            }</div>
+<div class="line"><span class="lineno"> 2784</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2785</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -462,14 +462,14 @@ template&lt;typename T &gt; </div>
 
 <p>find_last_of的朴素实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02607">2607</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2607</span>                                                                                                                          {</div>
-<div class="line"><span class="lineno"> 2608</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range|::std::views::reverse){</div>
-<div class="line"><span class="lineno"> 2609</span>                                <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
-<div class="line"><span class="lineno"> 2610</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2611</span>                            }</div>
-<div class="line"><span class="lineno"> 2612</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2613</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02699">2699</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2699</span>                                                                                                                          {</div>
+<div class="line"><span class="lineno"> 2700</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range|::std::views::reverse){</div>
+<div class="line"><span class="lineno"> 2701</span>                                <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(i,pattern))</div>
+<div class="line"><span class="lineno"> 2702</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2703</span>                            }</div>
+<div class="line"><span class="lineno"> 2704</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2705</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -499,9 +499,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02285">2285</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2285</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>();}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1range__t_html_a5971473592fe495275a876b1a7d85686"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">elc::defs::base::range_n::range_t::begin</a></div><div class="ttdeci">constexpr auto begin() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02267">all_defs.cpp:2267</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02377">2377</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2377</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>();}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1range__t_html_a5971473592fe495275a876b1a7d85686"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">elc::defs::base::range_n::range_t::begin</a></div><div class="ttdeci">constexpr auto begin() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02359">all_defs.cpp:2359</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -531,8 +531,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02283">2283</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2283</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>();}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02375">2375</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2375</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>();}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -574,18 +574,18 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02657">2657</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2657</span>                                                                                                                          {</div>
-<div class="line"><span class="lineno"> 2658</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 2659</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
-<div class="line"><span class="lineno"> 2660</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
-<div class="line"><span class="lineno"> 2661</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a563768bc44c8a53706bb1996bcd89785">find_first_not_of_bitmark</a>(mark,range);</div>
-<div class="line"><span class="lineno"> 2662</span>                            }</div>
-<div class="line"><span class="lineno"> 2663</span>                            <span class="keywordflow">return</span> base_find_first_not_of(pattern,range);</div>
-<div class="line"><span class="lineno"> 2664</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a563768bc44c8a53706bb1996bcd89785"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a563768bc44c8a53706bb1996bcd89785">elc::defs::base::range_n::find_first_not_of_bitmark</a></div><div class="ttdeci">constexpr T * find_first_not_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_first_not_of的bitmark实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02637">all_defs.cpp:2637</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">elc::defs::base::range_n::bitmark_for_finds</a></div><div class="ttdoc">bitmark提供了一种快速进行四种泛搜索的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。 若bitmark构建失败，程序应当使用正在进行的泛搜索的朴素实现版本...</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02529">all_defs.cpp:2529</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html_aac0eaf6119a2810bc00351cb3c7030e0"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">elc::defs::base::range_n::bitmark_for_finds::mark</a></div><div class="ttdeci">constexpr bool mark(array_like_view_t&lt; T &gt;pattern) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02534">all_defs.cpp:2534</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02749">2749</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2749</span>                                                                                                                          {</div>
+<div class="line"><span class="lineno"> 2750</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 2751</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
+<div class="line"><span class="lineno"> 2752</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
+<div class="line"><span class="lineno"> 2753</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a563768bc44c8a53706bb1996bcd89785">find_first_not_of_bitmark</a>(mark,range);</div>
+<div class="line"><span class="lineno"> 2754</span>                            }</div>
+<div class="line"><span class="lineno"> 2755</span>                            <span class="keywordflow">return</span> base_find_first_not_of(pattern,range);</div>
+<div class="line"><span class="lineno"> 2756</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a563768bc44c8a53706bb1996bcd89785"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a563768bc44c8a53706bb1996bcd89785">elc::defs::base::range_n::find_first_not_of_bitmark</a></div><div class="ttdeci">constexpr T * find_first_not_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_first_not_of的bitmark实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02729">all_defs.cpp:2729</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">elc::defs::base::range_n::bitmark_for_finds</a></div><div class="ttdoc">bitmark提供了一种快速进行四种泛搜索的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。 若bitmark构建失败，程序应当使用正在进行的泛搜索的朴素实现版本...</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02621">all_defs.cpp:2621</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds_html_aac0eaf6119a2810bc00351cb3c7030e0"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">elc::defs::base::range_n::bitmark_for_finds::mark</a></div><div class="ttdeci">constexpr bool mark(array_like_view_t&lt; T &gt;pattern) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02626">all_defs.cpp:2626</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -625,18 +625,18 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03120">3120</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3120</span>                                                                                                                               {</div>
-<div class="line"><span class="lineno"> 3121</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
-<div class="line"><span class="lineno"> 3122</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a563768bc44c8a53706bb1996bcd89785">find_first_not_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
-<div class="line"><span class="lineno"> 3123</span>                            }</div>
-<div class="line"><span class="lineno"> 3124</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 3125</span>                                <span class="keywordflow">return</span> find_first_not_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
-<div class="line"><span class="lineno"> 3126</span>                            }</div>
-<div class="line"><span class="lineno"> 3127</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_a244f65d6f930e601e9c3bde83ed8dc1b"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">elc::defs::base::constexpr_str_n::constexpr_str_t::bitmark_for_finds</a></div><div class="ttdeci">range_n::bitmark_for_finds&lt; const char_T &gt; bitmark_for_finds</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03044">all_defs.cpp:3044</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_a4a19e9699a565a289d02a90c153667a0"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">elc::defs::base::constexpr_str_n::constexpr_str_t::is_bitmark_workable</a></div><div class="ttdeci">bool is_bitmark_workable</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03045">all_defs.cpp:3045</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">elc::defs::base::constexpr_str_n::constexpr_str_view_t</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03009">all_defs.cpp:3009</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03212">3212</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3212</span>                                                                                                                               {</div>
+<div class="line"><span class="lineno"> 3213</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
+<div class="line"><span class="lineno"> 3214</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a563768bc44c8a53706bb1996bcd89785">find_first_not_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
+<div class="line"><span class="lineno"> 3215</span>                            }</div>
+<div class="line"><span class="lineno"> 3216</span>                            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 3217</span>                                <span class="keywordflow">return</span> find_first_not_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
+<div class="line"><span class="lineno"> 3218</span>                            }</div>
+<div class="line"><span class="lineno"> 3219</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_a244f65d6f930e601e9c3bde83ed8dc1b"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">elc::defs::base::constexpr_str_n::constexpr_str_t::bitmark_for_finds</a></div><div class="ttdeci">range_n::bitmark_for_finds&lt; const char_T &gt; bitmark_for_finds</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03136">all_defs.cpp:3136</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_a4a19e9699a565a289d02a90c153667a0"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">elc::defs::base::constexpr_str_n::constexpr_str_t::is_bitmark_workable</a></div><div class="ttdeci">bool is_bitmark_workable</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03137">all_defs.cpp:3137</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">elc::defs::base::constexpr_str_n::constexpr_str_view_t</a></div><div class="ttdoc">constexpr_str_t的退化类型，表明这是常量字符串，但没有可用的额外信息</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03101">all_defs.cpp:3101</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -678,14 +678,14 @@ template&lt;typename T &gt; </div>
 
 <p>find_first_not_of的bitmark实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02637">2637</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2637</span>                                                                                                                                      {</div>
-<div class="line"><span class="lineno"> 2638</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: range){</div>
-<div class="line"><span class="lineno"> 2639</span>                                <span class="keywordflow">if</span>(!mark[i])</div>
-<div class="line"><span class="lineno"> 2640</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2641</span>                            }</div>
-<div class="line"><span class="lineno"> 2642</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2643</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02729">2729</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2729</span>                                                                                                                                      {</div>
+<div class="line"><span class="lineno"> 2730</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: range){</div>
+<div class="line"><span class="lineno"> 2731</span>                                <span class="keywordflow">if</span>(!mark[i])</div>
+<div class="line"><span class="lineno"> 2732</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2733</span>                            }</div>
+<div class="line"><span class="lineno"> 2734</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2735</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -727,16 +727,16 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02667">2667</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2667</span>                                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 2668</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ae2dbbd141a649cf04c829ccc6d58f30b">find_first_not_of</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2669</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2670</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2671</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2672</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2673</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_abbce0d89c94bf852e4c0f829f4ecee24"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">elc::defs::base::range_n::npos</a></div><div class="ttdeci">static constexpr size_t npos</div><div class="ttdoc">用以指定不存在的位置</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02414">all_defs.cpp:2414</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_ae2dbbd141a649cf04c829ccc6d58f30b"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ae2dbbd141a649cf04c829ccc6d58f30b">elc::defs::base::range_n::find_first_not_of</a></div><div class="ttdeci">constexpr T * find_first_not_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02657">all_defs.cpp:2657</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02759">2759</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2759</span>                                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 2760</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ae2dbbd141a649cf04c829ccc6d58f30b">find_first_not_of</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2761</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2762</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2763</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2764</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2765</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_abbce0d89c94bf852e4c0f829f4ecee24"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">elc::defs::base::range_n::npos</a></div><div class="ttdeci">static constexpr size_t npos</div><div class="ttdoc">用以指定不存在的位置</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02506">all_defs.cpp:2506</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_ae2dbbd141a649cf04c829ccc6d58f30b"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ae2dbbd141a649cf04c829ccc6d58f30b">elc::defs::base::range_n::find_first_not_of</a></div><div class="ttdeci">constexpr T * find_first_not_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02749">all_defs.cpp:2749</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t_html_a613a7a28045bb8efd320108a432ad775"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">elc::defs::base::array_like_n::array_like_view_t::begin</a></div><div class="ttdeci">constexpr iterator begin() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01862">all_defs.cpp:1862</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -777,14 +777,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02794">2794</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2794</span>                                                                                                                                          {</div>
-<div class="line"><span class="lineno"> 2795</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ae2dbbd141a649cf04c829ccc6d58f30b">find_first_not_of</a>(pattern, range);</div>
-<div class="line"><span class="lineno"> 2796</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2797</span>                                <span class="keywordflow">return</span> result - range.data();</div>
-<div class="line"><span class="lineno"> 2798</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2799</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2800</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02886">2886</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2886</span>                                                                                                                                          {</div>
+<div class="line"><span class="lineno"> 2887</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ae2dbbd141a649cf04c829ccc6d58f30b">find_first_not_of</a>(pattern, range);</div>
+<div class="line"><span class="lineno"> 2888</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2889</span>                                <span class="keywordflow">return</span> result - range.data();</div>
+<div class="line"><span class="lineno"> 2890</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2891</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2892</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -826,16 +826,16 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02578">2578</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2578</span>                                                                                                                      {</div>
-<div class="line"><span class="lineno"> 2579</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 2580</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
-<div class="line"><span class="lineno"> 2581</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
-<div class="line"><span class="lineno"> 2582</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8db0f428d11a5031e06b11c6d84dc68b">find_first_of_bitmark</a>(mark,range);</div>
-<div class="line"><span class="lineno"> 2583</span>                            }</div>
-<div class="line"><span class="lineno"> 2584</span>                            <span class="keywordflow">return</span> base_find_first_of(pattern,range);</div>
-<div class="line"><span class="lineno"> 2585</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a8db0f428d11a5031e06b11c6d84dc68b"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8db0f428d11a5031e06b11c6d84dc68b">elc::defs::base::range_n::find_first_of_bitmark</a></div><div class="ttdeci">constexpr T * find_first_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_first_of的bitmark实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02558">all_defs.cpp:2558</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02670">2670</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2670</span>                                                                                                                      {</div>
+<div class="line"><span class="lineno"> 2671</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 2672</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
+<div class="line"><span class="lineno"> 2673</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
+<div class="line"><span class="lineno"> 2674</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8db0f428d11a5031e06b11c6d84dc68b">find_first_of_bitmark</a>(mark,range);</div>
+<div class="line"><span class="lineno"> 2675</span>                            }</div>
+<div class="line"><span class="lineno"> 2676</span>                            <span class="keywordflow">return</span> base_find_first_of(pattern,range);</div>
+<div class="line"><span class="lineno"> 2677</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a8db0f428d11a5031e06b11c6d84dc68b"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8db0f428d11a5031e06b11c6d84dc68b">elc::defs::base::range_n::find_first_of_bitmark</a></div><div class="ttdeci">constexpr T * find_first_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_first_of的bitmark实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02650">all_defs.cpp:2650</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -875,15 +875,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03098">3098</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3098</span>                                                                                                                           {</div>
-<div class="line"><span class="lineno"> 3099</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
-<div class="line"><span class="lineno"> 3100</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8db0f428d11a5031e06b11c6d84dc68b">find_first_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
-<div class="line"><span class="lineno"> 3101</span>                            }</div>
-<div class="line"><span class="lineno"> 3102</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 3103</span>                                <span class="keywordflow">return</span> find_first_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
-<div class="line"><span class="lineno"> 3104</span>                            }</div>
-<div class="line"><span class="lineno"> 3105</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03190">3190</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3190</span>                                                                                                                           {</div>
+<div class="line"><span class="lineno"> 3191</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
+<div class="line"><span class="lineno"> 3192</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8db0f428d11a5031e06b11c6d84dc68b">find_first_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
+<div class="line"><span class="lineno"> 3193</span>                            }</div>
+<div class="line"><span class="lineno"> 3194</span>                            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 3195</span>                                <span class="keywordflow">return</span> find_first_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
+<div class="line"><span class="lineno"> 3196</span>                            }</div>
+<div class="line"><span class="lineno"> 3197</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -925,14 +925,14 @@ template&lt;typename T &gt; </div>
 
 <p>find_first_of的bitmark实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02558">2558</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2558</span>                                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 2559</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
-<div class="line"><span class="lineno"> 2560</span>                                <span class="keywordflow">if</span>(mark[i])</div>
-<div class="line"><span class="lineno"> 2561</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2562</span>                            }</div>
-<div class="line"><span class="lineno"> 2563</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2564</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02650">2650</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2650</span>                                                                                                                                  {</div>
+<div class="line"><span class="lineno"> 2651</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
+<div class="line"><span class="lineno"> 2652</span>                                <span class="keywordflow">if</span>(mark[i])</div>
+<div class="line"><span class="lineno"> 2653</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2654</span>                            }</div>
+<div class="line"><span class="lineno"> 2655</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2656</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -974,15 +974,15 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02588">2588</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2588</span>                                                                                                                                 {</div>
-<div class="line"><span class="lineno"> 2589</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a6ac1bd58a416955da7938bc7bba2f2ae">find_first_of</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2590</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2591</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2592</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2593</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2594</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a6ac1bd58a416955da7938bc7bba2f2ae"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a6ac1bd58a416955da7938bc7bba2f2ae">elc::defs::base::range_n::find_first_of</a></div><div class="ttdeci">constexpr T * find_first_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02578">all_defs.cpp:2578</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02680">2680</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2680</span>                                                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2681</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a6ac1bd58a416955da7938bc7bba2f2ae">find_first_of</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2682</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2683</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2684</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2685</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2686</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a6ac1bd58a416955da7938bc7bba2f2ae"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a6ac1bd58a416955da7938bc7bba2f2ae">elc::defs::base::range_n::find_first_of</a></div><div class="ttdeci">constexpr T * find_first_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02670">all_defs.cpp:2670</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1022,14 +1022,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02772">2772</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2772</span>                                                                                                                                      {</div>
-<div class="line"><span class="lineno"> 2773</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a6ac1bd58a416955da7938bc7bba2f2ae">find_first_of</a>(pattern, range);</div>
-<div class="line"><span class="lineno"> 2774</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2775</span>                                <span class="keywordflow">return</span> result - range.data();</div>
-<div class="line"><span class="lineno"> 2776</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2777</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2778</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02864">2864</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2864</span>                                                                                                                                      {</div>
+<div class="line"><span class="lineno"> 2865</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a6ac1bd58a416955da7938bc7bba2f2ae">find_first_of</a>(pattern, range);</div>
+<div class="line"><span class="lineno"> 2866</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2867</span>                                <span class="keywordflow">return</span> result - range.data();</div>
+<div class="line"><span class="lineno"> 2868</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2869</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2870</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1071,16 +1071,16 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02697">2697</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2697</span>                                                                                                                         {</div>
-<div class="line"><span class="lineno"> 2698</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 2699</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
-<div class="line"><span class="lineno"> 2700</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
-<div class="line"><span class="lineno"> 2701</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8fb22aefdce465da055c710889985bd8">find_last_not_of_bitmark</a>(mark,range);</div>
-<div class="line"><span class="lineno"> 2702</span>                            }</div>
-<div class="line"><span class="lineno"> 2703</span>                            <span class="keywordflow">return</span> base_find_last_not_of(pattern,range);</div>
-<div class="line"><span class="lineno"> 2704</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a8fb22aefdce465da055c710889985bd8"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8fb22aefdce465da055c710889985bd8">elc::defs::base::range_n::find_last_not_of_bitmark</a></div><div class="ttdeci">constexpr T * find_last_not_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_last_not_of的bitmark实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02677">all_defs.cpp:2677</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02789">2789</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2789</span>                                                                                                                         {</div>
+<div class="line"><span class="lineno"> 2790</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 2791</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
+<div class="line"><span class="lineno"> 2792</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
+<div class="line"><span class="lineno"> 2793</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8fb22aefdce465da055c710889985bd8">find_last_not_of_bitmark</a>(mark,range);</div>
+<div class="line"><span class="lineno"> 2794</span>                            }</div>
+<div class="line"><span class="lineno"> 2795</span>                            <span class="keywordflow">return</span> base_find_last_not_of(pattern,range);</div>
+<div class="line"><span class="lineno"> 2796</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a8fb22aefdce465da055c710889985bd8"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8fb22aefdce465da055c710889985bd8">elc::defs::base::range_n::find_last_not_of_bitmark</a></div><div class="ttdeci">constexpr T * find_last_not_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_last_not_of的bitmark实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02769">all_defs.cpp:2769</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1120,15 +1120,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03131">3131</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3131</span>                                                                                                                              {</div>
-<div class="line"><span class="lineno"> 3132</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
-<div class="line"><span class="lineno"> 3133</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8fb22aefdce465da055c710889985bd8">find_last_not_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
-<div class="line"><span class="lineno"> 3134</span>                            }</div>
-<div class="line"><span class="lineno"> 3135</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 3136</span>                                <span class="keywordflow">return</span> find_last_not_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
-<div class="line"><span class="lineno"> 3137</span>                            }</div>
-<div class="line"><span class="lineno"> 3138</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03223">3223</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3223</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno"> 3224</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
+<div class="line"><span class="lineno"> 3225</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a8fb22aefdce465da055c710889985bd8">find_last_not_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
+<div class="line"><span class="lineno"> 3226</span>                            }</div>
+<div class="line"><span class="lineno"> 3227</span>                            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 3228</span>                                <span class="keywordflow">return</span> find_last_not_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
+<div class="line"><span class="lineno"> 3229</span>                            }</div>
+<div class="line"><span class="lineno"> 3230</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1170,14 +1170,14 @@ template&lt;typename T &gt; </div>
 
 <p>find_last_not_of的bitmark实现 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02677">2677</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2677</span>                                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 2678</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: range|::std::views::reverse){</div>
-<div class="line"><span class="lineno"> 2679</span>                                <span class="keywordflow">if</span>(!mark[i])</div>
-<div class="line"><span class="lineno"> 2680</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2681</span>                            }</div>
-<div class="line"><span class="lineno"> 2682</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2683</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02769">2769</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2769</span>                                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 2770</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: range|::std::views::reverse){</div>
+<div class="line"><span class="lineno"> 2771</span>                                <span class="keywordflow">if</span>(!mark[i])</div>
+<div class="line"><span class="lineno"> 2772</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2773</span>                            }</div>
+<div class="line"><span class="lineno"> 2774</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2775</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1219,15 +1219,15 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02707">2707</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2707</span>                                                                                                                                    {</div>
-<div class="line"><span class="lineno"> 2708</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#afb48d0642ddade3a47f3ee70331ef624">find_last_not_of</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2709</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2710</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2711</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2712</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2713</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_afb48d0642ddade3a47f3ee70331ef624"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#afb48d0642ddade3a47f3ee70331ef624">elc::defs::base::range_n::find_last_not_of</a></div><div class="ttdeci">constexpr T * find_last_not_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02697">all_defs.cpp:2697</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02799">2799</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2799</span>                                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 2800</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#afb48d0642ddade3a47f3ee70331ef624">find_last_not_of</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2801</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2802</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2803</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2804</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2805</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_afb48d0642ddade3a47f3ee70331ef624"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#afb48d0642ddade3a47f3ee70331ef624">elc::defs::base::range_n::find_last_not_of</a></div><div class="ttdeci">constexpr T * find_last_not_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02789">all_defs.cpp:2789</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1267,14 +1267,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02805">2805</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2805</span>                                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 2806</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#afb48d0642ddade3a47f3ee70331ef624">find_last_not_of</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2807</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2808</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2809</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2810</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2811</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02897">2897</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2897</span>                                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 2898</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#afb48d0642ddade3a47f3ee70331ef624">find_last_not_of</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2899</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2900</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2901</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2902</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2903</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1316,16 +1316,16 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02617">2617</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2617</span>                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 2618</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 2619</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
-<div class="line"><span class="lineno"> 2620</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
-<div class="line"><span class="lineno"> 2621</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a3369018f6ebb677d3b9acd3a193da180">find_last_of_bitmark</a>(mark,range);</div>
-<div class="line"><span class="lineno"> 2622</span>                            }</div>
-<div class="line"><span class="lineno"> 2623</span>                            <span class="keywordflow">return</span> base_find_last_of(pattern,range);</div>
-<div class="line"><span class="lineno"> 2624</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a3369018f6ebb677d3b9acd3a193da180"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a3369018f6ebb677d3b9acd3a193da180">elc::defs::base::range_n::find_last_of_bitmark</a></div><div class="ttdeci">constexpr T * find_last_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_last_of的bitmark实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02598">all_defs.cpp:2598</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02709">2709</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2709</span>                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 2710</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_integral_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 2711</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html">bitmark_for_finds&lt;T&gt;</a> mark;</div>
+<div class="line"><span class="lineno"> 2712</span>                                <span class="keywordflow">if</span>(mark.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html#aac0eaf6119a2810bc00351cb3c7030e0">mark</a>(pattern))</div>
+<div class="line"><span class="lineno"> 2713</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a3369018f6ebb677d3b9acd3a193da180">find_last_of_bitmark</a>(mark,range);</div>
+<div class="line"><span class="lineno"> 2714</span>                            }</div>
+<div class="line"><span class="lineno"> 2715</span>                            <span class="keywordflow">return</span> base_find_last_of(pattern,range);</div>
+<div class="line"><span class="lineno"> 2716</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a3369018f6ebb677d3b9acd3a193da180"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a3369018f6ebb677d3b9acd3a193da180">elc::defs::base::range_n::find_last_of_bitmark</a></div><div class="ttdeci">constexpr T * find_last_of_bitmark(const bitmark_for_finds&lt; T &gt; &amp;mark, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">find_last_of的bitmark实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02690">all_defs.cpp:2690</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1365,15 +1365,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03109">3109</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3109</span>                                                                                                                          {</div>
-<div class="line"><span class="lineno"> 3110</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
-<div class="line"><span class="lineno"> 3111</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a3369018f6ebb677d3b9acd3a193da180">find_last_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
-<div class="line"><span class="lineno"> 3112</span>                            }</div>
-<div class="line"><span class="lineno"> 3113</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 3114</span>                                <span class="keywordflow">return</span> find_last_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
-<div class="line"><span class="lineno"> 3115</span>                            }</div>
-<div class="line"><span class="lineno"> 3116</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03201">3201</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3201</span>                                                                                                                          {</div>
+<div class="line"><span class="lineno"> 3202</span>                            <span class="keywordflow">if</span>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a4a19e9699a565a289d02a90c153667a0">is_bitmark_workable</a>){</div>
+<div class="line"><span class="lineno"> 3203</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a3369018f6ebb677d3b9acd3a193da180">find_last_of_bitmark</a>(pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a244f65d6f930e601e9c3bde83ed8dc1b">bitmark_for_finds</a>,range);</div>
+<div class="line"><span class="lineno"> 3204</span>                            }</div>
+<div class="line"><span class="lineno"> 3205</span>                            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 3206</span>                                <span class="keywordflow">return</span> find_last_of((<span class="keyword">const</span> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html">constexpr_str_view_t&lt;T&gt;</a>&amp;)pattern,range);</div>
+<div class="line"><span class="lineno"> 3207</span>                            }</div>
+<div class="line"><span class="lineno"> 3208</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1415,13 +1415,13 @@ template&lt;typename T &gt; </div>
 
 <p>find_last_of的bitmark实现 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02598">2598</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2598</span>                                                                                                                                 {</div>
-<div class="line"><span class="lineno"> 2599</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: range|::std::views::reverse){</div>
-<div class="line"><span class="lineno"> 2600</span>                                <span class="keywordflow">if</span>(mark[i])</div>
-<div class="line"><span class="lineno"> 2601</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2602</span>                            }</div>
-<div class="line"><span class="lineno"> 2603</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02690">2690</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2690</span>                                                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2691</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; i: range|::std::views::reverse){</div>
+<div class="line"><span class="lineno"> 2692</span>                                <span class="keywordflow">if</span>(mark[i])</div>
+<div class="line"><span class="lineno"> 2693</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2694</span>                            }</div>
+<div class="line"><span class="lineno"> 2695</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1463,15 +1463,15 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02627">2627</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2627</span>                                                                                                                                {</div>
-<div class="line"><span class="lineno"> 2628</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a543781983fe9ec71e31537054056d8df">find_last_of</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2629</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2630</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2631</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2632</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2633</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a543781983fe9ec71e31537054056d8df"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a543781983fe9ec71e31537054056d8df">elc::defs::base::range_n::find_last_of</a></div><div class="ttdeci">constexpr T * find_last_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02617">all_defs.cpp:2617</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02719">2719</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2719</span>                                                                                                                                {</div>
+<div class="line"><span class="lineno"> 2720</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a543781983fe9ec71e31537054056d8df">find_last_of</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2721</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2722</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2723</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2724</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2725</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a543781983fe9ec71e31537054056d8df"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a543781983fe9ec71e31537054056d8df">elc::defs::base::range_n::find_last_of</a></div><div class="ttdeci">constexpr T * find_last_of(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02709">all_defs.cpp:2709</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1511,14 +1511,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02783">2783</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2783</span>                                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 2784</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a543781983fe9ec71e31537054056d8df">find_last_of</a>(pattern, range);</div>
-<div class="line"><span class="lineno"> 2785</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2786</span>                                <span class="keywordflow">return</span> result - range.data();</div>
-<div class="line"><span class="lineno"> 2787</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2788</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2789</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02875">2875</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2875</span>                                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 2876</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a543781983fe9ec71e31537054056d8df">find_last_of</a>(pattern, range);</div>
+<div class="line"><span class="lineno"> 2877</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2878</span>                                <span class="keywordflow">return</span> result - range.data();</div>
+<div class="line"><span class="lineno"> 2879</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2880</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2881</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1560,36 +1560,36 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02436">2436</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2436</span>                                                                                                                 {</div>
-<div class="line"><span class="lineno"> 2437</span>                            <span class="keywordflow">if</span>(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 512 &amp;&amp; pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 11){</div>
-<div class="line"><span class="lineno"> 2438</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html">match_pattern</a> tmp=pattern;</div>
-<div class="line"><span class="lineno"> 2439</span>                                <span class="keywordflow">return</span> tmp.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html#a3a2612a90697ed108398363ac21e5e15">match</a>(range);</div>
-<div class="line"><span class="lineno"> 2440</span>                            }</div>
-<div class="line"><span class="lineno"> 2441</span> </div>
-<div class="line"><span class="lineno"> 2442</span>                            <span class="keywordtype">size_t</span> off_set=0;</div>
-<div class="line"><span class="lineno"> 2443</span>                            <span class="keywordtype">size_t</span> matching_off_set=1;</div>
-<div class="line"><span class="lineno"> 2444</span> </div>
-<div class="line"><span class="lineno"> 2445</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
-<div class="line"><span class="lineno"> 2446</span>                                matching_off_set=1;</div>
-<div class="line"><span class="lineno"> 2447</span>                                <span class="keywordflow">while</span>(pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-matching_off_set]==range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()-matching_off_set])</div>
-<div class="line"><span class="lineno"> 2448</span>                                    <span class="keywordflow">if</span>(matching_off_set==pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())</div>
-<div class="line"><span class="lineno"> 2449</span>                                        <span class="keywordflow">return</span> addressof(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[off_set]);</div>
-<div class="line"><span class="lineno"> 2450</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2451</span>                                        matching_off_set++;</div>
-<div class="line"><span class="lineno"> 2452</span>                                <span class="keywordflow">if</span>(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())</div>
-<div class="line"><span class="lineno"> 2453</span>                                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2454</span>                                <span class="keyword">auto</span> tmp = in_range(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()], pattern);</div>
-<div class="line"><span class="lineno"> 2455</span>                                <span class="keywordflow">if</span>(!tmp)</div>
-<div class="line"><span class="lineno"> 2456</span>                                    tmp=pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2457</span>                                off_set+=pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()-tmp;</div>
-<div class="line"><span class="lineno"> 2458</span>                            }</div>
-<div class="line"><span class="lineno"> 2459</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24888">all_defs.cpp:24888</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02528">2528</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2528</span>                                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2529</span>                            <span class="keywordflow">if</span>(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 512 &amp;&amp; pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 11){</div>
+<div class="line"><span class="lineno"> 2530</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html">match_pattern</a> tmp=pattern;</div>
+<div class="line"><span class="lineno"> 2531</span>                                <span class="keywordflow">return</span> tmp.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html#a3a2612a90697ed108398363ac21e5e15">match</a>(range);</div>
+<div class="line"><span class="lineno"> 2532</span>                            }</div>
+<div class="line"><span class="lineno"> 2533</span> </div>
+<div class="line"><span class="lineno"> 2534</span>                            <span class="keywordtype">size_t</span> off_set=0;</div>
+<div class="line"><span class="lineno"> 2535</span>                            <span class="keywordtype">size_t</span> matching_off_set=1;</div>
+<div class="line"><span class="lineno"> 2536</span> </div>
+<div class="line"><span class="lineno"> 2537</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
+<div class="line"><span class="lineno"> 2538</span>                                matching_off_set=1;</div>
+<div class="line"><span class="lineno"> 2539</span>                                <span class="keywordflow">while</span>(pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-matching_off_set]==range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()-matching_off_set])</div>
+<div class="line"><span class="lineno"> 2540</span>                                    <span class="keywordflow">if</span>(matching_off_set==pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())</div>
+<div class="line"><span class="lineno"> 2541</span>                                        <span class="keywordflow">return</span> addressof(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[off_set]);</div>
+<div class="line"><span class="lineno"> 2542</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2543</span>                                        matching_off_set++;</div>
+<div class="line"><span class="lineno"> 2544</span>                                <span class="keywordflow">if</span>(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())</div>
+<div class="line"><span class="lineno"> 2545</span>                                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2546</span>                                <span class="keyword">auto</span> tmp = in_range(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()], pattern);</div>
+<div class="line"><span class="lineno"> 2547</span>                                <span class="keywordflow">if</span>(!tmp)</div>
+<div class="line"><span class="lineno"> 2548</span>                                    tmp=pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2549</span>                                off_set+=pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()-tmp;</div>
+<div class="line"><span class="lineno"> 2550</span>                            }</div>
+<div class="line"><span class="lineno"> 2551</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25118">all_defs.cpp:25118</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t_html_a117c302e797b7abf98c037211c3a1753"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">elc::defs::base::array_like_n::array_like_view_t::size</a></div><div class="ttdeci">constexpr size_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01860">all_defs.cpp:1860</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t_html_ac89cec36abae10678ac1cced715c99c5"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">elc::defs::base::array_like_n::array_like_view_t::end</a></div><div class="ttdeci">constexpr iterator end() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01863">all_defs.cpp:1863</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1match__pattern_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html">elc::defs::base::range_n::match_pattern</a></div><div class="ttdoc">BMH2改算法表头，用以实施头起始的快速子串匹配算法 大部分情况下应当编译时预构建或对运行时生成的实例进行缓存</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02303">all_defs.cpp:2303</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1match__pattern_html_a3a2612a90697ed108398363ac21e5e15"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html#a3a2612a90697ed108398363ac21e5e15">elc::defs::base::range_n::match_pattern::match</a></div><div class="ttdeci">constexpr T * match(array_like_view_t&lt; T &gt;range) const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02332">all_defs.cpp:2332</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1match__pattern_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html">elc::defs::base::range_n::match_pattern</a></div><div class="ttdoc">BMH2改算法表头，用以实施头起始的快速子串匹配算法 大部分情况下应当编译时预构建或对运行时生成的实例进行缓存</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02395">all_defs.cpp:2395</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1match__pattern_html_a3a2612a90697ed108398363ac21e5e15"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html#a3a2612a90697ed108398363ac21e5e15">elc::defs::base::range_n::match_pattern::match</a></div><div class="ttdeci">constexpr T * match(array_like_view_t&lt; T &gt;range) const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02424">all_defs.cpp:2424</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1629,11 +1629,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03088">3088</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3088</span>                                                                                                                      {</div>
-<div class="line"><span class="lineno"> 3089</span>                            <span class="keywordflow">return</span> pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#aaa33cabd2cf862de4039dd738593d3da">match_pattern</a>.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html#a3a2612a90697ed108398363ac21e5e15">match</a>(range);</div>
-<div class="line"><span class="lineno"> 3090</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_aaa33cabd2cf862de4039dd738593d3da"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#aaa33cabd2cf862de4039dd738593d3da">elc::defs::base::constexpr_str_n::constexpr_str_t::match_pattern</a></div><div class="ttdeci">range_n::match_pattern&lt; const char_T &gt; match_pattern</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03042">all_defs.cpp:3042</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03180">3180</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3180</span>                                                                                                                      {</div>
+<div class="line"><span class="lineno"> 3181</span>                            <span class="keywordflow">return</span> pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#aaa33cabd2cf862de4039dd738593d3da">match_pattern</a>.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html#a3a2612a90697ed108398363ac21e5e15">match</a>(range);</div>
+<div class="line"><span class="lineno"> 3182</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_aaa33cabd2cf862de4039dd738593d3da"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#aaa33cabd2cf862de4039dd738593d3da">elc::defs::base::constexpr_str_n::constexpr_str_t::match_pattern</a></div><div class="ttdeci">range_n::match_pattern&lt; const char_T &gt; match_pattern</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03134">all_defs.cpp:3134</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1675,14 +1675,14 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02417">2417</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2417</span>                                                                                               {</div>
-<div class="line"><span class="lineno"> 2418</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
-<div class="line"><span class="lineno"> 2419</span>                                <span class="keywordflow">if</span>(i==pattern)</div>
-<div class="line"><span class="lineno"> 2420</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2421</span>                            }</div>
-<div class="line"><span class="lineno"> 2422</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2423</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02509">2509</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2509</span>                                                                                               {</div>
+<div class="line"><span class="lineno"> 2510</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range){</div>
+<div class="line"><span class="lineno"> 2511</span>                                <span class="keywordflow">if</span>(i==pattern)</div>
+<div class="line"><span class="lineno"> 2512</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2513</span>                            }</div>
+<div class="line"><span class="lineno"> 2514</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2515</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1724,12 +1724,12 @@ template&lt;typename T &gt; </div>
 
 <p>判断一个指针是否在某个byte指针范围内 </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02296">2296</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2296</span>                                                                                                         {</div>
-<div class="line"><span class="lineno"> 2297</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485">cast_to_data</a>(pattern)&gt;=range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>() &amp;&amp; <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485">cast_to_data</a>(pattern)&lt;range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a48ff4f5f53bcaa9f705582c4b9160c6a">end</a>();</div>
-<div class="line"><span class="lineno"> 2298</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02388">2388</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2388</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 2389</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485">cast_to_data</a>(pattern)&gt;=range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>() &amp;&amp; <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485">cast_to_data</a>(pattern)&lt;range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a48ff4f5f53bcaa9f705582c4b9160c6a">end</a>();</div>
+<div class="line"><span class="lineno"> 2390</span>                        }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a51f0e6e825e683bbef6baeb2921de485"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485">elc::defs::base::cast_to_data</a></div><div class="ttdeci">constexpr byte * cast_to_data(T *p)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01948">all_defs.cpp:1948</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1range__t_html_a48ff4f5f53bcaa9f705582c4b9160c6a"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a48ff4f5f53bcaa9f705582c4b9160c6a">elc::defs::base::range_n::range_t::end</a></div><div class="ttdeci">constexpr auto end() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02266">all_defs.cpp:2266</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1range__t_html_a48ff4f5f53bcaa9f705582c4b9160c6a"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a48ff4f5f53bcaa9f705582c4b9160c6a">elc::defs::base::range_n::range_t::end</a></div><div class="ttdeci">constexpr auto end() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02358">all_defs.cpp:2358</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1771,10 +1771,10 @@ template&lt;typename T &gt; </div>
 
 <p>判断一个值是否在某个范围内 </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02290">2290</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2290</span>                                                                                                                                                                                    {<span class="comment">//算术类型或指针</span></div>
-<div class="line"><span class="lineno"> 2291</span>                            <span class="keywordflow">return</span> bool(pattern&gt;=range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>() &amp;&amp; pattern&lt;range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a48ff4f5f53bcaa9f705582c4b9160c6a">end</a>());</div>
-<div class="line"><span class="lineno"> 2292</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02382">2382</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2382</span>                                                                                                                                                                                    {<span class="comment">//算术类型或指针</span></div>
+<div class="line"><span class="lineno"> 2383</span>                            <span class="keywordflow">return</span> bool(pattern&gt;=range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a5971473592fe495275a876b1a7d85686">begin</a>() &amp;&amp; pattern&lt;range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a48ff4f5f53bcaa9f705582c4b9160c6a">end</a>());</div>
+<div class="line"><span class="lineno"> 2384</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1816,34 +1816,34 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02490">2490</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2490</span>                                                                                                                             {</div>
-<div class="line"><span class="lineno"> 2491</span>                            <span class="keywordflow">if</span>(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 512 &amp;&amp; pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 11){</div>
-<div class="line"><span class="lineno"> 2492</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html">reverse_match_pattern</a> tmp = pattern;</div>
-<div class="line"><span class="lineno"> 2493</span>                                <span class="keywordflow">return</span> tmp.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html#a20c601d609c1439901499558fefe45d8">match</a>(range);</div>
-<div class="line"><span class="lineno"> 2494</span>                            }</div>
-<div class="line"><span class="lineno"> 2495</span> </div>
-<div class="line"><span class="lineno"> 2496</span>                            <span class="keywordtype">size_t</span> off_set=0;</div>
-<div class="line"><span class="lineno"> 2497</span>                            <span class="keywordtype">size_t</span> matching_off_set=0;</div>
-<div class="line"><span class="lineno"> 2498</span> </div>
-<div class="line"><span class="lineno"> 2499</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
-<div class="line"><span class="lineno"> 2500</span>                                matching_off_set=0;</div>
-<div class="line"><span class="lineno"> 2501</span>                                <span class="keywordflow">while</span>(pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[matching_off_set]==range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()-matching_off_set)])</div>
-<div class="line"><span class="lineno"> 2502</span>                                    <span class="keywordflow">if</span>(matching_off_set==pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()-1)</div>
-<div class="line"><span class="lineno"> 2503</span>                                        <span class="keywordflow">return</span> addressof(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())]);</div>
-<div class="line"><span class="lineno"> 2504</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2505</span>                                        matching_off_set++;</div>
-<div class="line"><span class="lineno"> 2506</span>                                <span class="keywordflow">if</span>(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())</div>
-<div class="line"><span class="lineno"> 2507</span>                                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2508</span>                                <span class="keyword">auto</span> tmp = in_range_but_reverse(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()+1)], pattern);</div>
-<div class="line"><span class="lineno"> 2509</span>                                <span class="keywordflow">if</span>(!tmp)</div>
-<div class="line"><span class="lineno"> 2510</span>                                    tmp=pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()-1;</div>
-<div class="line"><span class="lineno"> 2511</span>                                off_set+=tmp-pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2512</span>                                off_set+=1;</div>
-<div class="line"><span class="lineno"> 2513</span>                            }</div>
-<div class="line"><span class="lineno"> 2514</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html">elc::defs::base::range_n::reverse_match_pattern</a></div><div class="ttdoc">反向BMH2改算法表头，用以实施尾起始的快速子串匹配算法 大部分情况下应当编译时预构建或对运行时生成的实例进行缓存</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02359">all_defs.cpp:2359</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_html_a20c601d609c1439901499558fefe45d8"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html#a20c601d609c1439901499558fefe45d8">elc::defs::base::range_n::reverse_match_pattern::match</a></div><div class="ttdeci">constexpr T * match(array_like_view_t&lt; T &gt;range) const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02388">all_defs.cpp:2388</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02582">2582</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2582</span>                                                                                                                             {</div>
+<div class="line"><span class="lineno"> 2583</span>                            <span class="keywordflow">if</span>(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 512 &amp;&amp; pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= 11){</div>
+<div class="line"><span class="lineno"> 2584</span>                                <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html">reverse_match_pattern</a> tmp = pattern;</div>
+<div class="line"><span class="lineno"> 2585</span>                                <span class="keywordflow">return</span> tmp.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html#a20c601d609c1439901499558fefe45d8">match</a>(range);</div>
+<div class="line"><span class="lineno"> 2586</span>                            }</div>
+<div class="line"><span class="lineno"> 2587</span> </div>
+<div class="line"><span class="lineno"> 2588</span>                            <span class="keywordtype">size_t</span> off_set=0;</div>
+<div class="line"><span class="lineno"> 2589</span>                            <span class="keywordtype">size_t</span> matching_off_set=0;</div>
+<div class="line"><span class="lineno"> 2590</span> </div>
+<div class="line"><span class="lineno"> 2591</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
+<div class="line"><span class="lineno"> 2592</span>                                matching_off_set=0;</div>
+<div class="line"><span class="lineno"> 2593</span>                                <span class="keywordflow">while</span>(pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>()[matching_off_set]==range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()-matching_off_set)])</div>
+<div class="line"><span class="lineno"> 2594</span>                                    <span class="keywordflow">if</span>(matching_off_set==pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()-1)</div>
+<div class="line"><span class="lineno"> 2595</span>                                        <span class="keywordflow">return</span> addressof(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())]);</div>
+<div class="line"><span class="lineno"> 2596</span>                                    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2597</span>                                        matching_off_set++;</div>
+<div class="line"><span class="lineno"> 2598</span>                                <span class="keywordflow">if</span>(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>() &gt;= range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>())</div>
+<div class="line"><span class="lineno"> 2599</span>                                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2600</span>                                <span class="keyword">auto</span> tmp = in_range_but_reverse(range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()[0-(off_set+pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a117c302e797b7abf98c037211c3a1753">size</a>()+1)], pattern);</div>
+<div class="line"><span class="lineno"> 2601</span>                                <span class="keywordflow">if</span>(!tmp)</div>
+<div class="line"><span class="lineno"> 2602</span>                                    tmp=pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#ac89cec36abae10678ac1cced715c99c5">end</a>()-1;</div>
+<div class="line"><span class="lineno"> 2603</span>                                off_set+=tmp-pattern.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2604</span>                                off_set+=1;</div>
+<div class="line"><span class="lineno"> 2605</span>                            }</div>
+<div class="line"><span class="lineno"> 2606</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html">elc::defs::base::range_n::reverse_match_pattern</a></div><div class="ttdoc">反向BMH2改算法表头，用以实施尾起始的快速子串匹配算法 大部分情况下应当编译时预构建或对运行时生成的实例进行缓存</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02451">all_defs.cpp:2451</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern_html_a20c601d609c1439901499558fefe45d8"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html#a20c601d609c1439901499558fefe45d8">elc::defs::base::range_n::reverse_match_pattern::match</a></div><div class="ttdeci">constexpr T * match(array_like_view_t&lt; T &gt;range) const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02480">all_defs.cpp:2480</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1883,11 +1883,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03092">3092</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3092</span>                                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 3093</span>                            <span class="keywordflow">return</span> pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a29913c80a65e25cb1a49d70d59adb5ef">reverse_match_pattern</a>.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html#a20c601d609c1439901499558fefe45d8">match</a>(range);</div>
-<div class="line"><span class="lineno"> 3094</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_a29913c80a65e25cb1a49d70d59adb5ef"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a29913c80a65e25cb1a49d70d59adb5ef">elc::defs::base::constexpr_str_n::constexpr_str_t::reverse_match_pattern</a></div><div class="ttdeci">range_n::reverse_match_pattern&lt; const char_T &gt; reverse_match_pattern</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03043">all_defs.cpp:3043</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03184">3184</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3184</span>                                                                                                                                  {</div>
+<div class="line"><span class="lineno"> 3185</span>                            <span class="keywordflow">return</span> pattern.<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a29913c80a65e25cb1a49d70d59adb5ef">reverse_match_pattern</a>.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1reverse__match__pattern.html#a20c601d609c1439901499558fefe45d8">match</a>(range);</div>
+<div class="line"><span class="lineno"> 3186</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t_html_a29913c80a65e25cb1a49d70d59adb5ef"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html#a29913c80a65e25cb1a49d70d59adb5ef">elc::defs::base::constexpr_str_n::constexpr_str_t::reverse_match_pattern</a></div><div class="ttdeci">range_n::reverse_match_pattern&lt; const char_T &gt; reverse_match_pattern</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03135">all_defs.cpp:3135</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1929,14 +1929,14 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02471">2471</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2471</span>                                                                                                           {</div>
-<div class="line"><span class="lineno"> 2472</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range|::std::views::reverse){</div>
-<div class="line"><span class="lineno"> 2473</span>                                <span class="keywordflow">if</span>(i==pattern)</div>
-<div class="line"><span class="lineno"> 2474</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
-<div class="line"><span class="lineno"> 2475</span>                            }</div>
-<div class="line"><span class="lineno"> 2476</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno"> 2477</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02563">2563</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2563</span>                                                                                                           {</div>
+<div class="line"><span class="lineno"> 2564</span>                            <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : range|::std::views::reverse){</div>
+<div class="line"><span class="lineno"> 2565</span>                                <span class="keywordflow">if</span>(i==pattern)</div>
+<div class="line"><span class="lineno"> 2566</span>                                    <span class="keywordflow">return</span> addressof(i);</div>
+<div class="line"><span class="lineno"> 2567</span>                            }</div>
+<div class="line"><span class="lineno"> 2568</span>                            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno"> 2569</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1978,15 +1978,15 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02517">2517</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2517</span>                                                                                                                                        {</div>
-<div class="line"><span class="lineno"> 2518</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">in_range_but_reverse</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2519</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2520</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2521</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2522</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2523</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a34f1fb9d2924b8dc3249d4a7c0accab6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">elc::defs::base::range_n::in_range_but_reverse</a></div><div class="ttdeci">constexpr T * in_range_but_reverse(T &amp;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02471">all_defs.cpp:2471</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02609">2609</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2609</span>                                                                                                                                        {</div>
+<div class="line"><span class="lineno"> 2610</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">in_range_but_reverse</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2611</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2612</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2613</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2614</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2615</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a34f1fb9d2924b8dc3249d4a7c0accab6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">elc::defs::base::range_n::in_range_but_reverse</a></div><div class="ttdeci">constexpr T * in_range_but_reverse(T &amp;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02563">all_defs.cpp:2563</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2026,14 +2026,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02761">2761</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2761</span>                                                                                                                                             {</div>
-<div class="line"><span class="lineno"> 2762</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">in_range_but_reverse</a>(pattern, range);</div>
-<div class="line"><span class="lineno"> 2763</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2764</span>                                <span class="keywordflow">return</span> result - range.data();</div>
-<div class="line"><span class="lineno"> 2765</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2766</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2767</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02853">2853</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2853</span>                                                                                                                                             {</div>
+<div class="line"><span class="lineno"> 2854</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">in_range_but_reverse</a>(pattern, range);</div>
+<div class="line"><span class="lineno"> 2855</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2856</span>                                <span class="keywordflow">return</span> result - range.data();</div>
+<div class="line"><span class="lineno"> 2857</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2858</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2859</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2075,14 +2075,14 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02480">2480</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2480</span>                                                                                                                      {</div>
-<div class="line"><span class="lineno"> 2481</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">in_range_but_reverse</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2482</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2483</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2484</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2485</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2486</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02572">2572</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2572</span>                                                                                                                      {</div>
+<div class="line"><span class="lineno"> 2573</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a34f1fb9d2924b8dc3249d4a7c0accab6">in_range_but_reverse</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2574</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2575</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2576</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2577</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2578</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2124,14 +2124,14 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02462">2462</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2462</span>                                                                                                                            {</div>
-<div class="line"><span class="lineno"> 2463</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2464</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2465</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2466</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2467</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2468</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02554">2554</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2554</span>                                                                                                                            {</div>
+<div class="line"><span class="lineno"> 2555</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2556</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2557</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2558</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2559</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2560</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2171,14 +2171,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02750">2750</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2750</span>                                                                                                                                 {</div>
-<div class="line"><span class="lineno"> 2751</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(pattern, range);</div>
-<div class="line"><span class="lineno"> 2752</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2753</span>                                <span class="keywordflow">return</span> result - range.data();</div>
-<div class="line"><span class="lineno"> 2754</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2755</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2756</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02842">2842</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2842</span>                                                                                                                                 {</div>
+<div class="line"><span class="lineno"> 2843</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(pattern, range);</div>
+<div class="line"><span class="lineno"> 2844</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2845</span>                                <span class="keywordflow">return</span> result - range.data();</div>
+<div class="line"><span class="lineno"> 2846</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2847</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2848</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2220,14 +2220,14 @@ template&lt;typename T &gt; </div>
 
 <p>若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02426">2426</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2426</span>                                                                                                          {</div>
-<div class="line"><span class="lineno"> 2427</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(pattern,range);</div>
-<div class="line"><span class="lineno"> 2428</span>                            <span class="keywordflow">if</span>(result)</div>
-<div class="line"><span class="lineno"> 2429</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
-<div class="line"><span class="lineno"> 2430</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 2431</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
-<div class="line"><span class="lineno"> 2432</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02518">2518</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2518</span>                                                                                                          {</div>
+<div class="line"><span class="lineno"> 2519</span>                            <span class="keyword">auto</span> result = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(pattern,range);</div>
+<div class="line"><span class="lineno"> 2520</span>                            <span class="keywordflow">if</span>(result)</div>
+<div class="line"><span class="lineno"> 2521</span>                                <span class="keywordflow">return</span> result - range.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#a613a7a28045bb8efd320108a432ad775">begin</a>();</div>
+<div class="line"><span class="lineno"> 2522</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 2523</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#abbce0d89c94bf852e4c0f829f4ecee24">npos</a>;</div>
+<div class="line"><span class="lineno"> 2524</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2257,9 +2257,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02280">2280</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2280</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a7e4c60406922e71cef81dc186b0a2200">size</a>();}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1range__t_html_a7e4c60406922e71cef81dc186b0a2200"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a7e4c60406922e71cef81dc186b0a2200">elc::defs::base::range_n::range_t::size</a></div><div class="ttdeci">constexpr size_t size() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02265">all_defs.cpp:2265</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02372">2372</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2372</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a7e4c60406922e71cef81dc186b0a2200">size</a>();}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1range__n_1_1range__t_html_a7e4c60406922e71cef81dc186b0a2200"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a7e4c60406922e71cef81dc186b0a2200">elc::defs::base::range_n::range_t::size</a></div><div class="ttdeci">constexpr size_t size() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02357">all_defs.cpp:2357</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2289,8 +2289,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02278">2278</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2278</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a7e4c60406922e71cef81dc186b0a2200">size</a>();}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02370">2370</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2370</span>{<span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a7e4c60406922e71cef81dc186b0a2200">size</a>();}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2317,7 +2317,7 @@ template&lt;class T &gt; </div>
 
 <p>用以指定不存在的位置 </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02414">2414</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02506">2506</a> 行定义.</p>
 
 </div>
 </div>

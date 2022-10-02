@@ -133,7 +133,7 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__c
 <div class="textblock"><p >用于重新构造实例：先摧毁，再原地构建 用法： re_construct.able&lt;类型&gt; -&gt; bool re_construct.nothrow&lt;类型&gt; -&gt; bool</p>
 <p ><a class="el" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a14a6d354f6763f34c17ccd9e5cb2b473">re_construct(T*ptr)</a> -&gt; T* （以无参数在ptr地址处重新构建T类型实例，返回ptr） re_construct[T*ptr](参数) -&gt; T* （以参数在ptr地址处重新构建T类型实例，返回ptr） re_construct[T*ptr][size_t size](参数) -&gt; T* （以参数在ptr地址处重新构建size个T类型实例，返回ptr） 常见用法： <a class="el" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a14a6d354f6763f34c17ccd9e5cb2b473">re_construct(this)</a> </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05795">5795</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05917">5917</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a0581c0aa468ce8447cb1e973122a4841" name="a0581c0aa468ce8447cb1e973122a4841"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0581c0aa468ce8447cb1e973122a4841">&#9670;&#160;</a></span>operator()()</h2>
@@ -162,12 +162,12 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05804">5804</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5804</span>                                                                                  {</div>
-<div class="line"><span class="lineno"> 5805</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>(to);</div>
-<div class="line"><span class="lineno"> 5806</span>                            construct&lt;T&gt;[<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>]();</div>
-<div class="line"><span class="lineno"> 5807</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
-<div class="line"><span class="lineno"> 5808</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05926">5926</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5926</span>                                                                                  {</div>
+<div class="line"><span class="lineno"> 5927</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>(to);</div>
+<div class="line"><span class="lineno"> 5928</span>                            construct&lt;T&gt;[<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>]();</div>
+<div class="line"><span class="lineno"> 5929</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
+<div class="line"><span class="lineno"> 5930</span>                        }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ab38406a29b5abb1d9d783b44464c338f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">elc::defs::base::note_n::to</a></div><div class="ttdeci">constexpr to_t&lt; T &gt; to(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01781">all_defs.cpp:1781</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a87faccffed48c44e57afc7da9fbd49b0"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">elc::defs::memory::lifetime_n::destruct</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::destruct_t destruct</div></div>
 </div><!-- fragment -->
@@ -199,8 +199,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05834">5834</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5834</span>{<span class="keywordflow">return</span>{p};}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05956">5956</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5956</span>{<span class="keywordflow">return</span>{p};}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -227,7 +227,7 @@ template&lt;class T , class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05797">5797</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05919">5919</a> 行定义.</p>
 
 </div>
 </div>
@@ -253,7 +253,7 @@ template&lt;class T , class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05799">5799</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05921">5921</a> 行定义.</p>
 
 </div>
 </div>
@@ -279,7 +279,7 @@ template&lt;class T , class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05801">5801</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05923">5923</a> 行定义.</p>
 
 </div>
 </div>

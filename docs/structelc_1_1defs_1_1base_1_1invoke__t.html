@@ -104,21 +104,24 @@ Public 成员函数</h2></td></tr>
 <tr class="memitem:a66c70e0207ab9242e0bc995669830f09"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; <br />
 requires <a class="el" href="structelc_1_1defs_1_1base_1_1invoke__t.html#aaff4036146c390b94fd0ab82452daeb8">able</a>&lt;Args...&gt;</td></tr>
 <tr class="memitem:a66c70e0207ab9242e0bc995669830f09"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1invoke__t.html#a66c70e0207ab9242e0bc995669830f09">_as</a> (Args &amp;&amp;...rest) const noexcept(<a class="el" href="structelc_1_1defs_1_1base_1_1invoke__t.html#af688e10c43a4b5bbb6d3492a35aefdc7">nothrow</a>&lt; Args... &gt;)</td></tr>
+<tr class="memdesc:a66c70e0207ab9242e0bc995669830f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that returns a lambda that applies a function to a value.  <a href="structelc_1_1defs_1_1base_1_1invoke__t.html#a66c70e0207ab9242e0bc995669830f09">更多...</a><br /></td></tr>
 <tr class="separator:a66c70e0207ab9242e0bc995669830f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 静态 Public 属性</h2></td></tr>
 <tr class="memitem:aaff4036146c390b94fd0ab82452daeb8"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
 <tr class="memitem:aaff4036146c390b94fd0ab82452daeb8"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1invoke__t.html#aaff4036146c390b94fd0ab82452daeb8">able</a> = ::std::is_invocable_v&lt;T,Args...&gt;</td></tr>
+<tr class="memdesc:aaff4036146c390b94fd0ab82452daeb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a type is invocable.  <a href="structelc_1_1defs_1_1base_1_1invoke__t.html#aaff4036146c390b94fd0ab82452daeb8">更多...</a><br /></td></tr>
 <tr class="separator:aaff4036146c390b94fd0ab82452daeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af688e10c43a4b5bbb6d3492a35aefdc7"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
 <tr class="memitem:af688e10c43a4b5bbb6d3492a35aefdc7"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structelc_1_1defs_1_1base_1_1invoke__t.html#af688e10c43a4b5bbb6d3492a35aefdc7">nothrow</a> = ::std::is_nothrow_invocable_v&lt;T,Args...&gt;</td></tr>
+<tr class="memdesc:af688e10c43a4b5bbb6d3492a35aefdc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a type is invocable and nothrow.  <a href="structelc_1_1defs_1_1base_1_1invoke__t.html#af688e10c43a4b5bbb6d3492a35aefdc7">更多...</a><br /></td></tr>
 <tr class="separator:af688e10c43a4b5bbb6d3492a35aefdc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 struct elc::defs::base::invoke_t&lt; T &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03272">3272</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03371">3371</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a66c70e0207ab9242e0bc995669830f09" name="a66c70e0207ab9242e0bc995669830f09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66c70e0207ab9242e0bc995669830f09">&#9670;&#160;</a></span>_as()</h2>
@@ -149,11 +152,20 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1invoke__t.html#aaff403
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03279">3279</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 3279</span>                                                                               {<span class="comment">//invoke&lt;T&gt;._as(...)</span></div>
-<div class="line"><span class="lineno"> 3280</span>                            <span class="keywordflow">return</span> <a class="code hl_define" href="all__defs_8cpp.html#a6d50a9a2e1c3dea839963ebc200ed961">lambda_with_catch</a>(rest...)(<span class="keyword">const</span> T&amp;a)<span class="keyword">noexcept</span>(nothrow&lt;Args...&gt;){<span class="keywordflow">return</span> a(forward&lt;Args&gt;(rest)...);};</div>
-<div class="line"><span class="lineno"> 3281</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d50a9a2e1c3dea839963ebc200ed961"><div class="ttname"><a href="all__defs_8cpp.html#a6d50a9a2e1c3dea839963ebc200ed961">lambda_with_catch</a></div><div class="ttdeci">#define lambda_with_catch(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24961">all_defs.cpp:24961</a></div></div>
+<p>A function that returns a lambda that applies a function to a value. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>The arguments to the function.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>A lambda that applies the function to a value. </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03401">3401</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3401</span>                                                                               {<span class="comment">//invoke&lt;T&gt;._as(...)</span></div>
+<div class="line"><span class="lineno"> 3402</span>                            <span class="keywordflow">return</span> <a class="code hl_define" href="all__defs_8cpp.html#a6d50a9a2e1c3dea839963ebc200ed961">lambda_with_catch</a>(rest...)(<span class="keyword">const</span> T&amp;a)<span class="keyword">noexcept</span>(nothrow&lt;Args...&gt;){<span class="keywordflow">return</span> a(forward&lt;Args&gt;(rest)...);};</div>
+<div class="line"><span class="lineno"> 3403</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d50a9a2e1c3dea839963ebc200ed961"><div class="ttname"><a href="all__defs_8cpp.html#a6d50a9a2e1c3dea839963ebc200ed961">lambda_with_catch</a></div><div class="ttdeci">#define lambda_with_catch(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25191">all_defs.cpp:25191</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -182,7 +194,17 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03274">3274</a> 行定义.</p>
+<p>Determines if a type is invocable. </p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to check. </td></tr>
+    <tr><td class="paramname">Args</td><td>The types of the arguments to the type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>True if the type is invocable, false otherwise. </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03381">3381</a> 行定义.</p>
 
 </div>
 </div>
@@ -210,7 +232,17 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03276">3276</a> 行定义.</p>
+<p>Determines if a type is invocable and nothrow. </p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to check. </td></tr>
+    <tr><td class="paramname">Args</td><td>The types of the arguments to the type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>True if the type is nothrow invocable, false otherwise. </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03391">3391</a> 行定义.</p>
 
 </div>
 </div>

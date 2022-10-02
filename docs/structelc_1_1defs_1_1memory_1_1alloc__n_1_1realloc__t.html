@@ -132,7 +132,7 @@ Public 成员函数</h2></td></tr>
 <div class="textblock"><p >用于对特定类型进行realloc </p>
 <dl class="section warning"><dt>警告</dt><dd>这个类不会对类实例进行移动函数调用，也不会创造或结束生命周期，如需要进行new like操作，请使用 get_resize_t </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07152">7152</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07307">7307</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="ae17c1227acf96bf436cdbcf00132f9ed" name="ae17c1227acf96bf436cdbcf00132f9ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae17c1227acf96bf436cdbcf00132f9ed">&#9670;&#160;</a></span>base_t</h2>
@@ -146,7 +146,7 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07153">7153</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07308">7308</a> 行定义.</p>
 
 </div>
 </div>
@@ -187,29 +187,29 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07155">7155</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7155</span>                                                                          {</div>
-<div class="line"><span class="lineno"> 7156</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
-<div class="line"><span class="lineno"> 7157</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 7158</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7159</span>                                <span class="comment">//template_warning(&quot;For never_in_array type,realloc will free ptr when new_size=0 else do nothing.&quot;);</span></div>
-<div class="line"><span class="lineno"> 7160</span>                            <span class="keywordflow">if</span>(nsize){<span class="comment">//null_ptr不一定等价于nullptr，请勿删除本行</span></div>
-<div class="line"><span class="lineno"> 7161</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.not_has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 7162</span>                                    <span class="keywordflow">if</span>(ptr!=null_ptr){<span class="comment">//null_ptr不一定等价于nullptr，请勿删除本行</span></div>
-<div class="line"><span class="lineno"> 7163</span>                                        <span class="keywordflow">while</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#aed048f5b56957ebd35923b0c28241aea">realloc_method</a>(ptr,nsize))<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1gc__n.html#aa5c109eeeee57a3082468528e936ccc6">gc_for_alloc</a>();</div>
-<div class="line"><span class="lineno"> 7164</span>                                    }<span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7165</span>                                        <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>=alloc&lt;T&gt;(nsize);</div>
-<div class="line"><span class="lineno"> 7166</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7167</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(ptr);</div>
-<div class="line"><span class="lineno"> 7168</span>                                <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>=<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1null__ptr__n.html#a6976fcde13db6d2126644c67b309ff66">null_ptr</a>;</div>
-<div class="line"><span class="lineno"> 7169</span>                            }</div>
-<div class="line"><span class="lineno"> 7170</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24897">all_defs.cpp:24897</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07310">7310</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7310</span>                                                                          {</div>
+<div class="line"><span class="lineno"> 7311</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
+<div class="line"><span class="lineno"> 7312</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 7313</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7314</span>                                <span class="comment">//template_warning(&quot;For never_in_array type,realloc will free ptr when new_size=0 else do nothing.&quot;);</span></div>
+<div class="line"><span class="lineno"> 7315</span>                            <span class="keywordflow">if</span>(nsize){<span class="comment">//null_ptr不一定等价于nullptr，请勿删除本行</span></div>
+<div class="line"><span class="lineno"> 7316</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.not_has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 7317</span>                                    <span class="keywordflow">if</span>(ptr!=null_ptr){<span class="comment">//null_ptr不一定等价于nullptr，请勿删除本行</span></div>
+<div class="line"><span class="lineno"> 7318</span>                                        <span class="keywordflow">while</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#aed048f5b56957ebd35923b0c28241aea">realloc_method</a>(ptr,nsize))<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1gc__n.html#aa5c109eeeee57a3082468528e936ccc6">gc_for_alloc</a>();</div>
+<div class="line"><span class="lineno"> 7319</span>                                    }<span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7320</span>                                        <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>=alloc&lt;T&gt;(nsize);</div>
+<div class="line"><span class="lineno"> 7321</span>                            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7322</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(ptr);</div>
+<div class="line"><span class="lineno"> 7323</span>                                <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>=<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1null__ptr__n.html#a6976fcde13db6d2126644c67b309ff66">null_ptr</a>;</div>
+<div class="line"><span class="lineno"> 7324</span>                            }</div>
+<div class="line"><span class="lineno"> 7325</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1null__ptr__n_html_a6976fcde13db6d2126644c67b309ff66"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1null__ptr__n.html#a6976fcde13db6d2126644c67b309ff66">elc::defs::base::null_ptr_n::null_ptr</a></div><div class="ttdeci">constexpr struct elc::defs::base::null_ptr_n::null_ptr_t null_ptr</div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12744">all_defs.cpp:12744</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12974">all_defs.cpp:12974</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ad25eff1192fc3f7e04091aa42eb5d41e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">elc::defs::memory::alloc_n::free</a></div><div class="ttdeci">constexpr struct elc::defs::memory::alloc_n::free_t free</div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_aed048f5b56957ebd35923b0c28241aea"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#aed048f5b56957ebd35923b0c28241aea">elc::defs::memory::alloc_n::realloc_method</a></div><div class="ttdeci">void * realloc_method(T *&amp;ptr, size_t new_size) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07087">all_defs.cpp:7087</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1gc__n_html_aa5c109eeeee57a3082468528e936ccc6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1gc__n.html#aa5c109eeeee57a3082468528e936ccc6">elc::defs::memory::gc_n::gc_for_alloc</a></div><div class="ttdeci">void gc_for_alloc() noexcept</div><div class="ttdoc">当alloc失败时调用此函数</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10830">all_defs.cpp:10830</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_aed048f5b56957ebd35923b0c28241aea"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#aed048f5b56957ebd35923b0c28241aea">elc::defs::memory::alloc_n::realloc_method</a></div><div class="ttdeci">void * realloc_method(T *&amp;ptr, size_t new_size) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07242">all_defs.cpp:7242</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1gc__n_html_aa5c109eeeee57a3082468528e936ccc6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1gc__n.html#aa5c109eeeee57a3082468528e936ccc6">elc::defs::memory::gc_n::gc_for_alloc</a></div><div class="ttdeci">void gc_for_alloc() noexcept</div><div class="ttdoc">当alloc失败时调用此函数</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l11060">all_defs.cpp:11060</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -249,11 +249,11 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07172">7172</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7172</span>                                                                                        {</div>
-<div class="line"><span class="lineno"> 7173</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t.html#ab35cc10ddea3aee0bdc984f597ce5c91">base_call</a>(ptr,nsize);</div>
-<div class="line"><span class="lineno"> 7174</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t_html_ab35cc10ddea3aee0bdc984f597ce5c91"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t.html#ab35cc10ddea3aee0bdc984f597ce5c91">elc::defs::memory::alloc_n::realloc_t::base_call</a></div><div class="ttdeci">static void base_call(T *&amp;ptr, size_t nsize) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07155">all_defs.cpp:7155</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07327">7327</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7327</span>                                                                                        {</div>
+<div class="line"><span class="lineno"> 7328</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t.html#ab35cc10ddea3aee0bdc984f597ce5c91">base_call</a>(ptr,nsize);</div>
+<div class="line"><span class="lineno"> 7329</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t_html_ab35cc10ddea3aee0bdc984f597ce5c91"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t.html#ab35cc10ddea3aee0bdc984f597ce5c91">elc::defs::memory::alloc_n::realloc_t::base_call</a></div><div class="ttdeci">static void base_call(T *&amp;ptr, size_t nsize) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07310">all_defs.cpp:7310</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -281,8 +281,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07180">7180</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7180</span>{<span class="keywordflow">return</span>{a};}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07335">7335</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7335</span>{<span class="keywordflow">return</span>{a};}</div>
 </div><!-- fragment -->
 </div>
 </div>

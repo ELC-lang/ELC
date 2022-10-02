@@ -116,7 +116,7 @@ Public 属性</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
 struct elc::defs::memory::lifetime_n::re_construct_t::array_re_construct_t&lt; T &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05810">5810</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05932">5932</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a8dffa362557ec0776555179eee8af196" name="a8dffa362557ec0776555179eee8af196"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8dffa362557ec0776555179eee8af196">&#9670;&#160;</a></span>operator()()</h2>
@@ -147,18 +147,18 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05814">5814</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5814</span>                                                                                          {</div>
-<div class="line"><span class="lineno"> 5815</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 5816</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 5817</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>[<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#ae72c65e9c5c98d2a92476b09a4563763">_size</a>](<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">_to</a>);</div>
-<div class="line"><span class="lineno"> 5818</span>                                construct&lt;T&gt;[<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">_to</a>][<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#ae72c65e9c5c98d2a92476b09a4563763">_size</a>](forward&lt;Args&gt;(rest)...);</div>
-<div class="line"><span class="lineno"> 5819</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">_to</a>;</div>
-<div class="line"><span class="lineno"> 5820</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24897">all_defs.cpp:24897</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05936">5936</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5936</span>                                                                                          {</div>
+<div class="line"><span class="lineno"> 5937</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 5938</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 5939</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>[<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#ae72c65e9c5c98d2a92476b09a4563763">_size</a>](<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">_to</a>);</div>
+<div class="line"><span class="lineno"> 5940</span>                                construct&lt;T&gt;[<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">_to</a>][<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#ae72c65e9c5c98d2a92476b09a4563763">_size</a>](forward&lt;Args&gt;(rest)...);</div>
+<div class="line"><span class="lineno"> 5941</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">_to</a>;</div>
+<div class="line"><span class="lineno"> 5942</span>                            }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a87faccffed48c44e57afc7da9fbd49b0"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">elc::defs::memory::lifetime_n::destruct</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::destruct_t destruct</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t_html_a6ba8f4826bda89971b28ac4e24185042"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">elc::defs::memory::lifetime_n::re_construct_t::array_re_construct_t::_to</a></div><div class="ttdeci">T * _to</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05811">all_defs.cpp:5811</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t_html_ae72c65e9c5c98d2a92476b09a4563763"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#ae72c65e9c5c98d2a92476b09a4563763">elc::defs::memory::lifetime_n::re_construct_t::array_re_construct_t::_size</a></div><div class="ttdeci">size_t _size</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05812">all_defs.cpp:5812</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t_html_a6ba8f4826bda89971b28ac4e24185042"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#a6ba8f4826bda89971b28ac4e24185042">elc::defs::memory::lifetime_n::re_construct_t::array_re_construct_t::_to</a></div><div class="ttdeci">T * _to</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05933">all_defs.cpp:5933</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t_html_ae72c65e9c5c98d2a92476b09a4563763"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1re__construct__t_1_1array__re__construct__t.html#ae72c65e9c5c98d2a92476b09a4563763">elc::defs::memory::lifetime_n::re_construct_t::array_re_construct_t::_size</a></div><div class="ttdeci">size_t _size</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05934">all_defs.cpp:5934</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -177,7 +177,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05812">5812</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05934">5934</a> 行定义.</p>
 
 </div>
 </div>
@@ -195,7 +195,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05811">5811</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05933">5933</a> 行定义.</p>
 
 </div>
 </div>

@@ -146,7 +146,7 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destr
 <div class="textblock"><p >用于销毁实例 用法： destruct.able&lt;类型&gt; -&gt; bool destruct.nothrow&lt;类型&gt; -&gt; bool</p>
 <p ><a class="el" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct(T*ptr)</a> -&gt; void （在ptr地址处析构T类型实例，T可为数组） destruct[size_t size](T*ptr) -&gt; void （析构以ptr地址起始共size个T类型实例，T可为数组） </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05736">5736</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05858">5858</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="acac4fb73f1881c881095a3c54fa07b88" name="acac4fb73f1881c881095a3c54fa07b88"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acac4fb73f1881c881095a3c54fa07b88">&#9670;&#160;</a></span>base_call() <span class="overload">[1/2]</span></h2>
@@ -185,15 +185,15 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destr
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05756">5756</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5756</span>                                                                                                                      {</div>
-<div class="line"><span class="lineno"> 5757</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 5758</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 5759</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!trivial&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 5760</span>                                <span class="keywordflow">while</span>(size--)<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">base_call</a>(begin+size);</div>
-<div class="line"><span class="lineno"> 5761</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24897">all_defs.cpp:24897</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t_html_a085e1c6aac52dfe6f78cde94e6b873b4"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">elc::defs::memory::lifetime_n::destruct_t::base_call</a></div><div class="ttdeci">static void base_call(T *to) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05745">all_defs.cpp:5745</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05878">5878</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5878</span>                                                                                                                      {</div>
+<div class="line"><span class="lineno"> 5879</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 5880</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 5881</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!trivial&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 5882</span>                                <span class="keywordflow">while</span>(size--)<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">base_call</a>(begin+size);</div>
+<div class="line"><span class="lineno"> 5883</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t_html_a085e1c6aac52dfe6f78cde94e6b873b4"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">elc::defs::memory::lifetime_n::destruct_t::base_call</a></div><div class="ttdeci">static void base_call(T *to) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05867">all_defs.cpp:5867</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -224,17 +224,17 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destr
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05745">5745</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5745</span>                                                                                    {</div>
-<div class="line"><span class="lineno"> 5746</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!trivial&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 5747</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_array_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 5748</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : *to)</div>
-<div class="line"><span class="lineno"> 5749</span>                                        <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">base_call</a>(addressof(i));</div>
-<div class="line"><span class="lineno"> 5750</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 5751</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a>(26457)<span class="comment">//虽然我不是很理解为啥调用析构函数会触发这个</span></div>
-<div class="line"><span class="lineno"> 5752</span>                                    to-&gt;~T();</div>
-<div class="line"><span class="lineno"> 5753</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24857">all_defs.cpp:24857</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05867">5867</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5867</span>                                                                                    {</div>
+<div class="line"><span class="lineno"> 5868</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!trivial&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 5869</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_array_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 5870</span>                                    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp;i : *to)</div>
+<div class="line"><span class="lineno"> 5871</span>                                        <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">base_call</a>(addressof(i));</div>
+<div class="line"><span class="lineno"> 5872</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5873</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a>(26457)<span class="comment">//虽然我不是很理解为啥调用析构函数会触发这个</span></div>
+<div class="line"><span class="lineno"> 5874</span>                                    to-&gt;~T();</div>
+<div class="line"><span class="lineno"> 5875</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25087">all_defs.cpp:25087</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -261,8 +261,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destr
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05780">5780</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5780</span>{<span class="keywordflow">return</span> not_t{};}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05902">5902</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5902</span>{<span class="keywordflow">return</span> not_t{};}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -293,10 +293,10 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destr
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05764">5764</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5764</span>                                                                                       {</div>
-<div class="line"><span class="lineno"> 5765</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">base_call</a>(begin);</div>
-<div class="line"><span class="lineno"> 5766</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05886">5886</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5886</span>                                                                                       {</div>
+<div class="line"><span class="lineno"> 5887</span>                            <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html#a085e1c6aac52dfe6f78cde94e6b873b4">base_call</a>(begin);</div>
+<div class="line"><span class="lineno"> 5888</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -324,8 +324,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destr
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05776">5776</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5776</span>{<span class="keywordflow">return</span>{<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>};}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05898">5898</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5898</span>{<span class="keywordflow">return</span>{<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>};}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a708b86f4561b6659cb265c32ce4cb8b3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">elc::defs::base::note_n::size</a></div><div class="ttdeci">constexpr size_t&lt; T &gt; size(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01782">all_defs.cpp:1782</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -353,7 +353,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05738">5738</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05860">5860</a> 行定义.</p>
 
 </div>
 </div>
@@ -379,7 +379,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05740">5740</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05862">5862</a> 行定义.</p>
 
 </div>
 </div>
@@ -405,7 +405,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05742">5742</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05864">5864</a> 行定义.</p>
 
 </div>
 </div>
