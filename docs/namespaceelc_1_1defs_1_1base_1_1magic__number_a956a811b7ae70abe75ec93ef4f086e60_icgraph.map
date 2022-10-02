@@ -1,8 +1,0 @@
-<map id="elc::defs::base::magic_number::mod" name="elc::defs::base::magic_number::mod">
-<area shape="rect" id="node1" title=" " alt="" coords="649,125,800,165"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#abe10e28dd1b440665a49ca358a141e0d" title=" " alt="" coords="440,37,601,77"/>
-<area shape="rect" id="node5" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960" title="位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="445,125,596,165"/>
-<area shape="rect" id="node6" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a284c0b938dba3f5651066172c49dae2e" title="位操作：循环右移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="445,213,596,253"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5" title="求大于某数的素数" alt="" coords="223,29,392,84"/>
-<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5a0615480539fa32fb57f797cab6b87e" title="已知当前hash table的size，求下一个合适的桶大小" alt="" coords="5,29,175,84"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="elc::defs::memory::alloc_n::default_method::realloc_method" name="elc::defs::memory::alloc_n::default_method::realloc_method">
-<area shape="rect" id="node1" title=" " alt="" coords="5,66,164,121"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a8ee321f9ab5577ba520976ffa2c49e2d" title="Reallocates a block of memory." alt="" coords="212,30,371,85"/>
-<area shape="rect" id="node6" href="$namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485" title=" " alt="" coords="221,109,361,149"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1_a_p_is_1_1alloc.html#af68837cedb7d0167128e99014d1f836c" title=" " alt="" coords="419,45,575,70"/>
-<area shape="rect" id="node4" href="$structelc_1_1_a_p_is_1_1alloc_1_1source__location__info__t.html#a14576ef17c256c280d8fd991d99114df" title=" " alt="" coords="623,5,780,45"/>
-<area shape="rect" id="node5" href="$structelc_1_1_a_p_is_1_1alloc_1_1source__location__info__t.html#aa7ac39eab58162d605f8435d2cdc8d40" title=" " alt="" coords="623,69,780,109"/>
-</map>

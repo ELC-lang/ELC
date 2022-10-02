@@ -1,4 +1,8 @@
 <map id="elc::defs::core::the_pointer_equal" name="elc::defs::core::the_pointer_equal">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,136,45"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#adbc7bf5e482480d8dd0fe0ac40dbccea" title=" " alt="" coords="184,5,317,45"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,37,136,77"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1core_1_1node__like.html#afd70fdf080337dbc9411c1bbeb4fb2d3" title=" " alt="" coords="184,37,324,77"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1core_1_1node__like.html#a49b9854af94c796e5ab88ef690a7e4fb" title=" " alt="" coords="395,5,535,45"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a44f476e6f5ff22f85494d86ac2125fb3" title=" " alt="" coords="372,69,559,109"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8" title=" " alt="" coords="607,5,741,45"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1memory_1_1ptr__n_1_1ptr__t.html#ab0ddc2cf5279d67e43eedad6d7301ae1" title=" " alt="" coords="789,5,967,45"/>
 </map>

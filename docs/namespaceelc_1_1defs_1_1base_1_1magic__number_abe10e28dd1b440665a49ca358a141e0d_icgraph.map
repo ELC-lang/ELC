@@ -1,5 +1,0 @@
-<map id="elc::defs::base::magic_number::is_prime_num" name="elc::defs::base::magic_number::is_prime_num">
-<area shape="rect" id="node1" title=" " alt="" coords="440,37,601,77"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5" title="求大于某数的素数" alt="" coords="223,29,392,84"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5a0615480539fa32fb57f797cab6b87e" title="已知当前hash table的size，求下一个合适的桶大小" alt="" coords="5,29,175,84"/>
-</map>

@@ -1,5 +1,4 @@
 <map id="elc::APIs::alloc::get_size_of_alloc" name="elc::APIs::alloc::get_size_of_alloc">
-<area shape="rect" id="node1" title=" " alt="" coords="447,37,583,77"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a3bf36ca55ad7729b38238e5ca5ff567d" title="Computes the size of an allocation." alt="" coords="233,29,399,84"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a194a17a9531372111b53268415765327" title=" " alt="" coords="5,29,185,84"/>
+<area shape="rect" id="node1" title=" " alt="" coords="219,13,355,53"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a3bf36ca55ad7729b38238e5ca5ff567d" title="Computes the size of an allocation." alt="" coords="5,5,171,60"/>
 </map>

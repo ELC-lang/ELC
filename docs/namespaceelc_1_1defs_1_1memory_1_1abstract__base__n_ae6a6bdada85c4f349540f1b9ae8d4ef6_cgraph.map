@@ -1,5 +1,7 @@
 <map id="elc::defs::memory::abstract_base_n::is_instance_ptr" name="elc::defs::memory::abstract_base_n::is_instance_ptr">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,141,84"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#a41806589ddf17cdf0a2da4977ab0dd48" title="获取两个指针的偏移" alt="" coords="189,37,323,77"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485" title=" " alt="" coords="371,37,511,77"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,62,141,117"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65" title=" " alt="" coords="189,5,329,45"/>
+<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base.html#a41806589ddf17cdf0a2da4977ab0dd48" title="获取两个指针的偏移" alt="" coords="193,69,326,109"/>
+<area shape="rect" id="node5" href="$namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f" title=" " alt="" coords="189,133,329,173"/>
+<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1base.html#a42bcc07affe850b36df50e540ec375de" title=" " alt="" coords="377,69,517,109"/>
 </map>

@@ -1,8 +1,0 @@
-<map id="elc::defs::core::as_value" name="elc::defs::core::as_value">
-<area shape="rect" id="node1" title=" " alt="" coords="240,149,367,189"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1core_1_1binary__node__t.html#a249a14c4c4716c24c985ed2b40cfdf9b" title=" " alt="" coords="25,5,172,45"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1core_1_1base__binary__function__node.html#a11a9bdffc6908db03801f288c0ce9cd6" title=" " alt="" coords="5,70,192,125"/>
-<area shape="rect" id="node4" href="$structelc_1_1defs_1_1core_1_1cons.html#aa70134fa35de863a301a729f5797f408" title=" " alt="" coords="29,149,169,189"/>
-<area shape="rect" id="node5" href="$structelc_1_1defs_1_1core_1_1value.html#a862dce2e7635966403ec14a8e773ea32" title=" " alt="" coords="28,213,169,253"/>
-<area shape="rect" id="node6" href="$structelc_1_1defs_1_1core_1_1node__like.html#ab2028a957d17acd29a8e432a0c1ac767" title=" " alt="" coords="29,277,169,317"/>
-</map>

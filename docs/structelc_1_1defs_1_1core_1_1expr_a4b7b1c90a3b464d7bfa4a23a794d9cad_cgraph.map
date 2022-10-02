@@ -1,4 +1,8 @@
 <map id="elc::defs::core::expr::be_eval" name="elc::defs::core::expr::be_eval">
-<area shape="rect" id="node1" title=" " alt="" coords="5,22,143,62"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1core.html#aa4b6b0e46887c02cd097d74031157c5f" title=" " alt="" coords="191,29,339,55"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,55,143,95"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1core.html#aa4b6b0e46887c02cd097d74031157c5f" title=" " alt="" coords="210,5,358,31"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1core_1_1node__like.html#a079463799979c4b41ed72a515614abac" title=" " alt="" coords="214,55,354,95"/>
+<area shape="rect" id="node6" href="$structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a44f476e6f5ff22f85494d86ac2125fb3" title=" " alt="" coords="191,119,377,159"/>
+<area shape="rect" id="node4" href="$structelc_1_1defs_1_1core_1_1value.html#a2cf6a81b24f203555d1abf9ef870fca2" title=" " alt="" coords="425,55,567,95"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1core_1_1value.html#ac529cd09869ccd617a1ac33c6710fdc8" title=" " alt="" coords="615,55,756,95"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="elc::defs::base::magic_number::rot_iterator::operator&#45;&#45;" name="elc::defs::base::magic_number::rot_iterator::operator&#45;&#45;">
+<area shape="rect" id="node1" title=" " alt="" coords="233,34,384,89"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a18784e375870a71e1e24b861a6834190" title="计算此hash重复N次的数组的hash结果" alt="" coords="12,5,179,45"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a" title="从某个起始点算起的hash" alt="" coords="5,70,185,125"/>
+</map>

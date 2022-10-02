@@ -1,5 +1,0 @@
-<map id="elc::defs::package_symbol_loader_n::package_symbol_loader_t::package_symbol_loader_t" name="elc::defs::package_symbol_loader_n::package_symbol_loader_t::package_symbol_loader_t">
-<area shape="rect" id="node1" title=" " alt="" coords="5,7,189,77"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293" title="同 die ，但是有详细的错误信息" alt="" coords="237,29,392,55"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1_a_p_is_1_1die.html#a3ccd3adb91ebb3e2322baf0fed97fce6" title="终止整个程序并可能的触发断点或输出错误信息" alt="" coords="440,29,565,55"/>
-</map>

@@ -1,3 +1,0 @@
-<map id="elc::defs::base::magic_number::get_next_gold_size_to_resize_for_hash" name="elc::defs::base::magic_number::get_next_gold_size_to_resize_for_hash">
-<area shape="rect" id="node1" title="已知当前hash table的size，求下一个合适的桶大小" alt="" coords="5,29,175,84"/>
-</map>

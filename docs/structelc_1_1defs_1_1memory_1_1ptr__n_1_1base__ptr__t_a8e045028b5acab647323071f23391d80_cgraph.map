@@ -1,5 +1,0 @@
-<map id="elc::defs::memory::ptr_n::base_ptr_t::operator bool" name="elc::defs::memory::ptr_n::base_ptr_t::operator bool">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,208,45"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb" title="指针转bool的重载接口，允许类对此进行自定义 elc内部的指针转bool应当视情况使用默认配置或此重载接口" alt="" coords="256,5,411,45"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base.html#adde1c1e0e0740f569274806de89973ce" title=" " alt="" coords="459,5,592,45"/>
-</map>

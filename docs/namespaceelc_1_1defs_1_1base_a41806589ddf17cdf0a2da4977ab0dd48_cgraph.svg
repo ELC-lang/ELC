@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="namespaceelc_1_1defs_1_1base.html#a42bcc07affe850b36df50e540ec375de" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="241,-30 136,-30 136,0 241,0 241,-30"/>
 <text text-anchor="start" x="144" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::cast</text>
 <text text-anchor="middle" x="188.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_to_data</text>

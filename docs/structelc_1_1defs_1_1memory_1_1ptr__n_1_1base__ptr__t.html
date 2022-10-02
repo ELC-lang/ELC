@@ -430,7 +430,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08697">8697</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8697</span>:<a class="code hl_typedef" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4bf045a4c3c1e36692093e9db47d3875">base_t</a>(a){}</div>
 <div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_a4bf045a4c3c1e36692093e9db47d3875"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a4bf045a4c3c1e36692093e9db47d3875">elc::defs::memory::ptr_n::base_ptr_t::base_t</a></div><div class="ttdeci">ptr_t&lt; T, ref_type, do_replace_check &gt; base_t</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08683">all_defs.cpp:8683</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a5d1874cfc91a9f3f877b752387d03150_icgraph.svg" width="443" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="ad9312dba8e5edf793e92824225ff8c83" name="ad9312dba8e5edf793e92824225ff8c83"></a>
@@ -530,12 +535,7 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 8702</span>{<span class="keywordflow">return</span> bool(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb">pointer_to_bool</a>(<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>()));}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a74fb2bbf391bf7c5ed945d4f63e08bcb"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb">elc::defs::base::pointer_to_bool</a></div><div class="ttdeci">constexpr auto pointer_to_bool(T *a) noexcept</div><div class="ttdoc">指针转bool的重载接口，允许类对此进行自定义 elc内部的指针转bool应当视情况使用默认配置或此重载接口</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02011">all_defs.cpp:2011</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_afa7ec8ea3b1c71df95fdfc05b7d726d8"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">elc::defs::memory::ptr_n::base_ptr_t::get</a></div><div class="ttdeci">T * get() const noexcept(get_nothrow)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08623">all_defs.cpp:8623</a></div></div>
-</div><!-- fragment --><div class="dynheader">
-函数调用图:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a8e045028b5acab647323071f23391d80_cgraph.svg" width="598" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a7e7627506a3fece1d07acb6df50cdf38" name="a7e7627506a3fece1d07acb6df50cdf38"></a>
@@ -566,12 +566,7 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08728">8728</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8728</span>{<span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(<span class="keyword">this</span>)-&gt;operator bool();}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_aae9be6874a7dd367db08a9a6e1d65639"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">elc::defs::base::add_const</a></div><div class="ttdeci">constexpr const T add_const(T a) noexcept</div><div class="ttdoc">对值追加const</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00963">all_defs.cpp:963</a></div></div>
-</div><!-- fragment --><div class="dynheader">
-函数调用图:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a7e7627506a3fece1d07acb6df50cdf38_cgraph.svg" width="398" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a45c6e82f5ea8a6320627840e306f6328" name="a45c6e82f5ea8a6320627840e306f6328"></a>
@@ -661,12 +656,7 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08703">8703</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8703</span>{<span class="keywordflow">return</span>!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a74fb2bbf391bf7c5ed945d4f63e08bcb">pointer_to_bool</a>(<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>());}</div>
-</div><!-- fragment --><div class="dynheader">
-函数调用图:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a9eda5fddac6e960cd3986db545dca68b_cgraph.svg" width="574" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a89a483a9e7d655443b4e0a65cbbf6411" name="a89a483a9e7d655443b4e0a65cbbf6411"></a>
@@ -700,7 +690,12 @@ requires (<a class="el" href="namespaceelc_1_1defs_1_1base.html#add0bce447ecc5c9
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08732">8732</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8732</span>{<span class="keywordflow">return</span>(<span class="keyword">operator</span>*())(forward&lt;Args&gt;(rest)...);}</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a89a483a9e7d655443b4e0a65cbbf6411_cgraph.svg" width="422" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a01704df2c5d7644d23f29ad567e5b481" name="a01704df2c5d7644d23f29ad567e5b481"></a>
@@ -730,7 +725,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08701">8701</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8701</span>{<span class="keywordflow">return</span>*<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>();}</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a01704df2c5d7644d23f29ad567e5b481_icgraph.svg" width="447" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a44f476e6f5ff22f85494d86ac2125fb3" name="a44f476e6f5ff22f85494d86ac2125fb3"></a>
@@ -760,7 +760,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08700">8700</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8700</span>{<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#afa7ec8ea3b1c71df95fdfc05b7d726d8">get</a>();}</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a44f476e6f5ff22f85494d86ac2125fb3_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
 </div>
 </div>
 <a id="af3bf801e2f54b9b67b3cd77db9b13f44" name="af3bf801e2f54b9b67b3cd77db9b13f44"></a>
@@ -792,7 +797,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08710">8710</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8710</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">swap_with</a>(a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
 <div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_a22e25e0ec2658570171c6e276d4ec6e7"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#a22e25e0ec2658570171c6e276d4ec6e7">elc::defs::memory::ptr_n::base_ptr_t::swap_with</a></div><div class="ttdeci">void swap_with(same_ref_p_t &amp;a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08539">all_defs.cpp:8539</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_af3bf801e2f54b9b67b3cd77db9b13f44_icgraph.svg" width="382" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a1906db732ac8bfbf51c4abcb0300d5da" name="a1906db732ac8bfbf51c4abcb0300d5da"></a>
@@ -824,7 +834,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08708">8708</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8708</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(a.get());<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
 <div class="ttc" id="astructelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_html_aa3c898aa02cdaed7481c64e4bb663515"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">elc::defs::memory::ptr_n::base_ptr_t::reset</a></div><div class="ttdeci">void reset(T *a) const noexcept(reset_nothrow)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08603">all_defs.cpp:8603</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a1906db732ac8bfbf51c4abcb0300d5da_icgraph.svg" width="404" height="179"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a145161e074a26342128088443eee94cf" name="a145161e074a26342128088443eee94cf"></a>
@@ -855,7 +870,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08707">8707</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8707</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(a.get());<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_a145161e074a26342128088443eee94cf_icgraph.svg" width="450" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a1d538873dd620f630c046c7cef1bac77" name="a1d538873dd620f630c046c7cef1bac77"></a>
@@ -980,7 +1000,12 @@ template&lt;class T , typename ref_type , bool do_replace_check&gt; </div>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08706">8706</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 8706</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t.html#aa3c898aa02cdaed7481c64e4bb663515">reset</a>(a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+这是这个函数的调用关系图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1memory_1_1ptr__n_1_1base__ptr__t_afe9eff7345c606ca7d7b860d05ee7b3a_icgraph.svg" width="383" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="ae7fe3b1c4199fa11472f3262900479a5" name="ae7fe3b1c4199fa11472f3262900479a5"></a>

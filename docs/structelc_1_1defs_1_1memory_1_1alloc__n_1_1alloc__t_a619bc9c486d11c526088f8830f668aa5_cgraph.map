@@ -1,4 +1,8 @@
 <map id="elc::defs::memory::alloc_n::alloc_t::base_call" name="elc::defs::memory::alloc_n::alloc_t::base_call">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,177,45"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#a12372c8c7d8365da6e16353b04c2b3c8" title=" " alt="" coords="225,13,379,38"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,63,177,103"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1gc__n.html#aa5c109eeeee57a3082468528e936ccc6" title="当alloc失败时调用此函数" alt="" coords="238,27,373,67"/>
+<area shape="rect" id="node6" href="$structelc_1_1_a_p_is_1_1alloc_1_1source__location__guard.html#ab05fb1252fc9873cc0136b2f9322c4f1" title=" " alt="" coords="225,92,385,147"/>
+<area shape="rect" id="node3" href="$classelc_1_1defs_1_1memory_1_1gc__n_1_1gc__t.html#a44bd3718534432f70ee2cf4741fa8a74" title=" " alt="" coords="433,27,580,67"/>
+<area shape="rect" id="node4" href="$classelc_1_1defs_1_1base_1_1flag.html#a276b6522d8614b03a610d6ed8640982e" title=" " alt="" coords="628,5,789,31"/>
+<area shape="rect" id="node5" href="$classelc_1_1defs_1_1base_1_1flag.html#a52efee8cf2903f94119aafaf8f1335f4" title=" " alt="" coords="641,55,776,95"/>
 </map>

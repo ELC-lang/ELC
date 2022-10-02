@@ -80,7 +80,7 @@ namespace magic_number{
 	}
 	/*! 设置浮点舍入 */
 	template<typename T>
-	[[nodiscard]]force_inline constexpr void set_rounding(int mode){
+	force_inline constexpr void set_rounding(int mode){
 		if constexpr(::std::is_floating_point_v<T>)
 			::std::fesetround(mode);
 	}

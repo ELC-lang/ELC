@@ -1,4 +1,0 @@
-<map id="elc::defs::memory::get_n::forward_alloc_size_grow" name="elc::defs::memory::get_n::forward_alloc_size_grow">
-<area shape="rect" id="node1" title="向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例" alt="" coords="5,29,143,84"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639" title="对值追加const" alt="" coords="191,37,327,77"/>
-</map>

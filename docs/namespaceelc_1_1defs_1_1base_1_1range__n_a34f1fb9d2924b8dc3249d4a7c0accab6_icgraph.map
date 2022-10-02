@@ -1,4 +1,0 @@
-<map id="elc::defs::base::range_n::in_range_but_reverse" name="elc::defs::base::range_n::in_range_but_reverse">
-<area shape="rect" id="node1" title="若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr" alt="" coords="220,37,387,77"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1range__n.html#a75e2fce9974e6518db0bb9380f9c315a" title="若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos" alt="" coords="5,29,172,84"/>
-</map>

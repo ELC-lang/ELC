@@ -1,5 +1,4 @@
 <map id="elc::APIs::alloc::free" name="elc::APIs::alloc::free">
-<area shape="rect" id="node1" title=" " alt="" coords="419,44,557,69"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#add76d8b1616f294069340cfe8accc68a" title="Frees a pointer allocated by base_alloc." alt="" coords="212,29,371,84"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a600bffa825c0c2c1695723ba33b28d74" title=" " alt="" coords="5,29,164,84"/>
+<area shape="rect" id="node1" title=" " alt="" coords="212,20,351,45"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#add76d8b1616f294069340cfe8accc68a" title="Frees a pointer allocated by base_alloc." alt="" coords="5,5,164,60"/>
 </map>

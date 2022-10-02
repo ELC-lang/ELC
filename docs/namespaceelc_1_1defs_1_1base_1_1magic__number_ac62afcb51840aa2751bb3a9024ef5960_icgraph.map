@@ -1,3 +1,4 @@
 <map id="elc::defs::base::magic_number::rotl" name="elc::defs::base::magic_number::rotl">
-<area shape="rect" id="node1" title="位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="5,29,156,69"/>
+<area shape="rect" id="node1" title="位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="216,13,367,53"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a448408c1108fcb7a6fb3fe193ab79a7a" title="合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般" alt="" coords="5,5,168,60"/>
 </map>

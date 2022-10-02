@@ -1,5 +1,5 @@
 <map id="elc::defs::base::range_n::in_range" name="elc::defs::base::range_n::in_range">
-<area shape="rect" id="node1" title="判断一个指针是否在某个byte指针范围内" alt="" coords="5,49,152,89"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485" title=" " alt="" coords="203,5,343,45"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f" title="判断一个值是否在某个范围内" alt="" coords="200,93,347,133"/>
+<area shape="rect" id="node1" title="判断一个指针是否在某个byte指针范围内" alt="" coords="5,37,152,77"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#a881ed169eee49fe798ae99e748a696c3" title=" " alt="" coords="200,5,347,45"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1range__n_1_1range__t.html#aad2a6a1bf43b7ba883f113f399b96656" title=" " alt="" coords="200,69,347,109"/>
 </map>

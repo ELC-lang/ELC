@@ -1,6 +1,0 @@
-<map id="elc::defs::memory::lifetime_n::super_speed_trivial_copy_from_one" name="elc::defs::memory::lifetime_n::super_speed_trivial_copy_from_one">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,164,60"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396" title="Returns true if all bytes in the input are zero." alt="" coords="419,13,544,53"/>
-<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a3538502ddcc1662696b0ae3144d249a2" title=" " alt="" coords="212,49,371,104"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1base.html#a51f0e6e825e683bbef6baeb2921de485" title=" " alt="" coords="592,13,732,53"/>
-</map>

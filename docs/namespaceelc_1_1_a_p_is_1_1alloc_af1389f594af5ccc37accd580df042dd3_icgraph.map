@@ -1,5 +1,4 @@
 <map id="elc::APIs::alloc::aligned_alloc" name="elc::APIs::alloc::aligned_alloc">
-<area shape="rect" id="node1" title=" " alt="" coords="419,37,577,77"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a78a0fa1d20f89ed4b04c66ea762e9051" title="Allocates aligned memory." alt="" coords="212,29,371,84"/>
-<area shape="rect" id="node3" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a0304b5366d9907f769dac7e6dac8cd42" title=" " alt="" coords="5,29,164,84"/>
+<area shape="rect" id="node1" title=" " alt="" coords="212,13,371,53"/>
+<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1alloc__n_1_1default__method.html#a78a0fa1d20f89ed4b04c66ea762e9051" title="Allocates aligned memory." alt="" coords="5,5,164,60"/>
 </map>

@@ -1,5 +1,0 @@
-<map id="elc::defs::memory::get_n::alloc_size_cut" name="elc::defs::memory::get_n::alloc_size_cut">
-<area shape="rect" id="node1" title="向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例" alt="" coords="193,53,339,93"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#a8d53d8b101c60956d97b008b07e2dd1c" title=" " alt="" coords="8,5,143,60"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1remove__t.html#a02ac4cea3f6cd07eaa90eb1d57bc6ef3" title=" " alt="" coords="5,84,145,139"/>
-</map>

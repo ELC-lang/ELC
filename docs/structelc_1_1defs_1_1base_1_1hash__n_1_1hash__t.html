@@ -264,7 +264,12 @@ template&lt;class T &gt; </div>
 <div class="line"><span class="lineno"> 2295</span>                                <span class="keywordflow">return</span>{before._value^(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(after._value,before_size))};</div>
 <div class="line"><span class="lineno"> 2296</span>                            }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_ac62afcb51840aa2751bb3a9024ef5960"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">elc::defs::base::magic_number::rotl</a></div><div class="ttdeci">requires ::std::is_unsigned_v&lt; T &gt; constexpr auto rotl(const T v, const auto R) noexcept</div><div class="ttdoc">位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00618">all_defs.cpp:618</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_a448408c1108fcb7a6fb3fe193ab79a7a_cgraph.svg" width="372" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a78526400b32c3da03f41cc58233684bd" name="a78526400b32c3da03f41cc58233684bd"></a>
@@ -382,7 +387,12 @@ requires is_not_signal_value_for_array_like&lt;T&gt;</div>
 <div class="fragment"><div class="line"><span class="lineno"> 2161</span>                                                                                                         {</div>
 <div class="line"><span class="lineno"> 2162</span>                                <span class="keywordflow">return</span>{a.get_hash()};</div>
 <div class="line"><span class="lineno"> 2163</span>                            }</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_aef4bbc61285adf70cc25d1a4326094af_cgraph.svg" width="359" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a5c64739b37f224d9126f928c8049c04c" name="a5c64739b37f224d9126f928c8049c04c"></a>
@@ -445,12 +455,7 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.htm
 <div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
 <div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25124">all_defs.cpp:25124</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a283ac78c2359bd59925093a9da4db995"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">elc::defs::base::hash_n::pointer_hash</a></div><div class="ttdeci">constexpr hash_value_t pointer_hash(T *a) noexcept</div><div class="ttdoc">Computes the hash value of a pointer.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02093">all_defs.cpp:2093</a></div></div>
-</div><!-- fragment --><div class="dynheader">
-函数调用图:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_a5c64739b37f224d9126f928c8049c04c_cgraph.svg" width="539" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a73757637ad9b2e0bf1d5b821ca6588bb" name="a73757637ad9b2e0bf1d5b821ca6588bb"></a>
@@ -585,7 +590,12 @@ template&lt;class T &gt; </div>
 <div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25087">all_defs.cpp:25087</a></div></div>
 <div class="ttc" id="aall__defs_8cpp_html_af7a1f5bfd28d59d338e8badd194fbb30"><div class="ttname"><a href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a></div><div class="ttdeci">#define BIT_POSSIBILITY</div><div class="ttdoc">每个bit（不是字节）的可能性 为什么c艹委员会不定义这个？</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25052">all_defs.cpp:25052</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a708b86f4561b6659cb265c32ce4cb8b3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">elc::defs::base::note_n::size</a></div><div class="ttdeci">constexpr size_t&lt; T &gt; size(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01782">all_defs.cpp:1782</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_a18784e375870a71e1e24b861a6834190_cgraph.svg" width="376" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a1bcf1da1f6fe3c8a9a30c80a1c7c82be" name="a1bcf1da1f6fe3c8a9a30c80a1c7c82be"></a>
@@ -774,7 +784,12 @@ template&lt;class T &gt; </div>
 <div class="line"><span class="lineno"> 2219</span>                                <span class="keywordflow">return</span>{aret};</div>
 <div class="line"><span class="lineno"> 2220</span>                            }</div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a08ce7b35c66686a24552898e23c050d2"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a08ce7b35c66686a24552898e23c050d2">elc::defs::base::hash_n::hash_t::get_hash_in_base_type</a></div><div class="ttdeci">constexpr hash_base_t get_hash_in_base_type(const T &amp;a) const noexcept(nothrow&lt; T &gt;)</div><div class="ttdoc">Computes the hash of a value in the base type.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02198">all_defs.cpp:2198</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_a317acc07f3acd46081d0f4602f73388a_cgraph.svg" width="390" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <h2 class="groupheader">类成员变量说明</h2>

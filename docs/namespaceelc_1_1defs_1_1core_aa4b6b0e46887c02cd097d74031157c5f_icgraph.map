@@ -1,17 +1,4 @@
 <map id="elc::defs::core::as_ptr" name="elc::defs::core::as_ptr">
-<area shape="rect" id="node1" title=" " alt="" coords="456,415,604,441"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1core.html#a476a30e4da2e29b52c54c7a59dc3f4f3" title=" " alt="" coords="261,149,387,189"/>
-<area shape="rect" id="node8" href="$namespaceelc_1_1defs_1_1core.html#a2f2a3a711e09437bd5d9ea5e7524baf6" title=" " alt="" coords="248,237,400,277"/>
-<area shape="rect" id="node9" href="$structelc_1_1defs_1_1core_1_1expr.html#a4b7b1c90a3b464d7bfa4a23a794d9cad" title=" " alt="" coords="255,301,393,341"/>
-<area shape="rect" id="node10" href="$namespaceelc_1_1defs_1_1core.html#a17a2ea9581d028a7ecbe3b1441a34528" title=" " alt="" coords="251,366,397,391"/>
-<area shape="rect" id="node11" href="$namespaceelc_1_1defs_1_1core.html#a6e7438f71a0b33ed35f39446a4bcfb4b" title=" " alt="" coords="251,415,397,441"/>
-<area shape="rect" id="node12" href="$namespaceelc_1_1defs_1_1core.html#a016165b007a6449ae495fef02aa93ace" title=" " alt="" coords="257,465,391,490"/>
-<area shape="rect" id="node13" href="$namespaceelc_1_1defs_1_1core.html#a49fa729db00c8888c5ebc8d0e7aa686d" title=" " alt="" coords="240,514,408,539"/>
-<area shape="rect" id="node14" href="$structelc_1_1defs_1_1core_1_1value.html#ada5354c6053f118f2deeb2003a2bdc88" title=" " alt="" coords="253,564,395,604"/>
-<area shape="rect" id="node15" href="$namespaceelc_1_1defs_1_1core.html#a4a330c61d7a7062b6859feec5ebb6619" title=" " alt="" coords="257,628,391,668"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1core_1_1binary__node__t.html#a249a14c4c4716c24c985ed2b40cfdf9b" title=" " alt="" coords="25,5,172,45"/>
-<area shape="rect" id="node4" href="$structelc_1_1defs_1_1core_1_1base__binary__function__node.html#a11a9bdffc6908db03801f288c0ce9cd6" title=" " alt="" coords="5,70,192,125"/>
-<area shape="rect" id="node5" href="$structelc_1_1defs_1_1core_1_1cons.html#aa70134fa35de863a301a729f5797f408" title=" " alt="" coords="29,149,169,189"/>
-<area shape="rect" id="node6" href="$structelc_1_1defs_1_1core_1_1value.html#a862dce2e7635966403ec14a8e773ea32" title=" " alt="" coords="28,213,169,253"/>
-<area shape="rect" id="node7" href="$structelc_1_1defs_1_1core_1_1node__like.html#ab2028a957d17acd29a8e432a0c1ac767" title=" " alt="" coords="29,277,169,317"/>
+<area shape="rect" id="node1" title=" " alt="" coords="191,13,339,38"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1core_1_1expr.html#a4b7b1c90a3b464d7bfa4a23a794d9cad" title=" " alt="" coords="5,5,143,45"/>
 </map>
