@@ -19,6 +19,8 @@ elc依赖的基础函数.
 	namespace elc::APIs::die{
 		#include "../../_share/_defs.hpp"
 
+		using namespace elc::defs;
+
 		/// @brief 终止整个程序并可能的触发断点或输出错误信息
 		[[noreturn]]inline void die()noexcept{
 			#if defined(_MSC_VER)
@@ -54,10 +56,7 @@ elc依赖的基础函数.
 				size_t s;
 				char_t c;
 				pop_msvc_warning();
-				floop{
-					c=*err_msg++;
-					if(c==0)
-						break;
+				while(assign(c,*err_msg++)){
 					s = ::std::c32rtomb(err_msg_write, c, &stat);
 					if(s == size_t(-1))
 						die();
