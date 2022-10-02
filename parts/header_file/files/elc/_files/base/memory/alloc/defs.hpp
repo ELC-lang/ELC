@@ -6,9 +6,12 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+/// @brief 提供gc定义
 namespace gc_n{
+	/// @brief 当alloc失败时调用此函数
 	void gc_for_alloc()noexcept;
 }
+/// @brief 底层内存管理泛用类型的模板定义
 namespace alloc_n{
 	using ::elc::defs::memory::gc_n::gc_for_alloc;
 
@@ -64,8 +67,12 @@ namespace alloc_n{
 			return default_method::realloc_method(ptr,new_size);
 	}
 
-	//众所周知,cpp是面向对象语言.
+	/// @brief 所有alloc_t的基类
+	/// @details 尽管意义不明，但这个类就是在这里
 	struct base_alloc_t{};
+	
+	/// @brief 用于对特定类型进行alloc的类
+	/// @warning 这个类不会对内存进行初始化，如需要进行new like操作，请使用 get_t
 	template<class T>
 	struct alloc_t:base_alloc_t{
 		typedef base_alloc_t base_t;
@@ -92,9 +99,14 @@ namespace alloc_n{
 		};
 		[[nodiscard]]force_inline constexpr alloc_array_t operator[](size_t a)const noexcept{return{a};}
 	};
+	/// @brief 用于对特定类型进行alloc的类实例
+	/// @see alloc_t
+	/// @warning 不会对内存进行初始化，如需要进行new like操作，请使用 get_t
 	template<class T>
 	constexpr alloc_t<T>alloc{};
 
+	/// @brief 用于对特定类型进行free
+	/// @warning 这个类不会对类实例进行析构，如需要进行new like操作，请使用 get_t & unget_t
 	constexpr struct free_t{
 		typedef free_t base_t;
 		template<class T>
@@ -107,6 +119,8 @@ namespace alloc_n{
 		/*static*/force_inline void operator()(T*p)const noexcept{base_call(p);}
 	}free{};
 
+	/// @brief 用于对特定类型进行realloc
+	/// @warning 这个类不会对类实例进行移动函数调用，也不会创造或结束生命周期，如需要进行new like操作，请使用 get_resize_t
 	constexpr struct realloc_t{
 		typedef realloc_t base_t;
 		template<class T>
@@ -138,6 +152,9 @@ namespace alloc_n{
 		[[nodiscard]]force_inline constexpr realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};
 
+	/// @brief 用于自特定类型的内存分配结果获取分配大小
+	/// 对于null_ptr，返回0
+	/// 对于单个对象的分配，返回1
 	constexpr struct get_size_of_alloc_t{
 		template<typename T>
 		static constexpr bool able=true;
@@ -158,6 +175,8 @@ namespace alloc_n{
 		}
 	}get_size_of_alloc{};
 
+	/// @brief 对于特定类型的内存分配结果，获取分配大小并复制一份同样大小的内存
+	/// @warning 这个类不会对类实例进行复制函数调用，也不会创造或结束生命周期，如需要进行new like操作，请使用 copy_get_t
 	constexpr struct copy_alloc_t{
 		template<typename T>
 		static constexpr bool able=true;

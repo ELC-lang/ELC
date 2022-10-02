@@ -26,6 +26,7 @@ elc依赖的基础函数.
 		#include <cstdlib>
 	#endif
 	#include "../../header_file/files/elc/base_defs"
+	/// @brief alloc相关基础函数
 	namespace elc::APIs::alloc{
 		#include "../../_share/_defs.hpp"
 
@@ -70,7 +71,7 @@ elc依赖的基础函数.
 		#endif
 		//BLOCK_END
 
-		/*
+		/*!
 		aligned_alloc 内存分配函数，需提供对齐需求
 		return空指针被允许
 		size被保证不为0
@@ -105,7 +106,7 @@ elc依赖的基础函数.
 
 			return(byte*)aret;
 		}
-		/*
+		/*!
 		realloc 重新规划分配的大小
 		return空指针被允许，但ptr值必须保持有效以保证gc后再次realloc有效
 		new_size被保证不为0
@@ -144,7 +145,7 @@ elc依赖的基础函数.
 
 			return(byte*)aret;
 		}
-		/*
+		/*!
 		free 释放所分配的内存
 		传入需获取大小的数据块起始点与对齐
 		*/
@@ -167,7 +168,7 @@ elc依赖的基础函数.
 				::std::free(recorrect_pointer(p,align));
 			#endif
 		}
-		/*
+		/*!
 		get_size_of_alloc 获取数据块的大小
 		传入需获取大小的数据块起始点与对齐
 		*/

@@ -99,6 +99,9 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1alloc.html'
   <div class="headertitle"><div class="title">elc::APIs::alloc 命名空间参考</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>alloc相关基础函数  
+<a href="namespaceelc_1_1_a_p_is_1_1alloc.html#details">更多...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 命名空间</h2></td></tr>
@@ -128,7 +131,9 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1alloc.html'
 <tr class="memitem:a3345292573a8a5476df943e989f5f96f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structelc_1_1_a_p_is_1_1alloc_1_1source__location__info__t.html">elc::APIs::alloc::source_location_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceelc_1_1_a_p_is_1_1alloc.html#a3345292573a8a5476df943e989f5f96f">operate_source_location</a></td></tr>
 <tr class="separator:a3345292573a8a5476df943e989f5f96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">函数说明</h2>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p >alloc相关基础函数 </p>
+</div><h2 class="groupheader">函数说明</h2>
 <a id="af1389f594af5ccc37accd580df042dd3" name="af1389f594af5ccc37accd580df042dd3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af1389f594af5ccc37accd580df042dd3">&#9670;&#160;</a></span>aligned_alloc()</h2>
 
@@ -162,6 +167,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1alloc.html'
   </tr>
 </table>
 </div><div class="memdoc">
+<p >aligned_alloc 内存分配函数，需提供对齐需求 return空指针被允许 size被保证不为0 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l03984">3984</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 3984</span>                                                                                        {</div>
@@ -233,6 +239,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1alloc.html'
   </tr>
 </table>
 </div><div class="memdoc">
+<p >free 释放所分配的内存 传入需获取大小的数据块起始点与对齐 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l04057">4057</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 4057</span>                                                                             {</div>
@@ -290,6 +297,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1alloc.html'
   </tr>
 </table>
 </div><div class="memdoc">
+<p >get_size_of_alloc 获取数据块的大小 传入需获取大小的数据块起始点与对齐 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l04080">4080</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 4080</span>                                                                                                               {</div>
@@ -346,6 +354,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1alloc.html'
   </tr>
 </table>
 </div><div class="memdoc">
+<p >realloc 重新规划分配的大小 return空指针被允许，但ptr值必须保持有效以保证gc后再次realloc有效 new_size被保证不为0 align维持不变 但只允许在扩大数据块时可选的移动数据块 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l04021">4021</a> 行定义.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 4021</span>                                                                                                            {</div>

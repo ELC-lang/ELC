@@ -99,6 +99,9 @@ $(document).ready(function(){initNavTree('structelc_1_1defs_1_1memory_1_1alloc__
   <div class="headertitle"><div class="title">elc::defs::memory::alloc_n::get_size_of_alloc_t结构体 参考</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>用于自特定类型的内存分配结果获取分配大小 对于null_ptr，返回0 对于单个对象的分配，返回1  
+ <a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t.html#details">更多...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public 成员函数</h2></td></tr>
@@ -124,8 +127,9 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__siz
 <tr class="separator:ac69ae5f2dcb057b450910904fe38b053"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07170">7170</a> 行定义.</p>
+<div class="textblock"><p >用于自特定类型的内存分配结果获取分配大小 对于null_ptr，返回0 对于单个对象的分配，返回1 </p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07186">7186</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="aafd82868a2459c24acbd0df6a1306dc8" name="aafd82868a2459c24acbd0df6a1306dc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aafd82868a2459c24acbd0df6a1306dc8">&#9670;&#160;</a></span>base_call()</h2>
@@ -154,14 +158,14 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__siz
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07177">7177</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7177</span>                                                                                {</div>
-<div class="line"><span class="lineno"> 7178</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
-<div class="line"><span class="lineno"> 7179</span>                            <span class="keywordflow">if</span>(arg==null_ptr)</div>
-<div class="line"><span class="lineno"> 7180</span>                                <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno"> 7181</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#affd1ac15768487ddb5f45fa55cd66a18">get_size_of_alloc_method</a>(arg);</div>
-<div class="line"><span class="lineno"> 7182</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_affd1ac15768487ddb5f45fa55cd66a18"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#affd1ac15768487ddb5f45fa55cd66a18">elc::defs::memory::alloc_n::get_size_of_alloc_method</a></div><div class="ttdeci">size_t get_size_of_alloc_method(const T *arg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07068">all_defs.cpp:7068</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07193">7193</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7193</span>                                                                                {</div>
+<div class="line"><span class="lineno"> 7194</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
+<div class="line"><span class="lineno"> 7195</span>                            <span class="keywordflow">if</span>(arg==null_ptr)</div>
+<div class="line"><span class="lineno"> 7196</span>                                <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno"> 7197</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#affd1ac15768487ddb5f45fa55cd66a18">get_size_of_alloc_method</a>(arg);</div>
+<div class="line"><span class="lineno"> 7198</span>                        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_affd1ac15768487ddb5f45fa55cd66a18"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#affd1ac15768487ddb5f45fa55cd66a18">elc::defs::memory::alloc_n::get_size_of_alloc_method</a></div><div class="ttdeci">size_t get_size_of_alloc_method(const T *arg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07070">all_defs.cpp:7070</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -192,11 +196,11 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__siz
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07185">7185</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7185</span>                                                                                             {</div>
-<div class="line"><span class="lineno"> 7186</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t.html#aafd82868a2459c24acbd0df6a1306dc8">base_call</a>(arg);</div>
-<div class="line"><span class="lineno"> 7187</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t_html_aafd82868a2459c24acbd0df6a1306dc8"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t.html#aafd82868a2459c24acbd0df6a1306dc8">elc::defs::memory::alloc_n::get_size_of_alloc_t::base_call</a></div><div class="ttdeci">static size_t base_call(const T *arg) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07177">all_defs.cpp:7177</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07201">7201</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7201</span>                                                                                             {</div>
+<div class="line"><span class="lineno"> 7202</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t.html#aafd82868a2459c24acbd0df6a1306dc8">base_call</a>(arg);</div>
+<div class="line"><span class="lineno"> 7203</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t_html_aafd82868a2459c24acbd0df6a1306dc8"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1get__size__of__alloc__t.html#aafd82868a2459c24acbd0df6a1306dc8">elc::defs::memory::alloc_n::get_size_of_alloc_t::base_call</a></div><div class="ttdeci">static size_t base_call(const T *arg) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07193">all_defs.cpp:7193</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,7 +227,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07172">7172</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07188">7188</a> 行定义.</p>
 
 </div>
 </div>
@@ -249,7 +253,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07174">7174</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07190">7190</a> 行定义.</p>
 
 </div>
 </div>

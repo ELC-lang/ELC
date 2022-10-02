@@ -83,9 +83,9 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 
 #define declvalue(...) (::std::declval<__VA_ARGS__>())
 
-/*实例化到此将引发错误*/
+/*! 实例化到此将引发错误 */
 #define template_error(reason) static_assert(template_error_helper<T>,reason)
-/*实例化到此将引发警告*/
+/*! 实例化到此将引发警告 */
 #define template_warning(reason) template_warning_helper<T>(reason)
 
 //for type_info
@@ -114,7 +114,7 @@ class name{}\
 #define common_attribute_t template<class>class
 #define special_attribute_t class
 
-/*
+/*!
 若参数的布尔值为零，那么此模板不会实例化
 
 为什么不用cpp20的constraints？
@@ -123,13 +123,13 @@ class name{}\
 一句话总结：c艹标准会sb
 */
 #define enable_if(...) class enable_state= ::std::enable_if_t<__VA_ARGS__>
-/*默认参与模板候选*/
+/*! 默认参与模板候选 */
 #define enabled_by_default class enable_state=void
-/*默认不参与模板候选*/
+/*! 默认不参与模板候选 */
 #define disabled_by_default class enable_state= ::std::enable_if_t<false>
-/*若参数为病式，那么此模板不会实例化*/
+/*! 若参数为病式，那么此模板不会实例化 */
 #define enable_if_not_ill_form(...) class enable_state= ::std::void_t<decltype(__VA_ARGS__)>
-/*用于模板声明*/
+/*!用于模板声明 */
 #define enable_flag class enable_state
 
 #define was_an_ill_form(...) (!was_not_an_ill_form(__VA_ARGS__))
@@ -138,32 +138,32 @@ class name{}\
 #define was_not_an_ill_form_and_noexcept(...) (bool(requires{__VA_ARGS__;{__VA_ARGS__}noexcept;}))
 #define was_not_an_ill_form_with_parameter(...) (bool(requires __VA_ARGS__ ))
 
-/*让lambda递归更加美观*/
+/*! 让lambda递归更加美观 */
 #define recursive_lambda(...) lambda(auto&&lambda_RLSRRS,__VA_ARGS__)
-/*让lambda递归更加美观*/
+/*! 让lambda递归更加美观 */
 #define get_recursive_lambda_caller(name) \
 lambda_with_catch(&)(auto&&...Args){\
 	return name(name,Args...);\
 }
-/*让lambda定义更加美观*/
+/*! 让lambda定义更加美观 */
 #define lambda []
-/*让lambda定义更加美观*/
+/*! 让lambda定义更加美观 */
 #define lambda_with_catch(...) [__VA_ARGS__]
-/*让lambda递归更加美观*/
+/*! 让lambda定义更加美观 */
 #define self_recursion(...) lambda_RLSRRS(lambda_RLSRRS,__VA_ARGS__)
 //recursive_lambda_self_referential_reserved_symbolname
 #define lambda_RLSRRS _my_jb_super_sb_name_
 
 #define MAGIC//ahh,ko no tenno da!
 
-/*装饰性语法糖*/
+/*! 装饰性语法糖 */
 #define nothing
 
-/*aya风格语法糖*/
+/*! aya风格语法糖 */
 #define elseif else if
-/*aya风格语法糖*/
+/*! aya风格语法糖 */
 #define _big_than_ >
-/*aya风格语法糖*/
+/*! aya风格语法糖 */
 #define _small_than_ <
 
 #if defined(_MSC_VER)
@@ -172,14 +172,14 @@ lambda_with_catch(&)(auto&&...Args){\
 	#define or ||
 #endif
 
-/*进入名称空间，并不是很美观*/
+/*! 进入名称空间，并不是很美观 */
 #define INTER_NAMESPACE(NAMESPACENAME) namespace NAMESPACENAME{
-/*退出名称空间，并不是很美观*/
+/*! 退出名称空间，并不是很美观 */
 #define BREAK_NAMESPACE }
 
-/*template说明符*/
+/*! template说明符 */
 #define template_name template
-/*template说明符*/
+/*! template说明符 */
 #define type_name class
 
 #if defined(DEBUG) || defined(_DEBUG)

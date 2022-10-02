@@ -89,13 +89,11 @@ namespace lifetime_n{
 		return to;
 	}
 
-	/*
-	lifetime_n的一部分
+	/*!
 	所有的construct_t实例都派生于此
 	*/
 	struct base_construct_t{};
-	/*
-	lifetime_n的一部分
+	/*!
 	用于构造实例
 	用法详见变量模板construct
 	*/
@@ -177,8 +175,7 @@ namespace lifetime_n{
 		};
 		[[nodiscard]]force_inline constexpr placement_construct_t operator[](T*p)const noexcept{return{p};}
 	};
-	/*
-	lifetime_n的一部分
+	/*!
 	constexpr变量模板，用于构造实例
 	用法：
 	construct<类型>.able<构造参数类型>		->	bool
@@ -191,8 +188,7 @@ namespace lifetime_n{
 	template<typename T>
 	constexpr construct_t<T>construct{};
 
-	/*
-	lifetime_n的一部分
+	/*!
 	用于销毁实例
 	用法：
 	destruct.able<类型>		->	bool
@@ -248,8 +244,7 @@ namespace lifetime_n{
 		force_inline constexpr not_t operator!()const noexcept{return not_t{};}
 	}destruct{};
 
-	/*
-	lifetime_n的一部分
+	/*!
 	用于重新构造实例：先摧毁，再原地构建
 	用法：
 	re_construct.able<类型>		->	bool

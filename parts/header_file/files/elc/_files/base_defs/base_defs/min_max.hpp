@@ -8,7 +8,7 @@
 */
 #undef min
 #undef max
-/*
+/*!
 获取几个参数中的最小值或某类型能表示的最小值.
 用法:
 	min.able<T1,T2...> -> bool T...等类型能否获得参数最小值.
@@ -36,7 +36,7 @@ constexpr struct min_t{
 		return ::std::numeric_limits<T>::min();
 	}
 }min{};
-/*
+/*!
 获取几个参数中的最大值或某类型能表示的最大值.
 用法:
 	max.able<T1,T2...> -> bool T...等类型能否获得参数最大值.

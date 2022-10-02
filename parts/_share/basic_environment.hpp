@@ -6,8 +6,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 
-//每个bit（不是字节）的可能性
-//为什么c艹委员会不定义这个？
+/// 每个bit（不是字节）的可能性
+/// 为什么c艹委员会不定义这个？
 #define BIT_POSSIBILITY 2
 
 //file_end

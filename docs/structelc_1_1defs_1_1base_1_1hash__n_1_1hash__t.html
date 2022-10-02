@@ -199,9 +199,9 @@ template&lt;class T &gt; </div>
 <div class="line"><span class="lineno"> 2127</span>                                <span class="keywordflow">else</span></div>
 <div class="line"><span class="lineno"> 2128</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno"> 2129</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24929">all_defs.cpp:24929</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24955">all_defs.cpp:24955</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24876">all_defs.cpp:24876</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24947">all_defs.cpp:24947</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24973">all_defs.cpp:24973</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24894">all_defs.cpp:24894</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a1caf5719dec37dc40b22b3572afca141"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">elc::defs::base::hash_n::hash</a></div><div class="ttdeci">struct elc::defs::base::hash_n::hash_t hash</div></div>
 </div><!-- fragment -->
 </div>
@@ -289,7 +289,7 @@ template&lt;class T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2218</span>                                           {</div>
 <div class="line"><span class="lineno"> 2219</span>                                <span class="keywordflow">return</span>{before._value^(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(after._value,before_size))};</div>
 <div class="line"><span class="lineno"> 2220</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_ac62afcb51840aa2751bb3a9024ef5960"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">elc::defs::base::magic_number::rotl</a></div><div class="ttdeci">requires ::std::is_unsigned_v&lt; T &gt; constexpr auto rotl(const T v, const auto R) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00617">all_defs.cpp:617</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_ac62afcb51840aa2751bb3a9024ef5960"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">elc::defs::base::magic_number::rotl</a></div><div class="ttdeci">requires ::std::is_unsigned_v&lt; T &gt; constexpr auto rotl(const T v, const auto R) noexcept</div><div class="ttdoc">位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00618">all_defs.cpp:618</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -367,7 +367,7 @@ template&lt;class T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2135</span>                                                                                                  {</div>
 <div class="line"><span class="lineno"> 2136</span>                                <span class="keywordflow">return</span>{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>)};</div>
 <div class="line"><span class="lineno"> 2137</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_aaf2d16183d4399c60b048c3cbf4465d3"><div class="ttname"><a href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a></div><div class="ttdeci">#define nothing</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24952">all_defs.cpp:24952</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_aaf2d16183d4399c60b048c3cbf4465d3"><div class="ttname"><a href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a></div><div class="ttdeci">#define nothing</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24970">all_defs.cpp:24970</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -482,7 +482,7 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.htm
 <div class="line"><span class="lineno"> 2157</span>                                }</div>
 <div class="line"><span class="lineno"> 2158</span><span class="preprocessor">                                #define hash operator()</span></div>
 <div class="line"><span class="lineno"> 2159</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24879">all_defs.cpp:24879</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24897">all_defs.cpp:24897</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -594,9 +594,9 @@ template&lt;class T &gt; </div>
 <div class="line"><span class="lineno"> 2203</span>                                }</div>
 <div class="line"><span class="lineno"> 2204</span>                                <span class="keywordflow">return</span>{aret};</div>
 <div class="line"><span class="lineno"> 2205</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a5f761ce8a3116b195d5479d77c2dff1c"><div class="ttname"><a href="all__defs_8cpp.html#a5f761ce8a3116b195d5479d77c2dff1c">bitnum_of</a></div><div class="ttdeci">#define bitnum_of(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24896">all_defs.cpp:24896</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24839">all_defs.cpp:24839</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_af7a1f5bfd28d59d338e8badd194fbb30"><div class="ttname"><a href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a></div><div class="ttdeci">#define BIT_POSSIBILITY</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24804">all_defs.cpp:24804</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a5f761ce8a3116b195d5479d77c2dff1c"><div class="ttname"><a href="all__defs_8cpp.html#a5f761ce8a3116b195d5479d77c2dff1c">bitnum_of</a></div><div class="ttdeci">#define bitnum_of(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24914">all_defs.cpp:24914</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24857">all_defs.cpp:24857</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_af7a1f5bfd28d59d338e8badd194fbb30"><div class="ttname"><a href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a></div><div class="ttdeci">#define BIT_POSSIBILITY</div><div class="ttdoc">每个bit（不是字节）的可能性 为什么c艹委员会不定义这个？</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24822">all_defs.cpp:24822</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a708b86f4561b6659cb265c32ce4cb8b3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">elc::defs::base::note_n::size</a></div><div class="ttdeci">constexpr size_t&lt; T &gt; size(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01782">all_defs.cpp:1782</a></div></div>
 </div><!-- fragment -->
 </div>

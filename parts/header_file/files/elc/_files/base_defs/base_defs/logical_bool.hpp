@@ -7,8 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 
-/*
-	logical_bool：混沌布尔值。
+/*! 混沌布尔值。
 	允许输出介于真假之间的内容的布尔值。
 	混沌布尔值会有五个可能的值，分别为true,false,neither,either。unknown视为不合法。
 	用在if与while中时，true，either被判定为真，其与均为假。

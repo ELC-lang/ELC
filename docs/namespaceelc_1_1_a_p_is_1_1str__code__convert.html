@@ -129,28 +129,28 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1str__code__
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18583">18583</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18583</span>                                                                                                   {</div>
-<div class="line"><span class="lineno">18584</span>                        string_t&lt;char&gt;aret;</div>
-<div class="line"><span class="lineno">18585</span>                        ::std::mbstate_t stat{};</div>
-<div class="line"><span class="lineno">18586</span>                        string_t old_lc=::std::setlocale(LC_CTYPE,<span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">18587</span>                        <span class="keywordflow">if</span>(::std::setlocale(LC_CTYPE,<span class="stringliteral">&quot;en_US.utf8&quot;</span>)==<span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">18588</span>                            die_with(locale::str::setlocale_error);</div>
-<div class="line"><span class="lineno">18589</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a>(26494)<span class="comment">//未初始化警告diss</span></div>
-<div class="line"><span class="lineno">18590</span>                        char r[MB_LEN_MAX];</div>
-<div class="line"><span class="lineno">18591</span>                        ptrdiff_t s;</div>
-<div class="line"><span class="lineno">18592</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a>();</div>
-<div class="line"><span class="lineno">18593</span>                        for(auto c:a){</div>
-<div class="line"><span class="lineno">18594</span>                            s=::std::c32rtomb(r,c,&amp;stat);</div>
-<div class="line"><span class="lineno">18595</span>                            <span class="keywordflow">if</span>(s &lt; 0)<span class="comment">//-1</span></div>
-<div class="line"><span class="lineno">18596</span>                                die_with(locale::str::code_convert_error);</div>
-<div class="line"><span class="lineno">18597</span>                            aret+=string_view_t&lt;char&gt;{(<span class="keywordtype">char</span>*)r,note::size((<span class="keywordtype">size_t</span>)s)};</div>
-<div class="line"><span class="lineno">18598</span>                        }</div>
-<div class="line"><span class="lineno">18599</span>                        ::std::setlocale(LC_CTYPE,old_lc.c_str());</div>
-<div class="line"><span class="lineno">18600</span>                        <span class="keywordflow">return</span> aret;</div>
-<div class="line"><span class="lineno">18601</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6e3188ea32f5c6716f6de6c5cdef21a8"><div class="ttname"><a href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a></div><div class="ttdeci">#define pop_msvc_warning()</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24842">all_defs.cpp:24842</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a7d3d7d49477dde42c78efdf612bace7c"><div class="ttname"><a href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a></div><div class="ttdeci">#define push_and_disable_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24843">all_defs.cpp:24843</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18601">18601</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18601</span>                                                                                                   {</div>
+<div class="line"><span class="lineno">18602</span>                        string_t&lt;char&gt;aret;</div>
+<div class="line"><span class="lineno">18603</span>                        ::std::mbstate_t stat{};</div>
+<div class="line"><span class="lineno">18604</span>                        string_t old_lc=::std::setlocale(LC_CTYPE,<span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">18605</span>                        <span class="keywordflow">if</span>(::std::setlocale(LC_CTYPE,<span class="stringliteral">&quot;en_US.utf8&quot;</span>)==<span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">18606</span>                            die_with(locale::str::setlocale_error);</div>
+<div class="line"><span class="lineno">18607</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a>(26494)<span class="comment">//未初始化警告diss</span></div>
+<div class="line"><span class="lineno">18608</span>                        char r[MB_LEN_MAX];</div>
+<div class="line"><span class="lineno">18609</span>                        ptrdiff_t s;</div>
+<div class="line"><span class="lineno">18610</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a>();</div>
+<div class="line"><span class="lineno">18611</span>                        for(auto c:a){</div>
+<div class="line"><span class="lineno">18612</span>                            s=::std::c32rtomb(r,c,&amp;stat);</div>
+<div class="line"><span class="lineno">18613</span>                            <span class="keywordflow">if</span>(s &lt; 0)<span class="comment">//-1</span></div>
+<div class="line"><span class="lineno">18614</span>                                die_with(locale::str::code_convert_error);</div>
+<div class="line"><span class="lineno">18615</span>                            aret+=string_view_t&lt;char&gt;{(<span class="keywordtype">char</span>*)r,note::size((<span class="keywordtype">size_t</span>)s)};</div>
+<div class="line"><span class="lineno">18616</span>                        }</div>
+<div class="line"><span class="lineno">18617</span>                        ::std::setlocale(LC_CTYPE,old_lc.c_str());</div>
+<div class="line"><span class="lineno">18618</span>                        <span class="keywordflow">return</span> aret;</div>
+<div class="line"><span class="lineno">18619</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6e3188ea32f5c6716f6de6c5cdef21a8"><div class="ttname"><a href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a></div><div class="ttdeci">#define pop_msvc_warning()</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24860">all_defs.cpp:24860</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a7d3d7d49477dde42c78efdf612bace7c"><div class="ttname"><a href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a></div><div class="ttdeci">#define push_and_disable_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24861">all_defs.cpp:24861</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -178,28 +178,28 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1_a_p_is_1_1str__code__
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18602">18602</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18602</span>                                                                                                     {</div>
-<div class="line"><span class="lineno">18603</span>                        string_t&lt;char_t&gt;aret;</div>
-<div class="line"><span class="lineno">18604</span>                        ::std::mbstate_t stat{};</div>
-<div class="line"><span class="lineno">18605</span>                        string_t old_lc=::std::setlocale(LC_CTYPE,<span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">18606</span>                        <span class="keywordflow">if</span>(::std::setlocale(LC_CTYPE,<span class="stringliteral">&quot;en_US.utf8&quot;</span>)==<span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">18607</span>                            die_with(locale::str::setlocale_error);</div>
-<div class="line"><span class="lineno">18608</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a>(26494);<span class="comment">//未初始化警告diss</span></div>
-<div class="line"><span class="lineno">18609</span>                        <a class="code hl_typedef" href="namespaceelc.html#abf4296bbe16e6c948f4c98c6b5814564">char_t</a> c;</div>
-<div class="line"><span class="lineno">18610</span>                        ptrdiff_t s;</div>
-<div class="line"><span class="lineno">18611</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a>();</div>
-<div class="line"><span class="lineno">18612</span>                        <span class="keyword">auto</span> i=a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#acccc3655a0125cc9d3065590796f8383">cbegin</a>(),e=a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#af0925246b65b042ca267fbbd11c13880">cend</a>();</div>
-<div class="line"><span class="lineno">18613</span>                        <span class="keywordflow">while</span>(i!=e){</div>
-<div class="line"><span class="lineno">18614</span>                            s=::std::mbrtoc32(&amp;c,i,MB_LEN_MAX,&amp;stat);</div>
-<div class="line"><span class="lineno">18615</span>                            <span class="keywordflow">if</span>(s &lt; 0)<span class="comment">//-3 或 -1</span></div>
-<div class="line"><span class="lineno">18616</span>                                die_with(locale::str::code_convert_error);</div>
-<div class="line"><span class="lineno">18617</span>                            i+=s;</div>
-<div class="line"><span class="lineno">18618</span>                            aret+=c;</div>
-<div class="line"><span class="lineno">18619</span>                        }</div>
-<div class="line"><span class="lineno">18620</span>                        ::std::setlocale(LC_CTYPE,old_lc.c_str());</div>
-<div class="line"><span class="lineno">18621</span>                        <span class="keywordflow">return</span> aret;</div>
-<div class="line"><span class="lineno">18622</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18620">18620</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18620</span>                                                                                                     {</div>
+<div class="line"><span class="lineno">18621</span>                        string_t&lt;char_t&gt;aret;</div>
+<div class="line"><span class="lineno">18622</span>                        ::std::mbstate_t stat{};</div>
+<div class="line"><span class="lineno">18623</span>                        string_t old_lc=::std::setlocale(LC_CTYPE,<span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">18624</span>                        <span class="keywordflow">if</span>(::std::setlocale(LC_CTYPE,<span class="stringliteral">&quot;en_US.utf8&quot;</span>)==<span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">18625</span>                            die_with(locale::str::setlocale_error);</div>
+<div class="line"><span class="lineno">18626</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a7d3d7d49477dde42c78efdf612bace7c">push_and_disable_msvc_warning</a>(26494);<span class="comment">//未初始化警告diss</span></div>
+<div class="line"><span class="lineno">18627</span>                        <a class="code hl_typedef" href="namespaceelc.html#abf4296bbe16e6c948f4c98c6b5814564">char_t</a> c;</div>
+<div class="line"><span class="lineno">18628</span>                        ptrdiff_t s;</div>
+<div class="line"><span class="lineno">18629</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6e3188ea32f5c6716f6de6c5cdef21a8">pop_msvc_warning</a>();</div>
+<div class="line"><span class="lineno">18630</span>                        <span class="keyword">auto</span> i=a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#acccc3655a0125cc9d3065590796f8383">cbegin</a>(),e=a.<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#af0925246b65b042ca267fbbd11c13880">cend</a>();</div>
+<div class="line"><span class="lineno">18631</span>                        <span class="keywordflow">while</span>(i!=e){</div>
+<div class="line"><span class="lineno">18632</span>                            s=::std::mbrtoc32(&amp;c,i,MB_LEN_MAX,&amp;stat);</div>
+<div class="line"><span class="lineno">18633</span>                            <span class="keywordflow">if</span>(s &lt; 0)<span class="comment">//-3 或 -1</span></div>
+<div class="line"><span class="lineno">18634</span>                                die_with(locale::str::code_convert_error);</div>
+<div class="line"><span class="lineno">18635</span>                            i+=s;</div>
+<div class="line"><span class="lineno">18636</span>                            aret+=c;</div>
+<div class="line"><span class="lineno">18637</span>                        }</div>
+<div class="line"><span class="lineno">18638</span>                        ::std::setlocale(LC_CTYPE,old_lc.c_str());</div>
+<div class="line"><span class="lineno">18639</span>                        <span class="keywordflow">return</span> aret;</div>
+<div class="line"><span class="lineno">18640</span>                    }</div>
 <div class="ttc" id="anamespaceelc_html_abf4296bbe16e6c948f4c98c6b5814564"><div class="ttname"><a href="namespaceelc.html#abf4296bbe16e6c948f4c98c6b5814564">elc::char_t</a></div><div class="ttdeci">char32_t char_t</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00066">all_defs.cpp:66</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t_html_acccc3655a0125cc9d3065590796f8383"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#acccc3655a0125cc9d3065590796f8383">elc::defs::base::array_like_n::array_like_view_t::cbegin</a></div><div class="ttdeci">constexpr const_iterator cbegin() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01867">all_defs.cpp:1867</a></div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t_html_af0925246b65b042ca267fbbd11c13880"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html#af0925246b65b042ca267fbbd11c13880">elc::defs::base::array_like_n::array_like_view_t::cend</a></div><div class="ttdeci">constexpr const_iterator cend() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01868">all_defs.cpp:1868</a></div></div>

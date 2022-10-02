@@ -99,6 +99,9 @@ $(document).ready(function(){initNavTree('structelc_1_1defs_1_1memory_1_1alloc__
   <div class="headertitle"><div class="title">elc::defs::memory::alloc_n::copy_alloc_t结构体 参考</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>对于特定类型的内存分配结果，获取分配大小并复制一份同样大小的内存  
+ <a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t.html#details">更多...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public 成员函数</h2></td></tr>
@@ -124,8 +127,10 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__al
 <tr class="separator:ac84485d7f672e9e0187a4ee668d233e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07190">7190</a> 行定义.</p>
+<div class="textblock"><p >对于特定类型的内存分配结果，获取分配大小并复制一份同样大小的内存 </p>
+<dl class="section warning"><dt>警告</dt><dd>这个类不会对类实例进行复制函数调用，也不会创造或结束生命周期，如需要进行new like操作，请使用 copy_get_t </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07208">7208</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a9d7abfbda61c697b91bf38d63cbf605e" name="a9d7abfbda61c697b91bf38d63cbf605e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9d7abfbda61c697b91bf38d63cbf605e">&#9670;&#160;</a></span>base_call()</h2>
@@ -154,11 +159,11 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__al
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07197">7197</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7197</span>                                                                           {</div>
-<div class="line"><span class="lineno"> 7198</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
-<div class="line"><span class="lineno"> 7199</span>                            <span class="keywordflow">return</span> alloc&lt;T&gt;(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">get_size_of_alloc</a>(arg));</div>
-<div class="line"><span class="lineno"> 7200</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07215">7215</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7215</span>                                                                           {</div>
+<div class="line"><span class="lineno"> 7216</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
+<div class="line"><span class="lineno"> 7217</span>                            <span class="keywordflow">return</span> alloc&lt;T&gt;(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">get_size_of_alloc</a>(arg));</div>
+<div class="line"><span class="lineno"> 7218</span>                        }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ab3de15a7bb31a5dd66d7129effe17351"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">elc::defs::memory::alloc_n::get_size_of_alloc</a></div><div class="ttdeci">constexpr struct elc::defs::memory::alloc_n::get_size_of_alloc_t get_size_of_alloc</div></div>
 </div><!-- fragment -->
 </div>
@@ -190,11 +195,11 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__al
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07203">7203</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7203</span>                                                                                        {</div>
-<div class="line"><span class="lineno"> 7204</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t.html#a9d7abfbda61c697b91bf38d63cbf605e">base_call</a>(arg);</div>
-<div class="line"><span class="lineno"> 7205</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t_html_a9d7abfbda61c697b91bf38d63cbf605e"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t.html#a9d7abfbda61c697b91bf38d63cbf605e">elc::defs::memory::alloc_n::copy_alloc_t::base_call</a></div><div class="ttdeci">static T * base_call(const T *arg) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07197">all_defs.cpp:7197</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07221">7221</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7221</span>                                                                                        {</div>
+<div class="line"><span class="lineno"> 7222</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t.html#a9d7abfbda61c697b91bf38d63cbf605e">base_call</a>(arg);</div>
+<div class="line"><span class="lineno"> 7223</span>                        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t_html_a9d7abfbda61c697b91bf38d63cbf605e"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t.html#a9d7abfbda61c697b91bf38d63cbf605e">elc::defs::memory::alloc_n::copy_alloc_t::base_call</a></div><div class="ttdeci">static T * base_call(const T *arg) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07215">all_defs.cpp:7215</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -221,7 +226,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07192">7192</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07210">7210</a> 行定义.</p>
 
 </div>
 </div>
@@ -247,7 +252,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07194">7194</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07212">7212</a> 行定义.</p>
 
 </div>
 </div>

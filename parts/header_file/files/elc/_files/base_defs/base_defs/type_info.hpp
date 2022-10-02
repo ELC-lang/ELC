@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct type_name_t;//自动重整类型名并在析构时释放重整结果，对于gcc和clang的傻逼实现
+struct type_name_t;/// 自动重整类型名并在析构时释放重整结果，对于gcc和clang的傻逼实现
 struct base_type_info_t{
 private:
 	struct type_id_t{

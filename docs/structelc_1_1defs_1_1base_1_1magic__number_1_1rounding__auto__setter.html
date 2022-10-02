@@ -113,8 +113,9 @@ Public 属性</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-struct elc::defs::base::magic_number::rounding_auto_setter&lt; T &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00552">552</a> 行定义.</p>
+struct elc::defs::base::magic_number::rounding_auto_setter&lt; T &gt;</div><p >设置并自动恢复浮点舍入 </p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00553">553</a> 行定义.</p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="ab250cd585fdf63f1c44b1ee21d41ad09" name="ab250cd585fdf63f1c44b1ee21d41ad09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab250cd585fdf63f1c44b1ee21d41ad09">&#9670;&#160;</a></span>rounding_auto_setter()</h2>
@@ -142,12 +143,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00554">554</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  554</span>                                                                  {</div>
-<div class="line"><span class="lineno">  555</span>                                <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#adfbcad51332d37f000486b5506008bb1">old_rounding</a>=get_rounding&lt;T&gt;();</div>
-<div class="line"><span class="lineno">  556</span>                                set_rounding&lt;T&gt;(new_rounding);</div>
-<div class="line"><span class="lineno">  557</span>                            }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter_html_adfbcad51332d37f000486b5506008bb1"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#adfbcad51332d37f000486b5506008bb1">elc::defs::base::magic_number::rounding_auto_setter::old_rounding</a></div><div class="ttdeci">int old_rounding</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00553">all_defs.cpp:553</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00555">555</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  555</span>                                                                  {</div>
+<div class="line"><span class="lineno">  556</span>                                <a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#adfbcad51332d37f000486b5506008bb1">old_rounding</a>=get_rounding&lt;T&gt;();</div>
+<div class="line"><span class="lineno">  557</span>                                set_rounding&lt;T&gt;(new_rounding);</div>
+<div class="line"><span class="lineno">  558</span>                            }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter_html_adfbcad51332d37f000486b5506008bb1"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#adfbcad51332d37f000486b5506008bb1">elc::defs::base::magic_number::rounding_auto_setter::old_rounding</a></div><div class="ttdeci">int old_rounding</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00554">all_defs.cpp:554</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -176,10 +177,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00558">558</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  558</span>                                                   {</div>
-<div class="line"><span class="lineno">  559</span>                                set_rounding&lt;T&gt;(<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#adfbcad51332d37f000486b5506008bb1">old_rounding</a>);</div>
-<div class="line"><span class="lineno">  560</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00559">559</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  559</span>                                                   {</div>
+<div class="line"><span class="lineno">  560</span>                                set_rounding&lt;T&gt;(<a class="code hl_variable" href="structelc_1_1defs_1_1base_1_1magic__number_1_1rounding__auto__setter.html#adfbcad51332d37f000486b5506008bb1">old_rounding</a>);</div>
+<div class="line"><span class="lineno">  561</span>                            }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -198,7 +199,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00553">553</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00554">554</a> 行定义.</p>
 
 </div>
 </div>

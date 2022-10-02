@@ -99,6 +99,9 @@ $(document).ready(function(){initNavTree('structelc_1_1defs_1_1base_1_1string__v
   <div class="headertitle"><div class="title">elc::defs::base::string_view_n::string_view_t&lt; char_T &gt; 模板结构体 参考</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>array_like_view_t的特化类型，表明这是字符串  
+ <a href="structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html#details">更多...</a></p>
 <div class="dynheader">
 类 elc::defs::base::string_view_n::string_view_t&lt; char_T &gt; 继承关系图:</div>
 <div class="dyncontent">
@@ -227,7 +230,8 @@ requires <a class="el" href="namespaceelc_1_1defs_1_1base_1_1array__like__n.html
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename char_T&gt;<br />
-struct elc::defs::base::string_view_n::string_view_t&lt; char_T &gt;</div>
+struct elc::defs::base::string_view_n::string_view_t&lt; char_T &gt;</div><p >array_like_view_t的特化类型，表明这是字符串 </p>
+
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02817">2817</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="a48e82bca2e69ad699878e0d4ba3768c8" name="a48e82bca2e69ad699878e0d4ba3768c8"></a>
@@ -344,7 +348,7 @@ template&lt;typename char_T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2847</span>                                                                                    {</div>
 <div class="line"><span class="lineno"> 2848</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#acffb115b660e87c56a876ccc1ae04c39">in_range_size_t</a>(ch, *<span class="keyword">this</span>);</div>
 <div class="line"><span class="lineno"> 2849</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_acffb115b660e87c56a876ccc1ae04c39"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#acffb115b660e87c56a876ccc1ae04c39">elc::defs::base::range_n::in_range_size_t</a></div><div class="ttdeci">constexpr size_t in_range_size_t(T &amp;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02426">all_defs.cpp:2426</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_acffb115b660e87c56a876ccc1ae04c39"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#acffb115b660e87c56a876ccc1ae04c39">elc::defs::base::range_n::in_range_size_t</a></div><div class="ttdeci">constexpr size_t in_range_size_t(T &amp;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02426">all_defs.cpp:2426</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -444,7 +448,7 @@ template&lt;typename char_T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2872</span>                                                                                                 {</div>
 <div class="line"><span class="lineno"> 2873</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a1acc3f8449649b44d4ba4adc53be00e7">range_n::find_first_not_of_size_t</a>(ch, *<span class="keyword">this</span>);</div>
 <div class="line"><span class="lineno"> 2874</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a1acc3f8449649b44d4ba4adc53be00e7"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a1acc3f8449649b44d4ba4adc53be00e7">elc::defs::base::range_n::find_first_not_of_size_t</a></div><div class="ttdeci">constexpr size_t find_first_not_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02667">all_defs.cpp:2667</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a1acc3f8449649b44d4ba4adc53be00e7"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a1acc3f8449649b44d4ba4adc53be00e7">elc::defs::base::range_n::find_first_not_of_size_t</a></div><div class="ttdeci">constexpr size_t find_first_not_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02667">all_defs.cpp:2667</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -544,7 +548,7 @@ template&lt;typename char_T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2866</span>                                                                                             {</div>
 <div class="line"><span class="lineno"> 2867</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a885b44667becc0b12424b80427b1fb33">range_n::find_first_of_size_t</a>(ch, *<span class="keyword">this</span>);</div>
 <div class="line"><span class="lineno"> 2868</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a885b44667becc0b12424b80427b1fb33"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a885b44667becc0b12424b80427b1fb33">elc::defs::base::range_n::find_first_of_size_t</a></div><div class="ttdeci">constexpr size_t find_first_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02588">all_defs.cpp:2588</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a885b44667becc0b12424b80427b1fb33"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a885b44667becc0b12424b80427b1fb33">elc::defs::base::range_n::find_first_of_size_t</a></div><div class="ttdeci">constexpr size_t find_first_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02588">all_defs.cpp:2588</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -644,7 +648,7 @@ template&lt;typename char_T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2875</span>                                                                                                {</div>
 <div class="line"><span class="lineno"> 2876</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a5a03c47024fc946bd206c626c755d01e">range_n::find_last_not_of_size_t</a>(ch, *<span class="keyword">this</span>);</div>
 <div class="line"><span class="lineno"> 2877</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a5a03c47024fc946bd206c626c755d01e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a5a03c47024fc946bd206c626c755d01e">elc::defs::base::range_n::find_last_not_of_size_t</a></div><div class="ttdeci">constexpr size_t find_last_not_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02707">all_defs.cpp:2707</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a5a03c47024fc946bd206c626c755d01e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a5a03c47024fc946bd206c626c755d01e">elc::defs::base::range_n::find_last_not_of_size_t</a></div><div class="ttdeci">constexpr size_t find_last_not_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02707">all_defs.cpp:2707</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -744,7 +748,7 @@ template&lt;typename char_T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2869</span>                                                                                            {</div>
 <div class="line"><span class="lineno"> 2870</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a67bc8bf901f9fde202c8a61db93221c3">range_n::find_last_of_size_t</a>(ch, *<span class="keyword">this</span>);</div>
 <div class="line"><span class="lineno"> 2871</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a67bc8bf901f9fde202c8a61db93221c3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a67bc8bf901f9fde202c8a61db93221c3">elc::defs::base::range_n::find_last_of_size_t</a></div><div class="ttdeci">constexpr size_t find_last_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02627">all_defs.cpp:2627</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a67bc8bf901f9fde202c8a61db93221c3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a67bc8bf901f9fde202c8a61db93221c3">elc::defs::base::range_n::find_last_of_size_t</a></div><div class="ttdeci">constexpr size_t find_last_of_size_t(array_like_view_t&lt; T &gt;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02627">all_defs.cpp:2627</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -874,7 +878,7 @@ template&lt;typename char_T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno"> 2850</span>                                                                                            {</div>
 <div class="line"><span class="lineno"> 2851</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a75e2fce9974e6518db0bb9380f9c315a">in_range_but_reverse_size_t</a>(ch, *<span class="keyword">this</span>);</div>
 <div class="line"><span class="lineno"> 2852</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a75e2fce9974e6518db0bb9380f9c315a"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a75e2fce9974e6518db0bb9380f9c315a">elc::defs::base::range_n::in_range_but_reverse_size_t</a></div><div class="ttdeci">constexpr size_t in_range_but_reverse_size_t(T &amp;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02480">all_defs.cpp:2480</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_a75e2fce9974e6518db0bb9380f9c315a"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#a75e2fce9974e6518db0bb9380f9c315a">elc::defs::base::range_n::in_range_but_reverse_size_t</a></div><div class="ttdeci">constexpr size_t in_range_but_reverse_size_t(T &amp;pattern, array_like_view_t&lt; T &gt;range)</div><div class="ttdoc">若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02480">all_defs.cpp:2480</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -46,18 +46,18 @@
 		}
 	}operate_source_location;
 	struct source_location_guard{
-		bool is_set=false;
+		bool _is_set=false;
 		source_location_guard(size_t lookup=0)noexcept{
 			if(!operate_source_frame){
 				::std::stacktrace stack = ::std::stacktrace::current(/*skip*/lookup+2,/*max_depth*/1);
 				if(stack.size()){
 					operate_source_frame = stack[0];
-					is_set				 = true;
+					_is_set				 = true;
 				}
 			}
 		}
 		~source_location_guard()noexcept{
-			if(is_set){
+			if(_is_set){
 				operate_source_frame = ::std::stacktrace_entry{};
 				operate_source_location.clear();
 			}

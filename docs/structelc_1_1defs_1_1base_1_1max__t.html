@@ -124,8 +124,9 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1max__t.html#a4f21a24bb
 <tr class="separator:a4f21a24bbc6ac8a73ade4c18287e4fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01318">1318</a> 行定义.</p>
+<div class="textblock"><p >获取几个参数中的最大值或某类型能表示的最大值. 用法: max.able&lt;T1,T2...&gt; -&gt; bool T...等类型能否获得参数最大值. max.get_limit_able&lt;T&gt; -&gt; bool 能否获得T类型能表示的最大值. <a class="el" href="namespaceelc_1_1defs_1_1base.html#a9003877d21253381ad86812dc0acf4d3">max(v1,v2...)</a> -&gt; auto 获取v...的最大值. <a class="el" href="namespaceelc_1_1defs_1_1base.html#a9003877d21253381ad86812dc0acf4d3">max(type_info&lt;T&gt;)</a> -&gt; auto 获取T能表示的最大值. </p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01319">1319</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a41fdfcaafa6d94d610caf0ab021a6ff9" name="a41fdfcaafa6d94d610caf0ab021a6ff9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41fdfcaafa6d94d610caf0ab021a6ff9">&#9670;&#160;</a></span>operator()() <span class="overload">[1/3]</span></h2>
@@ -154,10 +155,10 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1max__t.html#aaf15783c2
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01330">1330</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1330</span>                                                                                            {</div>
-<div class="line"><span class="lineno"> 1331</span>                            return ::std::max(l);</div>
-<div class="line"><span class="lineno"> 1332</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01331">1331</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1331</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 1332</span>                            return ::std::max(l);</div>
+<div class="line"><span class="lineno"> 1333</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -188,10 +189,10 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1max__t.html#aaf15783c2
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01326">1326</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1326</span>                                                                                  {</div>
-<div class="line"><span class="lineno"> 1327</span>                            return ::std::max(forward&lt;Args&gt;(rest)...);</div>
-<div class="line"><span class="lineno"> 1328</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01327">1327</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1327</span>                                                                                  {</div>
+<div class="line"><span class="lineno"> 1328</span>                            return ::std::max(forward&lt;Args&gt;(rest)...);</div>
+<div class="line"><span class="lineno"> 1329</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -222,10 +223,10 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1max__t.html#a4f21a24bb
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01334">1334</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1334</span>                                                                                   {</div>
-<div class="line"><span class="lineno"> 1335</span>                            return ::std::numeric_limits&lt;T&gt;::max();</div>
-<div class="line"><span class="lineno"> 1336</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01335">1335</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1335</span>                                                                                   {</div>
+<div class="line"><span class="lineno"> 1336</span>                            return ::std::numeric_limits&lt;T&gt;::max();</div>
+<div class="line"><span class="lineno"> 1337</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -252,7 +253,7 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01320">1320</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01321">1321</a> 行定义.</p>
 
 </div>
 </div>
@@ -278,7 +279,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01323">1323</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01324">1324</a> 行定义.</p>
 
 </div>
 </div>

@@ -121,7 +121,7 @@ Public 属性</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24513">24513</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24531">24531</a> 行定义.</p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="a5d89b7d12280fe2dfb6b892fb7d1cff0" name="a5d89b7d12280fe2dfb6b892fb7d1cff0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d89b7d12280fe2dfb6b892fb7d1cff0">&#9670;&#160;</a></span>package_symbol_loader_t()</h2>
@@ -146,25 +146,25 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24518">24518</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">24518</span>                                                     {</div>
-<div class="line"><span class="lineno">24519</span>                        <span class="keywordflow">if</span>(<a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">package_symbol_loader_handle</a> = <a class="code hl_function" href="namespaceelc_1_1defs_1_1lib__loader__n.html#ade38669529a4ef84205e31165ae52188">load_lib</a>(<a class="code hl_variable" href="namespaceelc_1_1paths.html#a70e99ce95b7c3b415bed1ba1ddf01b4e">paths::package_symbol_loader_path</a>)){</div>
-<div class="line"><span class="lineno">24520</span>                            <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">load_interface</a>       = <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">package_symbol_loader_handle</a>-&gt;get_symbol_as_function&lt;<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>(<span class="keywordtype">string</span> lib_name,<span class="keywordtype">size_t</span> lib_ver,<span class="keywordtype">string</span> symbol_name)<span class="keyword">noexcept</span>&gt;(<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;load_interface&quot;</span>);</div>
-<div class="line"><span class="lineno">24521</span>                            <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">load_error_interface</a> = <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">package_symbol_loader_handle</a>-&gt;get_symbol_as_function&lt;<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>()noexcept&gt;(<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a>&quot;<a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">load_error_interface</a>&quot;);</div>
-<div class="line"><span class="lineno">24522</span>                        }</div>
-<div class="line"><span class="lineno">24523</span>                        else</div>
-<div class="line"><span class="lineno">24524</span>                            <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293">die_with</a>(locale::str::package_symbol_loader::load_failed);</div>
-<div class="line"><span class="lineno">24525</span>                        if(!<a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">load_interface</a>)</div>
-<div class="line"><span class="lineno">24526</span>                            <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293">die_with</a>(locale::str::package_symbol_loader::load_interface_failed);</div>
-<div class="line"><span class="lineno">24527</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ea5a3995fc5de169b1bb02bb1107bea"><div class="ttname"><a href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a></div><div class="ttdeci">#define es</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24983">all_defs.cpp:24983</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1die_html_a28cf7600d7c7ef256be89d56df83e293"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293">elc::APIs::die::die_with</a></div><div class="ttdeci">void die_with(const char_t *err_msg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l04553">all_defs.cpp:4553</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12726">all_defs.cpp:12726</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1lib__loader__n_html_ade38669529a4ef84205e31165ae52188"><div class="ttname"><a href="namespaceelc_1_1defs_1_1lib__loader__n.html#ade38669529a4ef84205e31165ae52188">elc::defs::lib_loader_n::load_lib</a></div><div class="ttdeci">library_handle_t load_lib(string lib_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21732">all_defs.cpp:21732</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1paths_html_a70e99ce95b7c3b415bed1ba1ddf01b4e"><div class="ttname"><a href="namespaceelc_1_1paths.html#a70e99ce95b7c3b415bed1ba1ddf01b4e">elc::paths::package_symbol_loader_path</a></div><div class="ttdeci">string package_symbol_loader_path</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24081">all_defs.cpp:24081</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t_html_a57e503677857ca84be00e1d5e70cce08"><div class="ttname"><a href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">elc::defs::package_symbol_loader_n::package_symbol_loader_t::package_symbol_loader_handle</a></div><div class="ttdeci">library_handle_t package_symbol_loader_handle</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24514">all_defs.cpp:24514</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t_html_a5dbf23395ca6de4b449d263a82ada14b"><div class="ttname"><a href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">elc::defs::package_symbol_loader_n::package_symbol_loader_t::load_error_interface</a></div><div class="ttdeci">function_t&lt; ptr() noexcept &gt; load_error_interface</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24516">all_defs.cpp:24516</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t_html_aed294e88a6fa794a23c0af0505d6a518"><div class="ttname"><a href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">elc::defs::package_symbol_loader_n::package_symbol_loader_t::load_interface</a></div><div class="ttdeci">function_t&lt; ptr(string lib_name, size_t lib_ver, string symbol_name) noexcept &gt; load_interface</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24515">all_defs.cpp:24515</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24536">24536</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">24536</span>                                                     {</div>
+<div class="line"><span class="lineno">24537</span>                        <span class="keywordflow">if</span>(<a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">package_symbol_loader_handle</a> = <a class="code hl_function" href="namespaceelc_1_1defs_1_1lib__loader__n.html#ade38669529a4ef84205e31165ae52188">load_lib</a>(<a class="code hl_variable" href="namespaceelc_1_1paths.html#a70e99ce95b7c3b415bed1ba1ddf01b4e">paths::package_symbol_loader_path</a>)){</div>
+<div class="line"><span class="lineno">24538</span>                            <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">load_interface</a>       = <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">package_symbol_loader_handle</a>-&gt;get_symbol_as_function&lt;<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>(<span class="keywordtype">string</span> lib_name,<span class="keywordtype">size_t</span> lib_ver,<span class="keywordtype">string</span> symbol_name)<span class="keyword">noexcept</span>&gt;(<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a><span class="stringliteral">&quot;load_interface&quot;</span>);</div>
+<div class="line"><span class="lineno">24539</span>                            <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">load_error_interface</a> = <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">package_symbol_loader_handle</a>-&gt;get_symbol_as_function&lt;<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>()noexcept&gt;(<a class="code hl_define" href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a>&quot;<a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">load_error_interface</a>&quot;);</div>
+<div class="line"><span class="lineno">24540</span>                        }</div>
+<div class="line"><span class="lineno">24541</span>                        else</div>
+<div class="line"><span class="lineno">24542</span>                            <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293">die_with</a>(locale::str::package_symbol_loader::load_failed);</div>
+<div class="line"><span class="lineno">24543</span>                        if(!<a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">load_interface</a>)</div>
+<div class="line"><span class="lineno">24544</span>                            <a class="code hl_function" href="namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293">die_with</a>(locale::str::package_symbol_loader::load_interface_failed);</div>
+<div class="line"><span class="lineno">24545</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ea5a3995fc5de169b1bb02bb1107bea"><div class="ttname"><a href="all__defs_8cpp.html#a6ea5a3995fc5de169b1bb02bb1107bea">es</a></div><div class="ttdeci">#define es</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25001">all_defs.cpp:25001</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1_a_p_is_1_1die_html_a28cf7600d7c7ef256be89d56df83e293"><div class="ttname"><a href="namespaceelc_1_1_a_p_is_1_1die.html#a28cf7600d7c7ef256be89d56df83e293">elc::APIs::die::die_with</a></div><div class="ttdeci">void die_with(const char_t *err_msg) noexcept</div><div class="ttdoc">同 die ，但是有详细的错误信息</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l04557">all_defs.cpp:4557</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12744">all_defs.cpp:12744</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1lib__loader__n_html_ade38669529a4ef84205e31165ae52188"><div class="ttname"><a href="namespaceelc_1_1defs_1_1lib__loader__n.html#ade38669529a4ef84205e31165ae52188">elc::defs::lib_loader_n::load_lib</a></div><div class="ttdeci">library_handle_t load_lib(string lib_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l21750">all_defs.cpp:21750</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1paths_html_a70e99ce95b7c3b415bed1ba1ddf01b4e"><div class="ttname"><a href="namespaceelc_1_1paths.html#a70e99ce95b7c3b415bed1ba1ddf01b4e">elc::paths::package_symbol_loader_path</a></div><div class="ttdeci">string package_symbol_loader_path</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24099">all_defs.cpp:24099</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t_html_a57e503677857ca84be00e1d5e70cce08"><div class="ttname"><a href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a57e503677857ca84be00e1d5e70cce08">elc::defs::package_symbol_loader_n::package_symbol_loader_t::package_symbol_loader_handle</a></div><div class="ttdeci">library_handle_t package_symbol_loader_handle</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24532">all_defs.cpp:24532</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t_html_a5dbf23395ca6de4b449d263a82ada14b"><div class="ttname"><a href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">elc::defs::package_symbol_loader_n::package_symbol_loader_t::load_error_interface</a></div><div class="ttdeci">function_t&lt; ptr() noexcept &gt; load_error_interface</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24534">all_defs.cpp:24534</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t_html_aed294e88a6fa794a23c0af0505d6a518"><div class="ttname"><a href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">elc::defs::package_symbol_loader_n::package_symbol_loader_t::load_interface</a></div><div class="ttdeci">function_t&lt; ptr(string lib_name, size_t lib_ver, string symbol_name) noexcept &gt; load_interface</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24533">all_defs.cpp:24533</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -217,10 +217,10 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24533">24533</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">24533</span>                                                {</div>
-<div class="line"><span class="lineno">24534</span>                        <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">load_error_interface</a>();</div>
-<div class="line"><span class="lineno">24535</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24551">24551</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">24551</span>                                                {</div>
+<div class="line"><span class="lineno">24552</span>                        <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#a5dbf23395ca6de4b449d263a82ada14b">load_error_interface</a>();</div>
+<div class="line"><span class="lineno">24553</span>                    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -264,10 +264,10 @@ Public 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24530">24530</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">24530</span>                                                                                              {</div>
-<div class="line"><span class="lineno">24531</span>                        <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">load_interface</a>(lib_name,lib_ver,symbol_name);</div>
-<div class="line"><span class="lineno">24532</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24548">24548</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">24548</span>                                                                                              {</div>
+<div class="line"><span class="lineno">24549</span>                        <span class="keywordflow">return</span> <a class="code hl_variable" href="structelc_1_1defs_1_1package__symbol__loader__n_1_1package__symbol__loader__t.html#aed294e88a6fa794a23c0af0505d6a518">load_interface</a>(lib_name,lib_ver,symbol_name);</div>
+<div class="line"><span class="lineno">24550</span>                    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -284,7 +284,7 @@ Public 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24516">24516</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24534">24534</a> 行定义.</p>
 
 </div>
 </div>
@@ -300,7 +300,7 @@ Public 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24515">24515</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24533">24533</a> 行定义.</p>
 
 </div>
 </div>
@@ -316,7 +316,7 @@ Public 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24514">24514</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l24532">24532</a> 行定义.</p>
 
 </div>
 </div>

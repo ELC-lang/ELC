@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-/*
+/*!
 没什么用的语法糖,等价于字面量0.
 */
 constexpr struct zero_t{

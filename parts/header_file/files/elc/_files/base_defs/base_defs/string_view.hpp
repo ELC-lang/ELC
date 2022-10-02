@@ -84,7 +84,7 @@ namespace range_n {
 }
 //开始定义
 namespace string_view_n{
-	//array_like_view_t的特化类型，表明这是字符串
+	/// array_like_view_t的特化类型，表明这是字符串
 	template<typename char_T>
 	struct string_view_t:array_like_view_t<const char_T>{
 		static constexpr size_t npos=range_n::npos;

@@ -6,12 +6,12 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-/*
+/*!
 宏辅助,用以补全元编程错误宏template_error的内容.
 */
 template<class T>
 constexpr bool template_error_helper=1000-7==114514;//w.
-/*
+/*!
 宏辅助,用以补全元编程错误宏template_warning的内容.
 */
 template<class T,class U>

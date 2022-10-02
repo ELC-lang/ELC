@@ -153,40 +153,40 @@ requires <a class="el" href="namespaceelc_1_1defs_1_1memory_1_1gc__n_1_1default_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10733">10733</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10733</span>                                                           {</div>
-<div class="line"><span class="lineno">10734</span>                        <span class="keyword">constexpr</span> <span class="keyword">auto</span>&amp;info=type_info&lt;T&gt;;</div>
-<div class="line"><span class="lineno">10735</span>                        <span class="comment">//</span></div>
-<div class="line"><span class="lineno">10736</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1count__able.html">count_able</a>))</div>
-<div class="line"><span class="lineno">10737</span>                            count_for_success_identify&lt;T&gt; = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a8b286cdf9188abf5ce5a5e89dca4d342">the_number_of</a>(info);</div>
-<div class="line"><span class="lineno">10738</span>                        <span class="comment">//</span></div>
-<div class="line"><span class="lineno">10739</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_class" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all.html">can_map_all</a>)){</div>
-<div class="line"><span class="lineno">10740</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">mark_able_for_gc</a>)&amp;&amp;info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">have_root</a>))</div>
-<div class="line"><span class="lineno">10741</span>                                roots_of&lt;T&gt;.map_and_mark();</div>
-<div class="line"><span class="lineno">10742</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_class" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html">can_shrink</a>) || (info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">mark_able_for_gc</a>)&amp;&amp;info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">have_root</a>)))</div>
-<div class="line"><span class="lineno">10743</span>                                map_all&lt;T&gt;(</div>
-<div class="line"><span class="lineno">10744</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(T*a)<span class="keyword">noexcept</span>{</div>
-<div class="line"><span class="lineno">10745</span>                                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_class" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html">can_shrink</a>))</div>
-<div class="line"><span class="lineno">10746</span>                                            a-&gt;shrink();</div>
-<div class="line"><span class="lineno">10747</span>                                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">mark_able_for_gc</a>)&amp;&amp;info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">have_root</a>)){</div>
-<div class="line"><span class="lineno">10748</span>                                            <span class="keyword">auto</span>&amp; b=attribute_cast&lt;mark_able_for_gc&gt;(*a);</div>
-<div class="line"><span class="lineno">10749</span>                                            <span class="keywordflow">if</span>(b.was_marked())</div>
-<div class="line"><span class="lineno">10750</span>                                                b.unmark();</div>
-<div class="line"><span class="lineno">10751</span>                                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">10752</span>                                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1gc__n_1_1default__gc__for__type.html#a3208ba47be071304bd8324f77eaef129">destory_by_gc</a>(a);</div>
-<div class="line"><span class="lineno">10753</span>                                        }</div>
-<div class="line"><span class="lineno">10754</span>                                    }</div>
-<div class="line"><span class="lineno">10755</span>                                );</div>
-<div class="line"><span class="lineno">10756</span>                        }</div>
-<div class="line"><span class="lineno">10757</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_ae58c3260bfb1facea39e0aec11acee3a"><div class="ttname"><a href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a></div><div class="ttdeci">#define lambda</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24941">all_defs.cpp:24941</a></div></div>
-<div class="ttc" id="aclasselc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all_html"><div class="ttname"><a href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all.html">elc::defs::memory::gc_n::can_map_all</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10592">all_defs.cpp:10592</a></div></div>
-<div class="ttc" id="aclasselc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink_html"><div class="ttname"><a href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html">elc::defs::memory::gc_n::can_shrink</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10591">all_defs.cpp:10591</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a8b286cdf9188abf5ce5a5e89dca4d342"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a8b286cdf9188abf5ce5a5e89dca4d342">elc::defs::base::the_number_of</a></div><div class="ttdeci">size_t the_number_of(type_info_t&lt; T &gt;) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03254">all_defs.cpp:3254</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10751">10751</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10751</span>                                                           {</div>
+<div class="line"><span class="lineno">10752</span>                        <span class="keyword">constexpr</span> <span class="keyword">auto</span>&amp;info=type_info&lt;T&gt;;</div>
+<div class="line"><span class="lineno">10753</span>                        <span class="comment">//</span></div>
+<div class="line"><span class="lineno">10754</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1count__able.html">count_able</a>))</div>
+<div class="line"><span class="lineno">10755</span>                            count_for_success_identify&lt;T&gt; = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a8b286cdf9188abf5ce5a5e89dca4d342">the_number_of</a>(info);</div>
+<div class="line"><span class="lineno">10756</span>                        <span class="comment">//</span></div>
+<div class="line"><span class="lineno">10757</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_class" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all.html">can_map_all</a>)){</div>
+<div class="line"><span class="lineno">10758</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">mark_able_for_gc</a>)&amp;&amp;info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">have_root</a>))</div>
+<div class="line"><span class="lineno">10759</span>                                roots_of&lt;T&gt;.map_and_mark();</div>
+<div class="line"><span class="lineno">10760</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_class" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html">can_shrink</a>) || (info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">mark_able_for_gc</a>)&amp;&amp;info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">have_root</a>)))</div>
+<div class="line"><span class="lineno">10761</span>                                map_all&lt;T&gt;(</div>
+<div class="line"><span class="lineno">10762</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(T*a)<span class="keyword">noexcept</span>{</div>
+<div class="line"><span class="lineno">10763</span>                                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_class" href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html">can_shrink</a>))</div>
+<div class="line"><span class="lineno">10764</span>                                            a-&gt;shrink();</div>
+<div class="line"><span class="lineno">10765</span>                                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">mark_able_for_gc</a>)&amp;&amp;info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">have_root</a>)){</div>
+<div class="line"><span class="lineno">10766</span>                                            <span class="keyword">auto</span>&amp; b=attribute_cast&lt;mark_able_for_gc&gt;(*a);</div>
+<div class="line"><span class="lineno">10767</span>                                            <span class="keywordflow">if</span>(b.was_marked())</div>
+<div class="line"><span class="lineno">10768</span>                                                b.unmark();</div>
+<div class="line"><span class="lineno">10769</span>                                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">10770</span>                                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1gc__n_1_1default__gc__for__type.html#a3208ba47be071304bd8324f77eaef129">destory_by_gc</a>(a);</div>
+<div class="line"><span class="lineno">10771</span>                                        }</div>
+<div class="line"><span class="lineno">10772</span>                                    }</div>
+<div class="line"><span class="lineno">10773</span>                                );</div>
+<div class="line"><span class="lineno">10774</span>                        }</div>
+<div class="line"><span class="lineno">10775</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_ae58c3260bfb1facea39e0aec11acee3a"><div class="ttname"><a href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a></div><div class="ttdeci">#define lambda</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24959">all_defs.cpp:24959</a></div></div>
+<div class="ttc" id="aclasselc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all_html"><div class="ttname"><a href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__map__all.html">elc::defs::memory::gc_n::can_map_all</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10610">all_defs.cpp:10610</a></div></div>
+<div class="ttc" id="aclasselc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink_html"><div class="ttname"><a href="classelc_1_1defs_1_1memory_1_1gc__n_1_1can__shrink.html">elc::defs::memory::gc_n::can_shrink</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10609">all_defs.cpp:10609</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a8b286cdf9188abf5ce5a5e89dca4d342"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a8b286cdf9188abf5ce5a5e89dca4d342">elc::defs::base::the_number_of</a></div><div class="ttdeci">size_t the_number_of(type_info_t&lt; T &gt;) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03253">all_defs.cpp:3253</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1gc__n_1_1default__gc__for__type_html_a3208ba47be071304bd8324f77eaef129"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1gc__n_1_1default__gc__for__type.html#a3208ba47be071304bd8324f77eaef129">elc::defs::memory::gc_n::default_gc_for_type::destory_by_gc</a></div><div class="ttdeci">void destory_by_gc() noexcept=delete</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1count__able_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1count__able.html">elc::defs::base::count_able</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03245">all_defs.cpp:3245</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1gc__n_1_1have__root_html"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">elc::defs::memory::gc_n::have_root</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10513">all_defs.cpp:10513</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc_html"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">elc::defs::memory::gc_n::mark_able_for_gc</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10574">all_defs.cpp:10574</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1count__able_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1count__able.html">elc::defs::base::count_able</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03244">all_defs.cpp:3244</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1gc__n_1_1have__root_html"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1gc__n_1_1have__root.html">elc::defs::memory::gc_n::have_root</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10531">all_defs.cpp:10531</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc_html"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1gc__n_1_1mark__able__for__gc.html">elc::defs::memory::gc_n::mark_able_for_gc</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l10592">all_defs.cpp:10592</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -216,14 +216,14 @@ requires <a class="el" href="namespaceelc_1_1defs_1_1memory_1_1gc__n_1_1default_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10763">10763</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10763</span>                                                                                    {</div>
-<div class="line"><span class="lineno">10764</span>                        <span class="keyword">constexpr</span> <span class="keyword">auto</span>&amp;info=type_info&lt;T&gt;;</div>
-<div class="line"><span class="lineno">10765</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1count__able.html">count_able</a>)){<span class="comment">//重复判定，勿删，方便日后扩展</span></div>
-<div class="line"><span class="lineno">10766</span>                            <span class="keywordflow">return</span> count_for_success_identify&lt;T&gt; <a class="code hl_define" href="all__defs_8cpp.html#aee442392576be8e5f7c8290b00b0caae">_big_than_</a> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a8b286cdf9188abf5ce5a5e89dca4d342">the_number_of</a>(info);</div>
-<div class="line"><span class="lineno">10767</span>                        }</div>
-<div class="line"><span class="lineno">10768</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_aee442392576be8e5f7c8290b00b0caae"><div class="ttname"><a href="all__defs_8cpp.html#aee442392576be8e5f7c8290b00b0caae">_big_than_</a></div><div class="ttdeci">#define _big_than_</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24957">all_defs.cpp:24957</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10781">10781</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10781</span>                                                                                    {</div>
+<div class="line"><span class="lineno">10782</span>                        <span class="keyword">constexpr</span> <span class="keyword">auto</span>&amp;info=type_info&lt;T&gt;;</div>
+<div class="line"><span class="lineno">10783</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(info.has_attribute(<a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1count__able.html">count_able</a>)){<span class="comment">//重复判定，勿删，方便日后扩展</span></div>
+<div class="line"><span class="lineno">10784</span>                            <span class="keywordflow">return</span> count_for_success_identify&lt;T&gt; <a class="code hl_define" href="all__defs_8cpp.html#aee442392576be8e5f7c8290b00b0caae">_big_than_</a> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a8b286cdf9188abf5ce5a5e89dca4d342">the_number_of</a>(info);</div>
+<div class="line"><span class="lineno">10785</span>                        }</div>
+<div class="line"><span class="lineno">10786</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_aee442392576be8e5f7c8290b00b0caae"><div class="ttname"><a href="all__defs_8cpp.html#aee442392576be8e5f7c8290b00b0caae">_big_than_</a></div><div class="ttdeci">#define _big_than_</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24975">all_defs.cpp:24975</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -270,11 +270,11 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10728">10728</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">10728</span>                                          {</div>
-<div class="line"><span class="lineno">10729</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;this function should not be instantiated,please overload the function destory_by_gc in the namespace where this type is defined.&quot;</span>);</div>
-<div class="line"><span class="lineno">10730</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24879">all_defs.cpp:24879</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10746">10746</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">10746</span>                                          {</div>
+<div class="line"><span class="lineno">10747</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;this function should not be instantiated,please overload the function destory_by_gc in the namespace where this type is defined.&quot;</span>);</div>
+<div class="line"><span class="lineno">10748</span>                    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24897">all_defs.cpp:24897</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -301,7 +301,7 @@ template&lt;class T , class enable_state  = ::std::enable_if_t&lt; type_info&lt;
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10708">10708</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10726">10726</a> 行定义.</p>
 
 </div>
 </div>
@@ -341,7 +341,7 @@ template&lt;class T &gt; </div>
 <div class="line">                        )</div>
 <div class="line">                    )</div>
 </div><!-- fragment -->
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10711">10711</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10729">10729</a> 行定义.</p>
 
 </div>
 </div>
@@ -367,7 +367,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10760">10760</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l10778">10778</a> 行定义.</p>
 
 </div>
 </div>

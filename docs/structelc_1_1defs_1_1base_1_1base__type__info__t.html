@@ -98,6 +98,9 @@ $(document).ready(function(){initNavTree('structelc_1_1defs_1_1base_1_1base__typ
   <div class="headertitle"><div class="title">elc::defs::base::base_type_info_t结构体 参考</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>自动重整类型名并在析构时释放重整结果，对于gcc和clang的傻逼实现  
+ <a href="structelc_1_1defs_1_1base_1_1base__type__info__t.html#details">更多...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public 成员函数</h2></td></tr>
@@ -115,8 +118,9 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:ac4f764d908bd9bafbc3ff67f3f010545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01143">1143</a> 行定义.</p>
+<div class="textblock"><p >自动重整类型名并在析构时释放重整结果，对于gcc和clang的傻逼实现 </p>
+
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01144">1144</a> 行定义.</p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="a68c8a58d6d85160c86e8c995b20b3964" name="a68c8a58d6d85160c86e8c995b20b3964"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a68c8a58d6d85160c86e8c995b20b3964">&#9670;&#160;</a></span>base_type_info_t() <span class="overload">[1/2]</span></h2>
@@ -142,8 +146,8 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01159">1159</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1159</span>:_tid(a){}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01160">1160</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1160</span>:_tid(a){}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -197,10 +201,10 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01162">1162</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1162</span>                                                                    {</div>
-<div class="line"><span class="lineno"> 1163</span>                            <span class="keywordflow">return</span> _tid.get_hash();</div>
-<div class="line"><span class="lineno"> 1164</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01163">1163</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1163</span>                                                                    {</div>
+<div class="line"><span class="lineno"> 1164</span>                            <span class="keywordflow">return</span> _tid.get_hash();</div>
+<div class="line"><span class="lineno"> 1165</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -258,8 +262,8 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01166">1166</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1166</span>{<span class="keywordflow">return</span> _tid==type_id_t(a);}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01167">1167</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1167</span>{<span class="keywordflow">return</span> _tid==type_id_t(a);}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -287,8 +291,8 @@ Public 成员函数</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01165">1165</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1165</span>{<span class="keywordflow">return</span> _tid==a._tid;}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01166">1166</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1166</span>{<span class="keywordflow">return</span> _tid==a._tid;}</div>
 </div><!-- fragment -->
 </div>
 </div>

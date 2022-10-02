@@ -228,7 +228,7 @@ Protected 成员函数</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename value_t, typename base_t_w&gt;<br />
 struct elc::defs::base::iterator_n::base_iterator_t&lt; value_t, base_t_w &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06519">6519</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06518">6518</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="a88604eeaf4c3e280533af83cd2a39386" name="a88604eeaf4c3e280533af83cd2a39386"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a88604eeaf4c3e280533af83cd2a39386">&#9670;&#160;</a></span>base_t</h2>
@@ -244,7 +244,7 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06521">6521</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06520">6520</a> 行定义.</p>
 
 </div>
 </div>
@@ -270,7 +270,7 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06527">6527</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06526">6526</a> 行定义.</p>
 
 </div>
 </div>
@@ -288,7 +288,7 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06520">6520</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06519">6519</a> 行定义.</p>
 
 </div>
 </div>
@@ -318,19 +318,19 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06480">6480</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6480</span>                                                                                                               {</div>
-<div class="line"><span class="lineno"> 6481</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
-<div class="line"><span class="lineno"> 6482</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)-1;</div>
-<div class="line"><span class="lineno"> 6483</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_before()))</div>
-<div class="line"><span class="lineno"> 6484</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)-&gt;get_before();</div>
-<div class="line"><span class="lineno"> 6485</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_before()))</div>
-<div class="line"><span class="lineno"> 6486</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>).get_before();</div>
-<div class="line"><span class="lineno"> 6487</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24929">all_defs.cpp:24929</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24955">all_defs.cpp:24955</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24876">all_defs.cpp:24876</a></div></div>
-<div class="ttc" id="aclasselc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_html_a1ba3247a405a528a1e4354ce3b795074"><div class="ttname"><a href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">elc::defs::base::iterator_n::same_base_t::_m</a></div><div class="ttdeci">base_t_rw _m</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06404">all_defs.cpp:6404</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06479">6479</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6479</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 6480</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
+<div class="line"><span class="lineno"> 6481</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)-1;</div>
+<div class="line"><span class="lineno"> 6482</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_before()))</div>
+<div class="line"><span class="lineno"> 6483</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)-&gt;get_before();</div>
+<div class="line"><span class="lineno"> 6484</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_before()))</div>
+<div class="line"><span class="lineno"> 6485</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>).get_before();</div>
+<div class="line"><span class="lineno"> 6486</span>                        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24947">all_defs.cpp:24947</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24973">all_defs.cpp:24973</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l24894">all_defs.cpp:24894</a></div></div>
+<div class="ttc" id="aclasselc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t_html_a1ba3247a405a528a1e4354ce3b795074"><div class="ttname"><a href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">elc::defs::base::iterator_n::same_base_t::_m</a></div><div class="ttdeci">base_t_rw _m</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06403">all_defs.cpp:6403</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -359,15 +359,15 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06472">6472</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6472</span>                                                                                              {</div>
-<div class="line"><span class="lineno"> 6473</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
-<div class="line"><span class="lineno"> 6474</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 6475</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_before()))</div>
-<div class="line"><span class="lineno"> 6476</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_before());</div>
-<div class="line"><span class="lineno"> 6477</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_before()))</div>
-<div class="line"><span class="lineno"> 6478</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_before());</div>
-<div class="line"><span class="lineno"> 6479</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06471">6471</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6471</span>                                                                                              {</div>
+<div class="line"><span class="lineno"> 6472</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
+<div class="line"><span class="lineno"> 6473</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 6474</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_before()))</div>
+<div class="line"><span class="lineno"> 6475</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_before());</div>
+<div class="line"><span class="lineno"> 6476</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_before()))</div>
+<div class="line"><span class="lineno"> 6477</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_before());</div>
+<div class="line"><span class="lineno"> 6478</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -396,15 +396,15 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06455">6455</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6455</span>                                                                                            {</div>
-<div class="line"><span class="lineno"> 6456</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
-<div class="line"><span class="lineno"> 6457</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 6458</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_next()))</div>
-<div class="line"><span class="lineno"> 6459</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_next());</div>
-<div class="line"><span class="lineno"> 6460</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_next()))</div>
-<div class="line"><span class="lineno"> 6461</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_next());</div>
-<div class="line"><span class="lineno"> 6462</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06454">6454</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6454</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 6455</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
+<div class="line"><span class="lineno"> 6456</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 6457</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_next()))</div>
+<div class="line"><span class="lineno"> 6458</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_next());</div>
+<div class="line"><span class="lineno"> 6459</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_next()))</div>
+<div class="line"><span class="lineno"> 6460</span>                                <span class="keywordflow">return</span> <span class="keyword">noexcept</span>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_next());</div>
+<div class="line"><span class="lineno"> 6461</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -433,15 +433,15 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06463">6463</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6463</span>                                                                                                           {</div>
-<div class="line"><span class="lineno"> 6464</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
-<div class="line"><span class="lineno"> 6465</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)+1;</div>
-<div class="line"><span class="lineno"> 6466</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_next()))</div>
-<div class="line"><span class="lineno"> 6467</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)-&gt;get_next();</div>
-<div class="line"><span class="lineno"> 6468</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_next()))</div>
-<div class="line"><span class="lineno"> 6469</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>).get_next();</div>
-<div class="line"><span class="lineno"> 6470</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06462">6462</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6462</span>                                                                                                           {</div>
+<div class="line"><span class="lineno"> 6463</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
+<div class="line"><span class="lineno"> 6464</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)+1;</div>
+<div class="line"><span class="lineno"> 6465</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w)-&gt;get_next()))</div>
+<div class="line"><span class="lineno"> 6466</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>)-&gt;get_next();</div>
+<div class="line"><span class="lineno"> 6467</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(base_t_w).get_next()))</div>
+<div class="line"><span class="lineno"> 6468</span>                                <span class="keywordflow">return</span> ((base_t_w)<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">_m</a>).get_next();</div>
+<div class="line"><span class="lineno"> 6469</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -471,21 +471,21 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06536">6536</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6536</span>                                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 6537</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
-<div class="line"><span class="lineno"> 6538</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">base_t::_m</a>+num;</div>
-<div class="line"><span class="lineno"> 6539</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 6540</span>                                <span class="keyword">auto</span> a=*<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno"> 6541</span>                                <span class="keywordflow">if</span>(num&gt;0)</div>
-<div class="line"><span class="lineno"> 6542</span>                                    <span class="keywordflow">while</span>(num--)</div>
-<div class="line"><span class="lineno"> 6543</span>                                        ++a;</div>
-<div class="line"><span class="lineno"> 6544</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 6545</span>                                    <span class="keywordflow">while</span>(num++)</div>
-<div class="line"><span class="lineno"> 6546</span>                                        --a;</div>
-<div class="line"><span class="lineno"> 6547</span>                                <span class="keywordflow">return</span> a;</div>
-<div class="line"><span class="lineno"> 6548</span>                            }</div>
-<div class="line"><span class="lineno"> 6549</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06535">6535</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6535</span>                                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 6536</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;::std::remove_pointer_t&lt;base_t_w&gt;&gt; == type_info&lt;value_t&gt;)</div>
+<div class="line"><span class="lineno"> 6537</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">base_t::_m</a>+num;</div>
+<div class="line"><span class="lineno"> 6538</span>                            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 6539</span>                                <span class="keyword">auto</span> a=*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno"> 6540</span>                                <span class="keywordflow">if</span>(num&gt;0)</div>
+<div class="line"><span class="lineno"> 6541</span>                                    <span class="keywordflow">while</span>(num--)</div>
+<div class="line"><span class="lineno"> 6542</span>                                        ++a;</div>
+<div class="line"><span class="lineno"> 6543</span>                                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 6544</span>                                    <span class="keywordflow">while</span>(num++)</div>
+<div class="line"><span class="lineno"> 6545</span>                                        --a;</div>
+<div class="line"><span class="lineno"> 6546</span>                                <span class="keywordflow">return</span> a;</div>
+<div class="line"><span class="lineno"> 6547</span>                            }</div>
+<div class="line"><span class="lineno"> 6548</span>                        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -514,9 +514,9 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06532">6532</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6532</span>{<span class="keywordflow">return</span>*<span class="keyword">this</span>=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a30fd77280b26ac5c4841a0ac7dfc7e1d">next_getter</a>();}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_a30fd77280b26ac5c4841a0ac7dfc7e1d"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a30fd77280b26ac5c4841a0ac7dfc7e1d">elc::defs::base::iterator_n::base_iterator_t::next_getter</a></div><div class="ttdeci">base_t_w next_getter() const noexcept(is_next_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06463">all_defs.cpp:6463</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06531">6531</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6531</span>{<span class="keywordflow">return</span>*<span class="keyword">this</span>=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a30fd77280b26ac5c4841a0ac7dfc7e1d">next_getter</a>();}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_a30fd77280b26ac5c4841a0ac7dfc7e1d"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a30fd77280b26ac5c4841a0ac7dfc7e1d">elc::defs::base::iterator_n::base_iterator_t::next_getter</a></div><div class="ttdeci">base_t_w next_getter() const noexcept(is_next_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06462">all_defs.cpp:6462</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -546,9 +546,9 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06534">6534</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6534</span>{<span class="keyword">auto</span> a=*<span class="keyword">this</span>;<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a7d81e6d3e987bd03f200d28e42d00ca8">operator++</a>();<span class="keywordflow">return</span> a;}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_a7d81e6d3e987bd03f200d28e42d00ca8"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a7d81e6d3e987bd03f200d28e42d00ca8">elc::defs::base::iterator_n::base_iterator_t::operator++</a></div><div class="ttdeci">constexpr this_t &amp; operator++() &amp;noexcept(is_next_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06532">all_defs.cpp:6532</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06533">6533</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6533</span>{<span class="keyword">auto</span> a=*<span class="keyword">this</span>;<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a7d81e6d3e987bd03f200d28e42d00ca8">operator++</a>();<span class="keywordflow">return</span> a;}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_a7d81e6d3e987bd03f200d28e42d00ca8"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a7d81e6d3e987bd03f200d28e42d00ca8">elc::defs::base::iterator_n::base_iterator_t::operator++</a></div><div class="ttdeci">constexpr this_t &amp; operator++() &amp;noexcept(is_next_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06531">all_defs.cpp:6531</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -578,8 +578,8 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06550">6550</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6550</span>{ <span class="keywordflow">return</span> *<span class="keyword">this</span>+(-num); }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06549">6549</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6549</span>{ <span class="keywordflow">return</span> *<span class="keyword">this</span>+(-num); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -608,9 +608,9 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06533">6533</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6533</span>{<span class="keywordflow">return</span>*<span class="keyword">this</span>=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#abe32cd88f0d3fcb3d6a3b7546f043957">before_getter</a>();}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_abe32cd88f0d3fcb3d6a3b7546f043957"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#abe32cd88f0d3fcb3d6a3b7546f043957">elc::defs::base::iterator_n::base_iterator_t::before_getter</a></div><div class="ttdeci">base_t_w before_getter() const noexcept(is_before_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06480">all_defs.cpp:6480</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06532">6532</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6532</span>{<span class="keywordflow">return</span>*<span class="keyword">this</span>=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#abe32cd88f0d3fcb3d6a3b7546f043957">before_getter</a>();}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_abe32cd88f0d3fcb3d6a3b7546f043957"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#abe32cd88f0d3fcb3d6a3b7546f043957">elc::defs::base::iterator_n::base_iterator_t::before_getter</a></div><div class="ttdeci">base_t_w before_getter() const noexcept(is_before_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06479">all_defs.cpp:6479</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -640,9 +640,9 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06535">6535</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6535</span>{<span class="keyword">auto</span> a=*<span class="keyword">this</span>;<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a3b6e98ce984bd99ef58729343446a3e9">operator--</a>();<span class="keywordflow">return</span> a;}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_a3b6e98ce984bd99ef58729343446a3e9"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a3b6e98ce984bd99ef58729343446a3e9">elc::defs::base::iterator_n::base_iterator_t::operator--</a></div><div class="ttdeci">constexpr this_t &amp; operator--() &amp;noexcept(is_before_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06533">all_defs.cpp:6533</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06534">6534</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6534</span>{<span class="keyword">auto</span> a=*<span class="keyword">this</span>;<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a3b6e98ce984bd99ef58729343446a3e9">operator--</a>();<span class="keywordflow">return</span> a;}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t_html_a3b6e98ce984bd99ef58729343446a3e9"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1iterator__n_1_1base__iterator__t.html#a3b6e98ce984bd99ef58729343446a3e9">elc::defs::base::iterator_n::base_iterator_t::operator--</a></div><div class="ttdeci">constexpr this_t &amp; operator--() &amp;noexcept(is_before_getter_noexcept())</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06532">all_defs.cpp:6532</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -672,8 +672,8 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06531">6531</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6531</span>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a84140264942fffa69ee9e48a3a95f8d0">move_assign</a>(<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">base_t::_m</a>,a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06530">6530</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6530</span>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a84140264942fffa69ee9e48a3a95f8d0">move_assign</a>(<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">base_t::_m</a>,a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a84140264942fffa69ee9e48a3a95f8d0"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a84140264942fffa69ee9e48a3a95f8d0">elc::defs::memory::lifetime_n::move_assign</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::move_assign_t move_assign</div></div>
 </div><!-- fragment -->
 </div>
@@ -704,8 +704,8 @@ template&lt;typename value_t , typename base_t_w &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06530">6530</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6530</span>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a4cacedf3b084360acff59fb60c9b1999">copy_assign</a>(<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">base_t::_m</a>,a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06529">6529</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6529</span>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a4cacedf3b084360acff59fb60c9b1999">copy_assign</a>(<a class="code hl_variable" href="classelc_1_1defs_1_1base_1_1iterator__n_1_1same__base__t.html#a1ba3247a405a528a1e4354ce3b795074">base_t::_m</a>,a);<span class="keywordflow">return</span>*<span class="keyword">this</span>;}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a4cacedf3b084360acff59fb60c9b1999"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a4cacedf3b084360acff59fb60c9b1999">elc::defs::memory::lifetime_n::copy_assign</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::copy_assign_t copy_assign</div></div>
 </div><!-- fragment -->
 </div>

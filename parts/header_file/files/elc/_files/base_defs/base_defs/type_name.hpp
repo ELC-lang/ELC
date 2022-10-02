@@ -11,7 +11,7 @@ struct type_name_t:string_view_t<char>{
 	//一切源于abi::__cxa_demangle
 	//对于msvc，这个类型析构时不需要做任何事情
 	typedef string_view_t<char> base_t;
-	//重整器包装
+	/// 重整器包装
 	static base_t demangle(const char*original_name)noexcept{
 		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		size_t len;
@@ -35,7 +35,7 @@ struct type_name_t:string_view_t<char>{
 		#endif
 		return base_t{demangled_name,len};
 	}
-	//复制重整结果
+	/// 复制重整结果
 	static base_t copy_demangle(base_t demangled_name)noexcept{
 		#if defined(__clang__)||defined(__GNUC__)
 			//gcc和clang
@@ -52,15 +52,15 @@ struct type_name_t:string_view_t<char>{
 			return demangled_name;
 		#endif
 	}
-	//构造函数
+	/// 构造函数
 	type_name_t(const char*original_name)noexcept:base_t(demangle(original_name)){}
-	//复制构造函数
+	/// 复制构造函数
 	type_name_t(const type_name_t&other)noexcept:base_t(copy_demangle(other)){}
-	//移动构造函数（swap）
+	/// 移动构造函数（swap）
 	type_name_t(type_name_t&&other)noexcept:base_t(nullptr,0){
 		swap_with(other);
 	}
-	//析构函数
+	/// 析构函数
 	~type_name_t()noexcept{
 		#if defined(__clang__)||defined(__GNUC__)
 			//gcc和clang

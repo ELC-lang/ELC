@@ -7,13 +7,12 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace null_ptr_n{
-	/*
+	/*!
 	提醒子类定义者重载get_null_ptr.
 	*/
 	special_attribute_t can_t_use_default_null_ptr{};
 
-	/*
-	force_use_default_null_ptr :
+	/*!
 	可不重载get_null_ptr
 	在此类ref_able或weak_ref_able时，意味着使用者**保证**所有指向此类的实例的ptr都不可为null_ptr
 	否则将内存访问错误
@@ -36,7 +35,7 @@ namespace null_ptr_n{
 	}
 
 
-	/*
+	/*!
 	字面量null_ptr，如同nullptr使用即可.
 	*/
 	constexpr struct null_ptr_t{

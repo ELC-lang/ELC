@@ -15,9 +15,11 @@ elc依赖的基础函数.
 	#include <cuchar>
 	#include <clocale>
 	#include "../default_data_type.hpp"
+	/// @brief 终止报错相关基础函数
 	namespace elc::APIs::die{
 		#include "../../_share/_defs.hpp"
 
+		/// @brief 终止整个程序并可能的触发断点或输出错误信息
 		[[noreturn]]inline void die()noexcept{
 			#if defined(_MSC_VER)
 				__debugbreak();
@@ -30,6 +32,8 @@ elc依赖的基础函数.
 			#endif
 			::std::abort();
 		}
+		/// @brief 同 die ，但是有详细的错误信息
+		/// @param err_msg 错误信息
 		[[noreturn]]inline void die_with(const char_t*err_msg)noexcept{
 			#if defined(_MSC_VER)
 				__debugbreak();

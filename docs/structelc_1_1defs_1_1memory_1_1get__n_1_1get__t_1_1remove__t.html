@@ -116,7 +116,7 @@ Public 成员函数</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 struct elc::defs::memory::get_n::get_t&lt; T &gt;::remove_t</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07585">7585</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07603">7603</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a02ac4cea3f6cd07eaa90eb1d57bc6ef3" name="a02ac4cea3f6cd07eaa90eb1d57bc6ef3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02ac4cea3f6cd07eaa90eb1d57bc6ef3">&#9670;&#160;</a></span>operator()()</h2>
@@ -154,28 +154,28 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07591">7591</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7591</span>                                                                                                                        {</div>
-<div class="line"><span class="lineno"> 7592</span>                                <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
-<div class="line"><span class="lineno"> 7593</span>                                <span class="keyword">auto</span> <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>.value;</div>
-<div class="line"><span class="lineno"> 7594</span>                                <span class="keyword">auto</span> from_size=<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">get_size_of_alloc</a>(ptr);</div>
-<div class="line"><span class="lineno"> 7595</span>                                T*ptr_to_a=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(a,{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">note::size</a>(from_size)});</div>
-<div class="line"><span class="lineno"> 7596</span>                                <span class="keyword">auto</span> a_size=a.size();</div>
-<div class="line"><span class="lineno"> 7597</span>                                <span class="keywordflow">if</span>(!ptr_to_a)</div>
-<div class="line"><span class="lineno"> 7598</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno"> 7599</span> </div>
-<div class="line"><span class="lineno"> 7600</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>[a_size](ptr_to_a);</div>
-<div class="line"><span class="lineno"> 7601</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#abf74a7c63d0956c8d86aed57334e781e">move</a>[(<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>+from_size)-(ptr_to_a+a_size)](<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">note::from</a>(ptr_to_a+a_size),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">note::to</a>(ptr_to_a));</div>
-<div class="line"><span class="lineno"> 7602</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aad566c4cd179e4b1465bb3a5aaaa5040">alloc_size_cut</a>(ptr,from_size-a_size);</div>
-<div class="line"><span class="lineno"> 7603</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 7604</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07609">7609</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7609</span>                                                                                                                        {</div>
+<div class="line"><span class="lineno"> 7610</span>                                <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
+<div class="line"><span class="lineno"> 7611</span>                                <span class="keyword">auto</span> <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>.value;</div>
+<div class="line"><span class="lineno"> 7612</span>                                <span class="keyword">auto</span> from_size=<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">get_size_of_alloc</a>(ptr);</div>
+<div class="line"><span class="lineno"> 7613</span>                                T*ptr_to_a=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">in_range</a>(a,{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">note::size</a>(from_size)});</div>
+<div class="line"><span class="lineno"> 7614</span>                                <span class="keyword">auto</span> a_size=a.size();</div>
+<div class="line"><span class="lineno"> 7615</span>                                <span class="keywordflow">if</span>(!ptr_to_a)</div>
+<div class="line"><span class="lineno"> 7616</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 7617</span> </div>
+<div class="line"><span class="lineno"> 7618</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">destruct</a>[a_size](ptr_to_a);</div>
+<div class="line"><span class="lineno"> 7619</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#abf74a7c63d0956c8d86aed57334e781e">move</a>[(<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">ptr</a>+from_size)-(ptr_to_a+a_size)](<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">note::from</a>(ptr_to_a+a_size),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">note::to</a>(ptr_to_a));</div>
+<div class="line"><span class="lineno"> 7620</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aad566c4cd179e4b1465bb3a5aaaa5040">alloc_size_cut</a>(ptr,from_size-a_size);</div>
+<div class="line"><span class="lineno"> 7621</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 7622</span>                            }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a708b86f4561b6659cb265c32ce4cb8b3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">elc::defs::base::note_n::size</a></div><div class="ttdeci">constexpr size_t&lt; T &gt; size(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01782">all_defs.cpp:1782</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ab38406a29b5abb1d9d783b44464c338f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">elc::defs::base::note_n::to</a></div><div class="ttdeci">constexpr to_t&lt; T &gt; to(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01781">all_defs.cpp:1781</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ae46aa64f1993a2bdce845a92745e2e65"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">elc::defs::base::note_n::from</a></div><div class="ttdeci">constexpr from_t&lt; T &gt; from(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01780">all_defs.cpp:1780</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_ace6a3a9d079214ee7bcce5acbef1e07f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">elc::defs::base::range_n::in_range</a></div><div class="ttdeci">constexpr bool in_range(T pattern, const range_t&lt; T &gt;range) noexcept(noexcept((bool((::std::declval&lt; T &gt;())&gt;=(::std::declval&lt; const T &gt;()) &amp;&amp;(::std::declval&lt; T &gt;())&lt;=(::std::declval&lt; const T &gt;())))))</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02290">all_defs.cpp:2290</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12726">all_defs.cpp:12726</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1range__n_html_ace6a3a9d079214ee7bcce5acbef1e07f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1range__n.html#ace6a3a9d079214ee7bcce5acbef1e07f">elc::defs::base::range_n::in_range</a></div><div class="ttdeci">constexpr bool in_range(T pattern, const range_t&lt; T &gt;range) noexcept(noexcept((bool((::std::declval&lt; T &gt;())&gt;=(::std::declval&lt; const T &gt;()) &amp;&amp;(::std::declval&lt; T &gt;())&lt;=(::std::declval&lt; const T &gt;())))))</div><div class="ttdoc">判断一个值是否在某个范围内</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02290">all_defs.cpp:2290</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1core_html_a5b12a93e1cb6e144bf038d36c5aba086"><div class="ttname"><a href="namespaceelc_1_1defs_1_1core.html#a5b12a93e1cb6e144bf038d36c5aba086">elc::defs::core::ptr</a></div><div class="ttdeci">comn_ptr_t&lt; node_like &gt; ptr</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12744">all_defs.cpp:12744</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ab3de15a7bb31a5dd66d7129effe17351"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ab3de15a7bb31a5dd66d7129effe17351">elc::defs::memory::alloc_n::get_size_of_alloc</a></div><div class="ttdeci">constexpr struct elc::defs::memory::alloc_n::get_size_of_alloc_t get_size_of_alloc</div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_aad566c4cd179e4b1465bb3a5aaaa5040"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aad566c4cd179e4b1465bb3a5aaaa5040">elc::defs::memory::get_n::alloc_size_cut</a></div><div class="ttdeci">void alloc_size_cut(T *&amp;arg, size_t to_size) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07325">all_defs.cpp:7325</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_aad566c4cd179e4b1465bb3a5aaaa5040"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aad566c4cd179e4b1465bb3a5aaaa5040">elc::defs::memory::get_n::alloc_size_cut</a></div><div class="ttdeci">void alloc_size_cut(T *&amp;arg, size_t to_size) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07343">all_defs.cpp:7343</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a87faccffed48c44e57afc7da9fbd49b0"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a87faccffed48c44e57afc7da9fbd49b0">elc::defs::memory::lifetime_n::destruct</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::destruct_t destruct</div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_abf74a7c63d0956c8d86aed57334e781e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#abf74a7c63d0956c8d86aed57334e781e">elc::defs::memory::lifetime_n::move</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::move_t move</div></div>
 </div><!-- fragment -->
@@ -206,7 +206,7 @@ template&lt;typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07587">7587</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07605">7605</a> 行定义.</p>
 
 </div>
 </div>
@@ -234,7 +234,7 @@ template&lt;typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07589">7589</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07607">7607</a> 行定义.</p>
 
 </div>
 </div>
