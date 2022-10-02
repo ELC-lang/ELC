@@ -14,7 +14,7 @@ namespace abstract_base_n{
 	原理：
 		虚函数间接调用以从base_t&转为T&
 		运行时计算偏移以从T*转换base_t*
-	用法：is_common_attribute
+	用法：is_common_attribute
 	*/
 	#include "pointer_off_set.hpp"
 	#include "abstract_base_vtable.hpp"

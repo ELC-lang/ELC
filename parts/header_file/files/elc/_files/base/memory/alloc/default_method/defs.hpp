@@ -16,6 +16,15 @@ namespace default_method{
 		#endif
 	#endif
 
+	/**
+	 * Reallocates a block of memory.
+	 *
+	 * @param ptr The pointer to the block of memory to reallocate.
+	 * @param nsize The new size of the block of memory.
+	 * @param align The alignment of the block of memory.
+	 *
+	 * @returns The new pointer to the block of memory.
+	 */
 	[[nodiscard]]inline byte*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
 		byte*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
@@ -30,6 +39,14 @@ namespace default_method{
 		#endif
 		return p;
 	}
+	/**
+	 * Allocates aligned memory.
+	 *
+	 * @param align The alignment of the memory.
+	 * @param size The size of the memory.
+	 *
+	 * @returns A pointer to the allocated memory.
+	 */
 	[[nodiscard]]inline byte*base_aligned_alloc(size_t align,size_t size)noexcept{
 		byte*p=::elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
@@ -40,6 +57,14 @@ namespace default_method{
 		#endif
 		return p;
 	}
+	/**
+	 * Frees a pointer allocated by base_alloc.
+	 *
+	 * @param p The pointer to free.
+	 * @param align The alignment of the pointer.
+	 *
+	 * @returns None
+	 */
 	inline void base_free(byte*p,size_t align)noexcept{
 		//传入需释放的数据块起始点与大小（字节）
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
@@ -56,6 +81,14 @@ namespace default_method{
 		#endif
 		::elc::APIs::alloc::free(p,align);
 	}
+	/**
+	 * Computes the size of an allocation.
+	 *
+	 * @param arg The pointer to the start of the allocation.
+	 * @param align The alignment of the allocation.
+	 *
+	 * @returns The size of the allocation.
+	 */
 	inline size_t base_get_size_of_alloc(const byte*arg, size_t align)noexcept{
 		//arg保证不与null_ptr相等
 		const auto tmp= ::elc::APIs::alloc::get_size_of_alloc(arg,align);

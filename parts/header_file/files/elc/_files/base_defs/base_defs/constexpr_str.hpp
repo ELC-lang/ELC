@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace constexpr_str_n{
-	//constexpr_str_t的退化类型，表明这是常量字符串，但没有可用的额外信息
+	/// constexpr_str_t的退化类型，表明这是常量字符串，但没有可用的额外信息
 	template<typename char_T>
 	struct constexpr_str_view_t:string_view_t<char_T>{
 		typedef string_view_t<char_T> base_t;
@@ -37,7 +37,7 @@ namespace constexpr_str_n{
 			return base_t::substr(begin,end);
 		}
 	};
-	//告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
+	/// 告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
 	template<typename char_T>
 	struct constexpr_str_t:constexpr_str_view_t<char_T>{
 		typedef constexpr_str_view_t<char_T> base_t;
@@ -71,12 +71,12 @@ namespace constexpr_str_n{
 		distinctive static constexpr auto value = v.get_constexpr_str_t();
 	};
 	//别问，问就是傻逼c++
-	//告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
+	/// 告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
 	template<constexpr_str_t_literal_helper str_helper>
 	[[nodiscard]]inline consteval auto& operator ""_constexpr_str()noexcept{
 		return literal_result_provider<str_helper>::value;
 	}
-	//空字串常量且str或begin会指向一个0终止字符串（而不是nullptr），便于安全初始化
+	/// 空字串常量且str或begin会指向一个0终止字符串（而不是nullptr），便于安全初始化
 	template<class char_T>
 	distinctive inline constexpr auto empty_constexpr_str_of = constexpr_str_t(&const_default_value_of<char_T>,0);
 };

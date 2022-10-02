@@ -7,17 +7,17 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 //end_by_zero_t
-/*
+/*!
 用于标志某一数据串以0结尾
 */
 inline constexpr struct end_by_zero_t{}end_by_zero;
 //just_an_part_t
-/*
+/*!
 用于标志某一数据串并没有完结
 */
 inline constexpr struct just_an_part_t{}just_an_part;
 //equal：值相等.
-/*
+/*!
 	相等比较任意支持比较的类型或其数组——简易封装.
 	用法:
 	判断两值是否可比较。
@@ -116,7 +116,7 @@ template<typename T>
 }
 
 //compare：三路比较
-/*
+/*!
 	若大小相同则以字典序三路比较任意支持比较的类型或其数组,并在 <=> 不可用时以 < 和 == 为后备.
 	用法:
 	判断两者是否可真的进行三路比较。

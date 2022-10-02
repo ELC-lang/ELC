@@ -6,11 +6,11 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 
-/*
+/*!
 客制化to_string用途类
 */
 struct base_numerical_representation_t{};
-/*
+/*!
 记录数字的表示方式以便客制化to_string
 */
 class numerical_representation_t:public base_numerical_representation_t{
