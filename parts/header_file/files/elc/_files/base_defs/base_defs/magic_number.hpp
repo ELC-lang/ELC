@@ -240,7 +240,7 @@ namespace magic_number{
 			if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
 				return a-b;
 			else{
-				using signedT = ::std::make_signed_t<::std::common_type_t<T1,T2>>;
+				using signedT = ::std::make_signed_t<::std::common_type_t<T1,T2,signed char>>;
 				return static_cast<signedT>(a)-static_cast<signedT>(b);
 			}
 		}

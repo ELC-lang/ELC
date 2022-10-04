@@ -26,8 +26,6 @@ namespace get_n{
 	 *
 	 * @param arg 原有数据块
 	 * @param to_size 新的数据块大小
-	 *
-	 * @returns None
 	 */
 	template<typename T>
 	void alloc_size_cut(T*&arg,size_t to_size)noexcept{
@@ -38,8 +36,6 @@ namespace get_n{
 	 *
 	 * @param arg 原有数据块
 	 * @param to_size 新的数据块大小
-	 *
-	 * @returns None
 	 */
 	template<typename T>
 	void alloc_size_grow(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
@@ -69,8 +65,6 @@ namespace get_n{
 	 * @param arg 原有数据块
 	 * @param insert_pos 插入位置
 	 * @param insert_size 插入大小
-	 *
-	 * @returns None
 	 */
 	template<typename T>
 	void alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
@@ -146,8 +140,6 @@ namespace get_n{
 	 *
 	 * @param arg 原有数据块
 	 * @param to_size 新的数据块大小
-	 *
-	 * @returns None
 	 */
 	template<typename T>
 	void forward_alloc_size_cut(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
@@ -179,8 +171,6 @@ namespace get_n{
 	 *
 	 * @param arg 原有数据块
 	 * @param to_size 新的数据块大小
-	 *
-	 * @returns None
 	 */
 	template<typename T>
 	void forward_alloc_size_grow(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){

@@ -62,8 +62,6 @@ namespace default_method{
 	 *
 	 * @param p The pointer to free.
 	 * @param align The alignment of the pointer.
-	 *
-	 * @returns None
 	 */
 	inline void base_free(byte*p,size_t align)noexcept{
 		//传入需释放的数据块起始点与大小（字节）

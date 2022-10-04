@@ -32,7 +32,7 @@ struct invoke_t{
 	/**
 	 * A function that returns a lambda that applies a function to a value.
 	 *
-	 * @param args The arguments to the function.
+	 * @param rest The arguments to the function.
 	 *
 	 * @returns A lambda that applies the function to a value.
 	 */
