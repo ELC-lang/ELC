@@ -7,10 +7,13 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 
+/// 快捷定义特殊类型的constexpr
 #define defspecflag(name)\
 constexpr struct name##_t{} name{}
 
+/// 引用计数从不为0的构造
 defspecflag(never_ref_num_zero);
+/// 特殊构造
 defspecflag(special_init);
 
 #undef defspecflag
