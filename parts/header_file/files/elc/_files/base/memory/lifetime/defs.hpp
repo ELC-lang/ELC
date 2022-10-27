@@ -199,11 +199,11 @@ namespace lifetime_n{
 	*/
 	constexpr struct destruct_t{
 		template<class T>
-		static constexpr bool able=destruct_able<T>||(::std::is_array_v<T>&&able<::std::remove_extent_t<T>>);
+		static constexpr bool able=destruct_able<T>;
 		template<class T>
-		static constexpr bool nothrow=destruct_nothrow<T>||(::std::is_array_v<T>&&nothrow<::std::remove_extent_t<T>>);
+		static constexpr bool nothrow=destruct_nothrow<T>;
 		template<class T>
-		static constexpr bool trivial=destruct_trivial<T>||(::std::is_array_v<T>&&trivial<::std::remove_extent_t<T>>);
+		static constexpr bool trivial=destruct_trivial<T>;
 
 		template<class T> requires able<T>
 		static force_inline void base_call(T*to)noexcept(nothrow<T>){
