@@ -110,7 +110,7 @@ namespace string_view_n{
 			return string_view_t(begin,len);
 		}
 		[[nodiscard]]constexpr string_view_t substr(const char_T*begin)const noexcept{
-			return string_view_t(begin,base_t::size());
+			return string_view_t(begin,base_t::cend()-begin);
 		}
 		[[nodiscard]]constexpr string_view_t substr(const char_T*begin,const char_T*end)const noexcept{
 			return string_view_t(begin,end-begin);
