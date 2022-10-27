@@ -14,8 +14,14 @@ inline auto&assign(T&&a,U&&b)noexcept_as(a=b){//为绕过条件内赋值时の�
 	return a;
 }
 
-template<typename T>
-inline void discard(T&&){}//fucking nodiscard.
+//fucking nodiscard.
+constexpr struct discard_t{
+	template<typename T>
+	force_inline constexpr void operator=(T&&)const noexcept{}
+	template<typename T>
+	force_inline constexpr void operator()(T&&)const noexcept{}
+}discard{};
+
 template<typename T>
 inline void just_a_use(T&&){}
 

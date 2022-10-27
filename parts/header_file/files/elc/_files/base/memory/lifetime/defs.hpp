@@ -212,8 +212,9 @@ namespace lifetime_n{
 					for(auto&i : *to)
 						base_call(addressof(i));
 				else
-					suppress_msvc_warning(26457)//虽然我不是很理解为啥调用析构函数会触发这个
+					push_and_disable_msvc_warning(26457)
 					to->~T();
+					pop_msvc_warning()
 		}
 
 		template<class T> requires able<T>
