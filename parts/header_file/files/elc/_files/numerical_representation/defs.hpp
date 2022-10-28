@@ -356,23 +356,8 @@ private:
 		}
 		return false;
 	}
-public:
-	template<typename T> requires ::std::is_arithmetic_v<T>
-	inline T from_string_get(string str)const noexcept{
-		//信息尾检查
-		if constexpr(::std::is_floating_point_v<T>){
-			const auto info_tail_size=get_info_tail_size<T>();
-			if(str.size()>info_tail_size && str.ends_with(_radix_table)){
-				const auto tail_pos=str.size()-info_tail_size;
-				auto info_tail=str.substr(tail_pos);
-				auto str_with_out_tail=str.substr(0,tail_pos);
-				if(str_with_out_tail.back()==_fractional_sign)
-					str_with_out_tail.pop_back();
-				auto num=get_from_info_tail<T>(info_tail);
-				if(to_string_rough(num).starts_with(str_with_out_tail))
-					return num;
-			}
-		}
+	template<typename T>
+	inline T from_string_no_tail_check_get(string str)const noexcept{
 		T num{};
 		suppress_msvc_warning(26496);
 		bool is_negative=false;
@@ -393,6 +378,25 @@ public:
 		}()) UT;
 		UT unum=from_string_get_num_base<UT>(str);
 		return copy_as_negative<T>(unum,is_negative);
+	}
+public:
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	inline T from_string_get(string str)const noexcept{
+		//信息尾检查
+		if constexpr(::std::is_floating_point_v<T>){
+			const auto info_tail_size=get_info_tail_size<T>();
+			if(str.size()>info_tail_size && str.ends_with(_radix_table)){
+				const auto tail_pos=str.size()-info_tail_size;
+				auto info_tail=str.substr(tail_pos);
+				auto str_with_out_tail=str.substr(0,tail_pos);
+				if(str_with_out_tail.back()==_fractional_sign)
+					str_with_out_tail.pop_back();
+				auto num=get_from_info_tail<T>(info_tail);
+				if(to_string_rough(num).starts_with(str_with_out_tail))
+					return num;
+			}
+		}
+		return from_string_no_tail_check_get<T>(str);
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline string to_string(T num)const noexcept{
@@ -429,7 +433,7 @@ public:
 			};
 			size_t dot_pos=aret.find(_fractional_sign);
 			//检查是否可反向转换
-			if(from_string_get<T>(aret) != num){
+			if(from_string_no_tail_check_get<T>(aret) != num){
 				//获取并追加信息尾
 				string info_tail=get_info_tail(num);
 				if(dot_pos==string::npos){
