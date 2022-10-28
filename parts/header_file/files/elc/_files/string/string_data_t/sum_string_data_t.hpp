@@ -209,15 +209,13 @@ protected:
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		if(!this->_before->equal_with(wp->_before))
-			return false;
-		return this->_after->equal_with(wp->_after);
+		return this->_before->equal_with_same_size(wp->_before) && this->_after->equal_with_same_size(wp->_after);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		if(auto tmp=this->_before->compare_with(wp->_before); tmp!=0)
+		if(auto tmp=this->_before->compare_with_same_size(wp->_before); tmp!=0)
 			return tmp;
-		return this->_after->compare_with(wp->_after);
+		return this->_after->compare_with_same_size(wp->_after);
 	}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
 		return float_size_of(*this)+_before->get_memory_cost()+_after->get_memory_cost();

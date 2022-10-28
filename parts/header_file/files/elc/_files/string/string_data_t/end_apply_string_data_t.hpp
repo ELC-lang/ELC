@@ -242,13 +242,11 @@ protected:
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		if(!_to->equal_with(wp->_to))
-			return false;
-		return equal((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
+		return _to->equal_with_same_size(wp->_to) && equal((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		if(auto tmp=_to->compare_with(wp->_to); tmp!=0)
+		if(auto tmp=_to->compare_with_same_size(wp->_to); tmp!=0)
 			return tmp;
 		return compare((char_T*)_m.begin(),(char_T*)wp->_m.begin(),_used_size);
 	}

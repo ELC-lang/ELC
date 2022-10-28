@@ -209,9 +209,7 @@ protected:
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		if(!_to->equal_with(wp->_to,0,_erase_pos))
-			return false;
-		return _to->equal_with(wp->_to,_erase_pos+_erase_size,_to_size);
+		return _to->equal_with(wp->_to,0,_erase_pos) && _to->equal_with(wp->_to,_erase_pos+_erase_size,_to_size);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());

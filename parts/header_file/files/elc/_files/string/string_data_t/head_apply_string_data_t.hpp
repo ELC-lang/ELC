@@ -245,9 +245,7 @@ protected:
 		auto wp=down_cast<this_t*>(with.get());
 		const char_T* head_begin = _m.end() - _used_size;
 		const char_T* wp_head_begin = wp->_m.end() - _used_size;
-		if(!equal(head_begin,wp_head_begin,_used_size))
-			return false;
-		return _to->equal_with(wp->_to);
+		return equal(head_begin,wp_head_begin,_used_size) && _to->equal_with_same_size(wp->_to);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
@@ -255,7 +253,7 @@ protected:
 		const char_T* wp_head_begin = wp->_m.end() - _used_size;
 		if(auto tmp=compare(head_begin,wp_head_begin,_used_size); tmp!=0)
 			return tmp;
-		return _to->compare_with(wp->_to);
+		return _to->compare_with_same_size(wp->_to);
 	}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
 		return _to->get_memory_cost()+float_size_of(*this)+_m.size_in_byte();

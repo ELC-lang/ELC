@@ -302,15 +302,13 @@ protected:
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		if(!_insert_data->equal_with(wp->_insert_data))
-			return false;
-		return _to->equal_with(wp->_to);
+		return _insert_data->equal_with_same_size(wp->_insert_data) && _to->equal_with_same_size(wp->_to);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		if(auto tmp=_to->compare_with(wp->_to,0,_insert_pos); tmp!=0)
 			return tmp;
-		if(auto tmp=_insert_data->compare_with(wp->_insert_data); tmp!=0)
+		if(auto tmp=_insert_data->compare_with_same_size(wp->_insert_data); tmp!=0)
 			return tmp;
 		return _to->compare_with(wp->_to,_insert_pos,_to_size-(_insert_pos+_insert_size));
 	}

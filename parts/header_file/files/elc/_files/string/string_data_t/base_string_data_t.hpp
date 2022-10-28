@@ -98,6 +98,23 @@ protected:
 	[[nodiscard]]virtual compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)=0;
 protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept=0;
+private:
+	[[nodiscard]]bool base_equal_with(ptr_t with)noexcept(equal.nothrow<char_T>){
+		suppress_msvc_warning(26494)//未初始化警告diss
+		bool aret;
+		{
+			//同结构比较优化比较方式
+			if(same_type(with)&&same_struct(with))
+				aret=same_struct_equal(with);
+			//否则默认比较
+			else
+				aret=default_equal_method(with);
+		}
+		//如果equal，则eq处理
+		if(aret)
+			equivalent_optimization(this,with);
+		return aret;
+	}
 public:
 	[[nodiscard]]bool equal_with(ptr_t with)noexcept(equal.nothrow<char_T>){
 		//eq->equal优化
@@ -107,24 +124,23 @@ public:
 		if(this->has_hash_cache()&&with->has_hash_cache())
 			if(this->get_hash_cache()!=with->get_hash_cache())
 				return false;
-		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
+		//size比较优化
+		if(this->get_size()!=with->get_size())
+			return false;
 		//快速比较结束，实际比较段
-		{
-			suppress_msvc_warning(26494)//未初始化警告diss
-			bool aret;
-			{
-				//同结构比较优化比较方式
-				if(same_type(with)&&same_struct(with))
-					aret=same_struct_equal(with);
-				//否则默认比较
-				else
-					aret=default_equal_method(with);
-			}
-			//如果equal，则eq处理
-			if(aret)
-				equivalent_optimization(this,with);
-			return aret;
-		}
+		return base_equal_with(with);
+	}
+	[[nodiscard]]bool equal_with_same_size(ptr_t with)noexcept(equal.nothrow<char_T>){
+		//eq->equal优化
+		if(this==with)
+			return true;
+		//hash_diff->not_equal优化
+		if(this->has_hash_cache()&&with->has_hash_cache())
+			if(this->get_hash_cache()!=with->get_hash_cache())
+				return false;
+		//size比较优化被移除
+		//快速比较结束，实际比较段
+		return base_equal_with(with);
 	}
 protected:
 	[[nodiscard]]bool default_equal_method(ptr_t with)noexcept(equal.nothrow<char_T>){
@@ -162,6 +178,8 @@ public:
 	[[nodiscard]]bool equal_with(string_view_t with)noexcept(equal.nothrow<char_T>){
 		size_t size=with.size();
 		size_t index=0;
+		if(this->get_size()!=with.size())
+			return false;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with.begin() && a.size()==with.size())
 			return true;
@@ -205,29 +223,44 @@ public:
 				return !*(b+step);
 		}
 	}
+private:
+	[[nodiscard]]compare_type base_compare_with(ptr_t with)noexcept(compare.nothrow<char_T>){
+		suppress_msvc_warning(26494)//未初始化警告diss
+		compare_type aret;
+		{
+			//同结构比较优化比较方式
+			if(same_type(with)&&same_struct(with))
+				aret=same_struct_compare(with);
+			//否则默认比较
+			else
+				aret=default_compare_method(with);
+		}
+		//如果equal，则eq处理
+		if(aret==0)
+			equivalent_optimization(this,with);
+		return aret;
+	}
 public:
 	[[nodiscard]]compare_type compare_with(ptr_t with)noexcept(compare.nothrow<char_T>){
 		//eq->equal优化
 		if(this==with)
 			return strong_ordering::equivalent;
-		//size比较优化被移至string_t实现内部：原因：same_struct_compare大部分情况下size相同。
-		//快速比较结束，实际比较段
+		//size比较优化
 		{
-			suppress_msvc_warning(26494)//未初始化警告diss
-			compare_type aret;
-			{
-				//同结构比较优化比较方式
-				if(same_type(with)&&same_struct(with))
-					aret=same_struct_compare(with);
-				//否则默认比较
-				else
-					aret=default_compare_method(with);
-			}
-			//如果equal，则eq处理
-			if(aret==0)
-				equivalent_optimization(this,with);
-			return aret;
+			auto scom=compare(this->get_size(),with->get_size());
+			if(scom!=0)
+				return scom;
 		}
+		//快速比较结束，实际比较段
+		return base_compare_with(with);
+	}
+	[[nodiscard]]compare_type compare_with_same_size(ptr_t with)noexcept(compare.nothrow<char_T>){
+		//eq->equal优化
+		if(this==with)
+			return strong_ordering::equivalent;
+		//size比较优化被移除
+		//快速比较结束，实际比较段
+		return base_compare_with(with);
 	}
 protected:
 	[[nodiscard]]compare_type default_compare_method(ptr_t with)noexcept(compare.nothrow<char_T>){
@@ -265,6 +298,11 @@ public:
 	[[nodiscard]]compare_type compare_with(string_view_t with)noexcept(compare.nothrow<char_T>){
 		size_t size=with.size();
 		size_t index=0;
+		{
+			auto scom=compare(this->get_size(),size);
+			if(scom!=0)
+				return scom;
+		}
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		if(a.begin()==with.begin() && a.size()==with.size())
 			return strong_ordering::equivalent;

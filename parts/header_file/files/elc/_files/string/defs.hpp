@@ -224,56 +224,36 @@ namespace string_n{
 				return operator<=>(a._get_cso_constexpr_str());
 			elseif(a._in_cso())
 				return operator<=>(a.to_string_view_t());
-			auto ssize = size();
-			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
-			if(scom==0){//大小相等
-				if(!_in_cso())
-					return _m->compare_with(a._m);
-				elseif(_in_str_cso())
-					return compare.reverse(a<=>_get_cso_constexpr_str());
-				elseif(_in_cso())
-					return compare.reverse(a<=>to_string_view_t());
-			}
-			return scom;
+			if(!_in_cso())
+				return _m->compare_with(a._m);
+			elseif(_in_str_cso())
+				return compare.reverse(a<=>_get_cso_constexpr_str());
+			else
+				return compare.reverse(a<=>to_string_view_t());
 		}
 		[[nodiscard]]constexpr auto operator==(const string_t& a)const noexcept(equal.nothrow<char_T>){
 			if(a._in_str_cso())
 				return operator==(a._get_cso_constexpr_str());
 			elseif(a._in_cso())
 				return operator==(a.to_string_view_t());
-			auto ssize = size();
-			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
-			if(seq){//大小相等
-				if(!_in_cso())
-					return _m->equal_with(a._m);
-				elseif(_in_str_cso())
-					return a==_get_cso_constexpr_str();
-				elseif(_in_cso())
-					return a==to_string_view_t();
-			}
-			return seq;
+			if(!_in_cso())
+				return _m->equal_with(a._m);
+			elseif(_in_str_cso())
+				return a==_get_cso_constexpr_str();
+			else
+				return a==to_string_view_t();
 		}
 		[[nodiscard]]constexpr auto operator<=>(string_view_t a)const noexcept(compare.nothrow<char_T>){
-			auto ssize = size();
-			auto scom = compare(ssize,a.size());//先比较大小，若需要再调用data
-			if(scom==0){
-				if(_in_cso())
-					return compare(data(),a.begin(),ssize);
-				else
-					return _m->compare_with(a);
-			}
-			return scom;
+			if(_in_cso())
+				return compare(data(),a.begin(),size());
+			else
+				return _m->compare_with(a);
 		}
 		[[nodiscard]]constexpr auto operator==(string_view_t a)const noexcept(equal.nothrow<char_T>){
-			auto ssize = size();
-			const auto seq = equal(ssize,a.size());//先比较大小，若需要再调用data
-			if(seq){
-				if(_in_cso())
-					return equal(data(),a.begin(),ssize);
-				else
-					return _m->equal_with(a);
-			}
-			return seq;
+			if(_in_cso())
+				return equal(data(),a.begin(),size());
+			else
+				return _m->equal_with(a);
 		}
 		[[nodiscard]]constexpr auto operator<=>(constexpr_str_t&a)const noexcept(compare.nothrow<char_T>){
 			if(_in_cso() && data()==a.str())//同起始优化
