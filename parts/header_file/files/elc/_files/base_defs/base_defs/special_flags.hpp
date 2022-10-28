@@ -15,6 +15,8 @@ constexpr struct name##_t{} name{}
 defspecflag(never_ref_num_zero);
 /// 特殊构造
 defspecflag(special_init);
+/// 预分配内存
+defspecflag(pre_alloc);
 
 #undef defspecflag
 

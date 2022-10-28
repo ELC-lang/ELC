@@ -39,6 +39,13 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
 		copy_assign[_used_size](note::from<const char_T*>(head.begin()),note::to<char_T*>(_m.end()-_used_size));
 	}
+	head_apply_string_data_t(ptr_t str,pre_alloc_t,size_t head_size)noexcept(construct_nothrow):
+		_to_size(str->get_size()),
+		_used_size(0),
+		_to(str)
+	{
+		_m.resize(head_size);
+	}
 
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin>=_used_size)
@@ -70,16 +77,16 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			return this->apply_str_to_end(str);
 		elseif(this->is_unique()){
 			if(pos<_used_size){
-				if(_m.size()-_used_size<str.size()){
-					const auto size_now=this->get_size()+str.size();
-					const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-					_m.insert_with_forward_resize(pos,str.size(),str.begin(),size_new);
-				}
-				else{
+				if(_m.size()-_used_size>=str.size()){
 					char_T* orogin_head_begin=_m.end()-_used_size;
 					char_T* head_begin=orogin_head_begin-str.size();
 					copy_assign[pos](note::from<const char_T*>(orogin_head_begin),note::to<char_T*>(head_begin));
 					copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(head_begin+pos));
+				}
+				else{
+					const auto size_now=this->get_size()+str.size();
+					const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
+					_m.insert_with_forward_resize(pos,str.size(),str.begin(),size_new);
 				}
 				_used_size+=str.size();
 			}else{
@@ -134,13 +141,13 @@ public:
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
-			if(_m.size()-_used_size<str.size()){
+			if(_m.size()-_used_size>=str.size())
+				copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
+			else{
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
 				_m.insert_with_forward_resize(0,str.size(),str.begin(),size_new);
 			}
-			else
-				copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
 			_used_size+=str.size();
 			self_changed();
 			return this;
@@ -258,11 +265,29 @@ protected:
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
 		return _to->get_memory_cost()+float_size_of(*this)+_m.size_in_byte();
 	}
+public:
+	[[nodiscard]]virtual ptr_t pre_alloc_before_begin(size_t size)noexcept override final{
+		if(this->is_unique()){
+			const auto size_new=_used_size+size;
+			if(size_new>_m.size()){
+				_m.forward_resize(size_new);
+			}
+			return this;
+		}
+		return base_t::pre_alloc_before_begin(size);
+	}
 };
 template<typename char_T>
 [[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow){
 	if(str.size())
 		return get<head_apply_string_data_t<char_T>>(this,str);
+	else
+		return this;
+}
+template<typename char_T>
+[[nodiscard]]base_string_data_t<char_T>::ptr_t base_string_data_t<char_T>::pre_alloc_before_begin(size_t size)noexcept{
+	if(size)
+		return get<head_apply_string_data_t<char_T>>(this,pre_alloc,size);
 	else
 		return this;
 }

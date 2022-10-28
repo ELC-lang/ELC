@@ -129,6 +129,11 @@ private:
 	}
 	template<typename T>
 	inline string to_string_num_base(T num)const noexcept{
+		//Information threshold相关声明
+		//小数情况下，这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
+		//而不管整数还是小数的情况下，这都会被用作计算预分配空间大小
+		constexpr auto info_threshold_base = pow(BIT_POSSIBILITY,bitnum_of(T));
+		auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
 		if constexpr(::std::is_floating_point_v<T>){
 			string aret;
 			suppress_msvc_warning(26494)//未初始化警告diss
@@ -145,12 +150,9 @@ private:
 				aret=_radix_table[to_size_t(num)];
 				num=0;
 			}
-			//Information threshold相关声明
-			//这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
-			constexpr auto info_threshold_base = pow(BIT_POSSIBILITY,bitnum_of(T));
-			auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
 			//浮点数精度浮动，所以需要确定何时开始使用Info threshold
 			bool is_mantissa_begined = false;
+			aret.pre_alloc_after_end(info_threshold+1);
 			while(num){
 				//mantissa push部分
 				num*=_radix;
@@ -181,6 +183,7 @@ private:
 		}
 		else{
 			string aret;
+			aret.pre_alloc_before_begin(info_threshold);
 			do{//do while，在num为0时也有返值
 				const auto first_char_index = mod(num,_radix);
 				num /= (T)_radix;

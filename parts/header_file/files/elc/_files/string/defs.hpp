@@ -835,6 +835,17 @@ namespace string_n{
 		this_t& append(size_t size,char_T ch)noexcept{
 			return *this+=string_t{size,ch};
 		}
+
+		//pre_allocate
+		void pre_alloc_before_begin(size_t size)noexcept{
+			_cso_check();
+			_m=_m->pre_alloc_before_begin(size);
+		}
+		void pre_alloc_after_end(size_t size)noexcept{
+			_cso_check();
+			_m=_m->pre_alloc_after_end(size);
+		}
+
 		/*
 		compare
 		replace
