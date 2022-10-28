@@ -13,22 +13,22 @@ push_and_disable_msvc_warning(
 );
 /// 对值追加const
 template<typename T>
-inline constexpr const T add_const(T a)noexcept{return a;}
+force_inline constexpr const T add_const(T a)noexcept{return a;}
 /// 对引用追加const
 template<typename T>
-inline constexpr const T&add_const(T&a)noexcept{return a;}
+force_inline constexpr const T&add_const(T&a)noexcept{return a;}
 /// 对引用移除const
 template<typename T>
-inline constexpr T&remove_const(const T&a)noexcept{return const_cast<T&>(a);}
+force_inline constexpr T&remove_const(const T&a)noexcept{return const_cast<T&>(a);}
 /// 对指针追加const
 template<typename T>
-inline constexpr const T*add_const(T*a)noexcept{return a;}
+force_inline constexpr const T*add_const(T*a)noexcept{return a;}
 /// 对指针移除const
 template<typename T>
-inline constexpr T*remove_const(const T*a)noexcept{return ::std::launder(const_cast<T*>(a));}
+force_inline constexpr T*remove_const(const T*a)noexcept{return ::std::launder(const_cast<T*>(a));}
 /// 向下转型至
 template<typename T,typename U>
-inline constexpr T down_cast(U a)noexcept{return static_cast<T>(a);}
+force_inline constexpr T down_cast(U a)noexcept{return static_cast<T>(a);}
 pop_msvc_warning();
 
 //file_end

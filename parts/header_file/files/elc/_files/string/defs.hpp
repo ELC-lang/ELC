@@ -30,15 +30,15 @@ namespace string_n{
 			char_T _ch;
 
 			push_and_disable_msvc_warning(26495);//未初始化警告diss
-			constexpr _cso_info_t()noexcept{}
+			force_inline constexpr _cso_info_t()noexcept{}
 			constexpr _cso_info_t(const _cso_info_t&a)noexcept{
 				copy_assign[sizeof(_cso_info_t)](cast_to_data(this),cast_to_data(&a));
 			}
 			pop_msvc_warning();
-			constexpr void operator=(const _cso_info_t&a)noexcept{
+			force_inline constexpr void operator=(const _cso_info_t&a)noexcept{
 				copy_assign[sizeof(_cso_info_t)](cast_to_data(this),cast_to_data(&a));
 			}
-			~_cso_info_t()noexcept{}
+			force_inline ~_cso_info_t()noexcept{}
 		}_cso_info{};
 		//_cso_flags用于标识不同的cso情况
 		mutable struct _cso_flags_t{
@@ -52,38 +52,38 @@ namespace string_n{
 		//BLOCK: 对成员宏`_m`的生命周期手动管理的函数族
 
 		//结束成员宏`_m`的生命周期
-		constexpr void _ncso_destruct_mptr()const noexcept{destruct(&_m);}
+		force_inline constexpr void _ncso_destruct_mptr()const noexcept{destruct(&_m);}
 		//开始成员宏`_m`的生命周期
-		constexpr void _ncso_construct_mptr()const noexcept{construct<ptr_t>[&_m]();}
+		force_inline constexpr void _ncso_construct_mptr()const noexcept{construct<ptr_t>[&_m]();}
 		//以特定初始值开始成员宏`_m`的生命周期
-		constexpr void _ncso_construct_mptr(ptr_t p)const noexcept{construct<ptr_t>[&_m](p);}
+		force_inline constexpr void _ncso_construct_mptr(ptr_t p)const noexcept{construct<ptr_t>[&_m](p);}
 
 		//END_BLOCK
 
 		//BLOCK: cso情况判断函数族
-		[[nodiscard]]bool _in_cso()const noexcept{return _cso_flags._cso_flag;}
-		[[nodiscard]]bool _in_str_cso()const noexcept{return _in_cso() && _cso_flags._str_cso_flag;}
-		[[nodiscard]]bool _in_chr_cso()const noexcept{return _in_cso() && !_cso_flags._str_cso_flag;}
+		[[nodiscard]]force_inline bool _in_cso()const noexcept{return _cso_flags._cso_flag;}
+		[[nodiscard]]force_inline bool _in_str_cso()const noexcept{return _in_cso() && _cso_flags._str_cso_flag;}
+		[[nodiscard]]force_inline bool _in_chr_cso()const noexcept{return _in_cso() && !_cso_flags._str_cso_flag;}
 		//END_BLOCK
 		//BLOCK: cso情况设定函数族
-		constexpr void _set_str_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=1;}
-		constexpr void _set_chr_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=0;}
-		constexpr void _set_not_cso()const noexcept{_cso_flags._cso_flag=0;}
+		force_inline constexpr void _set_str_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=1;}
+		force_inline constexpr void _set_chr_cso()const noexcept{_cso_flags._cso_flag=1;_cso_flags._str_cso_flag=0;}
+		force_inline constexpr void _set_not_cso()const noexcept{_cso_flags._cso_flag=0;}
 		//END_BLOCK
 
 		//BLOCK: cso情况下的信息获取函数族
-		[[nodiscard]]const char_T* _get_cso_data()const noexcept{return _in_str_cso()?_cso_info._str->str():&_cso_info._ch;}
-		[[nodiscard]]size_t _get_cso_size()const noexcept{return _in_str_cso()?_cso_info._str->size():1;}
-		[[nodiscard]]hash_t _get_cso_hash()const noexcept{return _in_str_cso()?hash(_get_cso_constexpr_str()):hash(_cso_info._ch);}
-		[[nodiscard]]constexpr_str_t& _get_cso_constexpr_str()const noexcept{return *_cso_info._str;}
+		[[nodiscard]]force_inline const char_T* _get_cso_data()const noexcept{return _in_str_cso()?_cso_info._str->str():&_cso_info._ch;}
+		[[nodiscard]]force_inline size_t _get_cso_size()const noexcept{return _in_str_cso()?_cso_info._str->size():1;}
+		[[nodiscard]]force_inline hash_t _get_cso_hash()const noexcept{return _in_str_cso()?hash(_get_cso_constexpr_str()):hash(_cso_info._ch);}
+		[[nodiscard]]force_inline constexpr_str_t& _get_cso_constexpr_str()const noexcept{return *_cso_info._str;}
 		//END_BLOCK
 
 		//BLOCK: cso情况管理函数族
-		constexpr void _cso_init(constexpr_str_t&str)noexcept{_set_str_cso();_cso_info._str=&str;}
-		constexpr void _cso_reinit(constexpr_str_t&str)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(str);}
-		constexpr void _cso_init(char_T ch)noexcept{_set_chr_cso();_cso_info._ch=ch;}
-		constexpr void _cso_reinit(char_T ch)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(ch);}
-		void _cso_fin(bool need_write)const noexcept{
+		force_inline constexpr void _cso_init(constexpr_str_t&str)noexcept{_set_str_cso();_cso_info._str=&str;}
+		force_inline constexpr void _cso_reinit(constexpr_str_t&str)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(str);}
+		force_inline constexpr void _cso_init(char_T ch)noexcept{_set_chr_cso();_cso_info._ch=ch;}
+		force_inline constexpr void _cso_reinit(char_T ch)noexcept{if(!_in_cso())_ncso_destruct_mptr();_cso_init(ch);}
+		force_inline void _cso_fin(bool need_write)const noexcept{
 			if(_in_str_cso()&&!need_write)
 				_ncso_construct_mptr(get<constexpr_string_data_t<char_T>>(*_cso_info._str));
 			else{
@@ -92,33 +92,33 @@ namespace string_n{
 			}
 			_set_not_cso();
 		}
-		void _cso_fin(ptr_t p)noexcept{
+		force_inline void _cso_fin(ptr_t p)noexcept{
 			_set_not_cso();
 			_ncso_construct_mptr(p);
 		}
 		//END_BLOCK
 
 		//BLOCK: 已知需要拷贝cso全部内容，判断是否值得结束cso的检查
-		static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
+		force_inline static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
 			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),(size_t)1);
 			return size>=max_size;
 		}
-		static void full_copy_cso_check(const string_t&str)noexcept{
+		force_inline static void full_copy_cso_check(const string_t&str)noexcept{
 			if(the_size_worth_to_end_cso(str.size()))
 				str._cso_check();
 		}
 		//END_BLOCK
 
 		//若cso，结束它
-		void _cso_check(bool need_write=0)const noexcept{
+		force_inline void _cso_check(bool need_write=0)const noexcept{
 			if(_in_cso())
 				_cso_fin(need_write);
 		}
 
 		//便利用，内部使用的构造函数
-		string_t(ptr_t str)noexcept{_ncso_construct_mptr(str);}
+		force_inline string_t(ptr_t str)noexcept{_ncso_construct_mptr(str);}
 		//无论是否在cso中，都保证可以获得一个ptr
-		[[nodiscard]]ptr_t ptr_copy()const noexcept{
+		[[nodiscard]]force_inline ptr_t ptr_copy()const noexcept{
 			_cso_check();
 			return _m;
 		}
