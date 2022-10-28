@@ -1,9 +1,9 @@
 <map id="elc::defs::core::value" name="elc::defs::core::value">
-<area shape="rect" id="node1" title=" " alt="" coords="841,45,983,70"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title=" " alt="" coords="597,5,733,45"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1core_1_1value_1_1null__data__t.html" title=" " alt="" coords="595,69,736,109"/>
-<area shape="rect" id="node4" title=" " alt="" coords="403,37,545,77"/>
-<area shape="rect" id="node5" href="$structelc_1_1defs_1_1core_1_1value_1_1base__data__t.html" title=" " alt="" coords="403,101,545,141"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,35,353,119"/>
-<area shape="rect" id="node7" href="$classelc_1_1defs_1_1base_1_1build__by__get__only.html" title=" " alt="" coords="108,144,251,184"/>
+<area shape="rect" id="node1" title=" " alt="" coords="713,45,855,70"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title="禁止复制赋值" alt="" coords="469,5,605,45"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1core_1_1value_1_1null__data__t.html" title=" " alt="" coords="467,69,608,109"/>
+<area shape="rect" id="node4" title=" " alt="" coords="275,37,417,77"/>
+<area shape="rect" id="node5" href="$structelc_1_1defs_1_1core_1_1value_1_1base__data__t.html" title=" " alt="" coords="275,101,417,141"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,35,225,119"/>
+<area shape="rect" id="node7" href="$classelc_1_1defs_1_1base_1_1build__by__get__only.html" title=" " alt="" coords="44,144,187,184"/>
 </map>

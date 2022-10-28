@@ -1,5 +1,5 @@
 <map id="elc::defs::base::non_default_construct_able" name="elc::defs::base::non_default_construct_able">
-<area shape="rect" id="node1" title=" " alt="" coords="87,93,246,133"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" title=" " alt="" coords="5,5,155,45"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__move__construct__able.html" title=" " alt="" coords="179,5,330,45"/>
+<area shape="rect" id="node1" title="禁止默认合成的构造" alt="" coords="87,93,246,133"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" title="禁止复制构造" alt="" coords="5,5,155,45"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__move__construct__able.html" title="禁止移动构造" alt="" coords="179,5,330,45"/>
 </map>

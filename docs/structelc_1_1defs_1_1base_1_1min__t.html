@@ -126,7 +126,7 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1min__t.html#a5d4bedfa2
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><p >获取几个参数中的最小值或某类型能表示的最小值. 用法: min.able&lt;T1,T2...&gt; -&gt; bool T...等类型能否获得参数最小值. min.get_limit_able&lt;T&gt; -&gt; bool 能否获得T类型能表示的最小值. <a class="el" href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">min(v1,v2...)</a> -&gt; auto 获取v...的最小值. <a class="el" href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">min(type_info&lt;T&gt;)</a> -&gt; auto 获取T能表示的最小值. </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01291">1291</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01309">1309</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a3a540f8f3c2fc98e4abd12dc360ebc17" name="a3a540f8f3c2fc98e4abd12dc360ebc17"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a540f8f3c2fc98e4abd12dc360ebc17">&#9670;&#160;</a></span>operator()() <span class="overload">[1/3]</span></h2>
@@ -155,10 +155,10 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1min__t.html#af1f5abfd3
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01303">1303</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1303</span>                                                                                            {</div>
-<div class="line"><span class="lineno"> 1304</span>                            return ::std::min(l);</div>
-<div class="line"><span class="lineno"> 1305</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01321">1321</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1321</span>                                                                        {</div>
+<div class="line"><span class="lineno"> 1322</span>        return ::std::min(l);</div>
+<div class="line"><span class="lineno"> 1323</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -189,10 +189,10 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1min__t.html#af1f5abfd3
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01299">1299</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1299</span>                                                                                  {</div>
-<div class="line"><span class="lineno"> 1300</span>                            return ::std::min(forward&lt;Args&gt;(rest)...);</div>
-<div class="line"><span class="lineno"> 1301</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01317">1317</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1317</span>                                                              {</div>
+<div class="line"><span class="lineno"> 1318</span>        return ::std::min(forward&lt;Args&gt;(rest)...);</div>
+<div class="line"><span class="lineno"> 1319</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,10 +223,10 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1min__t.html#a5d4bedfa2
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01307">1307</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1307</span>                                                                                   {</div>
-<div class="line"><span class="lineno"> 1308</span>                            return ::std::numeric_limits&lt;T&gt;::min();</div>
-<div class="line"><span class="lineno"> 1309</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01325">1325</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1325</span>                                                               {</div>
+<div class="line"><span class="lineno"> 1326</span>        return ::std::numeric_limits&lt;T&gt;::min();</div>
+<div class="line"><span class="lineno"> 1327</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -253,7 +253,7 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01293">1293</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01311">1311</a> 行定义.</p>
 
 </div>
 </div>
@@ -279,7 +279,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01296">1296</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01314">1314</a> 行定义.</p>
 
 </div>
 </div>

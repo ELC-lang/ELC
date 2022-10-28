@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="禁止移动赋值">
 <polygon fill="#999999" stroke="#666666" points="102,-268.5 0,-268.5 0,-238.5 102,-238.5 102,-268.5"/>
 <text text-anchor="start" x="8" y="-256.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="51" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00">_move_assign_able</text>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="structelc_1_1defs_1_1base_1_1non__default__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="structelc_1_1defs_1_1base_1_1non__default__assign__able.html" target="_top" xlink:title="禁止默认合成的赋值">
 <polygon fill="white" stroke="#666666" points="245,-292.5 138,-292.5 138,-262.5 245,-262.5 245,-292.5"/>
 <text text-anchor="start" x="146" y="-280.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="191.5" y="-269.5" font-family="Helvetica,sans-Serif" font-size="10.00">_default_assign_able</text>
@@ -37,7 +37,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="structelc_1_1defs_1_1base_1_1non__moveable.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="structelc_1_1defs_1_1base_1_1non__moveable.html" target="_top" xlink:title="禁止默认合成的移动">
 <polygon fill="white" stroke="#666666" points="242.5,-244.5 140.5,-244.5 140.5,-214.5 242.5,-214.5 242.5,-244.5"/>
 <text text-anchor="start" x="148.5" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="191.5" y="-221.5" font-family="Helvetica,sans-Serif" font-size="10.00">_moveable</text>

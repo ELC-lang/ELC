@@ -204,16 +204,15 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg</td><td>原有数据块 </td></tr>
-    <tr><td class="paramname">to_size</td><td>新的数据块大小</td></tr>
+    <tr><td class="paramname">to_size</td><td>新的数据块大小 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>返回</dt><dd>None </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07510">7510</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7510</span>                                                                      {</div>
-<div class="line"><span class="lineno"> 7511</span>                        realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7512</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07524">7524</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7524</span>                                                      {</div>
+<div class="line"><span class="lineno"> 7525</span>        realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7526</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -257,37 +256,36 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg</td><td>原有数据块 </td></tr>
-    <tr><td class="paramname">to_size</td><td>新的数据块大小</td></tr>
+    <tr><td class="paramname">to_size</td><td>新的数据块大小 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>返回</dt><dd>None </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07522">7522</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7522</span>                                                                                                           {</div>
-<div class="line"><span class="lineno"> 7523</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 7524</span>                            realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7525</span>                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7526</span>                            T*tmp=alloc&lt;T&gt;(to_size);</div>
-<div class="line"><span class="lineno"> 7527</span>                            <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
-<div class="line"><span class="lineno"> 7528</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7529</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7530</span>                                <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno"> 7531</span>                                    move[from_size](note::from(arg),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7532</span>                                }<span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno"> 7533</span>                                    free(tmp);</div>
-<div class="line"><span class="lineno"> 7534</span>                                    <span class="keywordflow">throw</span>;</div>
-<div class="line"><span class="lineno"> 7535</span>                                }</div>
-<div class="line"><span class="lineno"> 7536</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7537</span>                                move[from_size](note::from(arg),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7538</span>                            }</div>
-<div class="line"><span class="lineno"> 7539</span>                            free(arg);</div>
-<div class="line"><span class="lineno"> 7540</span>                            arg=tmp;</div>
-<div class="line"><span class="lineno"> 7541</span>                        }</div>
-<div class="line"><span class="lineno"> 7542</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25129">all_defs.cpp:25129</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t_html_a4db99e9509a6793e6845f3f531990ce7"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">elc::defs::memory::lifetime_n::move_t::trivial</a></div><div class="ttdeci">static constexpr bool trivial</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06151">all_defs.cpp:6151</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t_html_a6c70c07698225bf9ea9f2daa790a85f1"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">elc::defs::memory::lifetime_n::move_t::nothrow</a></div><div class="ttdeci">static constexpr bool nothrow</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06149">all_defs.cpp:6149</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07534">7534</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7534</span>                                                                                           {</div>
+<div class="line"><span class="lineno"> 7535</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 7536</span>            realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7537</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7538</span>            T*tmp=alloc&lt;T&gt;(to_size);</div>
+<div class="line"><span class="lineno"> 7539</span>            <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
+<div class="line"><span class="lineno"> 7540</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7541</span>                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7542</span>                <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno"> 7543</span>                    move[from_size](note::from(arg),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7544</span>                }<span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno"> 7545</span>                    free(tmp);</div>
+<div class="line"><span class="lineno"> 7546</span>                    <span class="keywordflow">throw</span>;</div>
+<div class="line"><span class="lineno"> 7547</span>                }</div>
+<div class="line"><span class="lineno"> 7548</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7549</span>                move[from_size](note::from(arg),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7550</span>            }</div>
+<div class="line"><span class="lineno"> 7551</span>            free(arg);</div>
+<div class="line"><span class="lineno"> 7552</span>            arg=tmp;</div>
+<div class="line"><span class="lineno"> 7553</span>        }</div>
+<div class="line"><span class="lineno"> 7554</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25143">all_defs.cpp:25143</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t_html_a4db99e9509a6793e6845f3f531990ce7"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">elc::defs::memory::lifetime_n::move_t::trivial</a></div><div class="ttdeci">static constexpr bool trivial</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06169">all_defs.cpp:6169</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t_html_a6c70c07698225bf9ea9f2daa790a85f1"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">elc::defs::memory::lifetime_n::move_t::nothrow</a></div><div class="ttdeci">static constexpr bool nothrow</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06167">all_defs.cpp:6167</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -338,41 +336,40 @@ template&lt;typename T &gt; </div>
   <table class="params">
     <tr><td class="paramname">arg</td><td>原有数据块 </td></tr>
     <tr><td class="paramname">insert_pos</td><td>插入位置 </td></tr>
-    <tr><td class="paramname">insert_size</td><td>插入大小</td></tr>
+    <tr><td class="paramname">insert_size</td><td>插入大小 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>返回</dt><dd>None </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07553">7553</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7553</span>                                                                                                                                                                {</div>
-<div class="line"><span class="lineno"> 7554</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
-<div class="line"><span class="lineno"> 7555</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> to_size=from_size+insert_size;</div>
-<div class="line"><span class="lineno"> 7556</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> size_before_insert=insert_pos;</div>
-<div class="line"><span class="lineno"> 7557</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> size_after_insert=from_size-insert_pos;</div>
-<div class="line"><span class="lineno"> 7558</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7559</span>                            realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7560</span>                            memmove(arg+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 7561</span>                        }</div>
-<div class="line"><span class="lineno"> 7562</span>                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7563</span>                            T*tmp=alloc&lt;T&gt;(to_size);</div>
-<div class="line"><span class="lineno"> 7564</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7565</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7566</span>                                <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno"> 7567</span>                                    move[size_before_insert](note::from(arg),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7568</span>                                    move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
-<div class="line"><span class="lineno"> 7569</span>                                }<span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno"> 7570</span>                                    free(tmp);</div>
-<div class="line"><span class="lineno"> 7571</span>                                    <span class="keywordflow">throw</span>;</div>
-<div class="line"><span class="lineno"> 7572</span>                                }</div>
-<div class="line"><span class="lineno"> 7573</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7574</span>                                move[size_before_insert](note::from(arg),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7575</span>                                move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
-<div class="line"><span class="lineno"> 7576</span>                            }</div>
-<div class="line"><span class="lineno"> 7577</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
-<div class="line"><span class="lineno"> 7578</span>                            arg=tmp;</div>
-<div class="line"><span class="lineno"> 7579</span>                        }</div>
-<div class="line"><span class="lineno"> 7580</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07563">7563</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7563</span>                                                                                                                                                {</div>
+<div class="line"><span class="lineno"> 7564</span>        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
+<div class="line"><span class="lineno"> 7565</span>        <span class="keyword">const</span> <span class="keyword">auto</span> to_size=from_size+insert_size;</div>
+<div class="line"><span class="lineno"> 7566</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size_before_insert=insert_pos;</div>
+<div class="line"><span class="lineno"> 7567</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size_after_insert=from_size-insert_pos;</div>
+<div class="line"><span class="lineno"> 7568</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7569</span>            realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7570</span>            memmove(arg+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 7571</span>        }</div>
+<div class="line"><span class="lineno"> 7572</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7573</span>            T*tmp=alloc&lt;T&gt;(to_size);</div>
+<div class="line"><span class="lineno"> 7574</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7575</span>                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7576</span>                <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno"> 7577</span>                    move[size_before_insert](note::from(arg),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7578</span>                    move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
+<div class="line"><span class="lineno"> 7579</span>                }<span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno"> 7580</span>                    free(tmp);</div>
+<div class="line"><span class="lineno"> 7581</span>                    <span class="keywordflow">throw</span>;</div>
+<div class="line"><span class="lineno"> 7582</span>                }</div>
+<div class="line"><span class="lineno"> 7583</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7584</span>                move[size_before_insert](note::from(arg),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7585</span>                move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
+<div class="line"><span class="lineno"> 7586</span>            }</div>
+<div class="line"><span class="lineno"> 7587</span>            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
+<div class="line"><span class="lineno"> 7588</span>            arg=tmp;</div>
+<div class="line"><span class="lineno"> 7589</span>        }</div>
+<div class="line"><span class="lineno"> 7590</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ad25eff1192fc3f7e04091aa42eb5d41e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">elc::defs::memory::alloc_n::free</a></div><div class="ttdeci">constexpr struct elc::defs::memory::alloc_n::free_t free</div></div>
 </div><!-- fragment -->
 </div>
@@ -437,35 +434,35 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>多余的大小 </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07593">7593</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7593</span>                                                                                                                                                                                 {</div>
-<div class="line"><span class="lineno"> 7594</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
-<div class="line"><span class="lineno"> 7595</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> size_before_insert=insert_pos;</div>
-<div class="line"><span class="lineno"> 7596</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> size_after_insert=from_size-insert_pos;</div>
-<div class="line"><span class="lineno"> 7597</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7598</span>                            realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7599</span>                            memmove(arg+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 7600</span>                        }</div>
-<div class="line"><span class="lineno"> 7601</span>                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7602</span>                            T*tmp=alloc&lt;T&gt;(to_size);</div>
-<div class="line"><span class="lineno"> 7603</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7604</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7605</span>                                <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno"> 7606</span>                                    move[size_before_insert](note::from(arg),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7607</span>                                    move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
-<div class="line"><span class="lineno"> 7608</span>                                }<span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno"> 7609</span>                                    free(tmp);</div>
-<div class="line"><span class="lineno"> 7610</span>                                    <span class="keywordflow">throw</span>;</div>
-<div class="line"><span class="lineno"> 7611</span>                                }</div>
-<div class="line"><span class="lineno"> 7612</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7613</span>                                move[size_before_insert](note::from(arg),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7614</span>                                move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
-<div class="line"><span class="lineno"> 7615</span>                            }</div>
-<div class="line"><span class="lineno"> 7616</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
-<div class="line"><span class="lineno"> 7617</span>                            arg=tmp;</div>
-<div class="line"><span class="lineno"> 7618</span>                        }</div>
-<div class="line"><span class="lineno"> 7619</span>                        <span class="keywordflow">return</span> to_size-from_size-insert_size;</div>
-<div class="line"><span class="lineno"> 7620</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07603">7603</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7603</span>                                                                                                                                                                 {</div>
+<div class="line"><span class="lineno"> 7604</span>        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
+<div class="line"><span class="lineno"> 7605</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size_before_insert=insert_pos;</div>
+<div class="line"><span class="lineno"> 7606</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size_after_insert=from_size-insert_pos;</div>
+<div class="line"><span class="lineno"> 7607</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7608</span>            realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7609</span>            memmove(arg+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 7610</span>        }</div>
+<div class="line"><span class="lineno"> 7611</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7612</span>            T*tmp=alloc&lt;T&gt;(to_size);</div>
+<div class="line"><span class="lineno"> 7613</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7614</span>                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7615</span>                <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno"> 7616</span>                    move[size_before_insert](note::from(arg),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7617</span>                    move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
+<div class="line"><span class="lineno"> 7618</span>                }<span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno"> 7619</span>                    free(tmp);</div>
+<div class="line"><span class="lineno"> 7620</span>                    <span class="keywordflow">throw</span>;</div>
+<div class="line"><span class="lineno"> 7621</span>                }</div>
+<div class="line"><span class="lineno"> 7622</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7623</span>                move[size_before_insert](note::from(arg),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7624</span>                move[size_after_insert](note::from(arg+insert_pos),note::to(tmp+insert_pos+insert_size));</div>
+<div class="line"><span class="lineno"> 7625</span>            }</div>
+<div class="line"><span class="lineno"> 7626</span>            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
+<div class="line"><span class="lineno"> 7627</span>            arg=tmp;</div>
+<div class="line"><span class="lineno"> 7628</span>        }</div>
+<div class="line"><span class="lineno"> 7629</span>        <span class="keywordflow">return</span> to_size-from_size-insert_size;</div>
+<div class="line"><span class="lineno"> 7630</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -509,38 +506,37 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg</td><td>原有数据块 </td></tr>
-    <tr><td class="paramname">to_size</td><td>新的数据块大小</td></tr>
+    <tr><td class="paramname">to_size</td><td>新的数据块大小 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>返回</dt><dd>None </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07630">7630</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7630</span>                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 7631</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
-<div class="line"><span class="lineno"> 7632</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> cut_size=from_size-to_size;</div>
-<div class="line"><span class="lineno"> 7633</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7634</span>                            ::std::memmove(arg,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(arg+cut_size),to_size*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 7635</span>                            realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7636</span>                        }</div>
-<div class="line"><span class="lineno"> 7637</span>                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7638</span>                            T*tmp=alloc&lt;T&gt;(to_size);</div>
-<div class="line"><span class="lineno"> 7639</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7640</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7641</span>                                <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno"> 7642</span>                                    move[to_size](note::from(arg+cut_size),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7643</span>                                }<span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno"> 7644</span>                                    free(tmp);</div>
-<div class="line"><span class="lineno"> 7645</span>                                    <span class="keywordflow">throw</span>;</div>
-<div class="line"><span class="lineno"> 7646</span>                                }</div>
-<div class="line"><span class="lineno"> 7647</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7648</span>                                move[to_size](note::from(arg+cut_size),note::to(tmp));</div>
-<div class="line"><span class="lineno"> 7649</span>                            }</div>
-<div class="line"><span class="lineno"> 7650</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
-<div class="line"><span class="lineno"> 7651</span>                            arg=tmp;</div>
-<div class="line"><span class="lineno"> 7652</span>                        }</div>
-<div class="line"><span class="lineno"> 7653</span>                    }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_aae9be6874a7dd367db08a9a6e1d65639"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">elc::defs::base::add_const</a></div><div class="ttdeci">constexpr const T add_const(T a) noexcept</div><div class="ttdoc">对值追加const</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00963">all_defs.cpp:963</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07638">7638</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7638</span>                                                                                                  {</div>
+<div class="line"><span class="lineno"> 7639</span>        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
+<div class="line"><span class="lineno"> 7640</span>        <span class="keyword">const</span> <span class="keyword">auto</span> cut_size=from_size-to_size;</div>
+<div class="line"><span class="lineno"> 7641</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7642</span>            ::std::memmove(arg,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(arg+cut_size),to_size*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 7643</span>            realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7644</span>        }</div>
+<div class="line"><span class="lineno"> 7645</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7646</span>            T*tmp=alloc&lt;T&gt;(to_size);</div>
+<div class="line"><span class="lineno"> 7647</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7648</span>                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7649</span>                <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno"> 7650</span>                    move[to_size](note::from(arg+cut_size),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7651</span>                }<span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno"> 7652</span>                    free(tmp);</div>
+<div class="line"><span class="lineno"> 7653</span>                    <span class="keywordflow">throw</span>;</div>
+<div class="line"><span class="lineno"> 7654</span>                }</div>
+<div class="line"><span class="lineno"> 7655</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7656</span>                move[to_size](note::from(arg+cut_size),note::to(tmp));</div>
+<div class="line"><span class="lineno"> 7657</span>            }</div>
+<div class="line"><span class="lineno"> 7658</span>            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
+<div class="line"><span class="lineno"> 7659</span>            arg=tmp;</div>
+<div class="line"><span class="lineno"> 7660</span>        }</div>
+<div class="line"><span class="lineno"> 7661</span>    }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_aae9be6874a7dd367db08a9a6e1d65639"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">elc::defs::base::add_const</a></div><div class="ttdeci">constexpr const T add_const(T a) noexcept</div><div class="ttdoc">对值追加const</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00969">all_defs.cpp:969</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -584,37 +580,36 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg</td><td>原有数据块 </td></tr>
-    <tr><td class="paramname">to_size</td><td>新的数据块大小</td></tr>
+    <tr><td class="paramname">to_size</td><td>新的数据块大小 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>返回</dt><dd>None </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07663">7663</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7663</span>                                                                                                                   {</div>
-<div class="line"><span class="lineno"> 7664</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
-<div class="line"><span class="lineno"> 7665</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> grow_size=to_size-from_size;</div>
-<div class="line"><span class="lineno"> 7666</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7667</span>                            realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7668</span>                            ::std::memmove(arg+grow_size,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(arg),from_size*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 7669</span>                        }</div>
-<div class="line"><span class="lineno"> 7670</span>                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7671</span>                            T*tmp=alloc&lt;T&gt;(to_size);</div>
-<div class="line"><span class="lineno"> 7672</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7673</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7674</span>                                <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno"> 7675</span>                                    move[from_size](note::from(arg),note::to(tmp+grow_size));</div>
-<div class="line"><span class="lineno"> 7676</span>                                }<span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno"> 7677</span>                                    free(tmp);</div>
-<div class="line"><span class="lineno"> 7678</span>                                    <span class="keywordflow">throw</span>;</div>
-<div class="line"><span class="lineno"> 7679</span>                                }</div>
-<div class="line"><span class="lineno"> 7680</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7681</span>                                move[from_size](note::from(arg),note::to(tmp+grow_size));</div>
-<div class="line"><span class="lineno"> 7682</span>                            }</div>
-<div class="line"><span class="lineno"> 7683</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
-<div class="line"><span class="lineno"> 7684</span>                            arg=tmp;</div>
-<div class="line"><span class="lineno"> 7685</span>                        }</div>
-<div class="line"><span class="lineno"> 7686</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07669">7669</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7669</span>                                                                                                   {</div>
+<div class="line"><span class="lineno"> 7670</span>        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
+<div class="line"><span class="lineno"> 7671</span>        <span class="keyword">const</span> <span class="keyword">auto</span> grow_size=to_size-from_size;</div>
+<div class="line"><span class="lineno"> 7672</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7673</span>            realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7674</span>            ::std::memmove(arg+grow_size,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(arg),from_size*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 7675</span>        }</div>
+<div class="line"><span class="lineno"> 7676</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7677</span>            T*tmp=alloc&lt;T&gt;(to_size);</div>
+<div class="line"><span class="lineno"> 7678</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7679</span>                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7680</span>                <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno"> 7681</span>                    move[from_size](note::from(arg),note::to(tmp+grow_size));</div>
+<div class="line"><span class="lineno"> 7682</span>                }<span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno"> 7683</span>                    free(tmp);</div>
+<div class="line"><span class="lineno"> 7684</span>                    <span class="keywordflow">throw</span>;</div>
+<div class="line"><span class="lineno"> 7685</span>                }</div>
+<div class="line"><span class="lineno"> 7686</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7687</span>                move[from_size](note::from(arg),note::to(tmp+grow_size));</div>
+<div class="line"><span class="lineno"> 7688</span>            }</div>
+<div class="line"><span class="lineno"> 7689</span>            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
+<div class="line"><span class="lineno"> 7690</span>            arg=tmp;</div>
+<div class="line"><span class="lineno"> 7691</span>        }</div>
+<div class="line"><span class="lineno"> 7692</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -678,41 +673,41 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>多余的大小 </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07704">7704</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7704</span>                                                                                                                                                                                         {</div>
-<div class="line"><span class="lineno"> 7705</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
-<div class="line"><span class="lineno"> 7706</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> grow_size=to_size-from_size;</div>
-<div class="line"><span class="lineno"> 7707</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> before_grow_size=grow_size-insert_size;</div>
-<div class="line"><span class="lineno"> 7708</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> size_before_insert=insert_pos;</div>
-<div class="line"><span class="lineno"> 7709</span>                        <span class="keyword">const</span> <span class="keyword">auto</span> size_after_insert=from_size-insert_pos;</div>
-<div class="line"><span class="lineno"> 7710</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7711</span>                            realloc(arg,to_size);</div>
-<div class="line"><span class="lineno"> 7712</span>                            <span class="keyword">const</span> <span class="keyword">auto</span> orogin_data_ptr=arg+before_grow_size;</div>
-<div class="line"><span class="lineno"> 7713</span>                            ::std::memmove(orogin_data_ptr+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 7714</span>                            ::std::memmove(orogin_data_ptr,arg,size_before_insert*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 7715</span>                        }</div>
-<div class="line"><span class="lineno"> 7716</span>                        <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7717</span>                            T*tmp=alloc&lt;T&gt;(to_size);</div>
-<div class="line"><span class="lineno"> 7718</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 7719</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7720</span>                                <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno"> 7721</span>                                    <span class="keyword">const</span> <span class="keyword">auto</span> orogin_data_ptr=tmp+before_grow_size;</div>
-<div class="line"><span class="lineno"> 7722</span>                                    move[size_before_insert](note::from(arg),note::to(orogin_data_ptr));</div>
-<div class="line"><span class="lineno"> 7723</span>                                    move[size_after_insert](note::from(arg+size_before_insert),note::to(orogin_data_ptr+size_before_insert+insert_size));</div>
-<div class="line"><span class="lineno"> 7724</span>                                }<span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno"> 7725</span>                                    free(tmp);</div>
-<div class="line"><span class="lineno"> 7726</span>                                    <span class="keywordflow">throw</span>;</div>
-<div class="line"><span class="lineno"> 7727</span>                                }</div>
-<div class="line"><span class="lineno"> 7728</span>                            }<span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 7729</span>                                <span class="keyword">const</span> <span class="keyword">auto</span> orogin_data_ptr=tmp+before_grow_size;</div>
-<div class="line"><span class="lineno"> 7730</span>                                move[size_before_insert](note::from(arg),note::to(orogin_data_ptr));</div>
-<div class="line"><span class="lineno"> 7731</span>                                move[size_after_insert](note::from(arg+size_before_insert),note::to(orogin_data_ptr+size_before_insert+insert_size));</div>
-<div class="line"><span class="lineno"> 7732</span>                            }</div>
-<div class="line"><span class="lineno"> 7733</span>                            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
-<div class="line"><span class="lineno"> 7734</span>                            arg=tmp;</div>
-<div class="line"><span class="lineno"> 7735</span>                        }</div>
-<div class="line"><span class="lineno"> 7736</span>                        <span class="keywordflow">return</span> before_grow_size;</div>
-<div class="line"><span class="lineno"> 7737</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07710">7710</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7710</span>                                                                                                                                                                         {</div>
+<div class="line"><span class="lineno"> 7711</span>        <span class="keyword">const</span> <span class="keyword">auto</span> from_size=get_size_of_alloc(arg);</div>
+<div class="line"><span class="lineno"> 7712</span>        <span class="keyword">const</span> <span class="keyword">auto</span> grow_size=to_size-from_size;</div>
+<div class="line"><span class="lineno"> 7713</span>        <span class="keyword">const</span> <span class="keyword">auto</span> before_grow_size=grow_size-insert_size;</div>
+<div class="line"><span class="lineno"> 7714</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size_before_insert=insert_pos;</div>
+<div class="line"><span class="lineno"> 7715</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size_after_insert=from_size-insert_pos;</div>
+<div class="line"><span class="lineno"> 7716</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a4db99e9509a6793e6845f3f531990ce7">trivial</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7717</span>            realloc(arg,to_size);</div>
+<div class="line"><span class="lineno"> 7718</span>            <span class="keyword">const</span> <span class="keyword">auto</span> orogin_data_ptr=arg+before_grow_size;</div>
+<div class="line"><span class="lineno"> 7719</span>            ::std::memmove(orogin_data_ptr+size_before_insert+insert_size,arg+size_before_insert,size_after_insert*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 7720</span>            ::std::memmove(orogin_data_ptr,arg,size_before_insert*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 7721</span>        }</div>
+<div class="line"><span class="lineno"> 7722</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7723</span>            T*tmp=alloc&lt;T&gt;(to_size);</div>
+<div class="line"><span class="lineno"> 7724</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(!move.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1move__t.html#a6c70c07698225bf9ea9f2daa790a85f1">nothrow</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 7725</span>                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;the move of T was not noexcept,this may cause memory lack.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7726</span>                <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno"> 7727</span>                    <span class="keyword">const</span> <span class="keyword">auto</span> orogin_data_ptr=tmp+before_grow_size;</div>
+<div class="line"><span class="lineno"> 7728</span>                    move[size_before_insert](note::from(arg),note::to(orogin_data_ptr));</div>
+<div class="line"><span class="lineno"> 7729</span>                    move[size_after_insert](note::from(arg+size_before_insert),note::to(orogin_data_ptr+size_before_insert+insert_size));</div>
+<div class="line"><span class="lineno"> 7730</span>                }<span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno"> 7731</span>                    free(tmp);</div>
+<div class="line"><span class="lineno"> 7732</span>                    <span class="keywordflow">throw</span>;</div>
+<div class="line"><span class="lineno"> 7733</span>                }</div>
+<div class="line"><span class="lineno"> 7734</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 7735</span>                <span class="keyword">const</span> <span class="keyword">auto</span> orogin_data_ptr=tmp+before_grow_size;</div>
+<div class="line"><span class="lineno"> 7736</span>                move[size_before_insert](note::from(arg),note::to(orogin_data_ptr));</div>
+<div class="line"><span class="lineno"> 7737</span>                move[size_after_insert](note::from(arg+size_before_insert),note::to(orogin_data_ptr+size_before_insert+insert_size));</div>
+<div class="line"><span class="lineno"> 7738</span>            }</div>
+<div class="line"><span class="lineno"> 7739</span>            <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad25eff1192fc3f7e04091aa42eb5d41e">free</a>(arg);</div>
+<div class="line"><span class="lineno"> 7740</span>            arg=tmp;</div>
+<div class="line"><span class="lineno"> 7741</span>        }</div>
+<div class="line"><span class="lineno"> 7742</span>        <span class="keywordflow">return</span> before_grow_size;</div>
+<div class="line"><span class="lineno"> 7743</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -753,7 +748,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07856">7856</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07862">7862</a> 行定义.</p>
 
 </div>
 </div>

@@ -156,7 +156,7 @@ requires is_not_signal_value_for_array_like&lt;T&gt;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02100">2100</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02118">2118</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a08ce7b35c66686a24552898e23c050d2" name="a08ce7b35c66686a24552898e23c050d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a08ce7b35c66686a24552898e23c050d2">&#9670;&#160;</a></span>get_hash_in_base_type()</h2>
@@ -193,10 +193,10 @@ template&lt;class T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash of the value in the base type. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02198">2198</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2198</span>                                                                                                                                        {</div>
-<div class="line"><span class="lineno"> 2199</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(a)._value;</div>
-<div class="line"><span class="lineno"> 2200</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02216">2216</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2216</span>                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 2217</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(a)._value;</div>
+<div class="line"><span class="lineno"> 2218</span>        }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a1caf5719dec37dc40b22b3572afca141"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">elc::defs::base::hash_n::hash</a></div><div class="ttdeci">struct elc::defs::base::hash_n::hash_t hash</div></div>
 </div><!-- fragment -->
 </div>
@@ -259,10 +259,10 @@ template&lt;class T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The merged hash value. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02292">2292</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2294</span>                                           {</div>
-<div class="line"><span class="lineno"> 2295</span>                                <span class="keywordflow">return</span>{before._value^(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(after._value,before_size))};</div>
-<div class="line"><span class="lineno"> 2296</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02310">2310</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2312</span>                       {</div>
+<div class="line"><span class="lineno"> 2313</span>            <span class="keywordflow">return</span>{before._value^(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(after._value,before_size))};</div>
+<div class="line"><span class="lineno"> 2314</span>        }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_ac62afcb51840aa2751bb3a9024ef5960"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">elc::defs::base::magic_number::rotl</a></div><div class="ttdeci">requires ::std::is_unsigned_v&lt; T &gt; constexpr auto rotl(const T v, const auto R) noexcept</div><div class="ttdoc">位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00618">all_defs.cpp:618</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 函数调用图:</div>
@@ -298,12 +298,12 @@ template&lt;class T &gt; </div>
 <p>Computes the hash value of <code>nothing</code>. </p>
 <dl class="section return"><dt>返回</dt><dd>The hash value of <code>nothing</code>. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02151">2151</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2151</span>                                                                                                  {</div>
-<div class="line"><span class="lineno"> 2152</span>                                <span class="keywordflow">return</span>{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>)};</div>
-<div class="line"><span class="lineno"> 2153</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_aaf2d16183d4399c60b048c3cbf4465d3"><div class="ttname"><a href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a></div><div class="ttdeci">#define nothing</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25200">all_defs.cpp:25200</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a018284b26fd839cbeb4f27a5fe8cfe2c"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">elc::defs::base::hash_n::hash_base_t</a></div><div class="ttdeci">size_t hash_base_t</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02065">all_defs.cpp:2065</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02169">2169</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2169</span>                                                                              {</div>
+<div class="line"><span class="lineno"> 2170</span>            <span class="keywordflow">return</span>{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>)};</div>
+<div class="line"><span class="lineno"> 2171</span>        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_aaf2d16183d4399c60b048c3cbf4465d3"><div class="ttname"><a href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a></div><div class="ttdeci">#define nothing</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25214">all_defs.cpp:25214</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a018284b26fd839cbeb4f27a5fe8cfe2c"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">elc::defs::base::hash_n::hash_base_t</a></div><div class="ttdeci">size_t hash_base_t</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02083">all_defs.cpp:2083</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -343,10 +343,10 @@ requires is_not_signal_value_for_array_like&lt;T&gt;</div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash value of the array_like_view_t&lt;T&gt; object. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02305">2305</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2305</span>                                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 2306</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(a.begin(),a.size());</div>
-<div class="line"><span class="lineno"> 2307</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02323">2323</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2323</span>                                                                                                              {</div>
+<div class="line"><span class="lineno"> 2324</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(a.begin(),a.size());</div>
+<div class="line"><span class="lineno"> 2325</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -383,10 +383,10 @@ requires is_not_signal_value_for_array_like&lt;T&gt;</div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash value of the object. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02161">2161</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2161</span>                                                                                                         {</div>
-<div class="line"><span class="lineno"> 2162</span>                                <span class="keywordflow">return</span>{a.get_hash()};</div>
-<div class="line"><span class="lineno"> 2163</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02179">2179</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2179</span>                                                                                     {</div>
+<div class="line"><span class="lineno"> 2180</span>            <span class="keywordflow">return</span>{a.get_hash()};</div>
+<div class="line"><span class="lineno"> 2181</span>        }</div>
 </div><!-- fragment --><div class="dynheader">
 函数调用图:</div>
 <div class="dyncontent">
@@ -431,30 +431,30 @@ requires <a class="el" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.htm
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash value of the value. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02172">2172</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2172</span>                                                                                                                {</div>
-<div class="line"><span class="lineno"> 2173</span><span class="preprocessor">                                #undef hash</span></div>
-<div class="line"><span class="lineno"> 2174</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(is_pointer&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 2175</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">pointer_hash</a>(a);</div>
-<div class="line"><span class="lineno"> 2176</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(is_fundamental_hash&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 2177</span>                                    <span class="keywordflow">return</span> hash_value_t{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(a)};</div>
-<div class="line"><span class="lineno"> 2178</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(is_unstable_hash&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 2179</span>                                    <span class="keywordflow">return</span> unstable_hash_value_t(a);</div>
-<div class="line"><span class="lineno"> 2180</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(<span class="keyword">const</span> T&amp;).<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>()))</div>
-<div class="line"><span class="lineno"> 2181</span>                                    <span class="keywordflow">return</span> a.hash();</div>
-<div class="line"><span class="lineno"> 2182</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(hash_value_t(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(<span class="keyword">const</span> T&amp;))))</div>
-<div class="line"><span class="lineno"> 2183</span>                                    <span class="keywordflow">return</span> hash_value_t(a);</div>
-<div class="line"><span class="lineno"> 2184</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 2185</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;Please overload the function hash in the namespace where this type is defined.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 2186</span>                                    <span class="keywordflow">return</span> hash_value_t{};</div>
-<div class="line"><span class="lineno"> 2187</span>                                }</div>
-<div class="line"><span class="lineno"> 2188</span><span class="preprocessor">                                #define hash operator()</span></div>
-<div class="line"><span class="lineno"> 2189</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25177">all_defs.cpp:25177</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25124">all_defs.cpp:25124</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a283ac78c2359bd59925093a9da4db995"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">elc::defs::base::hash_n::pointer_hash</a></div><div class="ttdeci">constexpr hash_value_t pointer_hash(T *a) noexcept</div><div class="ttdoc">Computes the hash value of a pointer.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02093">all_defs.cpp:2093</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02190">2190</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2190</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 2191</span><span class="preprocessor">            #undef hash</span></div>
+<div class="line"><span class="lineno"> 2192</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(is_pointer&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 2193</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">pointer_hash</a>(a);</div>
+<div class="line"><span class="lineno"> 2194</span>            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(is_fundamental_hash&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 2195</span>                <span class="keywordflow">return</span> hash_value_t{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(a)};</div>
+<div class="line"><span class="lineno"> 2196</span>            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(is_unstable_hash&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 2197</span>                <span class="keywordflow">return</span> unstable_hash_value_t(a);</div>
+<div class="line"><span class="lineno"> 2198</span>            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(<span class="keyword">const</span> T&amp;).<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>()))</div>
+<div class="line"><span class="lineno"> 2199</span>                <span class="keywordflow">return</span> a.hash();</div>
+<div class="line"><span class="lineno"> 2200</span>            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(hash_value_t(<a class="code hl_define" href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a>(<span class="keyword">const</span> T&amp;))))</div>
+<div class="line"><span class="lineno"> 2201</span>                <span class="keywordflow">return</span> hash_value_t(a);</div>
+<div class="line"><span class="lineno"> 2202</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 2203</span>                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;Please overload the function hash in the namespace where this type is defined.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 2204</span>                <span class="keywordflow">return</span> hash_value_t{};</div>
+<div class="line"><span class="lineno"> 2205</span>            }</div>
+<div class="line"><span class="lineno"> 2206</span><span class="preprocessor">            #define hash operator()</span></div>
+<div class="line"><span class="lineno"> 2207</span>        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25191">all_defs.cpp:25191</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25217">all_defs.cpp:25217</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25141">all_defs.cpp:25141</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a7834b6f4b00191af40e23a6e4767f26c"><div class="ttname"><a href="all__defs_8cpp.html#a7834b6f4b00191af40e23a6e4767f26c">declvalue</a></div><div class="ttdeci">#define declvalue(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25138">all_defs.cpp:25138</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1hash__n_html_a283ac78c2359bd59925093a9da4db995"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a283ac78c2359bd59925093a9da4db995">elc::defs::base::hash_n::pointer_hash</a></div><div class="ttdeci">constexpr hash_value_t pointer_hash(T *a) noexcept</div><div class="ttdoc">Computes the hash value of a pointer.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02111">all_defs.cpp:2111</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -504,11 +504,11 @@ template&lt;class T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash value of the array. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02279">2279</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2279</span>                                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 2280</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a">with_calculated_before</a>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>),0,a,size);</div>
-<div class="line"><span class="lineno"> 2281</span>                            }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a317acc07f3acd46081d0f4602f73388a"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a">elc::defs::base::hash_n::hash_t::with_calculated_before</a></div><div class="ttdeci">constexpr hash_value_t with_calculated_before(hash_value_t before, size_t before_size, const T *a, size_t size) const noexcept</div><div class="ttdoc">从某个起始点算起的hash</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02212">all_defs.cpp:2212</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02297">2297</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2297</span>                                                                                                              {</div>
+<div class="line"><span class="lineno"> 2298</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a">with_calculated_before</a>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>),0,a,size);</div>
+<div class="line"><span class="lineno"> 2299</span>        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a317acc07f3acd46081d0f4602f73388a"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a">elc::defs::base::hash_n::hash_t::with_calculated_before</a></div><div class="ttdeci">constexpr hash_value_t with_calculated_before(hash_value_t before, size_t before_size, const T *a, size_t size) const noexcept</div><div class="ttdoc">从某个起始点算起的hash</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02230">all_defs.cpp:2230</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -556,40 +556,40 @@ template&lt;class T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The repeated hash value. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02229">2229</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2229</span>                                                                                                                                       {</div>
-<div class="line"><span class="lineno"> 2230</span>                                <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> aret=0;</div>
-<div class="line"><span class="lineno"> 2231</span>                                {</div>
-<div class="line"><span class="lineno"> 2232</span>                                    <span class="comment">//优化.</span></div>
-<div class="line"><span class="lineno"> 2233</span>                                    <span class="comment">//关於此,咱确信咱发现一种美妙的证法来保证这个优化不影响结果,但可惜凋可怜的脑容量不足以让他看懂.</span></div>
-<div class="line"><span class="lineno"> 2234</span>                                    <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> bit_range_max=<a class="code hl_define" href="all__defs_8cpp.html#a5f761ce8a3116b195d5479d77c2dff1c">bitnum_of</a>(<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>);</div>
-<div class="line"><span class="lineno"> 2235</span>                                    <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> void_hash{<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>};</div>
-<div class="line"><span class="lineno"> 2236</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a>(26475)<span class="comment">//强制转换警告diss.</span></div>
-<div class="line"><span class="lineno"> 2237</span>                                    constexpr <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> npos_hash{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(-1)};</div>
-<div class="line"><span class="lineno"> 2238</span>                                    <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> bitnumof_void=bit_range_max*<a class="code hl_define" href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a>;</div>
-<div class="line"><span class="lineno"> 2239</span> </div>
-<div class="line"><span class="lineno"> 2240</span>                                    <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>%bitnumof_void;</div>
-<div class="line"><span class="lineno"> 2241</span>                                    <span class="keywordflow">if</span>(value._value==0 || size==0)</div>
-<div class="line"><span class="lineno"> 2242</span>                                        <span class="keywordflow">return</span> {void_hash};</div>
-<div class="line"><span class="lineno"> 2243</span>                                    <span class="keywordflow">if</span>(size &gt;= bit_range_max){</div>
-<div class="line"><span class="lineno"> 2244</span>                                        <span class="keyword">const</span> <span class="keywordtype">bool</span> is_npos = ::std::popcount(value._value)%<a class="code hl_define" href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a>;</div>
-<div class="line"><span class="lineno"> 2245</span>                                        aret = is_npos?npos_hash:void_hash;</div>
-<div class="line"><span class="lineno"> 2246</span>                                        <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>-=bit_range_max;</div>
-<div class="line"><span class="lineno"> 2247</span>                                    }</div>
-<div class="line"><span class="lineno"> 2248</span>                                    <span class="keywordflow">if</span>(!size)</div>
-<div class="line"><span class="lineno"> 2249</span>                                        <span class="keywordflow">return</span> {aret};</div>
-<div class="line"><span class="lineno"> 2250</span>                                }</div>
-<div class="line"><span class="lineno"> 2251</span>                                rot_iterator&lt;<span class="keyword">decltype</span>(aret)&gt;rotl_offset = size;</div>
-<div class="line"><span class="lineno"> 2252</span>                                <span class="keywordflow">while</span>(size--){</div>
-<div class="line"><span class="lineno"> 2253</span>                                    aret ^= <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(value._value,rotl_offset);</div>
-<div class="line"><span class="lineno"> 2254</span>                                    rotl_offset--;</div>
-<div class="line"><span class="lineno"> 2255</span>                                }</div>
-<div class="line"><span class="lineno"> 2256</span>                                <span class="keywordflow">return</span>{aret};</div>
-<div class="line"><span class="lineno"> 2257</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a5f761ce8a3116b195d5479d77c2dff1c"><div class="ttname"><a href="all__defs_8cpp.html#a5f761ce8a3116b195d5479d77c2dff1c">bitnum_of</a></div><div class="ttdeci">#define bitnum_of(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25144">all_defs.cpp:25144</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25087">all_defs.cpp:25087</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_af7a1f5bfd28d59d338e8badd194fbb30"><div class="ttname"><a href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a></div><div class="ttdeci">#define BIT_POSSIBILITY</div><div class="ttdoc">每个bit（不是字节）的可能性 为什么c艹委员会不定义这个？</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25052">all_defs.cpp:25052</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a708b86f4561b6659cb265c32ce4cb8b3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">elc::defs::base::note_n::size</a></div><div class="ttdeci">constexpr size_t&lt; T &gt; size(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01782">all_defs.cpp:1782</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02247">2247</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2247</span>                                                                                                                   {</div>
+<div class="line"><span class="lineno"> 2248</span>            <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> aret=0;</div>
+<div class="line"><span class="lineno"> 2249</span>            {</div>
+<div class="line"><span class="lineno"> 2250</span>                <span class="comment">//优化.</span></div>
+<div class="line"><span class="lineno"> 2251</span>                <span class="comment">//关於此,咱确信咱发现一种美妙的证法来保证这个优化不影响结果,但可惜凋可怜的脑容量不足以让他看懂.</span></div>
+<div class="line"><span class="lineno"> 2252</span>                <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> bit_range_max=<a class="code hl_define" href="all__defs_8cpp.html#a5f761ce8a3116b195d5479d77c2dff1c">bitnum_of</a>(<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>);</div>
+<div class="line"><span class="lineno"> 2253</span>                <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> void_hash{<a class="code hl_define" href="all__defs_8cpp.html#aaf2d16183d4399c60b048c3cbf4465d3">nothing</a>};</div>
+<div class="line"><span class="lineno"> 2254</span>                <a class="code hl_define" href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a>(26475)<span class="comment">//强制转换警告diss.</span></div>
+<div class="line"><span class="lineno"> 2255</span>                constexpr <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> npos_hash{<a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a>(-1)};</div>
+<div class="line"><span class="lineno"> 2256</span>                <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> bitnumof_void=bit_range_max*<a class="code hl_define" href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a>;</div>
+<div class="line"><span class="lineno"> 2257</span> </div>
+<div class="line"><span class="lineno"> 2258</span>                <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>%bitnumof_void;</div>
+<div class="line"><span class="lineno"> 2259</span>                <span class="keywordflow">if</span>(value._value==0 || size==0)</div>
+<div class="line"><span class="lineno"> 2260</span>                    <span class="keywordflow">return</span> {void_hash};</div>
+<div class="line"><span class="lineno"> 2261</span>                <span class="keywordflow">if</span>(size &gt;= bit_range_max){</div>
+<div class="line"><span class="lineno"> 2262</span>                    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_npos = ::std::popcount(value._value)%<a class="code hl_define" href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a>;</div>
+<div class="line"><span class="lineno"> 2263</span>                    aret = is_npos?npos_hash:void_hash;</div>
+<div class="line"><span class="lineno"> 2264</span>                    <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">size</a>-=bit_range_max;</div>
+<div class="line"><span class="lineno"> 2265</span>                }</div>
+<div class="line"><span class="lineno"> 2266</span>                <span class="keywordflow">if</span>(!size)</div>
+<div class="line"><span class="lineno"> 2267</span>                    <span class="keywordflow">return</span> {aret};</div>
+<div class="line"><span class="lineno"> 2268</span>            }</div>
+<div class="line"><span class="lineno"> 2269</span>            rot_iterator&lt;<span class="keyword">decltype</span>(aret)&gt;rotl_offset = size;</div>
+<div class="line"><span class="lineno"> 2270</span>            <span class="keywordflow">while</span>(size--){</div>
+<div class="line"><span class="lineno"> 2271</span>                aret ^= <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(value._value,rotl_offset);</div>
+<div class="line"><span class="lineno"> 2272</span>                rotl_offset--;</div>
+<div class="line"><span class="lineno"> 2273</span>            }</div>
+<div class="line"><span class="lineno"> 2274</span>            <span class="keywordflow">return</span>{aret};</div>
+<div class="line"><span class="lineno"> 2275</span>        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a5f761ce8a3116b195d5479d77c2dff1c"><div class="ttname"><a href="all__defs_8cpp.html#a5f761ce8a3116b195d5479d77c2dff1c">bitnum_of</a></div><div class="ttdeci">#define bitnum_of(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25158">all_defs.cpp:25158</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25101">all_defs.cpp:25101</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_af7a1f5bfd28d59d338e8badd194fbb30"><div class="ttname"><a href="all__defs_8cpp.html#af7a1f5bfd28d59d338e8badd194fbb30">BIT_POSSIBILITY</a></div><div class="ttdeci">#define BIT_POSSIBILITY</div><div class="ttdoc">每个bit（不是字节）的可能性 为什么c艹委员会不定义这个？</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25066">all_defs.cpp:25066</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a708b86f4561b6659cb265c32ce4cb8b3"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a708b86f4561b6659cb265c32ce4cb8b3">elc::defs::base::note_n::size</a></div><div class="ttdeci">constexpr size_t&lt; T &gt; size(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01800">all_defs.cpp:1800</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 函数调用图:</div>
 <div class="dyncontent">
@@ -644,11 +644,11 @@ template&lt;class T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The repeated hash value. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02267">2267</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2267</span>                                                                                                                             {</div>
-<div class="line"><span class="lineno"> 2268</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a18784e375870a71e1e24b861a6834190">repeat_times</a>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(value),size);</div>
-<div class="line"><span class="lineno"> 2269</span>                            }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a18784e375870a71e1e24b861a6834190"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a18784e375870a71e1e24b861a6834190">elc::defs::base::hash_n::hash_t::repeat_times</a></div><div class="ttdeci">constexpr hash_value_t repeat_times(hash_value_t value, size_t size) const noexcept</div><div class="ttdoc">计算此hash重复N次的数组的hash结果</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02229">all_defs.cpp:2229</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02285">2285</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2285</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 2286</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a18784e375870a71e1e24b861a6834190">repeat_times</a>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a1caf5719dec37dc40b22b3572afca141">hash</a>(value),size);</div>
+<div class="line"><span class="lineno"> 2287</span>        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a18784e375870a71e1e24b861a6834190"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a18784e375870a71e1e24b861a6834190">elc::defs::base::hash_n::hash_t::repeat_times</a></div><div class="ttdeci">constexpr hash_value_t repeat_times(hash_value_t value, size_t size) const noexcept</div><div class="ttdoc">计算此hash重复N次的数组的hash结果</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02247">all_defs.cpp:2247</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -706,10 +706,10 @@ requires is_not_signal_value_for_array_like&lt;T&gt;</div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash value for the array_like_view_t&lt;T&gt; object. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02318">2318</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2318</span>                                                                                                                                                                               {</div>
-<div class="line"><span class="lineno"> 2319</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a">with_calculated_before</a>(before,before_size,a.begin(),a.size());</div>
-<div class="line"><span class="lineno"> 2320</span>                            }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02336">2336</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2336</span>                                                                                                                                                           {</div>
+<div class="line"><span class="lineno"> 2337</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a317acc07f3acd46081d0f4602f73388a">with_calculated_before</a>(before,before_size,a.begin(),a.size());</div>
+<div class="line"><span class="lineno"> 2338</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -773,17 +773,17 @@ template&lt;class T &gt; </div>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>The hash value of the sequence. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02212">2212</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2212</span>                                                                                                                                                                               {</div>
-<div class="line"><span class="lineno"> 2213</span>                                <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> aret=before._value;</div>
-<div class="line"><span class="lineno"> 2214</span>                                rot_iterator&lt;<span class="keyword">decltype</span>(aret)&gt;rotl_offset = before_size+size;</div>
-<div class="line"><span class="lineno"> 2215</span>                                <span class="keywordflow">while</span>(size--){</div>
-<div class="line"><span class="lineno"> 2216</span>                                    aret ^= <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a08ce7b35c66686a24552898e23c050d2">get_hash_in_base_type</a>(a[size]),rotl_offset);</div>
-<div class="line"><span class="lineno"> 2217</span>                                    rotl_offset--;</div>
-<div class="line"><span class="lineno"> 2218</span>                                }</div>
-<div class="line"><span class="lineno"> 2219</span>                                <span class="keywordflow">return</span>{aret};</div>
-<div class="line"><span class="lineno"> 2220</span>                            }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a08ce7b35c66686a24552898e23c050d2"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a08ce7b35c66686a24552898e23c050d2">elc::defs::base::hash_n::hash_t::get_hash_in_base_type</a></div><div class="ttdeci">constexpr hash_base_t get_hash_in_base_type(const T &amp;a) const noexcept(nothrow&lt; T &gt;)</div><div class="ttdoc">Computes the hash of a value in the base type.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02198">all_defs.cpp:2198</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02230">2230</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2230</span>                                                                                                                                                           {</div>
+<div class="line"><span class="lineno"> 2231</span>            <a class="code hl_typedef" href="namespaceelc_1_1defs_1_1base_1_1hash__n.html#a018284b26fd839cbeb4f27a5fe8cfe2c">hash_base_t</a> aret=before._value;</div>
+<div class="line"><span class="lineno"> 2232</span>            rot_iterator&lt;<span class="keyword">decltype</span>(aret)&gt;rotl_offset = before_size+size;</div>
+<div class="line"><span class="lineno"> 2233</span>            <span class="keywordflow">while</span>(size--){</div>
+<div class="line"><span class="lineno"> 2234</span>                aret ^= <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960">rotl</a>(<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a08ce7b35c66686a24552898e23c050d2">get_hash_in_base_type</a>(a[size]),rotl_offset);</div>
+<div class="line"><span class="lineno"> 2235</span>                rotl_offset--;</div>
+<div class="line"><span class="lineno"> 2236</span>            }</div>
+<div class="line"><span class="lineno"> 2237</span>            <span class="keywordflow">return</span>{aret};</div>
+<div class="line"><span class="lineno"> 2238</span>        }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1hash__n_1_1hash__t_html_a08ce7b35c66686a24552898e23c050d2"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1hash__n_1_1hash__t.html#a08ce7b35c66686a24552898e23c050d2">elc::defs::base::hash_n::hash_t::get_hash_in_base_type</a></div><div class="ttdeci">constexpr hash_base_t get_hash_in_base_type(const T &amp;a) const noexcept(nothrow&lt; T &gt;)</div><div class="ttdoc">Computes the hash of a value in the base type.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l02216">all_defs.cpp:2216</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 函数调用图:</div>
 <div class="dyncontent">
@@ -815,7 +815,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02142">2142</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02160">2160</a> 行定义.</p>
 
 </div>
 </div>
@@ -841,7 +841,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02121">2121</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l02139">2139</a> 行定义.</p>
 
 </div>
 </div>

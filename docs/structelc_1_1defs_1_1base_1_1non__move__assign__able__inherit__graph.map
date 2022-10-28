@@ -1,7 +1,7 @@
 <map id="elc::defs::base::non_move_assign_able" name="elc::defs::base::non_move_assign_able">
-<area shape="rect" id="node1" title=" " alt="" coords="5,245,141,285"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__default__assign__able.html" title=" " alt="" coords="189,213,332,253"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__moveable.html" title=" " alt="" coords="193,277,329,317"/>
+<area shape="rect" id="node1" title="禁止移动赋值" alt="" coords="5,245,141,285"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__default__assign__able.html" title="禁止默认合成的赋值" alt="" coords="189,213,332,253"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__moveable.html" title="禁止默认合成的移动" alt="" coords="193,277,329,317"/>
 <area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="391,5,553,45"/>
 <area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="385,70,559,125"/>
 <area shape="rect" id="node7" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="401,149,543,189"/>

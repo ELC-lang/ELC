@@ -1,5 +1,5 @@
 <map id="elc::defs::base::non_copyable" name="elc::defs::base::non_copyable">
-<area shape="rect" id="node1" title=" " alt="" coords="88,93,224,133"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title=" " alt="" coords="5,5,141,45"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" title=" " alt="" coords="165,5,315,45"/>
+<area shape="rect" id="node1" title="禁止默认合成的复制" alt="" coords="88,93,224,133"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title="禁止复制赋值" alt="" coords="5,5,141,45"/>
+<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" title="禁止复制构造" alt="" coords="165,5,315,45"/>
 </map>

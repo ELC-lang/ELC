@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('structelc_1_1defs_1_1core_1_1binary__n
 <div class="dynheader">
 elc::defs::core::binary_node_base_t 的协作图:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1core_1_1binary__node__base__t__coll__graph.svg" width="100%" height="371"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structelc_1_1defs_1_1core_1_1binary__node__base__t__coll__graph.svg" width="619" height="95"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">图例</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -202,7 +202,7 @@ Protected 成员函数</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13794">13794</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13800">13800</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="abf4fa30ec6690446af69405ff97e25bb" name="abf4fa30ec6690446af69405ff97e25bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abf4fa30ec6690446af69405ff97e25bb">&#9670;&#160;</a></span>this_t</h2>
@@ -216,7 +216,7 @@ Protected 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13795">13795</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13801">13801</a> 行定义.</p>
 
 </div>
 </div>
@@ -273,8 +273,8 @@ Protected 成员函数</h2></td></tr>
 
 <p>实现了 <a class="el" href="structelc_1_1defs_1_1core_1_1node__like.html#a27f45b40c81b901aafa32030f46c6c79">elc::defs::core::node_like</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13797">13797</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">13797</span>{<span class="keywordflow">return</span> type_info&lt;this_t&gt;;}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13803">13803</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">13803</span>{<span class="keywordflow">return</span> type_info&lt;this_t&gt;;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -359,26 +359,26 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13919">13919</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">13919</span>                                                                                     {</div>
-<div class="line"><span class="lineno">13920</span>                    <span class="keyword">typedef</span> binary_node_t&lt;T&gt; target_node_t;</div>
-<div class="line"><span class="lineno">13921</span>                    <span class="keywordflow">if</span>(p-&gt;get_type_info() == type_info&lt;binary_node_base_t&gt;){</div>
-<div class="line"><span class="lineno">13922</span>                        <span class="keyword">auto</span> base_p = down_cast&lt;const binary_node_base_t*&gt;(p.get());</div>
-<div class="line"><span class="lineno">13923</span>                        <span class="keywordflow">if</span>(base_p-&gt;get_additional_type_info() == type_info&lt;target_node_t&gt;)</div>
-<div class="line"><span class="lineno">13924</span>                            <span class="keywordflow">return</span> down_cast&lt;const target_node_t*&gt;(base_p)-&gt;_m;</div>
-<div class="line"><span class="lineno">13925</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(::std::is_class_v&lt;T&gt; &amp;&amp; !::std::is_final_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno">13926</span>                            <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno">13927</span>                                base_p-&gt;throw_self_ptr();</div>
-<div class="line"><span class="lineno">13928</span>                            }</div>
-<div class="line"><span class="lineno">13929</span>                            <span class="keywordflow">catch</span>(<span class="keyword">const</span> T*aret){</div>
-<div class="line"><span class="lineno">13930</span>                                <span class="keywordflow">return</span>*aret;</div>
-<div class="line"><span class="lineno">13931</span>                            }</div>
-<div class="line"><span class="lineno">13932</span>                            <span class="keywordflow">catch</span>(<span class="keyword">const</span> <span class="keywordtype">void</span>*){}</div>
-<div class="line"><span class="lineno">13933</span>                        }</div>
-<div class="line"><span class="lineno">13934</span>                    }</div>
-<div class="line"><span class="lineno">13935</span>                    <span class="keywordflow">return</span> const_default_value_of&lt;T&gt;;</div>
-<div class="line"><span class="lineno">13936</span>                }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13925">13925</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">13925</span>                                                                     {</div>
+<div class="line"><span class="lineno">13926</span>    <span class="keyword">typedef</span> binary_node_t&lt;T&gt; target_node_t;</div>
+<div class="line"><span class="lineno">13927</span>    <span class="keywordflow">if</span>(p-&gt;get_type_info() == type_info&lt;binary_node_base_t&gt;){</div>
+<div class="line"><span class="lineno">13928</span>        <span class="keyword">auto</span> base_p = down_cast&lt;const binary_node_base_t*&gt;(p.get());</div>
+<div class="line"><span class="lineno">13929</span>        <span class="keywordflow">if</span>(base_p-&gt;get_additional_type_info() == type_info&lt;target_node_t&gt;)</div>
+<div class="line"><span class="lineno">13930</span>            <span class="keywordflow">return</span> down_cast&lt;const target_node_t*&gt;(base_p)-&gt;_m;</div>
+<div class="line"><span class="lineno">13931</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(::std::is_class_v&lt;T&gt; &amp;&amp; !::std::is_final_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno">13932</span>            <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno">13933</span>                base_p-&gt;throw_self_ptr();</div>
+<div class="line"><span class="lineno">13934</span>            }</div>
+<div class="line"><span class="lineno">13935</span>            <span class="keywordflow">catch</span>(<span class="keyword">const</span> T*aret){</div>
+<div class="line"><span class="lineno">13936</span>                <span class="keywordflow">return</span>*aret;</div>
+<div class="line"><span class="lineno">13937</span>            }</div>
+<div class="line"><span class="lineno">13938</span>            <span class="keywordflow">catch</span>(<span class="keyword">const</span> <span class="keywordtype">void</span>*){}</div>
+<div class="line"><span class="lineno">13939</span>        }</div>
+<div class="line"><span class="lineno">13940</span>    }</div>
+<div class="line"><span class="lineno">13941</span>    <span class="keywordflow">return</span> const_default_value_of&lt;T&gt;;</div>
+<div class="line"><span class="lineno">13942</span>}</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25217">all_defs.cpp:25217</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -408,25 +408,25 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13896">13896</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">13896</span>                                                                                                   {</div>
-<div class="line"><span class="lineno">13897</span>                    <span class="keyword">typedef</span> binary_node_t&lt;T&gt; target_node_t;</div>
-<div class="line"><span class="lineno">13898</span>                    <span class="keywordflow">if</span>(p-&gt;get_type_info() == type_info&lt;binary_node_base_t&gt;){</div>
-<div class="line"><span class="lineno">13899</span>                        <span class="keyword">auto</span> base_p = down_cast&lt;binary_node_base_t*&gt;(p.get());</div>
-<div class="line"><span class="lineno">13900</span>                        <span class="keywordflow">if</span>(base_p-&gt;get_additional_type_info() == type_info&lt;target_node_t&gt;)</div>
-<div class="line"><span class="lineno">13901</span>                            <span class="keywordflow">return</span> down_cast&lt;target_node_t*&gt;(base_p)-&gt;_m;</div>
-<div class="line"><span class="lineno">13902</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(::std::is_class_v&lt;T&gt; &amp;&amp; !::std::is_final_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno">13903</span>                            <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno">13904</span>                                base_p-&gt;throw_self_ptr();</div>
-<div class="line"><span class="lineno">13905</span>                            }</div>
-<div class="line"><span class="lineno">13906</span>                            <span class="keywordflow">catch</span>(T*aret){</div>
-<div class="line"><span class="lineno">13907</span>                                <span class="keywordflow">return</span>*aret;</div>
-<div class="line"><span class="lineno">13908</span>                            }</div>
-<div class="line"><span class="lineno">13909</span>                            <span class="keywordflow">catch</span>(<span class="keywordtype">void</span>*){}</div>
-<div class="line"><span class="lineno">13910</span>                        }</div>
-<div class="line"><span class="lineno">13911</span>                    }</div>
-<div class="line"><span class="lineno">13912</span>                    <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a4eb5d7e8b7b798445d1ebd634cb39b7a">note::fail</a>;</div>
-<div class="line"><span class="lineno">13913</span>                }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13902">13902</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">13902</span>                                                                                   {</div>
+<div class="line"><span class="lineno">13903</span>    <span class="keyword">typedef</span> binary_node_t&lt;T&gt; target_node_t;</div>
+<div class="line"><span class="lineno">13904</span>    <span class="keywordflow">if</span>(p-&gt;get_type_info() == type_info&lt;binary_node_base_t&gt;){</div>
+<div class="line"><span class="lineno">13905</span>        <span class="keyword">auto</span> base_p = down_cast&lt;binary_node_base_t*&gt;(p.get());</div>
+<div class="line"><span class="lineno">13906</span>        <span class="keywordflow">if</span>(base_p-&gt;get_additional_type_info() == type_info&lt;target_node_t&gt;)</div>
+<div class="line"><span class="lineno">13907</span>            <span class="keywordflow">return</span> down_cast&lt;target_node_t*&gt;(base_p)-&gt;_m;</div>
+<div class="line"><span class="lineno">13908</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(::std::is_class_v&lt;T&gt; &amp;&amp; !::std::is_final_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno">13909</span>            <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno">13910</span>                base_p-&gt;throw_self_ptr();</div>
+<div class="line"><span class="lineno">13911</span>            }</div>
+<div class="line"><span class="lineno">13912</span>            <span class="keywordflow">catch</span>(T*aret){</div>
+<div class="line"><span class="lineno">13913</span>                <span class="keywordflow">return</span>*aret;</div>
+<div class="line"><span class="lineno">13914</span>            }</div>
+<div class="line"><span class="lineno">13915</span>            <span class="keywordflow">catch</span>(<span class="keywordtype">void</span>*){}</div>
+<div class="line"><span class="lineno">13916</span>        }</div>
+<div class="line"><span class="lineno">13917</span>    }</div>
+<div class="line"><span class="lineno">13918</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a4eb5d7e8b7b798445d1ebd634cb39b7a">note::fail</a>;</div>
+<div class="line"><span class="lineno">13919</span>}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_a4eb5d7e8b7b798445d1ebd634cb39b7a"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a4eb5d7e8b7b798445d1ebd634cb39b7a">elc::defs::base::note_n::fail</a></div><div class="ttdeci">constexpr struct elc::defs::base::note_n::fail_t fail</div></div>
 </div><!-- fragment -->
 </div>
@@ -457,25 +457,25 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13896">13896</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">13896</span>                                                                                                   {</div>
-<div class="line"><span class="lineno">13897</span>                    <span class="keyword">typedef</span> binary_node_t&lt;T&gt; target_node_t;</div>
-<div class="line"><span class="lineno">13898</span>                    <span class="keywordflow">if</span>(p-&gt;get_type_info() == type_info&lt;binary_node_base_t&gt;){</div>
-<div class="line"><span class="lineno">13899</span>                        <span class="keyword">auto</span> base_p = down_cast&lt;binary_node_base_t*&gt;(p.get());</div>
-<div class="line"><span class="lineno">13900</span>                        <span class="keywordflow">if</span>(base_p-&gt;get_additional_type_info() == type_info&lt;target_node_t&gt;)</div>
-<div class="line"><span class="lineno">13901</span>                            <span class="keywordflow">return</span> down_cast&lt;target_node_t*&gt;(base_p)-&gt;_m;</div>
-<div class="line"><span class="lineno">13902</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(::std::is_class_v&lt;T&gt; &amp;&amp; !::std::is_final_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno">13903</span>                            <span class="keywordflow">try</span>{</div>
-<div class="line"><span class="lineno">13904</span>                                base_p-&gt;throw_self_ptr();</div>
-<div class="line"><span class="lineno">13905</span>                            }</div>
-<div class="line"><span class="lineno">13906</span>                            <span class="keywordflow">catch</span>(T*aret){</div>
-<div class="line"><span class="lineno">13907</span>                                <span class="keywordflow">return</span>*aret;</div>
-<div class="line"><span class="lineno">13908</span>                            }</div>
-<div class="line"><span class="lineno">13909</span>                            <span class="keywordflow">catch</span>(<span class="keywordtype">void</span>*){}</div>
-<div class="line"><span class="lineno">13910</span>                        }</div>
-<div class="line"><span class="lineno">13911</span>                    }</div>
-<div class="line"><span class="lineno">13912</span>                    <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a4eb5d7e8b7b798445d1ebd634cb39b7a">note::fail</a>;</div>
-<div class="line"><span class="lineno">13913</span>                }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l13902">13902</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">13902</span>                                                                                   {</div>
+<div class="line"><span class="lineno">13903</span>    <span class="keyword">typedef</span> binary_node_t&lt;T&gt; target_node_t;</div>
+<div class="line"><span class="lineno">13904</span>    <span class="keywordflow">if</span>(p-&gt;get_type_info() == type_info&lt;binary_node_base_t&gt;){</div>
+<div class="line"><span class="lineno">13905</span>        <span class="keyword">auto</span> base_p = down_cast&lt;binary_node_base_t*&gt;(p.get());</div>
+<div class="line"><span class="lineno">13906</span>        <span class="keywordflow">if</span>(base_p-&gt;get_additional_type_info() == type_info&lt;target_node_t&gt;)</div>
+<div class="line"><span class="lineno">13907</span>            <span class="keywordflow">return</span> down_cast&lt;target_node_t*&gt;(base_p)-&gt;_m;</div>
+<div class="line"><span class="lineno">13908</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(::std::is_class_v&lt;T&gt; &amp;&amp; !::std::is_final_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno">13909</span>            <span class="keywordflow">try</span>{</div>
+<div class="line"><span class="lineno">13910</span>                base_p-&gt;throw_self_ptr();</div>
+<div class="line"><span class="lineno">13911</span>            }</div>
+<div class="line"><span class="lineno">13912</span>            <span class="keywordflow">catch</span>(T*aret){</div>
+<div class="line"><span class="lineno">13913</span>                <span class="keywordflow">return</span>*aret;</div>
+<div class="line"><span class="lineno">13914</span>            }</div>
+<div class="line"><span class="lineno">13915</span>            <span class="keywordflow">catch</span>(<span class="keywordtype">void</span>*){}</div>
+<div class="line"><span class="lineno">13916</span>        }</div>
+<div class="line"><span class="lineno">13917</span>    }</div>
+<div class="line"><span class="lineno">13918</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#a4eb5d7e8b7b798445d1ebd634cb39b7a">note::fail</a>;</div>
+<div class="line"><span class="lineno">13919</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

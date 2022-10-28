@@ -39,7 +39,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copyable.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copyable.html" target="_top" xlink:title="禁止默认合成的复制">
 <polygon fill="white" stroke="#666666" points="256.5,-118.5 154.5,-118.5 154.5,-88.5 256.5,-88.5 256.5,-118.5"/>
 <text text-anchor="start" x="162.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="205.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">_copyable</text>
@@ -55,7 +55,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" target="_top" xlink:title="禁止复制赋值">
 <polygon fill="white" stroke="#666666" points="107,-142.5 5,-142.5 5,-112.5 107,-112.5 107,-142.5"/>
 <text text-anchor="start" x="13" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">_copy_assign_able</text>
@@ -71,7 +71,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" target="_top" xlink:title="禁止复制构造">
 <polygon fill="white" stroke="#666666" points="112,-94.5 0,-94.5 0,-64.5 112,-64.5 112,-94.5"/>
 <text text-anchor="start" x="8" y="-82.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56" y="-71.5" font-family="Helvetica,sans-Serif" font-size="10.00">_copy_construct_able</text>

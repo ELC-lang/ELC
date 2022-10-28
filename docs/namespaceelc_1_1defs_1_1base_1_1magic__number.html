@@ -255,12 +255,12 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00681">681</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  681</span>                                                                                       {</div>
-<div class="line"><span class="lineno">  682</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_signed_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  683</span>                                <span class="keywordflow">return</span> v&gt;=0?v:-v;</div>
-<div class="line"><span class="lineno">  684</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  685</span>                                <span class="keywordflow">return</span> v;</div>
-<div class="line"><span class="lineno">  686</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  681</span>                                                                   {</div>
+<div class="line"><span class="lineno">  682</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_signed_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  683</span>            <span class="keywordflow">return</span> v&gt;=0?v:-v;</div>
+<div class="line"><span class="lineno">  684</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  685</span>            <span class="keywordflow">return</span> v;</div>
+<div class="line"><span class="lineno">  686</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -291,19 +291,19 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00773">773</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  773</span>                                                                                        {</div>
-<div class="line"><span class="lineno">  774</span>                            <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
-<div class="line"><span class="lineno">  775</span>                                <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::ceil(v)) RT;</div>
-<div class="line"><span class="lineno">  776</span>                                <span class="keyword">auto</span> ceil_impl = <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(T x, T y)<span class="keyword">noexcept</span>{</div>
-<div class="line"><span class="lineno">  777</span>                                    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a30e067e5edbc32b8c5bbc09c1b56d04e">feq</a>(x,y) ? y : y+T{1};</div>
-<div class="line"><span class="lineno">  778</span>                                };</div>
-<div class="line"><span class="lineno">  779</span>                                <span class="keywordflow">return</span> v&lt;0 ? -<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(to_uintmax_t(-v)) : ceil_impl(v,<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(to_uintmax_t(v)));</div>
-<div class="line"><span class="lineno">  780</span>                            }</div>
-<div class="line"><span class="lineno">  781</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  782</span>                                return ::std::ceil(v);</div>
-<div class="line"><span class="lineno">  783</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a150c0e7627f407df8d8cb758696bac77"><div class="ttname"><a href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a></div><div class="ttdeci">#define in_consteval</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25268">all_defs.cpp:25268</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_ae58c3260bfb1facea39e0aec11acee3a"><div class="ttname"><a href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a></div><div class="ttdeci">#define lambda</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25189">all_defs.cpp:25189</a></div></div>
+<div class="fragment"><div class="line"><span class="lineno">  773</span>                                                                    {</div>
+<div class="line"><span class="lineno">  774</span>        <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
+<div class="line"><span class="lineno">  775</span>            <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::ceil(v)) RT;</div>
+<div class="line"><span class="lineno">  776</span>            <span class="keyword">auto</span> ceil_impl = <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(T x, T y)<span class="keyword">noexcept</span>{</div>
+<div class="line"><span class="lineno">  777</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a30e067e5edbc32b8c5bbc09c1b56d04e">feq</a>(x,y) ? y : y+T{1};</div>
+<div class="line"><span class="lineno">  778</span>            };</div>
+<div class="line"><span class="lineno">  779</span>            <span class="keywordflow">return</span> v&lt;0 ? -<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(to_uintmax_t(-v)) : ceil_impl(v,<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(to_uintmax_t(v)));</div>
+<div class="line"><span class="lineno">  780</span>        }</div>
+<div class="line"><span class="lineno">  781</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  782</span>            return ::std::ceil(v);</div>
+<div class="line"><span class="lineno">  783</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a150c0e7627f407df8d8cb758696bac77"><div class="ttname"><a href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a></div><div class="ttdeci">#define in_consteval</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25282">all_defs.cpp:25282</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_ae58c3260bfb1facea39e0aec11acee3a"><div class="ttname"><a href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a></div><div class="ttdeci">#define lambda</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_a30e067e5edbc32b8c5bbc09c1b56d04e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a30e067e5edbc32b8c5bbc09c1b56d04e">elc::defs::base::magic_number::feq</a></div><div class="ttdeci">requires ::std::is_arithmetic_v&lt; T &gt; constexpr bool feq(const T a, const T b) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00689">all_defs.cpp:689</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -346,16 +346,16 @@ template&lt;typename T &gt; </div>
 <p >符号位设置 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00500">500</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  500</span>                                                                                                              {</div>
-<div class="line"><span class="lineno">  501</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_signed_v&lt;<span class="keyword">decltype</span>(x)&gt;){</div>
-<div class="line"><span class="lineno">  502</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;<span class="keyword">decltype</span>(x)&gt;)</div>
-<div class="line"><span class="lineno">  503</span>                                    <span class="keywordflow">return</span>(T)::std::copysign(x,negative?-1:1);</div>
-<div class="line"><span class="lineno">  504</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  505</span>                                    <span class="keywordflow">return</span>(T)negative?T{}-x:x;</div>
-<div class="line"><span class="lineno">  506</span>                            }</div>
-<div class="line"><span class="lineno">  507</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  508</span>                                <span class="keywordflow">return</span> x;</div>
-<div class="line"><span class="lineno">  509</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  500</span>                                                                                          {</div>
+<div class="line"><span class="lineno">  501</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_signed_v&lt;<span class="keyword">decltype</span>(x)&gt;){</div>
+<div class="line"><span class="lineno">  502</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;<span class="keyword">decltype</span>(x)&gt;)</div>
+<div class="line"><span class="lineno">  503</span>                <span class="keywordflow">return</span>(T)::std::copysign(x,negative?-1:1);</div>
+<div class="line"><span class="lineno">  504</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  505</span>                <span class="keywordflow">return</span>(T)negative?T{}-x:x;</div>
+<div class="line"><span class="lineno">  506</span>        }</div>
+<div class="line"><span class="lineno">  507</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  508</span>            <span class="keywordflow">return</span> x;</div>
+<div class="line"><span class="lineno">  509</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -394,9 +394,9 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00510">510</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  510</span>                                                                                                                 {</div>
-<div class="line"><span class="lineno">  511</span>                            <span class="keywordflow">return</span> copy_as_negative&lt;decltype(x)&gt;(x,negative);</div>
-<div class="line"><span class="lineno">  512</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  510</span>                                                                                             {</div>
+<div class="line"><span class="lineno">  511</span>        <span class="keywordflow">return</span> copy_as_negative&lt;decltype(x)&gt;(x,negative);</div>
+<div class="line"><span class="lineno">  512</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -427,25 +427,25 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00709">709</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  709</span>                                                                                    {</div>
-<div class="line"><span class="lineno">  710</span>                            <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
-<div class="line"><span class="lineno">  711</span>                                <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::exp(v)) RT;</div>
-<div class="line"><span class="lineno">  712</span>                                <span class="keyword">auto</span> exp_impl = <a class="code hl_define" href="all__defs_8cpp.html#ac333fc0d288baa3c4b6555803dee548e">recursive_lambda</a>(RT x,RT sum,RT n,<span class="keywordtype">size_t</span> i,RT t)<span class="keyword">noexcept</span> -&gt; RT{</div>
-<div class="line"><span class="lineno">  713</span>                                    <span class="keyword">const</span> <span class="keyword">auto</span> epsilon=sum+t/n;</div>
-<div class="line"><span class="lineno">  714</span>                                    <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a30e067e5edbc32b8c5bbc09c1b56d04e">feq</a>(sum,epsilon))</div>
-<div class="line"><span class="lineno">  715</span>                                        <span class="keywordflow">return</span> sum;</div>
-<div class="line"><span class="lineno">  716</span>                                    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  717</span>                                        <span class="keywordflow">return</span> <a class="code hl_define" href="all__defs_8cpp.html#ae9cf40da3eac98b6ae0c24f77328fd6e">self_recursion</a>(x,epsilon,n*i,i+1,t*x);</div>
-<div class="line"><span class="lineno">  718</span>                                };</div>
-<div class="line"><span class="lineno">  719</span>                                <span class="keyword">auto</span> exp_impl_caller = <a class="code hl_define" href="all__defs_8cpp.html#a00e30267eee0dee7ae1dc3951788b8cd">get_recursive_lambda_caller</a>(exp_impl);</div>
-<div class="line"><span class="lineno">  720</span>                                <span class="keywordflow">return</span> exp_impl_caller(RT{v},RT{1},RT{1},2,RT{v});</div>
-<div class="line"><span class="lineno">  721</span>                            }</div>
-<div class="line"><span class="lineno">  722</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  723</span>                                return ::std::exp(v);</div>
-<div class="line"><span class="lineno">  724</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a00e30267eee0dee7ae1dc3951788b8cd"><div class="ttname"><a href="all__defs_8cpp.html#a00e30267eee0dee7ae1dc3951788b8cd">get_recursive_lambda_caller</a></div><div class="ttdeci">#define get_recursive_lambda_caller(name)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25184">all_defs.cpp:25184</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_ac333fc0d288baa3c4b6555803dee548e"><div class="ttname"><a href="all__defs_8cpp.html#ac333fc0d288baa3c4b6555803dee548e">recursive_lambda</a></div><div class="ttdeci">#define recursive_lambda(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25182">all_defs.cpp:25182</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_ae9cf40da3eac98b6ae0c24f77328fd6e"><div class="ttname"><a href="all__defs_8cpp.html#ae9cf40da3eac98b6ae0c24f77328fd6e">self_recursion</a></div><div class="ttdeci">#define self_recursion(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25193">all_defs.cpp:25193</a></div></div>
+<div class="fragment"><div class="line"><span class="lineno">  709</span>                                                                {</div>
+<div class="line"><span class="lineno">  710</span>        <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
+<div class="line"><span class="lineno">  711</span>            <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::exp(v)) RT;</div>
+<div class="line"><span class="lineno">  712</span>            <span class="keyword">auto</span> exp_impl = <a class="code hl_define" href="all__defs_8cpp.html#ac333fc0d288baa3c4b6555803dee548e">recursive_lambda</a>(RT x,RT sum,RT n,<span class="keywordtype">size_t</span> i,RT t)<span class="keyword">noexcept</span> -&gt; RT{</div>
+<div class="line"><span class="lineno">  713</span>                <span class="keyword">const</span> <span class="keyword">auto</span> epsilon=sum+t/n;</div>
+<div class="line"><span class="lineno">  714</span>                <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a30e067e5edbc32b8c5bbc09c1b56d04e">feq</a>(sum,epsilon))</div>
+<div class="line"><span class="lineno">  715</span>                    <span class="keywordflow">return</span> sum;</div>
+<div class="line"><span class="lineno">  716</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  717</span>                    <span class="keywordflow">return</span> <a class="code hl_define" href="all__defs_8cpp.html#ae9cf40da3eac98b6ae0c24f77328fd6e">self_recursion</a>(x,epsilon,n*i,i+1,t*x);</div>
+<div class="line"><span class="lineno">  718</span>            };</div>
+<div class="line"><span class="lineno">  719</span>            <span class="keyword">auto</span> exp_impl_caller = <a class="code hl_define" href="all__defs_8cpp.html#a00e30267eee0dee7ae1dc3951788b8cd">get_recursive_lambda_caller</a>(exp_impl);</div>
+<div class="line"><span class="lineno">  720</span>            <span class="keywordflow">return</span> exp_impl_caller(RT{v},RT{1},RT{1},2,RT{v});</div>
+<div class="line"><span class="lineno">  721</span>        }</div>
+<div class="line"><span class="lineno">  722</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  723</span>            return ::std::exp(v);</div>
+<div class="line"><span class="lineno">  724</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a00e30267eee0dee7ae1dc3951788b8cd"><div class="ttname"><a href="all__defs_8cpp.html#a00e30267eee0dee7ae1dc3951788b8cd">get_recursive_lambda_caller</a></div><div class="ttdeci">#define get_recursive_lambda_caller(name)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25198">all_defs.cpp:25198</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_ac333fc0d288baa3c4b6555803dee548e"><div class="ttname"><a href="all__defs_8cpp.html#ac333fc0d288baa3c4b6555803dee548e">recursive_lambda</a></div><div class="ttdeci">#define recursive_lambda(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25196">all_defs.cpp:25196</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_ae9cf40da3eac98b6ae0c24f77328fd6e"><div class="ttname"><a href="all__defs_8cpp.html#ae9cf40da3eac98b6ae0c24f77328fd6e">self_recursion</a></div><div class="ttdeci">#define self_recursion(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25207">all_defs.cpp:25207</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -486,9 +486,9 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00689">689</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  689</span>                                                                                                 {</div>
-<div class="line"><span class="lineno">  690</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5e6964aab515dd4705841ebd5f2aacc7">abs</a>(a-b)&lt;=::std::numeric_limits&lt;T&gt;::epsilon();</div>
-<div class="line"><span class="lineno">  691</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  689</span>                                                                             {</div>
+<div class="line"><span class="lineno">  690</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5e6964aab515dd4705841ebd5f2aacc7">abs</a>(a-b)&lt;=::std::numeric_limits&lt;T&gt;::epsilon();</div>
+<div class="line"><span class="lineno">  691</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_a5e6964aab515dd4705841ebd5f2aacc7"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5e6964aab515dd4705841ebd5f2aacc7">elc::defs::base::magic_number::abs</a></div><div class="ttdeci">requires ::std::is_arithmetic_v&lt; T &gt; constexpr auto abs(const T v) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00681">all_defs.cpp:681</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -520,12 +520,12 @@ template&lt;class T &gt; </div>
 <p>已知当前array的size，求下一个合适的提前分配大小 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00848">848</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  848</span>                                                                                                                {</div>
-<div class="line"><span class="lineno">  849</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  850</span><span class="comment">                            每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.</span></div>
-<div class="line"><span class="lineno">  851</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  852</span>                            <span class="keywordflow">return</span> size_t(size*gold_of_resize);</div>
-<div class="line"><span class="lineno">  853</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  848</span>                                                                                            {</div>
+<div class="line"><span class="lineno">  849</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  850</span><span class="comment">        每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.</span></div>
+<div class="line"><span class="lineno">  851</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  852</span>        <span class="keywordflow">return</span> size_t(size*gold_of_resize);</div>
+<div class="line"><span class="lineno">  853</span>    }</div>
 </div><!-- fragment --><div class="dynheader">
 这是这个函数的调用关系图:</div>
 <div class="dyncontent">
@@ -561,13 +561,13 @@ template&lt;class T &gt; </div>
 <p>已知当前hash table的size，求下一个合适的桶大小 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00855">855</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  855</span>                                                                                                               {</div>
-<div class="line"><span class="lineno">  856</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  857</span><span class="comment">                            素数大小的桶数可以使hash table中的每个桶尽可能活跃.</span></div>
-<div class="line"><span class="lineno">  858</span><span class="comment">                            每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.</span></div>
-<div class="line"><span class="lineno">  859</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  860</span>                            <span class="keywordflow">return</span> size_t(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5">get_prime_num_big_or_eq_than</a>(size*gold_of_resize));</div>
-<div class="line"><span class="lineno">  861</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  855</span>                                                                                           {</div>
+<div class="line"><span class="lineno">  856</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  857</span><span class="comment">        素数大小的桶数可以使hash table中的每个桶尽可能活跃.</span></div>
+<div class="line"><span class="lineno">  858</span><span class="comment">        每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.</span></div>
+<div class="line"><span class="lineno">  859</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  860</span>        <span class="keywordflow">return</span> size_t(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5">get_prime_num_big_or_eq_than</a>(size*gold_of_resize));</div>
+<div class="line"><span class="lineno">  861</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_afdc8b347fae01a759b499664eb8fffe5"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#afdc8b347fae01a759b499664eb8fffe5">elc::defs::base::magic_number::get_prime_num_big_or_eq_than</a></div><div class="ttdeci">requires ::std::is_arithmetic_v&lt; T &gt; constexpr T get_prime_num_big_or_eq_than(T a)</div><div class="ttdoc">求大于某数的素数</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00839">all_defs.cpp:839</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 函数调用图:</div>
@@ -606,13 +606,13 @@ template&lt;class T &gt; </div>
 <p>求大于某数的素数 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00839">839</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  839</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  840</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  841</span>                                a=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a77e063b37c7eb298dcf3bb43d462265e">ceil</a>(a);</div>
-<div class="line"><span class="lineno">  842</span>                            <span class="keywordflow">while</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#abe10e28dd1b440665a49ca358a141e0d">is_prime_num</a>(a))</div>
-<div class="line"><span class="lineno">  843</span>                                a++;</div>
-<div class="line"><span class="lineno">  844</span>                            <span class="keywordflow">return</span> a;</div>
-<div class="line"><span class="lineno">  845</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  839</span>                                                                     {</div>
+<div class="line"><span class="lineno">  840</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  841</span>            a=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a77e063b37c7eb298dcf3bb43d462265e">ceil</a>(a);</div>
+<div class="line"><span class="lineno">  842</span>        <span class="keywordflow">while</span>(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#abe10e28dd1b440665a49ca358a141e0d">is_prime_num</a>(a))</div>
+<div class="line"><span class="lineno">  843</span>            a++;</div>
+<div class="line"><span class="lineno">  844</span>        <span class="keywordflow">return</span> a;</div>
+<div class="line"><span class="lineno">  845</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_a77e063b37c7eb298dcf3bb43d462265e"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a77e063b37c7eb298dcf3bb43d462265e">elc::defs::base::magic_number::ceil</a></div><div class="ttdeci">requires ::std::is_floating_point_v&lt; T &gt; constexpr auto ceil(const T v) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00773">all_defs.cpp:773</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_abe10e28dd1b440665a49ca358a141e0d"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#abe10e28dd1b440665a49ca358a141e0d">elc::defs::base::magic_number::is_prime_num</a></div><div class="ttdeci">requires ::std::is_arithmetic_v&lt; T &gt; constexpr bool is_prime_num(T a)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00787">all_defs.cpp:787</a></div></div>
 </div><!-- fragment --><div class="dynheader">
@@ -650,12 +650,12 @@ template&lt;typename T &gt; </div>
 <p >获取浮点舍入 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00545">545</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  545</span>                                                                              {</div>
-<div class="line"><span class="lineno">  546</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  547</span>                                return ::std::fegetround();</div>
-<div class="line"><span class="lineno">  548</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  549</span>                                <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  550</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  545</span>                                                          {</div>
+<div class="line"><span class="lineno">  546</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  547</span>            return ::std::fegetround();</div>
+<div class="line"><span class="lineno">  548</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  549</span>            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  550</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -689,16 +689,16 @@ template&lt;typename T &gt; </div>
 <p >符号位查询 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00488">488</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  488</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  489</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_signed_v&lt;T&gt;){</div>
-<div class="line"><span class="lineno">  490</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  491</span>                                    return ::std::signbit(x);</div>
-<div class="line"><span class="lineno">  492</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  493</span>                                    <span class="keywordflow">return</span> x&lt;0;</div>
-<div class="line"><span class="lineno">  494</span>                            }</div>
-<div class="line"><span class="lineno">  495</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  496</span>                                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  497</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  488</span>                                                                     {</div>
+<div class="line"><span class="lineno">  489</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_signed_v&lt;T&gt;){</div>
+<div class="line"><span class="lineno">  490</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  491</span>                return ::std::signbit(x);</div>
+<div class="line"><span class="lineno">  492</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  493</span>                <span class="keywordflow">return</span> x&lt;0;</div>
+<div class="line"><span class="lineno">  494</span>        }</div>
+<div class="line"><span class="lineno">  495</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  496</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  497</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -730,55 +730,55 @@ template&lt;class T &gt; </div>
 <p >判断某数是否是素数 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00787">787</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  788</span>                        {</div>
-<div class="line"><span class="lineno">  789</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  790</span>                                <span class="keywordflow">if</span>(a != <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a77e063b37c7eb298dcf3bb43d462265e">ceil</a>(a))</div>
-<div class="line"><span class="lineno">  791</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  792</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  793</span><span class="comment">                            应某人的要求补注释(都是主人的任务罢了.).</span></div>
-<div class="line"><span class="lineno">  794</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  795</span>                            a=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5e6964aab515dd4705841ebd5f2aacc7">abs</a>(a);</div>
+<div class="fragment"><div class="line"><span class="lineno">  788</span>    {</div>
+<div class="line"><span class="lineno">  789</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  790</span>            <span class="keywordflow">if</span>(a != <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a77e063b37c7eb298dcf3bb43d462265e">ceil</a>(a))</div>
+<div class="line"><span class="lineno">  791</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  792</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  793</span><span class="comment">        应某人的要求补注释(都是主人的任务罢了.).</span></div>
+<div class="line"><span class="lineno">  794</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  795</span>        a=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a5e6964aab515dd4705841ebd5f2aacc7">abs</a>(a);</div>
 <div class="line"><span class="lineno">  796</span> </div>
-<div class="line"><span class="lineno">  797</span>                            <span class="keywordflow">if</span>(a&lt;4)</div>
-<div class="line"><span class="lineno">  798</span>                                <span class="keywordflow">return</span> <span class="keyword">true</span>;<span class="comment">//1和0也是prime,我不管.</span></div>
-<div class="line"><span class="lineno">  799</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  800</span><span class="comment">                            当x≥1,那么≥5的自然数如下:</span></div>
-<div class="line"><span class="lineno">  801</span><span class="comment">                            6x-1 6x 6x+1 6x+2 6x+3 6x+4</span></div>
-<div class="line"><span class="lineno">  802</span><span class="comment">                            6(x+1)-1 6(x+1) 6(x+1)+1 ... //这已经是下一周期了.</span></div>
+<div class="line"><span class="lineno">  797</span>        <span class="keywordflow">if</span>(a&lt;4)</div>
+<div class="line"><span class="lineno">  798</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;<span class="comment">//1和0也是prime,我不管.</span></div>
+<div class="line"><span class="lineno">  799</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  800</span><span class="comment">        当x≥1,那么≥5的自然数如下:</span></div>
+<div class="line"><span class="lineno">  801</span><span class="comment">        6x-1 6x 6x+1 6x+2 6x+3 6x+4</span></div>
+<div class="line"><span class="lineno">  802</span><span class="comment">        6(x+1)-1 6(x+1) 6(x+1)+1 ... //这已经是下一周期了.</span></div>
 <div class="line"><span class="lineno">  803</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  804</span><span class="comment">                            考虑单个周期:</span></div>
-<div class="line"><span class="lineno">  805</span><span class="comment">                            6x+2 6x+3 6x+4 是 2(3x+1) 3(2x+1) 2(3x+2),排除.</span></div>
-<div class="line"><span class="lineno">  806</span><span class="comment">                            6x,排除.</span></div>
-<div class="line"><span class="lineno">  807</span><span class="comment">                            那么,只用考虑6x±1是否是prime.</span></div>
-<div class="line"><span class="lineno">  808</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  809</span>                            <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(a,6)-1,4))</div>
-<div class="line"><span class="lineno">  810</span>                                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  811</span>                            T b=<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(::std::sqrt(a));<span class="comment">//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.</span></div>
-<div class="line"><span class="lineno">  812</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  813</span><span class="comment">                            接下来:</span></div>
-<div class="line"><span class="lineno">  814</span><span class="comment">                            设要判定的数n(6x±1的缩写).</span></div>
-<div class="line"><span class="lineno">  815</span><span class="comment">                            测试数可以看为6i-1 6i 6i+1 6i+2 6i+3 6i+4的其中之一,同样以6为周期.</span></div>
-<div class="line"><span class="lineno">  816</span><span class="comment">                            对于测试数的整个周期,其中:</span></div>
-<div class="line"><span class="lineno">  817</span><span class="comment">                                如果n能被6i 6i+2 6i+4整除:则n要是偶数,但±1,排除.</span></div>
-<div class="line"><span class="lineno">  818</span><span class="comment">                                如果n能被6i+3整除:则n要是3倍数,但±1,排除.</span></div>
-<div class="line"><span class="lineno">  819</span><span class="comment">                            综上,循环中只要考虑6i±1的情况.</span></div>
-<div class="line"><span class="lineno">  820</span><span class="comment">                            所以以5起始,前进6(自然选择号,前进4!),逐次判断0与+2.</span></div>
-<div class="line"><span class="lineno">  821</span><span class="comment">                            虽然很想写成以6为起始逐次判断±1的对称格式但是这样会加重时空负担.(不甘心.....)</span></div>
-<div class="line"><span class="lineno">  822</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  823</span>                            <span class="keywordflow">for</span>(T c=5;c&lt;=b;c+=6)<span class="comment">//遍历判断是否能被因数分解——不会有人看不懂吧?</span></div>
-<div class="line"><span class="lineno">  824</span>                                <span class="keywordflow">if</span>((!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(a,c))||(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(a,(c+2))))</div>
-<div class="line"><span class="lineno">  825</span>                                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  826</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  827</span><span class="comment">                            最后,为什么是6?</span></div>
-<div class="line"><span class="lineno">  828</span><span class="comment">                            就结论来说,此数值选择最常出现的两因数(除0或1外.)之积可以最大程度减少时间占用.</span></div>
-<div class="line"><span class="lineno">  829</span><span class="comment">                            所以虽然更喜欢7/8/9之类的数不过使用6收益最大.</span></div>
-<div class="line"><span class="lineno">  830</span><span class="comment">                            要不是这样早就写成7了.</span></div>
-<div class="line"><span class="lineno">  831</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  832</span>                            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  833</span>                            <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  834</span><span class="comment">                            因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.</span></div>
-<div class="line"><span class="lineno">  835</span><span class="comment">                            */</span></div>
-<div class="line"><span class="lineno">  836</span>                        }</div>
+<div class="line"><span class="lineno">  804</span><span class="comment">        考虑单个周期:</span></div>
+<div class="line"><span class="lineno">  805</span><span class="comment">        6x+2 6x+3 6x+4 是 2(3x+1) 3(2x+1) 2(3x+2),排除.</span></div>
+<div class="line"><span class="lineno">  806</span><span class="comment">        6x,排除.</span></div>
+<div class="line"><span class="lineno">  807</span><span class="comment">        那么,只用考虑6x±1是否是prime.</span></div>
+<div class="line"><span class="lineno">  808</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  809</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(a,6)-1,4))</div>
+<div class="line"><span class="lineno">  810</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  811</span>        T b=<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(::std::sqrt(a));<span class="comment">//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.</span></div>
+<div class="line"><span class="lineno">  812</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  813</span><span class="comment">        接下来:</span></div>
+<div class="line"><span class="lineno">  814</span><span class="comment">        设要判定的数n(6x±1的缩写).</span></div>
+<div class="line"><span class="lineno">  815</span><span class="comment">        测试数可以看为6i-1 6i 6i+1 6i+2 6i+3 6i+4的其中之一,同样以6为周期.</span></div>
+<div class="line"><span class="lineno">  816</span><span class="comment">        对于测试数的整个周期,其中:</span></div>
+<div class="line"><span class="lineno">  817</span><span class="comment">            如果n能被6i 6i+2 6i+4整除:则n要是偶数,但±1,排除.</span></div>
+<div class="line"><span class="lineno">  818</span><span class="comment">            如果n能被6i+3整除:则n要是3倍数,但±1,排除.</span></div>
+<div class="line"><span class="lineno">  819</span><span class="comment">        综上,循环中只要考虑6i±1的情况.</span></div>
+<div class="line"><span class="lineno">  820</span><span class="comment">        所以以5起始,前进6(自然选择号,前进4!),逐次判断0与+2.</span></div>
+<div class="line"><span class="lineno">  821</span><span class="comment">        虽然很想写成以6为起始逐次判断±1的对称格式但是这样会加重时空负担.(不甘心.....)</span></div>
+<div class="line"><span class="lineno">  822</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  823</span>        <span class="keywordflow">for</span>(T c=5;c&lt;=b;c+=6)<span class="comment">//遍历判断是否能被因数分解——不会有人看不懂吧?</span></div>
+<div class="line"><span class="lineno">  824</span>            <span class="keywordflow">if</span>((!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(a,c))||(!<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(a,(c+2))))</div>
+<div class="line"><span class="lineno">  825</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  826</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  827</span><span class="comment">        最后,为什么是6?</span></div>
+<div class="line"><span class="lineno">  828</span><span class="comment">        就结论来说,此数值选择最常出现的两因数(除0或1外.)之积可以最大程度减少时间占用.</span></div>
+<div class="line"><span class="lineno">  829</span><span class="comment">        所以虽然更喜欢7/8/9之类的数不过使用6收益最大.</span></div>
+<div class="line"><span class="lineno">  830</span><span class="comment">        要不是这样早就写成7了.</span></div>
+<div class="line"><span class="lineno">  831</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  832</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  833</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  834</span><span class="comment">        因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.</span></div>
+<div class="line"><span class="lineno">  835</span><span class="comment">        */</span></div>
+<div class="line"><span class="lineno">  836</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_a956a811b7ae70abe75ec93ef4f086e60"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">elc::defs::base::magic_number::mod</a></div><div class="ttdeci">requires ::std::is_arithmetic_v&lt; T1 &gt; and ::std::is_arithmetic_v&lt; T2 &gt; constexpr auto mod(T1 a, T2 b)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00531">all_defs.cpp:531</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -810,22 +810,22 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00728">728</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  728</span>                                                                                       {</div>
-<div class="line"><span class="lineno">  729</span>                            <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
-<div class="line"><span class="lineno">  730</span>                                <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::log(a)) RT;</div>
-<div class="line"><span class="lineno">  731</span>                                <span class="keyword">auto</span> log_impl = <a class="code hl_define" href="all__defs_8cpp.html#ac333fc0d288baa3c4b6555803dee548e">recursive_lambda</a>(<span class="keyword">const</span> RT x,<span class="keyword">const</span> RT y)<span class="keyword">noexcept</span> -&gt; RT{</div>
-<div class="line"><span class="lineno">  732</span>                                    <span class="keyword">auto</span> log_iter = <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(RT x,RT y)<span class="keyword">noexcept</span>{</div>
-<div class="line"><span class="lineno">  733</span>                                        <span class="keyword">const</span> <span class="keyword">auto</span> exp_y = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#af617871fb504f70d5e186aa33f6ae187">exp</a>(y);</div>
-<div class="line"><span class="lineno">  734</span>                                        <span class="keywordflow">return</span> y + T{2}*(x-exp_y)/(x+exp_y);</div>
-<div class="line"><span class="lineno">  735</span>                                    };</div>
-<div class="line"><span class="lineno">  736</span>                                    <span class="keywordflow">return</span> RT(feq(y,log_iter(x,y)) ? y : <a class="code hl_define" href="all__defs_8cpp.html#ae9cf40da3eac98b6ae0c24f77328fd6e">self_recursion</a>(x,log_iter(x,y)));</div>
-<div class="line"><span class="lineno">  737</span>                                };</div>
-<div class="line"><span class="lineno">  738</span>                                <span class="keyword">auto</span> log_impl_caller = <a class="code hl_define" href="all__defs_8cpp.html#a00e30267eee0dee7ae1dc3951788b8cd">get_recursive_lambda_caller</a>(log_impl);</div>
-<div class="line"><span class="lineno">  739</span>                                <span class="keywordflow">return</span> log_impl_caller((RT)a,RT{0});</div>
-<div class="line"><span class="lineno">  740</span>                            }</div>
-<div class="line"><span class="lineno">  741</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  742</span>                                return ::std::log(a);</div>
-<div class="line"><span class="lineno">  743</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  728</span>                                                                   {</div>
+<div class="line"><span class="lineno">  729</span>        <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
+<div class="line"><span class="lineno">  730</span>            <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::log(a)) RT;</div>
+<div class="line"><span class="lineno">  731</span>            <span class="keyword">auto</span> log_impl = <a class="code hl_define" href="all__defs_8cpp.html#ac333fc0d288baa3c4b6555803dee548e">recursive_lambda</a>(<span class="keyword">const</span> RT x,<span class="keyword">const</span> RT y)<span class="keyword">noexcept</span> -&gt; RT{</div>
+<div class="line"><span class="lineno">  732</span>                <span class="keyword">auto</span> log_iter = <a class="code hl_define" href="all__defs_8cpp.html#ae58c3260bfb1facea39e0aec11acee3a">lambda</a>(RT x,RT y)<span class="keyword">noexcept</span>{</div>
+<div class="line"><span class="lineno">  733</span>                    <span class="keyword">const</span> <span class="keyword">auto</span> exp_y = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#af617871fb504f70d5e186aa33f6ae187">exp</a>(y);</div>
+<div class="line"><span class="lineno">  734</span>                    <span class="keywordflow">return</span> y + T{2}*(x-exp_y)/(x+exp_y);</div>
+<div class="line"><span class="lineno">  735</span>                };</div>
+<div class="line"><span class="lineno">  736</span>                <span class="keywordflow">return</span> RT(feq(y,log_iter(x,y)) ? y : <a class="code hl_define" href="all__defs_8cpp.html#ae9cf40da3eac98b6ae0c24f77328fd6e">self_recursion</a>(x,log_iter(x,y)));</div>
+<div class="line"><span class="lineno">  737</span>            };</div>
+<div class="line"><span class="lineno">  738</span>            <span class="keyword">auto</span> log_impl_caller = <a class="code hl_define" href="all__defs_8cpp.html#a00e30267eee0dee7ae1dc3951788b8cd">get_recursive_lambda_caller</a>(log_impl);</div>
+<div class="line"><span class="lineno">  739</span>            <span class="keywordflow">return</span> log_impl_caller((RT)a,RT{0});</div>
+<div class="line"><span class="lineno">  740</span>        }</div>
+<div class="line"><span class="lineno">  741</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  742</span>            return ::std::log(a);</div>
+<div class="line"><span class="lineno">  743</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_af617871fb504f70d5e186aa33f6ae187"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#af617871fb504f70d5e186aa33f6ae187">elc::defs::base::magic_number::exp</a></div><div class="ttdeci">requires ::std::is_floating_point_v&lt; T &gt; constexpr T exp(const T v) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00709">all_defs.cpp:709</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -867,9 +867,9 @@ template&lt;class T , class U &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00745">745</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  745</span>                                                                                                 {</div>
-<div class="line"><span class="lineno">  746</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">log</a>(a)/<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">log</a>(b);</div>
-<div class="line"><span class="lineno">  747</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  745</span>                                                                             {</div>
+<div class="line"><span class="lineno">  746</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">log</a>(a)/<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">log</a>(b);</div>
+<div class="line"><span class="lineno">  747</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_a9496a23d74b600104f109a789a837bb6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">elc::defs::base::magic_number::log</a></div><div class="ttdeci">requires ::std::is_arithmetic_v&lt; T &gt; constexpr auto log(const T a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00728">all_defs.cpp:728</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -912,12 +912,12 @@ template&lt;typename T1 , typename T2 &gt; </div>
 <p >求余 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00531">531</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  531</span>                                                                               {</div>
-<div class="line"><span class="lineno">  532</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T1&gt;||::std::is_floating_point_v&lt;T2&gt;)</div>
-<div class="line"><span class="lineno">  533</span>                                return ::std::fmod(a,b);</div>
-<div class="line"><span class="lineno">  534</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  535</span>                                <span class="keywordflow">return</span> a%b;</div>
-<div class="line"><span class="lineno">  536</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  531</span>                                                           {</div>
+<div class="line"><span class="lineno">  532</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T1&gt;||::std::is_floating_point_v&lt;T2&gt;)</div>
+<div class="line"><span class="lineno">  533</span>            return ::std::fmod(a,b);</div>
+<div class="line"><span class="lineno">  534</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  535</span>            <span class="keywordflow">return</span> a%b;</div>
+<div class="line"><span class="lineno">  536</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -959,14 +959,14 @@ requires (::std::is_arithmetic_v&lt;T&gt; &amp;&amp; ::std::is_arithmetic_v&lt;U
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00751">751</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  751</span>                                                                                                 {</div>
-<div class="line"><span class="lineno">  752</span>                            <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
-<div class="line"><span class="lineno">  753</span>                                <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::pow(a,b)) RT;</div>
-<div class="line"><span class="lineno">  754</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#af617871fb504f70d5e186aa33f6ae187">exp</a>(RT(b)*<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">log</a>(RT(a)));</div>
-<div class="line"><span class="lineno">  755</span>                            }</div>
-<div class="line"><span class="lineno">  756</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  757</span>                                return ::std::pow(a,b);</div>
-<div class="line"><span class="lineno">  758</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  751</span>                                                                             {</div>
+<div class="line"><span class="lineno">  752</span>        <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
+<div class="line"><span class="lineno">  753</span>            <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::pow(a,b)) RT;</div>
+<div class="line"><span class="lineno">  754</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#af617871fb504f70d5e186aa33f6ae187">exp</a>(RT(b)*<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a9496a23d74b600104f109a789a837bb6">log</a>(RT(a)));</div>
+<div class="line"><span class="lineno">  755</span>        }</div>
+<div class="line"><span class="lineno">  756</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  757</span>            return ::std::pow(a,b);</div>
+<div class="line"><span class="lineno">  758</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1009,11 +1009,11 @@ template&lt;class T &gt; </div>
 <p>位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00618">618</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  618</span>                                                                                                     {</div>
-<div class="line"><span class="lineno">  619</span>                            <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
-<div class="line"><span class="lineno">  620</span>                            <span class="keyword">const</span> <span class="keyword">auto</span> r = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(R,d);</div>
-<div class="line"><span class="lineno">  621</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">rotl_nomod</a>(v,r);</div>
-<div class="line"><span class="lineno">  622</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  618</span>                                                                                 {</div>
+<div class="line"><span class="lineno">  619</span>        <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
+<div class="line"><span class="lineno">  620</span>        <span class="keyword">const</span> <span class="keyword">auto</span> r = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(R,d);</div>
+<div class="line"><span class="lineno">  621</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">rotl_nomod</a>(v,r);</div>
+<div class="line"><span class="lineno">  622</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_aab6ca25a1946f5d1af899e05a59b2c97"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">elc::defs::base::magic_number::rotl_nomod</a></div><div class="ttdeci">requires ::std::is_unsigned_v&lt; T &gt; constexpr auto rotl_nomod(const T v, const auto R) noexcept</div><div class="ttdoc">位操作：循环左移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00590">all_defs.cpp:590</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 这是这个函数的调用关系图:</div>
@@ -1062,9 +1062,9 @@ template&lt;class T &gt; </div>
 <p>位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00670">670</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  670</span>                                                                                                                {</div>
-<div class="line"><span class="lineno">  671</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">rotl_nomod</a>(v,r);</div>
-<div class="line"><span class="lineno">  672</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  670</span>                                                                                            {</div>
+<div class="line"><span class="lineno">  671</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">rotl_nomod</a>(v,r);</div>
+<div class="line"><span class="lineno">  672</span>    }</div>
 </div><!-- fragment --><div class="dynheader">
 这是这个函数的调用关系图:</div>
 <div class="dyncontent">
@@ -1112,24 +1112,24 @@ template&lt;class T &gt; </div>
 <p>位操作：循环左移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00590">590</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  590</span>                                                                                                           {</div>
-<div class="line"><span class="lineno">  591</span>                            <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
-<div class="line"><span class="lineno">  592</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_unsigned_v&lt;<span class="keyword">decltype</span>(r)&gt;){</div>
-<div class="line"><span class="lineno">  593</span>                                <span class="keywordflow">if</span>(r)</div>
-<div class="line"><span class="lineno">  594</span>                                    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; r) | static_cast&lt;T&gt;(v &gt;&gt; (d - r)));</div>
-<div class="line"><span class="lineno">  595</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  596</span>                                    <span class="keywordflow">return</span> v;</div>
-<div class="line"><span class="lineno">  597</span>                            }</div>
-<div class="line"><span class="lineno">  598</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">  599</span>                                <span class="keywordflow">if</span>(r&gt;0)</div>
-<div class="line"><span class="lineno">  600</span>                                    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; r) | static_cast&lt;T&gt;(v &gt;&gt; (d - r)));</div>
-<div class="line"><span class="lineno">  601</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(r==0)</div>
-<div class="line"><span class="lineno">  602</span>                                    return v;</div>
-<div class="line"><span class="lineno">  603</span>                                else<span class="comment">//r&lt;0</span></div>
-<div class="line"><span class="lineno">  604</span>                                    return rotr_nomod(v,0-r);</div>
-<div class="line"><span class="lineno">  605</span>                            }</div>
-<div class="line"><span class="lineno">  606</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
+<div class="fragment"><div class="line"><span class="lineno">  590</span>                                                                                       {</div>
+<div class="line"><span class="lineno">  591</span>        <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
+<div class="line"><span class="lineno">  592</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_unsigned_v&lt;<span class="keyword">decltype</span>(r)&gt;){</div>
+<div class="line"><span class="lineno">  593</span>            <span class="keywordflow">if</span>(r)</div>
+<div class="line"><span class="lineno">  594</span>                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; r) | static_cast&lt;T&gt;(v &gt;&gt; (d - r)));</div>
+<div class="line"><span class="lineno">  595</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  596</span>                <span class="keywordflow">return</span> v;</div>
+<div class="line"><span class="lineno">  597</span>        }</div>
+<div class="line"><span class="lineno">  598</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">  599</span>            <span class="keywordflow">if</span>(r&gt;0)</div>
+<div class="line"><span class="lineno">  600</span>                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; r) | static_cast&lt;T&gt;(v &gt;&gt; (d - r)));</div>
+<div class="line"><span class="lineno">  601</span>            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(r==0)</div>
+<div class="line"><span class="lineno">  602</span>                return v;</div>
+<div class="line"><span class="lineno">  603</span>            else<span class="comment">//r&lt;0</span></div>
+<div class="line"><span class="lineno">  604</span>                return rotr_nomod(v,0-r);</div>
+<div class="line"><span class="lineno">  605</span>        }</div>
+<div class="line"><span class="lineno">  606</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25217">all_defs.cpp:25217</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1172,9 +1172,9 @@ template&lt;class T &gt; </div>
 <p>位操作：循环左移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00658">658</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  658</span>                                                                                                                      {</div>
-<div class="line"><span class="lineno">  659</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">rotl_nomod</a>(v,r.<a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a8774dff27a4f6e14c2926bedb7352296">value</a>());</div>
-<div class="line"><span class="lineno">  660</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  658</span>                                                                                                  {</div>
+<div class="line"><span class="lineno">  659</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#aab6ca25a1946f5d1af899e05a59b2c97">rotl_nomod</a>(v,r.<a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a8774dff27a4f6e14c2926bedb7352296">value</a>());</div>
+<div class="line"><span class="lineno">  660</span>    }</div>
 <div class="ttc" id="aclasselc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator_html_a8774dff27a4f6e14c2926bedb7352296"><div class="ttname"><a href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a8774dff27a4f6e14c2926bedb7352296">elc::defs::base::magic_number::rot_iterator::value</a></div><div class="ttdeci">constexpr size_t value() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00651">all_defs.cpp:651</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1218,11 +1218,11 @@ template&lt;class T &gt; </div>
 <p>位操作：循环右移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00610">610</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  610</span>                                                                                                     {</div>
-<div class="line"><span class="lineno">  611</span>                            <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
-<div class="line"><span class="lineno">  612</span>                            <span class="keyword">const</span> <span class="keyword">auto</span> r = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(R,d);</div>
-<div class="line"><span class="lineno">  613</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">rotr_nomod</a>(v,r);</div>
-<div class="line"><span class="lineno">  614</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  610</span>                                                                                 {</div>
+<div class="line"><span class="lineno">  611</span>        <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
+<div class="line"><span class="lineno">  612</span>        <span class="keyword">const</span> <span class="keyword">auto</span> r = <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#a956a811b7ae70abe75ec93ef4f086e60">mod</a>(R,d);</div>
+<div class="line"><span class="lineno">  613</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">rotr_nomod</a>(v,r);</div>
+<div class="line"><span class="lineno">  614</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1magic__number_html_ab09241102ee6f2f318ec7d798966587b"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">elc::defs::base::magic_number::rotr_nomod</a></div><div class="ttdeci">requires ::std::is_unsigned_v&lt; T &gt; constexpr auto rotr_nomod(const T v, const auto r) noexcept</div><div class="ttdoc">位操作：循环右移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00570">all_defs.cpp:570</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1266,9 +1266,9 @@ template&lt;class T &gt; </div>
 <p>位操作：循环右移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00676">676</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  676</span>                                                                                                                {</div>
-<div class="line"><span class="lineno">  677</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">rotr_nomod</a>(v,r);</div>
-<div class="line"><span class="lineno">  678</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  676</span>                                                                                            {</div>
+<div class="line"><span class="lineno">  677</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">rotr_nomod</a>(v,r);</div>
+<div class="line"><span class="lineno">  678</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1311,23 +1311,23 @@ template&lt;class T &gt; </div>
 <p>位操作：循环右移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00570">570</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  570</span>                                                                                                           {</div>
-<div class="line"><span class="lineno">  571</span>                            <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
-<div class="line"><span class="lineno">  572</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_unsigned_v&lt;<span class="keyword">decltype</span>(r)&gt;){</div>
-<div class="line"><span class="lineno">  573</span>                                <span class="keywordflow">if</span>(r)</div>
-<div class="line"><span class="lineno">  574</span>                                    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &gt;&gt; r) | <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; (d - r)));</div>
-<div class="line"><span class="lineno">  575</span>                                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  576</span>                                    <span class="keywordflow">return</span> v;</div>
-<div class="line"><span class="lineno">  577</span>                            }</div>
-<div class="line"><span class="lineno">  578</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">  579</span>                                <span class="keywordflow">if</span>(r&gt;0)</div>
-<div class="line"><span class="lineno">  580</span>                                    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &gt;&gt; r) | <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; (d - r)));</div>
-<div class="line"><span class="lineno">  581</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(r==0)</div>
-<div class="line"><span class="lineno">  582</span>                                    return v;</div>
-<div class="line"><span class="lineno">  583</span>                                else<span class="comment">//r&lt;0</span></div>
-<div class="line"><span class="lineno">  584</span>                                    return rotl_nomod(v,0-r);</div>
-<div class="line"><span class="lineno">  585</span>                            }</div>
-<div class="line"><span class="lineno">  586</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  570</span>                                                                                       {</div>
+<div class="line"><span class="lineno">  571</span>        <span class="keyword">constexpr</span> <span class="keyword">auto</span> d = ::std::numeric_limits&lt;T&gt;::digits;</div>
+<div class="line"><span class="lineno">  572</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_unsigned_v&lt;<span class="keyword">decltype</span>(r)&gt;){</div>
+<div class="line"><span class="lineno">  573</span>            <span class="keywordflow">if</span>(r)</div>
+<div class="line"><span class="lineno">  574</span>                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &gt;&gt; r) | <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; (d - r)));</div>
+<div class="line"><span class="lineno">  575</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  576</span>                <span class="keywordflow">return</span> v;</div>
+<div class="line"><span class="lineno">  577</span>        }</div>
+<div class="line"><span class="lineno">  578</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">  579</span>            <span class="keywordflow">if</span>(r&gt;0)</div>
+<div class="line"><span class="lineno">  580</span>                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &gt;&gt; r) | <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(v &lt;&lt; (d - r)));</div>
+<div class="line"><span class="lineno">  581</span>            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(r==0)</div>
+<div class="line"><span class="lineno">  582</span>                return v;</div>
+<div class="line"><span class="lineno">  583</span>            else<span class="comment">//r&lt;0</span></div>
+<div class="line"><span class="lineno">  584</span>                return rotl_nomod(v,0-r);</div>
+<div class="line"><span class="lineno">  585</span>        }</div>
+<div class="line"><span class="lineno">  586</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1370,9 +1370,9 @@ template&lt;class T &gt; </div>
 <p>位操作：循环右移（无mod） 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00664">664</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  664</span>                                                                                                                      {</div>
-<div class="line"><span class="lineno">  665</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">rotr_nomod</a>(v,r.<a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a8774dff27a4f6e14c2926bedb7352296">value</a>());</div>
-<div class="line"><span class="lineno">  666</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  664</span>                                                                                                  {</div>
+<div class="line"><span class="lineno">  665</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1magic__number.html#ab09241102ee6f2f318ec7d798966587b">rotr_nomod</a>(v,r.<a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a8774dff27a4f6e14c2926bedb7352296">value</a>());</div>
+<div class="line"><span class="lineno">  666</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1404,10 +1404,10 @@ template&lt;typename T &gt; </div>
 <p >设置浮点舍入 </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00539">539</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  539</span>                                                                                       {</div>
-<div class="line"><span class="lineno">  540</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  541</span>                                ::std::fesetround(mode);</div>
-<div class="line"><span class="lineno">  542</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  539</span>                                                      {</div>
+<div class="line"><span class="lineno">  540</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  541</span>            ::std::fesetround(mode);</div>
+<div class="line"><span class="lineno">  542</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1449,18 +1449,18 @@ requires (bool(requires{ (::std::declval&lt; T1 &gt;())-(::std::declval&lt; T2 &
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00694">694</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  694</span>                                                                                                   {</div>
-<div class="line"><span class="lineno">  695</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_arithmetic_v&lt;T1&gt;&amp;&amp;::std::is_arithmetic_v&lt;T2&gt;){</div>
-<div class="line"><span class="lineno">  696</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T1&gt;||::std::is_floating_point_v&lt;T2&gt;)</div>
-<div class="line"><span class="lineno">  697</span>                                    <span class="keywordflow">return</span> a-b;</div>
-<div class="line"><span class="lineno">  698</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno">  699</span>                                    <span class="keyword">using </span>signedT = ::std::make_signed_t&lt;::std::common_type_t&lt;T1,T2&gt;&gt;;</div>
-<div class="line"><span class="lineno">  700</span>                                    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>signedT<span class="keyword">&gt;</span>(a)-<span class="keyword">static_cast&lt;</span>signedT<span class="keyword">&gt;</span>(b);</div>
-<div class="line"><span class="lineno">  701</span>                                }</div>
-<div class="line"><span class="lineno">  702</span>                            }</div>
-<div class="line"><span class="lineno">  703</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  704</span>                                <span class="keywordflow">return</span> a-b;</div>
-<div class="line"><span class="lineno">  705</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  694</span>                                                                               {</div>
+<div class="line"><span class="lineno">  695</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_arithmetic_v&lt;T1&gt;&amp;&amp;::std::is_arithmetic_v&lt;T2&gt;){</div>
+<div class="line"><span class="lineno">  696</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T1&gt;||::std::is_floating_point_v&lt;T2&gt;)</div>
+<div class="line"><span class="lineno">  697</span>                <span class="keywordflow">return</span> a-b;</div>
+<div class="line"><span class="lineno">  698</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">  699</span>                <span class="keyword">using </span>signedT = ::std::make_signed_t&lt;::std::common_type_t&lt;T1,T2,signed char&gt;&gt;;</div>
+<div class="line"><span class="lineno">  700</span>                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>signedT<span class="keyword">&gt;</span>(a)-<span class="keyword">static_cast&lt;</span>signedT<span class="keyword">&gt;</span>(b);</div>
+<div class="line"><span class="lineno">  701</span>            }</div>
+<div class="line"><span class="lineno">  702</span>        }</div>
+<div class="line"><span class="lineno">  703</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  704</span>            <span class="keywordflow">return</span> a-b;</div>
+<div class="line"><span class="lineno">  705</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1492,12 +1492,12 @@ template&lt;typename T &gt; </div>
 <p >任意算数类型转size_t </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00515">515</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  515</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  516</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  517</span>                                <span class="keywordflow">return</span> (<span class="keywordtype">size_t</span>)(ptrdiff_t)x;</div>
-<div class="line"><span class="lineno">  518</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  519</span>                                <span class="keywordflow">return</span> (<span class="keywordtype">size_t</span>)x;</div>
-<div class="line"><span class="lineno">  520</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  515</span>                                                                     {</div>
+<div class="line"><span class="lineno">  516</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  517</span>            <span class="keywordflow">return</span> (<span class="keywordtype">size_t</span>)(ptrdiff_t)x;</div>
+<div class="line"><span class="lineno">  518</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  519</span>            <span class="keywordflow">return</span> (<span class="keywordtype">size_t</span>)x;</div>
+<div class="line"><span class="lineno">  520</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1529,12 +1529,12 @@ template&lt;typename T &gt; </div>
 <p >任意算数类型转uintmax_t </p>
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00523">523</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  523</span>                                                                                                  {</div>
-<div class="line"><span class="lineno">  524</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno">  525</span>                                <span class="keywordflow">return</span> (::std::uintmax_t)(::std::intmax_t)x;</div>
-<div class="line"><span class="lineno">  526</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  527</span>                                <span class="keywordflow">return</span> (::std::uintmax_t)x;</div>
-<div class="line"><span class="lineno">  528</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  523</span>                                                                              {</div>
+<div class="line"><span class="lineno">  524</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_floating_point_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno">  525</span>            <span class="keywordflow">return</span> (::std::uintmax_t)(::std::intmax_t)x;</div>
+<div class="line"><span class="lineno">  526</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  527</span>            <span class="keywordflow">return</span> (::std::uintmax_t)x;</div>
+<div class="line"><span class="lineno">  528</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1565,14 +1565,14 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00762">762</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  762</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  763</span>                            <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
-<div class="line"><span class="lineno">  764</span>                                <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::trunc(v)) RT;</div>
-<div class="line"><span class="lineno">  765</span>                                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>RT<span class="keyword">&gt;</span>((::std::intmax_t)v);</div>
-<div class="line"><span class="lineno">  766</span>                            }</div>
-<div class="line"><span class="lineno">  767</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  768</span>                                return ::std::trunc(v);</div>
-<div class="line"><span class="lineno">  769</span>                        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  762</span>                                                                     {</div>
+<div class="line"><span class="lineno">  763</span>        <span class="keywordflow">if</span> <a class="code hl_define" href="all__defs_8cpp.html#a150c0e7627f407df8d8cb758696bac77">in_consteval</a>{</div>
+<div class="line"><span class="lineno">  764</span>            <span class="keyword">typedef</span> <span class="keyword">decltype</span>(::std::trunc(v)) RT;</div>
+<div class="line"><span class="lineno">  765</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>RT<span class="keyword">&gt;</span>((::std::intmax_t)v);</div>
+<div class="line"><span class="lineno">  766</span>        }</div>
+<div class="line"><span class="lineno">  767</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  768</span>            return ::std::trunc(v);</div>
+<div class="line"><span class="lineno">  769</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

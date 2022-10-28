@@ -145,7 +145,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06835">6835</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06853">6853</a> 行定义.</p>
 
 </div>
 </div>
@@ -175,19 +175,19 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06817">6817</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6817</span>                                                                                         {</div>
-<div class="line"><span class="lineno"> 6818</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_function_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 6819</span>                            <span class="keywordflow">return</span> type_info&lt;T&gt;;</div>
-<div class="line"><span class="lineno"> 6820</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(is_pointer&lt;T&gt; &amp;&amp; ::std::is_function_v&lt;::std::remove_pointer_t&lt;T&gt;&gt;)<span class="comment">//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全</span></div>
-<div class="line"><span class="lineno"> 6821</span>                            <span class="keywordflow">return</span> function_type_getter_conditional_helper&lt;::std::remove_pointer_t&lt;T&gt;&gt;();</div>
-<div class="line"><span class="lineno"> 6822</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 6823</span>                            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;<a class="code hl_define" href="all__defs_8cpp.html#a9a8a5916c0e2370baf6d97bdfaf56724">type_name</a> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper.html">function_type_getter_helper</a>&lt;<span class="keyword">decltype</span>(&amp;T::operator())&gt;::type&gt;;</div>
-<div class="line"><span class="lineno"> 6824</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
-<div class="ttc" id="aall__defs_8cpp_html_a9a8a5916c0e2370baf6d97bdfaf56724"><div class="ttname"><a href="all__defs_8cpp.html#a9a8a5916c0e2370baf6d97bdfaf56724">type_name</a></div><div class="ttdeci">#define type_name</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25223">all_defs.cpp:25223</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a68c72bc3a5d80ff8a6900a59f2bdbd93"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">elc::defs::base::type_info</a></div><div class="ttdeci">constexpr type_info_t&lt; T &gt; type_info</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01247">all_defs.cpp:1247</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper.html">elc::defs::base::function_base_n::function_type_getter_helper</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06798">all_defs.cpp:6798</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06835">6835</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6835</span>                                                                         {</div>
+<div class="line"><span class="lineno"> 6836</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_function_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 6837</span>            <span class="keywordflow">return</span> type_info&lt;T&gt;;</div>
+<div class="line"><span class="lineno"> 6838</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(is_pointer&lt;T&gt; &amp;&amp; ::std::is_function_v&lt;::std::remove_pointer_t&lt;T&gt;&gt;)<span class="comment">//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全</span></div>
+<div class="line"><span class="lineno"> 6839</span>            <span class="keywordflow">return</span> function_type_getter_conditional_helper&lt;::std::remove_pointer_t&lt;T&gt;&gt;();</div>
+<div class="line"><span class="lineno"> 6840</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 6841</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">type_info</a>&lt;<a class="code hl_define" href="all__defs_8cpp.html#a9a8a5916c0e2370baf6d97bdfaf56724">type_name</a> <a class="code hl_struct" href="structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper.html">function_type_getter_helper</a>&lt;<span class="keyword">decltype</span>(&amp;T::operator())&gt;::type&gt;;</div>
+<div class="line"><span class="lineno"> 6842</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25217">all_defs.cpp:25217</a></div></div>
+<div class="ttc" id="aall__defs_8cpp_html_a9a8a5916c0e2370baf6d97bdfaf56724"><div class="ttname"><a href="all__defs_8cpp.html#a9a8a5916c0e2370baf6d97bdfaf56724">type_name</a></div><div class="ttdeci">#define type_name</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25237">all_defs.cpp:25237</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a68c72bc3a5d80ff8a6900a59f2bdbd93"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a68c72bc3a5d80ff8a6900a59f2bdbd93">elc::defs::base::type_info</a></div><div class="ttdeci">constexpr type_info_t&lt; T &gt; type_info</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01265">all_defs.cpp:1265</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper_html"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1function__base__n_1_1function__type__getter__helper.html">elc::defs::base::function_base_n::function_type_getter_helper</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l06816">all_defs.cpp:6816</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -139,7 +139,7 @@ Protected 成员函数</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
 class elc::defs::memory::abstract_base_n::instance_struct&lt; T &gt;</div>
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08270">8270</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08276">8276</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="adbea8bf8db6092b9db87a4e459e19f41" name="adbea8bf8db6092b9db87a4e459e19f41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adbea8bf8db6092b9db87a4e459e19f41">&#9670;&#160;</a></span>_abstract_method_copy_get_this()</h2>
@@ -168,20 +168,20 @@ template&lt;class T &gt; </div>
 
 <p>实现了 <a class="el" href="classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base__vtable.html#a69b62d5f5e0dc51174cd88534f5fde05">elc::defs::memory::abstract_base_n::abstract_base_vtable</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08273">8273</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8273</span>                                                                                                                   :1)<span class="keyword">override</span>{</div>
-<div class="line"><span class="lineno"> 8274</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a20b826d2367a859ac04551f1deb8e996">copy_get</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t.html#a17baca4732f5645fdee7d2f44992f075">able</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 8275</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">is_instance_ptr</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno"> 8276</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a20b826d2367a859ac04551f1deb8e996">copy_get</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>));</div>
-<div class="line"><span class="lineno"> 8277</span>                            }</div>
-<div class="line"><span class="lineno"> 8278</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 8279</span>                                <span class="keywordflow">return</span> <a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno"> 8280</span>                            }</div>
-<div class="line"><span class="lineno"> 8281</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1abstract__base__n_html_ae6a6bdada85c4f349540f1b9ae8d4ef6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">elc::defs::memory::abstract_base_n::is_instance_ptr</a></div><div class="ttdeci">void is_instance_ptr(void *a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08193">all_defs.cpp:8193</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08279">8279</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8279</span>                                                                                               :1)<span class="keyword">override</span>{</div>
+<div class="line"><span class="lineno"> 8280</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a20b826d2367a859ac04551f1deb8e996">copy_get</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t.html#a17baca4732f5645fdee7d2f44992f075">able</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 8281</span>            <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">is_instance_ptr</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 8282</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a20b826d2367a859ac04551f1deb8e996">copy_get</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>));</div>
+<div class="line"><span class="lineno"> 8283</span>        }</div>
+<div class="line"><span class="lineno"> 8284</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 8285</span>            <span class="keywordflow">return</span> <a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 8286</span>        }</div>
+<div class="line"><span class="lineno"> 8287</span>    }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1abstract__base__n_html_ae6a6bdada85c4f349540f1b9ae8d4ef6"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">elc::defs::memory::abstract_base_n::is_instance_ptr</a></div><div class="ttdeci">void is_instance_ptr(void *a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08199">all_defs.cpp:8199</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_a20b826d2367a859ac04551f1deb8e996"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a20b826d2367a859ac04551f1deb8e996">elc::defs::memory::get_n::copy_get</a></div><div class="ttdeci">constexpr struct elc::defs::memory::get_n::copy_get_t copy_get</div></div>
 <div class="ttc" id="astructelc_1_1defs_1_1base_1_1attribute_html_a2c16612ef82864c37d86ab754ce1582c"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">elc::defs::base::attribute&lt; T, instance_struct&lt; T &gt; &gt;::get_handle</a></div><div class="ttdeci">friend U * get_handle(attribute&lt; U, another_attribute_name &gt; *) noexcept</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_html_a17baca4732f5645fdee7d2f44992f075"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t.html#a17baca4732f5645fdee7d2f44992f075">elc::defs::memory::get_n::copy_get_t::able</a></div><div class="ttdeci">static constexpr bool able</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08069">all_defs.cpp:8069</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t_html_a17baca4732f5645fdee7d2f44992f075"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1copy__get__t.html#a17baca4732f5645fdee7d2f44992f075">elc::defs::memory::get_n::copy_get_t::able</a></div><div class="ttdeci">static constexpr bool able</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08075">all_defs.cpp:8075</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -213,18 +213,18 @@ template&lt;class T &gt; </div>
 
 <p>实现了 <a class="el" href="classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base__vtable.html#a5d0d9935d1127fbb123a8f902cb069fc">elc::defs::memory::abstract_base_n::abstract_base_vtable</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08291">8291</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8291</span>                                                                                                                                                            :1)<span class="keyword">override</span>{</div>
-<div class="line"><span class="lineno"> 8292</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aa90c23b35aa1a91daf070e1135446eff">get_forward_resize</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t.html#aa64f3b0b80f4571d62694dc9657dcb26">able</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 8293</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">is_instance_ptr</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno"> 8294</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aa90c23b35aa1a91daf070e1135446eff">get_forward_resize</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>),size);</div>
-<div class="line"><span class="lineno"> 8295</span>                            }</div>
-<div class="line"><span class="lineno"> 8296</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 8297</span>                                <span class="keywordflow">return</span> <a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno"> 8298</span>                            }</div>
-<div class="line"><span class="lineno"> 8299</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08297">8297</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8297</span>                                                                                                                                        :1)<span class="keyword">override</span>{</div>
+<div class="line"><span class="lineno"> 8298</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aa90c23b35aa1a91daf070e1135446eff">get_forward_resize</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t.html#aa64f3b0b80f4571d62694dc9657dcb26">able</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 8299</span>            <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">is_instance_ptr</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 8300</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aa90c23b35aa1a91daf070e1135446eff">get_forward_resize</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>),size);</div>
+<div class="line"><span class="lineno"> 8301</span>        }</div>
+<div class="line"><span class="lineno"> 8302</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 8303</span>            <span class="keywordflow">return</span> <a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 8304</span>        }</div>
+<div class="line"><span class="lineno"> 8305</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_aa90c23b35aa1a91daf070e1135446eff"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#aa90c23b35aa1a91daf070e1135446eff">elc::defs::memory::get_n::get_forward_resize</a></div><div class="ttdeci">constexpr struct elc::defs::memory::get_n::get_forward_resize_t get_forward_resize</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t_html_aa64f3b0b80f4571d62694dc9657dcb26"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t.html#aa64f3b0b80f4571d62694dc9657dcb26">elc::defs::memory::get_n::get_forward_resize_t::able</a></div><div class="ttdeci">static constexpr bool able</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07975">all_defs.cpp:7975</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t_html_aa64f3b0b80f4571d62694dc9657dcb26"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__forward__resize__t.html#aa64f3b0b80f4571d62694dc9657dcb26">elc::defs::memory::get_n::get_forward_resize_t::able</a></div><div class="ttdeci">static constexpr bool able</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07981">all_defs.cpp:7981</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -256,18 +256,18 @@ template&lt;class T &gt; </div>
 
 <p>实现了 <a class="el" href="classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base__vtable.html#ae0433a63aa135af44fc019181f9c0b1a">elc::defs::memory::abstract_base_n::abstract_base_vtable</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08282">8282</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8282</span>                                                                                                                                    :1)<span class="keyword">override</span>{</div>
-<div class="line"><span class="lineno"> 8283</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a4d7bbf1e92f67aef6eb240abecab7b84">get_resize</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#a3680d39e880d439399013dbfb2c570b3">able</a>&lt;T&gt;){</div>
-<div class="line"><span class="lineno"> 8284</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">is_instance_ptr</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno"> 8285</span>                                <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a4d7bbf1e92f67aef6eb240abecab7b84">get_resize</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>),size);</div>
-<div class="line"><span class="lineno"> 8286</span>                            }</div>
-<div class="line"><span class="lineno"> 8287</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 8288</span>                                <span class="keywordflow">return</span> <a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno"> 8289</span>                            }</div>
-<div class="line"><span class="lineno"> 8290</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08288">8288</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8288</span>                                                                                                                :1)<span class="keyword">override</span>{</div>
+<div class="line"><span class="lineno"> 8289</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a4d7bbf1e92f67aef6eb240abecab7b84">get_resize</a>.<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#a3680d39e880d439399013dbfb2c570b3">able</a>&lt;T&gt;){</div>
+<div class="line"><span class="lineno"> 8290</span>            <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1abstract__base__n.html#ae6a6bdada85c4f349540f1b9ae8d4ef6">is_instance_ptr</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 8291</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a4d7bbf1e92f67aef6eb240abecab7b84">get_resize</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>),size);</div>
+<div class="line"><span class="lineno"> 8292</span>        }</div>
+<div class="line"><span class="lineno"> 8293</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 8294</span>            <span class="keywordflow">return</span> <a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno"> 8295</span>        }</div>
+<div class="line"><span class="lineno"> 8296</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_a4d7bbf1e92f67aef6eb240abecab7b84"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a4d7bbf1e92f67aef6eb240abecab7b84">elc::defs::memory::get_n::get_resize</a></div><div class="ttdeci">constexpr struct elc::defs::memory::get_n::get_resize_t get_resize</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_html_a3680d39e880d439399013dbfb2c570b3"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#a3680d39e880d439399013dbfb2c570b3">elc::defs::memory::get_n::get_resize_t::able</a></div><div class="ttdeci">static constexpr bool able</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07895">all_defs.cpp:7895</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_html_a3680d39e880d439399013dbfb2c570b3"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#a3680d39e880d439399013dbfb2c570b3">elc::defs::memory::get_n::get_resize_t::able</a></div><div class="ttdeci">static constexpr bool able</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07901">all_defs.cpp:7901</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -298,8 +298,8 @@ template&lt;class T &gt; </div>
 
 <p>实现了 <a class="el" href="classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base__vtable.html#a5ebab36d5d0d2d78cbe5aaeddbe20b5e">elc::defs::memory::abstract_base_n::abstract_base_vtable</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08300">8300</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8300</span>{<span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#ad7db748ce9ea34b63e38474f47899d91">get_size_of_get</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>));}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08306">8306</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8306</span>{<span class="keywordflow">return</span> <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#ad7db748ce9ea34b63e38474f47899d91">get_size_of_get</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>));}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_ad7db748ce9ea34b63e38474f47899d91"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#ad7db748ce9ea34b63e38474f47899d91">elc::defs::memory::get_n::get_size_of_get</a></div><div class="ttdeci">constexpr struct elc::defs::memory::get_n::get_size_of_get_t get_size_of_get</div></div>
 </div><!-- fragment -->
 </div>
@@ -331,8 +331,8 @@ template&lt;class T &gt; </div>
 
 <p>实现了 <a class="el" href="classelc_1_1defs_1_1memory_1_1abstract__base__n_1_1abstract__base__vtable.html#a96f5cabe813ab497a1a9b96610068170">elc::defs::memory::abstract_base_n::abstract_base_vtable</a>.</p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08272">8272</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8272</span>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a516730de45f671ee4350358f26e50d6d">unget</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>));}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08278">8278</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8278</span>{<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a516730de45f671ee4350358f26e50d6d">unget</a>(<a class="code hl_friend" href="structelc_1_1defs_1_1base_1_1attribute.html#a2c16612ef82864c37d86ab754ce1582c">get_handle</a>(<span class="keyword">this</span>));}</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_a516730de45f671ee4350358f26e50d6d"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#a516730de45f671ee4350358f26e50d6d">elc::defs::memory::get_n::unget</a></div><div class="ttdeci">constexpr struct elc::defs::memory::get_n::unget_t unget</div></div>
 </div><!-- fragment -->
 </div>

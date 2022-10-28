@@ -199,15 +199,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07207">7207</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7207</span>                                                                    {</div>
-<div class="line"><span class="lineno"> 7208</span>                        <span class="comment">//return空指针被允许，会引起gc_for_alloc</span></div>
-<div class="line"><span class="lineno"> 7209</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;)))</div>
-<div class="line"><span class="lineno"> 7210</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;);</div>
-<div class="line"><span class="lineno"> 7211</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7212</span>                            <span class="keywordflow">return</span> default_method::alloc_method(type_info&lt;T&gt;);</div>
-<div class="line"><span class="lineno"> 7213</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25177">all_defs.cpp:25177</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07223">7223</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7223</span>                                                    {</div>
+<div class="line"><span class="lineno"> 7224</span>        <span class="comment">//return空指针被允许，会引起gc_for_alloc</span></div>
+<div class="line"><span class="lineno"> 7225</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;)))</div>
+<div class="line"><span class="lineno"> 7226</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;);</div>
+<div class="line"><span class="lineno"> 7227</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7228</span>            <span class="keywordflow">return</span> default_method::alloc_method(type_info&lt;T&gt;);</div>
+<div class="line"><span class="lineno"> 7229</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a166079ca5622ad653a4aac46ece76e72"><div class="ttname"><a href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a></div><div class="ttdeci">#define was_not_an_ill_form(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25191">all_defs.cpp:25191</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_acd327762e190bc1c7874b6ea8ce30539"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">elc::defs::memory::alloc_n::the_alloc_method</a></div><div class="ttdeci">void the_alloc_method() noexcept=delete</div></div>
 </div><!-- fragment -->
 </div>
@@ -248,15 +248,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07215">7215</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7215</span>                                                                                {</div>
-<div class="line"><span class="lineno"> 7216</span>                        <span class="comment">//return空指针被允许，会引起gc_for_alloc</span></div>
-<div class="line"><span class="lineno"> 7217</span>                        <span class="comment">//size被保证不为0</span></div>
-<div class="line"><span class="lineno"> 7218</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;,size)))</div>
-<div class="line"><span class="lineno"> 7219</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;,size);</div>
-<div class="line"><span class="lineno"> 7220</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7221</span>                            <span class="keywordflow">return</span> default_method::alloc_method(type_info&lt;T&gt;,size);</div>
-<div class="line"><span class="lineno"> 7222</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07231">7231</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7231</span>                                                                {</div>
+<div class="line"><span class="lineno"> 7232</span>        <span class="comment">//return空指针被允许，会引起gc_for_alloc</span></div>
+<div class="line"><span class="lineno"> 7233</span>        <span class="comment">//size被保证不为0</span></div>
+<div class="line"><span class="lineno"> 7234</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;,size)))</div>
+<div class="line"><span class="lineno"> 7235</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#acd327762e190bc1c7874b6ea8ce30539">the_alloc_method</a>(type_info&lt;T&gt;,size);</div>
+<div class="line"><span class="lineno"> 7236</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7237</span>            <span class="keywordflow">return</span> default_method::alloc_method(type_info&lt;T&gt;,size);</div>
+<div class="line"><span class="lineno"> 7238</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -286,13 +286,13 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07234">7234</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7234</span>                                                          {</div>
-<div class="line"><span class="lineno"> 7235</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad1fe3e6a6e8f23f210d5602e5b7a6325">the_free_method</a>(arg)))</div>
-<div class="line"><span class="lineno"> 7236</span>                            <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad1fe3e6a6e8f23f210d5602e5b7a6325">the_free_method</a>(arg);</div>
-<div class="line"><span class="lineno"> 7237</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7238</span>                            default_method::free_method(arg);</div>
-<div class="line"><span class="lineno"> 7239</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07250">7250</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7250</span>                                          {</div>
+<div class="line"><span class="lineno"> 7251</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad1fe3e6a6e8f23f210d5602e5b7a6325">the_free_method</a>(arg)))</div>
+<div class="line"><span class="lineno"> 7252</span>            <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad1fe3e6a6e8f23f210d5602e5b7a6325">the_free_method</a>(arg);</div>
+<div class="line"><span class="lineno"> 7253</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7254</span>            default_method::free_method(arg);</div>
+<div class="line"><span class="lineno"> 7255</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ad1fe3e6a6e8f23f210d5602e5b7a6325"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad1fe3e6a6e8f23f210d5602e5b7a6325">elc::defs::memory::alloc_n::the_free_method</a></div><div class="ttdeci">void the_free_method() noexcept=delete</div></div>
 </div><!-- fragment -->
 </div>
@@ -323,14 +323,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07225">7225</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7225</span>                                                                               {</div>
-<div class="line"><span class="lineno"> 7226</span>                        <span class="comment">//arg保证不与null_ptr相等</span></div>
-<div class="line"><span class="lineno"> 7227</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ae90b89ad9e01ae9bf2288f7c4d428d8d">the_get_size_of_alloc_method</a>(arg)))</div>
-<div class="line"><span class="lineno"> 7228</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ae90b89ad9e01ae9bf2288f7c4d428d8d">the_get_size_of_alloc_method</a>(arg);</div>
-<div class="line"><span class="lineno"> 7229</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7230</span>                            <span class="keywordflow">return</span> default_method::get_size_of_alloc_method(arg);</div>
-<div class="line"><span class="lineno"> 7231</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07241">7241</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7241</span>                                                               {</div>
+<div class="line"><span class="lineno"> 7242</span>        <span class="comment">//arg保证不与null_ptr相等</span></div>
+<div class="line"><span class="lineno"> 7243</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ae90b89ad9e01ae9bf2288f7c4d428d8d">the_get_size_of_alloc_method</a>(arg)))</div>
+<div class="line"><span class="lineno"> 7244</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ae90b89ad9e01ae9bf2288f7c4d428d8d">the_get_size_of_alloc_method</a>(arg);</div>
+<div class="line"><span class="lineno"> 7245</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7246</span>            <span class="keywordflow">return</span> default_method::get_size_of_alloc_method(arg);</div>
+<div class="line"><span class="lineno"> 7247</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ae90b89ad9e01ae9bf2288f7c4d428d8d"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ae90b89ad9e01ae9bf2288f7c4d428d8d">elc::defs::memory::alloc_n::the_get_size_of_alloc_method</a></div><div class="ttdeci">void the_get_size_of_alloc_method() noexcept=delete</div></div>
 </div><!-- fragment -->
 </div>
@@ -371,17 +371,17 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07242">7242</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7242</span>                                                                              {</div>
-<div class="line"><span class="lineno"> 7243</span>                        <span class="comment">//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效</span></div>
-<div class="line"><span class="lineno"> 7244</span>                        <span class="comment">//new_size被保证不为0</span></div>
-<div class="line"><span class="lineno"> 7245</span>                        <span class="comment">//align维持不变</span></div>
-<div class="line"><span class="lineno"> 7246</span>                        <span class="comment">//但只允许在扩大数据块时可选的移动数据块</span></div>
-<div class="line"><span class="lineno"> 7247</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad78cd541373f3376e9c1be94c8dae176">the_realloc_method</a>(ptr,new_size)))</div>
-<div class="line"><span class="lineno"> 7248</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad78cd541373f3376e9c1be94c8dae176">the_realloc_method</a>(ptr,new_size);</div>
-<div class="line"><span class="lineno"> 7249</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 7250</span>                            <span class="keywordflow">return</span> default_method::realloc_method(ptr,new_size);</div>
-<div class="line"><span class="lineno"> 7251</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07258">7258</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7258</span>                                                              {</div>
+<div class="line"><span class="lineno"> 7259</span>        <span class="comment">//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效</span></div>
+<div class="line"><span class="lineno"> 7260</span>        <span class="comment">//new_size被保证不为0</span></div>
+<div class="line"><span class="lineno"> 7261</span>        <span class="comment">//align维持不变</span></div>
+<div class="line"><span class="lineno"> 7262</span>        <span class="comment">//但只允许在扩大数据块时可选的移动数据块</span></div>
+<div class="line"><span class="lineno"> 7263</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_define" href="all__defs_8cpp.html#a166079ca5622ad653a4aac46ece76e72">was_not_an_ill_form</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad78cd541373f3376e9c1be94c8dae176">the_realloc_method</a>(ptr,new_size)))</div>
+<div class="line"><span class="lineno"> 7264</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad78cd541373f3376e9c1be94c8dae176">the_realloc_method</a>(ptr,new_size);</div>
+<div class="line"><span class="lineno"> 7265</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 7266</span>            <span class="keywordflow">return</span> default_method::realloc_method(ptr,new_size);</div>
+<div class="line"><span class="lineno"> 7267</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_ad78cd541373f3376e9c1be94c8dae176"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#ad78cd541373f3376e9c1be94c8dae176">elc::defs::memory::alloc_n::the_realloc_method</a></div><div class="ttdeci">void the_realloc_method() noexcept=delete</div></div>
 </div><!-- fragment -->
 </div>
@@ -513,7 +513,7 @@ template&lt;class T &gt; </div>
 <dl class="section see"><dt>参见</dt><dd><a class="el" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1alloc__t.html" title="用于对特定类型进行alloc的类">alloc_t</a> </dd></dl>
 <dl class="section warning"><dt>警告</dt><dd>不会对内存进行初始化，如需要进行new like操作，请使用 get_t </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07289">7289</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07305">7305</a> 行定义.</p>
 
 </div>
 </div>

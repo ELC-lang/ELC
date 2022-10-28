@@ -117,7 +117,7 @@ requires (<a class="el" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resi
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07958">7958</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07964">7964</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="af3b4ea3fbaaf69d0717fbd7ad3e6f3c1" name="af3b4ea3fbaaf69d0717fbd7ad3e6f3c1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3b4ea3fbaaf69d0717fbd7ad3e6f3c1">&#9670;&#160;</a></span>operator()()</h2>
@@ -174,16 +174,16 @@ requires (<a class="el" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resi
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07964">7964</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7964</span>                                                                                                                                                     {</div>
-<div class="line"><span class="lineno"> 7965</span>                                <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
-<div class="line"><span class="lineno"> 7966</span>                                <span class="keyword">auto</span> end_grow_size=<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#afe741c9105ddc611a7ca6dbf64758d0f">alloc_size_grow_with_insert_uninitialized_data</a>(arg,to_size,insert_pos,insert_size);</div>
-<div class="line"><span class="lineno"> 7967</span>                                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a9341fd81abd487a0089c64ed99f48c71">copy_construct</a>[insert_size](<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">note::from</a>(insert_data),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">note::to</a>(arg+insert_pos));</div>
-<div class="line"><span class="lineno"> 7968</span>                                construct&lt;T&gt;[arg+to_size-end_grow_size][end_grow_size]();</div>
-<div class="line"><span class="lineno"> 7969</span>                            }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ab38406a29b5abb1d9d783b44464c338f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">elc::defs::base::note_n::to</a></div><div class="ttdeci">constexpr to_t&lt; T &gt; to(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01781">all_defs.cpp:1781</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ae46aa64f1993a2bdce845a92745e2e65"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">elc::defs::base::note_n::from</a></div><div class="ttdeci">constexpr from_t&lt; T &gt; from(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01780">all_defs.cpp:1780</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_afe741c9105ddc611a7ca6dbf64758d0f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#afe741c9105ddc611a7ca6dbf64758d0f">elc::defs::memory::get_n::alloc_size_grow_with_insert_uninitialized_data</a></div><div class="ttdeci">void alloc_size_grow_with_insert_uninitialized_data(T *&amp;arg, size_t insert_pos, size_t insert_size) noexcept(move.trivial&lt; T &gt; or move.nothrow&lt; T &gt;)</div><div class="ttdoc">在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07553">all_defs.cpp:7553</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07970">7970</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7970</span>                                                                                                                                     {</div>
+<div class="line"><span class="lineno"> 7971</span>                <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
+<div class="line"><span class="lineno"> 7972</span>                <span class="keyword">auto</span> end_grow_size=<a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#afe741c9105ddc611a7ca6dbf64758d0f">alloc_size_grow_with_insert_uninitialized_data</a>(arg,to_size,insert_pos,insert_size);</div>
+<div class="line"><span class="lineno"> 7973</span>                <a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a9341fd81abd487a0089c64ed99f48c71">copy_construct</a>[insert_size](<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">note::from</a>(insert_data),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">note::to</a>(arg+insert_pos));</div>
+<div class="line"><span class="lineno"> 7974</span>                construct&lt;T&gt;[arg+to_size-end_grow_size][end_grow_size]();</div>
+<div class="line"><span class="lineno"> 7975</span>            }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ab38406a29b5abb1d9d783b44464c338f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">elc::defs::base::note_n::to</a></div><div class="ttdeci">constexpr to_t&lt; T &gt; to(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01799">all_defs.cpp:1799</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ae46aa64f1993a2bdce845a92745e2e65"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">elc::defs::base::note_n::from</a></div><div class="ttdeci">constexpr from_t&lt; T &gt; from(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01798">all_defs.cpp:1798</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1get__n_html_afe741c9105ddc611a7ca6dbf64758d0f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1get__n.html#afe741c9105ddc611a7ca6dbf64758d0f">elc::defs::memory::get_n::alloc_size_grow_with_insert_uninitialized_data</a></div><div class="ttdeci">void alloc_size_grow_with_insert_uninitialized_data(T *&amp;arg, size_t insert_pos, size_t insert_size) noexcept(move.trivial&lt; T &gt; or move.nothrow&lt; T &gt;)</div><div class="ttdoc">在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07563">all_defs.cpp:7563</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a9341fd81abd487a0089c64ed99f48c71"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a9341fd81abd487a0089c64ed99f48c71">elc::defs::memory::lifetime_n::copy_construct</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::copy_construct_t copy_construct</div></div>
 </div><!-- fragment -->
 </div>
@@ -211,7 +211,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07960">7960</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07966">7966</a> 行定义.</p>
 
 </div>
 </div>
@@ -237,7 +237,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07962">7962</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07968">7968</a> 行定义.</p>
 
 </div>
 </div>

@@ -1,3 +1,3 @@
 <map id="类继承关系图" name="类继承关系图">
-<area shape="rect" id="node1" href="$structelc_1_1defs_1_1base_1_1range__n_1_1match__pattern.html" title=" " alt="" coords="5,5,176,60"/>
+<area shape="rect" id="node1" href="$structelc_1_1defs_1_1base_1_1range__n_1_1bitmark__for__finds.html" title="bitmark提供了一种快速进行四种泛搜索的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。 若bitmark构建失败，程序应当使用正在进行的泛搜索的朴素实现版本..." alt="" coords="5,5,179,45"/>
 </map>

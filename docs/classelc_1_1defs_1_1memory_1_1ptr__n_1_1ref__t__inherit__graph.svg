@@ -99,7 +99,7 @@ var sectionId = 'dynsection-0';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copyable.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copyable.html" target="_top" xlink:title="禁止默认合成的复制">
 <polygon fill="white" stroke="#666666" points="251,-126 149,-126 149,-96 251,-96 251,-126"/>
 <text text-anchor="start" x="157" y="-114" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="200" y="-103" font-family="Helvetica,sans-Serif" font-size="10.00">_copyable</text>
@@ -115,7 +115,7 @@ var sectionId = 'dynsection-0';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" target="_top" xlink:title="禁止复制赋值">
 <polygon fill="white" stroke="#666666" points="107.5,-174 5.5,-174 5.5,-144 107.5,-144 107.5,-174"/>
 <text text-anchor="start" x="13.5" y="-162" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-151" font-family="Helvetica,sans-Serif" font-size="10.00">_copy_assign_able</text>
@@ -131,7 +131,7 @@ var sectionId = 'dynsection-0';
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" target="_top" xlink:title="禁止复制构造">
 <polygon fill="white" stroke="#666666" points="112.5,-126 0.5,-126 0.5,-96 112.5,-96 112.5,-126"/>
 <text text-anchor="start" x="8.5" y="-114" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-103" font-family="Helvetica,sans-Serif" font-size="10.00">_copy_construct_able</text>
@@ -147,7 +147,7 @@ var sectionId = 'dynsection-0';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="structelc_1_1defs_1_1base_1_1non__moveable.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="structelc_1_1defs_1_1base_1_1non__moveable.html" target="_top" xlink:title="禁止默认合成的移动">
 <polygon fill="white" stroke="#666666" points="251,-78 149,-78 149,-48 251,-48 251,-78"/>
 <text text-anchor="start" x="157" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="200" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00">_moveable</text>
@@ -163,7 +163,7 @@ var sectionId = 'dynsection-0';
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__assign__able.html" target="_top" xlink:title="禁止移动赋值">
 <polygon fill="white" stroke="#666666" points="107.5,-78 5.5,-78 5.5,-48 107.5,-48 107.5,-78"/>
 <text text-anchor="start" x="13.5" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00">_move_assign_able</text>
@@ -179,7 +179,7 @@ var sectionId = 'dynsection-0';
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__construct__able.html" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__construct__able.html" target="_top" xlink:title="禁止移动构造">
 <polygon fill="white" stroke="#666666" points="113,-30 0,-30 0,0 113,0 113,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_move_construct_able</text>

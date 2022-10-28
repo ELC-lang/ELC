@@ -11,11 +11,11 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__t.html" target="_top" xlink:title=" ">
+<g id="a_node1"><a xlink:href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t_1_1insert__resize__t.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="101,-41 0,-41 0,0 101,0 101,-41"/>
 <text text-anchor="start" x="8" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::memory::</text>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">get_n::get_resize_t</text>
-<text text-anchor="middle" x="50.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::insert_t</text>
+<text text-anchor="middle" x="50.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::insert_resize_t</text>
 </a>
 </g>
 </g>

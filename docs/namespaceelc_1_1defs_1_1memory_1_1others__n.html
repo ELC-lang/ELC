@@ -141,10 +141,10 @@ template&lt;class T , class func_t , class enable_state  = ::std::enable_if_t&lt
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08950">8950</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8950</span>                                                                   {</div>
-<div class="line"><span class="lineno"> 8951</span>                        map_all_helper&lt;T,func_t&gt;(forward&lt;func_t&gt;(a));</div>
-<div class="line"><span class="lineno"> 8952</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08956">8956</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8956</span>                                               {</div>
+<div class="line"><span class="lineno"> 8957</span>    map_all_helper&lt;T,func_t&gt;(forward&lt;func_t&gt;(a));</div>
+<div class="line"><span class="lineno"> 8958</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -174,16 +174,16 @@ template&lt;class T , class func_t &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08941">8941</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 8941</span>                                                         {</div>
-<div class="line"><span class="lineno"> 8942</span>                        <span class="keyword">auto</span> tmp=<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html">can_map_all&lt;T&gt;::type_list</a>.begin();</div>
-<div class="line"><span class="lineno"> 8943</span>                        <span class="keyword">auto</span> <a class="code hl_enumvalue" href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3a943b316e30627abf41a1133fe1cf5eb4">end</a>=<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html">can_map_all&lt;T&gt;::type_list</a>.end();</div>
-<div class="line"><span class="lineno"> 8944</span>                        <span class="keywordflow">while</span>(tmp!=end){</div>
-<div class="line"><span class="lineno"> 8945</span>                            a(get_handle&lt;T,can_map_all&gt;(tmp++));</div>
-<div class="line"><span class="lineno"> 8946</span>                        }</div>
-<div class="line"><span class="lineno"> 8947</span>                    }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1stream__n_html_a1ae307d710e1d2219d15bf6886cfb9f3a943b316e30627abf41a1133fe1cf5eb4"><div class="ttname"><a href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3a943b316e30627abf41a1133fe1cf5eb4">elc::defs::stream_n::end</a></div><div class="ttdeci">@ end</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12342">all_defs.cpp:12342</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all_html"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html">elc::defs::memory::others_n::can_map_all</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08928">all_defs.cpp:8928</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l08947">8947</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 8947</span>                                     {</div>
+<div class="line"><span class="lineno"> 8948</span>    <span class="keyword">auto</span> tmp=<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html">can_map_all&lt;T&gt;::type_list</a>.begin();</div>
+<div class="line"><span class="lineno"> 8949</span>    <span class="keyword">auto</span> <a class="code hl_enumvalue" href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3a943b316e30627abf41a1133fe1cf5eb4">end</a>=<a class="code hl_struct" href="structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html">can_map_all&lt;T&gt;::type_list</a>.end();</div>
+<div class="line"><span class="lineno"> 8950</span>    <span class="keywordflow">while</span>(tmp!=end){</div>
+<div class="line"><span class="lineno"> 8951</span>        a(get_handle&lt;T,can_map_all&gt;(tmp++));</div>
+<div class="line"><span class="lineno"> 8952</span>    }</div>
+<div class="line"><span class="lineno"> 8953</span>}</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1stream__n_html_a1ae307d710e1d2219d15bf6886cfb9f3a943b316e30627abf41a1133fe1cf5eb4"><div class="ttname"><a href="namespaceelc_1_1defs_1_1stream__n.html#a1ae307d710e1d2219d15bf6886cfb9f3a943b316e30627abf41a1133fe1cf5eb4">elc::defs::stream_n::end</a></div><div class="ttdeci">@ end</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l12348">all_defs.cpp:12348</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all_html"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1others__n_1_1can__map__all.html">elc::defs::memory::others_n::can_map_all</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l08934">all_defs.cpp:8934</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

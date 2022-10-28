@@ -176,12 +176,12 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00629">629</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  629</span>                                                                                    {</div>
-<div class="line"><span class="lineno">  630</span>                                _offset++;</div>
-<div class="line"><span class="lineno">  631</span>                                <span class="keywordflow">if</span>(_offset==rot_offset_npos)</div>
-<div class="line"><span class="lineno">  632</span>                                    _offset=0;</div>
-<div class="line"><span class="lineno">  633</span>                                <span class="keywordflow">return</span>*<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  634</span>                            }</div>
+<div class="fragment"><div class="line"><span class="lineno">  629</span>                                                                {</div>
+<div class="line"><span class="lineno">  630</span>            _offset++;</div>
+<div class="line"><span class="lineno">  631</span>            <span class="keywordflow">if</span>(_offset==rot_offset_npos)</div>
+<div class="line"><span class="lineno">  632</span>                _offset=0;</div>
+<div class="line"><span class="lineno">  633</span>            <span class="keywordflow">return</span>*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  634</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -212,11 +212,11 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00641">641</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  641</span>                                                                                       {</div>
-<div class="line"><span class="lineno">  642</span>                                <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a7e37dd2481562307bf6d2ce62bd9a7ac">rot_iterator</a> tmp(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  643</span>                                <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#ae8954338b9127a7f775fb2ef4ce1894d">operator++</a>();</div>
-<div class="line"><span class="lineno">  644</span>                                <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno">  645</span>                            }</div>
+<div class="fragment"><div class="line"><span class="lineno">  641</span>                                                                   {</div>
+<div class="line"><span class="lineno">  642</span>            <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a7e37dd2481562307bf6d2ce62bd9a7ac">rot_iterator</a> tmp(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  643</span>            <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#ae8954338b9127a7f775fb2ef4ce1894d">operator++</a>();</div>
+<div class="line"><span class="lineno">  644</span>            <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno">  645</span>        }</div>
 <div class="ttc" id="aclasselc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator_html_a7e37dd2481562307bf6d2ce62bd9a7ac"><div class="ttname"><a href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a7e37dd2481562307bf6d2ce62bd9a7ac">elc::defs::base::magic_number::rot_iterator::rot_iterator</a></div><div class="ttdeci">constexpr rot_iterator(size_t offset) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00628">all_defs.cpp:628</a></div></div>
 <div class="ttc" id="aclasselc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator_html_ae8954338b9127a7f775fb2ef4ce1894d"><div class="ttname"><a href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#ae8954338b9127a7f775fb2ef4ce1894d">elc::defs::base::magic_number::rot_iterator::operator++</a></div><div class="ttdeci">constexpr rot_iterator &amp; operator++() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00629">all_defs.cpp:629</a></div></div>
 </div><!-- fragment -->
@@ -248,12 +248,12 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00635">635</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  635</span>                                                                                    {</div>
-<div class="line"><span class="lineno">  636</span>                                <span class="keywordflow">if</span>(_offset==0)</div>
-<div class="line"><span class="lineno">  637</span>                                    _offset=rot_offset_npos;</div>
-<div class="line"><span class="lineno">  638</span>                                _offset--;</div>
-<div class="line"><span class="lineno">  639</span>                                <span class="keywordflow">return</span>*<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  640</span>                            }</div>
+<div class="fragment"><div class="line"><span class="lineno">  635</span>                                                                {</div>
+<div class="line"><span class="lineno">  636</span>            <span class="keywordflow">if</span>(_offset==0)</div>
+<div class="line"><span class="lineno">  637</span>                _offset=rot_offset_npos;</div>
+<div class="line"><span class="lineno">  638</span>            _offset--;</div>
+<div class="line"><span class="lineno">  639</span>            <span class="keywordflow">return</span>*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  640</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -284,11 +284,11 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00646">646</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  646</span>                                                                                       {</div>
-<div class="line"><span class="lineno">  647</span>                                <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a7e37dd2481562307bf6d2ce62bd9a7ac">rot_iterator</a> tmp(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  648</span>                                <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a386c487ff86813fe7d0217133346df34">operator--</a>();</div>
-<div class="line"><span class="lineno">  649</span>                                <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno">  650</span>                            }</div>
+<div class="fragment"><div class="line"><span class="lineno">  646</span>                                                                   {</div>
+<div class="line"><span class="lineno">  647</span>            <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a7e37dd2481562307bf6d2ce62bd9a7ac">rot_iterator</a> tmp(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  648</span>            <a class="code hl_function" href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a386c487ff86813fe7d0217133346df34">operator--</a>();</div>
+<div class="line"><span class="lineno">  649</span>            <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno">  650</span>        }</div>
 <div class="ttc" id="aclasselc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator_html_a386c487ff86813fe7d0217133346df34"><div class="ttname"><a href="classelc_1_1defs_1_1base_1_1magic__number_1_1rot__iterator.html#a386c487ff86813fe7d0217133346df34">elc::defs::base::magic_number::rot_iterator::operator--</a></div><div class="ttdeci">constexpr rot_iterator &amp; operator--() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00635">all_defs.cpp:635</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 这是这个函数的调用关系图:</div>
@@ -324,9 +324,9 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l00651">651</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">  651</span>                                                                                            {</div>
-<div class="line"><span class="lineno">  652</span>                                <span class="keywordflow">return</span> _offset;</div>
-<div class="line"><span class="lineno">  653</span>                            }</div>
+<div class="fragment"><div class="line"><span class="lineno">  651</span>                                                                        {</div>
+<div class="line"><span class="lineno">  652</span>            <span class="keywordflow">return</span> _offset;</div>
+<div class="line"><span class="lineno">  653</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>

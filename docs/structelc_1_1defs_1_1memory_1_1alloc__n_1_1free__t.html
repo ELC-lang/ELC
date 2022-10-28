@@ -124,7 +124,7 @@ Public 成员函数</h2></td></tr>
 <div class="textblock"><p >用于对特定类型进行free </p>
 <dl class="section warning"><dt>警告</dt><dd>这个类不会对类实例进行析构，如需要进行new like操作，请使用 get_t &amp; unget_t </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07293">7293</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07309">7309</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="ad2c494f8a0a1ce59e38b7bb0fe2544ef" name="ad2c494f8a0a1ce59e38b7bb0fe2544ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2c494f8a0a1ce59e38b7bb0fe2544ef">&#9670;&#160;</a></span>base_t</h2>
@@ -138,7 +138,7 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07294">7294</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07310">7310</a> 行定义.</p>
 
 </div>
 </div>
@@ -169,13 +169,13 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07296">7296</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7296</span>                                                          {</div>
-<div class="line"><span class="lineno"> 7297</span>                            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
-<div class="line"><span class="lineno"> 7298</span>                            <span class="keywordflow">if</span>(p!=null_ptr)<span class="comment">//null_ptr不一定等价于nullptr，请勿删除本行</span></div>
-<div class="line"><span class="lineno"> 7299</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#a546d582d5726be98333babb6b18bab1a">free_method</a>(p);</div>
-<div class="line"><span class="lineno"> 7300</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_a546d582d5726be98333babb6b18bab1a"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#a546d582d5726be98333babb6b18bab1a">elc::defs::memory::alloc_n::free_method</a></div><div class="ttdeci">void free_method(T *arg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07234">all_defs.cpp:7234</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07312">7312</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7312</span>                                          {</div>
+<div class="line"><span class="lineno"> 7313</span>            <span class="keyword">const</span> APIs::alloc::source_location_guard slg{1};</div>
+<div class="line"><span class="lineno"> 7314</span>            <span class="keywordflow">if</span>(p!=null_ptr)<span class="comment">//null_ptr不一定等价于nullptr，请勿删除本行</span></div>
+<div class="line"><span class="lineno"> 7315</span>                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#a546d582d5726be98333babb6b18bab1a">free_method</a>(p);</div>
+<div class="line"><span class="lineno"> 7316</span>        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1alloc__n_html_a546d582d5726be98333babb6b18bab1a"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1alloc__n.html#a546d582d5726be98333babb6b18bab1a">elc::defs::memory::alloc_n::free_method</a></div><div class="ttdeci">void free_method(T *arg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07250">all_defs.cpp:7250</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 函数调用图:</div>
 <div class="dyncontent">
@@ -210,9 +210,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07302">7302</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7302</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t.html#a89530db4448e30ea17888e723c59a2b1">base_call</a>(p);}</div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t_html_a89530db4448e30ea17888e723c59a2b1"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t.html#a89530db4448e30ea17888e723c59a2b1">elc::defs::memory::alloc_n::free_t::base_call</a></div><div class="ttdeci">static void base_call(T *p) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07296">all_defs.cpp:7296</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07318">7318</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7318</span>{<a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t.html#a89530db4448e30ea17888e723c59a2b1">base_call</a>(p);}</div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t_html_a89530db4448e30ea17888e723c59a2b1"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t.html#a89530db4448e30ea17888e723c59a2b1">elc::defs::memory::alloc_n::free_t::base_call</a></div><div class="ttdeci">static void base_call(T *p) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07312">all_defs.cpp:7312</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

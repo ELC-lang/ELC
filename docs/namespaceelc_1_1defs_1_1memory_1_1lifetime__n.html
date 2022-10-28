@@ -247,18 +247,18 @@ requires (::std::is_trivially_copyable_v&lt;T&gt;)</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05739">5739</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5739</span>                                                                                                 {</div>
-<div class="line"><span class="lineno"> 5740</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<span class="keyword">sizeof</span>(T)&gt;=<span class="keyword">sizeof</span>(::std::max_align_t))</div>
-<div class="line"><span class="lineno"> 5741</span>                            <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396">is_all_byte_zero</a>(value))</div>
-<div class="line"><span class="lineno"> 5742</span>                                ::std::memset(to,zero,<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 5743</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 5744</span>                                *to=value;</div>
-<div class="line"><span class="lineno"> 5745</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 5746</span>                            *to=value;</div>
-<div class="line"><span class="lineno"> 5747</span>                        <span class="keywordflow">return</span> to;</div>
-<div class="line"><span class="lineno"> 5748</span>                    }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a1677dba1ac38f01832381c3bcb216396"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396">elc::defs::base::is_all_byte_zero</a></div><div class="ttdeci">constexpr bool is_all_byte_zero(T &amp;&amp;a)</div><div class="ttdoc">Returns true if all bytes in the input are zero.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03319">all_defs.cpp:3319</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05756">5756</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5756</span>                                                                                 {</div>
+<div class="line"><span class="lineno"> 5757</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<span class="keyword">sizeof</span>(T)&gt;=<span class="keyword">sizeof</span>(::std::max_align_t))</div>
+<div class="line"><span class="lineno"> 5758</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396">is_all_byte_zero</a>(value))</div>
+<div class="line"><span class="lineno"> 5759</span>                ::std::memset(to,zero,<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 5760</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5761</span>                *to=value;</div>
+<div class="line"><span class="lineno"> 5762</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5763</span>            *to=value;</div>
+<div class="line"><span class="lineno"> 5764</span>        <span class="keywordflow">return</span> to;</div>
+<div class="line"><span class="lineno"> 5765</span>    }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a1677dba1ac38f01832381c3bcb216396"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396">elc::defs::base::is_all_byte_zero</a></div><div class="ttdeci">constexpr bool is_all_byte_zero(T &amp;&amp;a)</div><div class="ttdoc">Returns true if all bytes in the input are zero.</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l03337">all_defs.cpp:3337</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -305,20 +305,20 @@ requires (::std::is_trivially_copyable_v&lt;T&gt;)</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05726">5726</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5726</span>                                                                                                             {</div>
-<div class="line"><span class="lineno"> 5727</span>                        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<span class="keyword">sizeof</span>(T)==<span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>))</div>
-<div class="line"><span class="lineno"> 5728</span>                            ::std::memset((<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)to,(<span class="keywordtype">unsigned</span> char)value,size);</div>
-<div class="line"><span class="lineno"> 5729</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<span class="keyword">sizeof</span>(T)==<span class="keyword">sizeof</span>(<span class="keywordtype">wchar_t</span>))</div>
-<div class="line"><span class="lineno"> 5730</span>                            ::std::wmemset((<span class="keywordtype">wchar_t</span>*)to,(wchar_t)value,size);</div>
-<div class="line"><span class="lineno"> 5731</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 5732</span>                            <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396">is_all_byte_zero</a>(value))</div>
-<div class="line"><span class="lineno"> 5733</span>                                ::std::memset(to,zero,size*<span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno"> 5734</span>                            else</div>
-<div class="line"><span class="lineno"> 5735</span>                                ::std::fill_n(to,size,value);</div>
-<div class="line"><span class="lineno"> 5736</span>                        <span class="keywordflow">return</span> to;</div>
-<div class="line"><span class="lineno"> 5737</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05743">5743</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5743</span>                                                                                             {</div>
+<div class="line"><span class="lineno"> 5744</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<span class="keyword">sizeof</span>(T)==<span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>))</div>
+<div class="line"><span class="lineno"> 5745</span>            ::std::memset((<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)to,(<span class="keywordtype">unsigned</span> char)value,size);</div>
+<div class="line"><span class="lineno"> 5746</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a> <span class="keyword">constexpr</span>(<span class="keyword">sizeof</span>(T)==<span class="keyword">sizeof</span>(<span class="keywordtype">wchar_t</span>))</div>
+<div class="line"><span class="lineno"> 5747</span>            ::std::wmemset((<span class="keywordtype">wchar_t</span>*)to,(wchar_t)value,size);</div>
+<div class="line"><span class="lineno"> 5748</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5749</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#a1677dba1ac38f01832381c3bcb216396">is_all_byte_zero</a>(value))</div>
+<div class="line"><span class="lineno"> 5750</span>                ::std::memset(to,zero,size*<span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno"> 5751</span>            else</div>
+<div class="line"><span class="lineno"> 5752</span>                ::std::fill_n(to,size,value);</div>
+<div class="line"><span class="lineno"> 5753</span>        <span class="keywordflow">return</span> to;</div>
+<div class="line"><span class="lineno"> 5754</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25217">all_defs.cpp:25217</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -347,7 +347,7 @@ template&lt;typename T &gt; </div>
 <p >constexpr变量模板，用于构造实例 用法： construct&lt;类型&gt;.able&lt;构造参数类型&gt; -&gt; bool construct&lt;类型&gt;.nothrow&lt;构造参数类型&gt; -&gt; bool construct&lt;T&gt;(参数) -&gt; T （以参数构建T类型实例）</p>
 <p >construct&lt;T&gt;[T*ptr](参数) -&gt; T* （以参数在ptr地址处构建T类型实例，返回ptr） construct&lt;T&gt;[T*ptr][size_t size](参数) -&gt; T* （以参数在ptr地址处构建size个T类型实例，返回ptr） </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05847">5847</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05864">5864</a> 行定义.</p>
 
 </div>
 </div>
@@ -373,7 +373,7 @@ template&lt;class T , class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05676">5676</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05693">5693</a> 行定义.</p>
 
 </div>
 </div>
@@ -399,7 +399,7 @@ template&lt;class T , class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05678">5678</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05695">5695</a> 行定义.</p>
 
 </div>
 </div>
@@ -425,7 +425,7 @@ template&lt;class T , class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05680">5680</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05697">5697</a> 行定义.</p>
 
 </div>
 </div>
@@ -479,7 +479,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05710">5710</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05727">5727</a> 行定义.</p>
 
 </div>
 </div>
@@ -505,7 +505,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05712">5712</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05729">5729</a> 行定义.</p>
 
 </div>
 </div>
@@ -531,7 +531,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05714">5714</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05731">5731</a> 行定义.</p>
 
 </div>
 </div>
@@ -571,7 +571,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05693">5693</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05710">5710</a> 行定义.</p>
 
 </div>
 </div>
@@ -597,7 +597,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05695">5695</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05712">5712</a> 行定义.</p>
 
 </div>
 </div>
@@ -623,7 +623,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05697">5697</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05714">5714</a> 行定义.</p>
 
 </div>
 </div>
@@ -663,7 +663,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05684">5684</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05701">5701</a> 行定义.</p>
 
 </div>
 </div>
@@ -689,7 +689,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05686">5686</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05703">5703</a> 行定义.</p>
 
 </div>
 </div>
@@ -715,7 +715,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05688">5688</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05705">5705</a> 行定义.</p>
 
 </div>
 </div>
@@ -769,7 +769,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05718">5718</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05735">5735</a> 行定义.</p>
 
 </div>
 </div>
@@ -795,7 +795,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05720">5720</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05737">5737</a> 行定义.</p>
 
 </div>
 </div>
@@ -821,7 +821,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05722">5722</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05739">5739</a> 行定义.</p>
 
 </div>
 </div>
@@ -861,7 +861,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05701">5701</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05718">5718</a> 行定义.</p>
 
 </div>
 </div>
@@ -887,7 +887,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05703">5703</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05720">5720</a> 行定义.</p>
 
 </div>
 </div>
@@ -913,7 +913,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05705">5705</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05722">5722</a> 行定义.</p>
 
 </div>
 </div>

@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('namespaceelc_1_1defs_1_1string__n.html
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l12984">12984</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l12990">12990</a> 行定义.</p>
 
 </div>
 </div>
@@ -223,29 +223,29 @@ template&lt;class char_T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l19837">19837</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">19837</span>                                                                                   {</div>
-<div class="line"><span class="lineno">19838</span>                            <span class="keywordtype">size_t</span> i=size_t(use_as&lt;int_t&gt;(index));</div>
-<div class="line"><span class="lineno">19839</span>                            <span class="keywordflow">if</span>(!i)</div>
-<div class="line"><span class="lineno">19840</span>                                i=size_t(use_as&lt;uint_t&gt;(index));</div>
-<div class="line"><span class="lineno">19841</span>                            <span class="keyword">struct </span>arec_data_t final:instance_struct&lt;arec_data_t&gt;</div>
-<div class="line"><span class="lineno">19842</span>                            ,value::base_data_t{</div>
-<div class="line"><span class="lineno">19843</span>                                <span class="keyword">typename</span> <a class="code hl_class" href="classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html">string_t&lt;char_T&gt;::arec_t</a> <a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>;</div>
-<div class="line"><span class="lineno">19844</span>                                arec_data_t(<a class="code hl_struct" href="structelc_1_1defs_1_1string__n_1_1string__t.html">string_t&lt;char_T&gt;</a>&amp;str,<span class="keywordtype">size_t</span> index)<span class="keyword">noexcept</span>:<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>(&amp;str,index){};</div>
-<div class="line"><span class="lineno">19845</span>                                arec_data_t(<span class="keyword">const</span> arec_data_t&amp;ref)<span class="keyword">noexcept</span>:<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>(special_init,ref._m){}</div>
-<div class="line"><span class="lineno">19846</span>                                <span class="keyword">virtual</span> ~arec_data_t()noexcept override final=default;</div>
-<div class="line"><span class="lineno">19847</span> </div>
-<div class="line"><span class="lineno">19848</span>                                virtual <span class="keywordtype">void</span> be_set(ptr a)noexcept override final{move(<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>)=use_as&lt;char_T&gt;(a);}</div>
-<div class="line"><span class="lineno">19849</span>                                [[nodiscard]]<span class="keyword">virtual</span> ptr get_value()noexcept override final{<span class="keywordflow">return</span> core::make_binary_node_from&lt;char_T&gt;(move(<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>));}</div>
-<div class="line"><span class="lineno">19850</span>                                [[nodiscard]]<span class="keyword">virtual</span> base_data_t*<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#af6550290985c53a3ba8a0a37f435a583">copy</a>()const noexcept override final{<span class="keywordflow">return</span> get&lt;arec_data_t&gt;(*<span class="keyword">this</span>);}</div>
-<div class="line"><span class="lineno">19851</span>                                [[nodiscard]]<span class="keyword">virtual</span> base_type_info_t get_type_info()const noexcept override final{<span class="keywordflow">return</span> type_info&lt;arec_data_t&gt;;}</div>
-<div class="line"><span class="lineno">19852</span>                            };</div>
-<div class="line"><span class="lineno">19853</span>                            <span class="keywordflow">return</span> get&lt;arec_data_t&gt;(str,i);</div>
-<div class="line"><span class="lineno">19854</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a998992aaf8201b8d6133195f2b0d6c0c"><div class="ttname"><a href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a></div><div class="ttdeci">#define _m</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17484">all_defs.cpp:17484</a></div></div>
-<div class="ttc" id="aclasselc_1_1defs_1_1string__n_1_1string__t_1_1arec__t_html"><div class="ttname"><a href="classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html">elc::defs::string_n::string_t::arec_t</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17752">all_defs.cpp:17752</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l19851">19851</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">19851</span>                                                                   {</div>
+<div class="line"><span class="lineno">19852</span>            <span class="keywordtype">size_t</span> i=size_t(use_as&lt;int_t&gt;(index));</div>
+<div class="line"><span class="lineno">19853</span>            <span class="keywordflow">if</span>(!i)</div>
+<div class="line"><span class="lineno">19854</span>                i=size_t(use_as&lt;uint_t&gt;(index));</div>
+<div class="line"><span class="lineno">19855</span>            <span class="keyword">struct </span>arec_data_t final:instance_struct&lt;arec_data_t&gt;</div>
+<div class="line"><span class="lineno">19856</span>            ,value::base_data_t{</div>
+<div class="line"><span class="lineno">19857</span>                <span class="keyword">typename</span> <a class="code hl_class" href="classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html">string_t&lt;char_T&gt;::arec_t</a> <a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>;</div>
+<div class="line"><span class="lineno">19858</span>                arec_data_t(<a class="code hl_struct" href="structelc_1_1defs_1_1string__n_1_1string__t.html">string_t&lt;char_T&gt;</a>&amp;str,<span class="keywordtype">size_t</span> index)<span class="keyword">noexcept</span>:<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>(&amp;str,index){};</div>
+<div class="line"><span class="lineno">19859</span>                arec_data_t(<span class="keyword">const</span> arec_data_t&amp;ref)<span class="keyword">noexcept</span>:<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>(special_init,ref._m){}</div>
+<div class="line"><span class="lineno">19860</span>                <span class="keyword">virtual</span> ~arec_data_t()noexcept override final=default;</div>
+<div class="line"><span class="lineno">19861</span> </div>
+<div class="line"><span class="lineno">19862</span>                virtual <span class="keywordtype">void</span> be_set(ptr a)noexcept override final{move(<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>)=use_as&lt;char_T&gt;(a);}</div>
+<div class="line"><span class="lineno">19863</span>                [[nodiscard]]<span class="keyword">virtual</span> ptr get_value()noexcept override final{<span class="keywordflow">return</span> core::make_binary_node_from&lt;char_T&gt;(move(<a class="code hl_define" href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a>));}</div>
+<div class="line"><span class="lineno">19864</span>                [[nodiscard]]<span class="keyword">virtual</span> base_data_t*<a class="code hl_variable" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#af6550290985c53a3ba8a0a37f435a583">copy</a>()const noexcept override final{<span class="keywordflow">return</span> get&lt;arec_data_t&gt;(*<span class="keyword">this</span>);}</div>
+<div class="line"><span class="lineno">19865</span>                [[nodiscard]]<span class="keyword">virtual</span> base_type_info_t get_type_info()const noexcept override final{<span class="keywordflow">return</span> type_info&lt;arec_data_t&gt;;}</div>
+<div class="line"><span class="lineno">19866</span>            };</div>
+<div class="line"><span class="lineno">19867</span>            <span class="keywordflow">return</span> get&lt;arec_data_t&gt;(str,i);</div>
+<div class="line"><span class="lineno">19868</span>        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a998992aaf8201b8d6133195f2b0d6c0c"><div class="ttname"><a href="all__defs_8cpp.html#a998992aaf8201b8d6133195f2b0d6c0c">_m</a></div><div class="ttdeci">#define _m</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17518">all_defs.cpp:17518</a></div></div>
+<div class="ttc" id="aclasselc_1_1defs_1_1string__n_1_1string__t_1_1arec__t_html"><div class="ttname"><a href="classelc_1_1defs_1_1string__n_1_1string__t_1_1arec__t.html">elc::defs::string_n::string_t::arec_t</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17766">all_defs.cpp:17766</a></div></div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_af6550290985c53a3ba8a0a37f435a583"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#af6550290985c53a3ba8a0a37f435a583">elc::defs::memory::lifetime_n::copy</a></div><div class="ttdeci">constexpr struct elc::defs::memory::lifetime_n::copy_t copy</div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html">elc::defs::string_n::string_t</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17446">all_defs.cpp:17446</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html">elc::defs::string_n::string_t</a></div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17480">all_defs.cpp:17480</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -275,9 +275,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18367">18367</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18367</span>{ <span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">c_str</a>(); }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html_aecda51752bc54bbf5a5ca2dcc5a8282f"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">elc::defs::string_n::string_t::c_str</a></div><div class="ttdeci">const char_T * c_str() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17884">all_defs.cpp:17884</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18381">18381</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18381</span>{ <span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">c_str</a>(); }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html_aecda51752bc54bbf5a5ca2dcc5a8282f"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">elc::defs::string_n::string_t::c_str</a></div><div class="ttdeci">const char_T * c_str() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17898">all_defs.cpp:17898</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -307,8 +307,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18365">18365</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18365</span>{ <span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">c_str</a>(); }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18379">18379</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18379</span>{ <span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">c_str</a>(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -337,10 +337,10 @@ template&lt;<a class="el" href="structelc_1_1defs_1_1base_1_1constexpr__str__n_1
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l19285">19285</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">19285</span>                                                                           {</div>
-<div class="line"><span class="lineno">19286</span>                        <span class="keywordflow">return</span> <a class="code hl_struct" href="structelc_1_1defs_1_1string__n_1_1string__t.html">string</a>(constexpr_str_n::operator<span class="stringliteral">&quot;&quot;</span>_constexpr_str&lt;str_helper&gt;());</div>
-<div class="line"><span class="lineno">19287</span>                    }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l19299">19299</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">19299</span>                                                           {</div>
+<div class="line"><span class="lineno">19300</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structelc_1_1defs_1_1string__n_1_1string__t.html">string</a>(constexpr_str_n::operator<span class="stringliteral">&quot;&quot;</span>_constexpr_str&lt;str_helper&gt;());</div>
+<div class="line"><span class="lineno">19301</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -372,58 +372,58 @@ template&lt;typename some_fucking_std_ostream , typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18311">18311</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18311</span>                                                                                                       {</div>
-<div class="line"><span class="lineno">18312</span>                        <span class="keyword">typedef</span> some_fucking_std_ostream stream_t;</div>
-<div class="line"><span class="lineno">18313</span>                        <span class="keyword">typedef</span> stream_t::traits_type    traits_t;</div>
-<div class="line"><span class="lineno">18314</span>                        <span class="keyword">typename</span> stream_t::iostate       state = stream_t::goodbit;</div>
-<div class="line"><span class="lineno">18315</span> </div>
-<div class="line"><span class="lineno">18316</span>                        <a class="code hl_define" href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a>(26494);<span class="comment">//未初始化警告diss</span></div>
-<div class="line"><span class="lineno">18317</span>                        <span class="keywordtype">size_t</span> pad;</div>
-<div class="line"><span class="lineno">18318</span>                        <span class="keywordtype">size_t</span> size = str.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#a0e8ed3f8eb3c1ca049b494100580fa5c">size</a>();</div>
-<div class="line"><span class="lineno">18319</span>                        <span class="keywordflow">if</span>(stream.width() &lt;= 0 || <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(stream.width()) &lt;= size)</div>
-<div class="line"><span class="lineno">18320</span>                            pad = 0;</div>
-<div class="line"><span class="lineno">18321</span>                        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">18322</span>                            pad = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(stream.width()) - size;</div>
-<div class="line"><span class="lineno">18323</span> </div>
-<div class="line"><span class="lineno">18324</span>                        <span class="keyword">const</span> <span class="keyword">typename</span> stream_t::sentry isok(stream);</div>
-<div class="line"><span class="lineno">18325</span> </div>
-<div class="line"><span class="lineno">18326</span>                        <span class="keywordflow">if</span>(!isok)</div>
-<div class="line"><span class="lineno">18327</span>                            state |= stream_t::badbit;</div>
-<div class="line"><span class="lineno">18328</span>                        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">18329</span>                            <span class="keywordflow">try</span> {</div>
-<div class="line"><span class="lineno">18330</span>                                <span class="keywordflow">if</span>((stream.flags() &amp; stream_t::adjustfield) != stream_t::left){</div>
-<div class="line"><span class="lineno">18331</span>                                    <span class="keywordflow">for</span>(; 0 &lt; pad; --pad){        <span class="comment">// pad on left</span></div>
-<div class="line"><span class="lineno">18332</span>                                        <span class="keywordflow">if</span>(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()-&gt;sputc(stream.fill()))){</div>
-<div class="line"><span class="lineno">18333</span>                                            state |= stream_t::badbit;       <span class="comment">// insertion failed, quit</span></div>
-<div class="line"><span class="lineno">18334</span>                                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">18335</span>                                        }</div>
-<div class="line"><span class="lineno">18336</span>                                    }</div>
-<div class="line"><span class="lineno">18337</span>                                }</div>
-<div class="line"><span class="lineno">18338</span> </div>
-<div class="line"><span class="lineno">18339</span>                                <span class="keywordflow">if</span>(state == stream_t::goodbit &amp;&amp; stream.rdbuf()-&gt;sputn(str.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">c_str</a>(), <span class="keyword">static_cast&lt;</span>::std::streamsize<span class="keyword">&gt;</span>(size)) != <span class="keyword">static_cast&lt;</span>::std::streamsize<span class="keyword">&gt;</span>(size))</div>
-<div class="line"><span class="lineno">18340</span>                                    state |= stream_t::badbit;</div>
-<div class="line"><span class="lineno">18341</span>                                <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">18342</span>                                    <span class="keywordflow">for</span>(; 0 &lt; pad; --pad){        <span class="comment">// pad on right</span></div>
-<div class="line"><span class="lineno">18343</span>                                        <span class="keywordflow">if</span>(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()-&gt;sputc(stream.fill()))){</div>
-<div class="line"><span class="lineno">18344</span>                                            state |= stream_t::badbit;       <span class="comment">// insertion failed, quit</span></div>
-<div class="line"><span class="lineno">18345</span>                                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">18346</span>                                        }</div>
-<div class="line"><span class="lineno">18347</span>                                    }</div>
-<div class="line"><span class="lineno">18348</span>                                }</div>
-<div class="line"><span class="lineno">18349</span> </div>
-<div class="line"><span class="lineno">18350</span>                                stream.width(0);</div>
-<div class="line"><span class="lineno">18351</span>                            }</div>
-<div class="line"><span class="lineno">18352</span>                            <span class="keywordflow">catch</span>(...){</div>
-<div class="line"><span class="lineno">18353</span>                                stream.setstate(stream_t::badbit, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">18354</span>                                <span class="keywordflow">return</span> stream;</div>
-<div class="line"><span class="lineno">18355</span>                            }</div>
-<div class="line"><span class="lineno">18356</span>                        }</div>
-<div class="line"><span class="lineno">18357</span>                        stream.setstate(state);</div>
-<div class="line"><span class="lineno">18358</span>                        <span class="keywordflow">return</span> stream;</div>
-<div class="line"><span class="lineno">18359</span>                    }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25087">all_defs.cpp:25087</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html_a0e8ed3f8eb3c1ca049b494100580fa5c"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html#a0e8ed3f8eb3c1ca049b494100580fa5c">elc::defs::string_n::string_t::size</a></div><div class="ttdeci">size_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17886">all_defs.cpp:17886</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18325">18325</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18325</span>                                                                                       {</div>
+<div class="line"><span class="lineno">18326</span>        <span class="keyword">typedef</span> some_fucking_std_ostream stream_t;</div>
+<div class="line"><span class="lineno">18327</span>        <span class="keyword">typedef</span> stream_t::traits_type    traits_t;</div>
+<div class="line"><span class="lineno">18328</span>        <span class="keyword">typename</span> stream_t::iostate       state = stream_t::goodbit;</div>
+<div class="line"><span class="lineno">18329</span> </div>
+<div class="line"><span class="lineno">18330</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a>(26494);<span class="comment">//未初始化警告diss</span></div>
+<div class="line"><span class="lineno">18331</span>        <span class="keywordtype">size_t</span> pad;</div>
+<div class="line"><span class="lineno">18332</span>        <span class="keywordtype">size_t</span> size = str.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#a0e8ed3f8eb3c1ca049b494100580fa5c">size</a>();</div>
+<div class="line"><span class="lineno">18333</span>        <span class="keywordflow">if</span>(stream.width() &lt;= 0 || <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(stream.width()) &lt;= size)</div>
+<div class="line"><span class="lineno">18334</span>            pad = 0;</div>
+<div class="line"><span class="lineno">18335</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">18336</span>            pad = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(stream.width()) - size;</div>
+<div class="line"><span class="lineno">18337</span> </div>
+<div class="line"><span class="lineno">18338</span>        <span class="keyword">const</span> <span class="keyword">typename</span> stream_t::sentry isok(stream);</div>
+<div class="line"><span class="lineno">18339</span> </div>
+<div class="line"><span class="lineno">18340</span>        <span class="keywordflow">if</span>(!isok)</div>
+<div class="line"><span class="lineno">18341</span>            state |= stream_t::badbit;</div>
+<div class="line"><span class="lineno">18342</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">18343</span>            <span class="keywordflow">try</span> {</div>
+<div class="line"><span class="lineno">18344</span>                <span class="keywordflow">if</span>((stream.flags() &amp; stream_t::adjustfield) != stream_t::left){</div>
+<div class="line"><span class="lineno">18345</span>                    <span class="keywordflow">for</span>(; 0 &lt; pad; --pad){        <span class="comment">// pad on left</span></div>
+<div class="line"><span class="lineno">18346</span>                        <span class="keywordflow">if</span>(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()-&gt;sputc(stream.fill()))){</div>
+<div class="line"><span class="lineno">18347</span>                            state |= stream_t::badbit;       <span class="comment">// insertion failed, quit</span></div>
+<div class="line"><span class="lineno">18348</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">18349</span>                        }</div>
+<div class="line"><span class="lineno">18350</span>                    }</div>
+<div class="line"><span class="lineno">18351</span>                }</div>
+<div class="line"><span class="lineno">18352</span> </div>
+<div class="line"><span class="lineno">18353</span>                <span class="keywordflow">if</span>(state == stream_t::goodbit &amp;&amp; stream.rdbuf()-&gt;sputn(str.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#aecda51752bc54bbf5a5ca2dcc5a8282f">c_str</a>(), <span class="keyword">static_cast&lt;</span>::std::streamsize<span class="keyword">&gt;</span>(size)) != <span class="keyword">static_cast&lt;</span>::std::streamsize<span class="keyword">&gt;</span>(size))</div>
+<div class="line"><span class="lineno">18354</span>                    state |= stream_t::badbit;</div>
+<div class="line"><span class="lineno">18355</span>                <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">18356</span>                    <span class="keywordflow">for</span>(; 0 &lt; pad; --pad){        <span class="comment">// pad on right</span></div>
+<div class="line"><span class="lineno">18357</span>                        <span class="keywordflow">if</span>(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()-&gt;sputc(stream.fill()))){</div>
+<div class="line"><span class="lineno">18358</span>                            state |= stream_t::badbit;       <span class="comment">// insertion failed, quit</span></div>
+<div class="line"><span class="lineno">18359</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">18360</span>                        }</div>
+<div class="line"><span class="lineno">18361</span>                    }</div>
+<div class="line"><span class="lineno">18362</span>                }</div>
+<div class="line"><span class="lineno">18363</span> </div>
+<div class="line"><span class="lineno">18364</span>                stream.width(0);</div>
+<div class="line"><span class="lineno">18365</span>            }</div>
+<div class="line"><span class="lineno">18366</span>            <span class="keywordflow">catch</span>(...){</div>
+<div class="line"><span class="lineno">18367</span>                stream.setstate(stream_t::badbit, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">18368</span>                <span class="keywordflow">return</span> stream;</div>
+<div class="line"><span class="lineno">18369</span>            }</div>
+<div class="line"><span class="lineno">18370</span>        }</div>
+<div class="line"><span class="lineno">18371</span>        stream.setstate(state);</div>
+<div class="line"><span class="lineno">18372</span>        <span class="keywordflow">return</span> stream;</div>
+<div class="line"><span class="lineno">18373</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6fcd9b6fa1cf95d6a21da90829ddc024"><div class="ttname"><a href="all__defs_8cpp.html#a6fcd9b6fa1cf95d6a21da90829ddc024">suppress_msvc_warning</a></div><div class="ttdeci">#define suppress_msvc_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25101">all_defs.cpp:25101</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html_a0e8ed3f8eb3c1ca049b494100580fa5c"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html#a0e8ed3f8eb3c1ca049b494100580fa5c">elc::defs::string_n::string_t::size</a></div><div class="ttdeci">size_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17900">all_defs.cpp:17900</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -453,8 +453,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18363">18363</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18363</span>{ <span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#a0e8ed3f8eb3c1ca049b494100580fa5c">size</a>(); }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18377">18377</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18377</span>{ <span class="keywordflow">return</span> a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#a0e8ed3f8eb3c1ca049b494100580fa5c">size</a>(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -534,9 +534,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18307">18307</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno">18307</span>{ a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#ab7bef4f78c7631f4f7deffb3b2d97e70">swap_with</a>(b); }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html_ab7bef4f78c7631f4f7deffb3b2d97e70"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html#ab7bef4f78c7631f4f7deffb3b2d97e70">elc::defs::string_n::string_t::swap_with</a></div><div class="ttdeci">void swap_with(this_t &amp;a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17561">all_defs.cpp:17561</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l18321">18321</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">18321</span>{ a.<a class="code hl_function" href="structelc_1_1defs_1_1string__n_1_1string__t.html#ab7bef4f78c7631f4f7deffb3b2d97e70">swap_with</a>(b); }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1string__n_1_1string__t_html_ab7bef4f78c7631f4f7deffb3b2d97e70"><div class="ttname"><a href="structelc_1_1defs_1_1string__n_1_1string__t.html#ab7bef4f78c7631f4f7deffb3b2d97e70">elc::defs::string_n::string_t::swap_with</a></div><div class="ttdeci">void swap_with(this_t &amp;a) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l17595">all_defs.cpp:17595</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

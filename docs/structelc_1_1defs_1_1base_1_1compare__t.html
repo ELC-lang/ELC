@@ -182,7 +182,7 @@ Public 成员函数</h2></td></tr>
 <p >以字典序进行三路比较。 compare.lexicographical(T1,T2) compare.lexicographical(T1[N1],T2[N2]) compare.lexicographical(T1*,size1,T2*,size2) compare.lexicographical(T1*,T2*,size) 返回类型语义上是三路比较的结果类型,具体类型视情况而定.</p>
 <p >翻转三路比较的结果类型。 compare.reverse(order) 返回对应结果类型的反义，与零相等或无法比较时则返回其本身。 </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01552">1552</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01570">1570</a> 行定义.</p>
 </div><h2 class="groupheader">成员类型定义说明</h2>
 <a id="a63efeb4e3d6c518ec57d6fe6c1b173de" name="a63efeb4e3d6c518ec57d6fe6c1b173de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a63efeb4e3d6c518ec57d6fe6c1b173de">&#9670;&#160;</a></span>type</h2>
@@ -198,7 +198,7 @@ template&lt;class T , class U  = T&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01584">1584</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01602">1602</a> 行定义.</p>
 
 </div>
 </div>
@@ -239,16 +239,16 @@ template&lt;class T , class U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01573">1573</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1573</span>                                                                                                     {</div>
-<div class="line"><span class="lineno"> 1574</span>                            <span class="comment">//在 &lt;=&gt; 不可用时以 &lt; 和 == 为后备，优于直接 &lt;=&gt;</span></div>
-<div class="line"><span class="lineno"> 1575</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T,U&gt;)</div>
-<div class="line"><span class="lineno"> 1576</span>                                <span class="keywordflow">return</span> a&lt;=&gt;b;</div>
-<div class="line"><span class="lineno"> 1577</span>                            <span class="keywordflow">else</span> <span class="keywordflow">return</span> a == b  ? partial_ordering::equivalent  :</div>
-<div class="line"><span class="lineno"> 1578</span>                                        a &lt; b   ? partial_ordering::less        :</div>
-<div class="line"><span class="lineno"> 1579</span>                                        b &lt; a   ? partial_ordering::greater     :</div>
-<div class="line"><span class="lineno"> 1580</span>                                                  partial_ordering::unordered   ;</div>
-<div class="line"><span class="lineno"> 1581</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01591">1591</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1591</span>                                                                                 {</div>
+<div class="line"><span class="lineno"> 1592</span>        <span class="comment">//在 &lt;=&gt; 不可用时以 &lt; 和 == 为后备，优于直接 &lt;=&gt;</span></div>
+<div class="line"><span class="lineno"> 1593</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T,U&gt;)</div>
+<div class="line"><span class="lineno"> 1594</span>            <span class="keywordflow">return</span> a&lt;=&gt;b;</div>
+<div class="line"><span class="lineno"> 1595</span>        <span class="keywordflow">else</span> <span class="keywordflow">return</span> a == b  ? partial_ordering::equivalent  :</div>
+<div class="line"><span class="lineno"> 1596</span>                    a &lt; b   ? partial_ordering::less        :</div>
+<div class="line"><span class="lineno"> 1597</span>                    b &lt; a   ? partial_ordering::greater     :</div>
+<div class="line"><span class="lineno"> 1598</span>                              partial_ordering::unordered   ;</div>
+<div class="line"><span class="lineno"> 1599</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -300,20 +300,20 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01704">1704</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1704</span>                                                                                                                                    {</div>
-<div class="line"><span class="lineno"> 1705</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
-<div class="line"><span class="lineno"> 1706</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
-<div class="line"><span class="lineno"> 1707</span>                                    <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
-<div class="line"><span class="lineno"> 1708</span>                                                    strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1709</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
-<div class="line"><span class="lineno"> 1710</span>                                    <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1711</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1712</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1713</span>                            }</div>
-<div class="line"><span class="lineno"> 1714</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25118">all_defs.cpp:25118</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ae93cfa3da47dda23711a1e2b8ad7d29c"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">elc::defs::base::compare_t::base_call</a></div><div class="ttdeci">static constexpr auto base_call(T &amp;&amp;a, U &amp;&amp;b) noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01573">all_defs.cpp:1573</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01722">1722</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1722</span>                                                                                                                {</div>
+<div class="line"><span class="lineno"> 1723</span>        <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
+<div class="line"><span class="lineno"> 1724</span>            <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1725</span>                <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
+<div class="line"><span class="lineno"> 1726</span>                                strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1727</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1728</span>                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1729</span>            a++;</div>
+<div class="line"><span class="lineno"> 1730</span>            b++;</div>
+<div class="line"><span class="lineno"> 1731</span>        }</div>
+<div class="line"><span class="lineno"> 1732</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a9abe009086a60df99cd246dc4d38ec9f"><div class="ttname"><a href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a></div><div class="ttdeci">#define floop</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25132">all_defs.cpp:25132</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ae93cfa3da47dda23711a1e2b8ad7d29c"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">elc::defs::base::compare_t::base_call</a></div><div class="ttdeci">static constexpr auto base_call(T &amp;&amp;a, U &amp;&amp;b) noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01591">all_defs.cpp:1591</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -365,19 +365,19 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01691">1691</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1691</span>                                                                                                                                   {</div>
-<div class="line"><span class="lineno"> 1692</span>                            <span class="keywordflow">while</span>(size2--){</div>
-<div class="line"><span class="lineno"> 1693</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
-<div class="line"><span class="lineno"> 1694</span>                                    <span class="keywordflow">return</span> strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1695</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
-<div class="line"><span class="lineno"> 1696</span>                                    <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1697</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1698</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1699</span>                            }</div>
-<div class="line"><span class="lineno"> 1700</span>                            <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
-<div class="line"><span class="lineno"> 1701</span>                                            strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1702</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01709">1709</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1709</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1710</span>        <span class="keywordflow">while</span>(size2--){</div>
+<div class="line"><span class="lineno"> 1711</span>            <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1712</span>                <span class="keywordflow">return</span> strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1713</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1714</span>                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1715</span>            a++;</div>
+<div class="line"><span class="lineno"> 1716</span>            b++;</div>
+<div class="line"><span class="lineno"> 1717</span>        }</div>
+<div class="line"><span class="lineno"> 1718</span>        <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
+<div class="line"><span class="lineno"> 1719</span>                        strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1720</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -435,18 +435,18 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01716">1716</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1716</span>                                                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 1717</span>                            <span class="keywordflow">while</span>(size1--){</div>
-<div class="line"><span class="lineno"> 1718</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
-<div class="line"><span class="lineno"> 1719</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1720</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
-<div class="line"><span class="lineno"> 1721</span>                                    <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1722</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1723</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1724</span>                            }</div>
-<div class="line"><span class="lineno"> 1725</span>                            <span class="keywordflow">return</span> strong_ordering::equivalent;</div>
-<div class="line"><span class="lineno"> 1726</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01734">1734</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1734</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno"> 1735</span>        <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1736</span>            <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1737</span>                <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1738</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1739</span>                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1740</span>            a++;</div>
+<div class="line"><span class="lineno"> 1741</span>            b++;</div>
+<div class="line"><span class="lineno"> 1742</span>        }</div>
+<div class="line"><span class="lineno"> 1743</span>        <span class="keywordflow">return</span> strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1744</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -498,19 +498,19 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01678">1678</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1678</span>                                                                                                                                   {</div>
-<div class="line"><span class="lineno"> 1679</span>                            <span class="keywordflow">while</span>(size1--){</div>
-<div class="line"><span class="lineno"> 1680</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
-<div class="line"><span class="lineno"> 1681</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1682</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
-<div class="line"><span class="lineno"> 1683</span>                                    <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1684</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1685</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1686</span>                            }</div>
-<div class="line"><span class="lineno"> 1687</span>                            <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
-<div class="line"><span class="lineno"> 1688</span>                                            strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1689</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01696">1696</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1696</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1697</span>        <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1698</span>            <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1699</span>                <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1700</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1701</span>                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1702</span>            a++;</div>
+<div class="line"><span class="lineno"> 1703</span>            b++;</div>
+<div class="line"><span class="lineno"> 1704</span>        }</div>
+<div class="line"><span class="lineno"> 1705</span>        <span class="keywordflow">return</span> *b==U{0}?strong_ordering::equivalent:</div>
+<div class="line"><span class="lineno"> 1706</span>                        strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1707</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -562,13 +562,13 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01667">1667</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1667</span>                                                                                                                                  {</div>
-<div class="line"><span class="lineno"> 1668</span>                            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<span class="keyword">operator</span>()(a,b,<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">min</a>(size1,size2)); tmp!=0)</div>
-<div class="line"><span class="lineno"> 1669</span>                                <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1670</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1671</span>                                <span class="keywordflow">return</span> size1&lt;=&gt;size2;</div>
-<div class="line"><span class="lineno"> 1672</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01685">1685</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1685</span>                                                                                                              {</div>
+<div class="line"><span class="lineno"> 1686</span>        <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<span class="keyword">operator</span>()(a,b,<a class="code hl_variable" href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">min</a>(size1,size2)); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1687</span>            <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1688</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1689</span>            <span class="keywordflow">return</span> size1&lt;=&gt;size2;</div>
+<div class="line"><span class="lineno"> 1690</span>    }</div>
 <div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_a291dcbceb24caddde3502c77154d2bf7"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#a291dcbceb24caddde3502c77154d2bf7">elc::defs::base::min</a></div><div class="ttdeci">constexpr struct elc::defs::base::min_t min</div></div>
 </div><!-- fragment -->
 </div>
@@ -609,11 +609,11 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01674">1674</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1674</span>                                                                                                                    {</div>
-<div class="line"><span class="lineno"> 1675</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">lexicographical</a>(a,N1,b,N2);</div>
-<div class="line"><span class="lineno"> 1676</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ac218d091711cefaa4eda1705255af4ba"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">elc::defs::base::compare_t::lexicographical</a></div><div class="ttdeci">constexpr auto lexicographical(T *a, size_t size1, U *b, size_t size2) const noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01667">all_defs.cpp:1667</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01692">1692</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1692</span>                                                                                                {</div>
+<div class="line"><span class="lineno"> 1693</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">lexicographical</a>(a,N1,b,N2);</div>
+<div class="line"><span class="lineno"> 1694</span>    }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ac218d091711cefaa4eda1705255af4ba"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ac218d091711cefaa4eda1705255af4ba">elc::defs::base::compare_t::lexicographical</a></div><div class="ttdeci">constexpr auto lexicographical(T *a, size_t size1, U *b, size_t size2) const noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01685">all_defs.cpp:1685</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -653,10 +653,10 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01587">1587</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1587</span>                                                                                                     {</div>
-<div class="line"><span class="lineno"> 1588</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(a,b);</div>
-<div class="line"><span class="lineno"> 1589</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01605">1605</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1605</span>                                                                                 {</div>
+<div class="line"><span class="lineno"> 1606</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(a,b);</div>
+<div class="line"><span class="lineno"> 1607</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -708,18 +708,18 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01642">1642</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1642</span>                                                                                                                               {</div>
-<div class="line"><span class="lineno"> 1643</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
-<div class="line"><span class="lineno"> 1644</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
-<div class="line"><span class="lineno"> 1645</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
-<div class="line"><span class="lineno"> 1646</span>                                    <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1647</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
-<div class="line"><span class="lineno"> 1648</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
-<div class="line"><span class="lineno"> 1649</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1650</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1651</span>                            }</div>
-<div class="line"><span class="lineno"> 1652</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01660">1660</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1660</span>                                                                                                           {</div>
+<div class="line"><span class="lineno"> 1661</span>        type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1662</span>        <a class="code hl_define" href="all__defs_8cpp.html#a9abe009086a60df99cd246dc4d38ec9f">floop</a>{</div>
+<div class="line"><span class="lineno"> 1663</span>            <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1664</span>                <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1665</span>            <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1666</span>                tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1667</span>            a++;</div>
+<div class="line"><span class="lineno"> 1668</span>            b++;</div>
+<div class="line"><span class="lineno"> 1669</span>        }</div>
+<div class="line"><span class="lineno"> 1670</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -771,19 +771,19 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01629">1629</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1629</span>                                                                                                                              {</div>
-<div class="line"><span class="lineno"> 1630</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
-<div class="line"><span class="lineno"> 1631</span>                            <span class="keywordflow">while</span>(size2--){</div>
-<div class="line"><span class="lineno"> 1632</span>                                <span class="keywordflow">if</span>(*a==T{0})</div>
-<div class="line"><span class="lineno"> 1633</span>                                    <span class="keywordflow">return</span> strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1634</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
-<div class="line"><span class="lineno"> 1635</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
-<div class="line"><span class="lineno"> 1636</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1637</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1638</span>                            }</div>
-<div class="line"><span class="lineno"> 1639</span>                            <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1640</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01647">1647</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1647</span>                                                                                                          {</div>
+<div class="line"><span class="lineno"> 1648</span>        type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1649</span>        <span class="keywordflow">while</span>(size2--){</div>
+<div class="line"><span class="lineno"> 1650</span>            <span class="keywordflow">if</span>(*a==T{0})</div>
+<div class="line"><span class="lineno"> 1651</span>                <span class="keywordflow">return</span> strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1652</span>            <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1653</span>                tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1654</span>            a++;</div>
+<div class="line"><span class="lineno"> 1655</span>            b++;</div>
+<div class="line"><span class="lineno"> 1656</span>        }</div>
+<div class="line"><span class="lineno"> 1657</span>        <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1658</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -841,19 +841,19 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01654">1654</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1654</span>                                                                                                                                             {</div>
-<div class="line"><span class="lineno"> 1655</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
-<div class="line"><span class="lineno"> 1656</span>                            <span class="keywordflow">while</span>(size1--){</div>
-<div class="line"><span class="lineno"> 1657</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
-<div class="line"><span class="lineno"> 1658</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1659</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
-<div class="line"><span class="lineno"> 1660</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
-<div class="line"><span class="lineno"> 1661</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1662</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1663</span>                            }</div>
-<div class="line"><span class="lineno"> 1664</span>                            <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1665</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01672">1672</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1672</span>                                                                                                                         {</div>
+<div class="line"><span class="lineno"> 1673</span>        type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1674</span>        <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1675</span>            <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1676</span>                <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1677</span>            <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1678</span>                tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1679</span>            a++;</div>
+<div class="line"><span class="lineno"> 1680</span>            b++;</div>
+<div class="line"><span class="lineno"> 1681</span>        }</div>
+<div class="line"><span class="lineno"> 1682</span>        <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1683</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -905,19 +905,19 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01616">1616</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1616</span>                                                                                                                              {</div>
-<div class="line"><span class="lineno"> 1617</span>                            type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
-<div class="line"><span class="lineno"> 1618</span>                            <span class="keywordflow">while</span>(size1--){</div>
-<div class="line"><span class="lineno"> 1619</span>                                <span class="keywordflow">if</span>(*b==U{0})</div>
-<div class="line"><span class="lineno"> 1620</span>                                    <span class="keywordflow">return</span> strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1621</span>                                <span class="keywordflow">if</span>(tmp==0)</div>
-<div class="line"><span class="lineno"> 1622</span>                                    tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
-<div class="line"><span class="lineno"> 1623</span>                                a++;</div>
-<div class="line"><span class="lineno"> 1624</span>                                b++;</div>
-<div class="line"><span class="lineno"> 1625</span>                            }</div>
-<div class="line"><span class="lineno"> 1626</span>                            <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1627</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01634">1634</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1634</span>                                                                                                          {</div>
+<div class="line"><span class="lineno"> 1635</span>        type&lt;T,U&gt; tmp=strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1636</span>        <span class="keywordflow">while</span>(size1--){</div>
+<div class="line"><span class="lineno"> 1637</span>            <span class="keywordflow">if</span>(*b==U{0})</div>
+<div class="line"><span class="lineno"> 1638</span>                <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1639</span>            <span class="keywordflow">if</span>(tmp==0)</div>
+<div class="line"><span class="lineno"> 1640</span>                tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*a,*b);</div>
+<div class="line"><span class="lineno"> 1641</span>            a++;</div>
+<div class="line"><span class="lineno"> 1642</span>            b++;</div>
+<div class="line"><span class="lineno"> 1643</span>        }</div>
+<div class="line"><span class="lineno"> 1644</span>        <span class="keywordflow">return</span> *b==U{0}?tmp:strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1645</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -969,15 +969,15 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01608">1608</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1608</span>                                                                                                                             {</div>
-<div class="line"><span class="lineno"> 1609</span>                            type&lt;T,U&gt; tmp=size1&lt;=&gt;size2;</div>
-<div class="line"><span class="lineno"> 1610</span>                            <span class="keywordflow">if</span>(tmp!=0)</div>
-<div class="line"><span class="lineno"> 1611</span>                                <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1612</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1613</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">operator()</a>(a,b,size1);</div>
-<div class="line"><span class="lineno"> 1614</span>                        }</div>
-<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ab3042ecd7692c8c94e6f6844887bfb78"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">elc::defs::base::compare_t::operator()</a></div><div class="ttdeci">constexpr auto operator()(T &amp;&amp;a, U &amp;&amp;b) const noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01587">all_defs.cpp:1587</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01626">1626</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1626</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 1627</span>        type&lt;T,U&gt; tmp=size1&lt;=&gt;size2;</div>
+<div class="line"><span class="lineno"> 1628</span>        <span class="keywordflow">if</span>(tmp!=0)</div>
+<div class="line"><span class="lineno"> 1629</span>            <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1630</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1631</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">operator()</a>(a,b,size1);</div>
+<div class="line"><span class="lineno"> 1632</span>    }</div>
+<div class="ttc" id="astructelc_1_1defs_1_1base_1_1compare__t_html_ab3042ecd7692c8c94e6f6844887bfb78"><div class="ttname"><a href="structelc_1_1defs_1_1base_1_1compare__t.html#ab3042ecd7692c8c94e6f6844887bfb78">elc::defs::base::compare_t::operator()</a></div><div class="ttdeci">constexpr auto operator()(T &amp;&amp;a, U &amp;&amp;b) const noexcept(nothrow&lt; T, U &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01605">all_defs.cpp:1605</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1023,14 +1023,14 @@ template&lt;typename T , typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01591">1591</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1591</span>                                                                                                               {</div>
-<div class="line"><span class="lineno"> 1592</span>                            <span class="keywordflow">while</span>(size--){</div>
-<div class="line"><span class="lineno"> 1593</span>                                <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*(a++),*(b++)); tmp!=0)</div>
-<div class="line"><span class="lineno"> 1594</span>                                    <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><span class="lineno"> 1595</span>                            }</div>
-<div class="line"><span class="lineno"> 1596</span>                            <span class="keywordflow">return</span> strong_ordering::equivalent;</div>
-<div class="line"><span class="lineno"> 1597</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01609">1609</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1609</span>                                                                                           {</div>
+<div class="line"><span class="lineno"> 1610</span>        <span class="keywordflow">while</span>(size--){</div>
+<div class="line"><span class="lineno"> 1611</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> tmp=<a class="code hl_function" href="structelc_1_1defs_1_1base_1_1compare__t.html#ae93cfa3da47dda23711a1e2b8ad7d29c">base_call</a>(*(a++),*(b++)); tmp!=0)</div>
+<div class="line"><span class="lineno"> 1612</span>                <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><span class="lineno"> 1613</span>        }</div>
+<div class="line"><span class="lineno"> 1614</span>        <span class="keywordflow">return</span> strong_ordering::equivalent;</div>
+<div class="line"><span class="lineno"> 1615</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1070,16 +1070,16 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01599">1599</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1599</span>                                                                                                               {</div>
-<div class="line"><span class="lineno"> 1600</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(N1==N2)</div>
-<div class="line"><span class="lineno"> 1601</span>                                <span class="keywordflow">return</span> <span class="keyword">operator</span>()(a,b,N1);</div>
-<div class="line"><span class="lineno"> 1602</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 1603</span>                                <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;N1!=N2&quot;</span>);</div>
-<div class="line"><span class="lineno"> 1604</span>                                <span class="keywordflow">return</span> N1&lt;=&gt;N2;</div>
-<div class="line"><span class="lineno"> 1605</span>                            }</div>
-<div class="line"><span class="lineno"> 1606</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25129">all_defs.cpp:25129</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01617">1617</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1617</span>                                                                                           {</div>
+<div class="line"><span class="lineno"> 1618</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(N1==N2)</div>
+<div class="line"><span class="lineno"> 1619</span>            <span class="keywordflow">return</span> <span class="keyword">operator</span>()(a,b,N1);</div>
+<div class="line"><span class="lineno"> 1620</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 1621</span>            <a class="code hl_define" href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a>(<span class="stringliteral">&quot;N1!=N2&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1622</span>            <span class="keywordflow">return</span> N1&lt;=&gt;N2;</div>
+<div class="line"><span class="lineno"> 1623</span>        }</div>
+<div class="line"><span class="lineno"> 1624</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_abebde06a106161df0ea4afd892d53469"><div class="ttname"><a href="all__defs_8cpp.html#abebde06a106161df0ea4afd892d53469">template_warning</a></div><div class="ttdeci">#define template_warning(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25143">all_defs.cpp:25143</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1107,16 +1107,16 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01728">1728</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1728</span>                                                                                               {</div>
-<div class="line"><span class="lineno"> 1729</span>                            <span class="keywordflow">if</span>(odr==partial_ordering::greater)</div>
-<div class="line"><span class="lineno"> 1730</span>                                <span class="keywordflow">return</span> partial_ordering::less;</div>
-<div class="line"><span class="lineno"> 1731</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==partial_ordering::less)</div>
-<div class="line"><span class="lineno"> 1732</span>                                <span class="keywordflow">return</span> partial_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1733</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1734</span>                                <span class="keywordflow">return</span> odr;</div>
-<div class="line"><span class="lineno"> 1735</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25203">all_defs.cpp:25203</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01746">1746</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1746</span>                                                                           {</div>
+<div class="line"><span class="lineno"> 1747</span>        <span class="keywordflow">if</span>(odr==partial_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1748</span>            <span class="keywordflow">return</span> partial_ordering::less;</div>
+<div class="line"><span class="lineno"> 1749</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==partial_ordering::less)</div>
+<div class="line"><span class="lineno"> 1750</span>            <span class="keywordflow">return</span> partial_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1751</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1752</span>            <span class="keywordflow">return</span> odr;</div>
+<div class="line"><span class="lineno"> 1753</span>    }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6ad9a431894b37cfbcdacec8a04ccdf3"><div class="ttname"><a href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a></div><div class="ttdeci">#define elseif</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25217">all_defs.cpp:25217</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1144,15 +1144,15 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01744">1744</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1744</span>                                                                                              {</div>
-<div class="line"><span class="lineno"> 1745</span>                            <span class="keywordflow">if</span>(odr==strong_ordering::greater)</div>
-<div class="line"><span class="lineno"> 1746</span>                                <span class="keywordflow">return</span> strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1747</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==strong_ordering::less)</div>
-<div class="line"><span class="lineno"> 1748</span>                                <span class="keywordflow">return</span> strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1749</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1750</span>                                <span class="keywordflow">return</span> odr;</div>
-<div class="line"><span class="lineno"> 1751</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01762">1762</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1762</span>                                                                          {</div>
+<div class="line"><span class="lineno"> 1763</span>        <span class="keywordflow">if</span>(odr==strong_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1764</span>            <span class="keywordflow">return</span> strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1765</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==strong_ordering::less)</div>
+<div class="line"><span class="lineno"> 1766</span>            <span class="keywordflow">return</span> strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1767</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1768</span>            <span class="keywordflow">return</span> odr;</div>
+<div class="line"><span class="lineno"> 1769</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1180,15 +1180,15 @@ template&lt;typename T , typename U , size_t N1, size_t N2&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01736">1736</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1736</span>                                                                                            {</div>
-<div class="line"><span class="lineno"> 1737</span>                            <span class="keywordflow">if</span>(odr==weak_ordering::greater)</div>
-<div class="line"><span class="lineno"> 1738</span>                                <span class="keywordflow">return</span> weak_ordering::less;</div>
-<div class="line"><span class="lineno"> 1739</span>                            <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==weak_ordering::less)</div>
-<div class="line"><span class="lineno"> 1740</span>                                <span class="keywordflow">return</span> weak_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1741</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1742</span>                                <span class="keywordflow">return</span> odr;</div>
-<div class="line"><span class="lineno"> 1743</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01754">1754</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1754</span>                                                                        {</div>
+<div class="line"><span class="lineno"> 1755</span>        <span class="keywordflow">if</span>(odr==weak_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1756</span>            <span class="keywordflow">return</span> weak_ordering::less;</div>
+<div class="line"><span class="lineno"> 1757</span>        <a class="code hl_define" href="all__defs_8cpp.html#a6ad9a431894b37cfbcdacec8a04ccdf3">elseif</a>(odr==weak_ordering::less)</div>
+<div class="line"><span class="lineno"> 1758</span>            <span class="keywordflow">return</span> weak_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1759</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1760</span>            <span class="keywordflow">return</span> odr;</div>
+<div class="line"><span class="lineno"> 1761</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1215,13 +1215,13 @@ template&lt;class T , class U  = T&gt; </div>
 </table>
 </div><div class="memdoc">
 <b>初始值:</b><div class="fragment"><div class="line">= r_able&lt;T,U&gt; ||</div>
-<div class="line">                                                    </div>
+<div class="line">                                </div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line">(bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                                           (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) ;}))</div>
+<div class="line">(bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                       (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                        (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) ;}))</div>
 </div><!-- fragment -->
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01557">1557</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01575">1575</a> 行定义.</p>
 
 </div>
 </div>
@@ -1247,13 +1247,13 @@ template&lt;class T , class U  = T&gt; </div>
 </table>
 </div><div class="memdoc">
 <b>初始值:</b><div class="fragment"><div class="line">= (bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())&lt;=&gt;(::std::declval&lt; U &gt;()) ;{ (::std::declval&lt; T &gt;())&lt;=&gt;(::std::declval&lt; U &gt;()) }<span class="keyword">noexcept</span>;})) ||</div>
-<div class="line">                                                       </div>
+<div class="line">                                   </div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line">(bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                                           (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) ;{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                                            (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) }<span class="keyword">noexcept</span>;}))</div>
+<div class="line">(bool(<span class="keyword">requires</span>{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                       (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                        (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) ;{ (::std::declval&lt; T &gt;())==(::std::declval&lt; U &gt;()),                                                        (::std::declval&lt; T &gt;())&lt;(::std::declval&lt; U &gt;()),                                                        (::std::declval&lt; U &gt;())&lt;(::std::declval&lt; T &gt;()) }<span class="keyword">noexcept</span>;}))</div>
 </div><!-- fragment -->
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01564">1564</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01582">1582</a> 行定义.</p>
 
 </div>
 </div>
@@ -1279,7 +1279,7 @@ template&lt;class T , class U  = T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01554">1554</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l01572">1572</a> 行定义.</p>
 
 </div>
 </div>

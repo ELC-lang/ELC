@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 706;
+var viewWidth = 618;
 var viewHeight = 86;
 var sectionId = 'dynsection-0';
 </script>
@@ -58,8 +58,8 @@ var sectionId = 'dynsection-0';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="539,-37 434,-37 434,-18 539,-18 539,-37"/>
-<text text-anchor="middle" x="486.5" y="-25" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::cons</text>
+<polygon fill="#999999" stroke="#666666" points="451,-37 346,-37 346,-18 451,-18 451,-37"/>
+<text text-anchor="middle" x="398.5" y="-25" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::cons</text>
 </a>
 </g>
 </g>
@@ -67,80 +67,80 @@ var sectionId = 'dynsection-0';
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="structelc_1_1defs_1_1core_1_1code__list.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="698,-56 575,-56 575,-37 698,-37 698,-56"/>
-<text text-anchor="middle" x="636.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::code_list</text>
+<polygon fill="white" stroke="#666666" points="610,-56 487,-56 487,-37 610,-37 610,-56"/>
+<text text-anchor="middle" x="548.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::code_list</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="#63b8ff" d="M549.41,-35.45C557.83,-36.53 566.48,-37.64 574.88,-38.72"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="549.63,-31.95 539.26,-34.15 548.74,-38.89 549.63,-31.95"/>
+<path fill="none" stroke="#63b8ff" d="M461.41,-35.45C469.83,-36.53 478.48,-37.64 486.88,-38.72"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="461.63,-31.95 451.26,-34.15 460.74,-38.89 461.63,-31.95"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="structelc_1_1defs_1_1core_1_1expr.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="688,-19 585,-19 585,0 688,0 688,-19"/>
-<text text-anchor="middle" x="636.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::expr</text>
+<polygon fill="white" stroke="#666666" points="600,-19 497,-19 497,0 600,0 600,-19"/>
+<text text-anchor="middle" x="548.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::expr</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="#63b8ff" d="M549.4,-19.97C561.1,-18.55 573.2,-17.08 584.52,-15.7"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="548.77,-16.52 539.26,-21.2 549.61,-23.47 548.77,-16.52"/>
+<path fill="none" stroke="#63b8ff" d="M461.4,-19.97C473.1,-18.55 485.2,-17.08 496.52,-15.7"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="460.77,-16.52 451.26,-21.2 461.61,-23.47 460.77,-16.52"/>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="structelc_1_1defs_1_1core_1_1node__like.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="398,-56 273,-56 273,-37 398,-37 398,-56"/>
-<text text-anchor="middle" x="335.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::node_like</text>
+<polygon fill="white" stroke="#666666" points="310,-56 185,-56 185,-37 310,-37 310,-56"/>
+<text text-anchor="middle" x="247.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::core::node_like</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#63b8ff" d="M408.46,-37.32C417.07,-36.23 425.72,-35.12 433.97,-34.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="407.87,-33.87 398.39,-38.61 408.76,-40.81 407.87,-33.87"/>
+<path fill="none" stroke="#63b8ff" d="M320.46,-37.32C329.07,-36.23 337.72,-35.12 345.97,-34.07"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="319.87,-33.87 310.39,-38.61 320.76,-40.81 319.87,-33.87"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="237,-78 0,-78 0,-15 237,-15 237,-78"/>
+<polygon fill="white" stroke="#666666" points="149,-78 0,-78 0,-15 149,-15 149,-78"/>
 <text text-anchor="start" x="8" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">type_info_t&lt; node_like</text>
-<text text-anchor="middle" x="118.5" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00"> &gt;:: template </text>
-<text text-anchor="start" x="8" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">					with_common_attribute</text>
+<text text-anchor="middle" x="74.5" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00"> &gt;:: template </text>
+<text text-anchor="start" x="8" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">	with_common_attribute</text>
 <text text-anchor="start" x="8" y="-33" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; abstract_base, weak_ref</text>
-<text text-anchor="middle" x="118.5" y="-22" font-family="Helvetica,sans-Serif" font-size="10.00">_able, replace_able, ref_able &gt;</text>
+<text text-anchor="middle" x="74.5" y="-22" font-family="Helvetica,sans-Serif" font-size="10.00">_able, replace_able, ref_able &gt;</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="#63b8ff" d="M247.14,-46.5C256.01,-46.5 264.69,-46.5 272.93,-46.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="247.07,-43 237.07,-46.5 247.06,-50 247.07,-43"/>
+<path fill="none" stroke="#63b8ff" d="M159.15,-46.5C167.81,-46.5 176.5,-46.5 184.86,-46.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="159.01,-43 149.01,-46.5 159.01,-50 159.01,-43"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="396.5,-19 274.5,-19 274.5,0 396.5,0 396.5,-19"/>
-<text text-anchor="middle" x="335.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">instance_struct&lt; cons &gt;</text>
+<polygon fill="white" stroke="#666666" points="308.5,-19 186.5,-19 186.5,0 308.5,0 308.5,-19"/>
+<text text-anchor="middle" x="247.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">instance_struct&lt; cons &gt;</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge3" class="edge">
 <title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="#63b8ff" d="M406.84,-18C415.9,-19.09 425.04,-20.2 433.72,-21.24"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="407.02,-14.49 396.67,-16.77 406.18,-21.44 407.02,-14.49"/>
+<path fill="none" stroke="#63b8ff" d="M318.84,-18C327.9,-19.09 337.04,-20.2 345.72,-21.24"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="319.02,-14.49 308.67,-16.77 318.18,-21.44 319.02,-14.49"/>
 </g>
 </g>
 </svg>

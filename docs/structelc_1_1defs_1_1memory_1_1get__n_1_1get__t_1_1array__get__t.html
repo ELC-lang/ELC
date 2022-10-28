@@ -119,7 +119,7 @@ Public 属性</h2></td></tr>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 struct elc::defs::memory::get_n::get_t&lt; T &gt;::array_get_t</div><p >Allocates an array of T with the specified size. </p>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07764">7764</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07770">7770</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="a24fc375a767632d87430a4e0506e8bb8" name="a24fc375a767632d87430a4e0506e8bb8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24fc375a767632d87430a4e0506e8bb8">&#9670;&#160;</a></span>operator()()</h2>
@@ -159,15 +159,15 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t.htm
 </dl>
 <dl class="section return"><dt>返回</dt><dd>An array of objects of type T. </dd></dl>
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07774">7774</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 7774</span>                                                                                                     {</div>
-<div class="line"><span class="lineno"> 7775</span>                                <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
-<div class="line"><span class="lineno"> 7776</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 7777</span>                                    <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You can\&#39;t get an array for never_in_array type.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 7778</span>                                <span class="keywordflow">return</span> construct&lt;T&gt;[alloc&lt;T&gt;(<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t.html#a7b1fcaa6c55a4b1a7988bcfc85f0f309">_size</a>)][<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t.html#a7b1fcaa6c55a4b1a7988bcfc85f0f309">_size</a>](forward&lt;Args&gt;(rest)...);</div>
-<div class="line"><span class="lineno"> 7779</span>                            }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t_html_a7b1fcaa6c55a4b1a7988bcfc85f0f309"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t.html#a7b1fcaa6c55a4b1a7988bcfc85f0f309">elc::defs::memory::get_n::get_t::array_get_t::_size</a></div><div class="ttdeci">size_t _size</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07765">all_defs.cpp:7765</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07780">7780</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 7780</span>                                                                                     {</div>
+<div class="line"><span class="lineno"> 7781</span>                <span class="keyword">const</span> APIs::alloc::source_location_guard slg;</div>
+<div class="line"><span class="lineno"> 7782</span>                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 7783</span>                    <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You can\&#39;t get an array for never_in_array type.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 7784</span>                <span class="keywordflow">return</span> construct&lt;T&gt;[alloc&lt;T&gt;(<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t.html#a7b1fcaa6c55a4b1a7988bcfc85f0f309">_size</a>)][<a class="code hl_variable" href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t.html#a7b1fcaa6c55a4b1a7988bcfc85f0f309">_size</a>](forward&lt;Args&gt;(rest)...);</div>
+<div class="line"><span class="lineno"> 7785</span>            }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25141">all_defs.cpp:25141</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t_html_a7b1fcaa6c55a4b1a7988bcfc85f0f309"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1get__n_1_1get__t_1_1array__get__t.html#a7b1fcaa6c55a4b1a7988bcfc85f0f309">elc::defs::memory::get_n::get_t::array_get_t::_size</a></div><div class="ttdeci">size_t _size</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l07771">all_defs.cpp:7771</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -186,7 +186,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07765">7765</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l07771">7771</a> 行定义.</p>
 
 </div>
 </div>

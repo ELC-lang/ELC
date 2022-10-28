@@ -73,6 +73,7 @@ var annotated_dup =
           [ "data_block", "structelc_1_1defs_1_1base_1_1data__block.html", "structelc_1_1defs_1_1base_1_1data__block" ],
           [ "data_view", "structelc_1_1defs_1_1base_1_1data__view.html", "structelc_1_1defs_1_1base_1_1data__view" ],
           [ "data_view< const T >", "structelc_1_1defs_1_1base_1_1data__view_3_01const_01_t_01_4.html", "structelc_1_1defs_1_1base_1_1data__view_3_01const_01_t_01_4" ],
+          [ "discard_t", "structelc_1_1defs_1_1base_1_1discard__t.html", "structelc_1_1defs_1_1base_1_1discard__t" ],
           [ "empty_type", "classelc_1_1defs_1_1base_1_1empty__type.html", null ],
           [ "end_by_zero_t", "structelc_1_1defs_1_1base_1_1end__by__zero__t.html", null ],
           [ "equal_t", "structelc_1_1defs_1_1base_1_1equal__t.html", "structelc_1_1defs_1_1base_1_1equal__t" ],

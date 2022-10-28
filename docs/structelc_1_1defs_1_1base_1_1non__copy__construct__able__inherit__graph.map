@@ -1,7 +1,7 @@
 <map id="elc::defs::base::non_copy_construct_able" name="elc::defs::base::non_copy_construct_able">
-<area shape="rect" id="node1" title=" " alt="" coords="5,345,155,385"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copyable.html" title=" " alt="" coords="214,313,350,353"/>
-<area shape="rect" id="node18" href="$structelc_1_1defs_1_1base_1_1non__default__construct__able.html" title=" " alt="" coords="203,377,361,417"/>
+<area shape="rect" id="node1" title="禁止复制构造" alt="" coords="5,345,155,385"/>
+<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copyable.html" title="禁止默认合成的复制" alt="" coords="214,313,350,353"/>
+<area shape="rect" id="node18" href="$structelc_1_1defs_1_1base_1_1non__default__construct__able.html" title="禁止默认合成的构造" alt="" coords="203,377,361,417"/>
 <area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="421,5,582,45"/>
 <area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="415,70,588,125"/>
 <area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1cons__t.html" title=" " alt="" coords="430,149,573,189"/>

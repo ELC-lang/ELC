@@ -230,7 +230,7 @@
 <!-- Node25 -->
 <g id="node16" class="node">
 <title>Node25</title>
-<g id="a_node16"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node16"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" target="_top" xlink:title="禁止复制赋值">
 <polygon fill="white" stroke="#666666" points="107.5,-528.5 5.5,-528.5 5.5,-498.5 107.5,-498.5 107.5,-528.5"/>
 <text text-anchor="start" x="13.5" y="-516.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00">_copy_assign_able</text>
@@ -240,7 +240,7 @@
 <!-- Node4 -->
 <g id="node17" class="node">
 <title>Node4</title>
-<g id="a_node17"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copyable.html" target="_top" xlink:title=" ">
+<g id="a_node17"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copyable.html" target="_top" xlink:title="禁止默认合成的复制">
 <polygon fill="white" stroke="#666666" points="262,-394.5 160,-394.5 160,-364.5 262,-364.5 262,-394.5"/>
 <text text-anchor="start" x="168" y="-382.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="211" y="-371.5" font-family="Helvetica,sans-Serif" font-size="10.00">_copyable</text>
@@ -256,7 +256,7 @@
 <!-- Node24 -->
 <g id="node26" class="node">
 <title>Node24</title>
-<g id="a_node26"><a xlink:href="structelc_1_1defs_1_1base_1_1non__default__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node26"><a xlink:href="structelc_1_1defs_1_1base_1_1non__default__assign__able.html" target="_top" xlink:title="禁止默认合成的赋值">
 <polygon fill="white" stroke="#666666" points="264.5,-576.5 157.5,-576.5 157.5,-546.5 264.5,-546.5 264.5,-576.5"/>
 <text text-anchor="start" x="165.5" y="-564.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="211" y="-553.5" font-family="Helvetica,sans-Serif" font-size="10.00">_default_assign_able</text>
@@ -456,7 +456,7 @@
 <!-- Node29 -->
 <g id="node28" class="node">
 <title>Node29</title>
-<g id="a_node28"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" target="_top" xlink:title=" ">
+<g id="a_node28"><a xlink:href="structelc_1_1defs_1_1base_1_1non__copy__construct__able.html" target="_top" xlink:title="禁止复制构造">
 <polygon fill="white" stroke="#666666" points="112.5,-358.5 0.5,-358.5 0.5,-328.5 112.5,-328.5 112.5,-358.5"/>
 <text text-anchor="start" x="8.5" y="-346.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-335.5" font-family="Helvetica,sans-Serif" font-size="10.00">_copy_construct_able</text>
@@ -472,7 +472,7 @@
 <!-- Node28 -->
 <g id="node29" class="node">
 <title>Node28</title>
-<g id="a_node29"><a xlink:href="structelc_1_1defs_1_1base_1_1non__default__construct__able.html" target="_top" xlink:title=" ">
+<g id="a_node29"><a xlink:href="structelc_1_1defs_1_1base_1_1non__default__construct__able.html" target="_top" xlink:title="禁止默认合成的构造">
 <polygon fill="white" stroke="#666666" points="270.5,-346.5 151.5,-346.5 151.5,-316.5 270.5,-316.5 270.5,-346.5"/>
 <text text-anchor="start" x="159.5" y="-334.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="211" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">_default_construct_able</text>
@@ -488,7 +488,7 @@
 <!-- Node23 -->
 <g id="node30" class="node">
 <title>Node23</title>
-<g id="a_node30"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__assign__able.html" target="_top" xlink:title=" ">
+<g id="a_node30"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__assign__able.html" target="_top" xlink:title="禁止移动赋值">
 <polygon fill="white" stroke="#666666" points="107.5,-576.5 5.5,-576.5 5.5,-546.5 107.5,-546.5 107.5,-576.5"/>
 <text text-anchor="start" x="13.5" y="-564.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-553.5" font-family="Helvetica,sans-Serif" font-size="10.00">_move_assign_able</text>
@@ -504,7 +504,7 @@
 <!-- Node6 -->
 <g id="node31" class="node">
 <title>Node6</title>
-<g id="a_node31"><a xlink:href="structelc_1_1defs_1_1base_1_1non__moveable.html" target="_top" xlink:title=" ">
+<g id="a_node31"><a xlink:href="structelc_1_1defs_1_1base_1_1non__moveable.html" target="_top" xlink:title="禁止默认合成的移动">
 <polygon fill="white" stroke="#666666" points="262,-442.5 160,-442.5 160,-412.5 262,-412.5 262,-442.5"/>
 <text text-anchor="start" x="168" y="-430.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="211" y="-419.5" font-family="Helvetica,sans-Serif" font-size="10.00">_moveable</text>
@@ -574,7 +574,7 @@
 <!-- Node27 -->
 <g id="node32" class="node">
 <title>Node27</title>
-<g id="a_node32"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__construct__able.html" target="_top" xlink:title=" ">
+<g id="a_node32"><a xlink:href="structelc_1_1defs_1_1base_1_1non__move__construct__able.html" target="_top" xlink:title="禁止移动构造">
 <polygon fill="white" stroke="#666666" points="113,-418.5 0,-418.5 0,-388.5 113,-388.5 113,-418.5"/>
 <text text-anchor="start" x="8" y="-406.5" font-family="Helvetica,sans-Serif" font-size="10.00">elc::defs::base::non</text>
 <text text-anchor="middle" x="56.5" y="-395.5" font-family="Helvetica,sans-Serif" font-size="10.00">_move_construct_able</text>

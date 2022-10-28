@@ -1,3 +1,3 @@
 <map id="类继承关系图" name="类继承关系图">
-<area shape="rect" id="node1" href="$structelc_1_1defs_1_1memory_1_1alloc__n_1_1free__t.html" title="用于对特定类型进行free" alt="" coords="5,5,140,45"/>
+<area shape="rect" id="node1" href="$structelc_1_1defs_1_1memory_1_1alloc__n_1_1copy__alloc__t.html" title="对于特定类型的内存分配结果，获取分配大小并复制一份同样大小的内存" alt="" coords="5,5,149,45"/>
 </map>

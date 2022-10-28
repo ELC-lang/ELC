@@ -175,7 +175,7 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock">
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05959">5959</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05977">5977</a> 行定义.</p>
 </div><h2 class="groupheader">成员函数说明</h2>
 <a id="aa1cc3f5e9cb73b3e61d965a5e6aa3b5e" name="aa1cc3f5e9cb73b3e61d965a5e6aa3b5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1cc3f5e9cb73b3e61d965a5e6aa3b5e">&#9670;&#160;</a></span>base_call() <span class="overload">[1/4]</span></h2>
@@ -214,18 +214,18 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06025">6025</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6025</span>                                                                                 {</div>
-<div class="line"><span class="lineno"> 6026</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 6027</span>                                construct&lt;T&gt;[to](from);</div>
-<div class="line"><span class="lineno"> 6028</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 6029</span>                                construct&lt;T&gt;[<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>]();</div>
-<div class="line"><span class="lineno"> 6030</span>                                *<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>;</div>
-<div class="line"><span class="lineno"> 6031</span>                            }</div>
-<div class="line"><span class="lineno"> 6032</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
-<div class="line"><span class="lineno"> 6033</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ab38406a29b5abb1d9d783b44464c338f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">elc::defs::base::note_n::to</a></div><div class="ttdeci">constexpr to_t&lt; T &gt; to(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01781">all_defs.cpp:1781</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ae46aa64f1993a2bdce845a92745e2e65"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">elc::defs::base::note_n::from</a></div><div class="ttdeci">constexpr from_t&lt; T &gt; from(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01780">all_defs.cpp:1780</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06043">6043</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6043</span>                                                                 {</div>
+<div class="line"><span class="lineno"> 6044</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 6045</span>                construct&lt;T&gt;[to](from);</div>
+<div class="line"><span class="lineno"> 6046</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 6047</span>                construct&lt;T&gt;[<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>]();</div>
+<div class="line"><span class="lineno"> 6048</span>                *<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>=<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>;</div>
+<div class="line"><span class="lineno"> 6049</span>            }</div>
+<div class="line"><span class="lineno"> 6050</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
+<div class="line"><span class="lineno"> 6051</span>        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ab38406a29b5abb1d9d783b44464c338f"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">elc::defs::base::note_n::to</a></div><div class="ttdeci">constexpr to_t&lt; T &gt; to(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01799">all_defs.cpp:1799</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_1_1note__n_html_ae46aa64f1993a2bdce845a92745e2e65"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">elc::defs::base::note_n::from</a></div><div class="ttdeci">constexpr from_t&lt; T &gt; from(T v)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l01798">all_defs.cpp:1798</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -272,20 +272,20 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06036">6036</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6036</span>                                                                                             {</div>
-<div class="line"><span class="lineno"> 6037</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
-<div class="line"><span class="lineno"> 6038</span>                                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
-<div class="line"><span class="lineno"> 6039</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_trivially_copyable_v&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 6040</span>                                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a3538502ddcc1662696b0ae3144d249a2">super_speed_trivial_copy_from_one</a>(to,from,size);</div>
-<div class="line"><span class="lineno"> 6041</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 6042</span>                                <span class="keywordflow">while</span>(size--)</div>
-<div class="line"><span class="lineno"> 6043</span>                                    <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to+size,from);</div>
-<div class="line"><span class="lineno"> 6044</span>                            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
-<div class="line"><span class="lineno"> 6045</span>                        }</div>
-<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25127">all_defs.cpp:25127</a></div></div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a3538502ddcc1662696b0ae3144d249a2"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a3538502ddcc1662696b0ae3144d249a2">elc::defs::memory::lifetime_n::super_speed_trivial_copy_from_one</a></div><div class="ttdeci">T * super_speed_trivial_copy_from_one(T *to, const T &amp;value, size_t size) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05726">all_defs.cpp:5726</a></div></div>
-<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t_html_a546e57eee13e5e17ab116a07add18a8a"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">elc::defs::memory::lifetime_n::copy_construct_t::base_call</a></div><div class="ttdeci">static T * base_call(T *to, const T *from) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05974">all_defs.cpp:5974</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06054">6054</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6054</span>                                                                             {</div>
+<div class="line"><span class="lineno"> 6055</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(type_info&lt;T&gt;.has_attribute(never_in_array))</div>
+<div class="line"><span class="lineno"> 6056</span>                <a class="code hl_define" href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a>(<span class="stringliteral">&quot;You cannot perform array operations on never_in_array type.&quot;</span>);</div>
+<div class="line"><span class="lineno"> 6057</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(::std::is_trivially_copyable_v&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 6058</span>                <a class="code hl_function" href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a3538502ddcc1662696b0ae3144d249a2">super_speed_trivial_copy_from_one</a>(to,from,size);</div>
+<div class="line"><span class="lineno"> 6059</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 6060</span>                <span class="keywordflow">while</span>(size--)</div>
+<div class="line"><span class="lineno"> 6061</span>                    <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to+size,from);</div>
+<div class="line"><span class="lineno"> 6062</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
+<div class="line"><span class="lineno"> 6063</span>        }</div>
+<div class="ttc" id="aall__defs_8cpp_html_a6d2f39023e3d6db8f55ebfd225a222b9"><div class="ttname"><a href="all__defs_8cpp.html#a6d2f39023e3d6db8f55ebfd225a222b9">template_error</a></div><div class="ttdeci">#define template_error(reason)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l25141">all_defs.cpp:25141</a></div></div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1memory_1_1lifetime__n_html_a3538502ddcc1662696b0ae3144d249a2"><div class="ttname"><a href="namespaceelc_1_1defs_1_1memory_1_1lifetime__n.html#a3538502ddcc1662696b0ae3144d249a2">elc::defs::memory::lifetime_n::super_speed_trivial_copy_from_one</a></div><div class="ttdeci">T * super_speed_trivial_copy_from_one(T *to, const T &amp;value, size_t size) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05743">all_defs.cpp:5743</a></div></div>
+<div class="ttc" id="astructelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t_html_a546e57eee13e5e17ab116a07add18a8a"><div class="ttname"><a href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">elc::defs::memory::lifetime_n::copy_construct_t::base_call</a></div><div class="ttdeci">static T * base_call(T *to, const T *from) noexcept(nothrow&lt; T &gt;)</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l05992">all_defs.cpp:5992</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -326,21 +326,21 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05974">5974</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5974</span>                                                                                 {</div>
-<div class="line"><span class="lineno"> 5975</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(trivial&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 5976</span>                                <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T*<span class="keyword">&gt;</span>(::std::memcpy(to,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(from),<span class="keyword">sizeof</span>(T)));</div>
-<div class="line"><span class="lineno"> 5977</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 5978</span>                                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 5979</span>                                    <span class="keyword">new</span>(to)T(*from);</div>
-<div class="line"><span class="lineno"> 5980</span>                                <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 5981</span>                                    construct&lt;T&gt;[<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>]();</div>
-<div class="line"><span class="lineno"> 5982</span>                                    *<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>=*<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>;</div>
-<div class="line"><span class="lineno"> 5983</span>                                }</div>
-<div class="line"><span class="lineno"> 5984</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
-<div class="line"><span class="lineno"> 5985</span>                            }</div>
-<div class="line"><span class="lineno"> 5986</span>                        }</div>
-<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_aae9be6874a7dd367db08a9a6e1d65639"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">elc::defs::base::add_const</a></div><div class="ttdeci">constexpr const T add_const(T a) noexcept</div><div class="ttdoc">对值追加const</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00963">all_defs.cpp:963</a></div></div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05992">5992</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5992</span>                                                                 {</div>
+<div class="line"><span class="lineno"> 5993</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(trivial&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 5994</span>                <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T*<span class="keyword">&gt;</span>(::std::memcpy(to,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(from),<span class="keyword">sizeof</span>(T)));</div>
+<div class="line"><span class="lineno"> 5995</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 5996</span>                <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(r_able&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 5997</span>                    <span class="keyword">new</span>(to)T(*from);</div>
+<div class="line"><span class="lineno"> 5998</span>                <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 5999</span>                    construct&lt;T&gt;[<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>]();</div>
+<div class="line"><span class="lineno"> 6000</span>                    *<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>=*<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>;</div>
+<div class="line"><span class="lineno"> 6001</span>                }</div>
+<div class="line"><span class="lineno"> 6002</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
+<div class="line"><span class="lineno"> 6003</span>            }</div>
+<div class="line"><span class="lineno"> 6004</span>        }</div>
+<div class="ttc" id="anamespaceelc_1_1defs_1_1base_html_aae9be6874a7dd367db08a9a6e1d65639"><div class="ttname"><a href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">elc::defs::base::add_const</a></div><div class="ttdeci">constexpr const T add_const(T a) noexcept</div><div class="ttdoc">对值追加const</div><div class="ttdef"><b>Definition:</b> <a href="all__defs_8cpp_source.html#l00969">all_defs.cpp:969</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -387,16 +387,16 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05989">5989</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 5989</span>                                                                                             {</div>
-<div class="line"><span class="lineno"> 5990</span>                            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(trivial&lt;T&gt;)</div>
-<div class="line"><span class="lineno"> 5991</span>                                <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T*<span class="keyword">&gt;</span>(::std::memcpy(to,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(from),<span class="keyword">sizeof</span>(T)*size));</div>
-<div class="line"><span class="lineno"> 5992</span>                            <span class="keywordflow">else</span>{</div>
-<div class="line"><span class="lineno"> 5993</span>                                <span class="keywordflow">while</span>(size--)</div>
-<div class="line"><span class="lineno"> 5994</span>                                    <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to+size,from+size);</div>
-<div class="line"><span class="lineno"> 5995</span>                                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
-<div class="line"><span class="lineno"> 5996</span>                            }</div>
-<div class="line"><span class="lineno"> 5997</span>                        }</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06007">6007</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6007</span>                                                                             {</div>
+<div class="line"><span class="lineno"> 6008</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(trivial&lt;T&gt;)</div>
+<div class="line"><span class="lineno"> 6009</span>                <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T*<span class="keyword">&gt;</span>(::std::memcpy(to,<a class="code hl_function" href="namespaceelc_1_1defs_1_1base.html#aae9be6874a7dd367db08a9a6e1d65639">add_const</a>(from),<span class="keyword">sizeof</span>(T)*size));</div>
+<div class="line"><span class="lineno"> 6010</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 6011</span>                <span class="keywordflow">while</span>(size--)</div>
+<div class="line"><span class="lineno"> 6012</span>                    <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to+size,from+size);</div>
+<div class="line"><span class="lineno"> 6013</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>;</div>
+<div class="line"><span class="lineno"> 6014</span>            }</div>
+<div class="line"><span class="lineno"> 6015</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -437,8 +437,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06008">6008</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6009</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>());}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06026">6026</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6027</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>());}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -485,8 +485,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06021">6021</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6022</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>(),size);}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06039">6039</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6040</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>(),size);}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -527,8 +527,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06004">6004</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6005</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>());}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06022">6022</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6023</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>());}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -575,8 +575,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06017">6017</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6018</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>(),size);}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06035">6035</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6036</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ab38406a29b5abb1d9d783b44464c338f">to</a>(),<a class="code hl_function" href="namespaceelc_1_1defs_1_1base_1_1note__n.html#ae46aa64f1993a2bdce845a92745e2e65">from</a>(),size);}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -617,8 +617,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06048">6048</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6049</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to,from);}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06066">6066</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6067</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to,from);}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -659,8 +659,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06000">6000</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6001</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to,from);}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06018">6018</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6019</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to,from);}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -707,8 +707,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06013">6013</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6014</span>                        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to,from,size);}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06031">6031</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6032</span>        {<span class="keywordflow">return</span> <a class="code hl_function" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy__construct__t.html#a546e57eee13e5e17ab116a07add18a8a">base_call</a>(to,from,size);}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -736,8 +736,8 @@ requires <a class="el" href="structelc_1_1defs_1_1memory_1_1lifetime__n_1_1copy_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06070">6070</a> 行定义.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 6070</span>{<span class="keywordflow">return</span>{a};}</div>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l06088">6088</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 6088</span>{<span class="keywordflow">return</span>{a};}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -764,7 +764,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05965">5965</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05983">5983</a> 行定义.</p>
 
 </div>
 </div>
@@ -790,9 +790,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 <b>初始值:</b><div class="fragment"><div class="line">=r_able&lt;T&gt;?copy_construct_nothrow&lt;T&gt;:</div>
-<div class="line">                                                        (construct&lt;T&gt;.nothrow&lt;&gt;&amp;&amp;copy_assign_nothrow&lt;T&gt;)</div>
+<div class="line">                                        (construct&lt;T&gt;.nothrow&lt;&gt;&amp;&amp;copy_assign_nothrow&lt;T&gt;)</div>
 </div><!-- fragment -->
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05967">5967</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05985">5985</a> 行定义.</p>
 
 </div>
 </div>
@@ -818,10 +818,10 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 <b>初始值:</b><div class="fragment"><div class="line">=copy_construct_able&lt;T&gt;?</div>
-<div class="line">                                                     copy_construct_trivial&lt;T&gt;||!(construct&lt;T&gt;.trivial&lt;&gt;&amp;&amp;copy_assign_trivial&lt;T&gt;)</div>
-<div class="line">                                                     :false</div>
+<div class="line">                                     copy_construct_trivial&lt;T&gt;||!(construct&lt;T&gt;.trivial&lt;&gt;&amp;&amp;copy_assign_trivial&lt;T&gt;)</div>
+<div class="line">                                     :false</div>
 </div><!-- fragment -->
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05961">5961</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05979">5979</a> 行定义.</p>
 
 </div>
 </div>
@@ -847,9 +847,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 <b>初始值:</b><div class="fragment"><div class="line">=r_able&lt;T&gt;?copy_construct_trivial&lt;T&gt;:</div>
-<div class="line">                                                        (construct&lt;T&gt;.trivial&lt;&gt;&amp;&amp;copy_assign_trivial&lt;T&gt;)</div>
+<div class="line">                                        (construct&lt;T&gt;.trivial&lt;&gt;&amp;&amp;copy_assign_trivial&lt;T&gt;)</div>
 </div><!-- fragment -->
-<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05970">5970</a> 行定义.</p>
+<p class="definition">在文件 <a class="el" href="all__defs_8cpp_source.html">all_defs.cpp</a> 第 <a class="el" href="all__defs_8cpp_source.html#l05988">5988</a> 行定义.</p>
 
 </div>
 </div>

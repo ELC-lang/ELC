@@ -185,6 +185,7 @@ var hierarchy =
     [ "elc::defs::container::stack_n::base_stack_t< T >::data_t", "structelc_1_1defs_1_1container_1_1stack__n_1_1base__stack__t_1_1data__t.html", null ],
     [ "elc::defs::container::function_n::default_func_data_t< T >", "classelc_1_1defs_1_1container_1_1function__n_1_1default__func__data__t.html", null ],
     [ "elc::defs::memory::lifetime_n::destruct_t", "structelc_1_1defs_1_1memory_1_1lifetime__n_1_1destruct__t.html", null ],
+    [ "elc::defs::base::discard_t", "structelc_1_1defs_1_1base_1_1discard__t.html", null ],
     [ "elc::defs::base::empty_type", "classelc_1_1defs_1_1base_1_1empty__type.html", null ],
     [ "elc::defs::base::end_by_zero_t", "structelc_1_1defs_1_1base_1_1end__by__zero__t.html", null ],
     [ "elc::defs::base::equal_t", "structelc_1_1defs_1_1base_1_1equal__t.html", null ],
