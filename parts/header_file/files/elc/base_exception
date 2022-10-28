@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+#include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_BASE_EXCEPTION)
 	#define ELC_BASE_EXCEPTION
 	#include "../../../_share/locale/using.hpp"

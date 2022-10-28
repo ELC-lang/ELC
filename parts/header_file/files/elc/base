@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+#include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_BASE)
 	#define ELC_BASE
 	#include "base_defs"//原base的一小部分，但由于过于底层，底层到API定义都需要使用。。
