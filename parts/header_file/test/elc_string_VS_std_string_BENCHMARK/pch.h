@@ -11,10 +11,11 @@
 26474 26402 26436 26475 26451 26473 26495 26456   \
 26418 26819 26818 26496 26462 26460 26461 26814   \
 
-#include <gtest/gtest.h>
-#pragma comment(lib, "Shlwapi.lib")
-#include <benchmark/benchmark.h>
+//benchmark static definition
+#define BENCHMARK_STATIC_DEFINE
 
+#include <gtest/gtest.h>
+#include <benchmark/benchmark.h>
 
 #include <string>
 #include <functional>
