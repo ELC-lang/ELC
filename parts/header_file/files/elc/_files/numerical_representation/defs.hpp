@@ -101,7 +101,7 @@ private:
 	}
 	template<typename T>
 	inline size_t get_info_tail_size()const noexcept{
-		return get_info_tail_size_per_byte()*sizeof(T);
+		return get_info_tail_size_per_byte()*sizeof(T)+_radix;
 	}
 	template<typename T>
 	inline string get_info_tail(T x)const noexcept{
@@ -112,11 +112,12 @@ private:
 			auto s= to_string_rough((unsigned char)c);
 			aret+=string{info_tail_size_per_byte-s.size(),_radix_table[0]}+s;
 		}
-		return aret;
+		return aret+_radix_table;
 	}
 	template<typename T>
 	inline T get_from_info_tail(string str)const noexcept{
 		const auto info_tail_size_per_byte = get_info_tail_size_per_byte();
+		str.pop_back(_radix);
 		T	aret{};
 		data_view<T> view{&aret};
 		for(byte&c: view){
@@ -358,17 +359,14 @@ public:
 		//信息尾检查
 		if constexpr(::std::is_floating_point_v<T>){
 			const auto info_tail_size=get_info_tail_size<T>();
-			if(str.size()>info_tail_size){
+			if(str.size()>info_tail_size && str.ends_with(_radix_table)){
 				const auto tail_pos=str.size()-info_tail_size;
 				auto info_tail=str.substr(tail_pos);
 				auto str_with_out_tail=str.substr(0,tail_pos);
 				if(str_with_out_tail.back()==_fractional_sign)
 					str_with_out_tail.pop_back();
 				auto num=get_from_info_tail<T>(info_tail);
-				if(to_string_rough(num)==str_with_out_tail)
-					return num;
-				str_with_out_tail+=string{info_tail.size(),_radix_table[0]};
-				if(to_string_rough(num)==str_with_out_tail)
+				if(to_string_rough(num).starts_with(str_with_out_tail))
 					return num;
 			}
 		}
