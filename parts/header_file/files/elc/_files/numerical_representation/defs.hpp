@@ -404,7 +404,21 @@ public:
 		if(to_string_special_value_check(num,aret,is_negative(num)))
 			return aret;
 		aret=to_string_rough_no_special_value_check(num);
-		if constexpr(::std::is_floating_point_v<T>){
+		if constexpr(::std::is_floating_point_v<T>) {
+			size_t dot_pos = aret.find(_fractional_sign);
+			//检查是否可反向转换
+			if(from_string_no_tail_check_get<T>(aret) != num) {
+				//获取并追加信息尾
+				string info_tail = get_info_tail(num);
+				if(dot_pos == string::npos) {
+					if(aret.ends_with(string{info_tail.size(), _radix_table[0]}))
+						aret.pop_back(info_tail.size());
+					else
+						aret.push_back(_fractional_sign);
+				}
+				aret += info_tail;
+				return aret;
+			}
 			//进位器
 			auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
 				const char_t up_char = move(char_arc);
@@ -431,20 +445,6 @@ public:
 						break;
 				}
 			};
-			size_t dot_pos=aret.find(_fractional_sign);
-			//检查是否可反向转换
-			if(from_string_no_tail_check_get<T>(aret) != num){
-				//获取并追加信息尾
-				string info_tail=get_info_tail(num);
-				if(dot_pos==string::npos){
-					if(aret.ends_with(string{info_tail.size(),_radix_table[0]}))
-						aret.pop_back(info_tail.size());
-					else
-						aret.push_back(_fractional_sign);
-				}
-				aret+=info_tail;
-				return aret;
-			}
 			{
 				//二分法查找最合适的切割位点.
 				size_t left_pos	 = 0;
@@ -465,7 +465,7 @@ public:
 					if(better_aret.size() < dot_pos)//0补全
 						better_aret.resize(dot_pos,_radix_table[0]);
 					//判断当前切割位点有效性.
-					if(from_string_get<T>(better_aret) == num){
+					if(from_string_no_tail_check_get<T>(better_aret) == num){
 						if(better_aret.back() == _radix_table[0]){
 							const auto end_pos = max(better_aret.find_last_not_of(_radix_table[0])+1, dot_pos);
 							better_aret.resize(end_pos);
