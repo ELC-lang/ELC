@@ -1,5 +1,0 @@
-<map id="elc::defs::base::non_moveable" name="elc::defs::base::non_moveable">
-<area shape="rect" id="node1" title="禁止默认合成的移动" alt="" coords="89,93,225,133"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__move__assign__able.html" title="禁止移动赋值" alt="" coords="5,5,141,45"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__move__construct__able.html" title="禁止移动构造" alt="" coords="166,5,317,45"/>
-</map>

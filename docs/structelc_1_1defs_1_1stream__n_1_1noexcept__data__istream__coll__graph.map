@@ -1,8 +1,0 @@
-<map id="elc::defs::stream_n::noexcept_data_istream" name="elc::defs::stream_n::noexcept_data_istream">
-<area shape="rect" id="node1" title=" " alt="" coords="68,269,233,309"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1stream__n_1_1noexcept__istream.html" title=" " alt="" coords="5,181,139,221"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1stream__n_1_1base__istream.html" title=" " alt="" coords="163,93,296,133"/>
-<area shape="rect" id="node6" href="$structelc_1_1defs_1_1stream__n_1_1data__istream.html" title=" " alt="" coords="163,181,296,221"/>
-<area shape="rect" id="node4" href="$structelc_1_1defs_1_1stream__n_1_1base__stream.html" title=" " alt="" coords="84,5,217,45"/>
-<area shape="rect" id="node5" href="$structelc_1_1defs_1_1stream__n_1_1noexcept__stream.html" title=" " alt="" coords="5,93,139,133"/>
-</map>

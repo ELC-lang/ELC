@@ -1,5 +1,0 @@
-<map id="elc::defs::base::non_default_assign_able" name="elc::defs::base::non_default_assign_able">
-<area shape="rect" id="node1" title="禁止默认合成的赋值" alt="" coords="82,93,225,133"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1non__copy__assign__able.html" title="禁止复制赋值" alt="" coords="5,5,141,45"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1non__move__assign__able.html" title="禁止移动赋值" alt="" coords="165,5,301,45"/>
-</map>

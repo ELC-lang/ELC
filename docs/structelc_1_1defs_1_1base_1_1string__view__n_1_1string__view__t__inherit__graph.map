@@ -1,7 +1,0 @@
-<map id="elc::defs::base::string_view_n::string_view_t&lt; char_T &gt;" name="elc::defs::base::string_view_n::string_view_t&lt; char_T &gt;">
-<area shape="rect" id="node1" title="array_like_view_t的特化类型，表明这是字符串" alt="" coords="212,41,361,96"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__view__t.html" title="constexpr_str_t的退化类型，表明这是常量字符串，但没有可用的额外信息" alt="" coords="409,5,585,60"/>
-<area shape="rect" id="node5" href="$structelc_1_1defs_1_1base_1_1type__name__t.html" title=" " alt="" coords="427,85,567,125"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html" title=" " alt="" coords="5,41,164,96"/>
-<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1constexpr__str__n_1_1constexpr__str__t.html" title="告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作" alt="" coords="633,5,805,60"/>
-</map>

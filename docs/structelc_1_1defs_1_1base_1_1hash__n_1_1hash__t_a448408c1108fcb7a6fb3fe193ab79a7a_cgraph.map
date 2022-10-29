@@ -1,4 +1,0 @@
-<map id="elc::defs::base::hash_n::hash_t::merge_array_hash_results" name="elc::defs::base::hash_n::hash_t::merge_array_hash_results">
-<area shape="rect" id="node1" title="合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般" alt="" coords="5,5,168,60"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#ac62afcb51840aa2751bb3a9024ef5960" title="位操作：循环左移 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼" alt="" coords="216,13,367,53"/>
-</map>

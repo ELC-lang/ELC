@@ -1,4 +1,0 @@
-<map id="elc::defs::base::magic_number::get_next_gold_size_to_resize_for_array" name="elc::defs::base::magic_number::get_next_gold_size_to_resize_for_array">
-<area shape="rect" id="node1" title="已知当前array的size，求下一个合适的提前分配大小" alt="" coords="212,5,383,60"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1stream__n_1_1memory__stream.html#a67ff24027a516e8c388b3a8093d1ad5a" title=" " alt="" coords="5,13,164,53"/>
-</map>

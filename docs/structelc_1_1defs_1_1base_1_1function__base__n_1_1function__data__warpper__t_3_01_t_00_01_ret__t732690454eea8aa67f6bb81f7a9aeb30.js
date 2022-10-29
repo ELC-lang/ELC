@@ -1,9 +1,0 @@
-var structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30 =
-[
-    [ "function_data_warpper_t", "structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30.html#aafe39f0e322e9c2b4970143e6415a4e6", null ],
-    [ "~function_data_warpper_t", "structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30.html#a4283980d6b00bbf91f9b5277e4cb8281", null ],
-    [ "get_data", "structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30.html#a332afa26e283c3b81498fa151ddf6833", null ],
-    [ "operator()", "structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30.html#acf0e2a00dc4feca32e9aebc3c82628ff", null ],
-    [ "operator()", "structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30.html#a6320184e289adf5d7941249bff7eec1c", null ],
-    [ "_value", "structelc_1_1defs_1_1base_1_1function__base__n_1_1function__data__warpper__t_3_01_t_00_01_ret__t732690454eea8aa67f6bb81f7a9aeb30.html#ada846d5094e5400ddae2444b36d8b301", null ]
-];

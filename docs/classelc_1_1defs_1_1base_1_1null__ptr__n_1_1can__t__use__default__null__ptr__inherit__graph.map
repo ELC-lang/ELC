@@ -1,6 +1,0 @@
-<map id="elc::defs::base::null_ptr_n::can_t_use_default_null_ptr" name="elc::defs::base::null_ptr_n::can_t_use_default_null_ptr">
-<area shape="rect" id="node1" title=" " alt="" coords="5,77,176,132"/>
-<area shape="rect" id="node2" href="$classelc_1_1defs_1_1base_1_1null__ptr__n_1_1force__use__default__null__ptr.html" title=" " alt="" coords="227,5,393,60"/>
-<area shape="rect" id="node3" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1ref__able.html" title=" " alt="" coords="243,85,377,125"/>
-<area shape="rect" id="node4" href="$classelc_1_1defs_1_1memory_1_1ptr__n_1_1weak__ref__able.html" title=" " alt="" coords="224,149,396,189"/>
-</map>

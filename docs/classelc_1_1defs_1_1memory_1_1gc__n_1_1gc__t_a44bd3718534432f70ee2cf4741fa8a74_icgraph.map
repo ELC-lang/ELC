@@ -1,6 +1,0 @@
-<map id="elc::defs::memory::gc_n::gc_t::operator()" name="elc::defs::memory::gc_n::gc_t::operator()">
-<area shape="rect" id="node1" title=" " alt="" coords="408,41,555,81"/>
-<area shape="rect" id="node2" href="$namespaceelc_1_1defs_1_1memory_1_1gc__n.html#aa5c109eeeee57a3082468528e936ccc6" title="当alloc失败时调用此函数" alt="" coords="225,41,360,81"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1memory_1_1alloc__n_1_1alloc__t.html#ad01c83e0eb55b0f2fad5f72d06356b53" title=" " alt="" coords="5,5,177,45"/>
-<area shape="rect" id="node4" href="$structelc_1_1defs_1_1memory_1_1alloc__n_1_1realloc__t.html#ab35cc10ddea3aee0bdc984f597ce5c91" title=" " alt="" coords="24,70,159,125"/>
-</map>

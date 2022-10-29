@@ -1,8 +1,0 @@
-<map id="类继承关系图" name="类继承关系图">
-<area shape="rect" id="node1" title=" " alt="" coords="5,121,167,161"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1type__info__t_1_1with__common__attribute.html" title=" " alt="" coords="229,5,421,75"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1type__info__t_1_1with__common__attribute_1_1and__special__attribute.html" title=" " alt="" coords="219,99,430,183"/>
-<area shape="rect" id="node4" href="$structelc_1_1defs_1_1base_1_1type__info__t_1_1with__special__attribute_1_1and__common__attribute.html" title=" " alt="" coords="215,207,435,291"/>
-<area shape="rect" id="node5" title=" " alt="" coords="10,229,162,269"/>
-<area shape="rect" id="node6" href="$structelc_1_1defs_1_1base_1_1type__info__t_1_1with__special__attribute.html" title=" " alt="" coords="233,316,416,385"/>
-</map>

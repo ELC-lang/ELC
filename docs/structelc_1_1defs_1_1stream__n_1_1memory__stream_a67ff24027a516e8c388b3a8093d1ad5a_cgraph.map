@@ -1,7 +1,0 @@
-<map id="elc::defs::stream_n::memory_stream::write" name="elc::defs::stream_n::memory_stream::write">
-<area shape="rect" id="node1" title=" " alt="" coords="5,85,164,125"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1stream__n_1_1memory__stream.html#a65e818ceeadd10356f40d84f13e108e9" title=" " alt="" coords="212,13,385,53"/>
-<area shape="rect" id="node4" href="$namespaceelc_1_1defs_1_1base_1_1magic__number.html#a3861fa6a3ce7e0fff08d658cc4a7a692" title="已知当前array的size，求下一个合适的提前分配大小" alt="" coords="213,77,384,132"/>
-<area shape="rect" id="node5" href="$structelc_1_1defs_1_1memory_1_1get__n_1_1get__resize__t.html#ab71a08b22cc7fda86d5649909138c51f" title=" " alt="" coords="231,156,366,211"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1memory_1_1get__n_1_1get__size__of__get__t.html#a88896a9a4b4ce50ee25a885d100e7832" title=" " alt="" coords="433,5,587,60"/>
-</map>

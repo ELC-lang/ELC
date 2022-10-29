@@ -1,5 +1,0 @@
-<map id="elc::defs::base::type_name_t" name="elc::defs::base::type_name_t">
-<area shape="rect" id="node1" title=" " alt="" coords="15,211,155,251"/>
-<area shape="rect" id="node2" href="$structelc_1_1defs_1_1base_1_1string__view__n_1_1string__view__t.html" title="array_like_view_t的特化类型，表明这是字符串" alt="" coords="10,108,159,163"/>
-<area shape="rect" id="node3" href="$structelc_1_1defs_1_1base_1_1array__like__n_1_1array__like__view__t.html" title=" " alt="" coords="5,5,164,60"/>
-</map>
