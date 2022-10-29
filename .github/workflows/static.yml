@@ -37,7 +37,7 @@ jobs:
       - name: build all_defs
         run: ./Header_File_constructor.out ./parts/header_file/files/elc/all ./docs/all_defs.cpp --relocate https://github.com/ELC-lang/ELC/tree/master/parts/header_file/files/elc
       - name: Doxygen Action
-        uses: mattnotmitt/doxygen-action@1.9.4
+        uses: mattnotmitt/doxygen-action@master
         with:
           doxyfile-path: ./ELC.docgen
       - name: Setup Pages
