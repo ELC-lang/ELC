@@ -177,7 +177,7 @@ private:
 			}
 			if(order_of_magnitude)
 				aret.append(order_of_magnitude,_radix_table[0]);
-			if(aret.ends_with(_fractional_sign))
+			elseif(aret.ends_with(_fractional_sign))
 				aret.pop_back();
 			return aret;
 		}
