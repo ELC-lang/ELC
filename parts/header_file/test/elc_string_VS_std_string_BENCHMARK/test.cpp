@@ -38,18 +38,32 @@ static void Std_to_string(benchmark::State& state){
 	claer_memory_count();
 	std::string str;
 	long double mismatch_num = 0;
+	long double total_size = 0;
 	for(auto _ : state){
 		auto num=rand<T>();
 		str=std::to_string(num);
 		//check
 		state.PauseTiming();
+		total_size += str.size();
 		auto check_num = std::from_string<T>(str);
 		if(!elc::defs::full_equal_in_byte(num, check_num)){
 			mismatch_num++;
 		}
+		else if constexpr(::std::is_floating_point_v<T>){
+			//as elc's mismatch_num always 0, so now for this num both elc and std can lossless conversion back
+			//check and __debugbreak if elc's output longer than std
+			auto check_str = elc::to_string(num);
+			if(str.size() < check_str.size()) {
+				#if defined(_DEBUG)
+					auto debug_view = check_str.c_str();
+					__debugbreak();
+				#endif
+			}
+		}
 		state.ResumeTiming();
 	}
 	state.counters["mismatch_num"] = mismatch_num;
+	state.counters["average_output_length"] = total_size / state.iterations();
 }
 
 template<typename T>
@@ -57,11 +71,13 @@ static void ELC_to_string(benchmark::State& state){
 	claer_memory_count();
 	elc::string str;
 	long double mismatch_num = 0;
+	long double total_size	 = 0;
 	for(auto _ : state){
 		auto num=rand<T>();
 		str=elc::to_string(num);
 		//check
 		state.PauseTiming();
+		total_size += str.size();
 		auto check_num = elc::from_string_get<T>(str);
 		if(!elc::defs::full_equal_in_byte(num,check_num)){
 			#if defined(_DEBUG)
@@ -72,7 +88,8 @@ static void ELC_to_string(benchmark::State& state){
 		}
 		state.ResumeTiming();
 	}
-	state.counters["mismatch_num"] = mismatch_num;
+	state.counters["mismatch_num"]			= mismatch_num;
+	state.counters["average_output_length"] = total_size / state.iterations();
 }
 
 BENCHMARK_TEMPLATE(Std_to_string,double);
