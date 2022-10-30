@@ -8,3 +8,5 @@
 *.bak
 Makefile.win
 temp_tool
+.vscode
+.vs
