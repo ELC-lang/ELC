@@ -44,6 +44,8 @@ static void Std_to_string(benchmark::State& state){
 		str=std::to_string(num);
 		//check
 		state.PauseTiming();
+		if(str.ends_with(".000000"))
+			str.resize(str.size()-7);
 		total_size += str.size();
 		auto check_num = std::from_string<T>(str);
 		if(!elc::defs::full_equal_in_byte(num, check_num)){
@@ -58,11 +60,12 @@ static void Std_to_string(benchmark::State& state){
 				auto debug_view = check_str.c_str();
 				__debugbreak();
 			}
-			//*/
+			/*/
 			{
 				auto elc_str		   = elc::APIs::str_code_convert::to_char_t_str(str.c_str());
 				auto another_check_num = elc::from_string_get<T>(elc_str);
 				if(!elc::defs::full_equal_in_byte(num, another_check_num)) {
+					auto debug_view = check_str.c_str();
 					__debugbreak();
 				}
 			}
