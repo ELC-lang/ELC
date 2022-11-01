@@ -37,7 +37,7 @@ template<typename T>
 static void Std_to_string(benchmark::State& state){
 	claer_memory_count();
 	std::string str;
-	long double mismatch_num = 0;
+	long double mismatch_num = 0, better_output_than_elc = 0;
 	long double total_size = 0;
 	for(auto _ : state){
 		auto num=rand<T>();
@@ -53,12 +53,12 @@ static void Std_to_string(benchmark::State& state){
 		}
 		else if constexpr(::std::is_floating_point_v<T>){
 			//as elc's mismatch_num always 0, so now for this num both elc and std can lossless conversion back
-			//check and __debugbreak if elc's output longer than std
+			//check if elc's output longer than std
 			//*
 			auto check_str = elc::to_string(num);
 			if(str.size() < check_str.size()) {
 				auto debug_view = check_str.c_str();
-				__debugbreak();
+				better_output_than_elc++;
 			}
 			/*/
 			{
@@ -74,6 +74,7 @@ static void Std_to_string(benchmark::State& state){
 		state.ResumeTiming();
 	}
 	state.counters["mismatch_num"] = mismatch_num;
+	state.counters["better_output_than_elc"] = better_output_than_elc;
 	state.counters["average_output_length"] = total_size / state.iterations();
 }
 
@@ -103,8 +104,35 @@ static void ELC_to_string(benchmark::State& state){
 	state.counters["average_output_length"] = total_size / state.iterations();
 }
 
+template<typename T>
+static void ELC_to_string_rough(benchmark::State& state){
+	claer_memory_count();
+	elc::string str;
+	long double mismatch_num = 0;
+	long double total_size	 = 0;
+	for(auto _ : state){
+		auto num=rand<T>();
+		str=elc::to_string_rough(num);
+		//check
+		state.PauseTiming();
+		total_size += str.size();
+		auto check_num = elc::from_string_get<T>(str);
+		if(!elc::defs::full_equal_in_byte(num,check_num)){
+			#if defined(_DEBUG)
+				auto debug_view = str.c_str();
+				__debugbreak();
+			#endif
+			mismatch_num++;
+		}
+		state.ResumeTiming();
+	}
+	state.counters["mismatch_num"]			= mismatch_num;
+	state.counters["average_output_length"] = total_size / state.iterations();
+}
+
 BENCHMARK_TEMPLATE(Std_to_string,double);
 BENCHMARK_TEMPLATE(ELC_to_string,double);
+BENCHMARK_TEMPLATE(ELC_to_string_rough,double);
 BENCHMARK_TEMPLATE(Std_to_string,size_t);
 BENCHMARK_TEMPLATE(ELC_to_string,size_t);
 
