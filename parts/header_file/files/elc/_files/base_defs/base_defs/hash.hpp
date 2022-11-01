@@ -27,13 +27,13 @@ namespace hash_n{
 	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T>;
 
 	enable_adl(the_pointer_hash);
-	/**
-	 * Computes the hash value of a pointer.
-	 *
-	 * @param a The pointer to hash.
-	 *
-	 * @returns The hash value of the pointer.
-	 */
+	/*!
+	Computes the hash value of a pointer.
+	
+	@param a The pointer to hash.
+	
+	@returns The hash value of the pointer.
+	*/
 	template<class T>
 	[[nodiscard]]inline constexpr hash_value_t pointer_hash(T*a)noexcept{
 		if constexpr(was_not_an_ill_form(the_pointer_hash(a)))
@@ -88,31 +88,31 @@ namespace hash_n{
 
 		#define hash operator()
 
-		/**
-		 * Computes the hash value of `nothing`.
-		 *
-		 * @returns The hash value of `nothing`.
-		 */
+		/*!
+		Computes the hash value of `nothing`.
+		
+		@returns The hash value of `nothing`.
+		*/
 		[[nodiscard]]inline constexpr hash_value_t hash(nothing)const noexcept{
 			return{hash_base_t(nothing)};
 		}
-		/**
-		 * Computes the hash value of a base_type_info_t object.
-		 *
-		 * @param a The base_type_info_t object to hash.
-		 *
-		 * @returns The hash value of the object.
-		 */
+		/*!
+		Computes the hash value of a base_type_info_t object.
+		
+		@param a The base_type_info_t object to hash.
+		
+		@returns The hash value of the object.
+		*/
 		[[nodiscard]]inline hash_value_t hash(const base_type_info_t&a)const noexcept{
 			return{a.get_hash()};
 		}
-		/**
-		 * Computes the hash value of a value.
-		 *
-		 * @param a The value to hash.
-		 *
-		 * @returns The hash value of the value.
-		 */
+		/*!
+		Computes the hash value of a value.
+		
+		@param a The value to hash.
+		
+		@returns The hash value of the value.
+		*/
 		template<class T> requires able<T>
 		[[nodiscard]]constexpr_as_auto inline auto hash(const T&a)const noexcept(nothrow<T>){
 			#undef hash
@@ -132,27 +132,27 @@ namespace hash_n{
 			}
 			#define hash operator()
 		}
-		/**
-		 * Computes the hash of a value in the base type.
-		 *
-		 * @param a The value to hash.
-		 *
-		 * @returns The hash of the value in the base type.
-		 */
+		/*!
+		Computes the hash of a value in the base type.
+		
+		@param a The value to hash.
+		
+		@returns The hash of the value in the base type.
+		*/
 		template<class T>
 		[[nodiscard]]constexpr_as_auto inline hash_base_t get_hash_in_base_type(const T&a)const noexcept(nothrow<T>){
 			return hash(a)._value;
 		}
-		/**
-		 * 从某个起始点算起的hash
-		 *
-		 * @param before The hashed value before this hash.
-		 * @param before_size The size of the hashed value before this hash.
-		 * @param a The sequence of values.
-		 * @param size The number of values in the sequence.
-		 *
-		 * @returns The hash value of the sequence.
-		 */
+		/*!
+		从某个起始点算起的hash
+		
+		@param before The hashed value before this hash.
+		@param before_size The size of the hashed value before this hash.
+		@param a The sequence of values.
+		@param size The number of values in the sequence.
+		
+		@returns The hash value of the sequence.
+		*/
 		template<class T>
 		[[nodiscard]]force_inline constexpr hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const T*a,size_t size)const noexcept{
 			hash_base_t aret=before._value;
@@ -163,14 +163,14 @@ namespace hash_n{
 			}
 			return{aret};
 		}
-		/**
-		 * 计算此hash重复N次的数组的hash结果
-		 *
-		 * @param value The hash value to repeat.
-		 * @param size The number of times to repeat the hash value.
-		 *
-		 * @returns The repeated hash value.
-		 */
+		/*!
+		计算此hash重复N次的数组的hash结果
+		
+		@param value The hash value to repeat.
+		@param size The number of times to repeat the hash value.
+		
+		@returns The repeated hash value.
+		*/
 		[[nodiscard]]force_inline constexpr hash_value_t repeat_times(hash_value_t value,size_t size)const noexcept{
 			hash_base_t aret=0;
 			{
@@ -200,65 +200,64 @@ namespace hash_n{
 			}
 			return{aret};
 		}
-		/**
-		 * 计算此hash重复N次的数组的hash结果
-		 *
-		 * @param value The hash value to repeat.
-		 * @param size The number of times to repeat the hash value.
-		 *
-		 * @returns The repeated hash value.
-		 */
+		/*!
+		计算此hash重复N次的数组的hash结果
+		
+		@param value The hash value to repeat.
+		@param size The number of times to repeat the hash value.
+		
+		@returns The repeated hash value.
+		*/
 		template<class T>
 		[[nodiscard]]force_inline constexpr hash_value_t repeat_times(T&&value,size_t size)const noexcept{
 			return repeat_times(hash(value),size);
 		}
-		/**
-		 * Computes the hash value of an array of elements.
-		 *
-		 * @param a The array of elements.
-		 * @param size The size of the array.
-		 *
-		 * @returns The hash value of the array.
-		 */
+		/*!
+		Computes the hash value of an array of elements.
+		
+		@param a The array of elements.
+		@param size The size of the array.
+		
+		@returns The hash value of the array.
+		*/
 		template<class T>
 		[[nodiscard]]constexpr inline hash_value_t hash(const T*a,size_t size)const noexcept(nothrow<const T>){
 			return with_calculated_before(hash(nothing),0,a,size);
 		}
-		/**
-		 * 合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般
-		 *
-		 * @param before The first hash value.
-		 * @param before_size The size of the first hash value.
-		 * @param after The second hash value.
-		 * @param after_size The size of the second hash value.
-		 *
-		 * @returns The merged hash value.
-		 */
+		/*!
+		合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般
+		
+		@param before The first hash value.
+		@param before_size The size of the first hash value.
+		@param after The second hash value.
+		@param after_size The size of the second hash value.
+		
+		@returns The merged hash value.
+		*/
 		[[nodiscard]]force_inline hash_value_t merge_array_hash_results(
 			hash_value_t before,size_t before_size,hash_value_t after,[[maybe_unused]]size_t after_size
 		)const noexcept{
 			return{before._value^(rotl(after._value,before_size))};
 		}
-		/**
-		 * Computes the hash value of an array_like_view_t<T> object.
-		 *
-		 * @param a The array_like_view_t<T> object.
-		 *
-		 * @returns The hash value of the array_like_view_t<T> object.
-		 */
+		/*!
+		计算一个 array_like_view_t<T> 对象的哈希值。
+		@param a array_like_view_t<T> 对象。
+		
+		@returns array_like_view_t<T> 对象的哈希值。
+		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
 		[[nodiscard]]constexpr inline hash_value_t hash(const array_like_view_t<T>a)const noexcept(nothrow<T>){
 			return hash(a.begin(),a.size());
 		}
-		/**
-		 * Calculates a hash value for an array_like_view_t<T> object with calculated before hash value.
-		 *
-		 * @param before The hash value to use as the basis for the calculation.
-		 * @param before_size The size of the hash value to use as the basis for the calculation.
-		 * @param a The array_like_view_t<T> object to calculate the hash value for.
-		 *
-		 * @returns The hash value for the array_like_view_t<T> object.
-		 */
+		/*!
+		计算一个 array_like_view_t<T> 对象的哈希值，并在哈希值之前进行计算。
+		
+		@param before 用来作为计算基础的哈希值。
+		@param before_size 用来作为计算基础的哈希值的大小。
+		@param a 要计算哈希值的 array_like_view_t<T> 对象。
+		
+		@returns array_like_view_t<T> 对象的哈希值。
+		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
 		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>a)const noexcept{
 			return with_calculated_before(before,before_size,a.begin(),a.size());

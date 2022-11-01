@@ -14,13 +14,13 @@ constexpr struct zero_t{
 	operator T()const noexcept(type_info<decltype(0)>.can_nothrow_convert_to<T>){return 0;}
 }zero{};
 
-/**
- * Returns true if all bytes in the input are zero.
- *
- * @param a The input value.
- *
- * @returns True if all bytes in the input are zero.
- */
+/*!
+Returns true if all bytes in the input are zero.
+
+@param a The input value.
+
+@returns True if all bytes in the input are zero.
+*/
 template<class T>
 constexpr inline bool is_all_byte_zero(T&&a){
 	const byte*ptr=cast_to_data(addressof(a));

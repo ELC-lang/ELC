@@ -21,22 +21,22 @@ namespace get_n{
 	using abstract_base_n::abstract_base;
 	//struct build_by_get_only{};已定义于 "../../base_defs/special_attribute.hpp"
 
-	/**
-	 * 向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例
-	 *
-	 * @param arg 原有数据块
-	 * @param to_size 新的数据块大小
-	 */
+	/*!
+	向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例
+	
+	@param arg 原有数据块
+	@param to_size 新的数据块大小
+	*/
 	template<typename T>
 	void alloc_size_cut(T*&arg,size_t to_size)noexcept{
 		realloc(arg,to_size);
 	}
-	/**
-	 * 向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例
-	 *
-	 * @param arg 原有数据块
-	 * @param to_size 新的数据块大小
-	 */
+	/*!
+	向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例
+	
+	@param arg 原有数据块
+	@param to_size 新的数据块大小
+	*/
 	template<typename T>
 	void alloc_size_grow(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		if constexpr(move.trivial<T>)
@@ -59,13 +59,13 @@ namespace get_n{
 			arg=tmp;
 		}
 	}
-	/**
-	 * 在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
-	 *
-	 * @param arg 原有数据块
-	 * @param insert_pos 插入位置
-	 * @param insert_size 插入大小
-	 */
+	/*!
+	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
+	
+	@param arg 原有数据块
+	@param insert_pos 插入位置
+	@param insert_size 插入大小
+	*/
 	template<typename T>
 	void alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		const auto from_size=get_size_of_alloc(arg);
@@ -95,17 +95,17 @@ namespace get_n{
 			arg=tmp;
 		}
 	}
-	/**
-	 * 在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
-	 * 若有多余的大小，追加到末尾
-	 *
-	 * @param arg 原有数据块
-	 * @param to_size 新的数据块大小
-	 * @param insert_pos 插入位置
-	 * @param insert_size 插入大小
-	 *
-	 * @returns 多余的大小
-	 */
+	/*!
+	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
+	若有多余的大小，追加到末尾
+	
+	@param arg 原有数据块
+	@param to_size 新的数据块大小
+	@param insert_pos 插入位置
+	@param insert_size 插入大小
+	
+	@returns 多余的大小
+	*/
 	template<typename T>
 	size_t alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t to_size,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		const auto from_size=get_size_of_alloc(arg);
@@ -135,12 +135,12 @@ namespace get_n{
 		}
 		return to_size-from_size-insert_size;
 	}
-	/**
-	 * 向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例
-	 *
-	 * @param arg 原有数据块
-	 * @param to_size 新的数据块大小
-	 */
+	/*!
+	向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例
+	
+	@param arg 原有数据块
+	@param to_size 新的数据块大小
+	*/
 	template<typename T>
 	void forward_alloc_size_cut(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		const auto from_size=get_size_of_alloc(arg);
@@ -166,12 +166,12 @@ namespace get_n{
 			arg=tmp;
 		}
 	}
-	/**
-	 * 向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例
-	 *
-	 * @param arg 原有数据块
-	 * @param to_size 新的数据块大小
-	 */
+	/*!
+	向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例
+	
+	@param arg 原有数据块
+	@param to_size 新的数据块大小
+	*/
 	template<typename T>
 	void forward_alloc_size_grow(T*&arg,size_t to_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		const auto from_size=get_size_of_alloc(arg);
@@ -202,17 +202,17 @@ namespace get_n{
 	若有多余的大小，追加到前端
 	返回多余的大小
 	*/
-	/**
-	 * 在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
-	 * 若有多余的大小，追加到前端
-	 *
-	 * @param arg 原有数据块
-	 * @param to_size 新的数据块大小
-	 * @param insert_pos 插入位置
-	 * @param insert_size 插入大小
-	 *
-	 * @returns 多余的大小
-	 */
+	/*!
+	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
+	若有多余的大小，追加到前端
+	
+	@param arg 原有数据块
+	@param to_size 新的数据块大小
+	@param insert_pos 插入位置
+	@param insert_size 插入大小
+	
+	@returns 多余的大小
+	*/
 	template<typename T>
 	size_t forward_alloc_size_grow_with_insert_uninitialized_data(T*&arg,size_t to_size,size_t insert_pos,size_t insert_size)noexcept(move.trivial<T> or move.nothrow<T>){
 		const auto from_size=get_size_of_alloc(arg);
@@ -258,30 +258,30 @@ namespace get_n{
 		template<class...Args>
 		static constexpr bool nothrow=construct<T>.nothrow<Args...>;
 
-		/**
-		 * Constructs an object of type T.
-		 *
-		 * @param rest The arguments to pass to the constructor of T.
-		 *
-		 * @returns A pointer to the newly constructed object.
-		 */
+		/*!
+		Constructs an object of type T.
+		
+		@param rest The arguments to pass to the constructor of T.
+		
+		@returns A pointer to the newly constructed object.
+		*/
 		template<class...Args> requires able<Args...>
 		[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){
 			const APIs::alloc::source_location_guard slg;
 			return construct<T>[alloc<T>()](forward<Args>(rest)...);
 		}
 
-		/**
-		 * Allocates an array of T with the specified size.
-		 */
+		/*!
+		Allocates an array of T with the specified size.
+		*/
 		struct array_get_t{
 			size_t _size;
-			/**
-			* Constructs an array of objects of type T.
-			*
-			* @param rest The arguments to pass to the constructor of T.
-			*
-			* @returns An array of objects of type T.
+			/*!
+			Constructs an array of objects of type T.
+			
+			@param rest The arguments to pass to the constructor of T.
+			
+			@returns An array of objects of type T.
 			*/
 			template<class...Args> requires able<Args...>
 			[[nodiscard]]T* operator()(Args&&...rest)const noexcept(nothrow<Args...>){

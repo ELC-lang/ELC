@@ -6,11 +6,9 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-/**
- * Checks for memory leaks.
- *
- * @returns None
- */
+/*!
+Checks for memory leaks.
+*/
 inline void check_memory_lack()noexcept{
 	stest_mapeventlogwith(lambda(const void*p,steventlist*a)noexcept{
 		stest_putsf(L"内存泄露于%p,分配自:",p);
