@@ -108,6 +108,7 @@ namespace magic_number{
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
 	[[nodiscard]]force_inline constexpr auto rotl_nomod(const T v,const auto R)noexcept;
+	#define rot_base(opt,antiopt) static_cast<T>(static_cast<T>(v opt r) | static_cast<T>(v antiopt (d - r)))
 	/// 位操作：循环右移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
@@ -115,13 +116,13 @@ namespace magic_number{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		if constexpr(::std::is_unsigned_v<decltype(r)>){
 			if(r)
-				return static_cast<T>(static_cast<T>(v >> r) | static_cast<T>(v << (d - r)));
+				return rot_base(>>,<<);
 			else
 				return v;
 		}
 		else{
 			if(r>0)
-				return static_cast<T>(static_cast<T>(v >> r) | static_cast<T>(v << (d - r)));
+				return rot_base(>>,<<);
 			elseif(r==0)
 				return v;
 			else//r<0
@@ -135,19 +136,20 @@ namespace magic_number{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		if constexpr(::std::is_unsigned_v<decltype(r)>){
 			if(r)
-				return static_cast<T>(static_cast<T>(v << r) | static_cast<T>(v >> (d - r)));
+				return rot_base(<<,>>);
 			else
 				return v;
 		}
 		else{
 			if(r>0)
-				return static_cast<T>(static_cast<T>(v << r) | static_cast<T>(v >> (d - r)));
+				return rot_base(<<,>>);
 			elseif(r==0)
 				return v;
 			else//r<0
 				return rotr_nomod(v,0-r);
 		}
 	}
+	#undef rot_base
 	/// 位操作：循环右移
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<class T> requires ::std::is_unsigned_v<T>
