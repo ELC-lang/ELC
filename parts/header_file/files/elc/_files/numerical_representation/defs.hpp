@@ -105,7 +105,7 @@ private:
 	}
 	template<typename T>
 	inline string get_info_tail(T x)const noexcept{
-		auto info_tail_size_per_byte = get_info_tail_size_per_byte();
+		const auto info_tail_size_per_byte = get_info_tail_size_per_byte();
 		string aret;
 		data_view<const T> view{&x};
 		for(const byte c: view){
@@ -133,7 +133,9 @@ private:
 		//小数情况下，这限制了在当前radix下mantissa的最大长度，避免如radix=3而num=0.25时的无限循环
 		//而不管整数还是小数的情况下，这都会被用作计算预分配空间大小
 		constexpr auto info_threshold_base = pow(BIT_POSSIBILITY,bitnum_of(T));
+		push_and_disable_msvc_warning(26496);//非浮点数情况下info_threshold或许该被声明为常量
 		auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
+		pop_msvc_warning();
 		if constexpr(::std::is_floating_point_v<T>){
 			string aret;
 			suppress_msvc_warning(26494)//未初始化警告diss
