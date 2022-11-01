@@ -124,5 +124,7 @@
 #undef no_vtable_struct
 #undef no_vtable_class
 
+//#undef get_elc_defs
+
 //file_end
 

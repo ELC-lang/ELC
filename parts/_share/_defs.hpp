@@ -230,5 +230,7 @@ protected:\
 #define no_vtable_struct struct with_no_vtable
 #define no_vtable_class class with_no_vtable
 
+//#define get_elc_defs using namespace ::elc::defs
+
 //file_end
 

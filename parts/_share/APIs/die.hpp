@@ -34,7 +34,7 @@ elc依赖的基础函数.
 			#endif
 			::std::abort();
 		}
-		/// @brief 同 die ，但是有详细的错误信息
+		/// @brief 同 die() ，但是有详细的错误信息
 		/// @param err_msg 错误信息
 		[[noreturn]]inline void die_with(const char_t*err_msg)noexcept{
 			#if defined(_MSC_VER)

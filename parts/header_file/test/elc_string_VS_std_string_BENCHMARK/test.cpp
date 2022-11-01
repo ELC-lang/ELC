@@ -52,13 +52,21 @@ static void Std_to_string(benchmark::State& state){
 		else if constexpr(::std::is_floating_point_v<T>){
 			//as elc's mismatch_num always 0, so now for this num both elc and std can lossless conversion back
 			//check and __debugbreak if elc's output longer than std
+			//*
 			auto check_str = elc::to_string(num);
 			if(str.size() < check_str.size()) {
-				#if defined(_DEBUG)
-					auto debug_view = check_str.c_str();
-					__debugbreak();
-				#endif
+				auto debug_view = check_str.c_str();
+				__debugbreak();
 			}
+			//*/
+			{
+				auto elc_str		   = elc::APIs::str_code_convert::to_char_t_str(str.c_str());
+				auto another_check_num = elc::from_string_get<T>(elc_str);
+				if(!elc::defs::full_equal_in_byte(num, another_check_num)) {
+					__debugbreak();
+				}
+			}
+			//*/
 		}
 		state.ResumeTiming();
 	}
