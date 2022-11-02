@@ -145,9 +145,20 @@ namespace function_n{
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
 	};
 
-	#if !defined(_MSC_VER)
 	template<class T,bool promise_nothrow_at_destruct>
 	class base_function_t;
+
+	template<class T>
+	struct is_function_t_helper {
+		constexpr static bool value = false;
+	};
+	template<class T, bool promise_nothrow_at_destruct>
+	struct is_function_t_helper<base_function_t<T, promise_nothrow_at_destruct>> {
+		constexpr static bool value = true;
+	};
+	template<class T>
+	constexpr static bool is_function_t = is_function_t_helper<T>::value;
+	#if !defined(_MSC_VER)
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
 	struct base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
 	protected:
@@ -174,20 +185,42 @@ namespace function_n{
 		);
 
 		template<class T>
-		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
+		static constexpr bool get_data_able_helper(){
+			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
+				return true;
+			elseif constexpr(is_function_t<T>)
+				return false;
+			else
+				return invoke<T>.able<Args_t...> && get<func_data_t<remove_cvref<T>>>.able<T>;
+		}
 		template<class T>
-		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		static constexpr bool get_data_able=get_data_able_helper<T>();
+		template<class T>
+		static constexpr bool get_data_nothrow_helper() {
+			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
+				return true;
+			elseif constexpr(is_function_t<T>)
+				return false;
+			else
+				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		}
+		template<class T>
+		static constexpr bool get_data_nothrow=get_data_nothrow_helper<T>();
 
-		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
-		static ptr_t get_data_from(T&&a)noexcept(get_data_nothrow<T>){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			if constexpr(nothrow)
-				if constexpr(!invoke<T>.nothrow<Args_t...>)
-					template_warning("the call of T was not noexcept,this may cause terminate.");
-			//BLOCK_END
-			return get<func_data_t<remove_cvref<T>>>(a);
+		template<class T> requires get_data_able<T>
+		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
+			if constexpr(is_function_t<T>)
+				return a._m;
+			else{
+				//BLOCK:constexpr checks
+				if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+					template_error("unexpected assign.");
+				if constexpr(nothrow)
+					if constexpr(!invoke<T>.nothrow<Args_t...>)
+						template_warning("the call of T was not noexcept,this may cause terminate.");
+				//BLOCK_END
+				return get<func_data_t<remove_cvref<T>>>(a);
+			}
 		}
 		explicit base_function_t(base_t::ptr_t a)noexcept{_m=a;}
 	public:
@@ -262,8 +295,6 @@ namespace function_n{
 	};
 	#else
 	//MSVC，我滴垃圾堆
-	template<class T,bool promise_nothrow_at_destruct>
-	class base_function_t;
 	template<class Ret_t,class...Args_t,bool promise_nothrow_at_destruct>
 	struct base_function_t<Ret_t(Args_t...),promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{
 	protected:
@@ -290,17 +321,39 @@ namespace function_n{
 		);
 
 		template<class T>
-		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
+		static constexpr bool get_data_able_helper(){
+			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
+				return true;
+			elseif constexpr(is_function_t<T>)
+				return false;
+			else
+				return invoke<T>.able<Args_t...> && get<func_data_t<remove_cvref<T>>>.able<T>;
+		}
 		template<class T>
-		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		static constexpr bool get_data_able=get_data_able_helper<T>();
+		template<class T>
+		static constexpr bool get_data_nothrow_helper() {
+			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
+				return true;
+			elseif constexpr(is_function_t<T>)
+				return false;
+			else
+				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		}
+		template<class T>
+		static constexpr bool get_data_nothrow=get_data_nothrow_helper<T>();
 
-		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
+		template<class T> requires get_data_able<T>
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			//BLOCK_END
-			return get<func_data_t<remove_cvref<T>>>(a);
+			if constexpr(is_function_t<T>)
+				return a._m;
+			else{
+				//BLOCK:constexpr checks
+				if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+					template_error("unexpected assign.");
+				//BLOCK_END
+				return get<func_data_t<remove_cvref<T>>>(a);
+			}
 		}
 		explicit base_function_t(base_t::ptr_t a)noexcept{_m=a;}
 	public:
@@ -400,20 +453,42 @@ namespace function_n{
 		);
 
 		template<class T>
-		static constexpr bool get_data_able=invoke<T>.able<Args_t...> && not base_on_this_t_or_more_stringent_restrictions<T>;
+		static constexpr bool get_data_able_helper(){
+			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
+				return true;
+			elseif constexpr(is_function_t<T>)
+				return false;
+			else
+				return invoke<T>.able<Args_t...> && get<func_data_t<remove_cvref<T>>>.able<T>;
+		}
 		template<class T>
-		static constexpr bool get_data_nothrow=get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		static constexpr bool get_data_able=get_data_able_helper<T>();
+		template<class T>
+		static constexpr bool get_data_nothrow_helper() {
+			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
+				return true;
+			elseif constexpr(is_function_t<T>)
+				return false;
+			else
+				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+		}
+		template<class T>
+		static constexpr bool get_data_nothrow=get_data_nothrow_helper<T>();
 
-		template<class T> requires(get_data_able<T> && get<func_data_t<remove_cvref<T>>>.able<T>)
+		template<class T> requires get_data_able<T>
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
-			//BLOCK:constexpr checks
-			if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
-				template_error("unexpected assign.");
-			if constexpr(1)
-				if constexpr(!invoke<T>.nothrow<Args_t...>)
-					template_warning("the call of T was not noexcept,this may cause terminate.");
-			//BLOCK_END
-			return get<func_data_t<remove_cvref<T>>>(a);
+			if constexpr(is_function_t<T>)
+				return a._m;
+			else{
+				//BLOCK:constexpr checks
+				if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
+					template_error("unexpected assign.");
+				if constexpr(1)
+					if constexpr(!invoke<T>.nothrow<Args_t...>)
+						template_warning("the call of T was not noexcept,this may cause terminate.");
+				//BLOCK_END
+				return get<func_data_t<remove_cvref<T>>>(a);
+			}
 		}
 		explicit base_function_t(base_t::ptr_t a)noexcept{_m=a;}
 	public:
