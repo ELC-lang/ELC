@@ -68,7 +68,7 @@ namespace range_n{
 		static constexpr index_type get_index_of(T&ch)noexcept{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
-		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
+		constexpr void build_table(const array_like_view_t<T>&pattern)noexcept{
 			const size_t m=pattern.size();
 			if(!m)
 				return;
@@ -83,10 +83,10 @@ namespace range_n{
 				pre_index_table[index]=get_index_of(pattern[i-1]);
 			}
 		}
-		constexpr match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
+		constexpr match_pattern(const array_like_view_t<T>&pattern)noexcept:_pattern(pattern){
 			build_table(_pattern);
 		}
-		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)const noexcept{
+		[[nodiscard]]constexpr T* match(const array_like_view_t<T>&range)const noexcept{
 			size_t m = _pattern.size();
 			if(!m)
 				return range.begin();
@@ -124,7 +124,7 @@ namespace range_n{
 		static constexpr index_type get_index_of(T&ch)noexcept{
 			return index_type(hash(ch) % number_of_possible_values_per<index_type>);
 		}
-		constexpr void build_table(array_like_view_t<T>pattern)noexcept{
+		constexpr void build_table(const array_like_view_t<T>&pattern)noexcept{
 			const size_t m=pattern.size();
 			if(!m)
 				return;
@@ -139,10 +139,10 @@ namespace range_n{
 				pre_index_table[index]=get_index_of(pattern[i+1]);
 			}
 		}
-		constexpr reverse_match_pattern(array_like_view_t<T>pattern)noexcept:_pattern(pattern){
+		constexpr reverse_match_pattern(const array_like_view_t<T>&pattern)noexcept:_pattern(pattern){
 			build_table(_pattern);
 		}
-		[[nodiscard]]constexpr T* match(array_like_view_t<T>range)const noexcept{
+		[[nodiscard]]constexpr T* match(const array_like_view_t<T>&range)const noexcept{
 			size_t m=_pattern.size();
 			if(!m)
 				return range.begin();
@@ -171,7 +171,7 @@ namespace range_n{
 	static constexpr size_t npos = size_t(-1);
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(T&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range(const remove_cvref<T>&pattern,const array_like_view_t<T>&range){
 		for(auto&i : range){
 			if(i==pattern)
 				return addressof(i);
@@ -180,8 +180,26 @@ namespace range_n{
 	}
 	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t in_range_size_t(T&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t(const remove_cvref<T>&pattern,const array_like_view_t<T>&range){
 		auto result = in_range(pattern,range);
+		if(result)
+			return result - range.begin();
+		else
+			return npos;
+	}
+	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr T* in_range_but_reverse(const remove_cvref<T>&pattern,const array_like_view_t<T>&range){
+		for(auto&i : range|::std::views::reverse){
+			if(i==pattern)
+				return addressof(i);
+		}
+		return nullptr;
+	}
+	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(const remove_cvref<T>&pattern,const array_like_view_t<T>&range){
+		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
 		else
@@ -190,7 +208,7 @@ namespace range_n{
 	//  数据串匹配by steve02081504.
 	/// 若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		if(range.size() >= 512 && pattern.size() >= 11){
 			match_pattern tmp=pattern;
 			return tmp.match(range);
@@ -216,26 +234,8 @@ namespace range_n{
 	}
 	/// 若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t in_range_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_size_t(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		auto result = in_range(pattern,range);
-		if(result)
-			return result - range.begin();
-		else
-			return npos;
-	}
-	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
-	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(T&pattern,array_like_view_t<T>range){
-		for(auto&i : range|::std::views::reverse){
-			if(i==pattern)
-				return addressof(i);
-		}
-		return nullptr;
-	}
-	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
-	template<typename T>
-	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(T&pattern,array_like_view_t<T>range){
-		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
 		else
@@ -244,7 +244,7 @@ namespace range_n{
 	//  反向数据串匹配by steve02081504.
 	/// 若成功找到匹配的数据串，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range_but_reverse(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		if(range.size() >= 512 && pattern.size() >= 11){
 			reverse_match_pattern tmp = pattern;
 			return tmp.match(range);
@@ -271,7 +271,7 @@ namespace range_n{
 	}
 	/// 若成功找到匹配的数据串，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		auto result = in_range_but_reverse(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -288,7 +288,7 @@ namespace range_n{
 		bool _bitmark[number_of_possible_values_per<index_type>]{};
 
 		bitmark_for_finds()noexcept=default;
-		[[nodiscard]]constexpr bool mark(array_like_view_t<T>pattern)noexcept{
+		[[nodiscard]]constexpr bool mark(const array_like_view_t<T>&pattern)noexcept{
 			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>){
 				for(auto& i: pattern){
 					if(::std::make_unsigned_t<T>(i) >= number_of_possible_values_per<index_type>)
@@ -312,7 +312,7 @@ namespace range_n{
 	/// find_first_of的bitmark实现
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_of_bitmark(const bitmark_for_finds<T>&mark,const array_like_view_t<T>&range){
 		for(auto&i : range){
 			if(mark[i])
 				return addressof(i);
@@ -322,7 +322,7 @@ namespace range_n{
 	/// find_first_of的朴素实现
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* base_find_first_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* base_find_first_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		for(auto&i : range){
 			if(in_range(i,pattern))
 				return addressof(i);
@@ -332,7 +332,7 @@ namespace range_n{
 	//  find_first_of
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		if constexpr(::std::is_integral_v<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
@@ -342,7 +342,7 @@ namespace range_n{
 	}
 	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t find_first_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_first_of_size_t(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		auto result = find_first_of(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -352,7 +352,7 @@ namespace range_n{
 	/// find_last_of的bitmark实现
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_of_bitmark(const bitmark_for_finds<T>&mark,const array_like_view_t<T>&range){
 		for(auto& i: range|::std::views::reverse){
 			if(mark[i])
 				return addressof(i);
@@ -361,7 +361,7 @@ namespace range_n{
 	/// find_last_of的朴素实现
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* base_find_last_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* base_find_last_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		for(auto&i : range|::std::views::reverse){
 			if(in_range(i,pattern))
 				return addressof(i);
@@ -371,7 +371,7 @@ namespace range_n{
 	//  find_last_of
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		if constexpr(::std::is_integral_v<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
@@ -381,7 +381,7 @@ namespace range_n{
 	}
 	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t find_last_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_last_of_size_t(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		auto result = find_last_of(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -391,7 +391,7 @@ namespace range_n{
 	/// find_first_not_of的bitmark实现
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_not_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_not_of_bitmark(const bitmark_for_finds<T>&mark,const array_like_view_t<T>&range){
 		for(auto& i: range){
 			if(!mark[i])
 				return addressof(i);
@@ -401,7 +401,7 @@ namespace range_n{
 	/// find_first_not_of的朴素实现
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* base_find_first_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* base_find_first_not_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		for(auto&i : range){
 			if(!in_range(i,pattern))
 				return addressof(i);
@@ -411,7 +411,7 @@ namespace range_n{
 	//  find_first_not_of
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_not_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		if constexpr(::std::is_integral_v<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
@@ -421,7 +421,7 @@ namespace range_n{
 	}
 	/// 若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t find_first_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_first_not_of_size_t(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		auto result = find_first_not_of(pattern,range);
 		if(result)
 			return result - range.begin();
@@ -431,7 +431,7 @@ namespace range_n{
 	/// find_last_not_of的bitmark实现
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_not_of_bitmark(const bitmark_for_finds<T>&mark,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_not_of_bitmark(const bitmark_for_finds<T>&mark,const array_like_view_t<T>&range){
 		for(auto& i: range|::std::views::reverse){
 			if(!mark[i])
 				return addressof(i);
@@ -441,17 +441,64 @@ namespace range_n{
 	/// find_last_not_of的朴素实现
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* base_find_last_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* base_find_last_not_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		for(auto&i : range|::std::views::reverse){
 			if(!in_range(i,pattern))
 				return addressof(i);
 		}
 		return nullptr;
 	}
+	//  bitmark_for_quick_unindex
+	/// bitmark提供了一种快速进行反索引的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。
+	/// 若bitmark构建失败，程序应当使用正在进行的反索引的朴素实现版本。
+	template<typename T>
+	struct bitmark_for_quick_unindex {
+		typedef unsigned char index_type;
+		size_t _bitmark[number_of_possible_values_per<index_type>]{};
+
+		bitmark_for_quick_unindex()noexcept=default;
+		[[nodiscard]]constexpr bool mark(const array_like_view_t<T>&pattern)noexcept{
+			for(auto& i : _bitmark)
+				i = npos;
+			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>){
+				size_t i=0;
+				const size_t end=pattern.size();
+				while(i<end){
+					auto&ch=pattern[i];
+					if(::std::make_unsigned_t<T>(ch) >= number_of_possible_values_per<index_type>)
+						return false;
+					auto&index=_bitmark[index_type(ch)];
+					if(index!=npos)
+						return false;
+					index=i;
+					i++;
+				}
+			}
+			else{
+				size_t i=0;
+				const size_t end=pattern.size();
+				while(i<end){
+					auto&ch=pattern[i];
+					auto&index=_bitmark[index_type(ch)];
+					if(index!=npos)
+						return false;
+					index=i;
+					i++;
+				}
+			}
+			return true;
+		}
+		[[nodiscard]]constexpr size_t operator[](T&index)const noexcept{
+			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>)
+				if(::std::make_unsigned_t<T>(index) >= number_of_possible_values_per<index_type>)
+					return false;
+			return _bitmark[index_type(index)];
+		}
+	};
 	//  find_last_not_of
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_not_of(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_not_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		if constexpr(::std::is_integral_v<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
@@ -461,7 +508,7 @@ namespace range_n{
 	}
 	/// 若成功找到不匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
-	[[nodiscard]]constexpr size_t find_last_not_of_size_t(array_like_view_t<T>pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr size_t find_last_not_of_size_t(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
 		auto result = find_last_not_of(pattern,range);
 		if(result)
 			return result - range.begin();

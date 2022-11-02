@@ -45,13 +45,17 @@ namespace constexpr_str_n{
 		range_n::match_pattern<const char_T> match_pattern;
 		range_n::reverse_match_pattern<const char_T> reverse_match_pattern;
 		range_n::bitmark_for_finds<const char_T> bitmark_for_finds;
+		range_n::bitmark_for_quick_unindex<const char_T> bitmark_for_unindex;
 		bool is_bitmark_workable;
+		bool is_bitmark_for_unindex_workable=0;
 		constexpr constexpr_str_t(const char_T* str, size_t size):
 			base_t(str, size),
 			hash_result(defs::hash(str, size)),
 			match_pattern(array_like_view_t<const char_T>{str, size}),
 			reverse_match_pattern(array_like_view_t<const char_T>{str, size}){
 				is_bitmark_workable = bitmark_for_finds.mark(*this);
+				if(is_bitmark_workable)
+					is_bitmark_for_unindex_workable=bitmark_for_unindex.mark(*this);
 			}
 		constexpr constexpr_str_t(const char_T* str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
 		[[nodiscard]]constexpr hash_t hash()const noexcept{return hash_result;}
@@ -88,17 +92,17 @@ using constexpr_str_n::operator ""_constexpr_str;
 //重载range操作
 namespace range_n {
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		return pattern.match_pattern.match(range);
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* in_range_but_reverse(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		return pattern.reverse_match_pattern.match(range);
 	}
 	//find_first_of
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		if(pattern.is_bitmark_workable){
 			return find_first_of_bitmark(pattern.bitmark_for_finds,range);
 		}
@@ -109,7 +113,7 @@ namespace range_n {
 	//find_last_of
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		if(pattern.is_bitmark_workable){
 			return find_last_of_bitmark(pattern.bitmark_for_finds,range);
 		}
@@ -120,7 +124,7 @@ namespace range_n {
 	//find_first_not_of
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_not_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_first_not_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		if(pattern.is_bitmark_workable){
 			return find_first_not_of_bitmark(pattern.bitmark_for_finds,range);
 		}
@@ -131,7 +135,7 @@ namespace range_n {
 	//find_last_not_of
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_not_of(const constexpr_str_t<T>&pattern,array_like_view_t<T>range){
+	[[nodiscard]]constexpr T* find_last_not_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		if(pattern.is_bitmark_workable){
 			return find_last_not_of_bitmark(pattern.bitmark_for_finds,range);
 		}
@@ -139,7 +143,60 @@ namespace range_n {
 			return find_last_not_of((const constexpr_str_view_t<T>&)pattern,range);
 		}
 	}
+
+	// 单字匹配相关
+
+	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr const T* in_range(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
+		if(range.is_bitmark_for_unindex_workable){
+			auto result = range.bitmark_for_unindex[pattern];
+			return result==range_n::npos?nullptr:range.begin()+result;
+		}
+		else{
+			return in_range(pattern,(const constexpr_str_view_t<T>&)range);
+		}
+	}
+	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr size_t in_range_size_t(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
+		if(range.is_bitmark_for_unindex_workable){
+			return range.bitmark_for_unindex[pattern];
+		}
+		else{
+			return in_range_size_t(pattern,(const constexpr_str_view_t<T>&)range);
+		}
+	}
+	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
+	template<typename T>
+	[[nodiscard]]constexpr const T* in_range_but_reverse(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
+		if(range.is_bitmark_for_unindex_workable){
+			auto result = range.bitmark_for_unindex[pattern];
+			return result==range_n::npos?nullptr:range.begin()+result;
+		}
+		else{
+			return in_range_but_reverse(pattern,(const constexpr_str_view_t<T>&)range);
+		}
+	}
+	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
+	template<typename T>
+	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
+		if(range.is_bitmark_for_unindex_workable){
+			return range.bitmark_for_unindex[pattern];
+		}
+		else{
+			return in_range_but_reverse_size_t(pattern,(const constexpr_str_view_t<T>&)range);
+		}
+	}
 };
+using range_n::in_range;
+using range_n::in_range_size_t;
+using range_n::in_range_but_reverse;
+using range_n::in_range_but_reverse_size_t;
+using range_n::find_first_of;
+using range_n::find_last_of;
+using range_n::find_first_not_of;
+using range_n::find_last_not_of;
 
 //file_end
 

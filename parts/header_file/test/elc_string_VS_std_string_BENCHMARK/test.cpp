@@ -118,10 +118,6 @@ static void ELC_to_string_rough(benchmark::State& state){
 		total_size += str.size();
 		auto check_num = elc::from_string_get<T>(str);
 		if(!elc::defs::full_equal_in_byte(num,check_num)){
-			#if defined(_DEBUG)
-				auto debug_view = str.c_str();
-				__debugbreak();
-			#endif
 			mismatch_num++;
 		}
 		state.ResumeTiming();
