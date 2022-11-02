@@ -21,6 +21,10 @@
 	#if !defined(_CPPRTTI)
 		#error "elc files needs rtti"
 	#endif
+	//check _MSC_VER at last 1932
+	#if _MSC_VER<1932
+		#error "elc files needs at last msvc 19.32 or higher, keep moving!"
+	#endif
 #endif
 
 //file_end
