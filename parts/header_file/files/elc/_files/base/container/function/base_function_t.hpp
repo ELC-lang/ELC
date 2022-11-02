@@ -190,8 +190,10 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(invoke<T>.able<Args_t...>)
+				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
-				return invoke<T>.able<Args_t...> && get<func_data_t<remove_cvref<T>>>.able<T>;
+				return false;
 		}
 		template<class T>
 		static constexpr bool get_data_able=get_data_able_helper<T>();
@@ -201,8 +203,10 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
-			else
+			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+			else
+				return false;
 		}
 		template<class T>
 		static constexpr bool get_data_nothrow=get_data_nothrow_helper<T>();
@@ -319,15 +323,17 @@ namespace function_n{
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),			bool(promise_nothrow_at_destruct+1)	>>||
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept,	bool(promise_nothrow_at_destruct+1)	>>
 		);
-
+		
 		template<class T>
 		static constexpr bool get_data_able_helper(){
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(invoke<T>.able<Args_t...>)
+				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
-				return invoke<T>.able<Args_t...> && get<func_data_t<remove_cvref<T>>>.able<T>;
+				return false;
 		}
 		template<class T>
 		static constexpr bool get_data_able=get_data_able_helper<T>();
@@ -337,8 +343,10 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
-			else
+			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+			else
+				return false;
 		}
 		template<class T>
 		static constexpr bool get_data_nothrow=get_data_nothrow_helper<T>();
@@ -458,8 +466,10 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(invoke<T>.able<Args_t...>)
+				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
-				return invoke<T>.able<Args_t...> && get<func_data_t<remove_cvref<T>>>.able<T>;
+				return false;
 		}
 		template<class T>
 		static constexpr bool get_data_able=get_data_able_helper<T>();
@@ -469,8 +479,10 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
-			else
+			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
+			else
+				return false;
 		}
 		template<class T>
 		static constexpr bool get_data_nothrow=get_data_nothrow_helper<T>();
