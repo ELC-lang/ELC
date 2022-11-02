@@ -413,7 +413,7 @@ public:
 				//获取并追加信息尾
 				string info_tail = get_info_tail(num);
 				if(dot_pos == string::npos) {
-					if(aret.ends_with(string{info_tail.size(), _radix_table[0]}))
+					if(aret.ends_with(_radix_table[0],info_tail.size()))
 						aret.pop_back(info_tail.size());
 					else
 						aret.push_back(_fractional_sign);

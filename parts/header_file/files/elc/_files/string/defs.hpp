@@ -843,6 +843,11 @@ namespace string_n{
 				return false;
 			return operator[](size()-1) == ch;
 		}
+		constexpr bool ends_with(char_T ch,size_t count)const noexcept{
+			if(size() < count)
+				return false;
+			return find_last_not_of(ch) <= size()-count;
+		}
 		constexpr bool ends_with(const char_T*str)const noexcept{
 			return ends_with(string_view_t{str});
 		}
