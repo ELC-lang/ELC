@@ -37,8 +37,7 @@ template<typename T>
 static void Std_to_string(benchmark::State& state){
 	claer_memory_count();
 	std::string str;
-	long double mismatch_num = 0, better_output_than_elc = 0;
-	long double total_size = 0;
+	long double mismatch_num = 0, total_output_size_small_than_elc = 0, total_size = 0;
 	for(auto _ : state){
 		auto num=rand<T>();
 		str=std::to_string(num);
@@ -56,10 +55,8 @@ static void Std_to_string(benchmark::State& state){
 			//check if elc's output longer than std
 			//*
 			auto check_str = elc::to_string(num);
-			if(str.size() < check_str.size()) {
-				auto debug_view = check_str.c_str();
-				better_output_than_elc++;
-			}
+			ptrdiff_t size_diff = str.size() - check_str.size();
+			total_output_size_small_than_elc += size_diff;
 			/*/
 			{
 				auto elc_str		   = elc::APIs::str_code_convert::to_char_t_str(str.c_str());
@@ -74,7 +71,7 @@ static void Std_to_string(benchmark::State& state){
 		state.ResumeTiming();
 	}
 	state.counters["mismatch_num"] = mismatch_num;
-	state.counters["better_output_than_elc"] = better_output_than_elc;
+	state.counters["total_output_size_small_than_elc"] = total_output_size_small_than_elc;
 	state.counters["average_output_length"] = total_size / state.iterations();
 }
 
