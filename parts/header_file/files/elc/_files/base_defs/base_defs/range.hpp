@@ -456,20 +456,25 @@ namespace range_n{
 		typedef unsigned char index_type;
 		size_t _bitmark[number_of_possible_values_per<index_type>]{};
 
+		constexpr void bitmark_data_initer(size_t init_to)noexcept{
+			for(auto& i:_bitmark)
+				i=init_to;
+		}
+
 		bitmark_for_quick_unindex()noexcept=default;
 		[[nodiscard]]constexpr bool mark(const array_like_view_t<T>&pattern)noexcept{
-			for(auto& i : _bitmark)
-				i = npos;
+			bitmark_data_initer(npos);
+			#define failed bitmark_data_initer(npos),false
 			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>){
 				size_t i=0;
 				const size_t end=pattern.size();
 				while(i<end){
 					auto&ch=pattern[i];
 					if(::std::make_unsigned_t<T>(ch) >= number_of_possible_values_per<index_type>)
-						return false;
+						return failed;
 					auto&index=_bitmark[index_type(ch)];
 					if(index!=npos)
-						return false;
+						return failed;
 					index=i;
 					i++;
 				}
@@ -481,17 +486,18 @@ namespace range_n{
 					auto&ch=pattern[i];
 					auto&index=_bitmark[index_type(ch)];
 					if(index!=npos)
-						return false;
+						return failed;
 					index=i;
 					i++;
 				}
 			}
+			#undef failed
 			return true;
 		}
 		[[nodiscard]]constexpr size_t operator[](T&index)const noexcept{
 			if constexpr(number_of_possible_values_per<T> > number_of_possible_values_per<index_type>)
 				if(::std::make_unsigned_t<T>(index) >= number_of_possible_values_per<index_type>)
-					return false;
+					return npos;
 			return _bitmark[index_type(index)];
 		}
 	};
