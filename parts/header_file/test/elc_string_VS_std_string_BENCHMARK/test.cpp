@@ -18,6 +18,8 @@ T rand(){
 	return aret;
 }
 
+using elc::defs::discard;
+
 //*
 
 namespace std{
@@ -276,7 +278,7 @@ static void ELC_StringEqual(benchmark::State& state){
 	elc::string x{(size_t)state.range(0), mychar};
 	elc::string y{(size_t)state.range(0), mychar};
 	for(auto _: state)
-		x == y;
+		discard(x == y);
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringEqual)->Range(8, 1 << 16);
@@ -294,7 +296,7 @@ static void ELC_StringHash(benchmark::State& state){
 	claer_memory_count();
 	elc::string x{(size_t)state.range(0), rand<elc::string::char_type>()};
 	for(auto _: state)
-		elc::defs::hash(x);
+		discard(elc::defs::hash(x));
 	state.SetBytesProcessed(state.iterations() * (size_t)state.range(0) * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringHash)->Range(8, 1 << 16);
@@ -304,7 +306,7 @@ static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state){
 	claer_memory_count();
 	elc::string x = U"hello"_constexpr_str;
 	for(auto _: state)
-		hash(x);
+		discard(hash(x));
 	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
 }
 BENCHMARK(ELC_StringHash_Size5_MarkAsConstExprStr);
