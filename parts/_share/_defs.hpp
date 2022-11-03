@@ -50,6 +50,28 @@
 	#define pop_msvc_warning()
 	#define push_and_disable_msvc_warning(...)
 #endif
+#if defined(_MSC_VER)
+	//push pack settings
+	#pragma pack(push)
+	#pragma pack()
+#endif
+#if defined(_MSC_VER)
+	//push and undef common macros
+	#pragma push_macro("new")
+	#undef new
+	#pragma push_macro("delete")
+	#undef delete
+	#pragma push_macro("min")
+	#undef min
+	#pragma push_macro("max")
+	#undef max
+	#pragma push_macro("abs")
+	#undef abs
+	#pragma push_macro("export")
+	#undef export
+	#pragma push_macro("elc")
+	#undef elc
+#endif
 //
 #if defined(ELC_VOID_NAME)
 	#undef void

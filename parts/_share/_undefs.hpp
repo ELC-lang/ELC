@@ -16,6 +16,18 @@
 #undef push_msvc_warning
 #undef pop_msvc_warning
 #undef push_and_disable_msvc_warning
+#if defined(_MSC_VER)
+	#pragma pack(pop)
+#endif
+#if defined(_MSC_VER)
+	#pragma pop_macro("new")
+	#pragma pop_macro("delete")
+	#pragma pop_macro("min")
+	#pragma pop_macro("max")
+	#pragma pop_macro("abs")
+	#pragma pop_macro("export")
+	#pragma pop_macro("elc")
+#endif
 
 //for basic_environment.hpp
 #undef BIT_POSSIBILITY
