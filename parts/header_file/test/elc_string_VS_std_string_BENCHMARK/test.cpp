@@ -301,7 +301,7 @@ static void ELC_StringHash(benchmark::State& state){
 }
 BENCHMARK(ELC_StringHash)->Range(8, 1 << 16);
 
-static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state){
+static void ELC_StringHash_MarkAsConstExprStr(benchmark::State& state){
 	using namespace elc::defs;
 	claer_memory_count();
 	elc::string x = U"hello"_constexpr_str;
@@ -309,7 +309,7 @@ static void ELC_StringHash_Size5_MarkAsConstExprStr(benchmark::State& state){
 		discard(hash(x));
 	state.SetBytesProcessed(state.iterations() * 5 * sizeof(elc::string::char_type));
 }
-BENCHMARK(ELC_StringHash_Size5_MarkAsConstExprStr);
+BENCHMARK(ELC_StringHash_MarkAsConstExprStr);
 
 /*
 
