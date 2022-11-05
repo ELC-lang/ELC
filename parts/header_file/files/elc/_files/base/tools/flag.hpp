@@ -9,7 +9,8 @@
 /*
 表示flag是否被设置的enum字面量.
 */
-enum flag_set_type:bool{seted=true,not_set=false};
+enum class flag_set_type:bool{seted=true,not_set=false};
+using enum flag_set_type;
 /*
 bool的简易包装以表示『是否被设置』,无法使用operator=,因为不应如此.
 */

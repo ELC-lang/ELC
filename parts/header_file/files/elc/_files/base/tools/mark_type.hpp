@@ -9,7 +9,8 @@
 /*
 表明是否被标记的enum字面量.
 */
-enum mark_type:bool{marked=true,not_mark=false};
+enum class mark_type:bool{marked=true,not_mark=false};
+using enum mark_type;
 /*
 用于gc的可达性分析的普通模板式elc属性.
 */

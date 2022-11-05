@@ -7,7 +7,8 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 push_and_disable_msvc_warning(4250);
-enum seek_type{beg,end,cur};
+enum class seek_type{beg,end,cur};
+using enum seek_type;
 no_vtable_struct base_stream{
 	virtual ~base_stream()=default;
 	virtual void*seek(seek_type,int_t)=0;

@@ -18,7 +18,6 @@
 #if defined(_MSC_VER)
 	#pragma warning(push,ELC_WARNING_LEVEL)
 	#pragma warning(disable:4099)//class与struct混用警告diss
-	#pragma warning(disable:26812)//enum class安利diss.
 	#pragma warning(disable:4584)//重复子类警告diss
 	#pragma warning(disable:4250)//域控制继承警告diss
 	#pragma warning(disable:26432)//不完全默认方法警告diss

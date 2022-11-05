@@ -6,7 +6,8 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-enum log_type{error,warning,info,note};
+enum class log_type{error,warning,info,note};
+using enum log_type;
 struct logger:noexcept_ostream{
 private:
 	noexcept_ostream*_tie_with=nullptr;
