@@ -12,6 +12,8 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::string_ptr_t;
+	using base_t::const_string_ptr_t;
 	using base_t::self_changed;
 
 	using base_t::copy_assign_nothrow;
@@ -68,7 +70,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	[[nodiscard]]virtual char_T* get_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
+	[[nodiscard]]virtual string_ptr_t get_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(!_used_size)
 			return _to->get_c_str(_to);
 		else

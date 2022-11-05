@@ -12,6 +12,8 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	typedef base_string_data_t<char_T> this_t;
 	typedef comn_ptr_t<this_t> ptr_t;
 	typedef string_view_t<char_T> string_view_t;
+	typedef _end_by_zero char_T*string_ptr_t;
+	typedef _end_by_zero const char_T*const_string_ptr_t;
 
 	static_assert(noexcept(declvalue(ptr_t).operator*()));//貌似msvc在这里有bug
 
@@ -46,10 +48,10 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 
 	virtual ~base_string_data_t()noexcept(destruct_nothrow)=default;
 
-	[[nodiscard]]virtual char_T* get_c_str(ptr_t&)noexcept(get_data_nothrow);
-	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept(get_data_nothrow){return get_c_str(p);}
+	[[nodiscard]]virtual string_ptr_t get_c_str(ptr_t&)noexcept(get_data_nothrow);
+	[[nodiscard]]virtual const_string_ptr_t get_const_c_str(ptr_t&p)noexcept(get_data_nothrow){return get_c_str(p);}
 	[[nodiscard]]virtual const char_T* get_data(ptr_t&p)noexcept(get_data_nothrow){return get_c_str(p);}//不要求以0结尾
-	[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&)noexcept(get_data_nothrow);
+	[[nodiscard]]virtual string_ptr_t get_unique_c_str(ptr_t&)noexcept(get_data_nothrow);
 	[[nodiscard]]virtual size_t get_size()noexcept=0;
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept;
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow);
@@ -198,7 +200,7 @@ public:
 				return a.size()==size;
 		}
 	}
-	[[nodiscard]]bool equal_with(const char_T*with)noexcept(equal.nothrow<char_T>){
+	[[nodiscard]]bool equal_with(const_string_ptr_t with)noexcept(equal.nothrow<char_T>){
 		size_t size=get_size();
 		size_t index=0;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
@@ -321,7 +323,7 @@ public:
 				return a.size()<=>size;
 		}
 	}
-	[[nodiscard]]compare_type compare_with(const char_T*with)noexcept(compare.nothrow<char_T>){
+	[[nodiscard]]compare_type compare_with(const_string_ptr_t with)noexcept(compare.nothrow<char_T>){
 		size_t size=get_size();
 		size_t index=0;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);

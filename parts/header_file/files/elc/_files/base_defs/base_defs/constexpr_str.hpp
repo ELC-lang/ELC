@@ -12,11 +12,13 @@ namespace constexpr_str_n{
 	struct constexpr_str_view_t:string_view_t<char_T>{
 		typedef string_view_t<char_T> base_t;
 		using base_t::base_t;
-		constexpr_str_view_t(const char_T*str)noexcept=delete;
+		using base_t::string_ptr_t;
+		using base_t::const_string_ptr_t;
+		constexpr_str_view_t(const_string_ptr_t str)noexcept=delete;
 		//成员函数
-		[[nodiscard]]constexpr const char_T*str()const noexcept{return base_t::cbegin();}
-		[[nodiscard]]constexpr const char_T*data()const noexcept{return base_t::cbegin();}
-		[[nodiscard]]constexpr operator const char_T*()const noexcept{return str();}
+		[[nodiscard]]constexpr const_string_ptr_t str()const noexcept{return base_t::cbegin();}
+		[[nodiscard]]constexpr const_string_ptr_t data()const noexcept{return base_t::cbegin();}
+		[[nodiscard]]constexpr operator const_string_ptr_t ()const noexcept{return str();}
 		//substr
 		[[nodiscard]]constexpr constexpr_str_view_t substr(size_t pos,size_t len)const noexcept{
 			return base_t::substr(pos,len);
@@ -41,6 +43,8 @@ namespace constexpr_str_n{
 	template<typename char_T>
 	struct constexpr_str_t:constexpr_str_view_t<char_T>{
 		typedef constexpr_str_view_t<char_T> base_t;
+		typedef _end_by_zero char_T*string_ptr_t;
+		typedef _end_by_zero const char_T*const_string_ptr_t;
 		hash_t hash_result;
 		range_n::match_pattern<const char_T> match_pattern;
 		range_n::reverse_match_pattern<const char_T> reverse_match_pattern;
@@ -48,7 +52,7 @@ namespace constexpr_str_n{
 		range_n::bitmark_for_quick_unindex<const char_T> bitmark_for_unindex;
 		bool is_bitmark_workable;
 		bool is_bitmark_for_unindex_workable=0;
-		constexpr constexpr_str_t(const char_T* str, size_t size):
+		constexpr constexpr_str_t(const_string_ptr_t str, size_t size):
 			base_t(str, size),
 			hash_result(defs::hash(str, size)),
 			match_pattern(array_like_view_t<const char_T>{str, size}),
@@ -57,12 +61,14 @@ namespace constexpr_str_n{
 				if(is_bitmark_workable)
 					is_bitmark_for_unindex_workable=bitmark_for_unindex.mark(*this);
 			}
-		constexpr constexpr_str_t(const char_T* str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
+		constexpr constexpr_str_t(const_string_ptr_t str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
 		[[nodiscard]]constexpr hash_t hash()const noexcept{return hash_result;}
 	};
 	template<class char_T,size_t N>
 	struct constexpr_str_t_literal_helper{
-		const char_T* _array_begin;
+		typedef _end_by_zero char_T*string_ptr_t;
+		typedef _end_by_zero const char_T*const_string_ptr_t;
+		const_string_ptr_t _array_begin;
 		constexpr constexpr_str_t_literal_helper(const char_T(&str)[N])noexcept{
 			_array_begin=str;
 		}

@@ -12,6 +12,8 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::string_ptr_t;
+	using base_t::const_string_ptr_t;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -28,7 +30,7 @@ struct null_string_data_t final:base_string_data_t<char_T>,instance_struct<null_
 	null_string_data_t()noexcept:base_t(never_ref_num_zero){}
 
 	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{nothing;}
-	[[nodiscard]]virtual char_T* get_c_str(ptr_t&)noexcept override final{
+	[[nodiscard]]virtual string_ptr_t get_c_str(ptr_t&)noexcept override final{
 		static char_T data[1]{};
 		return data;
 	}

@@ -15,6 +15,8 @@ namespace string_n{
 		typedef base_string_data_t<char_T>			base_t_w;
 		typedef base_t_w::ptr_t						ptr_t;
 		typedef base_t_w::string_view_t				string_view_t;
+		typedef base_t_w::string_ptr_t				string_ptr_t;
+		typedef base_t_w::const_string_ptr_t		const_string_ptr_t;
 		typedef const constexpr_str_t<char_T>		constexpr_str_t;
 		typedef string_t<char_T>					this_t;
 		typedef char_T								value_type;
@@ -137,7 +139,7 @@ namespace string_n{
 		constexpr string_t()noexcept:string_t(empty_constexpr_str_of<char_T>){}
 		constexpr string_t(constexpr_str_t&str)noexcept{_cso_init(str);}
 		string_t(string_view_t str)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(str));}
-		string_t(const char_T* str)noexcept:string_t(string_view_t(str)){}
+		string_t(const_string_ptr_t str)noexcept:string_t(string_view_t(str)){}
 		constexpr string_t(char_T ch)noexcept{_cso_init(ch);}
 		string_t(const string_t& str)noexcept{
 			if(str._in_cso()){
@@ -176,13 +178,13 @@ namespace string_n{
 		[[nodiscard]]string_t operator+(string_view_t str)const noexcept{
 			return ptr_copy()->apply_str_to_end(str);
 		}
-		[[nodiscard]]string_t operator+(const char_T* str)const noexcept{
+		[[nodiscard]]string_t operator+(const_string_ptr_t str)const noexcept{
 			return *this+string_view_t(str);
 		}
 		friend [[nodiscard]]string_t operator+(string_view_t str1,const string_t& str2)noexcept{
 			return str2.ptr_copy()->apply_str_to_begin(str1);
 		}
-		friend [[nodiscard]]string_t operator+(const char_T* str1,const string_t& str2)noexcept{
+		friend [[nodiscard]]string_t operator+(const_string_ptr_t str1,const string_t& str2)noexcept{
 			return string_view_t(str1)+str2;
 		}
 		friend [[nodiscard]]string_t operator+(char_T ch,const string_t& str)noexcept{
@@ -197,7 +199,7 @@ namespace string_n{
 			push_back(str);
 			return *this;
 		}
-		string_t& operator+=(const char_T* str)&noexcept{
+		string_t& operator+=(const_string_ptr_t str)&noexcept{
 			return *this+=string_view_t(str);
 		}
 		string_t& operator+=(char_T ch)&noexcept{
@@ -271,13 +273,13 @@ namespace string_n{
 				remove_const(this)->_cso_reinit(a);
 			return tmp;
 		}
-		[[nodiscard]]constexpr auto operator<=>(const char_T* a)const noexcept(compare.nothrow<char_T>){
+		[[nodiscard]]constexpr auto operator<=>(const_string_ptr_t a)const noexcept(compare.nothrow<char_T>){
 			if(_in_cso())
 				return compare(data(),size(),a,end_by_zero);
 			else
 				return _m->compare_with(a);
 		}
-		[[nodiscard]]constexpr auto operator==(const char_T* a)const noexcept(equal.nothrow<char_T>){
+		[[nodiscard]]constexpr auto operator==(const_string_ptr_t a)const noexcept(equal.nothrow<char_T>){
 			if(_in_cso())
 				return equal(data(),size(),a,end_by_zero);
 			else
@@ -285,7 +287,7 @@ namespace string_n{
 		}
 		//END_BLOCK
 	private:
-		[[nodiscard]]char_T* unique_c_str()noexcept{ _cso_check(1);return _m->get_unique_c_str(_m); }
+		[[nodiscard]]string_ptr_t unique_c_str()noexcept{ _cso_check(1);return _m->get_unique_c_str(_m); }
 	public:
 		[[nodiscard]]char_T	arec(size_t index)noexcept{
 			if(_in_cso())
@@ -427,8 +429,8 @@ namespace string_n{
 		}
 		[[nodiscard]]const char_T*	data()const noexcept{ if(_in_cso())return _get_cso_data();else return _m->get_data(_m); }
 		[[nodiscard]]char_T* writeable_data()noexcept{ return unique_c_str(); }
-		[[nodiscard]]const char_T*	c_str()const noexcept{ if(_in_cso())return _get_cso_data();else return _m->get_const_c_str(_m); }
-		[[nodiscard]]char_T* writeable_c_str()noexcept{ return unique_c_str(); }
+		[[nodiscard]]const_string_ptr_t 	c_str()const noexcept{ if(_in_cso())return _get_cso_data();else return _m->get_const_c_str(_m); }
+		[[nodiscard]]string_ptr_t writeable_c_str()noexcept{ return unique_c_str(); }
 		[[nodiscard]]size_t			size()const noexcept{ if(_in_cso())return _get_cso_size();else return _m->get_size(); }
 		[[nodiscard]]explicit operator bool()const noexcept{ return size(); }
 		[[nodiscard]]bool			empty()const noexcept{ return !size(); }
@@ -518,7 +520,7 @@ namespace string_n{
 		void push_back(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
 		void push_back(char_T ch)&noexcept{ push_back(string_view_t{&ch,1}); }
 		void push_back(const arec_t&& ch)&noexcept{ push_back(move(ch).operator char_T()); }
-		void push_back(const char_T* str)&noexcept{ push_back(string_view_t(str)); }
+		void push_back(const_string_ptr_t str)&noexcept{ push_back(string_view_t(str)); }
 
 		void push_front(const string_t& str)&noexcept{
 			full_copy_cso_check(*this);
@@ -536,7 +538,7 @@ namespace string_n{
 		void push_front(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
 		void push_front(char_T ch)&noexcept{ push_front(string_view_t{&ch,1}); }
 		void push_front(const arec_t&& ch)&noexcept{ push_front(move(ch).operator char_T()); }
-		void push_front(const char_T* str)&noexcept{ push_front(string_view_t(str)); }
+		void push_front(const_string_ptr_t str)&noexcept{ push_front(string_view_t(str)); }
 
 		string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
 		string_t pop_front(size_t size)noexcept{ _cso_check();return _m->do_pop_front(size,_m); }
@@ -628,7 +630,7 @@ namespace string_n{
 			}
 			return find_first_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_of(const char_T*str)const noexcept(find_nothrow){
+		[[nodiscard]]size_t find_first_of(const_string_ptr_t str)const noexcept(find_nothrow){
 			return find_first_of(string_view_t(str));
 		}
 		[[nodiscard]]size_t find_first_of(char_T ch)const noexcept(find_nothrow){
@@ -652,7 +654,7 @@ namespace string_n{
 			}
 			return find_first_not_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_first_not_of(const char_T*str)const noexcept(find_nothrow){
+		[[nodiscard]]size_t find_first_not_of(const_string_ptr_t str)const noexcept(find_nothrow){
 			return find_first_not_of(string_view_t(str));
 		}
 		[[nodiscard]]size_t find_first_not_of(char_T ch)const noexcept(find_nothrow){
@@ -676,7 +678,7 @@ namespace string_n{
 			}
 			return find_last_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_of(const char_T*str)const noexcept(find_nothrow){
+		[[nodiscard]]size_t find_last_of(const_string_ptr_t str)const noexcept(find_nothrow){
 			return find_last_of(string_view_t(str));
 		}
 		[[nodiscard]]size_t find_last_of(char_T ch)const noexcept(find_nothrow){
@@ -700,7 +702,7 @@ namespace string_n{
 			}
 			return find_last_not_of(str.to_string_view_t());
 		}
-		[[nodiscard]]size_t find_last_not_of(const char_T*str)const noexcept(find_nothrow){
+		[[nodiscard]]size_t find_last_not_of(const_string_ptr_t str)const noexcept(find_nothrow){
 			return find_last_not_of(string_view_t(str));
 		}
 		[[nodiscard]]size_t find_last_not_of(char_T ch)const noexcept(find_nothrow){
@@ -765,7 +767,7 @@ namespace string_n{
 		void insert(size_t pos,string_view_t str)&noexcept{
 			_cso_check();_m=_m->do_insert(pos,str);
 		}
-		void insert(size_t pos,const char_T* str)&noexcept{
+		void insert(size_t pos,const_string_ptr_t str)&noexcept{
 			insert(pos,string_view_t(str));
 		}
 		void insert(size_t pos,char_T ch)&noexcept{
@@ -787,7 +789,7 @@ namespace string_n{
 		constexpr bool contains(char_T ch)const noexcept{
 			return find(ch) != npos;
 		}
-		constexpr bool contains(const char_T*str)const noexcept{
+		constexpr bool contains(const_string_ptr_t str)const noexcept{
 			return find(str) != npos;
 		}
 
@@ -815,7 +817,7 @@ namespace string_n{
 				return false;
 			return operator[](0) == ch;
 		}
-		constexpr bool starts_with(const char_T*str)const noexcept{
+		constexpr bool starts_with(const_string_ptr_t str)const noexcept{
 			return starts_with(string_view_t{str});
 		}
 
@@ -848,7 +850,7 @@ namespace string_n{
 				return false;
 			return find_last_not_of(ch) <= size()-count;
 		}
-		constexpr bool ends_with(const char_T*str)const noexcept{
+		constexpr bool ends_with(const_string_ptr_t str)const noexcept{
 			return ends_with(string_view_t{str});
 		}
 

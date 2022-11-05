@@ -138,7 +138,6 @@
 
 //#undef get_elc_defs
 
-/*
 #undef _in_param
 #undef _out_param
 #undef _inout_param
@@ -152,7 +151,8 @@
 #undef _return_nevernull
 #undef _return_nevernull_end_by_zero
 #undef _return_nevernull_has_size
-*/
+
+#undef _end_by_zero
 
 //file_end
 

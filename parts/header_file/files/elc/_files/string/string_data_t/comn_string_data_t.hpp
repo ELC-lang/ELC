@@ -12,6 +12,8 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::string_ptr_t;
+	using base_t::const_string_ptr_t;
 	using base_t::self_changed;
 
 	using base_t::copy_assign_nothrow;
@@ -67,8 +69,8 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		_m.clear();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual char_T* get_c_str(ptr_t&)noexcept override final{ return (char_T*)_m; }
-	[[nodiscard]]virtual char_T* get_unique_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
+	[[nodiscard]]virtual string_ptr_t get_c_str(ptr_t&)noexcept override final{ return (char_T*)_m; }
+	[[nodiscard]]virtual string_ptr_t get_unique_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(this->is_unique())
 			return (char_T*)_m;
 		else
@@ -119,7 +121,7 @@ public:
 	}
 };
 template<typename char_T>
-[[nodiscard]]char_T* base_string_data_t<char_T>::get_c_str(ptr_t&a)noexcept(get_data_nothrow){
+[[nodiscard]]base_string_data_t<char_T>::string_ptr_t base_string_data_t<char_T>::get_c_str(ptr_t&a)noexcept(get_data_nothrow){
 	auto comn_data=get<comn_string_data_t<char_T>>(this);
 	if(positive_gc_profit())
 		a.do_replace(comn_data);
@@ -128,7 +130,7 @@ template<typename char_T>
 	return comn_data->get_c_str(a);
 }
 template<typename char_T>
-[[nodiscard]]char_T* base_string_data_t<char_T>::get_unique_c_str(ptr_t&a)noexcept(get_data_nothrow){
+[[nodiscard]]base_string_data_t<char_T>::string_ptr_t base_string_data_t<char_T>::get_unique_c_str(ptr_t&a)noexcept(get_data_nothrow){
 	auto comn_data=get<comn_string_data_t<char_T>>(this);
 	a=comn_data;
 	return comn_data->get_c_str(a);

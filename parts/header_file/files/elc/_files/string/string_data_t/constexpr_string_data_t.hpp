@@ -12,6 +12,8 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::string_ptr_t;
+	using base_t::const_string_ptr_t;
 
 	using base_t::copy_assign_nothrow;
 	using base_t::copy_construct_nothrow;
@@ -63,7 +65,7 @@ struct constexpr_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		return get<this_t>(string_view_t{_m+begin,size});
 	}
 	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept(get_data_nothrow)override final{return _m;}
-	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
+	[[nodiscard]]virtual const_string_ptr_t get_const_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(!_m[_size])
 			return _m;
 		else

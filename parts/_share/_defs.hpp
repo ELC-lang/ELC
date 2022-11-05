@@ -253,7 +253,6 @@ protected:\
 
 //#define get_elc_defs using namespace ::elc::defs
 
-/*
 #if __has_include(<sal.h>)
 	#include <sal.h>//sal
 #endif
@@ -271,6 +270,8 @@ protected:\
 	#define _return_nevernull _Ret_notnull_
 	#define _return_nevernull_end_by_zero _Ret_z_
 	#define _return_nevernull_has_size(size) _Ret_writes_(size)
+
+	#define _end_by_zero _Null_terminated_
 #else
 	#define _in_param
 	#define _out_param
@@ -285,8 +286,9 @@ protected:\
 	#define _return_nevernull
 	#define _return_nevernull_end_by_zero
 	#define _return_nevernull_has_size(size)
+
+	#define _end_by_zero
 #endif
-*/
 
 //file_end
 

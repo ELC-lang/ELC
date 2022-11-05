@@ -7,12 +7,12 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 no_vtable_class exception{
-	const char_t* _constexpr_str=locale::str::exception::unknow_error;
+	const_string_ptr_t _constexpr_str=locale::str::exception::unknow_error;
 public:
 	constexpr exception()noexcept=default;
 	constexpr exception(const constexpr_str_t<char_t>&str)noexcept:_constexpr_str(str){}
 	virtual constexpr ~exception()noexcept=0;
-	virtual constexpr const char_t*what()noexcept{return _constexpr_str;}
+	virtual constexpr const_string_ptr_t what()noexcept{return _constexpr_str;}
 };
 inline constexpr exception::~exception()noexcept{}
 

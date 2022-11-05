@@ -12,6 +12,8 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	typedef base_string_data_t<char_T> base_t;
 	using base_t::ptr_t;
 	using base_t::string_view_t;
+	using base_t::string_ptr_t;
+	using base_t::const_string_ptr_t;
 	using base_t::self_changed;
 
 	using base_t::copy_assign_nothrow;
@@ -44,7 +46,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{ return get<substr_string_data_t<char_T>>(_to,begin+_sub_begin,size); }
-	[[nodiscard]]virtual const char_T* get_const_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
+	[[nodiscard]]virtual const_string_ptr_t get_const_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(_sub_begin+_sub_size==_to->get_size())
 			return _to->get_const_c_str(_to)+_sub_begin;
 		else
