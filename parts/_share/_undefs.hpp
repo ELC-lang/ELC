@@ -138,5 +138,21 @@
 
 //#undef get_elc_defs
 
+/*
+#undef _in_param
+#undef _out_param
+#undef _inout_param
+#undef _in_opt_param
+#undef _out_opt_param
+#undef _inout_opt_param
+#undef _in_param_with_reads
+#undef _out_param_with_writes
+#undef _in_param_end_by_zero
+#undef _return_maybenull
+#undef _return_nevernull
+#undef _return_nevernull_end_by_zero
+#undef _return_nevernull_has_size
+*/
+
 //file_end
 

@@ -254,5 +254,40 @@ protected:\
 
 //#define get_elc_defs using namespace ::elc::defs
 
+/*
+#if __has_include(<sal.h>)
+	#include <sal.h>//sal
+#endif
+#if defined(__ATTR_SAL)
+	#define _in_param _In_
+	#define _out_param _Out_
+	#define _inout_param _Inout_
+	#define _in_opt_param _In_opt_
+	#define _out_opt_param _Out_opt_
+	#define _inout_opt_param _Inout_opt_
+	#define _in_param_with_reads(size) _In_reads_(size)
+	#define _out_param_with_writes(size) _Out_writes_(size)
+	#define _in_param_end_by_zero _In_z_
+	#define _return_maybenull _Ret_maybenull_
+	#define _return_nevernull _Ret_notnull_
+	#define _return_nevernull_end_by_zero _Ret_z_
+	#define _return_nevernull_has_size(size) _Ret_writes_(size)
+#else
+	#define _in_param
+	#define _out_param
+	#define _inout_param
+	#define _in_opt_param
+	#define _out_opt_param
+	#define _inout_opt_param
+	#define _in_param_with_reads(size)
+	#define _out_param_with_writes(size)
+	#define _in_param_end_by_zero
+	#define _return_maybenull
+	#define _return_nevernull
+	#define _return_nevernull_end_by_zero
+	#define _return_nevernull_has_size(size)
+#endif
+*/
+
 //file_end
 
