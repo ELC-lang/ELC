@@ -147,6 +147,7 @@
 #undef _in_param_with_reads
 #undef _out_param_with_writes
 #undef _in_param_end_by_zero
+#undef _in_param_end_by_zero_or_size
 #undef _return_maybenull
 #undef _return_nevernull
 #undef _return_nevernull_end_by_zero

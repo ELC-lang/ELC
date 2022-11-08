@@ -266,6 +266,7 @@ protected:\
 	#define _in_param_with_reads(size) _In_reads_(size)
 	#define _out_param_with_writes(size) _Out_writes_(size)
 	#define _in_param_end_by_zero _In_z_
+	#define _in_param_end_by_zero_or_size(size) _In_reads_or_z_(size)
 	#define _return_maybenull _Ret_maybenull_
 	#define _return_nevernull _Ret_notnull_
 	#define _return_nevernull_end_by_zero _Ret_z_
@@ -282,6 +283,7 @@ protected:\
 	#define _in_param_with_reads(size)
 	#define _out_param_with_writes(size)
 	#define _in_param_end_by_zero
+	#define _in_param_end_by_zero_or_size(size)
 	#define _return_maybenull
 	#define _return_nevernull
 	#define _return_nevernull_end_by_zero
