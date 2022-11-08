@@ -350,7 +350,7 @@ public:
 		}
 	}
 protected:
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
+	virtual void copy_part_data_to(_out_param_with_writes(size)char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
 public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)=0;

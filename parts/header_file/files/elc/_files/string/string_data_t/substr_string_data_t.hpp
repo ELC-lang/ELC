@@ -55,7 +55,7 @@ struct substr_string_data_t final:base_string_data_t<char_T>,instance_struct<sub
 	[[nodiscard]]virtual const char_T* get_data(ptr_t&)noexcept(get_data_nothrow)override final{ return _to->get_data(_to)+_sub_begin; }
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _sub_size; }
 protected:
-	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
+	virtual void copy_part_data_to(_out_param_with_writes(size)char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{ _to->copy_part_data_to(to,pos+_sub_begin,size); }
 public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{ return _to->arec(index+_sub_begin); }
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
