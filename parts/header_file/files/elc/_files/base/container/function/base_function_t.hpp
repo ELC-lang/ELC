@@ -190,6 +190,8 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(::std::is_function_v<T>)
+				return get_data_able_helper<decltype(&declvalue(T))>();
 			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
@@ -203,6 +205,8 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(::std::is_function_v<T>)
+				return get_data_nothrow_helper<decltype(&declvalue(T))>();
 			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 			else
@@ -213,7 +217,9 @@ namespace function_n{
 
 		template<class T> requires get_data_able<T>
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
-			if constexpr(is_function_t<T>)
+			if constexpr(::std::is_function_v<T>)
+				return get_data_from(&a);
+			elseif constexpr(is_function_t<T>)
 				return a._m;
 			else{
 				//BLOCK:constexpr checks
@@ -330,6 +336,8 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(::std::is_function_v<T>)
+				return get_data_able_helper<decltype(&declvalue(T))>();
 			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
@@ -343,6 +351,8 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(::std::is_function_v<T>)
+				return get_data_nothrow_helper<decltype(&declvalue(T))>();
 			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 			else
@@ -353,7 +363,9 @@ namespace function_n{
 
 		template<class T> requires get_data_able<T>
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
-			if constexpr(is_function_t<T>)
+			if constexpr(::std::is_function_v<T>)
+				return get_data_from(&a);
+			elseif constexpr(is_function_t<T>)
 				return a._m;
 			else{
 				//BLOCK:constexpr checks
@@ -466,6 +478,8 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(::std::is_function_v<T>)
+				return get_data_able_helper<decltype(&declvalue(T))>();
 			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
@@ -479,6 +493,8 @@ namespace function_n{
 				return true;
 			elseif constexpr(is_function_t<T>)
 				return false;
+			elseif constexpr(::std::is_function_v<T>)
+				return get_data_nothrow_helper<decltype(&declvalue(T))>();
 			elseif constexpr(invoke<T>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 			else
@@ -489,7 +505,9 @@ namespace function_n{
 
 		template<class T> requires get_data_able<T>
 		static auto get_data_from(T&&a)noexcept(get_data_nothrow<T>){
-			if constexpr(is_function_t<T>)
+			if constexpr(::std::is_function_v<T>)
+				return get_data_from(&a);
+			elseif constexpr(is_function_t<T>)
 				return a._m;
 			else{
 				//BLOCK:constexpr checks
