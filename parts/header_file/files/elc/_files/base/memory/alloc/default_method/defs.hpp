@@ -25,7 +25,7 @@ namespace default_method{
 	
 	@returns The new pointer to the block of memory.
 	*/
-	[[nodiscard]]inline byte*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
+	[[nodiscard]]inline _return_maybenull_has_size(nsize)byte*base_realloc(_in_param byte*ptr,size_t nsize,size_t align)noexcept{
 		byte*p=::elc::APIs::alloc::realloc(ptr,nsize,align);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(nsize==0)
@@ -47,7 +47,7 @@ namespace default_method{
 	
 	@returns A pointer to the allocated memory.
 	*/
-	[[nodiscard]]inline byte*base_aligned_alloc(size_t align,size_t size)noexcept{
+	[[nodiscard]]inline _return_maybenull_has_size(size)byte*base_aligned_alloc(size_t align,size_t size)noexcept{
 		byte*p=::elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(p){
@@ -63,7 +63,7 @@ namespace default_method{
 	@param p The pointer to free.
 	@param align The alignment of the pointer.
 	*/
-	inline void base_free(byte*p,size_t align)noexcept{
+	inline void base_free(_in_param byte*p,size_t align)noexcept{
 		//传入需释放的数据块起始点与大小（字节）
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			auto tmp=stest_geteventlistfromlog(p);
@@ -87,7 +87,7 @@ namespace default_method{
 	
 	@returns The size of the allocation.
 	*/
-	inline size_t base_get_size_of_alloc(const byte*arg, size_t align)noexcept{
+	inline size_t base_get_size_of_alloc(_in_param const byte*arg, size_t align)noexcept{
 		//arg保证不与null_ptr相等
 		const auto tmp= ::elc::APIs::alloc::get_size_of_alloc(arg,align);
 		return tmp;
@@ -95,12 +95,12 @@ namespace default_method{
 	//BLOCK_END
 
 	template<typename T>
-	inline void*alloc_method(type_info_t<T>)noexcept{
+	inline _return_maybenull_has_size_in_bytes(sizeof(T))void*alloc_method(type_info_t<T>)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
 		return ::std::assume_aligned<alignof(T)>(base_aligned_alloc(alignof(T),sizeof(T)));
 	}
 	template<typename T>
-	inline void*alloc_method(type_info_t<T>,size_t size)noexcept{
+	inline _return_maybenull_has_size_in_bytes(sizeof(T)*size)void*alloc_method(type_info_t<T>,size_t size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc
 		//size被保证不为0
 		if constexpr(type_info<T>.has_attribute(never_in_array))
@@ -108,23 +108,23 @@ namespace default_method{
 		return ::std::assume_aligned<alignof(T)>(base_aligned_alloc(alignof(T),sizeof(T)*size));
 	}
 	template<typename T>
-	inline size_t get_size_of_alloc_method(const T*arg)noexcept{
+	inline size_t get_size_of_alloc_method(_in_param const T*arg)noexcept{
 		//arg保证不与null_ptr相等
 		return base_get_size_of_alloc(cast_to_data(arg),alignof(T))/sizeof(T);
 	}
 	template<typename T>
-	inline void free_method(T*arg)noexcept{
+	inline void free_method(_in_param T*arg)noexcept{
 		base_free(cast_to_data(arg),alignof(T));
 	}
 	template<typename T>
-	inline void*realloc_method(T*&ptr,size_t new_size)noexcept{
+	inline _return_maybenull_has_size_in_bytes(sizeof(T)*new_size)void*realloc_method(_in_param T*ptr,size_t new_size)noexcept{
 		//return空指针被允许，会引起gc_for_alloc，但ptr值必须保持有效以保证gc_for_alloc后再次realloc有效
 		//new_size被保证不为0
 		//align维持不变
 		//但只允许在扩大数据块时可选的移动数据块
 		if constexpr(type_info<T>.has_attribute(never_in_array))
 			template_error("You cannot perform array operations on never_in_array type.");
-		return ptr=reinterpret_cast<T*>(base_realloc(cast_to_data(ptr),sizeof(T)*new_size,alignof(T)));
+		return reinterpret_cast<T*>(base_realloc(cast_to_data(ptr),sizeof(T)*new_size,alignof(T)));
 	}
 }
 

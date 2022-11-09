@@ -76,7 +76,7 @@ elc依赖的基础函数.
 		return空指针被允许
 		size被保证不为0
 		*/
-		[[nodiscard]]inline byte*aligned_alloc(size_t align,size_t size)noexcept{
+		[[nodiscard]]inline _return_maybenull_has_size(size)byte*aligned_alloc(size_t align,size_t size)noexcept{
 			void* aret;//返回值放这里
 
 			#if SYSTEM_TYPE == windows
@@ -113,7 +113,7 @@ elc依赖的基础函数.
 		align维持不变
 		但只允许在扩大数据块时可选的移动数据块
 		*/
-		[[nodiscard]]inline byte*realloc(byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
+		[[nodiscard]]inline _return_maybenull_has_size(nsize)byte*realloc(_in_param byte*ptr,size_t nsize,[[maybe_unused]]size_t align)noexcept{
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
 				const auto osize=get_size_of_alloc(ptr,align);
 			#endif
@@ -149,7 +149,7 @@ elc依赖的基础函数.
 		free 释放所分配的内存
 		传入需获取大小的数据块起始点与对齐
 		*/
-		inline void free(byte*p,[[maybe_unused]]size_t align)noexcept{
+		inline void free(_in_param byte*p,[[maybe_unused]]size_t align)noexcept{
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
 				const auto size=get_size_of_alloc(p,align);
 				count_info::free_count++;
@@ -172,7 +172,7 @@ elc依赖的基础函数.
 		get_size_of_alloc 获取数据块的大小
 		传入需获取大小的数据块起始点与对齐
 		*/
-		[[nodiscard]]inline size_t get_size_of_alloc(const byte*p,[[maybe_unused]]size_t align)noexcept{
+		[[nodiscard]]inline size_t get_size_of_alloc(_in_param const byte*p,[[maybe_unused]]size_t align)noexcept{
 			#if SYSTEM_TYPE == windows
 				#if defined(_DEBUG)
 					return _aligned_msize_dbg(remove_const(p),align,0);

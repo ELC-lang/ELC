@@ -145,7 +145,7 @@ namespace pool_n{
 			memory::alloc_n::default_method::free_method(arg);
 	}
 	template<typename T>
-	inline void*the_realloc_method(T*&ptr,size_t new_size)noexcept{
+	inline void*the_realloc_method(T*ptr,size_t new_size)noexcept{
 		if constexpr(pool_s_array_warning(type_info<T>))
 			template_warning("pool can\'t alloc array.");
 		return memory::alloc_n::default_method::realloc_method(ptr,new_size);

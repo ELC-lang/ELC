@@ -271,6 +271,9 @@ protected:\
 	#define _return_nevernull _Ret_notnull_
 	#define _return_nevernull_end_by_zero _Ret_z_
 	#define _return_nevernull_has_size(size) _Ret_writes_(size)
+	#define _return_maybenull_has_size(size) _Ret_writes_maybenull_(size)
+	#define _return_nevernull_has_size_in_bytes(size) _Ret_notnull_ _Ret_bytecount_x_(size)
+	#define _return_maybenull_has_size_in_bytes(size) _Ret_maybenull_ _Ret_bytecount_x_(size)
 
 	#define _end_by_zero _Null_terminated_
 #else
@@ -288,6 +291,9 @@ protected:\
 	#define _return_nevernull
 	#define _return_nevernull_end_by_zero
 	#define _return_nevernull_has_size(size)
+	#define _return_maybenull_has_size(size)
+	#define _return_nevernull_has_size_in_bytes(size)
+	#define _return_maybenull_has_size_in_bytes(size)
 
 	#define _end_by_zero
 #endif

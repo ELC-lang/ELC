@@ -152,6 +152,9 @@
 #undef _return_nevernull
 #undef _return_nevernull_end_by_zero
 #undef _return_nevernull_has_size
+#undef _return_maybenull_has_size
+#undef _return_nevernull_has_size_in_bytes
+#undef _return_maybenull_has_size_in_bytes
 
 #undef _end_by_zero
 
