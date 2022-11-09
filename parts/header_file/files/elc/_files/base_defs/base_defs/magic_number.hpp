@@ -27,6 +27,14 @@ namespace magic_number{
 
 	constexpr auto god=72;/// 神已死,神万岁.
 
+	/*! 无符号位的对应类型 */
+	template<typename T>
+	using to_unsigned_t = decltype(lambda{
+		if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
+			return T();
+		else
+			return::std::make_unsigned_t<T>();
+	}());
 	/*! 符号位查询 */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr bool is_negative(T x)noexcept{
@@ -53,6 +61,9 @@ namespace magic_number{
 	}
 	[[nodiscard]]force_inline constexpr auto copy_as_negative(auto x,bool negative=1)noexcept{
 		return copy_as_negative<decltype(x)>(x,negative);
+	}
+	[[nodiscard]]force_inline constexpr auto copy_as_not_negative(auto x)noexcept{
+		return copy_as_negative(x,false);
 	}
 	/*! 任意算数类型转size_t */
 	template<typename T> requires ::std::is_arithmetic_v<T>
@@ -427,8 +438,10 @@ namespace magic_number{
 		}
 	}
 }
+using magic_number::to_unsigned_t;
 using magic_number::is_negative;
 using magic_number::copy_as_negative;
+using magic_number::copy_as_not_negative;
 using magic_number::to_size_t;
 using magic_number::mod;
 using magic_number::set_rounding;

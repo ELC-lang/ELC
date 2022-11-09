@@ -249,12 +249,7 @@ private:
 	inline string to_string_rough_no_special_value_check(T num)const noexcept{
 		string aret;
 		const bool is_negative=magic_number::is_negative(num);
-		typedef decltype(lambda{
-			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
-				return T();
-			else
-				return::std::make_unsigned_t<T>();
-		}()) UT;
+		typedef to_unsigned_t<T> UT;
 		//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
 		UT unum=UT(num);
 		if constexpr(!::std::is_unsigned_v<T>)
@@ -358,29 +353,6 @@ private:
 		}
 		return false;
 	}
-	template<typename T>
-	inline T from_string_no_tail_check_get(string str)const noexcept{
-		T num{};
-		suppress_msvc_warning(26496);
-		bool is_negative=false;
-		if constexpr(!::std::is_unsigned_v<T>)
-			if(str[0]==_negative_sign){
-				is_negative=true;
-				str.pop_front();
-			}
-		if(str[0]==_positive_sign)
-			str.pop_front();
-		if(from_string_special_value_check(str,num,is_negative))
-			return num;
-		typedef decltype(lambda{
-			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
-				return T();
-			else
-				return::std::make_unsigned_t<T>();
-		}()) UT;
-		UT unum=from_string_get_num_base<UT>(str);
-		return copy_as_negative<T>(unum,is_negative);
-	}
 public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline T from_string_get(string str)const noexcept{
@@ -398,18 +370,39 @@ public:
 					return num;
 			}
 		}
-		return from_string_no_tail_check_get<T>(str);
+		T num{};
+		suppress_msvc_warning(26496);
+		bool is_negative=false;
+		if constexpr(!::std::is_unsigned_v<T>)
+			if(str[0]==_negative_sign){
+				is_negative=true;
+				str.pop_front();
+			}
+		if(str[0]==_positive_sign)
+			str.pop_front();
+		if(from_string_special_value_check(str,num,is_negative))
+			return num;
+		typedef to_unsigned_t<T> UT;
+		UT unum=from_string_get_num_base<UT>(str);
+		return copy_as_negative<T>(unum,is_negative);
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline string to_string(T num)const noexcept{
 		string aret;
-		if(to_string_special_value_check(num,aret,is_negative(num)))
+		const bool is_negative=magic_number::is_negative(num);
+		if(to_string_special_value_check(num,aret,is_negative))
 			return aret;
-		aret=to_string_rough_no_special_value_check(num);
+		typedef to_unsigned_t<T> UT;
+		//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
+		UT unum=UT(num);
+		if constexpr(!::std::is_unsigned_v<T>)
+			if(is_negative)
+				unum=UT(-num);
+		aret=to_string_num_base(unum);
 		if constexpr(::std::is_floating_point_v<T>) {
 			size_t dot_pos = aret.find(_fractional_sign);
 			//检查是否可反向转换
-			if(from_string_no_tail_check_get<T>(aret) != num) {
+			if(!full_equal_in_byte(from_string_get_num_base<T>(aret),unum)) {
 				//获取并追加信息尾
 				string info_tail = get_info_tail(num);
 				if(dot_pos == string::npos) {
@@ -419,7 +412,7 @@ public:
 						aret.push_back(_fractional_sign);
 				}
 				aret += info_tail;
-				return aret;
+				goto add_negative_sign_and_return;
 			}
 			//进位器
 			auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
@@ -452,8 +445,7 @@ public:
 				size_t left_pos	 = 0;
 				size_t right_pos = aret.size();
 				string better_aret,better_aret_last;
-				if(dot_pos==string::npos)
-					dot_pos=aret.size();
+				const bool has_fractional = dot_pos != string::npos;
 				do {
 					size_t step_pos = (left_pos + right_pos) / 2;
 					better_aret		= aret.substr(0, step_pos);
@@ -464,11 +456,9 @@ public:
 					const size_t cut_num	= _radix_table.find(cut_char);
 					if(cut_num >= _radix / 2)
 						rounding_up(better_aret);
-					if(better_aret.size() < dot_pos)//0补全
-						better_aret.resize(dot_pos,_radix_table[0]);
 					//判断当前切割位点有效性.
-					if(from_string_no_tail_check_get<T>(better_aret) == num){
-						if(better_aret.back() == _radix_table[0]){
+					if(full_equal_in_byte(from_string_get_num_base<T>(better_aret),unum)){
+						if(has_fractional && better_aret.back()==_radix_table[0]){
 							const auto end_pos = max(better_aret.find_last_not_of(_radix_table[0])+1, dot_pos);
 							better_aret.resize(end_pos);
 							if(better_aret.back() == _fractional_sign)
@@ -489,6 +479,12 @@ public:
 				}
 			}
 		}
+		push_and_disable_msvc_warning(4102);//在非浮点数的情况下下面的标签可能未引用
+	add_negative_sign_and_return:
+		pop_msvc_warning();
+		if constexpr(!::std::is_unsigned_v<T>)
+			if(is_negative)
+				aret.push_front(_negative_sign);
 		return aret;
 	}
 };
