@@ -76,12 +76,12 @@ namespace alloc_n{
 	template<class T>
 	struct alloc_t:base_alloc_t{
 		typedef base_alloc_t base_t;
-		[[nodiscard]]static _return_nevernull_has_size(1)T*base_call()noexcept{
+		[[nodiscard]]static _return_nevernull_has_size_not_inited(1)T*base_call()noexcept{
 			void*tmp;
 			while(!assign(tmp,alloc_method(type_info<T>)))gc_for_alloc();
 			return reinterpret_cast<T*>(tmp);
 		}
-		[[nodiscard]]static _return_nevernull_has_size(size)T*base_call(size_t size)noexcept{
+		[[nodiscard]]static _return_nevernull_has_size_not_inited(size)T*base_call(size_t size)noexcept{
 			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You can\'t alloc an array for never_in_array type.");
@@ -91,11 +91,11 @@ namespace alloc_n{
 				return reinterpret_cast<T*>(tmp);
 			}else return null_ptr;
 		}
-		[[nodiscard]]/*static*/force_inline _return_nevernull_has_size(1)T*operator()()const noexcept{return base_call();}
-		[[nodiscard]]/*static*/force_inline _return_nevernull_has_size(size)T*operator()(size_t size)const noexcept{return base_call(size);}
+		[[nodiscard]]/*static*/force_inline _return_nevernull_has_size_not_inited(1)T*operator()()const noexcept{return base_call();}
+		[[nodiscard]]/*static*/force_inline _return_nevernull_has_size_not_inited(size)T*operator()(size_t size)const noexcept{return base_call(size);}
 		struct alloc_array_t{
 			size_t _size;
-			[[nodiscard]]force_inline _return_nevernull_has_size(_size)T*operator()()const noexcept{return base_call(_size);}
+			[[nodiscard]]force_inline _return_nevernull_has_size_not_inited(_size)T*operator()()const noexcept{return base_call(_size);}
 		};
 		[[nodiscard]]force_inline constexpr alloc_array_t operator[](size_t a)const noexcept{return{a};}
 	};
@@ -124,7 +124,7 @@ namespace alloc_n{
 	constexpr struct realloc_t{
 		typedef realloc_t base_t;
 		template<class T>
-		static void base_call(_inout_opt_param _out_param_with_writes(nsize)T*&ptr,size_t nsize)noexcept{
+		static void base_call(_out_as_ref_result_not_inited_has_size(nsize)T*&ptr,size_t nsize)noexcept{
 			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(never_in_array))
 				template_error("You cannot perform array operations on never_in_array type.");
@@ -143,13 +143,13 @@ namespace alloc_n{
 			}
 		}
 		template<class T>
-		/*static*/force_inline void operator()(_inout_opt_param _out_param_with_writes(nsize)T*&ptr,size_t nsize)const noexcept{
+		/*static*/force_inline void operator()(_out_as_ref_result_not_inited_has_size(nsize)T*&ptr,size_t nsize)const noexcept{
 			base_call(ptr,nsize);
 		}
 		struct realloc_array_t{
 			size_t _size;
 			template<class T>
-			[[nodiscard]]force_inline T*operator()(_inout_opt_param _out_param_with_writes(_size)T*&ptr)const noexcept{return base_call(ptr,_size);}
+			[[nodiscard]]force_inline T*operator()(_out_as_ref_result_not_inited_has_size(_size)T*&ptr)const noexcept{return base_call(ptr,_size);}
 		};
 		[[nodiscard]]force_inline constexpr realloc_array_t operator[](size_t a)const noexcept{return{a};}
 	}realloc{};

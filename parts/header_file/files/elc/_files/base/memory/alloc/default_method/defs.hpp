@@ -47,7 +47,7 @@ namespace default_method{
 	
 	@returns A pointer to the allocated memory.
 	*/
-	[[nodiscard]]inline _return_maybenull_has_size(size)byte*base_aligned_alloc(size_t align,size_t size)noexcept{
+	[[nodiscard]]inline _return_maybenull_has_size_not_inited(size)byte*base_aligned_alloc(size_t align,size_t size)noexcept{
 		byte*p=::elc::APIs::alloc::aligned_alloc(align,size);
 		#if defined(ELC_TEST_ON)||defined(ELC_TEST_CHECK_MEMORY_LACK)
 			if(p){

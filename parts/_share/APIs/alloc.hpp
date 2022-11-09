@@ -76,7 +76,7 @@ elc依赖的基础函数.
 		return空指针被允许
 		size被保证不为0
 		*/
-		[[nodiscard]]inline _return_maybenull_has_size(size)byte*aligned_alloc(size_t align,size_t size)noexcept{
+		[[nodiscard]]inline _return_maybenull_has_size_not_inited(size)byte*aligned_alloc(size_t align,size_t size)noexcept{
 			void* aret;//返回值放这里
 
 			#if SYSTEM_TYPE == windows

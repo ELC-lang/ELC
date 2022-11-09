@@ -267,13 +267,35 @@ protected:\
 	#define _out_param_with_writes(size) _Out_writes_(size)
 	#define _in_param_end_by_zero _In_z_
 	#define _in_param_end_by_zero_or_size(size) _In_reads_or_z_(size)
+	//
+	#define _out_as_ref _Outref_
+	#define _out_as_ref_opt _Outref_opt_
+	#define _out_as_ref_has_size(size) _Outref_result_buffer_(size)
+	#define _out_as_ref_has_size_in_bytes(size) _Outref_result_bytebuffer_(size)
+	#define _out_as_ref_result_not_inited_has_size(size) _Outref_result_buffer_to_(size,0)
+	#define _out_as_ref_result_not_inited_in_bytes_has_size(size) _Outref_result_bytebuffer_to_(size,0)
+	#define _out_as_ref_but_part_inited(bufsize,initedsize) _Outref_result_buffer_to_(bufsize,initedsize)
+	#define _out_as_ptr _Outptr_
+	#define _out_as_ptr_opt _Outptr_opt_
+	#define _out_as_ptr_has_size(size) _Outptr_result_buffer_(size)
+	#define _out_as_ptr_has_size_in_bytes(size) _Outptr_result_bytebuffer_(size)
+	#define _out_as_ptr_result_not_inited_has_size(size) _Outptr_result_buffer_to_(size,0)
+	#define _out_as_ptr_result_not_inited_in_bytes_has_size(size) _Outptr_result_bytebuffer_to_(size,0)
+	#define _out_as_ptr_but_part_inited(bufsize,initedsize) _Outptr_result_buffer_to_(bufsize,initedsize)
+	//
 	#define _return_maybenull _Ret_maybenull_
 	#define _return_nevernull _Ret_notnull_
 	#define _return_nevernull_end_by_zero _Ret_z_
 	#define _return_nevernull_has_size(size) _Ret_writes_(size)
 	#define _return_maybenull_has_size(size) _Ret_writes_maybenull_(size)
-	#define _return_nevernull_has_size_in_bytes(size) _Ret_notnull_ _Ret_bytecount_x_(size)
-	#define _return_maybenull_has_size_in_bytes(size) _Ret_maybenull_ _Ret_bytecount_x_(size)
+	#define _return_nevernull_has_size_in_bytes(size) _Ret_writes_bytes_(size)
+	#define _return_maybenull_has_size_in_bytes(size) _Ret_writes_bytes_maybenull_(size)
+	#define _return_nevernull_has_size_not_inited(size) _Ret_writes_to_(size,0)
+	#define _return_maybenull_has_size_not_inited(size) _Ret_writes_to_maybenull_(size,0)
+	#define _return_nevernull_has_size_in_bytes_not_inited(size) _Ret_writes_bytes_to_(size,0)
+	#define _return_maybenull_has_size_in_bytes_not_inited(size) _Ret_writes_bytes_to_maybenull_(size,0)
+	#define _return_nevernull_but_part_inited(bufsize,initedsize) _Ret_writes_to_(bufsize,initedsize)
+	#define _return_maybenull_but_part_inited(bufsize,initedsize) _Ret_writes_to_maybenull_(bufsize,initedsize)
 
 	#define _end_by_zero _Null_terminated_
 #else
@@ -287,6 +309,22 @@ protected:\
 	#define _out_param_with_writes(size)
 	#define _in_param_end_by_zero
 	#define _in_param_end_by_zero_or_size(size)
+	//
+	#define _out_as_ref
+	#define _out_as_ref_opt
+	#define _out_as_ref_has_size(size)
+	#define _out_as_ref_has_size_in_bytes(size)
+	#define _out_as_ref_result_not_inited_has_size(size)
+	#define _out_as_ref_result_not_inited_in_bytes_has_size(size)
+	#define _out_as_ref_but_part_inited(bufsize,initedsize)
+	#define _out_as_ptr
+	#define _out_as_ptr_opt
+	#define _out_as_ptr_has_size(size)
+	#define _out_as_ptr_has_size_in_bytes(size)
+	#define _out_as_ptr_result_not_inited_has_size(size)
+	#define _out_as_ptr_result_not_inited_in_bytes_has_size(size)
+	#define _out_as_ptr_but_part_inited(bufsize,initedsize)
+	//
 	#define _return_maybenull
 	#define _return_nevernull
 	#define _return_nevernull_end_by_zero
@@ -294,6 +332,12 @@ protected:\
 	#define _return_maybenull_has_size(size)
 	#define _return_nevernull_has_size_in_bytes(size)
 	#define _return_maybenull_has_size_in_bytes(size)
+	#define _return_nevernull_has_size_not_inited(size)
+	#define _return_maybenull_has_size_not_inited(size)
+	#define _return_nevernull_has_size_in_bytes_not_inited(size)
+	#define _return_maybenull_has_size_in_bytes_not_inited(size)
+	#define _return_nevernull_but_part_inited(bufsize,initedsize)
+	#define _return_maybenull_but_part_inited(bufsize,initedsize)
 
 	#define _end_by_zero
 #endif
