@@ -8,7 +8,7 @@
 */
 namespace rand_n{
 	typedef uint_t seed_type;//考虑到通用性以便于跨平台通用的seed，不可以使用uintmax_t
-	distinctive seed_type rand_seed=72;
+	distinctive inline seed_type rand_seed=magic_number::god;
 	template<class T>
 	struct rand_t{
 		static constexpr bool able=::std::is_trivially_constructible_v<T> && was_not_an_ill_form(unsigned_specific_size_t<sizeof(T)>{});
@@ -67,7 +67,7 @@ namespace rand_n{
 		typedef unsigned_specific_size_t<min(sizeof(T),sizeof(seed_type)/2)> result_type;
 	public:
 		static result_type base_call()noexcept{
-			seed_type old_seed=rand_seed;
+			const seed_type old_seed=rand_seed;
 			rand_seed=multiplier*old_seed+increment;
 			constexpr size_t result_type_bitnum=bitnum_of(result_type);
 			return rotl(result_type(old_seed >> result_type_bitnum), result_type(rand_seed << result_type_bitnum));
@@ -78,7 +78,7 @@ namespace rand_n{
 			if constexpr(sizeof(T)==sizeof(result_type))
 				data_cast<result_type>(aret)=base_call();
 			else{
-				byte*p=aret;
+				const byte*p=aret;
 				for(size_t i=0;i<sizeof(T);i+=sizeof(result_type)){
 					data_cast<result_type>(p+i)=base_call();
 				}
