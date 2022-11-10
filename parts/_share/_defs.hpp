@@ -13,8 +13,6 @@
 	#define ELC_WARNING_LEVEL 4
 #endif
 
-#include "basic_environment.hpp"
-
 #if defined(_MSC_VER)
 	#pragma warning(push,ELC_WARNING_LEVEL)
 	#pragma warning(disable:4099)//class与struct混用警告diss

@@ -38,11 +38,18 @@ template<class T>
 */
 template<class...Ts>
 struct data_block:non_copyable,non_moveable{
+	static constexpr size_t size=max({sizeof(Ts)...});
+	static constexpr size_t align=max({alignof(Ts)...});
 	push_and_disable_msvc_warning(4324);
-	alignas(max({alignof(Ts)...}))
-	byte _data[max({sizeof(Ts)...})];
-	constexpr operator byte*(){return _data;}
+	alignas(align)byte _data[size];
 	pop_msvc_warning();
+	constexpr operator byte*(){return _data;}
+	constexpr operator const byte*()const{return _data;}
+	//begin & end
+	constexpr byte*begin(){return _data;}
+	constexpr byte*end(){return _data+size;}
+	constexpr const byte*begin()const{return _data;}
+	constexpr const byte*end()const{return _data+size;}
 };
 
 /*!
