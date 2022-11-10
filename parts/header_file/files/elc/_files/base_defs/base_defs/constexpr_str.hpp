@@ -43,8 +43,8 @@ namespace constexpr_str_n{
 	template<typename char_T>
 	struct constexpr_str_t:constexpr_str_view_t<char_T>{
 		typedef constexpr_str_view_t<char_T> base_t;
-		typedef _end_by_zero char_T*string_ptr_t;
-		typedef _end_by_zero const char_T*const_string_ptr_t;
+		typedef char_T*string_ptr_t;
+		typedef const char_T*const_string_ptr_t;
 		hash_t hash_result;
 		range_n::match_pattern<const char_T> match_pattern;
 		range_n::reverse_match_pattern<const char_T> reverse_match_pattern;
@@ -66,8 +66,8 @@ namespace constexpr_str_n{
 	};
 	template<class char_T,size_t N>
 	struct constexpr_str_t_literal_helper{
-		typedef _end_by_zero char_T*string_ptr_t;
-		typedef _end_by_zero const char_T*const_string_ptr_t;
+		typedef char_T*string_ptr_t;
+		typedef const char_T*const_string_ptr_t;
 		const_string_ptr_t _array_begin;
 		constexpr constexpr_str_t_literal_helper(const char_T(&str)[N])noexcept{
 			_array_begin=str;

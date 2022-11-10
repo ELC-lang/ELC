@@ -62,7 +62,7 @@ struct inserted_string_data_t final: base_string_data_t<char_T>,instance_struct<
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _to_size+_insert_size; }
 protected:
-	virtual void copy_part_data_to(_out_param_with_writes(size)char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<_insert_pos)
 			_to->copy_part_data_to(to,pos,size);
 		elseif(pos>_insert_pos+_insert_size)

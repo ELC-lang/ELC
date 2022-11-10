@@ -41,7 +41,7 @@ struct same_value_compress_string_data_t final:base_string_data_t<char_T>,instan
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _size; }
 protected:
-	virtual void copy_part_data_to(_out_param_with_writes(size)char_T* to,[[maybe_unused]]size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
+	virtual void copy_part_data_to(char_T* to,[[maybe_unused]]size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		copy_assign[size](_value,note::to(to));
 	}
 public:

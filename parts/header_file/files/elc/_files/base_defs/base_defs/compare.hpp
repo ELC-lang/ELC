@@ -45,7 +45,7 @@ constexpr struct equal_t{
 		return a==b;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr bool operator()(_in_param_with_reads(size)T*a,_in_param_with_reads(size)U*b,size_t size)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
 		while(size--){
 			if(*(a++)!=*(b++))
 				return false;
@@ -62,16 +62,14 @@ constexpr struct equal_t{
 		}
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr bool operator()( _in_param_with_reads(size1)T*a,size_t size1,
-											_in_param_with_reads(size2)U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(size1==size2)
 			return operator()(a,b,size1);
 		else
 			return false;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr bool operator()(_in_param_with_reads(size1)T*a,size_t size1,
-								  _in_param_end_by_zero_or_size(size1)U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
 			if(*a!=*b || *b==U{0})
 				return false;
@@ -81,13 +79,11 @@ constexpr struct equal_t{
 		return *b==U{0};
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr bool operator()(_in_param_end_by_zero_or_size(size2)T*a,end_by_zero_t,
-													_in_param_with_reads(size2)U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		return operator()(b,size2,a,end_by_zero);
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr bool operator()( _in_param_end_by_zero T*a,end_by_zero_t,
-											_in_param_end_by_zero U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		floop{
 			if(*a!=*b)
 				return false;
@@ -98,8 +94,7 @@ constexpr struct equal_t{
 		}
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr bool operator()(_in_param_with_reads(size1)T*a,size_t size1,just_an_part_t,
-								  _in_param_end_by_zero_or_size(size1)U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr bool operator()(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
 			if(*a!=*b || *b==U{0})
 				return false;
@@ -187,7 +182,7 @@ constexpr struct compare_t{
 		return base_call(a,b);
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto operator()(_in_param_with_reads(size)T*a,_in_param_with_reads(size)U*b,size_t size)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,U*b,size_t size)const noexcept(nothrow<T,U>){
 		while(size--){
 			if(auto tmp=base_call(*(a++),*(b++)); tmp!=0)
 				return tmp;
@@ -204,8 +199,7 @@ constexpr struct compare_t{
 		}
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto operator()( _in_param_with_reads(size1)T*a,size_t size1,
-											_in_param_with_reads(size2)U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		type<T,U> tmp=size1<=>size2;
 		if(tmp!=0)
 			return tmp;
@@ -213,8 +207,7 @@ constexpr struct compare_t{
 			return operator()(a,b,size1);
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto operator()(_in_param_with_reads(size1)T*a,size_t size1,
-								  _in_param_end_by_zero_or_size(size1)U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		type<T,U> tmp=strong_ordering::equivalent;
 		while(size1--){
 			if(*b==U{0})
@@ -227,8 +220,7 @@ constexpr struct compare_t{
 		return *b==U{0}?tmp:strong_ordering::less;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto operator()(_in_param_end_by_zero_or_size(size2)T*a,end_by_zero_t,
-													_in_param_with_reads(size2)U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		type<T,U> tmp=strong_ordering::equivalent;
 		while(size2--){
 			if(*a==T{0})
@@ -241,8 +233,7 @@ constexpr struct compare_t{
 		return *b==U{0}?tmp:strong_ordering::less;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto operator()( _in_param_end_by_zero T*a,end_by_zero_t,
-											_in_param_end_by_zero U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		type<T,U> tmp=strong_ordering::equivalent;
 		floop{
 			if(*a==T{0})
@@ -254,8 +245,7 @@ constexpr struct compare_t{
 		}
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto operator()(_in_param_with_reads(size1)T*a,size_t size1,just_an_part_t,
-								  _in_param_end_by_zero_or_size(size1)U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto operator()(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		type<T,U> tmp=strong_ordering::equivalent;
 		while(size1--){
 			if(*b==U{0})
@@ -268,8 +258,7 @@ constexpr struct compare_t{
 		return tmp;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto lexicographical(_in_param_with_reads(size1)T*a,size_t size1,
-												_in_param_with_reads(size2)U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		if(auto tmp=operator()(a,b,min(size1,size2)); tmp!=0)
 			return tmp;
 		else
@@ -280,8 +269,7 @@ constexpr struct compare_t{
 		return lexicographical(a,N1,b,N2);
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto lexicographical( _in_param_with_reads(size1)T*a,size_t size1,
-										_in_param_end_by_zero_or_size(size1)U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
 			if(*b==U{0})
 				return strong_ordering::greater;
@@ -294,8 +282,7 @@ constexpr struct compare_t{
 						strong_ordering::less;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto lexicographical(_in_param_end_by_zero_or_size(size2)T*a,end_by_zero_t,
-														 _in_param_with_reads(size2)U*b,size_t size2)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto lexicographical(T*a,end_by_zero_t,U*b,size_t size2)const noexcept(nothrow<T,U>){
 		while(size2--){
 			if(*a==T{0})
 				return strong_ordering::less;
@@ -308,8 +295,7 @@ constexpr struct compare_t{
 						strong_ordering::less;
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto lexicographical(_in_param_end_by_zero T*a,end_by_zero_t,
-												_in_param_end_by_zero U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto lexicographical(T*a,end_by_zero_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		floop{
 			if(*a==T{0})
 				return *b==U{0}?strong_ordering::equivalent:
@@ -321,8 +307,7 @@ constexpr struct compare_t{
 		}
 	}
 	template<typename T,typename U>
-	[[nodiscard]]constexpr auto lexicographical( _in_param_with_reads(size1)T*a,size_t size1,just_an_part_t,
-										_in_param_end_by_zero_or_size(size1)U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
+	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,just_an_part_t,U*b,end_by_zero_t)const noexcept(nothrow<T,U>){
 		while(size1--){
 			if(*b==U{0})
 				return strong_ordering::greater;

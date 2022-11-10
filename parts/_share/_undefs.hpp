@@ -138,47 +138,5 @@
 
 //#undef get_elc_defs
 
-#undef _in_param
-#undef _out_param
-#undef _inout_param
-#undef _in_opt_param
-#undef _out_opt_param
-#undef _inout_opt_param
-#undef _in_param_with_reads
-#undef _out_param_with_writes
-#undef _in_param_end_by_zero
-#undef _in_param_end_by_zero_or_size
-//
-#undef _out_as_ref
-#undef _out_as_ref_opt
-#undef _out_as_ref_has_size
-#undef _out_as_ref_has_size_in_bytes
-#undef _out_as_ref_result_not_inited_has_size
-#undef _out_as_ref_result_not_inited_in_bytes_has_size
-#undef _out_as_ref_but_part_inited
-#undef _out_as_ptr
-#undef _out_as_ptr_opt
-#undef _out_as_ptr_has_size
-#undef _out_as_ptr_has_size_in_bytes
-#undef _out_as_ptr_result_not_inited_has_size
-#undef _out_as_ptr_result_not_inited_in_bytes_has_size
-#undef _out_as_ptr_but_part_inited
-//
-#undef _return_maybenull
-#undef _return_nevernull
-#undef _return_nevernull_end_by_zero
-#undef _return_nevernull_has_size
-#undef _return_maybenull_has_size
-#undef _return_nevernull_has_size_in_bytes
-#undef _return_maybenull_has_size_in_bytes
-#undef _return_nevernull_has_size_not_inited
-#undef _return_maybenull_has_size_not_inited
-#undef _return_nevernull_has_size_in_bytes_not_inited
-#undef _return_maybenull_has_size_in_bytes_not_inited
-#undef _return_nevernull_but_part_inited
-#undef _return_maybenull_but_part_inited
-
-#undef _end_by_zero
-
 //file_end
 

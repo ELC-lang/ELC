@@ -12,8 +12,8 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	typedef base_string_data_t<char_T> this_t;
 	typedef comn_ptr_t<this_t> ptr_t;
 	typedef string_view_t<char_T> string_view_t;
-	typedef _end_by_zero char_T*string_ptr_t;
-	typedef _end_by_zero const char_T*const_string_ptr_t;
+	typedef char_T*string_ptr_t;
+	typedef const char_T*const_string_ptr_t;
 
 	static_assert(noexcept(declvalue(ptr_t).operator*()));//貌似msvc在这里有bug
 
@@ -350,7 +350,7 @@ public:
 		}
 	}
 protected:
-	virtual void copy_part_data_to(_out_param_with_writes(size)char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)=0;
 public:
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)=0;
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)=0;

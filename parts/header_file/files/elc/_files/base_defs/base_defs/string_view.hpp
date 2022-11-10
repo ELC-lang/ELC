@@ -89,8 +89,8 @@ namespace string_view_n{
 	struct string_view_t:array_like_view_t<const char_T>{
 		static constexpr size_t npos=range_n::npos;
 		typedef array_like_view_t<const char_T> base_t;
-		typedef _end_by_zero char_T*string_ptr_t;
-		typedef _end_by_zero const char_T*const_string_ptr_t;
+		typedef char_T*string_ptr_t;
+		typedef const char_T*const_string_ptr_t;
 		//构造函数
 		using base_t::base_t;
 		constexpr string_view_t(const_string_ptr_t str)noexcept:string_view_t(array_end_by_zero_t<const char_T>(str)){}

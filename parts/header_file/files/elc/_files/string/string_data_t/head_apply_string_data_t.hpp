@@ -102,7 +102,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			return base_t::do_insert(pos,str);
 	}
 protected:
-	virtual void copy_part_data_to(_out_param_with_writes(size)char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
+	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos<_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			const char_T* head_end=_m.end();
