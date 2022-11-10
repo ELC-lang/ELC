@@ -393,6 +393,16 @@ namespace magic_number{
 	}
 	/// 求大于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]inline constexpr T get_prime_num_big_than(T a){
+		if constexpr(::std::is_floating_point_v<T>)
+			a=ceil(a);
+		do
+			a++;
+		while(!is_prime_num(a));
+		return a;
+	}
+	/// 求大于或等于某数的素数
+	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
 		if constexpr(::std::is_floating_point_v<T>)
 			a=ceil(a);

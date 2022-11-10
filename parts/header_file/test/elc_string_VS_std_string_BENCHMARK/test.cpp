@@ -8,17 +8,8 @@ void claer_memory_count()noexcept{
 	elc::APIs::alloc::count_info::clear();
 }
 
-template<class T>
-T rand(){
-	using namespace elc::defs;//data_view
-	T			 aret;
-	data_view<T> ret_data_view{&aret};
-	for(auto& i: ret_data_view)
-		i = byte(::std::rand() % 256);
-	return aret;
-}
-
 using elc::defs::discard;
+using elc::defs::rand;
 
 //*
 
