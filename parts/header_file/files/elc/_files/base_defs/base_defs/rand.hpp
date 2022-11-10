@@ -14,25 +14,25 @@ namespace rand_n{
 		static constexpr bool able=::std::is_trivially_constructible_v<T> && was_not_an_ill_form(unsigned_specific_size_t<sizeof(T)>{});
 		static constexpr bool nothrow=able;
 	private:
+		//由于进行低半部分的结果舍去所以2*sizeof(T)
+		typedef unsigned_specific_size_t<min(2*sizeof(T),sizeof(seed_type))> rand_value_type;
 		//m
-		static constexpr size_t modulus=size_t(pow(BIT_POSSIBILITY,2*min(bitnum_of(T),bitnum_of(seed_type)/2)));
+		//由于rand_value_type一定是无符号整数，所以max(type_info<rand_value_type>)+1等价于pow(BIT_POSSIBILITY,bitnum_of(rand_value_type))
+		//同时可以简化编译期计算
+		//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0
+		static constexpr auto modulus=max(type_info<rand_value_type>)+1;
+
 		//a
 		static constexpr size_t multiplier=lambda(){
 			using namespace magic_number;
 			//https://en.wikipedia.org/wiki/Linear_congruential_generator#Period_length
 			const size_t m=modulus;
-			size_t a_off_1=m/4;
+			size_t a_off_1=1;
 			/*
 				`a − 1` is divisible by all prime factors of m
-				`a − 1` should not be any more divisible by prime factors of m
 			*/
-			//if BIT_POSSIBILITY is prime, then let's set a_off_1=get_prime_num_big_than(BIT_POSSIBILITY)*BIT_POSSIBILITY !
-			if constexpr(is_prime_num(BIT_POSSIBILITY)){
-				a_off_1=get_prime_num_big_than(BIT_POSSIBILITY)*BIT_POSSIBILITY;
-			}
-			else{
-				//use this in future!
-				//get all prime factors of BIT_POSSIBILITY
+			{
+				//get all prime factors of BIT_POSSIBILITY as modulus always is a power of BIT_POSSIBILITY
 				size_t prime_test=BIT_POSSIBILITY;
 				size_t prime_tester=2;
 				while(prime_test!=1){
@@ -47,6 +47,10 @@ namespace rand_n{
 						prime_tester=get_prime_num_big_than(prime_tester);
 				}
 			}
+			/*
+				`a − 1` should not be any more divisible by prime factors of m
+			*/
+			a_off_1*=get_prime_num_big_than(a_off_1);
 			/*
 				`a − 1` is divisible by 4 if m is divisible by 4.
 			*/
@@ -64,21 +68,34 @@ namespace rand_n{
 			return 1;
 		}();
 
-		typedef unsigned_specific_size_t<min(sizeof(T),sizeof(seed_type)/2)> result_type;
+		typedef unsigned_specific_size_t<sizeof(rand_value_type)/2> result_type;
 	public:
-		static result_type base_call()noexcept{
+		[[nodiscard]]static force_inline result_type base_call()noexcept{
 			const seed_type old_seed=rand_seed;
 			rand_seed=multiplier*old_seed+increment;
-			constexpr size_t result_type_bitnum=bitnum_of(result_type);
-			return rotl(result_type(old_seed >> result_type_bitnum), result_type(rand_seed << result_type_bitnum));
+			constexpr size_t half_bitnum=bitnum_of(result_type);
+			rand_value_type old_result,new_result;
+			if constexpr(modulus){
+				old_result=rand_value_type(old_seed%modulus);
+				new_result=rand_value_type(rand_seed%modulus);
+			}
+			else{
+				//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0（见modulus定义）
+				//此时不用取模
+				old_result = old_seed;
+				new_result = rand_seed;
+			}
+			const auto result_base=result_type(old_result >> half_bitnum);
+			const auto rot_offset=result_type(new_result);
+			return rotl(result_base,rot_offset);
 		}
 		//rand
-		T operator()()const noexcept{
+		[[nodiscard]]T operator()()const noexcept{
 			data_block<T>aret;
 			if constexpr(sizeof(T)==sizeof(result_type))
 				data_cast<result_type>(aret)=base_call();
 			else{
-				const byte*p=aret;
+				byte*p=aret;
 				for(size_t i=0;i<sizeof(T);i+=sizeof(result_type)){
 					data_cast<result_type>(p+i)=base_call();
 				}
