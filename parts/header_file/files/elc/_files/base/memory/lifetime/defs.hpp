@@ -206,7 +206,7 @@ namespace lifetime_n{
 		static constexpr bool trivial=destruct_trivial<T>;
 
 		template<class T> requires able<T>
-		static force_inline void base_call(T*to)noexcept(nothrow<T>){
+		static force_inline void base_call([[maybe_unused]]T*to)noexcept(nothrow<T>){
 			if constexpr(!trivial<T>)
 				if constexpr(::std::is_array_v<T>)
 					for(auto&i : *to)
