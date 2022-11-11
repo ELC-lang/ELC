@@ -9,7 +9,10 @@ void claer_memory_count()noexcept{
 }
 
 using elc::defs::discard;
-using elc::defs::rand;
+template<class T>
+inline T rand(){
+	return elc::defs::rand<T>();
+}
 
 //*
 
