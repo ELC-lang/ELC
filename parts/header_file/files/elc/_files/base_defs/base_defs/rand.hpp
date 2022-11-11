@@ -11,7 +11,7 @@ namespace rand_n{
 	distinctive inline seed_type rand_seed=magic_number::god;
 	template<class T>
 	struct rand_t{
-		static constexpr bool able=::std::is_trivially_constructible_v<T> && was_not_an_ill_form(unsigned_specific_size_t<sizeof(T)>{});
+		static constexpr bool able=::std::is_trivially_constructible_v<T> && (2*sizeof(T)<sizeof(seed_type) || !(sizeof(T)%sizeof(seed_type)));
 		static constexpr bool nothrow=able;
 	private:
 		//由于进行低半部分的结果舍去所以2*sizeof(T)
@@ -82,8 +82,8 @@ namespace rand_n{
 			else{
 				//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0（见modulus定义）
 				//此时不用取模
-				old_result = old_seed;
-				new_result = rand_seed;
+				old_result = rand_value_type(old_seed);
+				new_result = rand_value_type(rand_seed);
 			}
 			const auto result_base=result_type(old_result >> half_bitnum);
 			const auto rot_offset=result_type(new_result);
