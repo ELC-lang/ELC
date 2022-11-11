@@ -8,7 +8,13 @@
 */
 namespace rand_n{
 	typedef uint_t seed_type;//考虑到通用性以便于跨平台通用的seed，不可以使用uintmax_t
-	distinctive inline seed_type rand_seed=magic_number::god;
+	[[nodiscard]]inline constexpr seed_type sowing_seed(seed_type seed)noexcept{
+		for(size_t i=bitnum_of(seed_type);i--;){
+			seed=13*seed+7;
+		}
+		return seed;
+	}
+	distinctive inline seed_type rand_seed=sowing_seed(magic_number::god);
 	template<class T>
 	struct rand_t{
 		static constexpr bool able=::std::is_trivially_constructible_v<T> && (2*sizeof(T)<sizeof(seed_type) || !(sizeof(T)%sizeof(seed_type)));
@@ -108,7 +114,7 @@ namespace rand_n{
 
 	//set_seed
 	void set_seed(seed_type seed)noexcept{
-		rand_seed=seed;
+		rand_seed=sowing_seed(seed);
 	}
 }
 using rand_n::rand;
