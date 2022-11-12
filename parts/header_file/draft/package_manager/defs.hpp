@@ -150,7 +150,7 @@ struct pick_one_package_relay_info_t: public base_package_relay_info_t {
 		if(package_list_list.size() == 1)
 			goto pick_end;
 	pick_end:
-		size_t index = rand() % package_list_list.size();
+		size_t index = rand<size_t>() % package_list_list.size();
 		package_list.add_list(package_list_list[index]);
 		return package_list;
 	}

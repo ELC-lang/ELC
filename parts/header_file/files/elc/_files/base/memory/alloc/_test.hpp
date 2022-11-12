@@ -24,14 +24,12 @@ inline void check_memory_lack()noexcept{
 		inline void test(){
 			ELC_TEST_EVENTNAME("alloc部分测试");
 			using ::std::time;
-			using ::std::rand;
-			using ::std::srand;
-			srand((unsigned int)time(nullptr));
-			for(int i=rand()%100+40;i--;){
+			rand_n::set_seed((rand_n::seed_type)time(nullptr));
+			for(int i=rand<int>()%100+40;i--;){
 				int*p=alloc<int>(50);
 				p[0]=72;
 				stest_accert(get_size_of_alloc(p)==50);
-				p[49]=rand();
+				p[49]=rand<int>();
 				p[19]=666;
 				realloc(p,20);
 				stest_accert(get_size_of_alloc(p)==20);
