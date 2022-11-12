@@ -206,8 +206,9 @@ private:
 			return this;
 		}
 	public:
-		static void operator delete(void*a)noexcept_as(destroy(declvalue(T*))){
-			destroy(reinterpret_cast<for_delete_t*>(a)->_m);
+		static void operator delete(void*a)noexcept{}
+		static void operator delete(for_delete_t*a,std::destroying_delete_t)noexcept_as(destroy(declvalue(T*))){
+			destroy((a)->_m);
 		}
 	}for_delete{};
 public:
