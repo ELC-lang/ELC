@@ -338,6 +338,24 @@ namespace magic_number{
 		else
 			return ::std::ceil(v);
 	}
+	//sqrt
+	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
+	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr auto sqrt(const T v)noexcept{
+		if in_consteval{
+			typedef decltype(::std::sqrt(v)) RT;
+			auto sqrt_impl = recursive_lambda(const RT x,const RT curr,const RT prev)noexcept -> RT{
+				return feq(curr,prev) ? curr : self_recursion(x,(curr+x/curr)/RT{2},curr);
+			};
+			auto sqrt_impl_caller = get_recursive_lambda_caller(sqrt_impl);
+			if(v >= 0 && v < ::std::numeric_limits<RT>::infinity())
+				return sqrt_impl_caller((RT)v,(RT)v,(RT)0);
+			else
+				return ::std::numeric_limits<RT>::quiet_NaN();
+		}
+		else
+			return ::std::sqrt(v);
+	}
 
 	/*! 判断某数是否是素数 */
 	template<class T> requires ::std::is_arithmetic_v<T>
@@ -365,7 +383,7 @@ namespace magic_number{
 		*/
 		if(mod(mod(a,6)-1,4))
 			return false;
-		T b=static_cast<T>(::std::sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
+		T b=static_cast<T>(sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
 		/*
 		接下来:
 		设要判定的数n(6x±1的缩写).

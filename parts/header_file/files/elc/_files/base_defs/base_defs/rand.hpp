@@ -55,8 +55,14 @@ namespace rand_n{
 			}
 			/*
 				`a − 1` should not be any more divisible by prime factors of m
+				`a - 1` should not small than sqrt(m)
 			*/
-			a_off_1*=get_prime_num_big_than(a_off_1);
+			{
+				const auto sqrt_m = sqrt(m);
+				do
+					a_off_1 *= get_prime_num_big_than(a_off_1);
+				while(a_off_1 < sqrt_m);
+			}
 			/*
 				`a − 1` is divisible by 4 if m is divisible by 4.
 			*/
@@ -77,23 +83,26 @@ namespace rand_n{
 		typedef unsigned_specific_size_t<sizeof(rand_value_type)/2> result_type;
 	public:
 		[[nodiscard]]static force_inline result_type base_call()noexcept{
-			const seed_type old_seed=rand_seed;
-			rand_seed=multiplier*old_seed+increment;
+			rand_seed=multiplier*rand_seed+increment;
 			constexpr size_t half_bitnum=bitnum_of(result_type);
-			rand_value_type old_result,new_result;
-			if constexpr(modulus){
-				old_result=rand_value_type(old_seed%modulus);
+			rand_value_type new_result;
+			if constexpr(modulus)
 				new_result=rand_value_type(rand_seed%modulus);
-			}
-			else{
+			else
 				//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0（见modulus定义）
 				//此时不用取模
-				old_result = rand_value_type(old_seed);
 				new_result = rand_value_type(rand_seed);
-			}
-			const auto result_base=result_type(old_result >> half_bitnum);
+			static result_type result_base,xor_rot_offset,result_before;
+			const auto xor_base=result_type(new_result >> half_bitnum);
+			//xor_rot_offset=result_type(old_result);
+			//result_base=result_type(old_result >> half_bitnum)^old_result;
 			const auto rot_offset=result_type(new_result);
-			return rotl(result_base,rot_offset);
+			const auto xor_value=rotr(xor_base,xor_rot_offset);
+			const result_type result=rotl(result_base,rot_offset)^xor_value;
+			//缓存以便下次计算
+			xor_rot_offset=rot_offset;
+			result_base=xor_base^result;
+			return result;
 		}
 		//rand
 		[[nodiscard]]T operator()()const noexcept{
