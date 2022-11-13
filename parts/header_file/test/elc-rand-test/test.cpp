@@ -11,16 +11,16 @@ int main() {
 
 	typedef uint16_t test_type;
 	//let's output elc::defs::rand<test_type>'s output to a png file
-	typedef unsigned_specific_size_t<sizeof(test_type)/2> half_type;//用这个当作图片坐标
-	auto half_max = max(type_info<half_type>);
+	typedef unsigned_specific_size_t<sizeof(test_type) / 2> half_type;		 //用这个当作图片坐标
+	auto													half_max = max(type_info<half_type>);
 	{
 		//灰度类型
 		typedef unsigned char gray_type;
 		//创建一个灰度图像，大小为half_max+1*half_max+1
 		cv::Mat_<gray_type> img(half_max + 1, half_max + 1, gray_type(0));
 		//填充
-		auto rand_times = half_max * half_max*128;
-		for (size_t i = 0; i < rand_times; ++i) {
+		auto rand_times = half_max * half_max * 128;
+		for(size_t i = 0; i < rand_times; ++i) {
 			auto rand_v = rand<test_type>();
 			auto x		= half_type(rand_v >> (CHAR_BIT * sizeof(half_type)));
 			auto y		= half_type(rand_v);
@@ -28,11 +28,19 @@ int main() {
 			++img(x, y);
 		}
 		//亮度映射！
-		//取矩阵中max
-		auto max_gray = *std::max_element(img.begin(), img.end());
+		//取矩阵中max和min
+		gray_type min_v = max(type_info<gray_type>), max_v = min(type_info<gray_type>);
+		for(auto& v: img) {
+			if(v < min_v) {
+				min_v = v;
+			}
+			if(v > max_v) {
+				max_v = v;
+			}
+		}
 		//映射到0-255
-		for(auto& i: img) {
-			i = i * 255 / max_gray;
+		for(auto& v: img) {
+			v = (v - min_v) * 255 / (max_v - min_v);
 		}
 		//写入文件
 		cv::imwrite("output.png", img);
@@ -44,7 +52,7 @@ int main() {
 		//对于每个像素，随机填充rgb
 		double rad_total = 0, green_total = 0, blue_total = 0;
 		for(auto& i: img_color) {
-			auto rad = rand<unsigned char>();
+			auto rad   = rand<unsigned char>();
 			auto green = rand<unsigned char>();
 			auto blue  = rand<unsigned char>();
 			rad_total += rad;
