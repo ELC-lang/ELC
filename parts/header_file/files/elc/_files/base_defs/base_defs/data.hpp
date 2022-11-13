@@ -43,8 +43,17 @@ struct data_block:non_copyable,non_moveable{
 	push_and_disable_msvc_warning(4324);
 	alignas(align)byte _data[size];
 	pop_msvc_warning();
+	constexpr data_block()noexcept{};
+	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
+	constexpr data_block(T&&t)noexcept{
+		data_cast<T>(_data)=::std::forward<T>(t);
+	}
 	constexpr operator byte*(){return _data;}
 	constexpr operator const byte*()const{return _data;}
+	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
+	constexpr auto&operator=(T&&t){
+		return data_cast<T>(_data)=::std::forward<T>(t);
+	}
 	//begin & end
 	constexpr byte*begin(){return _data;}
 	constexpr byte*end(){return _data+size;}

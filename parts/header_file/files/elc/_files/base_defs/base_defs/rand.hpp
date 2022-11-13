@@ -14,7 +14,11 @@ namespace rand_n{
 		}
 		return seed;
 	}
+	typedef unsigned_specific_size_t<sizeof(seed_type)/2> value_gen_cache_base_t;
+	typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 	distinctive inline seed_type rand_seed=sowing_seed(magic_number::god);
+	distinctive inline value_gen_cache_t result_base_data=value_gen_cache_base_t(rand_seed >> bitnum_of(value_gen_cache_base_t)),
+										 xor_rot_offset_data=value_gen_cache_base_t(rand_seed);
 	template<class T>
 	struct rand_t{
 		static constexpr bool able=::std::is_trivially_constructible_v<T> && (2*sizeof(T)<sizeof(seed_type) || !(sizeof(T)%sizeof(seed_type)));
@@ -35,7 +39,7 @@ namespace rand_n{
 			const size_t m=modulus;
 			size_t a_off_1=1;
 			/*
-				`a − 1` is divisible by all prime factors of m
+				`a - 1` is divisible by all prime factors of m
 			*/
 			{
 				//get all prime factors of BIT_POSSIBILITY as modulus always is a power of BIT_POSSIBILITY
@@ -54,7 +58,7 @@ namespace rand_n{
 				}
 			}
 			/*
-				`a − 1` should not be any more divisible by prime factors of m
+				`a - 1` should not be any more divisible by prime factors of m
 				`a - 1` should not small than sqrt(m)
 			*/
 			{
@@ -64,7 +68,7 @@ namespace rand_n{
 				while(a_off_1 < sqrt_m);
 			}
 			/*
-				`a − 1` is divisible by 4 if m is divisible by 4.
+				`a - 1` is divisible by 4 if m is divisible by 4.
 			*/
 			while(m%4==0 && a_off_1%4!=0)
 				a_off_1*=2;
@@ -92,10 +96,9 @@ namespace rand_n{
 				//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0（见modulus定义）
 				//此时不用取模
 				new_result = rand_value_type(rand_seed);
-			static result_type result_base,xor_rot_offset,result_before;
 			const auto xor_base=result_type(new_result >> half_bitnum);
-			//xor_rot_offset=result_type(old_result);
-			//result_base=result_type(old_result >> half_bitnum)^old_result;
+			auto&xor_rot_offset=data_cast<result_type>(xor_rot_offset_data);
+			auto&result_base=data_cast<result_type>(result_base_data);
 			const auto rot_offset=result_type(new_result);
 			const auto xor_value=rotr(xor_base,xor_rot_offset);
 			const result_type result=rotl(result_base,rot_offset)^xor_value;
@@ -106,9 +109,9 @@ namespace rand_n{
 		}
 		//rand
 		[[nodiscard]]T operator()()const noexcept{
-			data_block<T>aret;
+			data_block<T,result_type>aret;
 			if constexpr(sizeof(T)==sizeof(result_type))
-				data_cast<result_type>(aret)=base_call();
+				aret=base_call();
 			else{
 				byte*p=aret;
 				for(size_t i=0;i<sizeof(T);i+=sizeof(result_type)){
@@ -124,6 +127,8 @@ namespace rand_n{
 	//set_seed
 	void set_seed(seed_type seed)noexcept{
 		rand_seed=sowing_seed(seed);
+		result_base_data=value_gen_cache_base_t(rand_seed >> bitnum_of(value_gen_cache_base_t)),
+		xor_rot_offset_data=value_gen_cache_base_t(rand_seed);
 	}
 }
 using rand_n::rand;
