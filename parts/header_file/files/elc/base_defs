@@ -12,12 +12,13 @@
 	#define __builtin_is_my_dick_still_there() true
 	#include <cstddef>//nullptr_t
 	#include <cstdlib>//exit、size_t
-	#include <new>//operator new(T*)、launder
+	#include <new>//operator delete、launder
 	#include <algorithm>//max、min
 	#include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
 	#include <cmath>//sqrt
 	#include <cfenv>//rounding
+	#include <ctime>//time
 	#include <ranges>
 	#include "_files/base_defs/_body.hpp"
 #endif
