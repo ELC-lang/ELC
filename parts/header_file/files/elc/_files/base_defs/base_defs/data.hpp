@@ -43,7 +43,9 @@ struct data_block:non_copyable,non_moveable{
 	push_and_disable_msvc_warning(4324);
 	alignas(align)byte _data[size];
 	pop_msvc_warning();
-	constexpr data_block()noexcept{};
+	push_and_disable_msvc_warning(26495);
+	force_inline data_block()noexcept{};
+	pop_msvc_warning();
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
 	constexpr data_block(T&&t)noexcept{
 		data_cast<T>(_data)=::std::forward<T>(t);

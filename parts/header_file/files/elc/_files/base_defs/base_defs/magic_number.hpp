@@ -65,21 +65,23 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto copy_as_not_negative(auto x)noexcept{
 		return copy_as_negative(x,false);
 	}
+	/*! 任意算数类型转无符号 */
+	template<typename T,typename U> requires ::std::is_arithmetic_v<U>
+	[[nodiscard]]force_inline constexpr T safe_unsigned_cast(U x)noexcept{
+		if constexpr(::std::is_floating_point_v<U> && ::std::is_unsigned_v<T>)
+			return (T)(::std::intmax_t)x;
+		else
+			return (T)x;
+	}
 	/*! 任意算数类型转size_t */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr size_t to_size_t(T x)noexcept{
-		if constexpr(::std::is_floating_point_v<T>)
-			return (size_t)(ptrdiff_t)x;
-		else
-			return (size_t)x;
+		return safe_unsigned_cast<size_t>(x);
 	}
 	/*! 任意算数类型转uintmax_t */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr ::std::uintmax_t to_uintmax_t(T x)noexcept{
-		if constexpr(::std::is_floating_point_v<T>)
-			return (::std::uintmax_t)(::std::intmax_t)x;
-		else
-			return (::std::uintmax_t)x;
+		return safe_unsigned_cast<::std::uintmax_t>(x);
 	}
 	/*! 求余 */
 	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
@@ -383,7 +385,7 @@ namespace magic_number{
 		*/
 		if(mod(mod(a,6)-1,4))
 			return false;
-		T b=static_cast<T>(sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
+		T b=safe_unsigned_cast<T>(sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
 		/*
 		接下来:
 		设要判定的数n(6x±1的缩写).
@@ -414,8 +416,10 @@ namespace magic_number{
 	[[nodiscard]]inline constexpr T get_prime_num_big_than(T a){
 		if constexpr(::std::is_floating_point_v<T>)
 			a=ceil(a);
+		if(mod(a,2)==0)
+			++a;
 		do
-			a++;
+			a+=2;
 		while(!is_prime_num(a));
 		return a;
 	}
@@ -424,8 +428,10 @@ namespace magic_number{
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
 		if constexpr(::std::is_floating_point_v<T>)
 			a=ceil(a);
+		if(mod(a,2)==0)
+			++a;
 		while(!is_prime_num(a))
-			a++;
+			a+=2;
 		return a;
 	}
 	push_and_disable_msvc_warning(26467);//gold_of_resize永远为正数

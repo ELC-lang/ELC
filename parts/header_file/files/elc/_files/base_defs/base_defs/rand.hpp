@@ -16,9 +16,9 @@ namespace rand_n{
 	}
 	typedef unsigned_specific_size_t<sizeof(seed_type)/2> value_gen_cache_base_t;
 	typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
-	distinctive inline seed_type rand_seed=sowing_seed(magic_number::god);
-	distinctive inline value_gen_cache_t result_base_data=value_gen_cache_base_t(rand_seed >> bitnum_of(value_gen_cache_base_t)),
-										 xor_rot_offset_data=value_gen_cache_base_t(rand_seed);
+	distinctive inline seed_type		 rand_seed				= sowing_seed(magic_number::god);
+	distinctive inline value_gen_cache_t result_base_data		= value_gen_cache_base_t(rand_seed >> bitnum_of(value_gen_cache_base_t)),
+										 xor_rot_offset_data	= value_gen_cache_base_t(rand_seed);
 	template<class T>
 	struct rand_t{
 		static constexpr bool able=::std::is_trivially_constructible_v<T> && (2*sizeof(T)<sizeof(seed_type) || !(sizeof(T)%sizeof(seed_type)));
@@ -36,20 +36,20 @@ namespace rand_n{
 		static constexpr size_t multiplier=lambda(){
 			using namespace magic_number;
 			//https://en.wikipedia.org/wiki/Linear_congruential_generator#Period_length
-			const size_t m=modulus;
+			constexpr size_t m=modulus;
 			size_t a_off_1=1;
 			/*
 				`a - 1` is divisible by all prime factors of m
 			*/
 			{
 				//get all prime factors of BIT_POSSIBILITY as modulus always is a power of BIT_POSSIBILITY
-				size_t prime_test=BIT_POSSIBILITY;
-				size_t prime_tester=2;
+				size_t prime_test	= BIT_POSSIBILITY;
+				size_t prime_tester = 2;
 				while(prime_test!=1){
 					if(prime_test%prime_tester==0){
-						prime_test/=prime_tester;
-						if(a_off_1%prime_tester)
-							a_off_1*=prime_tester;
+						prime_test /= prime_tester;
+						if(a_off_1 % prime_tester)
+							a_off_1 *= prime_tester;
 						//reset prime_test
 						prime_tester=2;
 					}
@@ -58,20 +58,20 @@ namespace rand_n{
 				}
 			}
 			/*
-				`a - 1` should not be any more divisible by prime factors of m
-				`a - 1` should not small than sqrt(m)
-			*/
-			{
-				const auto sqrt_m = sqrt(m);
-				do
-					a_off_1 *= get_prime_num_big_than(a_off_1);
-				while(a_off_1 < sqrt_m);
-			}
-			/*
 				`a - 1` is divisible by 4 if m is divisible by 4.
 			*/
 			while(m%4==0 && a_off_1%4!=0)
 				a_off_1*=2;
+			/*
+				`a - 1` should not be any more divisible by prime factors of m
+				`a - 1` should not small than sqrt(m)
+			*/
+			{
+				constexpr auto sqrt_m = sqrt(m);
+				do
+					a_off_1 *= get_prime_num_big_than(a_off_1);
+				while(a_off_1 < sqrt_m);
+			}
 			//return a
 			return a_off_1+1;
 		}();
@@ -87,28 +87,28 @@ namespace rand_n{
 		typedef unsigned_specific_size_t<sizeof(rand_value_type)/2> result_type;
 	public:
 		[[nodiscard]]static force_inline result_type base_call()noexcept{
-			rand_seed=multiplier*rand_seed+increment;
-			constexpr size_t half_bitnum=bitnum_of(result_type);
-			rand_value_type new_result;
+			rand_seed					 = multiplier * rand_seed + increment;
+			constexpr size_t half_bitnum = bitnum_of(result_type);
+			rand_value_type	 new_result;
 			if constexpr(modulus)
-				new_result=rand_value_type(rand_seed%modulus);
+				new_result = rand_value_type(rand_seed % modulus);
 			else
 				//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0（见modulus定义）
 				//此时不用取模
 				new_result = rand_value_type(rand_seed);
-			const auto xor_base=result_type(new_result >> half_bitnum);
-			auto&xor_rot_offset=data_cast<result_type>(xor_rot_offset_data);
-			auto&result_base=data_cast<result_type>(result_base_data);
-			const auto rot_offset=result_type(new_result);
-			const auto xor_value=rotr(xor_base,xor_rot_offset);
-			const result_type result=rotl(result_base,rot_offset)^xor_value;
+			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
+			auto&			  xor_rot_offset = data_cast<result_type>(xor_rot_offset_data);
+			auto&			  result_base	 = data_cast<result_type>(result_base_data);
+			const auto		  rot_offset	 = result_type(new_result);
+			const auto		  xor_value		 = rotr(xor_base, xor_rot_offset);
+			const result_type result		 = rotl(result_base, rot_offset) ^ xor_value;
 			//缓存以便下次计算
-			xor_rot_offset=rot_offset;
-			result_base=xor_base^result;
+			xor_rot_offset = rot_offset;
+			result_base	   = xor_base ^ result;
 			return result;
 		}
 		//rand
-		[[nodiscard]]T operator()()const noexcept{
+		[[nodiscard]]force_inline T operator()()const noexcept{
 			data_block<T,result_type>aret;
 			if constexpr(sizeof(T)==sizeof(result_type))
 				aret=base_call();
@@ -126,9 +126,9 @@ namespace rand_n{
 
 	//set_seed
 	void set_seed(seed_type seed)noexcept{
-		rand_seed=sowing_seed(seed);
-		result_base_data=value_gen_cache_base_t(rand_seed >> bitnum_of(value_gen_cache_base_t)),
-		xor_rot_offset_data=value_gen_cache_base_t(rand_seed);
+		rand_seed			= sowing_seed(seed);
+		result_base_data	= value_gen_cache_base_t(rand_seed >> bitnum_of(value_gen_cache_base_t)),
+		xor_rot_offset_data = value_gen_cache_base_t(rand_seed);
 	}
 }
 using rand_n::rand;
