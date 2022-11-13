@@ -248,6 +248,14 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr bool feq(const T a,const T b)noexcept{
 		return abs(a-b)<=::std::numeric_limits<T>::epsilon();
 	}
+	//isNaN
+	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr bool isNaN(const T v)noexcept{
+		if constexpr(::std::is_floating_point_v<T>)
+			return v!=v;
+		else
+			return false;
+	}
 	//sub
 	template<class T1,class T2> requires was_not_an_ill_form(declvalue(T1)-declvalue(T2))
 	[[nodiscard]]force_inline constexpr auto sub(const T1 a,const T2 b)noexcept{
@@ -486,6 +494,7 @@ using magic_number::rotr;
 using magic_number::rotl_nomod;
 using magic_number::rotr_nomod;
 using magic_number::rot_iterator;
+using magic_number::isNaN;
 using magic_number::abs;
 using magic_number::exp;
 using magic_number::log;

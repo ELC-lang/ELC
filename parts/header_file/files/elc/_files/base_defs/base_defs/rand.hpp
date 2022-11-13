@@ -193,6 +193,14 @@ namespace rand_n{
 			constexpr auto div_num=pow(BIT_POSSIBILITY,div_times);
 			return T(base/div_num);
 		}
+		//not nan.
+		[[nodiscard]]force_inline static constexpr T not_NaN()noexcept requires(::std::is_floating_point_v<T>){
+			T num;
+			do{
+				num=rand_seed.gen_randbit<T>();
+			}while(isNaN(num));
+			return num;
+		}
 		//between
 		struct between_integral_t{
 			T _min,_diff;

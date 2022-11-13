@@ -197,7 +197,7 @@ private:
 	template<typename T>
 	inline bool to_string_special_value_check(T num,string&str,bool is_negative)const noexcept{
 		if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
-			if(::std::isnan(num)){
+			if(isNaN(num)){
 				if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
 					constexpr auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
 					if(full_equal_in_byte(signaling_NaN,num)){
