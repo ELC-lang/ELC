@@ -441,7 +441,6 @@ namespace magic_number{
 		for(;;a+=6)
 			if(is_prime_num_no_pre_check(a))return a;
 			elseif(is_prime_num_no_pre_check(a+2))return a+2;
-		return a;
 	}
 	/// 求大于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
