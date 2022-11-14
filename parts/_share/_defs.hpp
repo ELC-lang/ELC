@@ -73,6 +73,10 @@
 #if defined(ELC_VOID_NAME)
 	#undef void
 #endif
+//
+#if defined(ELC_RESOLVE_GLOBAL_NAME_CONFLICTS)
+	#undef rand
+#endif
 
 // #define often_noexcept
 #define noexcept_as(...) noexcept(noexcept((__VA_ARGS__)))//dnmd C艹标准就是没有noexcept_as_auto

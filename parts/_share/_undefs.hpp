@@ -33,6 +33,10 @@
 #if defined(ELC_VOID_NAME)
 	#define void the_void
 #endif
+//
+#if defined(ELC_RESOLVE_GLOBAL_NAME_CONFLICTS)
+	#define rand the_rand
+#endif
 
 // #undef often_noexcept
 #undef noexcept_as
