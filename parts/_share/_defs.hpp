@@ -224,21 +224,21 @@ protected:\
 	virtual void* _abstract_method_get_forward_resize_this(size_t size)noexcept_as(instance_struct<this_t>::_abstract_method_get_forward_resize_this(size))override{return instance_struct<this_t>::_abstract_method_get_forward_resize_this(size);}\
 	virtual size_t abstract_method_get_size_of_get_for_this()noexcept override{return instance_struct<this_t>::abstract_method_get_size_of_get_for_this();}
 
-#if defined(_WIN32)
+#if defined(_MSC_VER) && !defined(__clang__)
 	#define distinctive __declspec(dllexport)
 #else
 	#define distinctive
 #endif
 
-#if defined(_WIN32)
+#if defined(_MSC_VER) && !defined(__clang__)
 	#define force_inline __forceinline
-#elif defined(__GNUC__)
+#elif defined(__GNUC__) || defined(__clang__)
 	#define force_inline __attribute__((always_inline)) inline
 #else
 	#define force_inline inline
 #endif
 
-#if defined(_WIN32)
+#if defined(_MSC_VER) && !defined(__clang__)
 	#define with_no_vtable __declspec(novtable)
 #else
 	#define with_no_vtable
