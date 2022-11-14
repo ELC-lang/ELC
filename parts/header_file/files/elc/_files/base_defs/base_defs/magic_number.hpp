@@ -429,9 +429,20 @@ namespace magic_number{
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a)noexcept{
 		if constexpr(::std::is_floating_point_v<T>)
 			a=ceil(a);
+		a=abs(a);
 		if(a<4)return a;
 		//将a转换为6x-1的形式.
-		{T b=mod(a,6);a=b?a+5-b:a-1;}
+		{
+			T b=mod(a,6);
+			if(b)
+				a+=5-b;
+			else{
+				if(is_prime_num_no_pre_check(a+1))
+					return a+1;
+				else
+					a+=5;
+			}
+		}
 		//循环判断.
 		for(;;a+=6)
 			if(is_prime_num_no_pre_check(a))return a;
