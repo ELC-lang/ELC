@@ -434,14 +434,8 @@ namespace magic_number{
 		//将a转换为6x-1的形式.
 		{
 			T b=mod(a,6);
-			if(b)
-				a+=5-b;
-			else{
-				if(is_prime_num_no_pre_check(a+1))
-					return a+1;
-				else
-					a+=5;
-			}
+			if(b==1 && is_prime_num_no_pre_check(a))return a;
+			a+=b?5-b:1;
 		}
 		//循环判断.
 		for(;;a+=6)
