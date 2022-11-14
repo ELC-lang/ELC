@@ -23,7 +23,6 @@ namespace rand_n{
 		}
 		//a
 		[[nodiscard]]inline constexpr size_t get_multiplier_by_modulus(auto m){
-			using namespace magic_number;
 			//https://en.wikipedia.org/wiki/Linear_congruential_generator#Period_length
 			size_t a_off_1=1;
 			/*

@@ -513,6 +513,9 @@ using magic_number::log;
 using magic_number::pow;
 using magic_number::ceil;
 using magic_number::trunc;
+using magic_number::is_prime_num;
+using magic_number::get_prime_num_big_or_eq_than;
+using magic_number::get_prime_num_big_than;
 using magic_number::get_next_gold_size_to_resize_for_array;
 using magic_number::get_next_gold_size_to_resize_for_hash;
 
