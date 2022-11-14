@@ -213,13 +213,12 @@ namespace rand_n{
 		struct between_integral_t{
 			T _min,_diff;
 			size_t _bitnum;
-			constexpr between_integral_t(T min,T max)noexcept:_min(min),_diff(max-min){
+			constexpr between_integral_t(T amin,T amax)noexcept:_min(amin),_diff(amax-amin){
 				_bitnum=1;
 				for(;_diff>>_bitnum;_bitnum++);
 			}
-			[[nodiscard]]force_inline T operator()()const noexcept{
-				return inclusive();
-			}
+			[[nodiscard]]force_inline T operator()()const noexcept{return inclusive();}
+			[[nodiscard]]force_inline operator T()const noexcept{return operator()();}
 			[[nodiscard]]force_inline T exclusive()const noexcept{
 				T ret;
 				do{
@@ -239,10 +238,9 @@ namespace rand_n{
 		};
 		struct between_floating_t{
 			T _min,_diff;
-			constexpr between_floating_t(T min,T max)noexcept:_min(min),_diff(max-min){}
-			[[nodiscard]]force_inline T operator()()const noexcept{
-				return inclusive();
-			}
+			constexpr between_floating_t(T amin,T amax)noexcept:_min(amin),_diff(amax-amin){}
+			[[nodiscard]]force_inline T operator()()const noexcept{return inclusive();}
+			[[nodiscard]]force_inline operator T()const noexcept{return operator()();}
 			[[nodiscard]]force_inline T exclusive()const noexcept{
 				return _min+between_0_and_1_exclusive()*_diff;
 			}
