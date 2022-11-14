@@ -55,7 +55,7 @@ struct data_block:non_copyable,non_moveable{
 	constexpr data_block(T&&t)noexcept{
 		data_cast<T>(_data)=::std::forward<T>(t);
 		if in_consteval{
-			for(size_t i=sizeof(T);i<size;++i)
+			for(size_t i=0;i<size;++i)
 				_data[i]=byte{};
 		}
 	}

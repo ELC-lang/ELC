@@ -130,7 +130,9 @@ namespace rand_n{
 			typedef unsigned_specific_size_t<2*sizeof(T)>	rand_value_type;
 			_seed						 = multiplier * _seed + increment;
 			constexpr size_t half_bitnum = bitnum_of(result_type);
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			rand_value_type	 new_result;
+			pop_msvc_warning();
 			if(modulus)
 				new_result = rand_value_type(_seed % modulus);
 			else
