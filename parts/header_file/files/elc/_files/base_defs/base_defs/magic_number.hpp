@@ -65,9 +65,9 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto copy_as_not_negative(auto x)noexcept{
 		return copy_as_negative(x,false);
 	}
-	/*! 任意算数类型转无符号 */
+	/*! 任意算数类型安全转型(ub避免.). */
 	template<typename T,typename U> requires ::std::is_arithmetic_v<U>
-	[[nodiscard]]force_inline constexpr T safe_unsigned_cast(U x)noexcept{
+	[[nodiscard]]force_inline constexpr T safe_arithmetic_cast(U x)noexcept{
 		if constexpr(::std::is_floating_point_v<U> && ::std::is_unsigned_v<T>)
 			return (T)(::std::intmax_t)x;
 		else
@@ -76,12 +76,12 @@ namespace magic_number{
 	/*! 任意算数类型转size_t */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr size_t to_size_t(T x)noexcept{
-		return safe_unsigned_cast<size_t>(x);
+		return safe_arithmetic_cast<size_t>(x);
 	}
 	/*! 任意算数类型转uintmax_t */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr ::std::uintmax_t to_uintmax_t(T x)noexcept{
-		return safe_unsigned_cast<::std::uintmax_t>(x);
+		return safe_arithmetic_cast<::std::uintmax_t>(x);
 	}
 	/*! 求余 */
 	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
@@ -367,33 +367,14 @@ namespace magic_number{
 			return ::std::sqrt(v);
 	}
 
-	/*! 判断某数是否是素数 */
+	/*! 判断某数是否是素数,无预先检查以供其他素数相关函数快速调用. */
 	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]inline constexpr bool is_prime_num(T a)
-	{
-		if constexpr(::std::is_floating_point_v<T>)
-			if(a != ceil(a))
-				return false;
+	[[nodiscard]]inline constexpr bool is_prime_num_no_pre_check(T a)noexcept{
 		/*
 		应某人的要求补注释(都是主人的任务罢了.).
+		建议先看有预先检查的部分以便理解思路.
 		*/
-		a=abs(a);
-
-		if(a<4)
-			return true;//1和0也是prime,我不管.
-		/*
-		当x≥1,那么≥5的自然数如下:
-		6x-1 6x 6x+1 6x+2 6x+3 6x+4
-		6(x+1)-1 6(x+1) 6(x+1)+1 ... //这已经是下一周期了.
-
-		考虑单个周期:
-		6x+2 6x+3 6x+4 是 2(3x+1) 3(2x+1) 2(3x+2),排除.
-		6x,排除.
-		那么,只用考虑6x±1是否是prime.
-		*/
-		if(mod(mod(a,6)-1,4))
-			return false;
-		T b=safe_unsigned_cast<T>(sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
+		T b=safe_arithmetic_cast<T>(sqrt(a));//若一个数可以分解为两因数之积,其中一个因数必定≤其开方:反指数式减少遍历范围.
 		/*
 		接下来:
 		设要判定的数n(6x±1的缩写).
@@ -415,43 +396,63 @@ namespace magic_number{
 		要不是这样早就写成7了.
 		*/
 		return true;
-		/*
-		因为后半段判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
-		*/
 	}
-	/// 求大于某数的素数
+	/*! 判断某数是否是素数 */
 	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]inline constexpr T get_prime_num_big_than(T a){
+	[[nodiscard]]inline constexpr bool is_prime_num(T a)noexcept{
 		if constexpr(::std::is_floating_point_v<T>)
-			a=ceil(a);
-		if(mod(a,2)==0)
-			++a;
-		do
-			a+=2;
-		while(!is_prime_num(a));
-		return a;
+			if(a != ceil(a))
+				return false;
+		a=abs(a);
+
+		if(a<4)
+			return true;//1和0也是prime,我不管.
+		/*
+		当x≥1,那么≥5的自然数如下:
+		6x-1 6x 6x+1 6x+2 6x+3 6x+4
+		6(x+1)-1 6(x+1) 6(x+1)+1 ... //这已经是下一周期了.
+
+		考虑单个周期:
+		6x+2 6x+3 6x+4 是 2(3x+1) 3(2x+1) 2(3x+2),排除.
+		6x,排除.
+		那么,只用考虑6x±1是否是prime.
+		*/
+		if(mod(mod(a,6)-1,4))
+			return false;
+		/*
+		因为no_pre_check判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
+		*/
+		return is_prime_num_no_pre_check(a);
 	}
 	/// 求大于或等于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a){
+	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a)noexcept{
 		if constexpr(::std::is_floating_point_v<T>)
 			a=ceil(a);
-		if(mod(a,2)==0)
-			++a;
-		while(!is_prime_num(a))
-			a+=2;
+		if(a<4)return a;
+		//将a转换为6x-1的形式.
+		{T b=mod(a,6);a=b?a+5-b:a-1;}
+		//循环判断.
+		for(;;a+=6)
+			if(is_prime_num_no_pre_check(a))return a;
+			elseif(is_prime_num_no_pre_check(a+2))return a+2;
 		return a;
+	}
+	/// 求大于某数的素数
+	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]inline constexpr T get_prime_num_big_than(T a)noexcept{
+		return get_prime_num_big_or_eq_than(a+1);
 	}
 	push_and_disable_msvc_warning(26467);//gold_of_resize永远为正数
 	/// 已知当前array的size，求下一个合适的提前分配大小
-	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_array(size_t size){
+	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_array(size_t size)noexcept{
 		/*
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
 		*/
 		return size_t(size*gold_of_resize);
 	}
 	/// 已知当前hash table的size，求下一个合适的桶大小
-	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size){
+	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size)noexcept{
 		/*
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
