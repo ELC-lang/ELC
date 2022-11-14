@@ -320,7 +320,6 @@ private:
 			if(str.starts_with(_nan+_unknown_data_start_sign)){
 				str.pop_front(_nan.size()+1);
 				str.pop_back();
-				suppress_msvc_warning(26494)//未初始化警告diss
 				data_block<T> block;
 				size_t		  write_index = 0;
 				floop{

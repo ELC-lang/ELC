@@ -81,40 +81,50 @@ namespace rand_n{
 		}
 	}
 
+	//decl
+	template<class T>
+	struct rand_t;
+
 	distinctive inline struct rand_seed_t{
+	private:
 		typedef unsigned_specific_size_t<sizeof(seed_type)/2> value_gen_cache_base_t;
 		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 
 		seed_type			_seed,_seed_origin;
 		value_gen_cache_t	_result_base_data, _xor_rot_offset_data;
-
+	public:
 		[[nodiscard]]inline static constexpr seed_type sowing_seed(seed_type seed)noexcept{
 			for(size_t i=bitnum_of(seed_type);i--;){
 				seed=13*seed+7;
 			}
 			return seed;
 		}
-		[[nodiscard]]inline constexpr seed_type get_seed()const noexcept{
+		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{
 			return _seed_origin;
 		}
-		[[nodiscard]]inline constexpr seed_type get_seed_now()const noexcept{
+		[[nodiscard]]inline constexpr seed_type get_now()const noexcept{
 			return _seed;
 		}
-		inline constexpr void set_seed(seed_type seed)noexcept{
-			set_seed_with_out_sowing(sowing_seed(seed));
+		inline constexpr void set(seed_type seed)noexcept{
+			this->set_with_out_sowing(sowing_seed(seed));
 		}
-		inline constexpr void set_seed_with_out_sowing(seed_type seed)noexcept{
+		inline constexpr void set_with_out_sowing(seed_type seed)noexcept{
 			_seed					= seed;
 			_seed_origin			= seed;
 			_result_base_data		= value_gen_cache_base_t(_seed >> bitnum_of(value_gen_cache_base_t));
 			_xor_rot_offset_data	= value_gen_cache_base_t(_seed);
 		}
-		void set_seed_by_time()noexcept{
-			set_seed(seed_type(::std::time(nullptr)));
+		void set_by_time()noexcept{
+			this->set(seed_type(::std::time(nullptr)));
 		}
 		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{
-			set_seed(seed);
+			this->set(seed);
 		}
+	private:
+		//friend 
+		template<class T>
+		friend struct rand_t;
+
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
 		[[nodiscard]]force_inline constexpr auto base_gen_randbit(size_t modulus,size_t multiplier,size_t increment)noexcept{
 			typedef unsigned_specific_size_t<sizeof(T)>		result_type;
@@ -196,9 +206,7 @@ namespace rand_n{
 		//not nan.
 		[[nodiscard]]force_inline static constexpr T not_NaN()noexcept requires(::std::is_floating_point_v<T>){
 			T num;
-			do{
-				num=rand_seed.gen_randbit<T>();
-			}while(isNaN(num));
+			do num=rand_seed.gen_randbit<T>();while(isNaN(num));
 			return num;
 		}
 		//between
