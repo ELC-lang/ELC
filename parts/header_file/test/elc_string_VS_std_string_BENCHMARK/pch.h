@@ -23,6 +23,7 @@
 #define ELC_TEST_COUNT_MEMORY_ALLOC
 #include "../../files/elc/string"
 #include "../../files/elc/numerical_representation"
+#include "../../files/elc/resolve_global_name_conflicts"//using rand gobally
 
 template<class T>
 struct TestAllocator {
