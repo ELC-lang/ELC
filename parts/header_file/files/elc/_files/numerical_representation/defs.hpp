@@ -385,6 +385,7 @@ public:
 		UT unum=from_string_get_num_base<UT>(str);
 		return copy_as_negative<T>(unum,is_negative);
 	}
+	push_and_disable_msvc_warning(4102);//在非浮点数的情况下add_negative_sign_and_return标签可能未引用
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	inline string to_string(T num)const noexcept{
 		string aret;
@@ -478,14 +479,13 @@ public:
 				}
 			}
 		}
-		push_and_disable_msvc_warning(4102);//在非浮点数的情况下下面的标签可能未引用
 	add_negative_sign_and_return:
-		pop_msvc_warning();
 		if constexpr(!::std::is_unsigned_v<T>)
 			if(is_negative)
 				aret.push_front(_negative_sign);
 		return aret;
 	}
+	pop_msvc_warning();
 };
 push_and_disable_msvc_warning(26426);
 distinctive inline numerical_representation_t trinary{3,es"012"_constexpr_str};
