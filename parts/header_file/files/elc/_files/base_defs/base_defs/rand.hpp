@@ -205,7 +205,7 @@ namespace rand_n{
 			return T(base/div_num);
 		}
 		//not nan.
-		[[nodiscard]]force_inline static constexpr T not_NaN()noexcept requires(::std::is_floating_point_v<T>){
+		[[nodiscard]]force_inline static constexpr T not_NaN()noexcept{
 			T num;
 			do num=rand_seed.gen_randbit<T>();while(isNaN(num));
 			return num;

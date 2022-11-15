@@ -32,7 +32,7 @@ static void Std_to_string(benchmark::State& state){
 	std::string str;
 	long double mismatch_num = 0, total_output_size_small_than_elc = 0, total_size = 0;
 	for(auto _ : state){
-		auto num=rand<T>();
+		auto num=rand<T>.not_NaN();
 		str=std::to_string(num);
 		//check
 		state.PauseTiming();
@@ -75,7 +75,7 @@ static void ELC_to_string(benchmark::State& state){
 	long double mismatch_num = 0;
 	long double total_size	 = 0;
 	for(auto _ : state){
-		auto num=rand<T>();
+		auto num=rand<T>.not_NaN();
 		str=elc::to_string(num);
 		//check
 		state.PauseTiming();
