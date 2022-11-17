@@ -211,9 +211,12 @@ namespace rand_n{
 			return num;
 		}
 		//between
+	private:
 		struct between_integral_t{
+		private:
 			T _min,_diff;
 			size_t _bitnum;
+		public:
 			constexpr between_integral_t(T amin,T amax)noexcept:_min(amin),_diff(amax-amin){
 				_bitnum=1;
 				for(;_diff>>_bitnum;_bitnum++);
@@ -238,7 +241,9 @@ namespace rand_n{
 			}
 		};
 		struct between_floating_t{
+		private:
 			T _min,_diff;
+		public:
 			constexpr between_floating_t(T amin,T amax)noexcept:_min(amin),_diff(amax-amin){}
 			[[nodiscard]]force_inline T operator()()const noexcept{return inclusive();}
 			[[nodiscard]]force_inline operator T()const noexcept{return operator()();}
@@ -249,6 +254,7 @@ namespace rand_n{
 				return _min+between_0_and_1_inclusive()*_diff;
 			}
 		};
+	public:
 		[[nodiscard]]force_inline constexpr auto between(T amin,T amax)const noexcept requires ::std::is_arithmetic_v<T>{
 			if constexpr(::std::is_integral_v<T>)
 				return between_integral_t(min(amin,amax),max(amin,amax));

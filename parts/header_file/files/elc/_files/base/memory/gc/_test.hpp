@@ -31,8 +31,7 @@ void destory_by_gc(gc_tester*a){
 inline void test(){
 	#if!defined(_MSC_VER)
 	ELC_TEST_EVENTNAME("gc部分测试");
-	using ::std::time;
-	rand_n::set_seed((rand_n::seed_type)time(nullptr));
+	rand_seed.set_by_time();
 	gc.add_gc_method(type_info<gc_tester>);
 	for(int t=rand<int>()%7;t--;)
 	{

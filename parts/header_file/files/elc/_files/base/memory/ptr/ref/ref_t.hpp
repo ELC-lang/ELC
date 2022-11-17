@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-typedef ::std::size_t link_num_t;
+typedef size_t link_num_t;
 class ref_t:non_copyable,non_moveable{
 	mutable link_num_t _ref_num=0;
 public:

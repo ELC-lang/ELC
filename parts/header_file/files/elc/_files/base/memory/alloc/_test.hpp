@@ -23,8 +23,7 @@ inline void check_memory_lack()noexcept{
 		//BLOCK:for debug
 		inline void test(){
 			ELC_TEST_EVENTNAME("alloc部分测试");
-			using ::std::time;
-			rand_n::set_seed((rand_n::seed_type)time(nullptr));
+			rand_seed.set_by_time();
 			for(int i=rand<int>()%100+40;i--;){
 				int*p=alloc<int>(50);
 				p[0]=72;
