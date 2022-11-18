@@ -93,17 +93,12 @@ namespace rand_n{
 		value_gen_cache_t	_result_base_data, _xor_rot_offset_data;
 	public:
 		[[nodiscard]]inline static constexpr seed_type sowing_seed(seed_type seed)noexcept{
-			for(size_t i=bitnum_of(seed_type);i--;){
+			for(size_t i=bitnum_of(seed_type);i--;)
 				seed=13*seed+7;
-			}
 			return seed;
 		}
-		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{
-			return _seed_origin;
-		}
-		[[nodiscard]]inline constexpr seed_type get_now()const noexcept{
-			return _seed;
-		}
+		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{return _seed_origin;}
+		[[nodiscard]]inline constexpr seed_type get_now()const noexcept{return _seed;}
 		inline constexpr void set(seed_type seed)noexcept{
 			this->set_with_out_sowing(sowing_seed(seed));
 		}
@@ -113,12 +108,8 @@ namespace rand_n{
 			_result_base_data		= value_gen_cache_base_t(_seed >> bitnum_of(value_gen_cache_base_t));
 			_xor_rot_offset_data	= value_gen_cache_base_t(_seed);
 		}
-		void set_by_time()noexcept{
-			this->set(seed_type(::std::time(nullptr)));
-		}
-		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{
-			this->set(seed);
-		}
+		void set_by_time()noexcept{this->set(seed_type(::std::time(nullptr)));}
+		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{this->set(seed);}
 	private:
 		//friend 
 		template<class T>
@@ -130,15 +121,8 @@ namespace rand_n{
 			typedef unsigned_specific_size_t<2*sizeof(T)>	rand_value_type;
 			_seed						 = multiplier * _seed + increment;
 			constexpr size_t half_bitnum = bitnum_of(result_type);
-			push_and_disable_msvc_warning(26494);//未初始化警告diss
-			rand_value_type	 new_result;
-			pop_msvc_warning();
-			if(modulus)
-				new_result = rand_value_type(_seed % modulus);
-			else
-				//若modulus溢出到0
-				//此时不用取模
-				new_result = rand_value_type(_seed);
+			const auto		 new_result	 = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
+			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
 			auto&			  xor_rot_offset = data_cast<result_type>(_xor_rot_offset_data);
 			auto&			  result_base	 = data_cast<result_type>(_result_base_data);
@@ -157,22 +141,20 @@ namespace rand_n{
 			data_block<T,result_type>aret=base_gen_randbit<T>(get_modulus_of<T>(),get_multiplier_of<T>(),get_increment_of<T>());
 			return data_cast<T>(aret);
 		}
+		
+		template<size_t sand_size,size_t size>
+		[[nodiscard]]force_inline constexpr void gen_randbit_with_sand_size_to_pointer(byte*to)noexcept{
+			typedef unsigned_specific_size_t<sand_size> sand_type;
+			if constexpr(size/sand_size)
+				for(size_t i=size/sand_size;i--;to+=sand_size)
+					data_cast<sand_type>(to)=gen_randbit<sand_type>();
+			if constexpr(size%sand_size)
+				gen_randbit_with_sand_size_to_pointer<sand_size/BIT_POSSIBILITY,size%sand_size>(to);
+		}
 		template<typename T> requires(sizeof(seed_type)/2 < sizeof(T))
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			typedef unsigned_specific_size_t<sizeof(seed_type)/2> sand_type;
-			data_block<T,sand_type>aret;
-			byte*p=aret;//aret.begin()
-			
-			for(size_t i=sizeof(T)/sizeof(sand_type);i--;){
-				data_cast<sand_type>(p)=gen_randbit<sand_type>();
-				p+=sizeof(sand_type);
-			}
-			if constexpr(sizeof(T)%sizeof(sand_type)){
-				const auto rest=sizeof(T)%sizeof(sand_type);
-				for(size_t i=rest;i--;){
-					*p++=gen_randbit<byte>();
-				}
-			}
+			alignas(max(sizeof(T),sizeof(seed_type)))byte aret[sizeof(T)];
+			gen_randbit_with_sand_size_to_pointer<sizeof(seed_type)/2,sizeof(T)>(aret);
 			return data_cast<T>(aret);
 		}
 	}rand_seed{};
@@ -198,8 +180,8 @@ namespace rand_n{
 			auto rnd=rand_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>();
 			//考虑到浮点数总会使用一些位来表示指数，取rnd的最低位来表示rand到1.0或以上的概率也不会影响到结果
 			const bool is_one=rnd&1;rnd>>=1;
-			T base=T(rnd);
 			if(is_one)return rnd==0?1:between_0_and_1_inclusive();//若rnd!=0，为了概率均匀需要reroll
+			T base=T(rnd);
 			constexpr size_t div_times=bitnum_of(base)-1;//取了一位来表示是否为1
 			constexpr auto div_num=pow(BIT_POSSIBILITY,div_times);
 			return T(base/div_num);
