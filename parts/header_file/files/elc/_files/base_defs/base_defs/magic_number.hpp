@@ -69,7 +69,7 @@ namespace magic_number{
 	template<typename T,typename U> requires ::std::is_arithmetic_v<U>
 	[[nodiscard]]force_inline constexpr T safe_arithmetic_cast(U x)noexcept{
 		if constexpr(::std::is_floating_point_v<U> && ::std::is_unsigned_v<T>)
-			return (T)(::std::intmax_t)x;
+			return (T)(intmax_t)x;
 		else
 			return (T)x;
 	}
@@ -80,8 +80,8 @@ namespace magic_number{
 	}
 	/*! 任意算数类型转uintmax_t */
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]force_inline constexpr ::std::uintmax_t to_uintmax_t(T x)noexcept{
-		return safe_arithmetic_cast<::std::uintmax_t>(x);
+	[[nodiscard]]force_inline constexpr uintmax_t to_uintmax_t(T x)noexcept{
+		return safe_arithmetic_cast<uintmax_t>(x);
 	}
 	/*! 求余 */
 	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
@@ -329,7 +329,7 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto trunc(const T v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::trunc(v)) RT;
-			return static_cast<RT>((::std::intmax_t)v);
+			return static_cast<RT>((intmax_t)v);
 		}
 		else
 			return ::std::trunc(v);

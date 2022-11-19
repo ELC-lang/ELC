@@ -19,7 +19,7 @@ namespace rand_n{
 			//由于rand_value_type一定是无符号整数，所以max(type_info<rand_value_type>)+1等价于pow(BIT_POSSIBILITY,bitnum_of(rand_value_type))
 			//同时可以简化编译期计算
 			//若rand_value_type的max超出了当前环境支持的最宽uint最大值，它会在编译期合乎标准的溢出到0
-			return max(type_info<rand_value_type<T>>)+1;
+			return uintmax_t(max(type_info<rand_value_type<T>>))+1;
 		}
 		//a
 		[[nodiscard]]inline constexpr size_t get_multiplier_by_modulus(auto m){

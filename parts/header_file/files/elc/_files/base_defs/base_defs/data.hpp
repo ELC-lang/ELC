@@ -10,7 +10,7 @@
 	每个T的可能性大小
 */
 template<class T> requires ::std::is_integral_v<T>
-constexpr size_t number_of_possible_values_per=max(type_info<::std::make_unsigned_t<T>>)+size_t{1};
+constexpr size_t number_of_possible_values_per=uintmax_t(max(type_info<::std::make_unsigned_t<T>>))+1;
 
 /*!
 	功能: byte* 类型数据转换为 T&，不进行任何检查
@@ -63,7 +63,7 @@ struct data_block:non_copyable,non_moveable{
 	constexpr operator const byte*()const{return _data;}
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
 	constexpr auto&operator=(T&&t){
-		return data_cast<T>(_data)=::std::forward<T>(t);
+		return data_cast<remove_cvref<T>>(_data)=::std::forward<T>(t);
 	}
 	//begin & end
 	constexpr byte*begin(){return _data;}
