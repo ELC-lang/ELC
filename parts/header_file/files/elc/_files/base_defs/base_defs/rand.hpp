@@ -89,12 +89,16 @@ namespace rand_n{
 		typedef unsigned_specific_size_t<sizeof(seed_type)/2> value_gen_cache_base_t;
 		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 
-		seed_type			_seed,_seed_origin;
-		value_gen_cache_t	_result_base_data, _xor_rot_offset_data;
+		seed_type			   _seed, _seed_origin;
+		value_gen_cache_base_t _next_data_index;
+		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, 7));
+		value_gen_cache_t	   _result_base_data[data_cache_size],
+							   _xor_rot_offset_data[data_cache_size];
 	public:
+		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
 		[[nodiscard]]inline static constexpr seed_type sowing_seed(seed_type seed)noexcept{
 			for(size_t i=bitnum_of(seed_type);i--;)
-				seed=13*seed+7;
+				sowing_seed_one_step(seed);
 			return seed;
 		}
 		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{return _seed_origin;}
@@ -105,8 +109,13 @@ namespace rand_n{
 		inline constexpr void set_with_out_sowing(seed_type seed)noexcept{
 			_seed					= seed;
 			_seed_origin			= seed;
-			_result_base_data		= value_gen_cache_base_t(_seed >> bitnum_of(value_gen_cache_base_t));
-			_xor_rot_offset_data	= value_gen_cache_base_t(_seed);
+			for(size_t i=data_cache_size;i--;){
+				_result_base_data[i]	= value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
+				_xor_rot_offset_data[i]	= value_gen_cache_base_t(seed);
+				sowing_seed_one_step(seed);
+			}
+			_next_data_index = value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
+			_next_data_index %= data_cache_size;
 		}
 		void set_by_time()noexcept{this->set(seed_type(::std::time(nullptr)));}
 		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{this->set(seed);}
@@ -124,14 +133,15 @@ namespace rand_n{
 			const auto		 new_result	 = rand_value_type(_seed%modulus);
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
-			auto&			  xor_rot_offset = data_cast<result_type>(_xor_rot_offset_data);
-			auto&			  result_base	 = data_cast<result_type>(_result_base_data);
+			auto&			  xor_rot_offset = data_cast<result_type>(_xor_rot_offset_data[_next_data_index]);
+			auto&			  result_base	 = data_cast<result_type>(_result_base_data[_next_data_index]);
 			const auto		  rot_offset	 = result_type(new_result);
 			const auto		  xor_value		 = rotr(xor_base, xor_rot_offset);
 			const result_type result		 = rotl(result_base, rot_offset) ^ xor_value;
-			//缓存以便下次计算
-			xor_rot_offset = rot_offset;
-			result_base	   = xor_base ^ result;
+			//
+			xor_rot_offset	 = rot_offset;
+			result_base		 = xor_base^result;
+			_next_data_index = result_base%data_cache_size;
 			return result;
 		}
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
