@@ -118,8 +118,15 @@ namespace rand_n{
 		}
 		void set_by_time()noexcept{this->set(seed_type(::std::time(nullptr)));}
 		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{this->set(seed);}
-		constexpr rand_seed_t(const rand_seed_t&other)noexcept=default;
-		constexpr rand_seed_t(rand_seed_t&&other)noexcept=default;
+		constexpr rand_seed_t(const rand_seed_t&other)noexcept{
+			_seed					= other._seed;
+			_seed_origin			= other._seed_origin;
+			_next_data_index		= other._next_data_index;
+			for(size_t i=data_cache_size;i--;){
+				_result_base_data[i]	= other._result_base_data[i];
+				_xor_rot_offset_data[i]	= other._xor_rot_offset_data[i];
+			}
+		}
 	private:
 		//friend 
 		template<class T>
@@ -174,21 +181,32 @@ namespace rand_n{
 	struct rand_t{
 		static constexpr bool able=::std::is_trivially_constructible_v<T>;
 		static constexpr bool nothrow=able;
+	private:
+		typedef rand_t<T> this_t;
+		rand_seed_t& _seed;
+	public:
+		constexpr rand_t(rand_seed_t&seed)noexcept:_seed(seed){}
+		constexpr rand_t(const rand_t&other)noexcept=default;
+		constexpr rand_t(rand_t&&other)noexcept=default;
+		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
+		//delete operator=
+		this_t& operator=(const this_t&other)=delete;
+		this_t& operator=(this_t&&other)=delete;
 		//rand
 		[[nodiscard]]force_inline T operator()()const noexcept{
-			return rand_seed.gen_randbit<T>();
+			return _seed.gen_randbit<T>();
 		}
 		//浮点特供：[0,1)和[0,1]
 		/// [0,1)
 		[[nodiscard]]force_inline static constexpr T between_0_and_1_exclusive()noexcept requires(::std::is_floating_point_v<T>){
-			T base=T(rand_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>());
+			T base=T(_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>());
 			constexpr size_t div_times=bitnum_of(base);
 			constexpr auto div_num=pow(BIT_POSSIBILITY,div_times);
 			return T(base/div_num);
 		}
 		/// [0,1]
 		[[nodiscard]]force_inline static constexpr T between_0_and_1_inclusive()noexcept requires(::std::is_floating_point_v<T>){
-			auto rnd=rand_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>();
+			auto rnd=_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>();
 			//考虑到浮点数总会使用一些位来表示指数，取rnd的最低位来表示rand到1.0或以上的概率也不会影响到结果
 			const bool is_one=rnd&1;rnd>>=1;
 			if(is_one)return rnd==0?1:between_0_and_1_inclusive();//若rnd!=0，为了概率均匀需要reroll
@@ -200,7 +218,7 @@ namespace rand_n{
 		//not nan.
 		[[nodiscard]]force_inline static constexpr T not_NaN()noexcept{
 			T num;
-			do num=rand_seed.gen_randbit<T>();while(isNaN(num));
+			do num=_seed.gen_randbit<T>();while(isNaN(num));
 			return num;
 		}
 		//between
@@ -219,7 +237,7 @@ namespace rand_n{
 			[[nodiscard]]force_inline T exclusive()const noexcept{
 				T ret;
 				do{
-					ret=rand_seed.gen_randbit<T>();
+					ret=_seed.gen_randbit<T>();
 					ret&=(1<<_bitnum)-1;
 				}while(ret>=_diff);
 				return ret+_min;
@@ -227,7 +245,7 @@ namespace rand_n{
 			[[nodiscard]]force_inline T inclusive()const noexcept{
 				T ret;
 				do{
-					ret=rand_seed.gen_randbit<T>();
+					ret=_seed.gen_randbit<T>();
 					ret&=(1<<_bitnum)-1;
 				}while(ret>_diff);
 				return ret+_min;
@@ -256,7 +274,7 @@ namespace rand_n{
 		}
 	};
 	template<class T>
-	constexpr rand_t<T>rand{};
+	constexpr rand_t<T>rand{rand_seed};
 }
 using rand_n::rand;
 using rand_n::rand_seed;
