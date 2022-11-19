@@ -102,7 +102,6 @@ namespace rand_n{
 			return seed;
 		}
 		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{return _seed_origin;}
-		[[nodiscard]]inline constexpr seed_type get_now()const noexcept{return _seed;}
 		inline constexpr void set(seed_type seed)noexcept{
 			this->set_with_out_sowing(sowing_seed(seed));
 		}
