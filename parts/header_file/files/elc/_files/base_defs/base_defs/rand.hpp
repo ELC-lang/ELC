@@ -118,6 +118,8 @@ namespace rand_n{
 		}
 		void set_by_time()noexcept{this->set(seed_type(::std::time(nullptr)));}
 		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{this->set(seed);}
+		constexpr rand_seed_t(const rand_seed_t&other)noexcept=default;
+		constexpr rand_seed_t(rand_seed_t&&other)noexcept=default;
 	private:
 		//friend 
 		template<class T>
