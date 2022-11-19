@@ -37,7 +37,7 @@ template<class T>
 	用法: data_block<T1,T2,...>value;
 */
 template<class...Ts>
-struct data_block:non_copyable,non_moveable{
+struct data_block:non_copy_construct_able,non_move_construct_able{
 	static constexpr size_t size=max({sizeof(Ts)...});
 	static constexpr size_t align=max({alignof(Ts)...});
 	push_and_disable_msvc_warning(4324);

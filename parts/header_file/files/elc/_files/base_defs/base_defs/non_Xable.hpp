@@ -32,12 +32,16 @@ struct non_copy_construct_able{
 	constexpr non_copy_construct_able()=default;
 	constexpr non_copy_construct_able(const non_copy_construct_able&)=delete;
 	constexpr non_copy_construct_able(non_copy_construct_able&&)=default;
+	constexpr non_copy_construct_able& operator=(const non_copy_construct_able&)&noexcept=default;
+	constexpr non_copy_construct_able& operator=(non_copy_construct_able&&)&noexcept=default;
 };
 /// 禁止移动构造
 struct non_move_construct_able{
 	constexpr non_move_construct_able()=default;
 	constexpr non_move_construct_able(const non_move_construct_able&)=default;
 	constexpr non_move_construct_able(non_move_construct_able&&)=delete;
+	constexpr non_move_construct_able& operator=(const non_move_construct_able&)&noexcept=default;
+	constexpr non_move_construct_able& operator=(non_move_construct_able&&)&noexcept=default;
 };
 
 /// 禁止默认合成的构造
