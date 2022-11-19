@@ -74,6 +74,11 @@ namespace array_like_n{
 
 		[[nodiscard]]constexpr const_iterator cbegin()const noexcept{return remove_const(this)->begin();}
 		[[nodiscard]]constexpr const_iterator cend()const noexcept{return remove_const(this)->end();}
+		
+		[[nodiscard]]constexpr T&front()noexcept{return _begin[0];}
+		[[nodiscard]]constexpr const T&front()const noexcept{return _begin[0];}
+		[[nodiscard]]constexpr T&back()noexcept{return _begin[size()-1];}
+		[[nodiscard]]constexpr const T&back()const noexcept{return _begin[size()-1];}
 
 		[[nodiscard]]constexpr bool empty()const noexcept{return size();}
 

@@ -46,10 +46,9 @@ struct data_block:non_copyable,non_moveable{
 
 	push_and_disable_msvc_warning(26495);
 	constexpr data_block()noexcept{
-		if in_consteval{
+		if in_consteval
 			for(size_t i=0;i<size;++i)
 				_data[i]=byte{};
-		}
 	};
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
 	constexpr data_block(T&&t)noexcept{

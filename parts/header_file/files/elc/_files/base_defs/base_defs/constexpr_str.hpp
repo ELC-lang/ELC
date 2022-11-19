@@ -50,6 +50,7 @@ namespace constexpr_str_n{
 		range_n::reverse_match_pattern<const char_T> reverse_match_pattern;
 		range_n::bitmark_for_finds<const char_T> bitmark_for_finds;
 		range_n::bitmark_for_quick_unindex<const char_T> bitmark_for_unindex;
+		ptrdiff_t k;
 		bool is_bitmark_workable;
 		bool is_bitmark_for_unindex_workable=0;
 		constexpr constexpr_str_t(const_string_ptr_t str, size_t size):
@@ -60,9 +61,21 @@ namespace constexpr_str_n{
 				is_bitmark_workable = bitmark_for_finds.mark(*this);
 				if(is_bitmark_workable)
 					is_bitmark_for_unindex_workable=bitmark_for_unindex.mark(*this);
+				k=size>=2?*(str+1)-*str:0;
+				for(size_t i=2;i<size;i++)
+					if(*(str+i)-*(str+i-1)!=k){
+						k=min(type_info<ptrdiff_t>);
+						break;
+					}
 			}
 		constexpr constexpr_str_t(const_string_ptr_t str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
 		[[nodiscard]]constexpr hash_t hash()const noexcept{return hash_result;}
+		[[nodiscard]]constexpr bool is_k_work_able()const noexcept{return k!=min(type_info<ptrdiff_t>);}
+		[[nodiscard]]constexpr bool is_not_in_k_range(const char_T&ch)const noexcept{
+			const auto&back=this->back();
+			const auto&front=this->front();
+			return is_negative(k)?ch<back||ch>front:ch>back||ch<front;
+		}
 	};
 	template<class char_T,size_t N>
 	struct constexpr_str_t_literal_helper{
@@ -155,7 +168,15 @@ namespace range_n {
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr const T* in_range(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
-		if(range.is_bitmark_for_unindex_workable){
+		if(range.is_k_work_able()){
+			if(range.is_not_in_k_range(pattern))
+				return nullptr;
+			auto diff=pattern-*range.begin();
+			if(diff%range.k)
+				return nullptr;
+			return (diff/range.k)+range.begin();
+		}
+		elseif(range.is_bitmark_for_unindex_workable){
 			auto result = range.bitmark_for_unindex[pattern];
 			return result==range_n::npos?nullptr:range.begin()+result;
 		}
@@ -166,7 +187,15 @@ namespace range_n {
 	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
 	[[nodiscard]]constexpr size_t in_range_size_t(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
-		if(range.is_bitmark_for_unindex_workable){
+		if(range.is_k_work_able()){
+			if(range.is_not_in_k_range(pattern))
+				return range_n::npos;
+			auto diff=pattern-*range.begin();
+			if(diff%range.k)
+				return range_n::npos;
+			return (diff/range.k);
+		}
+		elseif(range.is_bitmark_for_unindex_workable){
 			return range.bitmark_for_unindex[pattern];
 		}
 		else{
@@ -176,7 +205,15 @@ namespace range_n {
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr const T* in_range_but_reverse(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
-		if(range.is_bitmark_for_unindex_workable){
+		if(range.is_k_work_able()){
+			if(range.is_not_in_k_range(pattern))
+				return nullptr;
+			auto diff=pattern-*range.begin();
+			if(diff%range.k)
+				return nullptr;
+			return (diff/range.k)+range.begin();
+		}
+		elseif(range.is_bitmark_for_unindex_workable){
 			auto result = range.bitmark_for_unindex[pattern];
 			return result==range_n::npos?nullptr:range.begin()+result;
 		}
@@ -187,7 +224,15 @@ namespace range_n {
 	/// 若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
 	template<typename T>
 	[[nodiscard]]constexpr size_t in_range_but_reverse_size_t(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
-		if(range.is_bitmark_for_unindex_workable){
+		if(range.is_k_work_able()){
+			if(range.is_not_in_k_range(pattern))
+				return range_n::npos;
+			auto diff=pattern-*range.begin();
+			if(diff%range.k)
+				return range_n::npos;
+			return (diff/range.k);
+		}
+		elseif(range.is_bitmark_for_unindex_workable){
 			return range.bitmark_for_unindex[pattern];
 		}
 		else{
