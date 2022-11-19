@@ -138,7 +138,7 @@ namespace rand_n{
 			typedef unsigned_specific_size_t<2*sizeof(T)>	rand_value_type;
 			_seed						 = multiplier * _seed + increment;
 			constexpr size_t half_bitnum = bitnum_of(result_type);
-			const auto		 new_result	 = rand_value_type(_seed%modulus);
+			const auto		 new_result	 = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
 			auto&			  xor_rot_offset = data_cast<result_type>(_xor_rot_offset_data[_next_data_index]);
