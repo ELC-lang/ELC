@@ -275,6 +275,24 @@ namespace rand_n{
 				return between_floating_t(_seed,min(amax,amin),max(amax,amin));
 		}
 	};
+	//bool rand
+	template<>struct rand_t<bool>{
+	private:
+		rand_seed_t& _seed;
+	public:
+		typedef bool T;
+		typedef rand_t<T> this_t;
+		constexpr rand_t(rand_seed_t&seed)noexcept:_seed(seed){}
+		constexpr rand_t(const rand_t&other)noexcept=default;
+		constexpr rand_t(rand_t&&other)noexcept=default;
+		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
+		this_t& operator=(const this_t&other)=delete;
+		this_t& operator=(this_t&&other)=delete;
+		[[nodiscard]]force_inline T operator()()const noexcept{
+			unsigned char aret=_seed.gen_randbit<unsigned char>();
+			return aret&1;
+		}
+	};
 	template<class T>
 	constexpr rand_t<T>rand{rand_seed};
 }
