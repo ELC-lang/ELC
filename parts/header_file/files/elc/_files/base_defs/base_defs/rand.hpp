@@ -177,21 +177,28 @@ namespace rand_n{
 		}
 	}rand_seed{};
 
+	struct base_rand_t{
+	protected:
+		typedef base_rand_t this_t;
+		rand_seed_t& _seed;
+	public:
+		constexpr base_rand_t(rand_seed_t&seed)noexcept:_seed(seed){}
+		constexpr base_rand_t(const this_t&other)noexcept=default;
+		constexpr base_rand_t(this_t&&other)noexcept=default;
+		//delete operator=
+		this_t& operator=(const this_t&other)=delete;
+		this_t& operator=(this_t&&other)=delete;
+	};
 	template<class T>
-	struct rand_t{
+	struct rand_t:base_rand_t{
 		static constexpr bool able=::std::is_trivially_constructible_v<T>;
 		static constexpr bool nothrow=able;
 	private:
 		typedef rand_t<T> this_t;
-		rand_seed_t& _seed;
+		typedef base_rand_t base_t;
 	public:
-		constexpr rand_t(rand_seed_t&seed)noexcept:_seed(seed){}
-		constexpr rand_t(const rand_t&other)noexcept=default;
-		constexpr rand_t(rand_t&&other)noexcept=default;
+		using base_t::base_t;
 		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
-		//delete operator=
-		this_t& operator=(const this_t&other)=delete;
-		this_t& operator=(this_t&&other)=delete;
 		//rand
 		[[nodiscard]]force_inline T operator()()const noexcept{
 			return _seed.gen_randbit<T>();
@@ -276,18 +283,16 @@ namespace rand_n{
 		}
 	};
 	//bool rand
-	template<>struct rand_t<bool>{
+	template<>struct rand_t<bool>:base_rand_t{
+		static constexpr bool able=true;
+		static constexpr bool nothrow=true;
 	private:
-		rand_seed_t& _seed;
-	public:
 		typedef bool T;
 		typedef rand_t<T> this_t;
-		constexpr rand_t(rand_seed_t&seed)noexcept:_seed(seed){}
-		constexpr rand_t(const rand_t&other)noexcept=default;
-		constexpr rand_t(rand_t&&other)noexcept=default;
+		typedef base_rand_t base_t;
+	public:
+		using base_t::base_t;
 		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
-		this_t& operator=(const this_t&other)=delete;
-		this_t& operator=(this_t&&other)=delete;
 		[[nodiscard]]force_inline T operator()()const noexcept{
 			unsigned char aret=_seed.gen_randbit<unsigned char>();
 			return aret&1;
