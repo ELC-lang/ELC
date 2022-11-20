@@ -200,9 +200,7 @@ namespace rand_n{
 		using base_t::base_t;
 		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
 		//rand
-		[[nodiscard]]force_inline T operator()()const noexcept{
-			return _seed.gen_randbit<T>();
-		}
+		[[nodiscard]]force_inline T operator()()const noexcept{return _seed.gen_randbit<T>();}
 		//浮点特供：[0,1)和[0,1]
 		/// [0,1)
 		[[nodiscard]]force_inline constexpr T between_0_and_1_exclusive()const noexcept requires(::std::is_floating_point_v<T>){
@@ -237,25 +235,18 @@ namespace rand_n{
 			size_t _bitnum;
 		public:
 			constexpr between_integral_t(rand_seed_t&seed,T amin,T amax)noexcept:_seed(seed),_min(amin),_diff(amax-amin){
-				_bitnum=1;
-				for(;_diff>>_bitnum;_bitnum++);
+				for(_bitnum=1;_diff>>_bitnum;_bitnum++);
 			}
 			[[nodiscard]]force_inline T operator()()const noexcept{return inclusive();}
 			[[nodiscard]]force_inline operator T()const noexcept{return operator()();}
 			[[nodiscard]]force_inline T exclusive()const noexcept{
 				T ret;
-				do{
-					ret=_seed.gen_randbit<T>();
-					ret&=(1<<_bitnum)-1;
-				}while(ret>=_diff);
+				do ret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(ret>=_diff);
 				return ret+_min;
 			}
 			[[nodiscard]]force_inline T inclusive()const noexcept{
 				T ret;
-				do{
-					ret=_seed.gen_randbit<T>();
-					ret&=(1<<_bitnum)-1;
-				}while(ret>_diff);
+				do ret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(ret>_diff);
 				return ret+_min;
 			}
 		};
@@ -276,10 +267,12 @@ namespace rand_n{
 		};
 	public:
 		[[nodiscard]]force_inline constexpr auto between(T amin,T amax)const noexcept requires ::std::is_arithmetic_v<T>{
+			#define args _seed,min(amax,amin),max(amax,amin)
 			if constexpr(::std::is_integral_v<T>)
-				return between_integral_t(_seed,min(amax,amin),max(amax,amin));
+				return between_integral_t(args);
 			else
-				return between_floating_t(_seed,min(amax,amin),max(amax,amin));
+				return between_floating_t(args);
+			#undef args
 		}
 	};
 	//bool rand
@@ -294,8 +287,7 @@ namespace rand_n{
 		using base_t::base_t;
 		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
 		[[nodiscard]]force_inline T operator()()const noexcept{
-			unsigned char aret=_seed.gen_randbit<unsigned char>();
-			return aret&1;
+			return _seed.gen_randbit<unsigned char>()&unsigned char{1};
 		}
 	};
 	template<class T>
