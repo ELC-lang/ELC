@@ -92,8 +92,9 @@ namespace rand_n{
 		seed_type			   _seed, _seed_origin;
 		value_gen_cache_base_t _next_data_index;
 		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, 7));
-		value_gen_cache_t	   _result_base_data[data_cache_size],
-							   _xor_rot_offset_data[data_cache_size];
+		struct data_cache_t{
+			value_gen_cache_t _result_base_data,_xor_rot_offset_data;
+		} _data_cache[data_cache_size];
 	public:
 		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
 		[[nodiscard]]inline static constexpr seed_type sowing_seed(seed_type seed)noexcept{
@@ -109,8 +110,9 @@ namespace rand_n{
 			_seed					= seed;
 			_seed_origin			= seed;
 			for(size_t i=data_cache_size;i--;){
-				_result_base_data[i]	= value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
-				_xor_rot_offset_data[i]	= value_gen_cache_base_t(seed);
+				auto& cache = _data_cache[i];
+				cache._result_base_data		= value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
+				cache._xor_rot_offset_data	= value_gen_cache_base_t(seed);
 				sowing_seed_one_step(seed);
 			}
 			_next_data_index = value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
@@ -123,8 +125,10 @@ namespace rand_n{
 			_seed_origin			= other._seed_origin;
 			_next_data_index		= other._next_data_index;
 			for(size_t i=data_cache_size;i--;){
-				_result_base_data[i]	= other._result_base_data[i];
-				_xor_rot_offset_data[i]	= other._xor_rot_offset_data[i];
+				auto&		cache		= _data_cache[i];
+				const auto& other_cache = other._data_cache[i];
+				cache._result_base_data		= other_cache._result_base_data;
+				cache._xor_rot_offset_data	= other_cache._xor_rot_offset_data;
 			}
 		}
 	private:
@@ -141,8 +145,9 @@ namespace rand_n{
 			const auto		 new_result	 = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
-			auto&			  xor_rot_offset = data_cast<result_type>(_xor_rot_offset_data[_next_data_index]);
-			auto&			  result_base	 = data_cast<result_type>(_result_base_data[_next_data_index]);
+			auto&			  cache			 = _data_cache[_next_data_index];
+			auto&			  xor_rot_offset = data_cast<result_type>(cache._xor_rot_offset_data);
+			auto&			  result_base	 = data_cast<result_type>(cache._result_base_data);
 			const auto		  rot_offset	 = result_type(new_result);
 			const auto		  xor_value		 = rotr(xor_base, xor_rot_offset);
 			const result_type result		 = rotl(result_base, rot_offset) ^ xor_value;
