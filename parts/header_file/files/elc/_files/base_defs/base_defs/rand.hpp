@@ -216,7 +216,7 @@ namespace rand_n{
 			return T(base/div_num);
 		}
 		//not nan.
-		[[nodiscard]]force_inline constexpr T not_NaN()noexcept{
+		[[nodiscard]]force_inline constexpr T not_NaN()const noexcept{
 			T num;
 			do num=_seed.gen_randbit<T>();while(isNaN(num));
 			return num;
