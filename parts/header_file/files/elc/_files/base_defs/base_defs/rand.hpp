@@ -138,7 +138,11 @@ namespace rand_n{
 		friend struct rand_t;
 
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
-		[[nodiscard]]force_inline constexpr auto base_gen_randbit(size_t modulus,size_t multiplier,size_t increment)noexcept{
+		[[nodiscard]]force_inline constexpr auto base_gen_randbit()noexcept{
+			constexpr auto modulus=get_modulus_of<T>();
+			constexpr auto multiplier=get_multiplier_of<T>();
+			constexpr auto increment=get_increment_of<T>();
+			//
 			typedef unsigned_specific_size_t<sizeof(T)>		result_type;
 			typedef unsigned_specific_size_t<2*sizeof(T)>	rand_value_type;
 			_seed						 = multiplier * _seed + increment;
@@ -162,7 +166,7 @@ namespace rand_n{
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
 			using namespace linear_congruential_arguments_n;
 			typedef unsigned_specific_size_t<sizeof(T)> result_type;
-			data_block<T,result_type>aret=base_gen_randbit<T>(get_modulus_of<T>(),get_multiplier_of<T>(),get_increment_of<T>());
+			data_block<T,result_type>aret=base_gen_randbit<T>();
 			return data_cast<T>(aret);
 		}
 		

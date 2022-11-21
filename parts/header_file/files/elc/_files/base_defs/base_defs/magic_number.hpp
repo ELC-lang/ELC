@@ -504,6 +504,7 @@ using magic_number::abs;
 using magic_number::exp;
 using magic_number::log;
 using magic_number::pow;
+using magic_number::sqrt;
 using magic_number::ceil;
 using magic_number::trunc;
 using magic_number::is_prime_num;
