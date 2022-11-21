@@ -19,6 +19,12 @@ constexpr size_t number_of_possible_values_per=uintmax_t(max(type_info<::std::ma
 template<class T>
 [[nodiscard]]constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
 /*!
+	功能: byte* 类型数据转换为 T*，不进行任何检查
+	用法: data_ptr_cast<T>(byte*) -> T*
+*/
+template<class T>
+[[nodiscard]]constexpr T*data_ptr_cast(byte*p){return::std::launder(reinterpret_cast<T*>(p));}
+/*!
 	功能: T* 指针转换为 byte*，不进行任何检查
 	用法: cast_to_data(T*) -> byte*
 */
