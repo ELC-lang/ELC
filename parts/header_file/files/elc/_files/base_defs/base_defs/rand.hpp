@@ -135,34 +135,34 @@ namespace rand_n{
 
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
 		[[nodiscard]]force_inline constexpr auto base_gen_randbit()noexcept{
-			constexpr auto modulus=get_modulus_of<T>();
-			constexpr auto multiplier=get_multiplier_of<T>();
-			constexpr auto increment=get_increment_of<T>();
-			//
+			using namespace linear_congruential_arguments_n;
 			typedef unsigned_specific_size_t<sizeof(T)>		result_type;
 			typedef unsigned_specific_size_t<2*sizeof(T)>	rand_value_type;
-			_seed						 = multiplier * _seed + increment;
+			constexpr auto	 modulus	 = get_modulus_of<T>();
+			constexpr auto	 multiplier	 = get_multiplier_of<T>();
+			constexpr auto	 increment	 = get_increment_of<T>();
 			constexpr size_t half_bitnum = bitnum_of(result_type);
-			const auto		 new_result	 = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
+			//
+			_seed = multiplier*_seed+increment;
+			//
+			const auto new_result = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
 			const auto		  data_index	 = xor_base % data_cache_size;
 			auto&			  cache			 = _data_cache[data_index];
 			auto&			  xor_rot_offset = data_cast<result_type>(cache._xor_rot_offset_data);
 			auto&			  result_base	 = data_cast<result_type>(cache._result_base_data);
-			const auto		  rot_offset	 = result_type(new_result);
-			const auto		  xor_value		 = rotr(xor_base, xor_rot_offset);
-			const result_type result		 = rotl(result_base, rot_offset) ^ xor_value;
+			const auto		  xor_value		 = rotl(xor_base, xor_rot_offset);
+			const result_type result		 = result_base^xor_value;
 			//
-			xor_rot_offset	 = rot_offset;
-			result_base		 = xor_base^result;
+			xor_rot_offset = result_type(new_result);
+			result_base	   = xor_base^result;
 			return result;
 		}
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			using namespace linear_congruential_arguments_n;
 			typedef unsigned_specific_size_t<sizeof(T)> result_type;
-			data_block<T,result_type>aret=base_gen_randbit<T>();
+			data_block<T,result_type>aret=base_gen_randbit<result_type>();
 			return data_cast<T>(aret);
 		}
 		
