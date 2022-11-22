@@ -91,7 +91,8 @@ namespace rand_n{
 		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 
 		seed_type			   _seed, _seed_origin;
-		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, 7));
+		static constexpr auto  data_cache_bitnum = 7;
+		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, data_cache_bitnum));
 		struct data_cache_t{
 			value_gen_cache_t _result_base_data,_xor_rot_offset_data;
 		} _data_cache[data_cache_size];
@@ -138,17 +139,18 @@ namespace rand_n{
 			using namespace linear_congruential_arguments_n;
 			typedef unsigned_specific_size_t<sizeof(T)>		result_type;
 			typedef unsigned_specific_size_t<2*sizeof(T)>	rand_value_type;
-			constexpr auto	 modulus	 = get_modulus_of<T>();
-			constexpr auto	 multiplier	 = get_multiplier_of<T>();
-			constexpr auto	 increment	 = get_increment_of<T>();
+			constexpr auto	 multiplier	 = get_multiplier_of<seed_type>();
+			constexpr auto	 increment	 = get_increment_of<seed_type>();
 			constexpr size_t half_bitnum = bitnum_of(result_type);
 			//
 			_seed = multiplier*_seed+increment;
 			//
-			const auto new_result = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
+			constexpr auto cut_seed_bitnum = bitnum_of(seed_type)-bitnum_of(rand_value_type);
+			const auto new_result = rand_value_type(_seed>>cut_seed_bitnum);
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
-			const auto		  data_index	 = xor_base % data_cache_size;
+			constexpr auto	  index_cut_bit	 = bitnum_of(result_type)-data_cache_bitnum;
+			const auto		  data_index	 = xor_base >> index_cut_bit;
 			auto&			  cache			 = _data_cache[data_index];
 			auto&			  xor_rot_offset = data_cast<result_type>(cache._xor_rot_offset_data);
 			auto&			  result_base	 = data_cast<result_type>(cache._result_base_data);
