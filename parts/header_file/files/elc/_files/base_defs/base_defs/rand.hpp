@@ -150,10 +150,8 @@ namespace rand_n{
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
 			constexpr auto	  index_cut_bit	 = bitnum_of(result_type)-data_cache_bitnum;
-			const auto		  data_index	 = xor_base >> index_cut_bit;
-			auto&			  cache			 = _data_cache[data_index];
-			auto&			  xor_rot_offset = data_cast<result_type>(cache._xor_rot_offset_data);
-			auto&			  result_base	 = data_cast<result_type>(cache._result_base_data);
+			auto&			  result_base	 = data_cast<result_type>(_data_cache[xor_base >> index_cut_bit]._result_base_data);
+			auto&			  xor_rot_offset = data_cast<result_type>(_data_cache[result_base >> index_cut_bit]._xor_rot_offset_data);
 			const auto		  xor_value		 = rotl(xor_base, xor_rot_offset);
 			const result_type result		 = result_base^xor_value;
 			//
