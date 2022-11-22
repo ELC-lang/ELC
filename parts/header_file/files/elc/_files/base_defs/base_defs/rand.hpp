@@ -91,7 +91,6 @@ namespace rand_n{
 		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 
 		seed_type			   _seed, _seed_origin;
-		value_gen_cache_base_t _next_data_index;
 		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, 7));
 		struct data_cache_t{
 			value_gen_cache_t _result_base_data,_xor_rot_offset_data;
@@ -116,15 +115,12 @@ namespace rand_n{
 				cache._xor_rot_offset_data	= value_gen_cache_base_t(seed);
 				sowing_seed_one_step(seed);
 			}
-			_next_data_index = value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
-			_next_data_index %= data_cache_size;
 		}
 		void set_by_time()noexcept{this->set(seed_type(::std::time(nullptr)));}
 		constexpr rand_seed_t(seed_type seed=magic_number::god)noexcept{this->set(seed);}
 		constexpr rand_seed_t(const rand_seed_t&other)noexcept{
 			_seed					= other._seed;
 			_seed_origin			= other._seed_origin;
-			_next_data_index		= other._next_data_index;
 			for(size_t i=data_cache_size;i--;){
 				auto&		cache		= _data_cache[i];
 				const auto& other_cache = other._data_cache[i];
@@ -150,7 +146,8 @@ namespace rand_n{
 			const auto		 new_result	 = rand_value_type(modulus?_seed%modulus:_seed);//若modulus溢出到0时不用取模
 			//
 			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
-			auto&			  cache			 = _data_cache[_next_data_index];
+			const auto		  data_index	 = xor_base % data_cache_size;
+			auto&			  cache			 = _data_cache[data_index];
 			auto&			  xor_rot_offset = data_cast<result_type>(cache._xor_rot_offset_data);
 			auto&			  result_base	 = data_cast<result_type>(cache._result_base_data);
 			const auto		  rot_offset	 = result_type(new_result);
@@ -159,7 +156,6 @@ namespace rand_n{
 			//
 			xor_rot_offset	 = rot_offset;
 			result_base		 = xor_base^result;
-			_next_data_index = result_base%data_cache_size;
 			return result;
 		}
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
