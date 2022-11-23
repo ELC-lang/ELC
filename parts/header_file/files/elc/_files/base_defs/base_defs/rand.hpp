@@ -91,10 +91,10 @@ namespace rand_n{
 		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 
 		seed_type			   _seed, _seed_origin;
-		static constexpr auto  data_cache_bitnum = 7;
+		static constexpr auto  data_cache_bitnum = CHAR_BIT;
 		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, data_cache_bitnum));
 		struct data_cache_t{
-			value_gen_cache_t _result_base_data,_xor_rot_offset_data;
+			value_gen_cache_t _rot_offset_data;
 		} _data_cache[data_cache_size];
 	public:
 		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
@@ -112,8 +112,7 @@ namespace rand_n{
 			_seed_origin			= seed;
 			for(size_t i=data_cache_size;i--;){
 				auto& cache = _data_cache[i];
-				cache._result_base_data		= value_gen_cache_base_t(seed >> bitnum_of(value_gen_cache_base_t));
-				cache._xor_rot_offset_data	= value_gen_cache_base_t(seed);
+				cache._rot_offset_data	= value_gen_cache_base_t(seed^(seed >> bitnum_of(value_gen_cache_base_t)));
 				sowing_seed_one_step(seed);
 			}
 		}
@@ -125,8 +124,7 @@ namespace rand_n{
 			for(size_t i=data_cache_size;i--;){
 				auto&		cache		= _data_cache[i];
 				const auto& other_cache = other._data_cache[i];
-				cache._result_base_data		= other_cache._result_base_data;
-				cache._xor_rot_offset_data	= other_cache._xor_rot_offset_data;
+				cache._rot_offset_data	= other_cache._rot_offset_data;
 			}
 		}
 	private:
@@ -146,17 +144,15 @@ namespace rand_n{
 			_seed = multiplier*_seed+increment;
 			//
 			constexpr auto cut_seed_bitnum = bitnum_of(seed_type)-bitnum_of(rand_value_type);
-			const auto new_result = rand_value_type(_seed>>cut_seed_bitnum);
+			constexpr auto multiplier_of_result = get_multiplier_of<rand_value_type>();
+			const auto new_result = rand_value_type((_seed>>cut_seed_bitnum)*multiplier_of_result);
 			//
-			const auto		  xor_base		 = result_type(new_result >> half_bitnum);
-			constexpr auto	  index_cut_bit	 = bitnum_of(result_type)-data_cache_bitnum;
-			auto&			  result_base	 = data_cast<result_type>(_data_cache[xor_base >> index_cut_bit]._result_base_data);
-			auto&			  xor_rot_offset = data_cast<result_type>(_data_cache[result_base >> index_cut_bit]._xor_rot_offset_data);
-			const auto		  xor_value		 = rotl(xor_base, xor_rot_offset);
-			const result_type result		 = result_base^xor_value;
+			const auto		  result_base	= result_type(new_result >> half_bitnum);
+			constexpr auto	  index_cut_bit = bitnum_of(result_type)-data_cache_bitnum;
+			auto&			  rot_offset	= data_cast<result_type>(_data_cache[result_base >> index_cut_bit]._rot_offset_data);
+			const result_type result		= rotl(result_base, rot_offset);
 			//
-			xor_rot_offset = result_type(new_result);
-			result_base	   = xor_base^result;
+			rot_offset = result_type(new_result);
 			return result;
 		}
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
