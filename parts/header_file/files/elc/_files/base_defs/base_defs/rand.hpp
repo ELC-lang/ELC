@@ -91,11 +91,10 @@ namespace rand_n{
 		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
 
 		seed_type			   _seed, _seed_origin;
-		static constexpr auto  data_cache_bitnum = CHAR_BIT;
-		static constexpr auto  data_cache_size = size_t(pow(BIT_POSSIBILITY, data_cache_bitnum));
-		struct data_cache_t{
-			value_gen_cache_t _rot_offset_data;
-		} _data_cache[data_cache_size];
+		static constexpr auto  εντροπία_bitnum = CHAR_BIT;
+		static constexpr auto  εντροπία_num = size_t(pow(BIT_POSSIBILITY, εντροπία_bitnum));
+		static constexpr auto  εντροπία_size = εντροπία_num * sizeof(value_gen_cache_base_t);
+		byte _εντροπία_data[εντροπία_size];
 	public:
 		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
 		[[nodiscard]]inline static constexpr seed_type sowing_seed(seed_type seed)noexcept{
@@ -110,9 +109,9 @@ namespace rand_n{
 		inline constexpr void set_with_out_sowing(seed_type seed)noexcept{
 			_seed					= seed;
 			_seed_origin			= seed;
-			for(size_t i=data_cache_size;i--;){
-				auto& cache = _data_cache[i];
-				cache._rot_offset_data	= value_gen_cache_base_t(seed^(seed >> bitnum_of(value_gen_cache_base_t)));
+			for(size_t i=εντροπία_num;i--;){
+				auto& cache = data_ptr_cast<value_gen_cache_base_t>(_εντροπία_data)[i];
+				cache		= value_gen_cache_base_t(seed^(seed >> bitnum_of(value_gen_cache_base_t)));
 				sowing_seed_one_step(seed);
 			}
 		}
@@ -121,11 +120,8 @@ namespace rand_n{
 		constexpr rand_seed_t(const rand_seed_t&other)noexcept{
 			_seed					= other._seed;
 			_seed_origin			= other._seed_origin;
-			for(size_t i=data_cache_size;i--;){
-				auto&		cache		= _data_cache[i];
-				const auto& other_cache = other._data_cache[i];
-				cache._rot_offset_data	= other_cache._rot_offset_data;
-			}
+			for(size_t i=εντροπία_size;i--;)
+				_εντροπία_data[i]	= other._εντροπία_data[i];
 		}
 	private:
 		//friend 
@@ -141,18 +137,20 @@ namespace rand_n{
 			constexpr auto	 increment	 = get_increment_of<seed_type>();
 			constexpr size_t half_bitnum = bitnum_of(result_type);
 			//
+			const auto old_seed = _seed;
 			_seed = multiplier*_seed+increment;
 			//
 			constexpr auto cut_seed_bitnum = bitnum_of(seed_type)-bitnum_of(rand_value_type);
-			constexpr auto multiplier_of_result = get_multiplier_of<rand_value_type>();
-			const auto new_result = rand_value_type((_seed>>cut_seed_bitnum)*multiplier_of_result);
+			const auto new_result = rand_value_type(_seed>>cut_seed_bitnum);
+			const auto old_result_base = rand_value_type(old_seed>>cut_seed_bitnum);
 			//
 			const auto		  result_base	= result_type(new_result >> half_bitnum);
-			constexpr auto	  index_cut_bit = bitnum_of(result_type)-data_cache_bitnum;
-			auto&			  rot_offset	= data_cast<result_type>(_data_cache[result_base >> index_cut_bit]._rot_offset_data);
-			const result_type result		= rotl(result_base, rot_offset);
+			const auto		  rot_offset	= result_type(old_result_base >> half_bitnum);
+			constexpr auto	  εντροπία_max	= εντροπία_size/sizeof(result_type);
+			auto&			  xor_value		= data_ptr_cast<result_type>(_εντροπία_data)[rot_offset % εντροπία_max];
+			const result_type result		= rotl(result_base, rot_offset) ^ xor_value;
 			//
-			rot_offset = result_type(new_result);
+			xor_value = result;
 			return result;
 		}
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
