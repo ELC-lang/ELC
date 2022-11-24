@@ -66,6 +66,10 @@
 	#undef abs
 	#pragma push_macro("export")
 	#undef export
+	#pragma push_macro("rand")
+	#undef rand
+	#pragma push_macro("sqrt")
+	#undef sqrt
 	#pragma push_macro("elc")
 	#undef elc
 #endif
