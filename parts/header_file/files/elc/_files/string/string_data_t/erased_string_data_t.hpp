@@ -226,9 +226,8 @@ protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
 		if(begin < _erase_pos){
 			auto aret=_to->get_the_largest_complete_data_block_begin_form(begin);
-			if(aret.size() > _erase_pos){
+			if(aret.size() > _erase_pos)
 				aret = {aret.begin(),_erase_pos};
-			}
 			return aret;
 		}
 		else

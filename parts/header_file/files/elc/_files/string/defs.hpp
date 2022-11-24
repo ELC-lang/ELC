@@ -509,9 +509,8 @@ namespace string_n{
 			full_copy_cso_check(str);
 			if(_in_cso()&&!str._in_cso())
 				_cso_fin(str._m->apply_str_to_begin(to_string_view_t()));
-			elseif(str._in_cso()){
+			elseif(str._in_cso())
 				push_back(str.to_string_view_t());
-			}
 			else{
 				_cso_check();
 				_m=_m->apply_str_to_end(str._m);
@@ -527,9 +526,8 @@ namespace string_n{
 			full_copy_cso_check(str);
 			if(_in_cso()&&!str._in_cso())
 				_cso_fin(str._m->apply_str_to_end(to_string_view_t()));
-			elseif(str._in_cso()){
+			elseif(str._in_cso())
 				push_front(str.to_string_view_t());
-			}
 			else{
 				_cso_check();
 				_m=_m->apply_str_to_begin(str._m);

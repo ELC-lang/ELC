@@ -23,9 +23,8 @@ template<class T,class func_t>
 inline void map_all_helper(func_t&&a){
 	auto tmp=can_map_all<T>::type_list.begin();
 	auto end=can_map_all<T>::type_list.end();
-	while(tmp!=end){
+	while(tmp!=end)
 		a(get_handle<T,can_map_all>(tmp++));
-	}
 }
 #define expr declvalue(func_t)(declvalue(T*))
 template<class T,class func_t,enable_if(was_not_an_ill_form(expr))>

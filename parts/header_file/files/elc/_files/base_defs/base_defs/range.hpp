@@ -72,9 +72,8 @@ namespace range_n{
 			const size_t m=pattern.size();
 			if(!m)
 				return;
-			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
+			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++)
 				skip_table[i]=radical_skip_table[i]=m;
-			}
 			skip_table[get_index_of(pattern[0])]=radical_skip_table[get_index_of(pattern[0])]=m-1;//单独处理pattern[0]的情况
 			for(size_t i=1;i<m-1;i++){
 				index_type index=get_index_of(pattern[i]);//radical_skip_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离
@@ -128,9 +127,8 @@ namespace range_n{
 			const size_t m=pattern.size();
 			if(!m)
 				return;
-			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++){
+			for(size_t i=0;i<number_of_possible_values_per<index_type>;i++)
 				skip_table[i]=radical_skip_table[i]=m;
-			}
 			skip_table[get_index_of(pattern[m-1])]=radical_skip_table[get_index_of(pattern[m-1])]=m-1;//单独处理pattern[m-1]的情况
 			for(ptrdiff_t i=m-2;i>=0;i--){
 				index_type index=get_index_of(pattern[i]);//radical_skip_table[index]表示pattern中倒数第二次出现的index到pattern末尾的距离

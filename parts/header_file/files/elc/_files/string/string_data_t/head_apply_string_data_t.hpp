@@ -298,9 +298,8 @@ public:
 	[[nodiscard]]virtual ptr_t pre_alloc_before_begin(size_t size)noexcept override final{
 		if(this->is_unique()){
 			const auto size_new=_used_size+size;
-			if(size_new>_m.size()){
+			if(size_new>_m.size())
 				_m.forward_resize(size_new);
-			}
 			return this;
 		}
 		return base_t::pre_alloc_before_begin(size);

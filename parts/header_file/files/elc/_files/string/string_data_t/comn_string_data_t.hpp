@@ -108,15 +108,13 @@ protected:
 	}
 public:
 	[[nodiscard]]virtual const range_n::match_pattern<const char_T>& get_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
-		if(!_p_match_pattern){
+		if(!_p_match_pattern)
 			_p_match_pattern=get<range_n::match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
-		}
 		return *_p_match_pattern;
 	}
 	[[nodiscard]]virtual const range_n::reverse_match_pattern<const char_T>&get_reverse_match_pattern_from_self(ptr_t&self)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
-		if(!_p_reverse_match_pattern){
+		if(!_p_reverse_match_pattern)
 			_p_reverse_match_pattern=get<range_n::reverse_match_pattern<const char_T>>(array_like_view_t{this->get_data(self),this->get_size()});
-		}
 		return *_p_reverse_match_pattern;
 	}
 };

@@ -581,10 +581,9 @@ namespace lifetime_n{
 		static T* base_call(T*to,const T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				::std::memcpy(to,add_const(from),size*sizeof(T));
-			else{
+			else
 				while(size--)
 					base_call(to[size],from[size]);
-			}
 			return to;
 		}
 		template<class T> requires able<T>
@@ -642,19 +641,17 @@ namespace lifetime_n{
 		static T& base_call(T&a,T&&b)noexcept(nothrow<T>){
 			if constexpr(r_able<T>)
 				a=move(b);
-			else{
+			else
 				copy_assign(a,b);
-			}
 			return a;
 		}
 		template<class T> requires able<T>
 		static T* base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
 			if constexpr(trivial<T>)
 				::std::memcpy(to,add_const(from),size*sizeof(T));
-			else{
+			else
 				while(size--)
 					base_call(to[size],from[size]);
-			}
 			return to;
 		}
 

@@ -294,9 +294,8 @@ public:
 protected:
 	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
 		auto result=hash(nothing);
-		if(_insert_pos){
+		if(_insert_pos)
 			result=_to->get_others_hash_with_calculated_before(result,0,_to,0,_insert_pos);
-		}
 		result=hash.merge_array_hash_results(result,_insert_pos,_insert_data->get_hash(_insert_data),_insert_size);
 		const auto size=_to_size-_insert_pos;
 		if(size)

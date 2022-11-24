@@ -266,9 +266,8 @@ protected:
 		return _used_size==wp->_used_size;// && _to_size==wp->_to_size; //总size被保证一样
 	}
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
-		if(begin < _to_size){
+		if(begin < _to_size)
 			return _to->get_the_largest_complete_data_block_begin_form(begin);
-		}
 		else {
 			begin-=_to_size;
 			return {_m.begin()+begin,note::size(_used_size-begin)};
@@ -291,9 +290,8 @@ public:
 	[[nodiscard]]virtual ptr_t pre_alloc_after_end(size_t size)noexcept override final{
 		if(this->is_unique()){
 			const auto size_new=_used_size+size;
-			if(size_new>_m.size()){
+			if(size_new>_m.size())
 				_m.resize(size_new);
-			}
 			return this;
 		}
 		return base_t::pre_alloc_after_end(size);
