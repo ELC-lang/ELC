@@ -217,6 +217,45 @@ public:
 		else
 			return base_t::apply_str_to_end(str);
 	}
+	[[nodiscard]]virtual ptr_t do_remove_front(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(size>=_insert_pos+_insert_size)
+			return _to->do_remove_front(size-_insert_size);
+		if(this->is_unique()){
+			if(_insert_pos > size){
+				_to=_to->do_remove_front(size);
+				_to_size-=size;
+				_insert_pos-=size;
+				self_changed();
+				return this;
+			}
+			elseif(_insert_pos==0 && _insert_size>=size){
+				_insert_data=_insert_data->do_remove_front(size);
+				_insert_size-=size;
+				self_changed();
+				return this;
+			}
+		}
+		return base_t::do_remove_front(size);
+	}
+	[[nodiscard]]virtual ptr_t do_remove_back(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(size>=_to_size-_insert_pos)
+			return _to->do_remove_back(size-_insert_pos);
+		if(this->is_unique()){
+			if(_insert_pos+_insert_size <= _to_size-size){
+				_to=_to->do_remove_back(size);
+				_to_size-=size;
+				self_changed();
+				return this;
+			}
+			elseif(_insert_pos==_to_size && _insert_size>=size){
+				_insert_data=_insert_data->do_remove_front(size);
+				_insert_size-=size;
+				self_changed();
+				return this;
+			}
+		}
+		return base_t::do_remove_back(size);
+	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			if(_insert_pos > size){

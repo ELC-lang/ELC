@@ -117,7 +117,7 @@ private:
 	template<typename T>
 	inline T get_from_info_tail(string str)const noexcept{
 		const auto info_tail_size_per_byte = get_info_tail_size_per_byte();
-		str.pop_back(_radix);
+		str.remove_back(_radix);
 		T	aret{};
 		data_view<T> view{&aret};
 		for(byte&c: view){
@@ -180,7 +180,7 @@ private:
 			if(order_of_magnitude)
 				aret.append(order_of_magnitude,_radix_table[0]);
 			elseif(aret.ends_with(_fractional_sign))
-				aret.pop_back();
+				aret.remove_back();
 			return aret;
 		}
 		else{
@@ -318,8 +318,8 @@ private:
 					return true;
 				}
 			if(str.starts_with(_nan+_unknown_data_start_sign)){
-				str.pop_front(_nan.size()+1);
-				str.pop_back();
+				str.remove_front(_nan.size()+1);
+				str.remove_back();
 				data_block<T> block;
 				size_t		  write_index = 0;
 				floop{
@@ -363,7 +363,7 @@ public:
 				auto info_tail=str.substr(tail_pos);
 				auto str_with_out_tail=str.substr(0,tail_pos);
 				if(str_with_out_tail.back()==_fractional_sign)
-					str_with_out_tail.pop_back();
+					str_with_out_tail.remove_back();
 				auto num=get_from_info_tail<T>(info_tail);
 				if(to_string_rough(num).starts_with(str_with_out_tail))
 					return num;
@@ -375,10 +375,10 @@ public:
 		if constexpr(!::std::is_unsigned_v<T>)
 			if(str[0]==_negative_sign){
 				is_negative=true;
-				str.pop_front();
+				str.remove_front();
 			}
 		if(str[0]==_positive_sign)
-			str.pop_front();
+			str.remove_front();
 		if(from_string_special_value_check(str,num,is_negative))
 			return num;
 		typedef to_unsigned_t<T> UT;
@@ -407,7 +407,7 @@ public:
 				string info_tail = get_info_tail(num);
 				if(dot_pos == string::npos) {
 					if(aret.ends_with(_radix_table[0],info_tail.size()))
-						aret.pop_back(info_tail.size());
+						aret.remove_back(info_tail.size());
 					else
 						aret.push_back(_fractional_sign);
 				}
@@ -462,7 +462,7 @@ public:
 							const auto end_pos = max(better_aret.find_last_not_of(_radix_table[0])+1, dot_pos);
 							better_aret.resize(end_pos);
 							if(better_aret.back() == _fractional_sign)
-								better_aret.pop_back();
+								better_aret.remove_back();
 						}
 						right_pos		 = min(better_aret.size(), step_pos);
 						better_aret_last = better_aret;
@@ -475,7 +475,7 @@ public:
 				if(better_aret_last){
 					aret = better_aret_last;
 					if(aret.ends_with(_fractional_sign))
-						aret.pop_back();
+						aret.remove_back();
 				}
 			}
 		}

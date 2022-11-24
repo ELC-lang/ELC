@@ -540,10 +540,14 @@ namespace string_n{
 		void push_front(const arec_t&& ch)&noexcept{ push_front(move(ch).operator char_T()); }
 		void push_front(const_string_ptr_t str)&noexcept{ push_front(string_view_t(str)); }
 
-		string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
-		string_t pop_front(size_t size)noexcept{ _cso_check();return _m->do_pop_front(size,_m); }
-		char_T pop_back()noexcept{ return pop_back(1)[0]; }
-		char_T pop_front()noexcept{ return pop_front(1)[0]; }
+		void remove_back(size_t size=1)noexcept{ _cso_check();_m=_m->do_remove_back(size); }
+		void remove_front(size_t size=1)noexcept{ _cso_check();_m=_m->do_remove_front(size); }
+		#define pop_function_nodiscard nodiscard("if you don't want to use the return value, use remove_back() or remove_front() instead to avoid unnecessary cost")
+		[[pop_function_nodiscard]]string_t pop_back(size_t size)noexcept{ _cso_check();return _m->do_pop_back(size,_m); }
+		[[pop_function_nodiscard]]string_t pop_front(size_t size)noexcept{ _cso_check();return _m->do_pop_front(size,_m); }
+		[[pop_function_nodiscard]]char_T pop_back()noexcept{ return pop_back(1)[0]; }
+		[[pop_function_nodiscard]]char_T pop_front()noexcept{ return pop_front(1)[0]; }
+		#undef pop_function_nodiscard
 
 		//
 

@@ -49,6 +49,8 @@ protected:
 public:
 	[[nodiscard]]virtual char_T arec([[maybe_unused]]size_t index)noexcept override final{ return char_T{}; }
 	virtual void arec_set([[maybe_unused]]size_t index,[[maybe_unused]]char_T a,[[maybe_unused]]ptr_t& p)noexcept override final{ nothing; }
+	[[nodiscard]]virtual ptr_t do_remove_front([[maybe_unused]]size_t size)noexcept override final{ return this; }
+	[[nodiscard]]virtual ptr_t do_remove_back([[maybe_unused]]size_t size)noexcept override final{ return this; }
 	[[nodiscard]]virtual ptr_t do_pop_back([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)noexcept override final{ return this; }
 	[[nodiscard]]virtual ptr_t do_pop_front([[maybe_unused]]size_t size,[[maybe_unused]]ptr_t& self)noexcept override final{ return this; }
 protected:

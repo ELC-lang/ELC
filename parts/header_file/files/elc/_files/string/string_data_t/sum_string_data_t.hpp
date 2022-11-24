@@ -137,6 +137,34 @@ public:
 		else
 			return base_t::apply_str_to_end(str);
 	}
+	[[nodiscard]]virtual ptr_t do_remove_front(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(_before_size==size)
+			return _after;
+		if(_before_size<size)
+			return _after->do_remove_front(size-_before_size);
+		if(this->is_unique()){
+			_before=_before->do_remove_front(size);
+			_before_size-=size;
+			self_changed();
+			return this;
+		}
+		else
+			return base_t::do_remove_front(size);
+	}
+	[[nodiscard]]virtual ptr_t do_remove_back(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(_after_size==size)
+			return _before;
+		if(_after_size<size)
+			return _before->do_remove_back(size-_after_size);
+		if(this->is_unique()){
+			_after=_after->do_remove_back(size);
+			_after_size-=size;
+			self_changed();
+			return this;
+		}
+		else
+			return base_t::do_remove_back(size);
+	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _before_size>=size){
 			ptr_t aret;

@@ -51,7 +51,7 @@ public:
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		base_t::arec_set(index,a,p);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t&)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+	[[nodiscard]]virtual ptr_t do_remove_front(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			_size-=size;
 			self_changed();
@@ -60,7 +60,7 @@ public:
 		else
 			return get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
 	}
-	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t&)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+	[[nodiscard]]virtual ptr_t do_remove_back(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			_size-=size;
 			self_changed();
@@ -68,6 +68,28 @@ public:
 		}
 		else
 			return get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
+	}
+	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t&self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(this->is_unique()){
+			_size-=size;
+			self_changed();
+			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+		}
+		else{
+			self=get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
+			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+		}
+	}
+	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t&self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(this->is_unique()){
+			_size-=size;
+			self_changed();
+			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+		}
+		else{
+			self=get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
+			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+		}
 	}
 protected:
 	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{

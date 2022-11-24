@@ -63,7 +63,20 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 	[[nodiscard]]virtual ptr_t do_insert(size_t pos,ptr_t str)noexcept;
 	[[nodiscard]]virtual ptr_t do_erase(size_t pos,size_t size)noexcept;
 
+	[[nodiscard]]virtual ptr_t do_remove_back(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow){
+		if(size==0)return this;
+		const auto pos	  = this->get_size()-size;
+		const auto before = get_substr_data(0,pos);
+		return before;
+	}
+	[[nodiscard]]virtual ptr_t do_remove_front(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow){
+		if(size==0)return this;
+		const auto pos	  = size;
+		const auto after  = get_substr_data(pos,this->get_size()-size);
+		return after;
+	}
 	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow){
+		if(size==0)return null_ptr;
 		const auto pos	  = this->get_size()-size;
 		const auto before = get_substr_data(0,pos);
 		const auto after  = get_substr_data(pos,size);
@@ -71,6 +84,7 @@ no_vtable_struct base_string_data_t:type_info_t<base_string_data_t<char_T>>::tem
 		return after;
 	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow){
+		if(size==0)return null_ptr;
 		const auto pos	  = size;
 		const auto before = get_substr_data(0,pos);
 		const auto after  = get_substr_data(pos,this->get_size()-size);

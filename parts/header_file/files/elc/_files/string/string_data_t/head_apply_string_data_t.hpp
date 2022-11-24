@@ -184,6 +184,33 @@ public:
 		else
 			return base_t::apply_str_to_end(str);
 	}
+	[[nodiscard]]virtual ptr_t do_remove_front(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		if(size>=_used_size)
+			return _to->do_remove_front(size-_used_size);
+		if(this->is_unique()){//&& size<_used_size
+			_used_size-=size;
+			self_changed();
+			return this;
+		}
+		else
+			return base_t::do_remove_front(size);
+	}
+	[[nodiscard]]virtual ptr_t do_remove_back(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
+		/*
+		if(size>=_to_size){
+			const auto size_left=_used_size+_to_size-size;
+			return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m.end()-_used_size,size_left});
+		}
+		*/
+		if(this->is_unique() && size<_to_size){
+			_to=_to->do_remove_back(size);
+			_to_size-=size;
+			self_changed();
+			return this;
+		}
+		else
+			return base_t::do_remove_back(size);
+	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t& self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
