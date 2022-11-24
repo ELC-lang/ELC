@@ -45,7 +45,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin+size<_erase_pos)
 			return _to->get_substr_data(begin,size);
-		elseif(begin>_erase_pos)
+		elseif(begin>=_erase_pos)
 			return _to->get_substr_data(begin+_erase_size,size);
 		else
 			return base_t::get_substr_data(begin,size);
@@ -64,7 +64,7 @@ protected:
 	virtual void copy_part_data_to(char_T* to,size_t pos,size_t size)noexcept(copy_assign_nothrow)override final{
 		if(pos+size<_erase_pos)
 			_to->copy_part_data_to(to,pos,size);
-		elseif(pos>_erase_pos)
+		elseif(pos>=_erase_pos)
 			_to->copy_part_data_to(to,pos+_erase_size,size);
 		else{
 			const auto size_before_erase_pos=_erase_pos-pos;
@@ -86,7 +86,7 @@ public:
 		return base_t::do_erase(pos,size);
 	}
 	[[nodiscard]]virtual char_T arec(size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{
-		if(index>_erase_pos)
+		if(index>=_erase_pos)
 			return _to->arec(index+_erase_size);
 		else
 			return _to->arec(index);
@@ -94,7 +94,7 @@ public:
 
 	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
 		if(this->is_unique()){
-			if(index>_erase_pos)
+			if(index>=_erase_pos)
 				_to->arec_set(index+_erase_size,a,_to);
 			else
 				_to->arec_set(index,a,_to);
@@ -183,7 +183,7 @@ protected:
 	virtual hash_t get_others_hash_with_calculated_before_detail(hash_t before,size_t before_size,ptr_t&,size_t pos,size_t size)noexcept(hash_nothrow)override final{
 		if(pos+size<_erase_pos)
 			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos,size);
-		elseif(pos>_erase_pos)
+		elseif(pos>=_erase_pos)
 			before=_to->get_others_hash_with_calculated_before(before,before_size,_to,pos+_erase_size,size);
 		else{
 			const auto size_before_erase_pos=_erase_pos-pos;
