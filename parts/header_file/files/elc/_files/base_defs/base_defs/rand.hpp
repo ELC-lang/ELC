@@ -92,25 +92,19 @@ namespace rand_n{
 		static constexpr auto  εντροπία_num = size_t(pow(BIT_POSSIBILITY, εντροπία_bitnum));
 		static constexpr auto  εντροπία_size = εντροπία_num * sizeof(seed_type);
 		byte _εντροπία_data[εντροπία_size];
-	public:
+
 		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
-		[[nodiscard]]inline static constexpr seed_type sowing_seed(seed_type seed)noexcept{
-			for(size_t i=bitnum_of(seed_type);i--;)
-				sowing_seed_one_step(seed);
-			return seed;
-		}
+	public:
 		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{return _seed_origin;}
 		inline constexpr void set(seed_type seed)noexcept{
-			this->set_with_out_sowing(sowing_seed(seed));
-		}
-		inline constexpr void set_with_out_sowing(seed_type seed)noexcept{
 			_seed					= seed;
 			_seed_origin			= seed;
 			constexpr auto half_bitnum = bitnum_of(seed_type)/2;
+			static_assert(εντροπία_num>=bitnum_of(seed_type));
 			for(size_t i=εντροπία_num;i--;){
 				auto& cache = data_ptr_cast<seed_type>(_εντροπία_data)[i];
-				cache		= seed^(seed >> half_bitnum);
-				sowing_seed_one_step(seed);
+				cache		= _seed^(_seed >> half_bitnum);
+				sowing_seed_one_step(_seed);
 			}
 		}
 		void set_by_time()noexcept{this->set(seed_type(::std::time(nullptr)));}
