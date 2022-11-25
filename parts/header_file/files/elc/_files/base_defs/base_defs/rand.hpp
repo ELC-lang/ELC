@@ -176,7 +176,7 @@ namespace rand_n{
 		}
 		template<typename T> requires(sizeof(seed_type)/2 < sizeof(T) && sizeof(seed_type) != sizeof(T))//避免与加速特化重叠
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			alignas(max(sizeof(T),sizeof(seed_type)))byte aret[sizeof(T)];
+			alignas(max(alignof(T),alignof(seed_type)))byte aret[sizeof(T)];
 			gen_randbit_with_sand_size_to_pointer<sizeof(seed_type),sizeof(T)>(aret);
 			return fast_data_cast<T>(aret);
 		}
