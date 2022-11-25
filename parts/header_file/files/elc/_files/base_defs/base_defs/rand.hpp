@@ -87,13 +87,10 @@ namespace rand_n{
 
 	distinctive inline struct rand_seed_t{
 	private:
-		typedef unsigned_specific_size_t<sizeof(seed_type)/2> value_gen_cache_base_t;
-		typedef data_block<value_gen_cache_base_t> value_gen_cache_t;
-
 		seed_type			   _seed, _seed_origin;
 		static constexpr auto  εντροπία_bitnum = CHAR_BIT;
 		static constexpr auto  εντροπία_num = size_t(pow(BIT_POSSIBILITY, εντροπία_bitnum));
-		static constexpr auto  εντροπία_size = εντροπία_num * sizeof(value_gen_cache_base_t);
+		static constexpr auto  εντροπία_size = εντροπία_num * sizeof(seed_type);
 		byte _εντροπία_data[εντροπία_size];
 	public:
 		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
@@ -109,9 +106,10 @@ namespace rand_n{
 		inline constexpr void set_with_out_sowing(seed_type seed)noexcept{
 			_seed					= seed;
 			_seed_origin			= seed;
+			constexpr auto half_bitnum = bitnum_of(seed_type)/2;
 			for(size_t i=εντροπία_num;i--;){
-				auto& cache = data_ptr_cast<value_gen_cache_base_t>(_εντροπία_data)[i];
-				cache		= value_gen_cache_base_t(seed^(seed >> bitnum_of(value_gen_cache_base_t)));
+				auto& cache = data_ptr_cast<seed_type>(_εντροπία_data)[i];
+				cache		= seed^(seed >> half_bitnum);
 				sowing_seed_one_step(seed);
 			}
 		}
