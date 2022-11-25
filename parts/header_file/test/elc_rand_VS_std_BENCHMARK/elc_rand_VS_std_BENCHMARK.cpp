@@ -47,6 +47,19 @@ void ELC_rand_64bit(benchmark::State& state) {
 }
 BENCHMARK(ELC_rand_64bit);
 
+struct a256bit_t {
+	unsigned char _data[256 / CHAR_BIT];
+};
+
+void ELC_rand_256bit(benchmark::State& state) {
+	using elc::defs::rand;
+	for(auto _: state) {
+		benchmark::DoNotOptimize(rand<a256bit_t>());
+	}
+	state.counters["state_size"] = sizeof(elc::defs::rand_seed);
+}
+BENCHMARK(ELC_rand_256bit);
+
 void Std_mt19937_rand_32bit(benchmark::State& state) {
 	std::mt19937 mt;
 	for(auto _: state) {
