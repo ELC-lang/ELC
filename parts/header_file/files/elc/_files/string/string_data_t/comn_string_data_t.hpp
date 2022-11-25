@@ -46,7 +46,7 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		_m[str.size()]=zero;
 	}
 	comn_string_data_t(ptr_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str->get_size()+1)){
-		auto size=this->get_size();
+		const auto size=this->get_size();
 		str->copy_part_data_to((char_T*)_m,0,size);
 		_m[size]=zero;
 	}

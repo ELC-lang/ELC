@@ -443,6 +443,17 @@ public:
 	[[nodiscard]]virtual ptr_t pre_alloc_before_begin(size_t size)noexcept;
 	//Pre-alloc after end memory
 	[[nodiscard]]virtual ptr_t pre_alloc_after_end(size_t size)noexcept;
+
+	//io
+	virtual void do_output(text_ostream<char_T>& os){
+		size_t index=0;
+		auto a=this->get_the_largest_complete_data_block_begin_form(index);
+		while(a.size()){
+			os.write(a.begin(),a.size());
+			index+=a.size();
+			a=this->get_the_largest_complete_data_block_begin_form(index);
+		}
+	}
 };
 template<typename char_T>
 void base_string_data_t<char_T>::be_replace_as(ptr_t a)noexcept(clear_nothrow){

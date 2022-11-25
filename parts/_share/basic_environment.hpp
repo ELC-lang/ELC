@@ -17,11 +17,11 @@ namespace elc::defs{
 		using unsigned_specific_size_t=decltype(lambda(){
 			if constexpr(size==1)
 				return uint8_t{};
-			else if constexpr(size==2)
+			elseif constexpr(size==2)
 				return uint16_t{};
-			else if constexpr(size==4)
+			elseif constexpr(size==4)
 				return uint32_t{};
-			else if constexpr(size==8)
+			elseif constexpr(size==8)
 				return uint64_t{};
 		}());
 	}

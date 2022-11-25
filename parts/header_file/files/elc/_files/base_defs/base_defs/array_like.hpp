@@ -64,7 +64,7 @@ namespace array_like_n{
 			swap(_size,b._size);
 		}
 
-		[[nodiscard]]constexpr const_iterator c_str()const noexcept{return _begin;}
+		[[nodiscard]]constexpr const_iterator data()const noexcept{return _begin;}
 		[[nodiscard]]constexpr size_t size()const noexcept{return _size;}
 
 		[[nodiscard]]constexpr iterator begin()noexcept requires(type_info<iterator>!=type_info<const_iterator>){return _begin;}

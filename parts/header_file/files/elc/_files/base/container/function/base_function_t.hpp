@@ -38,11 +38,11 @@ namespace function_n{
 	template<class T,class Ret_t,class...Args_t>
 	struct func_data_t<T,Ret_t(Args_t...)>final:
 	type_info_t<func_data_t<T,Ret_t(Args_t...)>>::template_name with_common_attribute<instance_struct>,
-	base_func_data_t<Ret_t(Args_t...)>,function_data_warpper_t<T,Ret_t(Args_t...)>{
+	base_func_data_t<Ret_t(Args_t...)>,function_data_wrapper_t<T,Ret_t(Args_t...)>{
 		static_assert(!::std::is_function_v<T>);
 		typedef base_func_data_t<Ret_t(Args_t...)>base_t;
 		typedef func_data_t<T,Ret_t(Args_t...)>this_t;
-		typedef function_data_warpper_t<T,Ret_t(Args_t...)>data_t;
+		typedef function_data_wrapper_t<T,Ret_t(Args_t...)>data_t;
 		typedef base_t::ptr_t ptr_t;
 		typedef base_t::func_ptr_t func_ptr_t;
 

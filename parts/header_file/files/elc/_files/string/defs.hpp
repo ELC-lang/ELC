@@ -874,6 +874,18 @@ namespace string_n{
 		compare
 		replace
 		*/
+
+		//iostream
+		friend auto& operator<<(text_ostream<char_T>& os,const string_t& str){
+			if(str._in_cso())
+				os<<str.to_string_view_t();
+			else
+				str._m->do_output(os);
+			return os;
+		}
+		friend auto& operator>>(text_istream<char_T>& is,string_t& str){
+			return is>>str._m;
+		}
 		#undef _m
 	};
 
@@ -887,56 +899,30 @@ namespace string_n{
 	template<typename T>
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 
-	//std ostream支持
-	template<typename some_fucking_std_ostream, typename T>
-	decltype(auto) operator<<(some_fucking_std_ostream& stream, const string_t<T>& str){
-		typedef some_fucking_std_ostream stream_t;
-		typedef stream_t::traits_type	 traits_t;
-		typename stream_t::iostate		 state = stream_t::goodbit;
-
-		suppress_msvc_warning(26494);//未初始化警告diss
-		size_t pad;
-		size_t size = str.size();
-		if(stream.width() <= 0 || static_cast<size_t>(stream.width()) <= size)
-			pad = 0;
-		else
-			pad = static_cast<size_t>(stream.width()) - size;
-
-		const typename stream_t::sentry isok(stream);
-
-		if(!isok)
-			state |= stream_t::badbit;
-		else {
-			try {
-				if((stream.flags() & stream_t::adjustfield) != stream_t::left){
-					for(; 0 < pad; --pad){		  // pad on left
-						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))){
-							state |= stream_t::badbit;		 // insertion failed, quit
-							break;
-						}
-					}
-				}
-
-				if(state == stream_t::goodbit && stream.rdbuf()->sputn(str.c_str(), static_cast<::std::streamsize>(size)) != static_cast<::std::streamsize>(size))
-					state |= stream_t::badbit;
-				else {
-					for(; 0 < pad; --pad){		  // pad on right
-						if(traits_t::eq_int_type(traits_t::eof(), stream.rdbuf()->sputc(stream.fill()))){
-							state |= stream_t::badbit;		 // insertion failed, quit
-							break;
-						}
-					}
-				}
-
-				stream.width(0);
-			}
-			catch(...){
-				stream.setstate(stream_t::badbit, true);
-				return stream;
-			}
-		}
-		stream.setstate(state);
-		return stream;
+	//other iostream
+	push_and_disable_msvc_warning(26447);//noexcept警告diss
+	template<typename char_T>
+	inline auto& operator<<(noexcept_text_ostream<char_T>& os,const string_t<char_T>& str)noexcept{
+		((text_ostream<char_T>&)os)<<str;
+		return os;
+	}
+	template<typename char_T>
+	inline auto& operator>>(noexcept_text_istream<char_T>& is,string_t<char_T>& str)noexcept{
+		((text_istream<char_T>&)is)>>str;
+		return is;
+	}
+	pop_msvc_warning();
+	template<typename char_T,typename traits>
+	inline auto& operator<<(::std::basic_ostream<char_T,traits>& os,const string_t<char_T>& str)noexcept{
+		stream_n::std_ostream_wrap wrap{os};
+		wrap<<str;
+		return os;
+	}
+	template<typename char_T,typename traits>
+	inline auto& operator>>(::std::basic_istream<char_T,traits>& is,string_t<char_T>& str)noexcept{
+		stream_n::std_istream_wrap wrap{is};
+		wrap>>str;
+		return is;
 	}
 
 	//array like支持

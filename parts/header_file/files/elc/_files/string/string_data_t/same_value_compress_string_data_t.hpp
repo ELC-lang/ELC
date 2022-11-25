@@ -30,14 +30,22 @@ struct same_value_compress_string_data_t final:base_string_data_t<char_T>,instan
 
 	size_t _size;
 	char_T _value;
+	ptr_t _static_data_p;//必要时创建一个较大的数组，用于向外提供数据
+	static constexpr size_t max_static_data_size=size_t(pow(BIT_POSSIBILITY, 9));
 
 	same_value_compress_string_data_t(size_t size,char_T value)noexcept:_size(size),_value(value){}
+	same_value_compress_string_data_t(size_t size,char_T value,ptr_t static_data_p)noexcept:_size(size),_value(value),_static_data_p(static_data_p){}
+	ptr_t get_clone_with_new_size(size_t new_size)noexcept{
+		if(new_size==_size)return this;
+		if(new_size==0)return nullptr;
+		return get<same_value_compress_string_data_t<char_T>>(new_size,_value,_static_data_p);
+	}
 
 	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
 		base_t::be_replace_as(a);
 	}
 	[[nodiscard]]virtual ptr_t get_substr_data([[maybe_unused]]size_t begin,size_t size)noexcept override final{
-		return get<same_value_compress_string_data_t<char_T>>(size,_value);
+		return get_clone_with_new_size(size);
 	}
 	[[nodiscard]]virtual size_t get_size()noexcept override final{ return _size; }
 protected:
@@ -58,7 +66,7 @@ public:
 			return this;
 		}
 		else
-			return get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
+			return get_clone_with_new_size(_size-size);
 	}
 	[[nodiscard]]virtual ptr_t do_remove_back(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
@@ -67,28 +75,30 @@ public:
 			return this;
 		}
 		else
-			return get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
+			return get_clone_with_new_size(_size-size);
 	}
 	[[nodiscard]]virtual ptr_t do_pop_front(size_t size,ptr_t&self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			_size-=size;
 			self_changed();
-			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+			return get_clone_with_new_size(size);
 		}
 		else{
-			self=get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
-			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+			auto aret=get_clone_with_new_size(size);
+			self=get_clone_with_new_size(_size-size);
+			return aret;
 		}
 	}
 	[[nodiscard]]virtual ptr_t do_pop_back(size_t size,ptr_t&self)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
 			_size-=size;
 			self_changed();
-			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+			return get_clone_with_new_size(size);
 		}
 		else{
-			self=get<same_value_compress_string_data_t<char_T>>(_size-size,_value);
-			return get<same_value_compress_string_data_t<char_T>>(size,_value);
+			auto aret=get_clone_with_new_size(size);
+			self=get_clone_with_new_size(_size-size);
+			return aret;
 		}
 	}
 protected:
@@ -104,25 +114,37 @@ protected:
 	}
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form([[maybe_unused]]size_t begin)noexcept override final{
 		if constexpr(construct<char_T>.trivial<const char_T&> && destruct.trivial<char_T>){
-			constexpr size_t data_size=512;
-			static char_T data[data_size];
-			if(data[0]!=_value)
-				copy_assign[data_size](_value,note::to(data));
-			return {data,note::size(min(_size-begin,data_size))};
+			if(!_static_data_p)
+				_static_data_p=get<comn_string_data_t<char_T>>(max_static_data_size,_value);
+			return {_static_data_p->get_data(_static_data_p),note::size(min(_size-begin,max_static_data_size))};
 		}
 		else
 			return {&_value,note::size<size_t>(1)};
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		return equal(_value,wp->_value);
+		auto aret=equal(_value,wp->_value);
+		if(aret){
+			if(_static_data_p)
+				wp->_static_data_p=_static_data_p;
+			elseif(wp->_static_data_p)
+				_static_data_p=wp->_static_data_p;
+		}
+		return aret;
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		return compare(_value,wp->_value);
+		auto aret=compare(_value,wp->_value);
+		if(aret==0){
+			if(_static_data_p)
+				wp->_static_data_p=_static_data_p;
+			elseif(wp->_static_data_p)
+				_static_data_p=wp->_static_data_p;
+		}
+		return aret;
 	}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
-		return float_size_of(*this);
+		return float_size_of(*this)+_static_data_p->get_memory_cost();
 	}
 };
 

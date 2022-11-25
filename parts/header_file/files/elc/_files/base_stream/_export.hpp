@@ -15,6 +15,18 @@ export noexcept_stream;
 export noexcept_ostream;
 export noexcept_istream;
 export noexcept_iostream;
+export text_istream;
+export text_ostream;
+export text_iostream;
+export noexcept_text_istream;
+export noexcept_text_ostream;
+export noexcept_text_iostream;
+export data_istream;
+export data_ostream;
+export data_iostream;
+export noexcept_data_istream;
+export noexcept_data_ostream;
+export noexcept_data_iostream;
 #undef export
 
 //file_end

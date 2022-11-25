@@ -71,28 +71,28 @@ namespace lib_loader_n{
 	};
 	/*
 	symbol_t
-	继承function_data_warpper_t的operator()以可转换为function_t
+	继承function_data_wrapper_t的operator()以可转换为function_t
 	继承base_symbol_t以对lib的引用计数和包含更多相关信息
 	*/
 	template<class Func_t>
 	struct symbol_t;
 	#if !defined(_MSC_VER)
 	template<class Ret_t,class...Args_t,bool nothrow>
-	struct symbol_t<Ret_t(Args_t...)noexcept(nothrow)>:function_data_warpper_t<Ret_t(*)(Args_t...)noexcept(nothrow)>,base_symbol_t{
+	struct symbol_t<Ret_t(Args_t...)noexcept(nothrow)>:function_data_wrapper_t<Ret_t(*)(Args_t...)noexcept(nothrow)>,base_symbol_t{
 		symbol_t(library_handle_t lib,string symbol_name,Ret_t(*self)(Args_t...)noexcept(nothrow))noexcept:
-		function_data_warpper_t<Ret_t(*)(Args_t...)noexcept(nothrow)>(self),base_symbol_t(lib,symbol_name){}
+		function_data_wrapper_t<Ret_t(*)(Args_t...)noexcept(nothrow)>(self),base_symbol_t(lib,symbol_name){}
 	};
 	#else
 	//MSVC，我滴垃圾堆
 	template<class Ret_t,class...Args_t>
-	struct symbol_t<Ret_t(Args_t...)>:function_data_warpper_t<Ret_t(*)(Args_t...)>,base_symbol_t{
+	struct symbol_t<Ret_t(Args_t...)>:function_data_wrapper_t<Ret_t(*)(Args_t...)>,base_symbol_t{
 		symbol_t(library_handle_t lib,string symbol_name,Ret_t(*self)(Args_t...))noexcept:
-		function_data_warpper_t<Ret_t(*)(Args_t...)>(self),base_symbol_t(lib,symbol_name){}
+		function_data_wrapper_t<Ret_t(*)(Args_t...)>(self),base_symbol_t(lib,symbol_name){}
 	};
 	template<class Ret_t,class...Args_t>
-	struct symbol_t<Ret_t(Args_t...)noexcept>:function_data_warpper_t<Ret_t(*)(Args_t...)noexcept>,base_symbol_t{
+	struct symbol_t<Ret_t(Args_t...)noexcept>:function_data_wrapper_t<Ret_t(*)(Args_t...)noexcept>,base_symbol_t{
 		symbol_t(library_handle_t lib,string symbol_name,Ret_t(*self)(Args_t...)noexcept)noexcept:
-		function_data_warpper_t<Ret_t(*)(Args_t...)noexcept>(self),base_symbol_t(lib,symbol_name){}
+		function_data_wrapper_t<Ret_t(*)(Args_t...)noexcept>(self),base_symbol_t(lib,symbol_name){}
 	};
 	#endif
 

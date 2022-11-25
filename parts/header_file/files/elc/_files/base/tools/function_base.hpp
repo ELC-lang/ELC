@@ -53,15 +53,15 @@ namespace function_base_n{
 	小包装工具，能在意想不到的地方发挥效果（比如要额外携带数据的callable类型定义！见"../../lib_loader/lib_loader.hpp"）
 	*/
 	template<class T,class Func_t=get_function_type<T>>
-	class function_data_warpper_t;
+	class function_data_wrapper_t;
 	template<class T,bool nothrow,class Ret_t,class...Args_t>
-	struct function_data_warpper_t<T,Ret_t(Args_t...)noexcept(nothrow)>{
+	struct function_data_wrapper_t<T,Ret_t(Args_t...)noexcept(nothrow)>{
 		static_assert(!::std::is_function_v<T>);
 
 		T _value;
 
-		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
-		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
+		function_data_wrapper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
+		~function_data_wrapper_t()noexcept(destruct.nothrow<T>)=default;
 		Ret_t operator()(Args_t...args)noexcept(nothrow || invoke<T>.nothrow<Args_t...>){
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
@@ -151,15 +151,15 @@ namespace function_base_n{
 	小包装工具，能在意想不到的地方发挥效果（比如要额外携带数据的callable类型定义！见"../../lib_loader/lib_loader.hpp"）
 	*/
 	template<class T,class Func_t=get_function_type<T>>
-	class function_data_warpper_t;
+	class function_data_wrapper_t;
 	template<class T,class Ret_t,class...Args_t>
-	struct function_data_warpper_t<T,Ret_t(Args_t...)noexcept>{
+	struct function_data_wrapper_t<T,Ret_t(Args_t...)noexcept>{
 		static_assert(!::std::is_function_v<T>);
 
 		T _value;
 
-		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
-		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
+		function_data_wrapper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
+		~function_data_wrapper_t()noexcept(destruct.nothrow<T>)=default;
 		Ret_t operator()(Args_t...args)noexcept{
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
@@ -191,13 +191,13 @@ namespace function_base_n{
 	小包装工具，能在意想不到的地方发挥效果（比如要额外携带数据的callable类型定义！见"../../lib_loader/lib_loader.hpp"）
 	*/
 	template<class T,class Ret_t,class...Args_t>
-	struct function_data_warpper_t<T,Ret_t(Args_t...)>{
+	struct function_data_wrapper_t<T,Ret_t(Args_t...)>{
 		static_assert(!::std::is_function_v<T>);
 
 		T _value;
 
-		function_data_warpper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
-		~function_data_warpper_t()noexcept(destruct.nothrow<T>)=default;
+		function_data_wrapper_t(T a)noexcept(construct<T>.nothrow<T>):_value(a){}
+		~function_data_wrapper_t()noexcept(destruct.nothrow<T>)=default;
 		Ret_t operator()(Args_t...args)noexcept(invoke<T>.nothrow<Args_t...>){
 			//BLOCK:constexpr checks
 			if constexpr(!invoke<T>.able<Args_t...>)
@@ -228,7 +228,7 @@ namespace function_base_n{
 	#endif
 }
 using function_base_n::get_function_type;
-using function_base_n::function_data_warpper_t;
+using function_base_n::function_data_wrapper_t;
 
 //file_end
 

@@ -10,6 +10,7 @@
 #if !defined(ELC_STRING)
 	#define ELC_STRING
 	#include "base"
+	#include "base_stream"//operator<< & operator>>
 	#include "_files/string/_body.hpp"
 #endif
 
