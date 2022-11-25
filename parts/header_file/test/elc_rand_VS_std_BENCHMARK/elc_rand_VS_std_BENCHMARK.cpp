@@ -12,6 +12,14 @@
 #define BENCHMARK_STATIC_DEFINE
 #include <benchmark/benchmark.h>
 
+void Std_rand(benchmark::State& state) {
+	for(auto _: state) {
+		benchmark::DoNotOptimize(std::rand());
+	}
+	state.counters["state_size"] = sizeof(int);
+}
+BENCHMARK(Std_rand);
+
 void ELC_rand_8bit(benchmark::State& state) {
 	using elc::defs::rand;
 	for(auto _: state) {
@@ -39,30 +47,22 @@ void ELC_rand_64bit(benchmark::State& state) {
 }
 BENCHMARK(ELC_rand_64bit);
 
-void Std_mt19937_32bit(benchmark::State& state) {
+void Std_mt19937_rand_32bit(benchmark::State& state) {
 	std::mt19937 mt;
 	for(auto _: state) {
 		benchmark::DoNotOptimize(mt());
 	}
 	state.counters["state_size"] = sizeof(mt);
 }
-BENCHMARK(Std_mt19937_32bit);
+BENCHMARK(Std_mt19937_rand_32bit);
 
-void Std_mt19937_64bit(benchmark::State& state) {
+void Std_mt19937_rand_64bit(benchmark::State& state) {
 	std::mt19937_64 mt;
 	for(auto _: state) {
 		benchmark::DoNotOptimize(mt());
 	}
 	state.counters["state_size"] = sizeof(mt);
 }
-BENCHMARK(Std_mt19937_64bit);
-
-void Std_rand(benchmark::State& state) {
-	for(auto _: state) {
-		benchmark::DoNotOptimize(std::rand());
-	}
-	state.counters["state_size"] = sizeof(int);
-}
-BENCHMARK(Std_rand);
+BENCHMARK(Std_mt19937_rand_64bit);
 
 BENCHMARK_MAIN();
