@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-11-25T10:08:05+08:00",
+    "date": "2022-11-25T17:31:14+08:00",
     "host_name": "LAPTOP-4FQDVD5B",
     "executable": ".\\x64\\Release\\elc_rand_VS_std_BENCHMARK.exe",
     "num_cpus": 16,
-    "mhz_per_cpu": 2213,
+    "mhz_per_cpu": 2235,
     "caches": [
       {
         "type": "Data",
@@ -44,9 +44,9 @@
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 44800000,
-      "real_time": 1.5421325892930327e+01,
-      "cpu_time": 1.5345982142857142e+01,
+      "iterations": 49777778,
+      "real_time": 1.4963606852799835e+01,
+      "cpu_time": 1.5066964218451053e+01,
       "time_unit": "ns",
       "state_size": 4.0000000000000000e+00
     },
@@ -60,8 +60,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 263529412,
-      "real_time": 2.8024750421720634e+00,
-      "cpu_time": 2.7866908457261688e+00,
+      "real_time": 2.7212442611406202e+00,
+      "cpu_time": 2.7273995511362505e+00,
       "time_unit": "ns",
       "state_size": 2.0640000000000000e+03
     },
@@ -75,8 +75,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 344615385,
-      "real_time": 2.0592147967898042e+00,
-      "cpu_time": 2.0856584798151134e+00,
+      "real_time": 2.0117000870179553e+00,
+      "cpu_time": 1.9949776763448910e+00,
       "time_unit": "ns",
       "state_size": 2.0640000000000000e+03
     },
@@ -89,9 +89,9 @@
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 112000000,
-      "real_time": 6.1257053572002667e+00,
-      "cpu_time": 6.1383928571428568e+00,
+      "iterations": 172307692,
+      "real_time": 4.0732894267139095e+00,
+      "cpu_time": 4.0806361680011358e+00,
       "time_unit": "ns",
       "state_size": 2.0640000000000000e+03
     },
@@ -104,9 +104,9 @@
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 194782609,
-      "real_time": 3.7043219807144281e+00,
-      "cpu_time": 3.6900111549486434e+00,
+      "iterations": 186666667,
+      "real_time": 3.6285262434999450e+00,
+      "cpu_time": 3.5156249937220982e+00,
       "time_unit": "ns",
       "state_size": 5.0000000000000000e+03
     },
@@ -119,9 +119,9 @@
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 160000000,
-      "real_time": 4.3540137499803677e+00,
-      "cpu_time": 4.3945312500000000e+00,
+      "iterations": 165925926,
+      "real_time": 4.2671173641842604e+00,
+      "cpu_time": 4.2375837034653641e+00,
       "time_unit": "ns",
       "state_size": 5.0080000000000000e+03
     }
