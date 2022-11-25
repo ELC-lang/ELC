@@ -118,8 +118,11 @@ namespace rand_n{
 		constexpr rand_seed_t(const rand_seed_t&other)noexcept{
 			_seed					= other._seed;
 			_seed_origin			= other._seed_origin;
-			for(size_t i=εντροπία_size;i--;)
-				_εντροπία_data[i]	= other._εντροπία_data[i];
+			if in_consteval
+				for(size_t i=εντροπία_size;i--;)
+					_εντροπία_data[i]	= other._εντροπία_data[i];
+			else
+				::std::memcpy(_εντροπία_data, other._εντροπία_data, εντροπία_size);
 		}
 	private:
 		//friend 
