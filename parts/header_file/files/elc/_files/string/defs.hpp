@@ -884,7 +884,12 @@ namespace string_n{
 			return os;
 		}
 		friend auto& operator>>(text_istream<char_T>& is,string_t& str){
-			return is>>str._m;
+			str.clear();
+			using namespace locale::char_n;
+			while(isspace(is.peek()))
+				is.get();
+			while(!is.eof()&&!isspace(is.peek()))
+				str+=is.get();
 		}
 		#undef _m
 	};
@@ -914,8 +919,54 @@ namespace string_n{
 	pop_msvc_warning();
 	template<typename char_T,typename traits>
 	inline auto& operator<<(::std::basic_ostream<char_T,traits>& os,const string_t<char_T>& str)noexcept{
-		stream_n::std_ostream_wrap wrap{os};
-		wrap<<str;
+		typedef ::std::basic_ostream<char_T,traits> stream_t;
+		typedef stream_t::traits_type	 traits_t;
+		typename stream_t::iostate		 state = stream_t::goodbit;
+
+		size_t size = str.size();
+		suppress_msvc_warning(26494);//未初始化警告diss
+		size_t pad;
+		if(os.width() <= 0 || static_cast<size_t>(os.width()) <= size)
+			pad = 0;
+		else
+			pad = static_cast<size_t>(os.width()) - size;
+
+		const typename stream_t::sentry isok(os);
+
+		if(!isok)
+			state |= stream_t::badbit;
+		else {
+			try {
+				if((os.flags() & stream_t::adjustfield) != stream_t::left){
+					for(; 0 < pad; --pad){// pad on left
+						if(traits_t::eq_int_type(traits_t::eof(), os.rdbuf()->sputc(os.fill()))){
+							state |= stream_t::badbit;// insertion failed, quit
+							break;
+						}
+					}
+				}
+				if(state == stream_t::goodbit){
+					stream_n::std_istream_wrap wrap(os);
+					wrap<<str;
+				}
+				if(os.fail())
+					state |= stream_t::badbit;
+				else{
+					for(; 0 < pad; --pad){// pad on right
+						if(traits_t::eq_int_type(traits_t::eof(), os.rdbuf()->sputc(os.fill()))){
+							state |= stream_t::badbit;// insertion failed, quit
+							break;
+						}
+					}
+				}
+				os.width(0);
+			}
+			catch(...){
+				os.setstate(stream_t::badbit, true);
+				return os;
+			}
+		}
+		os.setstate(state);
 		return os;
 	}
 	template<typename char_T,typename traits>

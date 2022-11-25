@@ -151,46 +151,16 @@ public:
 		_stream.flush();
 	}
 	virtual void write(const char_T*buf,size_t size)noexcept override{
-		typedef stream_t::traits_type	 traits_t;
-		typename stream_t::iostate		 state = stream_t::goodbit;
-
-		suppress_msvc_warning(26494);//未初始化警告diss
-		size_t pad;
-		if(_stream.width() <= 0 || static_cast<size_t>(_stream.width()) <= size)
-			pad = 0;
-		else
-			pad = static_cast<size_t>(_stream.width()) - size;
-
+		typename stream_t::iostate state = stream_t::goodbit;
 		const typename stream_t::sentry isok(_stream);
 
 		if(!isok)
 			state |= stream_t::badbit;
-		else {
-			try {
-				if((_stream.flags() & stream_t::adjustfield) != stream_t::left){
-					for(; 0 < pad; --pad){// pad on left
-						if(traits_t::eq_int_type(traits_t::eof(), _stream.rdbuf()->sputc(_stream.fill()))){
-							state |= stream_t::badbit;// insertion failed, quit
-							break;
-						}
-					}
-				}
-				if(state == stream_t::goodbit && _stream.rdbuf()->sputn(buf, static_cast<::std::streamsize>(size)) != static_cast<::std::streamsize>(size))
-					state |= stream_t::badbit;
-				else{
-					for(; 0 < pad; --pad){// pad on right
-						if(traits_t::eq_int_type(traits_t::eof(), _stream.rdbuf()->sputc(_stream.fill()))){
-							state |= stream_t::badbit;// insertion failed, quit
-							break;
-						}
-					}
-				}
-
-				_stream.width(0);
-			}
-			catch(...){
-				_stream.setstate(stream_t::badbit, true);
-				return;
+		else{
+			try{
+				_stream.write(buf,size);
+			}catch(...){
+				state |= stream_t::badbit;
 			}
 		}
 		_stream.setstate(state);
