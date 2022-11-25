@@ -1,0 +1,129 @@
+{
+  "context": {
+    "date": "2022-11-25T09:51:31+08:00",
+    "host_name": "LAPTOP-4FQDVD5B",
+    "executable": ".\\x64\\Release\\elc_rand_VS_std_BENCHMARK.exe",
+    "num_cpus": 16,
+    "mhz_per_cpu": 2211,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 262144,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 16777216,
+        "num_sharing": 16
+      }
+    ],
+    "load_avg": [],
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "ELC_rand_8bit",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "ELC_rand_8bit",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 263529412,
+      "real_time": 2.7484176984558637e+00,
+      "cpu_time": 2.7866908457261688e+00,
+      "time_unit": "ns",
+      "state_size": 2.0640000000000000e+03
+    },
+    {
+      "name": "ELC_rand_32bit",
+      "family_index": 1,
+      "per_family_instance_index": 0,
+      "run_name": "ELC_rand_32bit",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 320000000,
+      "real_time": 2.0426324999789358e+00,
+      "cpu_time": 2.0507812500000000e+00,
+      "time_unit": "ns",
+      "state_size": 2.0640000000000000e+03
+    },
+    {
+      "name": "ELC_rand_64bit",
+      "family_index": 2,
+      "per_family_instance_index": 0,
+      "run_name": "ELC_rand_64bit",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 112000000,
+      "real_time": 6.1460249999072403e+00,
+      "cpu_time": 6.1383928571428568e+00,
+      "time_unit": "ns",
+      "state_size": 2.0640000000000000e+03
+    },
+    {
+      "name": "Std_mt19937_32bit",
+      "family_index": 3,
+      "per_family_instance_index": 0,
+      "run_name": "Std_mt19937_32bit",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 179200000,
+      "real_time": 3.8754029018101783e+00,
+      "cpu_time": 3.8364955357142856e+00,
+      "time_unit": "ns",
+      "state_size": 5.0000000000000000e+03
+    },
+    {
+      "name": "Std_mt19937_64bit",
+      "family_index": 4,
+      "per_family_instance_index": 0,
+      "run_name": "Std_mt19937_64bit",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 179200000,
+      "real_time": 3.8711037945761619e+00,
+      "cpu_time": 3.9236886160714284e+00,
+      "time_unit": "ns",
+      "state_size": 5.0080000000000000e+03
+    },
+    {
+      "name": "Std_rand",
+      "family_index": 5,
+      "per_family_instance_index": 0,
+      "run_name": "Std_rand",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 49777778,
+      "real_time": 1.4976580513433953e+01,
+      "cpu_time": 1.5066964218451053e+01,
+      "time_unit": "ns",
+      "state_size": 4.0000000000000000e+00
+    }
+  ]
+}
