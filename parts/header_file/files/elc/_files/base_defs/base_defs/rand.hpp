@@ -102,7 +102,7 @@ namespace rand_n{
 			constexpr auto half_bitnum = bitnum_of(seed_type)/2;
 			static_assert(εντροπία_num>=bitnum_of(seed_type));
 			for(size_t i=εντροπία_num;i--;){
-				auto& cache = data_ptr_cast<seed_type>(_εντροπία_data)[i];
+				auto& cache = fast_data_ptr_cast<seed_type>(_εντροπία_data)[i];
 				cache		= _seed^(_seed >> half_bitnum);
 				sowing_seed_one_step(_seed);
 			}
@@ -142,7 +142,7 @@ namespace rand_n{
 			const auto		  result_base	= result_type(new_result >> half_bitnum);
 			const auto		  rot_offset	= result_type(old_result_base >> half_bitnum);
 			constexpr auto	  εντροπία_max	= εντροπία_size/sizeof(result_type);
-			auto&			  xor_value		= data_ptr_cast<result_type>(_εντροπία_data)[rot_offset % εντροπία_max];
+			auto&			  xor_value		= fast_data_ptr_cast<result_type>(_εντροπία_data)[rot_offset % εντροπία_max];
 			const result_type result		= rotl(result_base, rot_offset) ^ xor_value;
 			//
 			xor_value = result;
