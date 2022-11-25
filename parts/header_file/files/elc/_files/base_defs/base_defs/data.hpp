@@ -17,25 +17,41 @@ constexpr size_t number_of_possible_values_per=uintmax_t(max(type_info<::std::ma
 	用法: data_cast<T>(byte*) -> T&
 */
 template<class T>
-[[nodiscard]]constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
+[[nodiscard]]force_inline constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
+template<class T>
+[[nodiscard]]force_inline constexpr T&fast_data_cast(byte*p){return*reinterpret_cast<T*>(p);}
 /*!
 	功能: byte* 类型数据转换为 T*，不进行任何检查
 	用法: data_ptr_cast<T>(byte*) -> T*
 */
 template<class T>
-[[nodiscard]]constexpr T*data_ptr_cast(byte*p){return::std::launder(reinterpret_cast<T*>(p));}
+[[nodiscard]]force_inline constexpr T*data_ptr_cast(byte*p){return::std::launder(reinterpret_cast<T*>(p));}
+template<class T>
+[[nodiscard]]force_inline constexpr T*fast_data_ptr_cast(byte*p){return reinterpret_cast<T*>(p);}
 /*!
 	功能: T* 指针转换为 byte*，不进行任何检查
 	用法: cast_to_data(T*) -> byte*
 */
 template<class T>
-[[nodiscard]]constexpr byte*cast_to_data(T*p){return ::std::launder(reinterpret_cast<byte*>(p));}
+[[nodiscard]]force_inline constexpr byte*cast_to_data(T*p){return ::std::launder(reinterpret_cast<byte*>(p));}
+template<class T>
+[[nodiscard]]force_inline constexpr byte*fast_cast_to_data(T*p){return reinterpret_cast<byte*>(p);}
+/*!
+	功能: T& 转换为 U&，不进行任何检查
+	用法: union_cast<U>(T&) -> U&
+*/
+template<class U,class T>
+[[nodiscard]]force_inline constexpr U&union_cast(T&t){return*::std::launder(reinterpret_cast<U*>(&t));}
+template<class U,class T>
+[[nodiscard]]force_inline constexpr U&fast_union_cast(T&t){return*reinterpret_cast<U*>(&t);}
 /*!
 	功能: const T* 指针转换为 const byte*，不进行任何检查
 	用法: cast_to_data(const T*) -> const byte*
 */
 template<class T>
-[[nodiscard]]constexpr const byte*cast_to_data(const T*p){return ::std::launder(reinterpret_cast<const byte*>(p));}
+[[nodiscard]]force_inline constexpr const byte*cast_to_data(const T*p){return ::std::launder(reinterpret_cast<const byte*>(p));}
+template<class T>
+[[nodiscard]]force_inline constexpr const byte*fast_cast_to_data(const T*p){return reinterpret_cast<const byte*>(p);}
 
 /*!
 	功能: data_block类模板,接受多个类型参数,实例化为内含最大体积最大对齐要求的byte数组的结构体
@@ -51,13 +67,13 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 	pop_msvc_warning();
 
 	push_and_disable_msvc_warning(26495);
-	constexpr data_block()noexcept{
+	force_inline constexpr data_block()noexcept{
 		if in_consteval
 			for(size_t i=0;i<size;++i)
 				_data[i]=byte{};
 	};
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
-	constexpr data_block(T&&t)noexcept{
+	force_inline constexpr data_block(T&&t)noexcept{
 		data_cast<T>(_data)=::std::forward<T>(t);
 		if constexpr(sizeof(T)<size)
 			if in_consteval
@@ -65,17 +81,17 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 					_data[i]=byte{};
 	}
 	pop_msvc_warning();
-	constexpr operator byte*(){return _data;}
-	constexpr operator const byte*()const{return _data;}
+	force_inline constexpr operator byte*(){return _data;}
+	force_inline constexpr operator const byte*()const{return _data;}
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
-	constexpr auto&operator=(T&&t){
+	force_inline constexpr auto&operator=(T&&t){
 		return data_cast<remove_cvref<T>>(_data)=::std::forward<T>(t);
 	}
 	//begin & end
-	constexpr byte*begin(){return _data;}
-	constexpr byte*end(){return _data+size;}
-	constexpr const byte*begin()const{return _data;}
-	constexpr const byte*end()const{return _data+size;}
+	force_inline constexpr byte*begin(){return _data;}
+	force_inline constexpr byte*end(){return _data+size;}
+	force_inline constexpr const byte*begin()const{return _data;}
+	force_inline constexpr const byte*end()const{return _data+size;}
 };
 
 /*!
