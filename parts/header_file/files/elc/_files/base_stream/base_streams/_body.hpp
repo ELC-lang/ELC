@@ -39,11 +39,15 @@ static_assert(noexcept(((noexcept_iostream*)(nullptr))->sync()));
 
 //text streams
 template<class char_T>
-no_vtable_struct text_istream:abstract_base<text_istream<char_T>>,virtual base_istream{
+no_vtable_struct text_stream:abstract_base<text_stream<char_T>>,virtual base_stream{
+	typedef char_T char_type;
+};
+template<class char_T>
+no_vtable_struct text_istream:abstract_base<text_istream<char_T>>,virtual base_istream,virtual text_stream<char_T>{
 	virtual size_t read(char_T*buf,size_t size)=0;
 };
 template<class char_T>
-no_vtable_struct text_ostream:abstract_base<text_ostream<char_T>>,virtual base_ostream{
+no_vtable_struct text_ostream:abstract_base<text_ostream<char_T>>,virtual base_ostream,virtual text_stream<char_T>{
 	virtual void write(const char_T*buf,size_t size)=0;
 };
 template<class char_T>

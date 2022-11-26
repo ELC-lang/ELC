@@ -94,5 +94,30 @@ noexcept_data_istream&operator>>(noexcept_data_istream&stream,T(&data)[N])noexce
 	return stream;
 }
 
+//flush
+inline constexpr struct flush_t{
+	template<class ostream_T>requires(type_info<ostream_T>.base_on<base_ostream>)
+	constexpr decltype(auto)operator()(ostream_T&stream)const noexcept(type_info<ostream_T>.base_on<noexcept_ostream>){
+		stream.flush();
+		return stream;
+	}
+}flush{};
+
+//endline
+inline constexpr struct endline_t{
+	template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+	constexpr decltype(auto)operator()(text_ostream_T& stream) const noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>) {
+		stream << char_T{'\n'};
+		stream.flush();
+		return stream;
+	}
+}endline{};
+
+//operator<< of functions
+template<class callable_T,class stream_T> requires(type_info<stream_T>.base_on<base_ostream> && invoke<callable_T>.able<stream_T&>)
+decltype(auto)operator<<(stream_T&stream,callable_T&&callable)noexcept(invoke<callable_T>.nothrow<stream_T&>){
+	return callable(stream);
+}
+
 //file_end
 
