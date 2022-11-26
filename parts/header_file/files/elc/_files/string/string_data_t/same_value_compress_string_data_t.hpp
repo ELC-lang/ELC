@@ -56,8 +56,34 @@ public:
 	[[nodiscard]]virtual char_T arec([[maybe_unused]]size_t index)noexcept(copy_construct_nothrow&&move_construct_nothrow)override final{
 		return _value;
 	}
-	virtual void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
-		base_t::arec_set(index,a,p);
+	void arec_set(size_t index,char_T a,ptr_t& p)noexcept(copy_assign_nothrow&&move_construct_nothrow)override final{
+		//小优化
+		if(a==_value)return;
+		if(_size==1){_value=a;_static_data_p.reset();return;}
+		//若_size>max_static_data_size，将当前类型转换为sum_string_data_t
+		if(_size>max_static_data_size){
+			//中间一段为comn_string_data_t，大小为max_static_data_size
+			ptr_t tmp=get<comn_string_data_t<char_T>>(max_static_data_size,_value);
+			//尽量确保index在中间一段的中间
+			size_t index_in_tmp=min(index,max_static_data_size/2);
+			//将中间一段的index处的值改为a
+			tmp->arec_set(index_in_tmp,a,tmp);
+			//判断是否需要附加其他段
+			if(index>max_static_data_size/2){
+				size_t first_size=index-max_static_data_size/2;
+				ptr_t first_p=get_clone_with_new_size(first_size);
+				tmp=get<sum_string_data_t<char_T>>(first_p,tmp);
+			}
+			size_t last_size=_size-tmp->get_size();
+			if(last_size){
+				ptr_t last_p=get_clone_with_new_size(last_size);
+				tmp=get<sum_string_data_t<char_T>>(tmp,last_p);
+			}
+			p=tmp;
+			return;
+		}
+		else
+			base_t::arec_set(index,a,p);
 	}
 	[[nodiscard]]virtual ptr_t do_remove_front(size_t size)noexcept(construct_nothrow&&copy_assign_nothrow)override final{
 		if(this->is_unique()){
@@ -110,6 +136,13 @@ protected:
 	}
 protected:
 	[[nodiscard]]virtual bool same_struct(ptr_t with)noexcept override final{
+		auto wp=down_cast<this_t*>(with.get());
+		if(wp->_value==_value && wp->_static_data_p!=_static_data_p){
+			if(_static_data_p)
+				wp->_static_data_p.do_replace(_static_data_p);
+			elseif(wp->_static_data_p)
+				_static_data_p.do_replace(wp->_static_data_p);
+		}
 		return true;//总size被保证一样
 	}
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form([[maybe_unused]]size_t begin)noexcept override final{
@@ -123,25 +156,11 @@ protected:
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		auto aret=equal(_value,wp->_value);
-		if(aret){
-			if(_static_data_p)
-				wp->_static_data_p=_static_data_p;
-			elseif(wp->_static_data_p)
-				_static_data_p=wp->_static_data_p;
-		}
-		return aret;
+		return equal(_value,wp->_value);
 	}
 	[[nodiscard]]virtual base_t::compare_type same_struct_compare(ptr_t with)noexcept(compare.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
-		auto aret=compare(_value,wp->_value);
-		if(aret==0){
-			if(_static_data_p)
-				wp->_static_data_p=_static_data_p;
-			elseif(wp->_static_data_p)
-				_static_data_p=wp->_static_data_p;
-		}
-		return aret;
+		return compare(_value,wp->_value);
 	}
 	[[nodiscard]]virtual float_size_t get_base_memory_cost()noexcept override final{
 		return float_size_of(*this)+_static_data_p->get_memory_cost();

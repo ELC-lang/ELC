@@ -161,10 +161,10 @@ namespace string_n{
 		~string_t()noexcept{if(!_in_cso())_ncso_destruct_mptr();}
 
 		//BLOCK: 赋值操作符
-		string_t& operator=(const string_t& str)noexcept{re_construct[this](str);return*this;}
-		string_t& operator=(string_t&& str)noexcept{swap_with(str);return*this;}
-		constexpr string_t& operator=(constexpr_str_t&str)noexcept{_cso_reinit(str);return*this;}
-		constexpr string_t& operator=(char_T ch)noexcept{_cso_reinit(ch);return*this;}
+		string_t& operator=(const string_t& str)&noexcept{re_construct[this](str);return*this;}
+		string_t& operator=(string_t&& str)&noexcept{swap_with(str);return*this;}
+		constexpr string_t& operator=(constexpr_str_t&str)&noexcept{_cso_reinit(str);return*this;}
+		constexpr string_t& operator=(char_T ch)&noexcept{_cso_reinit(ch);return*this;}
 		//END_BLOCK
 
 		//BLOCK: 字符串相加操作符
@@ -321,6 +321,16 @@ namespace string_n{
 			[[nodiscard]]explicit operator char_T&()&&noexcept{ return *get_address(); }
 			[[nodiscard]]explicit operator const char_T&()const&&noexcept{ return *get_address(); }
 			*/
+			template<class text_ostream_T> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+			friend auto& operator<<(text_ostream_T& os,arec_t&& ch)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
+				return os << move(ch).operator char_T();
+			}
+			template<class text_istream_T> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
+			friend auto& operator>>(text_istream_T& is,arec_t&& ch)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
+				char_T ach;is >> ach;
+				move(ch)=ach;
+				return is;
+			}
 		};
 
 		[[nodiscard]]arec_t		  operator[](size_t index)noexcept{ return{this,index}; }
@@ -876,7 +886,7 @@ namespace string_n{
 		*/
 
 		//iostream
-		template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+		template<class text_ostream_T> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
 		friend auto& operator<<(text_ostream_T& os,const string_t& str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 			if(str._in_cso())
 				os<<str.to_string_view_t();
@@ -884,8 +894,8 @@ namespace string_n{
 				str._m->do_output(os);
 			return os;
 		}
-		template<class text_istream_T,class char_T=typename text_istream_T::char_type> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
-		friend auto& operator>>(text_istream<char_T>& is,string_t& str)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
+		template<class text_istream_T> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
+		friend auto& operator>>(text_istream_T& is,string_t& str)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
 			str.clear();
 			using namespace locale::char_n;
 			while(isspace(is.peek()))
