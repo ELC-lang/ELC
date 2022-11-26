@@ -412,7 +412,9 @@ public:
 						aret.push_back(_fractional_sign);
 				}
 				aret += info_tail;
+				push_and_disable_msvc_warning(26438 26448);
 				goto add_negative_sign_and_return;
+				pop_msvc_warning();
 			}
 			//进位器
 			auto rounding_up_char = lambda_with_catch(&) (string::arec_t char_arc)noexcept{
