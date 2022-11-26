@@ -25,7 +25,10 @@ template<typename T>
 force_inline constexpr const T*add_const(T*a)noexcept{return a;}
 /// 对指针移除const
 template<typename T>
-force_inline constexpr T*remove_const(const T*a)noexcept{return ::std::launder(const_cast<T*>(a));}
+force_inline constexpr T*remove_const(const T*a)noexcept{return const_cast<T*>(a);}
+/// 对指针移除const
+template<typename T>
+force_inline constexpr T*launder_remove_const(const T*a)noexcept{return ::std::launder(remove_const(a));}
 /// 向下转型至
 template<typename T,typename U>
 force_inline constexpr T down_cast(U a)noexcept{return static_cast<T>(a);}

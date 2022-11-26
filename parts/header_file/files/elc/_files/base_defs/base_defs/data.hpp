@@ -17,41 +17,41 @@ constexpr size_t number_of_possible_values_per=uintmax_t(max(type_info<::std::ma
 	用法: data_cast<T>(byte*) -> T&
 */
 template<class T>
-[[nodiscard]]force_inline constexpr T&data_cast(byte*p){return*::std::launder(reinterpret_cast<T*>(p));}
+[[nodiscard]]force_inline constexpr T&data_cast(byte*p){return*reinterpret_cast<T*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr T&fast_data_cast(byte*p){return*reinterpret_cast<T*>(p);}
+[[nodiscard]]force_inline constexpr T&launder_data_cast(byte*p){return*::std::launder(data_cast<T>(p));}
 /*!
 	功能: byte* 类型数据转换为 T*，不进行任何检查
 	用法: data_ptr_cast<T>(byte*) -> T*
 */
 template<class T>
-[[nodiscard]]force_inline constexpr T*data_ptr_cast(byte*p){return::std::launder(reinterpret_cast<T*>(p));}
+[[nodiscard]]force_inline constexpr T*data_ptr_cast(byte*p){return reinterpret_cast<T*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr T*fast_data_ptr_cast(byte*p){return reinterpret_cast<T*>(p);}
+[[nodiscard]]force_inline constexpr T*launder_data_ptr_cast(byte*p){return ::std::launder(data_ptr_cast<T>(p));}
 /*!
 	功能: T* 指针转换为 byte*，不进行任何检查
 	用法: cast_to_data(T*) -> byte*
 */
 template<class T>
-[[nodiscard]]force_inline constexpr byte*cast_to_data(T*p){return ::std::launder(reinterpret_cast<byte*>(p));}
+[[nodiscard]]force_inline constexpr byte*cast_to_data(T*p){return reinterpret_cast<byte*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr byte*fast_cast_to_data(T*p){return reinterpret_cast<byte*>(p);}
-/*!
-	功能: T& 转换为 U&，不进行任何检查
-	用法: union_cast<U>(T&) -> U&
-*/
-template<class U,class T>
-[[nodiscard]]force_inline constexpr U&union_cast(T&t){return*::std::launder(reinterpret_cast<U*>(&t));}
-template<class U,class T>
-[[nodiscard]]force_inline constexpr U&fast_union_cast(T&t){return*reinterpret_cast<U*>(&t);}
+[[nodiscard]]force_inline constexpr byte*launder_cast_to_data(T*p){return ::std::launder(cast_to_data(p));}
 /*!
 	功能: const T* 指针转换为 const byte*，不进行任何检查
 	用法: cast_to_data(const T*) -> const byte*
 */
 template<class T>
-[[nodiscard]]force_inline constexpr const byte*cast_to_data(const T*p){return ::std::launder(reinterpret_cast<const byte*>(p));}
+[[nodiscard]]force_inline constexpr const byte*cast_to_data(const T*p){return reinterpret_cast<const byte*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr const byte*fast_cast_to_data(const T*p){return reinterpret_cast<const byte*>(p);}
+[[nodiscard]]force_inline constexpr const byte*launder_cast_to_data(const T*p){return ::std::launder(cast_to_data(p));}
+/*!
+	功能: T& 转换为 U&，不进行任何检查
+	用法: union_cast<U>(T&) -> U&
+*/
+template<class U,class T>
+[[nodiscard]]force_inline constexpr U&union_cast(T&t){return*reinterpret_cast<U*>(&t);}
+template<class U,class T>
+[[nodiscard]]force_inline constexpr U&launder_union_cast(T&t){return*::std::launder(union_cast<U>(t));}
 
 /*!
 	功能: data_block类模板,接受多个类型参数,实例化为内含最大体积最大对齐要求的byte数组的结构体

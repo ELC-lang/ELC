@@ -102,7 +102,7 @@ namespace rand_n{
 			constexpr auto half_bitnum = bitnum_of(seed_type)/2;
 			static_assert(εντροπία_num>=bitnum_of(seed_type));
 			for(size_t i=εντροπία_num;i--;){
-				auto& cache = fast_data_ptr_cast<seed_type>(_εντροπία_data)[i];
+				auto& cache = data_ptr_cast<seed_type>(_εντροπία_data)[i];
 				cache		= _seed^(_seed >> half_bitnum);
 				sowing_seed_one_step(_seed);
 			}
@@ -142,7 +142,7 @@ namespace rand_n{
 			const auto		  result_base	= result_type(new_result >> half_bitnum);
 			const auto		  rot_offset	= result_type(old_result_base >> half_bitnum);
 			constexpr auto	  εντροπία_max	= εντροπία_size/sizeof(result_type);
-			auto&			  xor_value		= fast_data_ptr_cast<result_type>(_εντροπία_data)[rot_offset % εντροπία_max];
+			auto&			  xor_value		= data_ptr_cast<result_type>(_εντροπία_data)[rot_offset % εντροπία_max];
 			const result_type result		= rotl(result_base, rot_offset) ^ xor_value;
 			//
 			xor_value = result;
@@ -152,7 +152,7 @@ namespace rand_n{
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
 			typedef unsigned_specific_size_t<sizeof(T)> result_type;
 			alignas(max(alignof(T),alignof(result_type)))auto aret=base_gen_randbit<result_type>();
-			return fast_union_cast<T>(aret);
+			return union_cast<T>(aret);
 		}
 		//为了加速而进行特化，这不影响通用性并且大多数时候能节省2ns左右（将内存访问转为位操作）
 		template<typename T> requires(sizeof(seed_type) == sizeof(T))
@@ -161,7 +161,7 @@ namespace rand_n{
 			typedef unsigned_specific_size_t<sizeof(T)/2> sand_type;
 			alignas(max(alignof(T),alignof(result_type)))result_type aret=result_type(gen_randbit<sand_type>())<<bitnum_of(sand_type);
 			aret|=result_type(gen_randbit<sand_type>());
-			return fast_union_cast<T>(aret);
+			return union_cast<T>(aret);
 		}
 		
 		template<size_t sand_size,size_t size>
@@ -170,7 +170,7 @@ namespace rand_n{
 			constexpr size_t sand_num = size/sand_size;
 			if constexpr(sand_num)
 				for(size_t i=sand_num;i--;to+=sand_size)
-					fast_data_cast<sand_type>(to)=gen_randbit<sand_type>();
+					data_cast<sand_type>(to)=gen_randbit<sand_type>();
 			if constexpr(size%sand_size)
 				gen_randbit_with_sand_size_to_pointer<sand_size/BIT_POSSIBILITY,size%sand_size>(to);
 		}
@@ -178,7 +178,7 @@ namespace rand_n{
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
 			alignas(max(alignof(T),alignof(seed_type)))byte aret[sizeof(T)];
 			gen_randbit_with_sand_size_to_pointer<sizeof(seed_type),sizeof(T)>(aret);
-			return fast_data_cast<T>(aret);
+			return data_cast<T>(aret);
 		}
 	}rand_seed{};
 
