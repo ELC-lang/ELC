@@ -9,42 +9,23 @@
 //text_stream
 
 //operator<< of template<class char_T>struct text_ostream
-template<class char_T>
-text_ostream<char_T>&operator<<(text_ostream<char_T>&stream,const char_T ch){
+template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+auto&operator<<(text_ostream_T&stream,const char_T ch)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 	stream.write(&ch,1);
 	return stream;
 }
-template<class char_T>
-noexcept_text_ostream<char_T>&operator<<(noexcept_text_ostream<char_T>&stream,const char_T ch)noexcept{
-	stream.write(&ch,1);
-	return stream;
-}
-template<class char_T>
-text_ostream<char_T>&operator<<(text_ostream<char_T>&stream,array_like_view_t<const char_T>str){
+template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+auto&operator<<(text_ostream_T&stream,array_like_view_t<const char_T>str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 	stream.write(str.data(),str.size());
 	return stream;
 }
-template<class char_T>
-noexcept_text_ostream<char_T>&operator<<(noexcept_text_ostream<char_T>&stream,array_like_view_t<const char_T>str)noexcept{
-	stream.write(str.data(),str.size());
-	return stream;
-}
-template<class char_T>
-text_ostream<char_T>&operator<<(text_ostream<char_T>&stream,const char_T*str){
-	return stream << array_end_by_zero_t<const char_T>{str};
-}
-template<class char_T>
-noexcept_text_ostream<char_T>&operator<<(noexcept_text_ostream<char_T>&stream,const char_T*str)noexcept{
+template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+auto&operator<<(text_ostream_T&stream,const char_T*str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 	return stream << array_end_by_zero_t<const char_T>{str};
 }
 //operator>> of template<class char_T>struct text_istream
-template<class char_T>
-text_istream<char_T>&operator>>(text_istream<char_T>&stream,char_T&ch){
-	stream.read(&ch,1);
-	return stream;
-}
-template<class char_T>
-noexcept_text_istream<char_T>&operator>>(noexcept_text_istream<char_T>&stream,char_T&ch)noexcept{
+template<class text_istream_T,class char_T=typename text_istream_T::char_type> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
+text_istream<char_T>&operator>>(text_istream<char_T>&stream,char_T&ch)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
 	stream.read(&ch,1);
 	return stream;
 }
@@ -52,44 +33,24 @@ noexcept_text_istream<char_T>&operator>>(noexcept_text_istream<char_T>&stream,ch
 //data_stream of any is_trivially_copyable
 
 //operator<< of template<class T>struct data_ostream
-template<class T> requires ::std::is_trivially_copyable_v<T>
-data_ostream&operator<<(data_ostream&stream,const T&data){
+template<class data_ostream_T,class T> requires(type_info<data_ostream_T>.base_on<data_ostream> && ::std::is_trivially_copyable_v<T>)
+auto&operator<<(data_ostream_T&stream,const T&data)noexcept(type_info<data_ostream_T>.base_on<noexcept_data_ostream>){
 	stream.write(&data,1);
 	return stream;
 }
-template<class T> requires ::std::is_trivially_copyable_v<T>
-noexcept_data_ostream&operator<<(noexcept_data_ostream&stream,const T&data)noexcept{
-	stream.write(&data,1);
-	return stream;
-}
-template<class T,size_t N> requires ::std::is_trivially_copyable_v<T>
-data_ostream&operator<<(data_ostream&stream,const T(&data)[N]){
-	stream.write(data,N);
-	return stream;
-}
-template<class T,size_t N> requires ::std::is_trivially_copyable_v<T>
-noexcept_data_ostream&operator<<(noexcept_data_ostream&stream,const T(&data)[N])noexcept{
+template<class data_ostream_T,class T,size_t N> requires(type_info<data_ostream_T>.base_on<data_ostream> && ::std::is_trivially_copyable_v<T>)
+auto&operator<<(data_ostream_T&stream,const T(&data)[N])noexcept(type_info<data_ostream_T>.base_on<noexcept_data_ostream>){
 	stream.write(data,N);
 	return stream;
 }
 //operator>> of template<class T>struct data_istream
-template<class T> requires ::std::is_trivially_copyable_v<T>
-data_istream&operator>>(data_istream&stream,T&data){
+template<class data_istream_T,class T> requires(type_info<data_istream_T>.base_on<data_istream> && ::std::is_trivially_copyable_v<T>)
+auto&operator>>(data_istream_T&stream,T&data)noexcept(type_info<data_istream_T>.base_on<noexcept_data_istream>){
 	stream.read(&data,1);
 	return stream;
 }
-template<class T> requires ::std::is_trivially_copyable_v<T>
-noexcept_data_istream&operator>>(noexcept_data_istream&stream,T&data)noexcept{
-	stream.read(&data,1);
-	return stream;
-}
-template<class T,size_t N> requires ::std::is_trivially_copyable_v<T>
-data_istream&operator>>(data_istream&stream,T(&data)[N]){
-	stream.read(data,N);
-	return stream;
-}
-template<class T,size_t N> requires ::std::is_trivially_copyable_v<T>
-noexcept_data_istream&operator>>(noexcept_data_istream&stream,T(&data)[N])noexcept{
+template<class data_istream_T,class T,size_t N> requires(type_info<data_istream_T>.base_on<data_istream> && ::std::is_trivially_copyable_v<T>)
+data_istream&operator>>(data_istream&stream,T(&data)[N])noexcept(type_info<data_istream_T>.base_on<noexcept_data_istream>){
 	stream.read(data,N);
 	return stream;
 }

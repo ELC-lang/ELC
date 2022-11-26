@@ -876,14 +876,16 @@ namespace string_n{
 		*/
 
 		//iostream
-		friend auto& operator<<(text_ostream<char_T>& os,const string_t& str){
+		template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
+		friend auto& operator<<(text_ostream_T& os,const string_t& str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 			if(str._in_cso())
 				os<<str.to_string_view_t();
 			else
 				str._m->do_output(os);
 			return os;
 		}
-		friend auto& operator>>(text_istream<char_T>& is,string_t& str){
+		template<class text_istream_T,class char_T=typename text_istream_T::char_type> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
+		friend auto& operator>>(text_istream<char_T>& is,string_t& str)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
 			str.clear();
 			using namespace locale::char_n;
 			while(isspace(is.peek()))
@@ -905,18 +907,6 @@ namespace string_n{
 	inline void swap(string_t<T>& a,string_t<T>& b)noexcept{ a.swap_with(b); }
 
 	//other iostream
-	push_and_disable_msvc_warning(26447);//noexcept警告diss
-	template<typename char_T>
-	inline auto& operator<<(noexcept_text_ostream<char_T>& os,const string_t<char_T>& str)noexcept{
-		((text_ostream<char_T>&)os)<<str;
-		return os;
-	}
-	template<typename char_T>
-	inline auto& operator>>(noexcept_text_istream<char_T>& is,string_t<char_T>& str)noexcept{
-		((text_istream<char_T>&)is)>>str;
-		return is;
-	}
-	pop_msvc_warning();
 	template<typename char_T,typename traits>
 	inline auto& operator<<(::std::basic_ostream<char_T,traits>& os,const string_t<char_T>& str)noexcept{
 		typedef ::std::basic_ostream<char_T,traits> stream_t;
