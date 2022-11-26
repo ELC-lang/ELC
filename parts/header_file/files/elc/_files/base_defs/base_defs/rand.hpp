@@ -160,7 +160,7 @@ namespace rand_n{
 			typedef unsigned_specific_size_t<sizeof(T)> result_type;
 			typedef unsigned_specific_size_t<sizeof(T)/2> sand_type;
 			alignas(max(alignof(T),alignof(result_type)))result_type aret=result_type(gen_randbit<sand_type>())<<bitnum_of(sand_type);
-			aret&=result_type(gen_randbit<sand_type>());
+			aret|=result_type(gen_randbit<sand_type>());
 			return fast_union_cast<T>(aret);
 		}
 		
