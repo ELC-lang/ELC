@@ -946,7 +946,7 @@ namespace string_n{
 					}
 				}
 				if(state == stream_t::goodbit){
-					stream_n::std_istream_wrap wrap(os);
+					stream_n::std_ostream_wrap wrap(os);
 					wrap<<str;
 				}
 				if(os.fail())
