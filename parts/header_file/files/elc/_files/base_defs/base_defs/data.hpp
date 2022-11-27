@@ -54,14 +54,24 @@ template<class U,class T>
 [[nodiscard]]force_inline constexpr U&launder_union_cast(T&t){return*::std::launder(union_cast<U>(t));}
 
 /*!
+	功能: data_block辅助变量模板，接受数个类型并表现为其中的最大对齐值
+*/
+template<class...Ts>
+inline constexpr size_t max_align_of=max({alignof(Ts)...});
+/*!
+	功能: data_block辅助变量模板，接受数个类型并表现为其中的最大大小值
+*/
+template<class...Ts>
+inline constexpr size_t max_size_of=max({sizeof(Ts)...});
+/*!
 	功能: data_block类模板,接受多个类型参数,实例化为内含最大体积最大对齐要求的byte数组的结构体
 			data_block -> byte*
 	用法: data_block<T1,T2,...>value;
 */
 template<class...Ts>
 struct data_block:non_copy_construct_able,non_move_construct_able{
-	static constexpr size_t size=max({sizeof(Ts)...});
-	static constexpr size_t align=max({alignof(Ts)...});
+	static constexpr size_t size=max_size_of<Ts...>;
+	static constexpr size_t align=max_align_of<Ts...>;
 	push_and_disable_msvc_warning(4324);
 	alignas(align)byte _data[size];
 	pop_msvc_warning();
@@ -92,6 +102,13 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 	force_inline constexpr byte*end(){return _data+size;}
 	force_inline constexpr const byte*begin()const{return _data;}
 	force_inline constexpr const byte*end()const{return _data+size;}
+};
+/*!
+	功能: data_block辅助类模板，接受一个size_t描述对齐大小的类型模板
+*/
+template<class...Ts>
+struct align_as_t{
+	alignas(max_align_of<Ts...>)byte _data[1];
 };
 
 /*!

@@ -151,7 +151,7 @@ namespace rand_n{
 		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
 			typedef unsigned_specific_size_t<sizeof(T)> result_type;
-			alignas(max(alignof(T),alignof(result_type)))auto aret=base_gen_randbit<result_type>();
+			alignas(max_align_of<T,result_type>)result_type aret=base_gen_randbit<result_type>();
 			return union_cast<T>(aret);
 		}
 		//为了加速而进行特化，这不影响通用性并且大多数时候能节省2ns左右（将内存访问转为位操作）
@@ -159,7 +159,7 @@ namespace rand_n{
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
 			typedef unsigned_specific_size_t<sizeof(T)> result_type;
 			typedef unsigned_specific_size_t<sizeof(T)/2> sand_type;
-			alignas(max(alignof(T),alignof(result_type)))result_type aret=result_type(gen_randbit<sand_type>())<<bitnum_of(sand_type);
+			alignas(max_align_of<T,result_type>)result_type aret=result_type(gen_randbit<sand_type>())<<bitnum_of(sand_type);
 			aret|=result_type(gen_randbit<sand_type>());
 			return union_cast<T>(aret);
 		}
@@ -176,7 +176,7 @@ namespace rand_n{
 		}
 		template<typename T> requires(sizeof(seed_type)/2 < sizeof(T) && sizeof(seed_type) != sizeof(T))//避免与加速特化重叠
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			alignas(max(alignof(T),alignof(seed_type)))byte aret[sizeof(T)];
+			data_block<T,align_as_t<seed_type>>aret;
 			gen_randbit_with_sand_size_to_pointer<sizeof(seed_type),sizeof(T)>(aret);
 			return data_cast<T>(aret);
 		}
