@@ -12,7 +12,9 @@
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
-	#include "defs.hpp"
+	namespace numerical_representation_n{
+		#include "defs.hpp"
+	}
 	#if defined(ELC_TEST_ON)
 	namespace numerical_representation_part_test{
 		#include "_test.hpp"
