@@ -18,11 +18,11 @@ namespace default_method{
 
 	/*!
 	Reallocates a block of memory.
-	
+
 	@param ptr The pointer to the block of memory to reallocate.
 	@param nsize The new size of the block of memory.
 	@param align The alignment of the block of memory.
-	
+
 	@returns The new pointer to the block of memory.
 	*/
 	[[nodiscard]]inline byte*base_realloc(byte*ptr,size_t nsize,size_t align)noexcept{
@@ -41,10 +41,10 @@ namespace default_method{
 	}
 	/*!
 	Allocates aligned memory.
-	
+
 	@param align The alignment of the memory.
 	@param size The size of the memory.
-	
+
 	@returns A pointer to the allocated memory.
 	*/
 	[[nodiscard]]inline byte*base_aligned_alloc(size_t align,size_t size)noexcept{
@@ -59,7 +59,7 @@ namespace default_method{
 	}
 	/*!
 	Frees a pointer allocated by base_alloc.
-	
+
 	@param p The pointer to free.
 	@param align The alignment of the pointer.
 	*/
@@ -81,10 +81,10 @@ namespace default_method{
 	}
 	/*!
 	Computes the size of an allocation.
-	
+
 	@param arg The pointer to the start of the allocation.
 	@param align The alignment of the allocation.
-	
+
 	@returns The size of the allocation.
 	*/
 	inline size_t base_get_size_of_alloc(const byte*arg, size_t align)noexcept{

@@ -18,7 +18,7 @@ namespace namespace_n{
 		}
 		namespace_t()noexcept{
 			_namespace_root = get<common_node>();
-			auto&nmsp	    = *_namespace_root;
+			auto&nmsp		= *_namespace_root;
 			_namespace_now  = &nmsp;
 			push_and_disable_msvc_warning(26447);//may throw警告diss
 			nmsp[es".."]	 = the_void;

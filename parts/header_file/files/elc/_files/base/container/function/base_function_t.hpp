@@ -329,7 +329,7 @@ namespace function_n{
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...),			bool(promise_nothrow_at_destruct+1)	>>||
 			type_info<T>.base_on<base_function_t<Ret_t(Args_t...)noexcept,	bool(promise_nothrow_at_destruct+1)	>>
 		);
-		
+
 		template<class T>
 		static constexpr bool get_data_able_helper(){
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)

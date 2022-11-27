@@ -29,9 +29,9 @@ namespace hash_n{
 	enable_adl(the_pointer_hash);
 	/*!
 	Computes the hash value of a pointer.
-	
+
 	@param a The pointer to hash.
-	
+
 	@returns The hash value of the pointer.
 	*/
 	template<class T>
@@ -90,7 +90,7 @@ namespace hash_n{
 
 		/*!
 		Computes the hash value of `nothing`.
-		
+
 		@returns The hash value of `nothing`.
 		*/
 		[[nodiscard]]inline constexpr hash_value_t hash(nothing)const noexcept{
@@ -98,9 +98,9 @@ namespace hash_n{
 		}
 		/*!
 		Computes the hash value of a base_type_info_t object.
-		
+
 		@param a The base_type_info_t object to hash.
-		
+
 		@returns The hash value of the object.
 		*/
 		[[nodiscard]]inline hash_value_t hash(const base_type_info_t&a)const noexcept{
@@ -108,9 +108,9 @@ namespace hash_n{
 		}
 		/*!
 		Computes the hash value of a value.
-		
+
 		@param a The value to hash.
-		
+
 		@returns The hash value of the value.
 		*/
 		template<class T> requires able<T>
@@ -134,9 +134,9 @@ namespace hash_n{
 		}
 		/*!
 		Computes the hash of a value in the base type.
-		
+
 		@param a The value to hash.
-		
+
 		@returns The hash of the value in the base type.
 		*/
 		template<class T>
@@ -145,12 +145,12 @@ namespace hash_n{
 		}
 		/*!
 		从某个起始点算起的hash
-		
+
 		@param before The hashed value before this hash.
 		@param before_size The size of the hashed value before this hash.
 		@param a The sequence of values.
 		@param size The number of values in the sequence.
-		
+
 		@returns The hash value of the sequence.
 		*/
 		template<class T>
@@ -165,10 +165,10 @@ namespace hash_n{
 		}
 		/*!
 		计算此hash重复N次的数组的hash结果
-		
+
 		@param value The hash value to repeat.
 		@param size The number of times to repeat the hash value.
-		
+
 		@returns The repeated hash value.
 		*/
 		[[nodiscard]]force_inline constexpr hash_value_t repeat_times(hash_value_t value,size_t size)const noexcept{
@@ -202,10 +202,10 @@ namespace hash_n{
 		}
 		/*!
 		计算此hash重复N次的数组的hash结果
-		
+
 		@param value The hash value to repeat.
 		@param size The number of times to repeat the hash value.
-		
+
 		@returns The repeated hash value.
 		*/
 		template<class T>
@@ -214,10 +214,10 @@ namespace hash_n{
 		}
 		/*!
 		Computes the hash value of an array of elements.
-		
+
 		@param a The array of elements.
 		@param size The size of the array.
-		
+
 		@returns The hash value of the array.
 		*/
 		template<class T>
@@ -226,12 +226,12 @@ namespace hash_n{
 		}
 		/*!
 		合并两个数据段的hash结果，好似计算这两个数据段合并后的hash结果一般
-		
+
 		@param before The first hash value.
 		@param before_size The size of the first hash value.
 		@param after The second hash value.
 		@param after_size The size of the second hash value.
-		
+
 		@returns The merged hash value.
 		*/
 		[[nodiscard]]force_inline hash_value_t merge_array_hash_results(
@@ -242,7 +242,7 @@ namespace hash_n{
 		/*!
 		计算一个 array_like_view_t<T> 对象的哈希值。
 		@param a array_like_view_t<T> 对象。
-		
+
 		@returns array_like_view_t<T> 对象的哈希值。
 		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
@@ -251,11 +251,11 @@ namespace hash_n{
 		}
 		/*!
 		计算一个 array_like_view_t<T> 对象的哈希值，并在哈希值之前进行计算。
-		
+
 		@param before 用来作为计算基础的哈希值。
 		@param before_size 用来作为计算基础的哈希值的大小。
 		@param a 要计算哈希值的 array_like_view_t<T> 对象。
-		
+
 		@returns array_like_view_t<T> 对象的哈希值。
 		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>

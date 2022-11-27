@@ -119,7 +119,7 @@ namespace rand_n{
 				::std::memcpy(_εντροπία_data, other._εντροπία_data, εντροπία_size);
 		}
 	private:
-		//friend 
+		//friend
 		template<class T>
 		friend struct rand_t;
 
@@ -163,7 +163,7 @@ namespace rand_n{
 			aret|=result_type(gen_randbit<sand_type>());
 			return union_cast<T>(aret);
 		}
-		
+
 		template<size_t sand_size,size_t size>
 		[[nodiscard]]force_inline constexpr void gen_randbit_with_sand_size_to_pointer(byte*to)noexcept{
 			typedef unsigned_specific_size_t<sand_size> sand_type;

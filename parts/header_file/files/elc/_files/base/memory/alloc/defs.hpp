@@ -70,7 +70,7 @@ namespace alloc_n{
 	/// @brief 所有alloc_t的基类
 	/// @details 尽管意义不明，但这个类就是在这里
 	struct base_alloc_t{};
-	
+
 	/// @brief 用于对特定类型进行alloc的类
 	/// @warning 这个类不会对内存进行初始化，如需要进行new like操作，请使用 get_t
 	template<class T>

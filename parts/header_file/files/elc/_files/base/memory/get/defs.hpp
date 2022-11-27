@@ -23,7 +23,7 @@ namespace get_n{
 
 	/*!
 	向后减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例
-	
+
 	@param arg 原有数据块
 	@param to_size 新的数据块大小
 	*/
@@ -33,7 +33,7 @@ namespace get_n{
 	}
 	/*!
 	向后扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例
-	
+
 	@param arg 原有数据块
 	@param to_size 新的数据块大小
 	*/
@@ -61,7 +61,7 @@ namespace get_n{
 	}
 	/*!
 	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
-	
+
 	@param arg 原有数据块
 	@param insert_pos 插入位置
 	@param insert_size 插入大小
@@ -98,12 +98,12 @@ namespace get_n{
 	/*!
 	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
 	若有多余的大小，追加到末尾
-	
+
 	@param arg 原有数据块
 	@param to_size 新的数据块大小
 	@param insert_pos 插入位置
 	@param insert_size 插入大小
-	
+
 	@returns 多余的大小
 	*/
 	template<typename T>
@@ -137,7 +137,7 @@ namespace get_n{
 	}
 	/*!
 	向前减小数据块大小并转移原有实例的生命周期，但并不析构旧的实例
-	
+
 	@param arg 原有数据块
 	@param to_size 新的数据块大小
 	*/
@@ -168,7 +168,7 @@ namespace get_n{
 	}
 	/*!
 	向前扩大数据块大小并转移原有实例的生命周期，但并不构造新的实例
-	
+
 	@param arg 原有数据块
 	@param to_size 新的数据块大小
 	*/
@@ -205,12 +205,12 @@ namespace get_n{
 	/*!
 	在指定位置插入未初始化数据块并转移原有实例的生命周期，但并不构造新的实例
 	若有多余的大小，追加到前端
-	
+
 	@param arg 原有数据块
 	@param to_size 新的数据块大小
 	@param insert_pos 插入位置
 	@param insert_size 插入大小
-	
+
 	@returns 多余的大小
 	*/
 	template<typename T>
@@ -260,9 +260,9 @@ namespace get_n{
 
 		/*!
 		Constructs an object of type T.
-		
+
 		@param rest The arguments to pass to the constructor of T.
-		
+
 		@returns A pointer to the newly constructed object.
 		*/
 		template<class...Args> requires able<Args...>
@@ -278,9 +278,9 @@ namespace get_n{
 			size_t _size;
 			/*!
 			Constructs an array of objects of type T.
-			
+
 			@param rest The arguments to pass to the constructor of T.
-			
+
 			@returns An array of objects of type T.
 			*/
 			template<class...Args> requires able<Args...>
