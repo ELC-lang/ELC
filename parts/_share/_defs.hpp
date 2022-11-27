@@ -122,7 +122,7 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 
 //for type_info
 #define type_info_of(...) base_type_info_t(typeid(__VA_ARGS__))
-#define type_name_of(...) (type_info_of(__VA_ARGS__).name())
+#define type_name_of(...) (type_info_of(__VA_ARGS__).get_name())
 
 #define is_common_attribute(name) public attribute<T,name<T>>
 #define is_special_attribute(name) public attribute<T,name>

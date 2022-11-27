@@ -27,6 +27,8 @@ export data_iostream;
 export noexcept_data_istream;
 export noexcept_data_ostream;
 export noexcept_data_iostream;
+export null_text_stream;
+export null_data_stream;
 export endline;
 export flush;
 #undef export

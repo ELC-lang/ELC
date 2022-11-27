@@ -26,6 +26,9 @@ namespace elc::defs{
 namespace elc{
 	#include "_export.hpp"
 }
+#if defined(ELC_BASE_STREAM)
+	#include "../_multi/arithmetic_text_io.hpp"
+#endif
 
 //file_end
 

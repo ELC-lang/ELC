@@ -103,6 +103,28 @@ no_vtable_struct noexcept_data_iostream:abstract_base<noexcept_data_iostream>,
 	virtual noexcept_data_istream,virtual noexcept_data_ostream{};
 
 pop_msvc_warning();
+//special streams
+template<class char_T>
+struct null_text_stream:noexcept_text_iostream<char_T>,instance_struct<null_text_stream<char_T>>{
+	virtual int_t seek(seek_type,int_t)noexcept override{return 0;}
+	virtual int_t tell()noexcept override{return 0;}
+	virtual void seek_to(int_t)noexcept override{}
+	virtual void sync()noexcept override{}
+	virtual void flush()noexcept override{}
+	virtual void close()noexcept override{}
+	virtual void write(const char_T*,size_t)noexcept override{}
+	virtual size_t read(char_T*,size_t)noexcept override{return 0;}
+};
+struct null_data_stream:noexcept_data_iostream,instance_struct<null_data_stream>{
+	virtual int_t seek(seek_type,int_t)noexcept override{return 0;}
+	virtual int_t tell()noexcept override{return 0;}
+	virtual void seek_to(int_t)noexcept override{}
+	virtual void sync()noexcept override{}
+	virtual void flush()noexcept override{}
+	virtual void close()noexcept override{}
+	virtual void write(const byte*,size_t)noexcept override{}
+	virtual size_t read(byte*,size_t)noexcept override{return 0;}
+};
 
 //file_end
 

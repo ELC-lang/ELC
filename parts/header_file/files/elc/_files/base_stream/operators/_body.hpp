@@ -67,7 +67,7 @@ inline constexpr struct flush_t{
 //endline
 inline constexpr struct endline_t{
 	template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
-	constexpr decltype(auto)operator()(text_ostream_T& stream) const noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>) {
+	constexpr decltype(auto)operator()(text_ostream_T& stream)const noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 		stream << char_T{'\n'};
 		stream.flush();
 		return stream;

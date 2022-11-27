@@ -33,6 +33,9 @@ namespace elc::defs{
 namespace elc{
 	#include "_export.hpp"
 }
+#if defined(ELC_BASE_STREAM)
+	#include "../_multi/type_name_test_output.hpp"
+#endif
 #if defined(ELC_CORE)
 	#include "../_multi/string_arec_as_value.hpp"
 #endif

@@ -31,6 +31,12 @@ namespace elc::defs{
 namespace elc{
 	#include "_export.hpp"
 }
+#if defined(ELC_STRING)
+	#include "../_multi/type_name_test_output.hpp"
+#endif
+#if defined(ELC_NUMERICAL_REPRESENTATION)
+	#include "../_multi/arithmetic_text_io.hpp"
+#endif
 
 //file_end
 

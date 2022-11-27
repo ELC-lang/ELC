@@ -9,9 +9,13 @@
 #if defined(ELC_TEST)
 	#error "this part cannot be tested."
 #endif
+#include "../../../../../_share/APIs/streams.hpp"
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
+	namespace stream_n{
+		#include "defs.hpp"
+	}
 	#if defined(ELC_TEST_ON)
 	namespace stream_part_test{
 		#include "_test.hpp"
