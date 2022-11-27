@@ -136,7 +136,9 @@ private:
 		push_and_disable_msvc_warning(26496);//非浮点数情况下info_threshold或许该被声明为常量
 		auto		   info_threshold =	to_size_t(ceil(log(info_threshold_base,_radix)));
 		pop_msvc_warning();
-		if constexpr(::std::is_floating_point_v<T>){
+		if constexpr(type_info<T> == type_info<bool>)
+			return to_string_num_base(union_cast<unsigned_specific_size_t<sizeof(bool)>>(num));
+		elseif constexpr(::std::is_floating_point_v<T>){
 			string aret;
 			suppress_msvc_warning(26494)//未初始化警告diss
 			size_t order_of_magnitude;

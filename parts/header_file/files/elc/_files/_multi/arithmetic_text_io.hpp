@@ -19,14 +19,27 @@ namespace elc::defs{
 			return stream << to_string(::std::forward<T>(data));
 		}
 
+		template<class stream_T> requires(type_info<stream_T>.base_on<text_ostream<char_t>>)
+		decltype(auto)operator<<(stream_T&stream,bool data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
+			if(data==true)
+				stream << es"true"_constexpr_str;
+			elseif(data==false)
+				stream << es"false"_constexpr_str;
+			else
+				stream << es"others("_constexpr_str << union_cast<unsigned_specific_size_t<sizeof(bool)>>(data) << ec(')');
+			return stream;
+		}
+
 		//T* output only for text_ostream<char_t>
 		template<typename T,class stream_T> requires(type_info<stream_T>.base_on<text_ostream<char_t>>)
 		decltype(auto)operator<<(stream_T&stream,T*data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
 			//output name of type at first
 			stream << type_info<T>.get_name();
-			if constexpr(::std::is_polymorphic_v<T>)//RTTI
-				if(type_info_of(*data)!=type_info<T>)
-					stream << ec("(") << type_name_of(*data) << ec(")");
+			if constexpr(::std::is_polymorphic_v<T> && !::std::is_final_v<T>){//RTTI
+				auto typeinfo = type_info_of(*data);
+				if(typeinfo != type_info<T>)
+					stream << ec("(") << typeinfo.get_name() << ec(")");
+			}
 			//output address
 			stream << ec("@") << to_string((size_t)data,numerical_representation_n::hexadecimal);
 			return stream;
