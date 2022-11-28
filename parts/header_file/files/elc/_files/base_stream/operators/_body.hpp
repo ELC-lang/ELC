@@ -75,8 +75,8 @@ inline constexpr struct endline_t{
 }endline{};
 
 //operator<< of functions
-template<class callable_T,class stream_T> requires(type_info<stream_T>.base_on<base_ostream> && invoke<callable_T>.able<stream_T&>)
-decltype(auto)operator<<(stream_T&stream,callable_T&&callable)noexcept(invoke<callable_T>.nothrow<stream_T&>){
+template<class callable_T,class stream_T> requires(type_info<stream_T>.base_on<base_ostream> && invoke<callable_T>.able<stream_T>)
+decltype(auto)operator<<(stream_T&&stream,callable_T&&callable)noexcept(invoke<callable_T>.nothrow<stream_T>){
 	return callable(stream);
 }
 

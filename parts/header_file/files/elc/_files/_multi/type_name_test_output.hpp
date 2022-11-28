@@ -13,7 +13,7 @@ namespace elc::defs{
 	namespace stream_n{
 		//typename output only for text_ostream<char_t>
 		template<class stream_T> requires(type_info<stream_T>.base_on<text_ostream<char_t>>)
-		decltype(auto)operator<<(stream_T&stream,const type_name_t&name)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
+		decltype(auto)operator<<(stream_T&&stream,const type_name_t&name)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
 			return stream << to_char_t_str(name);
 		}
 	}
