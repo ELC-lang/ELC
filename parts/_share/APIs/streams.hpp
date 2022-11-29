@@ -27,7 +27,7 @@ elc依赖的基础函数.
 
 		using namespace ::elc::defs;//get def
 
-		void init_output_stream()noexcept{
+		force_inline void init_output_stream()noexcept{
 			#if SYSTEM_TYPE == windows
 				// Set console code page to UTF-8 so console known how to interpret string data
 				SetConsoleOutputCP(CP_UTF8);
@@ -35,7 +35,7 @@ elc依赖的基础函数.
 				setvbuf(stdout, nullptr, _IOFBF, 1000);
 			#endif
 		}
-		void init_input_stream()noexcept{
+		force_inline void init_input_stream()noexcept{
 			#if SYSTEM_TYPE == windows
 				// Set console code page to UTF-8 so console known how to interpret string data
 				SetConsoleCP(CP_UTF8);
@@ -43,7 +43,7 @@ elc依赖的基础函数.
 				setvbuf(stdin, nullptr, _IOFBF, 1000);
 			#endif
 		}
-		void init_error_stream()noexcept{
+		force_inline void init_error_stream()noexcept{
 			#if SYSTEM_TYPE == windows
 				// Set console code page to UTF-8 so console known how to interpret string data
 				SetConsoleOutputCP(CP_UTF8);
@@ -52,7 +52,7 @@ elc依赖的基础函数.
 			#endif
 		}
 
-		size_t read_text_from_stream(FILE*stream,char_t*buffer,size_t size)noexcept{
+		inline size_t read_text_from_stream(FILE*stream,char_t*buffer,size_t size)noexcept{
 			//read utf-8 text from stream and convert it to utf-32
 			::std::mbstate_t stat{};
 			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
@@ -77,7 +77,7 @@ elc依赖的基础函数.
 			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return size;
 		}
-		void write_text_to_stream(FILE*stream,const char_t*buffer,size_t size)noexcept{
+		inline void write_text_to_stream(FILE*stream,const char_t*buffer,size_t size)noexcept{
 			//convert utf-32 text to utf-8 and write it to stream
 			::std::mbstate_t stat{};
 			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
