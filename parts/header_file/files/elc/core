@@ -8,10 +8,10 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_CORE)
-	#define ELC_CORE
 	#include "base"
 	#include "base_exception"
 	#include "base_stream"
+	#define ELC_CORE
 	#include "_files/core/_body.hpp"
 #endif
 

@@ -8,8 +8,8 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_NUMERICAL_REPRESENTATION)
-	#define ELC_NUMERICAL_REPRESENTATION
 	#include "string"
+	#define ELC_NUMERICAL_REPRESENTATION
 	#include "_files/numerical_representation/_body.hpp"
 #endif
 

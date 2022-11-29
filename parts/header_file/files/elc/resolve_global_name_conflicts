@@ -8,10 +8,10 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_RESOLVE_GLOBAL_NAME_CONFLICTS)
-	#define ELC_RESOLVE_GLOBAL_NAME_CONFLICTS
 	//make sure std::rand && elc::defs::rand defined
 	#include <cstdlib>
 	#include "base_defs"
+	#define ELC_RESOLVE_GLOBAL_NAME_CONFLICTS
 	namespace elc::defs{
 		template<class T>
 		constexpr auto&the_rand=rand<T>;

@@ -8,11 +8,11 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_BASE_STREAM)
-	#define ELC_BASE_STREAM
 	#include "base"//abstract_base
 	#include <istream>//std::istream for wrap
 	#include <ostream>//std::ostream for wrap
 	//do not include <iostream> as it will import some gobal objects like std::cin and std::cout that we may not want to use
+	#define ELC_BASE_STREAM
 	#include "_files/base_stream/_body.hpp"
 #endif
 

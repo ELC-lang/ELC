@@ -8,9 +8,9 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_NAMESPACE)
-	#define ELC_NAMESPACE
 	#include "core"
 	#include "string"
+	#define ELC_NAMESPACE
 	#include "_files/namespace/_body.hpp"
 #endif
 

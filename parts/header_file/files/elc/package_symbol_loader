@@ -8,10 +8,10 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_PACKAGE_SYMBOL_LOADER)
-	#define ELC_PACKAGE_SYMBOL_LOADER
 	#include "core"
 	#include "string"
 	#include "lib_loader"
+	#define ELC_PACKAGE_SYMBOL_LOADER
 	#include "_files/package_symbol_loader/_body.hpp"
 #endif
 

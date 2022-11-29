@@ -8,7 +8,6 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_BASE_DEFS)
-	#define ELC_BASE_DEFS
 	#define __builtin_is_my_dick_still_there() true
 	#include <cstddef>//nullptr_t
 	#include <cstdlib>//exit、size_t
@@ -20,6 +19,7 @@
 	#include <cfenv>//rounding
 	#include <ctime>//time
 	#include <ranges>
+	#define ELC_BASE_DEFS
 	#include "_files/base_defs/_body.hpp"
 #endif
 

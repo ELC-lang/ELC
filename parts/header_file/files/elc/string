@@ -8,9 +8,9 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_STRING)
-	#define ELC_STRING
 	#include "base"
 	#include "base_stream"//operator<< & operator>>
+	#define ELC_STRING
 	#include "_files/string/_body.hpp"
 #endif
 

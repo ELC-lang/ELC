@@ -8,12 +8,12 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_STREAM)
-	#define ELC_STREAM
 	#include "base"
 	#include "base_stream"
 	#include "string"
 	#include "numerical_representation"
 	#include <cstdio>
+	#define ELC_STREAM
 	#include "_files/stream/_body.hpp"
 #endif
 

@@ -9,7 +9,6 @@
 #include "../../../_share/pre_checks.hpp"
 //tool reg : \n[^\n]+\d+ (\S+)\n -> \n\t#include \"\1\"\n
 #if !defined(ELC_ALL)
-	#define ELC_ALL
 	#include "base"
 	#include "base_defs"
 	#include "base_exception"
@@ -26,6 +25,7 @@
 	#include "string"
 	//#include "test"
 	#include "void_name"
+	#define ELC_ALL
 #endif
 
 //file_end
