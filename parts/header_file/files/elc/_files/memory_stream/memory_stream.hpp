@@ -7,11 +7,12 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 struct memory_stream:noexcept_iostream{
+	constexpr size_t buf_size=pow(10,BIT_POSSIBILITY);
 	byte* _m;
 	size_t _s;
 	size_t _pos;
 	memory_stream()noexcept{
-		_m = get<byte>[1024]();
+		_m = get<byte>[buf_size]();
 		_pos = 0;
 		_s = 0;
 	}
