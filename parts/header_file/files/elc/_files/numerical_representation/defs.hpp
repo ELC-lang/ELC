@@ -149,7 +149,7 @@ private:
 				aret=_radix_table[0];
 				aret+=_fractional_sign;
 			}
-			num/=pow(_radix,order_of_magnitude);
+			num/=(T)pow(_radix,order_of_magnitude);
 			if(num>=1){
 				aret=_radix_table[to_size_t(num)];
 				num=0;
@@ -291,7 +291,7 @@ private:
 				aret+=(T)index;
 				aret/=_radix;
 			}
-			aret*=pow(_radix, order_of_magnitude);
+			aret*=(T)pow(_radix, order_of_magnitude);
 			return aret;
 		}
 		else {

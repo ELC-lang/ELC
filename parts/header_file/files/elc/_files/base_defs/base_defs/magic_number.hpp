@@ -318,7 +318,7 @@ namespace magic_number{
 	[[nodiscard]]force_inline constexpr auto pow(const T a,const U b)noexcept{
 		if in_consteval{
 			typedef decltype(::std::pow(a,b)) RT;
-			return exp(RT(b)*log(RT(a)));
+			return RT(exp(b*log(a)));
 		}
 		else
 			return ::std::pow(a,b);
