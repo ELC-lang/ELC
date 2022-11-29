@@ -23,10 +23,11 @@ namespace elc::defs{
 		//任意类型转算数类型
 		template<class T>
 		force_inline constexpr bool is_arithmetic_convertible_helper()noexcept{
-			#define TYPE_MAPPER(type) if constexpr(::std::is_convertible_v<T,type>)return true;else
+			size_t muti_convertible_count=0;
+			#define TYPE_MAPPER(type) if constexpr(std::is_convertible_v<T,type>)muti_convertible_count++;
 			#include "./arithmetic_mapper/all_mapper.hpp"
 			#undef TYPE_MAPPER
-			return false;
+			return muti_convertible_count==1;
 		}
 		template<class T>
 		constexpr bool is_arithmetic_convertible= is_arithmetic_convertible_helper<T>();
