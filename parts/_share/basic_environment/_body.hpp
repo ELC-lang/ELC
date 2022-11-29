@@ -46,7 +46,7 @@ namespace elc::defs{
 			typedef decltype(to_arithmetic_base(declvalue(T))) my_type;
 			size_t muti_convertible_count=0;
 			#define TYPE_MAPPER(type) \
-			if constexpr(type_uniquer<my_type>!=type_uniquer<type>)\
+			if constexpr(type_uniquer<my_type>!=type_uniquer<type> && ::std::is_convertible_v<T,type>)\
 				muti_convertible_count++;
 			#include "./arithmetic_mapper/all_mapper.hpp"
 			#undef TYPE_MAPPER
