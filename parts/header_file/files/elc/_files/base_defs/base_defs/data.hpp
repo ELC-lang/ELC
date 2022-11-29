@@ -84,7 +84,7 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 	};
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
 	force_inline constexpr data_block(T&&t)noexcept{
-		data_cast<T>(_data)=::std::forward<T>(t);
+		data_cast<T>(_data)=forward<T>(t);
 		if constexpr(sizeof(T)<size)
 			if in_consteval
 				for(size_t i=sizeof(T);i<size;++i)
@@ -95,7 +95,7 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 	force_inline constexpr operator const byte*()const{return _data;}
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
 	force_inline constexpr auto&operator=(T&&t){
-		return data_cast<remove_cvref<T>>(_data)=::std::forward<T>(t);
+		return data_cast<remove_cvref<T>>(_data)=forward<T>(t);
 	}
 	//begin & end
 	force_inline constexpr byte*begin(){return _data;}
