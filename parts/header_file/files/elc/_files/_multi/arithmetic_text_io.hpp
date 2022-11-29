@@ -7,7 +7,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#if !defined(ELC_multi_arithmetic_text_io)
+#if !defined(ELC_multi_arithmetic_text_io)//pls skip define check as this part is muti
 #define ELC_multi_arithmetic_text_io
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
