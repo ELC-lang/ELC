@@ -16,7 +16,8 @@ namespace elc::defs{
 		//arithmetic output only for text_ostream<char_t>
 		template<typename T,class stream_T> requires(::std::is_arithmetic_v<remove_cvref<T>> &&
 													 type_info<stream_T>.base_on<text_ostream<char_t>> &&
-													 type_info<remove_cvref<T>> != type_info<char_t>)
+													 type_info<remove_cvref<T>> != type_info<char_t> &&
+													 type_info<remove_cvref<T>> != type_info<bool>)
 		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
 			return stream << to_string(forward<T>(data));
 		}
