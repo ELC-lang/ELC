@@ -60,19 +60,36 @@ elc依赖的基础函数.
 				die_with(locale::str::setlocale_error);
 			ptrdiff_t s=0;
 			push_and_disable_msvc_warning(26494);//未初始化警告diss
+			ptrdiff_t v;
 			char r[MB_LEN_MAX];
+			int ch;
 			pop_msvc_warning();
 			for(size_t i=0;i<size;i++){
-				//read a char
-				s=::std::fread(r+s,1,MB_LEN_MAX-s,stream);
-				if(s==0)
-					return i;
 				//convert it to utf-32
-				s=::std::mbrtoc32(&buffer[i],r,MB_LEN_MAX,&stat);
-				if(s < 0)//-3 或 -1
-					die_with(locale::str::code_convert_error);
+				{
+					if(s)
+					try_char_covert:
+						v=::std::mbrtoc32(&buffer[i],r,s,&stat);
+					else
+						goto read_char;
+					if(v < 0){//-3 或 -1
+						if(s>=MB_LEN_MAX)
+							die_with(locale::str::code_convert_error);
+						//read a char
+					read_char:
+						if(assign(ch,::std::fgetc(stream))!=EOF)
+							r[s++]=char(ch);
+						elseif(s==0)
+							return i;
+						else
+							die_with(locale::str::code_convert_error);
+						goto try_char_covert;
+					}
+				}
+				//success
 				//move the other char that not handled in 'r'
-				copy_assign[size_t(s)](r,r+size_t(s));
+				copy_assign[size_t(v)](r,r+size_t(v));
+				s-=size_t(v);
 			}
 			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return size;
