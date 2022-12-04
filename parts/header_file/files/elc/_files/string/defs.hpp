@@ -890,8 +890,11 @@ namespace string_n{
 		friend auto& operator<<(text_ostream_T& os,const string_t& str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
 			if(str._in_cso())
 				os<<str.to_string_view_t();
-			else
+			else{
+				push_and_disable_msvc_warning(26447);//nothrow警告diss
 				str._m->do_output(os);
+				pop_msvc_warning();
+			}
 			return os;
 		}
 		template<class text_istream_T> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)

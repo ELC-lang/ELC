@@ -43,7 +43,7 @@ namespace get_n{
 			realloc(arg,to_size);
 		else{
 			T*tmp=alloc<T>(to_size);
-			auto from_size=get_size_of_alloc(arg);
+			const auto from_size=get_size_of_alloc(arg);
 			if constexpr(!move.nothrow<T>){
 				template_warning("the move of T was not noexcept,this may cause memory lack.");
 				try{

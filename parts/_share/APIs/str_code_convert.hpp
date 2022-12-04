@@ -24,9 +24,6 @@ elc依赖的基础函数.
 		[[nodiscard]]inline string_t<char> to_char_str(string_view_t<char_t> a)noexcept{
 			string_t<char>aret;
 			::std::mbstate_t stat{};
-			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
-			if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
-				die_with(locale::str::setlocale_error);
 			push_and_disable_msvc_warning(26494)//未初始化警告diss
 			char r[MB_LEN_MAX];
 			ptrdiff_t s;
@@ -37,15 +34,11 @@ elc依赖的基础函数.
 					die_with(locale::str::code_convert_error);
 				aret+=string_view_t<char>{(char*)r,note::size((size_t)s)};
 			}
-			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return aret;
 		}
 		[[nodiscard]]inline string_t<char_t> to_char_t_str(string_view_t<char> a)noexcept{
 			string_t<char_t>aret;
 			::std::mbstate_t stat{};
-			string_t old_lc=::std::setlocale(LC_CTYPE,nullptr);
-			if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
-				die_with(locale::str::setlocale_error);
 			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			char_t c;
 			ptrdiff_t s;
@@ -58,7 +51,6 @@ elc依赖的基础函数.
 				i+=s;
 				aret+=c;
 			}
-			::std::setlocale(LC_CTYPE,old_lc.c_str());
 			return aret;
 		}
 

@@ -23,9 +23,9 @@ namespace elc::defs{
 		}
 
 		template<typename T,class stream_T> requires(!::std::is_arithmetic_v<remove_cvref<T>> &&
-													 is_arithmetic_convertible<remove_cvref<T>> &&
-													 type_info<stream_T>.base_on<text_ostream<char_t>>)
-		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
+													 to_arithmetic.able<remove_cvref<T>> &&
+													 type_info<stream_T>.base_on<text_ostream<char_t>>) decltype(auto)
+		operator<<(stream_T&& stream, T&& data) noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>> && to_arithmetic.nothrow<T>) {
 			return stream << to_arithmetic(forward<T>(data));
 		}
 
@@ -47,7 +47,7 @@ namespace elc::defs{
 			//output name of type at first
 			stream << type_info<T>.get_name();
 			if constexpr(::std::is_polymorphic_v<T> && !::std::is_final_v<T>){//RTTI
-				auto typeinfo = type_info_of(*data);
+				const auto typeinfo = type_info_of(*data);
 				if(typeinfo != type_info<T>)
 					stream << ec("(") << typeinfo.get_name() << ec(")");
 			}

@@ -1,0 +1,442 @@
+//char_set.hpp
+/*
+未完成的elc解释器_share文件
+由steve02081504与Alex0125设计、编写
+转载时请在不对此文件做任何修改的同时注明出处
+项目地址：https://github.com/steve02081504/ELC
+*/
+/*
+APIs说明
+elc依赖的基础函数.
+调整这些,实现快速移植,快速优化与行为自定义.
+*/
+#if !defined(ELC_APIS_char_set)
+	#define ELC_APIS_char_set
+	#include "_tools/decl_system_type.hpp"
+	#include "../../header_file/files/elc/base_defs"
+	/// @brief 文字编码相关函数
+	namespace elc::APIs::char_set{
+		#include "../../_share/_defs.hpp"
+
+		using namespace ::elc::defs;//string_view_t
+		typedef string_view_t<char8_t>string_view_u8_t;
+		typedef string_view_t<char16_t>string_view_u16_t;
+		typedef string_view_t<char32_t>string_view_u32_t;
+
+		constexpr size_t utf16_to_utf8_code_size=2;
+		constexpr size_t utf32_to_utf8_code_size = 4;
+		constexpr size_t utf32_to_utf16_code_size = 2;
+
+		using range_n::npos;
+		inline namespace convert_impl {
+			constexpr size_t decode_utf8(char32_t *out, const char8_t *in, size_t in_size_max)noexcept {
+				push_and_disable_msvc_warning(26494);//未初始化警告diss
+				char8_t code1, code2, code3, code4;
+				pop_msvc_warning();
+				code1 = *in++;
+				if(code1 < 0x80) { /* 1-byte sequence */
+					*out = code1;
+					return 1;
+				}
+				elseif(code1 < 0xC2)
+					return npos;
+				elseif(code1 < 0xE0){ /* 2-byte sequence */
+					if(in_size_max < 2)
+						return npos;
+					code2 = *in++;
+					if((code2 & 0xC0) != 0x80)
+						return npos;
+					*out = (code1 << 6) + code2 - 0x3080;
+					return 2;
+				}
+				elseif(code1 < 0xF0){ /* 3-byte sequence */
+					if(in_size_max < 3)
+						return npos;
+					code2 = *in++;
+					if((code2 & 0xC0) != 0x80)
+						return npos;
+					if(code1 == 0xE0 && code2 < 0xA0)
+						return npos;
+					code3 = *in++;
+					if((code3 & 0xC0) != 0x80)
+						return npos;
+					*out = (code1 << 12) + (code2 << 6) + code3 - 0xE2080;
+					return 3;
+				}
+				elseif(code1 < 0xF5){ /* 4-byte sequence */
+					if(in_size_max < 4)
+						return npos;
+					code2 = *in++;
+					if((code2 & 0xC0) != 0x80)
+						return npos;
+					if(code1 == 0xF0 && code2 < 0x90)
+						return npos;
+					if(code1 == 0xF4 && code2 >= 0x90)
+						return npos;
+					code3 = *in++;
+					if((code3 & 0xC0) != 0x80)
+						return npos;
+					code4 = *in++;
+					if((code4 & 0xC0) != 0x80)
+						return npos;
+					*out = (code1 << 18) + (code2 << 12) + (code3 << 6) + code4 - 0x3C82080;
+					return 4;
+				}
+			}
+			constexpr size_t get_decode_utf8_size(const char8_t* in)noexcept {
+				if(*in < 0x80) /* 1-byte sequence */
+					return 1;
+				elseif(*in < 0xC2)
+					return npos;
+				elseif(*in < 0xE0) /* 2-byte sequence */
+					return 2;
+				elseif(*in < 0xF0) /* 3-byte sequence */
+					return 3;
+				elseif(*in < 0xF5) /* 4-byte sequence */
+					return 4;
+				else
+					return npos;
+			}
+			constexpr size_t decode_utf16(char32_t *out, const char16_t *in, size_t in_size_max)noexcept {
+				const char16_t code1 = *in++;
+				if(code1 >= 0xD800 && code1 < 0xDC00) { /* surrogate pair */
+					if(in_size_max < 2)
+						return npos;
+					const char16_t code2 = *in++;
+					if(code2 >= 0xDC00 && code2 < 0xE000) {
+						*out = (code1 << 10) + code2 - 0x35FDC00;
+						return 2;
+					}
+					return npos;
+				}
+				*out = code1;
+				return 1;
+			}
+			constexpr size_t get_decode_utf16_size(const char16_t* in)noexcept {
+				if(*in >= 0xD800 && *in < 0xDC00) /* surrogate pair */
+					return 2;
+				else
+					return 1;
+			}
+			constexpr size_t encode_utf8(char8_t *out, char32_t in) {
+				if(in < 0x80) {
+					*out++ = (char8_t)in;
+					return 1;
+				}
+				elseif(in < 0x800) {
+					*out++ = char8_t((in >> 6) + 0xC0);
+					*out++ = char8_t((in & 0x3F) + 0x80);
+					return 2;
+				}
+				elseif(in < 0x10000) {
+					*out++ = char8_t((in >> 12) + 0xE0);
+					*out++ = ((in >> 6) & 0x3F) + 0x80;
+					*out++ = (in & 0x3F) + 0x80;
+					return 3;
+				}
+				elseif(in < 0x110000) {
+					*out++ = char8_t((in >> 18) + 0xF0);
+					*out++ = ((in >> 12) & 0x3F) + 0x80;
+					*out++ = ((in >> 6) & 0x3F) + 0x80;
+					*out++ = (in & 0x3F) + 0x80;
+					return 4;
+				}
+				return npos;
+			}
+			constexpr size_t get_encode_utf8_size(char32_t in) {
+				if(in < 0x80)
+					return 1;
+				elseif(in < 0x800)
+					return 2;
+				elseif(in < 0x10000)
+					return 3;
+				elseif(in < 0x110000)
+					return 4;
+				else
+					return npos;
+			}
+			constexpr size_t encode_utf16(char16_t *out, char32_t in) {
+				if(in < 0x10000) {
+					*out++ = char16_t(in);
+					return 1;
+				}
+				elseif(in < 0x110000) {
+					*out++ = char16_t((in >> 10) + 0xD7C0);
+					*out++ = (in & 0x3FF) + 0xDC00;
+					return 2;
+				}
+				return npos;
+			}
+			constexpr size_t get_encode_utf16_size(char32_t in) {
+				if(in < 0x10000)
+					return 1;
+				elseif(in < 0x110000)
+					return 2;
+				else
+					return npos;
+			}
+		}
+		template<typename in_char_t, typename out_char_t>
+		struct code_convert_result {
+			bool _success;
+			string_view_t<in_char_t> _processed_input;
+			string_view_t<out_char_t> _processed_output;
+		public:
+			constexpr code_convert_result(bool success, string_view_t<in_char_t> processed_input, string_view_t<out_char_t> processed_output) : _success(success), _processed_input(processed_input), _processed_output(processed_output) {}
+			constexpr bool success() const { return _success; }
+			constexpr string_view_t<in_char_t> processed_input() const { return _processed_input; }
+			constexpr string_view_t<out_char_t> processed_output() const { return _processed_output; }
+			constexpr explicit operator bool() const { return success(); }
+		};
+		constexpr auto get_utf8_to_utf16_size(const char8_t *in, size_t len){
+			size_t out_size = 0;
+			const auto end = in + len;
+			while(in < end) {
+				char32_t code;
+				const auto size = decode_utf8(&code, in, end - in);
+				if(size == npos)
+					return npos;
+				const auto tmp = get_encode_utf16_size(code);
+				if(tmp == npos)
+					return npos;
+				out_size += tmp;
+				in += size;
+			}
+		}
+		constexpr auto get_utf8_to_utf16_size(string_view_u8_t in){
+			return get_utf8_to_utf16_size(in.data(), in.size());
+		}
+		constexpr auto utf8_to_utf16(char16_t *out, const char8_t *in, size_t len) {
+			const auto end = in + len;
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
+			char32_t code;
+			pop_msvc_warning();
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success) {
+				return code_convert_result<char8_t, char16_t>(success, string_view_t<char8_t>(in_start, in - in_start), string_view_t<char16_t>(out_start, out - out_start));
+			};
+			while(in < end) {
+				const auto size = decode_utf8(&code, in, end - in);
+				if(size == npos)
+					return result_builder(false);
+				auto tmp = encode_utf16(out, code);
+				if(tmp == npos)
+					return result_builder(false);
+				out += tmp;
+				in += size;
+			}
+			return result_builder(true);
+		}
+		constexpr auto utf8_to_utf16(char16_t *out, string_view_u8_t in) {
+			return utf8_to_utf16(out, in.data(), in.size());
+		}
+		constexpr auto get_utf8_to_utf32_size(const char8_t *in, size_t len){
+			size_t out_size = 0;
+			const auto end = in + len;
+			while(in < end) {
+				const auto tmp = get_decode_utf8_size(in);
+				if(tmp == npos)
+					return npos;
+				in += tmp;
+				out_size++;
+			}
+			return out_size;
+		}
+		constexpr auto get_utf8_to_utf32_size(string_view_u8_t in){
+			return get_utf8_to_utf32_size(in.data(), in.size());
+		}
+		constexpr auto utf8_to_utf32(char32_t *out, const char8_t *in, size_t len) {
+			const auto end = in + len;
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
+			char32_t code;
+			pop_msvc_warning();
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success) {
+				return code_convert_result<char8_t, char32_t>(success, string_view_t<char8_t>(in_start, in - in_start), string_view_t<char32_t>(out_start, out - out_start));
+			};
+			while(in < end) {
+				const auto size = decode_utf8(&code, in, end - in);
+				if(size == npos)
+					return result_builder(false);
+				*out++ = code;
+				in += size;
+			}
+			return result_builder(true);
+		}
+		constexpr auto utf8_to_utf32(char32_t *out, string_view_u8_t in) {
+			return utf8_to_utf32(out, in.data(), in.size());
+		}
+		constexpr auto get_utf16_to_utf8_size(const char16_t *in, size_t len){
+			size_t out_size = 0;
+			const auto end = in + len;
+			while(in < end) {
+				char32_t code;
+				const auto size = decode_utf16(&code, in, end - in);
+				if(size == npos)
+					return npos;
+				const auto tmp = get_encode_utf8_size(code);
+				if(tmp == npos)
+					return npos;
+				out_size += tmp;
+				in += size;
+			}
+			return out_size;
+		}
+		constexpr auto get_utf16_to_utf8_size(string_view_u16_t in){
+			return get_utf16_to_utf8_size(in.data(), in.size());
+		}
+		constexpr auto utf16_to_utf8(char8_t *out, const char16_t *in, size_t len) {
+			const auto end = in + len;
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
+			char32_t code;
+			pop_msvc_warning();
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success) {
+				return code_convert_result<char16_t, char8_t>(success, string_view_t<char16_t>(in_start, in - in_start), string_view_t<char8_t>(out_start, out - out_start));
+			};
+			while(in < end) {
+				const auto size = decode_utf16(&code, in, end - in);
+				if(size == npos)
+					return result_builder(false);
+				auto tmp = encode_utf8(out, code);
+				if(tmp == npos)
+					return result_builder(false);
+				out += tmp;
+				in += size;
+			}
+			return result_builder(true);
+		}
+		constexpr auto utf16_to_utf8(char8_t *out, string_view_u16_t in) {
+			return utf16_to_utf8(out, in.data(), in.size());
+		}
+		constexpr auto get_utf16_to_utf32_size(const char16_t *in, size_t len){
+			size_t out_size = 0;
+			const auto end = in + len;
+			while(in < end) {
+				char32_t code;
+				const auto size = decode_utf16(&code, in, end - in);
+				if(size == npos)
+					return npos;
+				in += size;
+				out_size++;
+			}
+			return out_size;
+		}
+		constexpr auto get_utf16_to_utf32_size(string_view_u16_t in){
+			return get_utf16_to_utf32_size(in.data(), in.size());
+		}
+		constexpr auto utf16_to_utf32(char32_t *out, const char16_t *in, size_t len) {
+			const auto end = in + len;
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success) {
+				return code_convert_result<char16_t, char32_t>(success, string_view_t<char16_t>(in_start, in - in_start), string_view_t<char32_t>(out_start, out - out_start));
+			};
+			while(in < end) {
+				char32_t code;
+				const auto size = decode_utf16(&code, in, end - in);
+				if(size == npos)
+					return result_builder(false);
+				*out++ = code;
+				in += size;
+			}
+			return result_builder(true);
+		}
+		constexpr auto utf16_to_utf32(char32_t *out, string_view_u16_t in) {
+			return utf16_to_utf32(out, in.data(), in.size());
+		}
+		constexpr auto get_utf32_to_utf8_size(const char32_t *in, size_t len){
+			size_t out_size = 0;
+			const auto end = in + len;
+			while(in < end) {
+				const auto tmp = get_encode_utf8_size(*in);
+				if(tmp == npos)
+					return npos;
+				out_size += tmp;
+				++in;
+			}
+			return out_size;
+		}
+		constexpr auto get_utf32_to_utf8_size(string_view_u32_t in){
+			return get_utf32_to_utf8_size(in.data(), in.size());
+		}
+		constexpr auto utf32_to_utf8(char8_t *out, const char32_t *in, size_t len) {
+			const auto end = in + len;
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success) {
+				return code_convert_result<char32_t, char8_t>(success, string_view_t<char32_t>(in_start, in - in_start), string_view_t<char8_t>(out_start, out - out_start));
+			};
+			while(in < end) {
+				auto tmp = encode_utf8(out, *in);
+				if(tmp == npos)
+					return result_builder(false);
+				out += tmp;
+				++in;
+			}
+			return result_builder(true);
+		}
+		constexpr auto utf32_to_utf8(char8_t *out, string_view_u32_t in) {
+			return utf32_to_utf8(out, in.data(), in.size());
+		}
+		constexpr auto get_utf32_to_utf16_size(const char32_t *in, size_t len){
+			size_t out_size = 0;
+			const auto end = in + len;
+			while(in < end) {
+				const auto tmp = get_encode_utf16_size(*in);
+				if(tmp == npos)
+					return npos;
+				out_size += tmp;
+				++in;
+			}
+			return out_size;
+		}
+		constexpr auto get_utf32_to_utf16_size(string_view_u32_t in){
+			return get_utf32_to_utf16_size(in.data(), in.size());
+		}
+		constexpr auto utf32_to_utf16(char16_t *out, const char32_t *in, size_t len) {
+			const auto end = in + len;
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success) {
+				return code_convert_result<char32_t, char16_t>(success, string_view_t<char32_t>(in_start, in - in_start), string_view_t<char16_t>(out_start, out - out_start));
+			};
+			while(in < end) {
+				auto tmp = encode_utf16(out, *in);
+				if(tmp == npos)
+					return result_builder(false);
+				out += tmp;
+				++in;
+			}
+			return result_builder(true);
+		}
+		constexpr auto utf32_to_utf16(char16_t *out, string_view_u32_t in) {
+			return utf32_to_utf16(out, in.data(), in.size());
+		}
+		constexpr auto utf32_to_utf8(char32_t ch, char8_t *out) {
+			return utf32_to_utf8(out, &ch, 1);
+		}
+		constexpr auto utf32_to_utf16(char32_t ch, char16_t *out) {
+			return utf32_to_utf16(out, &ch, 1);
+		}
+		constexpr auto utf16_to_utf8(char16_t ch, char8_t *out) {
+			return utf16_to_utf8(out, &ch, 1);
+		}
+
+		#include "../../_share/_undefs.hpp"
+	}
+	//
+	#include "_tools/undef_decl_system_type.hpp"
+#endif
+
+//file_end
+

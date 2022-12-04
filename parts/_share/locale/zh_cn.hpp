@@ -39,6 +39,10 @@ namespace elc::defs::locale::str{
 		inline constexpr auto load_failed=es"无法加载的package_symbol_loader"_constexpr_str;
 		inline constexpr auto load_interface_failed=es"package_symbol_loader缺失load_interface"_constexpr_str;
 	}
+	inline namespace streams{
+		inline constexpr auto stream_read_error=es"流读取错误"_constexpr_str;
+		inline constexpr auto stream_write_error=es"流写入错误"_constexpr_str;
+	}
 }
 
 //file_end

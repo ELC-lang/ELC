@@ -65,16 +65,16 @@ public:
 			//中间一段为comn_string_data_t，大小为max_static_data_size
 			ptr_t tmp=get<comn_string_data_t<char_T>>(max_static_data_size,_value);
 			//尽量确保index在中间一段的中间
-			size_t index_in_tmp=min(index,max_static_data_size/2);
+			const size_t index_in_tmp=min(index,max_static_data_size/2);
 			//将中间一段的index处的值改为a
 			tmp->arec_set(index_in_tmp,a,tmp);
 			//判断是否需要附加其他段
 			if(index>max_static_data_size/2){
-				size_t first_size=index-max_static_data_size/2;
+				const size_t first_size=index-max_static_data_size/2;
 				ptr_t first_p=get_clone_with_new_size(first_size);
 				tmp=get<sum_string_data_t<char_T>>(first_p,tmp);
 			}
-			size_t last_size=_size-tmp->get_size();
+			const size_t last_size=_size-tmp->get_size();
 			if(last_size){
 				ptr_t last_p=get_clone_with_new_size(last_size);
 				tmp=get<sum_string_data_t<char_T>>(tmp,last_p);

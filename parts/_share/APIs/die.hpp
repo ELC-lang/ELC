@@ -15,6 +15,13 @@ elc依赖的基础函数.
 	#include <cuchar>
 	#include <clocale>
 	#include "../default_data_type.hpp"
+	#include "./char_set.hpp"
+	#include "_tools/decl_system_type.hpp"
+	#if SYSTEM_TYPE == windows
+		#define NOMINMAX
+		#include <Windows.h>
+		#include <debugapi.h>
+	#endif
 	/// @brief 终止报错相关基础函数
 	namespace elc::APIs::die{
 		#include "../../_share/_defs.hpp"
@@ -23,8 +30,9 @@ elc依赖的基础函数.
 
 		/// @brief 终止整个程序并可能的触发断点或输出错误信息
 		[[noreturn]]inline void die()noexcept{
-			#if defined(_MSC_VER)
-				__debugbreak();
+			#if SYSTEM_TYPE == windows
+				if(IsDebuggerPresent())
+					__debugbreak();
 			#endif
 			#if defined(_WINMAIN_)
 				::MessageBoxW(NULL,L"elc died.",NULL,MB_ICONERROR);
@@ -36,52 +44,62 @@ elc依赖的基础函数.
 		}
 		/// @brief 同 die() ，但是有详细的错误信息
 		/// @param err_msg 错误信息
-		[[noreturn]]inline void die_with(const_string_ptr_t err_msg)noexcept{
-			#if defined(_MSC_VER)
-				__debugbreak();
+		[[noreturn]]inline void die_with(string_view err_msg)noexcept{
+			#if SYSTEM_TYPE == windows
+				if(IsDebuggerPresent())
+					__debugbreak();
 			#endif
-			push_and_disable_msvc_warning(
-				26485//数组转型警告diss
-				26475//强转警告diss
-				26481//指针操作警告diss
-				26429//nullness警告diss
-			)
 			if(err_msg){
-				::std::mbstate_t stat{};
-				if(::std::setlocale(LC_CTYPE,"en_US.utf8")==nullptr)
-					die();
-				push_and_disable_msvc_warning(26494);//未初始化警告diss
-				char err_msg_in_char[2048];
-				char* err_msg_write = err_msg_in_char;
-				size_t s;
-				char_t c;
-				pop_msvc_warning();
-				while(assign(c,*err_msg++)){
-					s = ::std::c32rtomb(err_msg_write, c, &stat);
-					if(s == size_t(-1))
-						die();
-					err_msg_write += s;
-				}
-				*err_msg_write = '\0';
-				#if defined(_WINMAIN_)
+				#if SYSTEM_TYPE == windows
+					push_and_disable_msvc_warning(26494);//未初始化警告diss
 					wchar_t err_msg_in_wchar[2048];
-					MultiByteToWideChar(CP_UTF8, 0, err_msg_in_char, -1, err_msg_in_wchar, 2048);
-					::MessageBoxW(NULL,err_msg_in_wchar,NULL,MB_ICONERROR);
+					pop_msvc_warning();
+					const auto size=char_set::utf32_to_utf16((char16_t*)err_msg_in_wchar,err_msg).processed_output().size();
+					err_msg_in_wchar[size]=L'\0';
+					#if defined(_WINMAIN_)
+						::MessageBoxW(NULL,err_msg_in_wchar,NULL,MB_ICONERROR);
+					#else
+						auto std_err=GetStdHandle(STD_ERROR_HANDLE);
+						WriteConsoleW(std_err,L"elc died because:\n",17,NULL,NULL);
+						WriteConsoleW(std_err,err_msg_in_wchar,(DWORD)size,NULL,NULL);
+						WriteConsoleW(std_err,L"\n",1,NULL,NULL);
+						FlushFileBuffers(std_err);
+					#endif
 				#else
+					::std::mbstate_t stat{};
+					push_and_disable_msvc_warning(26494);//未初始化警告diss
+					char err_msg_in_char[2048];
+					char* err_msg_write = err_msg_in_char;
+					size_t s;
+					pop_msvc_warning();
+					for(auto c:err_msg){
+						s = ::std::c32rtomb(err_msg_write, c, &stat);
+						push_and_disable_msvc_warning(26475)//强转警告diss
+						if(s == size_t(-1))
+							die();
+						pop_msvc_warning();
+						err_msg_write += s;
+					}
+					*err_msg_write = '\0';
 					::std::fputs("elc died because:\n",stderr);
 					::std::fputs(err_msg_in_char,stderr);
 					::std::fputc('\n',stderr);
 					::std::fflush(stderr);
 				#endif
 			}
+			else
+				die();
 			::std::abort();
-			pop_msvc_warning();
 		}
 
 		#include "../../_share/_undefs.hpp"
 	}
+	//
+	#include "_tools/undef_decl_system_type.hpp"
+
 	namespace elc::defs{
-		using namespace elc::APIs::die;
+		using elc::APIs::die::die;
+		using elc::APIs::die::die_with;
 	}
 #endif
 
