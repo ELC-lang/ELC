@@ -90,10 +90,16 @@ namespace elc::defs{
 				return to_arithmetic_base(::std::forward<T>(v));
 			}
 		}to_arithmetic{};
+		//判断wchar_t是否和char_t相同
+		inline constexpr bool wchar_t_same_as_char_t=sizeof(wchar_t)==sizeof(char_t);
+		//判断wchar_t是否和char16_t相同
+		inline constexpr bool wchar_t_same_as_char16_t=sizeof(wchar_t)==sizeof(char16_t);
 	}
 	using basic_environment::BIT_POSSIBILITY;
 	using basic_environment::unsigned_specific_size_t;
 	using basic_environment::to_arithmetic;
+	using basic_environment::wchar_t_same_as_char_t;
+	using basic_environment::wchar_t_same_as_char16_t;
 
 	#include "../_undefs.hpp"
 }

@@ -28,6 +28,51 @@ elc依赖的基础函数.
 
 		using namespace elc::defs;
 
+		struct die_state{
+			#if SYSTEM_TYPE == windows
+				HANDLE hConsole;
+				//text_color
+				WORD text_color;
+			#elif SYSTEM_TYPE == linux
+				//nothing
+			#endif
+		};
+
+		void Init_die_state(die_state&state)noexcept{
+			#if SYSTEM_TYPE == windows
+				state.hConsole=GetStdHandle(STD_ERROR_HANDLE);
+				//chenge color to red
+				CONSOLE_SCREEN_BUFFER_INFO csbi;
+				GetConsoleScreenBufferInfo(state.hConsole,&csbi);
+				state.text_color=csbi.wAttributes;
+				SetConsoleTextAttribute(state.hConsole,FOREGROUND_RED);
+			#endif
+		}
+
+		void ConsoleLog(const die_state&state,string_view_t<char> str)noexcept{
+			#if SYSTEM_TYPE == windows
+				WriteConsoleA(state.hConsole,str.data(),(DWORD)str.size(),nullptr,nullptr);
+			#elif SYSTEM_TYPE == linux
+				fputs(str.data(),stderr);
+			#endif
+		}
+		void ConsoleLog(const die_state&state,string_view_t<wchar_t> str)noexcept{
+			#if SYSTEM_TYPE == windows
+				WriteConsoleW(state.hConsole,str.data(),(DWORD)str.size(),nullptr,nullptr);
+			#elif SYSTEM_TYPE == linux
+				fputws(str.data(),stderr);
+			#endif
+		}
+		void ConsoleLogEnd(const die_state&state)noexcept{
+			#if SYSTEM_TYPE == windows
+				FlushFileBuffers(state.hConsole);
+				//chenge color back
+				SetConsoleTextAttribute(state.hConsole,state.text_color);
+			#elif SYSTEM_TYPE == linux
+				fflush(stderr);
+			#endif
+		}
+
 		/// @brief 终止整个程序并可能的触发断点或输出错误信息
 		[[noreturn]]inline void die()noexcept{
 			#if SYSTEM_TYPE == windows
@@ -36,10 +81,11 @@ elc依赖的基础函数.
 			#endif
 			#if defined(_WINMAIN_)
 				::MessageBoxW(NULL,L"elc died.",NULL,MB_ICONERROR);
-			#else
-				::std::fputs("elc died.\n",stderr);
-				::std::fflush(stderr);
 			#endif
+			die_state state;
+			Init_die_state(state);
+			ConsoleLog(state,"elc died.\n");
+			ConsoleLogEnd(state);
 			::std::abort();
 		}
 		/// @brief 同 die() ，但是有详细的错误信息
@@ -50,7 +96,7 @@ elc依赖的基础函数.
 					__debugbreak();
 			#endif
 			if(err_msg){
-				#if SYSTEM_TYPE == windows
+				if constexpr(wchar_t_same_as_char16_t){
 					push_and_disable_msvc_warning(26494);//未初始化警告diss
 					wchar_t err_msg_in_wchar[2048];
 					pop_msvc_warning();
@@ -58,14 +104,27 @@ elc依赖的基础函数.
 					err_msg_in_wchar[size]=L'\0';
 					#if defined(_WINMAIN_)
 						::MessageBoxW(NULL,err_msg_in_wchar,NULL,MB_ICONERROR);
-					#else
-						auto std_err=GetStdHandle(STD_ERROR_HANDLE);
-						WriteConsoleW(std_err,L"elc died because:\n",17,NULL,NULL);
-						WriteConsoleW(std_err,err_msg_in_wchar,(DWORD)size,NULL,NULL);
-						WriteConsoleW(std_err,L"\n",1,NULL,NULL);
-						FlushFileBuffers(std_err);
 					#endif
-				#else
+					die_state state;
+					Init_die_state(state);
+					ConsoleLog(state,L"elc died because:\n");
+					ConsoleLog(state,err_msg_in_wchar);
+					ConsoleLog(state,L"\n");
+					ConsoleLogEnd(state);
+				}
+				elseif constexpr(wchar_t_same_as_char_t){
+					string_view_t<wchar_t> err_msg_in_wchar{(const wchar_t*)err_msg.data(),err_msg.size()};
+					#if defined(_WINMAIN_)
+						::MessageBoxW(NULL,err_msg_in_wchar.data(),NULL,MB_ICONERROR);
+					#endif
+					die_state state;
+					Init_die_state(state);
+					ConsoleLog(state,L"elc died because:\n");
+					ConsoleLog(state,err_msg_in_wchar);
+					ConsoleLog(state,L"\n");
+					ConsoleLogEnd(state);
+				}
+				else{
 					::std::mbstate_t stat{};
 					push_and_disable_msvc_warning(26494);//未初始化警告diss
 					char err_msg_in_char[2048];
@@ -81,11 +140,16 @@ elc依赖的基础函数.
 						err_msg_write += s;
 					}
 					*err_msg_write = '\0';
-					::std::fputs("elc died because:\n",stderr);
-					::std::fputs(err_msg_in_char,stderr);
-					::std::fputc('\n',stderr);
-					::std::fflush(stderr);
-				#endif
+					#if defined(_WINMAIN_)
+						::MessageBoxA(NULL,err_msg_in_char,NULL,MB_ICONERROR);
+					#endif
+					die_state state;
+					Init_die_state(state);
+					ConsoleLog(state,"elc died because:\n");
+					ConsoleLog(state,err_msg_in_char);
+					ConsoleLog(state,"\n");
+					ConsoleLogEnd(state);
+				}
 			}
 			else
 				die();
