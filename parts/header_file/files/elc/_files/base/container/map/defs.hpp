@@ -20,7 +20,7 @@ namespace map_n{
 
 			struct seek_value_t{
 				const T*_m;
-				constexpr seek_value_t(const T&a):_m(addressof(a)){};
+				constexpr seek_value_t(const T&a)noexcept:_m(addressof(a)){};
 				[[nodiscard]]bool operator==(const data_t&a)const noexcept_as(a._value==*_m){
 					return bool(a._value==*_m);
 				}

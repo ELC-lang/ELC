@@ -93,7 +93,7 @@ public:
 	[[nodiscard]]virtual bool same_struct(ptr_t)noexcept override final{
 		return true;//总size被保证一样
 	}
-	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return {&_m[begin],note::size(get_size()-begin)};}
+	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{return{&_m[begin],note::size(get_size()-begin)};}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());
 		return equal(_m, wp->_m);

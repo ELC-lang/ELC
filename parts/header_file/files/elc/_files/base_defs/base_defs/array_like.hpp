@@ -97,12 +97,12 @@ namespace array_like_n{
 		typedef array_like_view_t<T>base_t;
 		using base_t::base_t;
 
-		[[nodiscard]]constexpr static size_t get_length_of(T*ptr){
+		[[nodiscard]]constexpr static size_t get_length_of(T*ptr)noexcept{
 			if(*ptr)return get_length_of(ptr+1)+1;
 			else return 0;
 		}
 
-		constexpr array_end_by_zero_t(T*ptr):base_t(ptr,get_length_of(ptr)){}
+		constexpr array_end_by_zero_t(T*ptr)noexcept:base_t(ptr,get_length_of(ptr)){}
 	};
 
 	template<class T>

@@ -28,12 +28,12 @@ private:
 	[[no_unique_address]]bool _is_false;
 	[[no_unique_address]]bool _is_unknown;
 public:
-	constexpr logical_bool(special_init_t,bool is_true,bool is_false,bool is_unknown=0):_is_true(is_true),_is_false(is_false),_is_unknown(is_unknown){}
-	constexpr logical_bool(bool a):_is_true(a),_is_false(!a),_is_unknown(0){}
-	constexpr logical_bool(const logical_bool&)=default;
-	constexpr logical_bool&operator=(const logical_bool&)& =default;
-	constexpr explicit operator bool()const{return _is_true && !_is_unknown;}
-	constexpr logical_bool operator!()const{
+	constexpr logical_bool(special_init_t,bool is_true,bool is_false,bool is_unknown=0)noexcept:_is_true(is_true),_is_false(is_false),_is_unknown(is_unknown){}
+	constexpr logical_bool(bool a)noexcept:_is_true(a),_is_false(!a),_is_unknown(0){}
+	constexpr logical_bool(const logical_bool&)noexcept=default;
+	constexpr logical_bool&operator=(const logical_bool&)&noexcept=default;
+	constexpr explicit operator bool()const noexcept{return _is_true && !_is_unknown;}
+	constexpr logical_bool operator!()const noexcept{
 		logical_bool aret=*this;
 		swap(aret._is_true,aret._is_false);
 		return aret;

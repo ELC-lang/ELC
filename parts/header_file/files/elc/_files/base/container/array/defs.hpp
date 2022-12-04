@@ -17,10 +17,10 @@ namespace array_n{
 
 		#if defined(DEBUG) || defined(_DEBUG)
 		/*return{ptr,size};*/
-		constexpr array_t(T*a,size_t s):_m(a),_size_for_debug_view(s){}
+		constexpr array_t(T*a,size_t s):_m(a),_size_for_debug_view(s)noexcept{}
 		#else
 		/*return{ptr};*/
-		constexpr array_t(T*a):_m(a){}
+		constexpr array_t(T*a)noexcept:_m(a){}
 		#endif
 		/*返回一个自身的副本*/
 		[[nodiscard]]this_t copy()const noexcept(copy_get.nothrow<T>) requires(copy_get.able<T>){

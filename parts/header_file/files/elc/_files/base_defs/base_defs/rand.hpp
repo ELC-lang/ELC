@@ -93,7 +93,7 @@ namespace rand_n{
 		static constexpr auto  εντροπία_size = εντροπία_num * sizeof(seed_type);
 		byte _εντροπία_data[εντροπία_size];
 
-		inline static constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
+		static inline constexpr void sowing_seed_one_step(seed_type&seed)noexcept{seed=13*seed+7;}
 	public:
 		[[nodiscard]]inline constexpr seed_type get_origin()const noexcept{return _seed_origin;}
 		inline constexpr void set(seed_type seed)noexcept{
@@ -203,7 +203,7 @@ namespace rand_n{
 		typedef base_rand_t base_t;
 	public:
 		using base_t::base_t;
-		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
+		[[nodiscard]]static force_inline constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
 		//rand
 		[[nodiscard]]force_inline T operator()()const noexcept{return _seed.gen_randbit<T>();}
 		//浮点特供：[0,1)和[0,1]
@@ -290,7 +290,7 @@ namespace rand_n{
 		typedef base_rand_t base_t;
 	public:
 		using base_t::base_t;
-		[[nodiscard]]force_inline static constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
+		[[nodiscard]]static force_inline constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
 		[[nodiscard]]force_inline T operator()()const noexcept{
 			return _seed.gen_randbit<unsigned char>()&unsigned char{1};
 		}

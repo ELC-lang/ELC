@@ -22,7 +22,7 @@ Returns true if all bytes in the input are zero.
 @returns True if all bytes in the input are zero.
 */
 template<class T>
-constexpr inline bool is_all_byte_zero(T&&a){
+inline constexpr bool is_all_byte_zero(T&&a)noexcept{
 	const byte*ptr=cast_to_data(addressof(a));
 	const byte*end=ptr+sizeof(a);
 	while(ptr!=end)

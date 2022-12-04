@@ -274,7 +274,7 @@ protected:
 			const char_T* head_begin = _m.end() - _used_size;
 			const char_T* head_end	 = _m.end();
 			const char_T* ret_begin	 = begin+head_begin;
-			return {ret_begin, head_end};
+			return{ret_begin, head_end};
 		}
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{

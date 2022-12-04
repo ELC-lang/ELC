@@ -174,7 +174,7 @@ protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
 		auto result = _to->get_the_largest_complete_data_block_begin_form(_sub_begin+begin);
 		auto size	= min(result.size(),_sub_size-begin);
-		return {result.begin(), note::size(size)};
+		return{result.begin(), note::size(size)};
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());

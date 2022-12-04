@@ -185,7 +185,7 @@ namespace function_n{
 		);
 
 		template<class T>
-		static constexpr bool get_data_able_helper(){
+		static constexpr bool get_data_able_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)
@@ -200,7 +200,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=get_data_able_helper<T>();
 		template<class T>
-		static constexpr bool get_data_nothrow_helper() {
+		static constexpr bool get_data_nothrow_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)
@@ -331,7 +331,7 @@ namespace function_n{
 		);
 
 		template<class T>
-		static constexpr bool get_data_able_helper(){
+		static constexpr bool get_data_able_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)
@@ -346,7 +346,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=get_data_able_helper<T>();
 		template<class T>
-		static constexpr bool get_data_nothrow_helper() {
+		static constexpr bool get_data_nothrow_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)
@@ -473,7 +473,7 @@ namespace function_n{
 		);
 
 		template<class T>
-		static constexpr bool get_data_able_helper(){
+		static constexpr bool get_data_able_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)
@@ -488,7 +488,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able=get_data_able_helper<T>();
 		template<class T>
-		static constexpr bool get_data_nothrow_helper() {
+		static constexpr bool get_data_nothrow_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
 				return true;
 			elseif constexpr(is_function_t<T>)

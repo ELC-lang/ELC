@@ -17,41 +17,41 @@ constexpr size_t number_of_possible_values_per=uintmax_t(max(type_info<::std::ma
 	用法: data_cast<T>(byte*) -> T&
 */
 template<class T>
-[[nodiscard]]force_inline constexpr T&data_cast(byte*p){return*reinterpret_cast<T*>(p);}
+[[nodiscard]]force_inline constexpr T&data_cast(byte*p)noexcept{return*reinterpret_cast<T*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr T&launder_data_cast(byte*p){return*::std::launder(data_cast<T>(p));}
+[[nodiscard]]force_inline constexpr T&launder_data_cast(byte*p)noexcept{return*::std::launder(data_cast<T>(p));}
 /*!
 	功能: byte* 类型数据转换为 T*，不进行任何检查
 	用法: data_ptr_cast<T>(byte*) -> T*
 */
 template<class T>
-[[nodiscard]]force_inline constexpr T*data_ptr_cast(byte*p){return reinterpret_cast<T*>(p);}
+[[nodiscard]]force_inline constexpr T*data_ptr_cast(byte*p)noexcept{return reinterpret_cast<T*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr T*launder_data_ptr_cast(byte*p){return ::std::launder(data_ptr_cast<T>(p));}
+[[nodiscard]]force_inline constexpr T*launder_data_ptr_cast(byte*p)noexcept{return ::std::launder(data_ptr_cast<T>(p));}
 /*!
 	功能: T* 指针转换为 byte*，不进行任何检查
 	用法: cast_to_data(T*) -> byte*
 */
 template<class T>
-[[nodiscard]]force_inline constexpr byte*cast_to_data(T*p){return reinterpret_cast<byte*>(p);}
+[[nodiscard]]force_inline constexpr byte*cast_to_data(T*p)noexcept{return reinterpret_cast<byte*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr byte*launder_cast_to_data(T*p){return ::std::launder(cast_to_data(p));}
+[[nodiscard]]force_inline constexpr byte*launder_cast_to_data(T*p)noexcept{return ::std::launder(cast_to_data(p));}
 /*!
 	功能: const T* 指针转换为 const byte*，不进行任何检查
 	用法: cast_to_data(const T*) -> const byte*
 */
 template<class T>
-[[nodiscard]]force_inline constexpr const byte*cast_to_data(const T*p){return reinterpret_cast<const byte*>(p);}
+[[nodiscard]]force_inline constexpr const byte*cast_to_data(const T*p)noexcept{return reinterpret_cast<const byte*>(p);}
 template<class T>
-[[nodiscard]]force_inline constexpr const byte*launder_cast_to_data(const T*p){return ::std::launder(cast_to_data(p));}
+[[nodiscard]]force_inline constexpr const byte*launder_cast_to_data(const T*p)noexcept{return ::std::launder(cast_to_data(p));}
 /*!
 	功能: T& 转换为 U&，不进行任何检查
 	用法: union_cast<U>(T&) -> U&
 */
 template<class U,class T>
-[[nodiscard]]force_inline constexpr U&union_cast(T&t){return*reinterpret_cast<U*>(&t);}
+[[nodiscard]]force_inline constexpr U&union_cast(T&t)noexcept{return*reinterpret_cast<U*>(&t);}
 template<class U,class T>
-[[nodiscard]]force_inline constexpr U&launder_union_cast(T&t){return*::std::launder(union_cast<U>(t));}
+[[nodiscard]]force_inline constexpr U&launder_union_cast(T&t)noexcept{return*::std::launder(union_cast<U>(t));}
 
 /*!
 	功能: data_block辅助变量模板，接受数个类型并表现为其中的最大对齐值
@@ -91,17 +91,17 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 					_data[i]=byte{};
 	}
 	pop_msvc_warning();
-	force_inline constexpr operator byte*(){return _data;}
-	force_inline constexpr operator const byte*()const{return _data;}
+	force_inline constexpr operator byte*()noexcept{return _data;}
+	force_inline constexpr operator const byte*()const noexcept{return _data;}
 	template<class T> requires(sizeof(T)<=size&&alignof(T)<=align)
-	force_inline constexpr auto&operator=(T&&t){
+	force_inline constexpr auto&operator=(T&&t)noexcept{
 		return data_cast<remove_cvref<T>>(_data)=forward<T>(t);
 	}
 	//begin & end
-	force_inline constexpr byte*begin(){return _data;}
-	force_inline constexpr byte*end(){return _data+size;}
-	force_inline constexpr const byte*begin()const{return _data;}
-	force_inline constexpr const byte*end()const{return _data+size;}
+	force_inline constexpr byte*begin()noexcept{return _data;}
+	force_inline constexpr byte*end()noexcept{return _data+size;}
+	force_inline constexpr const byte*begin()const noexcept{return _data;}
+	force_inline constexpr const byte*end()const noexcept{return _data+size;}
 };
 /*!
 	功能: data_block辅助类模板，接受一个size_t描述对齐大小的类型模板
@@ -116,12 +116,12 @@ struct alignas(max_align_of<Ts...>)align_as_t{};
 template<class T>
 struct data_view:array_like_view_t<byte>{
 	using array_like_view_t<byte>::array_like_view_t;
-	constexpr data_view(T*p):array_like_view_t<byte>{cast_to_data(p),sizeof(T)}{}
+	constexpr data_view(T*p)noexcept:array_like_view_t<byte>{cast_to_data(p),sizeof(T)}{}
 };
 template<class T>
 struct data_view<const T>:array_like_view_t<const byte>{
 	using array_like_view_t<const byte>::array_like_view_t;
-	constexpr data_view(const T*p):array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
+	constexpr data_view(const T*p)noexcept:array_like_view_t<const byte>{cast_to_data(p),sizeof(T)}{}
 };
 
 /*!
@@ -129,7 +129,7 @@ struct data_view<const T>:array_like_view_t<const byte>{
 	用法: full_equal_in_byte(const T&a,const T&b) -> bool
 */
 template<class T>
-[[nodiscard]]constexpr bool full_equal_in_byte(const T&a,const T&b){
+[[nodiscard]]constexpr bool full_equal_in_byte(const T&a,const T&b)noexcept{
 	return equal(cast_to_data(&a),cast_to_data(&b),sizeof(T));
 }
 

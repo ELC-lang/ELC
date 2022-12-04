@@ -101,11 +101,11 @@ namespace string_n{
 		//END_BLOCK
 
 		//BLOCK: 已知需要拷贝cso全部内容，判断是否值得结束cso的检查
-		force_inline static constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
+		static force_inline constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
 			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),(size_t)1);
 			return size>=max_size;
 		}
-		force_inline static void full_copy_cso_check(const string_t&str)noexcept{
+		static force_inline void full_copy_cso_check(const string_t&str)noexcept{
 			if(the_size_worth_to_end_cso(str.size()))
 				str._cso_check();
 		}
@@ -435,7 +435,7 @@ namespace string_n{
 				return _m->get_substr_data(begin,size);
 			}
 			else
-				return {};
+				return{};
 		}
 		[[nodiscard]]const char_T*	data()const noexcept{ if(_in_cso())return _get_cso_data();else return _m->get_data(_m); }
 		[[nodiscard]]char_T* writeable_data()noexcept{ return unique_c_str(); }

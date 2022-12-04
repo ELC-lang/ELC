@@ -45,7 +45,7 @@ namespace hash_n{
 	inline struct hash_t{
 	private:
 		template<class T>
-		[[nodiscard]]static constexpr inline bool nothrow_helper()noexcept{
+		[[nodiscard]]static inline constexpr bool nothrow_helper()noexcept{
 			if constexpr(is_pointer<T>)
 				return noexcept(pointer_hash(declvalue(const T&)));
 			elseif constexpr(is_fundamental_hash<T>)
@@ -66,7 +66,7 @@ namespace hash_n{
 		static constexpr bool nothrow=nothrow_helper<T>();
 	private:
 		template<class T>
-		[[nodiscard]]static constexpr inline bool able_helper()noexcept{
+		[[nodiscard]]static inline constexpr bool able_helper()noexcept{
 			if constexpr(is_pointer<T>)
 				return true;
 			elseif constexpr(is_fundamental_hash<T>)
@@ -184,14 +184,14 @@ namespace hash_n{
 
 				size=size%bitnumof_void;
 				if(value._value==0 || size==0)
-					return {void_hash};
+					return{void_hash};
 				if(size >= bit_range_max){
 					const bool is_npos = ::std::popcount(value._value)%BIT_POSSIBILITY;
 					aret = is_npos?npos_hash:void_hash;
 					size-=bit_range_max;
 				}
 				if(!size)
-					return {aret};
+					return{aret};
 			}
 			rot_iterator<decltype(aret)>rotl_offset = size;
 			while(size--){
@@ -221,7 +221,7 @@ namespace hash_n{
 		@returns The hash value of the array.
 		*/
 		template<class T>
-		[[nodiscard]]constexpr inline hash_value_t hash(const T*a,size_t size)const noexcept(nothrow<const T>){
+		[[nodiscard]]inline constexpr hash_value_t hash(const T*a,size_t size)const noexcept(nothrow<const T>){
 			return with_calculated_before(hash(nothing),0,a,size);
 		}
 		/*!
@@ -246,7 +246,7 @@ namespace hash_n{
 		@returns array_like_view_t<T> 对象的哈希值。
 		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t hash(const array_like_view_t<T>a)const noexcept(nothrow<T>){
+		[[nodiscard]]inline constexpr hash_value_t hash(const array_like_view_t<T>a)const noexcept(nothrow<T>){
 			return hash(a.begin(),a.size());
 		}
 		/*!
@@ -259,7 +259,7 @@ namespace hash_n{
 		@returns array_like_view_t<T> 对象的哈希值。
 		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]constexpr inline hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>a)const noexcept{
+		[[nodiscard]]inline constexpr hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>a)const noexcept{
 			return with_calculated_before(before,before_size,a.begin(),a.size());
 		}
 

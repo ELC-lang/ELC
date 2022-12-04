@@ -28,7 +28,7 @@ namespace function_base_n{
 	{using type=Ret_t(Args_t...)noexcept(nothrow);};
 
 	template<typename T>
-	[[nodiscard]]constexpr auto function_type_getter_conditional_helper(){
+	[[nodiscard]]constexpr auto function_type_getter_conditional_helper()noexcept{
 		if constexpr(::std::is_function_v<T>)
 			return type_info<T>;
 		elseif constexpr(is_pointer<T> && ::std::is_function_v<::std::remove_pointer_t<T>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
@@ -126,7 +126,7 @@ namespace function_base_n{
 	{using type=Ret_t(Args_t...)noexcept;};
 
 	template<typename T>
-	[[nodiscard]]constexpr auto function_type_getter_conditional_helper(){
+	[[nodiscard]]constexpr auto function_type_getter_conditional_helper()noexcept{
 		if constexpr(::std::is_function_v<T>)
 			return type_info<T>;
 		elseif constexpr(is_pointer<T> && ::std::is_function_v<::std::remove_pointer_t<T>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全

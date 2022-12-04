@@ -8,18 +8,18 @@
 */
 namespace overhead_n{
 	using namespace ::elc::defs;
-	constexpr size_t overhead_get_align(size_t align){
+	constexpr size_t overhead_get_align(size_t align)noexcept{
 		return max(align,alignof(size_t));//保证最高对齐需求
 	}
-	constexpr size_t overhead_get_offset_value(size_t align){
+	constexpr size_t overhead_get_offset_value(size_t align)noexcept{
 		align=overhead_get_align(align);
 		return (size_t(sizeof(size_t)/align)+bool(sizeof(size_t)%align))*align;//等同于sizeof(size_t)-sizeof(size_t)%align+(sizeof(size_t)%align?align:0)
 		//暨，偏移量既要大于sizeof(size_t)以装下overhead，又要是align的整数倍以保证T实例的对齐被满足
 	}
-	constexpr size_t correct_size(size_t size,size_t align){
+	constexpr size_t correct_size(size_t size,size_t align)noexcept{
 		return size+overhead_get_offset_value(align);
 	}
-	constexpr size_t correct_align(size_t align){
+	constexpr size_t correct_align(size_t align)noexcept{
 		return overhead_get_align(align);
 	}
 	inline pointer correct_pointer(pointer a,size_t align){

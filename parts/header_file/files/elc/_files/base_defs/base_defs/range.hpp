@@ -27,7 +27,7 @@ namespace range_n{
 
 		template <class U> requires(type_info<T>.can_convert_to<U>)
 		constexpr operator range_t<U>()const noexcept(type_info<T>.can_nothrow_convert_to<U>){
-			return {_begin,_end};
+			return{_begin,_end};
 		}
 	};
 

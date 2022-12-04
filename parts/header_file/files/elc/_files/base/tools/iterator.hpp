@@ -76,7 +76,7 @@ namespace iterator_n{
 				return noexcept(declvalue(base_t_w).get_value());
 		}
 
-		[[nodiscard]]static constexpr auto value_type_getter(){
+		[[nodiscard]]static constexpr auto value_type_getter()noexcept{
 			if constexpr(type_info<::std::remove_pointer_t<base_t_w>> == type_info<value_t>)
 				return type_info<decltype(*((base_t_w)_m))>;
 			elseif constexpr(was_not_an_ill_form(declvalue(base_t_w)->get_value()))

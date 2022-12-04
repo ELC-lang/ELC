@@ -30,7 +30,7 @@ namespace pool_n{
 		uint _unuse_indexes[ment_size];
 		data_block<T>_data[ment_size];//无需考虑对齐问题：data_block自动根据类型参数提出对齐要求，它定义于 "../../base_defs/data.hpp"
 
-		constexpr ment(){
+		constexpr ment()noexcept{
 			for(uint a=0;a!=ment_size;a++)_unuse_indexes[a]=a;
 			_unuse_indexes_index=ment_size;
 		}
@@ -111,7 +111,7 @@ namespace pool_n{
 		}
 	};
 	template<typename T>
-	constexpr ::std::uint_fast64_t get_ment_size(type_info_t<T>){
+	constexpr ::std::uint_fast64_t get_ment_size(type_info_t<T>)noexcept{
 		#if defined(_MSC_VER)
 			return (::std::uint_fast64_t)min(size_t(2048),size_t(0x7fffffff)/sizeof(T));
 		#else
@@ -119,7 +119,7 @@ namespace pool_n{
 		#endif
 	}
 	template<typename T>
-	constexpr bool pool_s_array_warning(type_info_t<T>){return 1;}
+	constexpr bool pool_s_array_warning(type_info_t<T>)noexcept{return 1;}
 	template<typename T>
 	struct alloc_by_pool{};
 	template<typename T>

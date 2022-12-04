@@ -149,10 +149,10 @@ protected:
 		if constexpr(construct<char_T>.trivial<const char_T&> && destruct.trivial<char_T>){
 			if(!_static_data_p)
 				_static_data_p=get<comn_string_data_t<char_T>>(max_static_data_size,_value);
-			return {_static_data_p->get_data(_static_data_p),note::size(min(_size-begin,max_static_data_size))};
+			return{_static_data_p->get_data(_static_data_p),note::size(min(_size-begin,max_static_data_size))};
 		}
 		else
-			return {&_value,note::size<size_t>(1)};
+			return{&_value,note::size<size_t>(1)};
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());

@@ -27,7 +27,7 @@ namespace elc::defs{
 		template<class T>
 		inline constexpr type_uniquer_t type_uniquer{};
 		//任意类型转算数类型
-		constexpr inline struct to_arithmetic_t{
+		inline constexpr struct to_arithmetic_t{
 			template<class T,class type>
 			//由于::std::is_convertible_v的歧义性质，使用requires表达式辅助推断type是否为实际支持的类型
 			//由于requires表达式的强制性质，使用::std::is_convertible_v辅助推断隐式转换是否可行

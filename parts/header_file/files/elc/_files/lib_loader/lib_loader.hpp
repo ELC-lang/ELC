@@ -120,7 +120,7 @@ namespace lib_loader_n{
 	[[nodiscard]]inline string get_symbol_name_form_symbol(function_t<Func_t> symbol)noexcept{
 		auto symbol_info=symbol.get_as<base_symbol_t>();
 		if(symbol_info.fail())
-			return {};
+			return{};
 		else
 			return symbol_info.get_ref()._name;
 	}

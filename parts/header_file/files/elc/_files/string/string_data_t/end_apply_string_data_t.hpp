@@ -270,7 +270,7 @@ protected:
 			return _to->get_the_largest_complete_data_block_begin_form(begin);
 		else {
 			begin-=_to_size;
-			return {_m.begin()+begin,note::size(_used_size-begin)};
+			return{_m.begin()+begin,note::size(_used_size-begin)};
 		}
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
