@@ -33,6 +33,10 @@ namespace base_fstream_defs{
 		virtual void close()noexcept override{
 			basic_close_impl(_file);
 		}
+		//fried get_handle_from
+		friend handle_t get_handle_from(base_frefstream&stream)noexcept{
+			return stream._file;
+		}
 	};
 	struct base_fstream:base_frefstream,instance_struct<base_fstream>{
 	private:
@@ -105,15 +109,35 @@ namespace base_fstream_defs{
 			APIs::streams::write_text_to_stream(base_t::_file,buf,size);
 		}
 	}err_impl{};
-	distinctive inline struct input_stream_impl_t:base_text_irefstream<char_t>,instance_struct<input_stream_impl_t>{
+	struct input_stream_iterface_t:virtual noexcept_text_istream<char_t>{
+		virtual void echo_to(base_frefstream&)noexcept=0;
+		virtual void tie_with(base_frefstream&)noexcept=0;
+		virtual size_t no_echo_read(char_t*buf,size_t size)noexcept=0;
+	};
+	distinctive inline struct input_stream_impl_t:input_stream_iterface_t,base_text_irefstream<char_t>,instance_struct<input_stream_impl_t>{
 	private:
 		typedef base_text_irefstream<char_t> base_t;
 		typedef input_stream_impl_t this_t;
 		override_instance_struct;
+
+		handle_t _echo_to,_tie_with;
 	public:
-		input_stream_impl_t()noexcept:base_t(init_input_stream()){}
+		virtual void echo_to(base_frefstream&stream)noexcept override{
+			_echo_to=get_handle_from(stream);
+		}
+		virtual void tie_with(base_frefstream&stream)noexcept override{
+			_tie_with=get_handle_from(stream);
+		}
+		input_stream_impl_t()noexcept:base_t(init_input_stream()){
+			echo_to(out_impl);
+			tie_with(out_impl);
+		}
 		virtual size_t read(char_t*buf,size_t size)noexcept override{
-			return APIs::streams::read_text_from_stream(base_t::_file,buf,size);
+			basic_flush_impl(_tie_with);
+			return APIs::streams::read_text_from_stream(base_t::_file,buf,size,_echo_to);
+		}
+		virtual size_t no_echo_read(char_t*buf,size_t size)noexcept override{
+			return APIs::streams::read_text_from_stream(base_t::_file,buf,size,nullptr);
 		}
 	}in_impl{};
 }

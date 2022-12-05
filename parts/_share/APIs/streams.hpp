@@ -43,35 +43,29 @@ elc依赖的基础函数.
 		#endif
 		handle_type;
 
-		distinctive inline struct streams_handles_t{
-			handle_type output_stream;
-			handle_type input_stream;
-			handle_type error_stream;
-		}streams_handles;
-
 		force_inline handle_type init_output_stream()noexcept{
+			return
 			#if SYSTEM_TYPE == windows
-				streams_handles.output_stream = GetStdHandle(STD_OUTPUT_HANDLE);
+				GetStdHandle(STD_OUTPUT_HANDLE);
 			#elif SYSTEM_TYPE == linux
-				streams_handles.output_stream = STDOUT_FILENO;
+				STDOUT_FILENO;
 			#endif
-			return streams_handles.output_stream;
 		}
 		force_inline handle_type init_input_stream()noexcept{
+			return
 			#if SYSTEM_TYPE == windows
-				streams_handles.input_stream = GetStdHandle(STD_INPUT_HANDLE);
+				GetStdHandle(STD_INPUT_HANDLE);
 			#elif SYSTEM_TYPE == linux
-				streams_handles.input_stream = STDIN_FILENO;
+				STDIN_FILENO;
 			#endif
-			return streams_handles.input_stream;
 		}
 		force_inline handle_type init_error_stream()noexcept{
+			return
 			#if SYSTEM_TYPE == windows
-				streams_handles.error_stream = GetStdHandle(STD_ERROR_HANDLE);
+				GetStdHandle(STD_ERROR_HANDLE);
 			#elif SYSTEM_TYPE == linux
-				streams_handles.error_stream = STDERR_FILENO;
+				STDERR_FILENO;
 			#endif
-			return streams_handles.error_stream;
 		}
 
 		//basic_read_impl
@@ -199,7 +193,7 @@ elc依赖的基础函数.
 				}
 			#endif
 		}
-		inline size_t read_text_from_stream(handle_type stream,char_t*buffer,size_t size)noexcept{
+		inline size_t read_text_from_stream(handle_type stream,char_t*buffer,size_t size,handle_type echo_stream)noexcept{
 			//GetConsoleMode if LINE_INPUT_MODE
 			#if SYSTEM_TYPE == windows
 				DWORD ConsoleModeBackup;
@@ -234,6 +228,8 @@ elc依赖的基础函数.
 					if(!z)
 						die_with(locale::str::code_convert_error);
 					s=z.processed_output().size();
+					if(echo_stream)
+						basic_write_impl(echo_stream,r,s);
 					v=char_set::utf32_to_utf8_code_size-s;
 					copy_assign[v](r,r+s);
 				}
@@ -263,6 +259,8 @@ elc依赖的基础函数.
 					if(!z)
 						die_with(locale::str::code_convert_error);
 					s=z.processed_output().size();
+					if(echo_stream)
+						WriteConsoleW(echo_stream,r,(DWORD)s,nullptr,nullptr);
 					v=char_set::utf32_to_utf16_code_size-s;
 					copy_assign[v](r,r+s);
 				}
