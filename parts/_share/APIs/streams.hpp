@@ -22,6 +22,7 @@ elc依赖的基础函数.
 	#include "_tools/decl_system_type.hpp"
 	#if SYSTEM_TYPE == linux
 		#include <unistd.h>
+		#include <termios.h>
 	#elif SYSTEM_TYPE == windows
 		#define NOMINMAX
 		#include <Windows.h>
@@ -205,6 +206,13 @@ elc依赖的基础函数.
 				GetConsoleMode(stream, &ConsoleModeBackup);
 				//disable line input mode
 				SetConsoleMode(stream, ConsoleModeBackup & ~ENABLE_LINE_INPUT);
+			#elif SYSTEM_TYPE == linux
+				//no echo and disable line input mode
+				termios oldt;
+				tcgetattr(stream, &oldt);
+				termios newt = oldt;
+				newt.c_lflag &= ~(ICANON | ECHO);
+				tcsetattr(stream, TCSANOW, &newt);
 			#endif
 			//read utf-8 text from stream in linux(utf-16 in windows) and convert it to utf-32
 			size_t read_size=0;
@@ -265,6 +273,8 @@ elc依赖的基础函数.
 			#endif
 			#if SYSTEM_TYPE == windows
 				SetConsoleMode(stream, ConsoleModeBackup);
+			#elif SYSTEM_TYPE == linux
+				tcsetattr(stream, TCSANOW, &oldt);
 			#endif
 			return read_size;
 		}
