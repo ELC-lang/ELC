@@ -46,6 +46,9 @@ elc依赖的基础函数.
 				GetConsoleScreenBufferInfo(state.hConsole,&csbi);
 				state.text_color=csbi.wAttributes;
 				SetConsoleTextAttribute(state.hConsole,FOREGROUND_RED);
+			#elif SYSTEM_TYPE == linux
+				//chenge color to red
+				fputs("\033[31m",stderr);
 			#endif
 		}
 
@@ -70,6 +73,8 @@ elc依赖的基础函数.
 				SetConsoleTextAttribute(state.hConsole,state.text_color);
 			#elif SYSTEM_TYPE == linux
 				fflush(stderr);
+				//chenge color back
+				fputs("\033[0m",stderr);
 			#endif
 		}
 
