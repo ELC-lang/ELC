@@ -60,7 +60,7 @@ namespace function_n{
 			else
 				return false;
 		}
-		[[nodiscard]]virtual Ret_t call(Args_t...args)noexcept(invoke<T>.nothrow<Args_t...>)override final{
+		[[nodiscard]]virtual Ret_t call(Args_t...args)noexcept(invoke<T>.with_return_type<Ret_t>.nothrow<Args_t...>)override final{
 			return data_t::operator()(forward<Args_t>(args)...);
 		}
 
@@ -192,7 +192,7 @@ namespace function_n{
 				return false;
 			elseif constexpr(::std::is_function_v<T>)
 				return get_data_able_helper<decltype(&declvalue(T))>();
-			elseif constexpr(invoke<T>.able<Args_t...>)
+			elseif constexpr(invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
 				return false;
@@ -207,7 +207,7 @@ namespace function_n{
 				return false;
 			elseif constexpr(::std::is_function_v<T>)
 				return get_data_nothrow_helper<decltype(&declvalue(T))>();
-			elseif constexpr(invoke<T>.able<Args_t...>)
+			elseif constexpr(invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 			else
 				return false;
@@ -226,7 +226,7 @@ namespace function_n{
 				if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
 					template_error("unexpected assign.");
 				if constexpr(nothrow)
-					if constexpr(!invoke<T>.nothrow<Args_t...>)
+					if constexpr(!invoke<T>.with_return_type<Ret_t>.nothrow<Args_t...>)
 						template_warning("the call of T was not noexcept,this may cause terminate.");
 				//BLOCK_END
 				return get<func_data_t<remove_cvref<T>>>(a);
@@ -338,7 +338,7 @@ namespace function_n{
 				return false;
 			elseif constexpr(::std::is_function_v<T>)
 				return get_data_able_helper<decltype(&declvalue(T))>();
-			elseif constexpr(invoke<T>.able<Args_t...>)
+			elseif constexpr(invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
 				return false;
@@ -353,7 +353,7 @@ namespace function_n{
 				return false;
 			elseif constexpr(::std::is_function_v<T>)
 				return get_data_nothrow_helper<decltype(&declvalue(T))>();
-			elseif constexpr(invoke<T>.able<Args_t...>)
+			elseif constexpr(invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 			else
 				return false;
@@ -480,7 +480,7 @@ namespace function_n{
 				return false;
 			elseif constexpr(::std::is_function_v<T>)
 				return get_data_able_helper<decltype(&declvalue(T))>();
-			elseif constexpr(invoke<T>.able<Args_t...>)
+			elseif constexpr(invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.able<T>;
 			else
 				return false;
@@ -495,7 +495,7 @@ namespace function_n{
 				return false;
 			elseif constexpr(::std::is_function_v<T>)
 				return get_data_nothrow_helper<decltype(&declvalue(T))>();
-			elseif constexpr(invoke<T>.able<Args_t...>)
+			elseif constexpr(invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
 				return get<func_data_t<remove_cvref<T>>>.nothrow<T>;
 			else
 				return false;
@@ -514,7 +514,7 @@ namespace function_n{
 				if constexpr(promise_nothrow_at_destruct and not destruct.nothrow<T>)
 					template_error("unexpected assign.");
 				if constexpr(1)
-					if constexpr(!invoke<T>.nothrow<Args_t...>)
+					if constexpr(!invoke<T>.with_return_type<Ret_t>.nothrow<Args_t...>)
 						template_warning("the call of T was not noexcept,this may cause terminate.");
 				//BLOCK_END
 				return get<func_data_t<remove_cvref<T>>>(a);
