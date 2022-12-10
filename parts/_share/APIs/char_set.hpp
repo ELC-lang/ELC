@@ -431,6 +431,8 @@ elc依赖的基础函数.
 		inline constexpr auto utf16_to_utf8(char16_t ch, char8_t *out)noexcept{
 			return utf16_to_utf8(out, &ch, 1);
 		}
+		inline constexpr auto utf16_to_utf32(char32_t *out, char16_t in)noexcept=delete;
+		inline constexpr auto utf8_to_utf16(char16_t *out, char8_t in)noexcept=delete;
 
 		#include "../../_share/_undefs.hpp"
 	}

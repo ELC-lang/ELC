@@ -95,7 +95,7 @@ namespace base_fstream_defs{
 	public:
 		output_stream_impl_t()noexcept:base_t(init_output_stream()){}
 		virtual void write(const char_t*buf,size_t size)noexcept override{
-			APIs::streams::write_text_to_stream(base_t::_file,buf,size);
+			APIs::streams::write_text_to_terminal_stream(base_t::_file, buf, size);
 		}
 	}out_impl{};
 	distinctive inline struct error_stream_impl_t:base_text_orefstream<char_t>,instance_struct<error_stream_impl_t>{
@@ -106,7 +106,7 @@ namespace base_fstream_defs{
 	public:
 		error_stream_impl_t()noexcept:base_t(init_error_stream()){}
 		virtual void write(const char_t*buf,size_t size)noexcept override{
-			APIs::streams::write_text_to_stream(base_t::_file,buf,size);
+			APIs::streams::write_text_to_terminal_stream(base_t::_file, buf, size);
 		}
 	}err_impl{};
 	struct input_stream_iterface_t:virtual noexcept_text_istream<char_t>{
@@ -134,10 +134,10 @@ namespace base_fstream_defs{
 		}
 		virtual size_t read(char_t*buf,size_t size)noexcept override{
 			basic_flush_impl(_tie_with);
-			return APIs::streams::read_text_from_stream(base_t::_file,buf,size,_echo_to);
+			return APIs::streams::read_text_from_terminal_stream(base_t::_file, buf, size, _echo_to);
 		}
 		virtual size_t no_echo_read(char_t*buf,size_t size)noexcept override{
-			return APIs::streams::read_text_from_stream(base_t::_file,buf,size,nullptr);
+			return APIs::streams::read_text_from_terminal_stream(base_t::_file, buf, size, nullptr);
 		}
 	}in_impl{};
 }

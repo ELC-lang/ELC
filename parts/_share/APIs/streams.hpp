@@ -43,6 +43,51 @@ elc依赖的基础函数.
 		#endif
 		handle_type;
 
+		//定义基础类型
+		//用配套的系统api可以从handle_type指代的控制台中读写的基础类型，越大越好
+		typedef
+		#if SYSTEM_TYPE == windows
+			wchar_t//windows下的wchar_t是utf-16，可以使用WriteConsoleW和ReadConsoleW从控制台的handle_type中读写
+		#elif SYSTEM_TYPE == linux
+			char//linux下的char是utf-8，可以使用write和read从控制台的handle_type中读写
+		#endif
+		base_input_char_type;
+
+		constexpr size_t code_convert_buf_size=
+		#if SYSTEM_TYPE == windows
+			char_set::utf32_to_utf16_code_size
+		#elif SYSTEM_TYPE == linux
+			char_set::utf32_to_utf8_code_size
+		#endif
+		;
+
+		//编码转换
+		//code_convert_impl
+		inline auto code_convert_to_input_char_t_impl(base_input_char_type* out, const char32_t* in, size_t size)noexcept{
+			#if SYSTEM_TYPE == windows
+				return char_set::utf32_to_utf16((char16_t*)out, in, size);
+			#elif SYSTEM_TYPE == linux
+				return char_set::utf32_to_utf8(out, in, size);
+			#endif
+		}
+		inline auto code_convert_to_char_t_impl(char32_t* out, const base_input_char_type* in, size_t size)noexcept{
+			#if SYSTEM_TYPE == windows
+				return char_set::utf16_to_utf32(out, (const char16_t*)in, size);
+			#elif SYSTEM_TYPE == linux
+				return char_set::utf8_to_utf32(out, in, size);
+			#endif
+		}
+		//单个字符
+		inline auto code_convert_to_input_char_t_impl(char32_t in, base_input_char_type* out)noexcept{
+			#if SYSTEM_TYPE == windows
+				return char_set::utf32_to_utf16(in, (char16_t*)out);
+			#elif SYSTEM_TYPE == linux
+				return char_set::utf32_to_utf8(in, out);
+			#endif
+		}
+		inline auto code_convert_to_char_t_impl(base_input_char_type in, char32_t* out)noexcept=delete;
+
+		//初始化流
 		force_inline handle_type init_output_stream()noexcept{
 			return
 			#if SYSTEM_TYPE == windows
@@ -88,6 +133,29 @@ elc依赖的基础函数.
 				return write_count;
 			#elif SYSTEM_TYPE == linux
 				return write(handle, buffer, size);
+			#endif
+		}
+		//由于windows的WriteFile不能正确处理终端io，特化终端io所需的impl of read/write
+		//basic_read_for_terminal_impl
+		inline size_t basic_read_for_terminal_impl(handle_type handle, base_input_char_type* buffer, size_t size)noexcept{
+			#if SYSTEM_TYPE == windows
+				DWORD read_count;
+				push_and_disable_msvc_warning(6031);//返回值忽略警告diss
+				ReadConsoleW(handle, buffer,(DWORD)size, &read_count, nullptr);
+				pop_msvc_warning();
+				return read_count;
+			#elif SYSTEM_TYPE == linux
+				return read(handle, buffer, size*sizeof(base_input_char_type))/sizeof(base_input_char_type);
+			#endif
+		}
+		//basic_write_for_terminal_impl
+		inline size_t basic_write_for_terminal_impl(handle_type handle, const base_input_char_type* buffer, size_t size)noexcept{
+			#if SYSTEM_TYPE == windows
+				DWORD write_count;
+				WriteConsoleW(handle, buffer,(DWORD)size, &write_count, nullptr);
+				return write_count;
+			#elif SYSTEM_TYPE == linux
+				return write(handle, buffer, size*sizeof(base_input_char_type))/sizeof(base_input_char_type);
 			#endif
 		}
 		//basic_flush_impl
@@ -163,37 +231,22 @@ elc依赖的基础函数.
 			#endif
 		}
 
-		inline void write_text_to_stream(handle_type stream,const char_t*buffer,size_t size)noexcept{
-			//convert utf-32 text to utf-8 in linux(utf-16 in windows) and write it to stream
-			#if SYSTEM_TYPE == linux
-				push_and_disable_msvc_warning(26494);//未初始化警告diss
-				ptrdiff_t s;
-				char8_t r[char_set::utf32_to_utf8_code_size];
-				pop_msvc_warning();
-				for(size_t i=0;i<size;i++){
-					//convert it to utf-8
-					s=char_set::utf32_to_utf8(buffer[i],r);
-					if(s == size_t(-1))
-						die_with(locale::str::code_convert_error);
-					//write it to stream
-					basic_write_impl(stream,r,s*sizeof(char8_t));
-				}
-			#elif SYSTEM_TYPE == windows
-				push_and_disable_msvc_warning(26494);//未初始化警告diss
-				char16_t r[char_set::utf32_to_utf16_code_size];
-				pop_msvc_warning();
-				for(size_t i=0;i<size;i++){
-					//convert it to utf-16
-					const auto s=char_set::utf32_to_utf16(buffer[i],r);
-					if(!s)
-						die_with(locale::str::code_convert_error);
-					//write it to stream with WriteConsoleW
-					DWORD write_count;
-					WriteConsoleW(stream,r,(DWORD)s.processed_output().size(),&write_count,nullptr);
-				}
-			#endif
+		inline void write_text_to_terminal_stream(handle_type stream,const char_t*buffer,size_t size)noexcept{
+			//convert utf-32 text to base_input_char_type and write it to stream
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
+			ptrdiff_t s;
+			base_input_char_type r[code_convert_buf_size];
+			pop_msvc_warning();
+			for(size_t i=0;i<size;i++){
+				//convert it to base_input_char_type
+				s=code_convert_to_input_char_t_impl(buffer[i],r).processed_output().size();
+				if(s == size_t(-1))
+					die_with(locale::str::code_convert_error);
+				//write it to stream
+				basic_write_for_terminal_impl(stream,r,s*sizeof(char8_t));
+			}
 		}
-		inline size_t read_text_from_stream(handle_type stream,char_t*buffer,size_t size,handle_type echo_stream)noexcept{
+		inline size_t read_text_from_terminal_stream(handle_type stream,char_t*buffer,size_t size,handle_type echo_stream)noexcept{
 			//GetConsoleMode if LINE_INPUT_MODE
 			#if SYSTEM_TYPE == windows
 				DWORD ConsoleModeBackup;
@@ -204,71 +257,40 @@ elc依赖的基础函数.
 				//no echo and disable line input mode
 				termios oldt;
 				tcgetattr(stream, &oldt);
-				termios newt = oldt;
-				newt.c_lflag &= ~(ICANON | ECHO);
-				tcsetattr(stream, TCSANOW, &newt);
+				{
+					termios newt = oldt;
+					newt.c_lflag &= ~(ICANON | ECHO);
+					tcsetattr(stream, TCSANOW, &newt);
+				}
 			#endif
-			//read utf-8 text from stream in linux(utf-16 in windows) and convert it to utf-32
+			//read base_input_char_type and convert it to utf-32
 			size_t read_size=0;
-			#if SYSTEM_TYPE == linux
-				push_and_disable_msvc_warning(26494);//未初始化警告diss
-				size_t s;
-				size_t v=0;
-				char8_t r[char_set::utf32_to_utf8_code_size+1];
-				pop_msvc_warning();
-				size_t i=0;
-				for(;i<size;i++){
-					//read it from stream
-					s=basic_read_impl(stream,r+v,sizeof(char8_t)*(char_set::utf32_to_utf8_code_size-v));
-					if(s == 0)
-						break;
-					r[s+v]=0;
-					//convert it to utf-32
-					auto z=char_set::utf8_to_utf32(buffer+i,r,1);
-					if(!z)
-						die_with(locale::str::code_convert_error);
-					s=z.processed_output().size();
-					if(echo_stream)
-						basic_write_impl(echo_stream,r,s);
-					v=char_set::utf32_to_utf8_code_size-s;
-					copy_assign[v](r,r+s);
-				}
-				read_size = i;
-				//put back chars if v != 0
-				if(v != 0)
-					basic_seek_impl(stream,-(ptrdiff_t)v*sizeof(char8_t),cur);
-			#elif SYSTEM_TYPE == windows
-				push_and_disable_msvc_warning(26494);//未初始化警告diss
-				size_t s;
-				size_t v=0;
-				char16_t r[char_set::utf32_to_utf16_code_size+1];
-				pop_msvc_warning();
-				size_t i=0;
-				for(;i<size;i++){
-					//read it from stream with ReadConsoleW
-					{
-						DWORD read_count;
-						ReadConsoleW(stream,r+v,(DWORD)(char_set::utf32_to_utf16_code_size-v),&read_count,nullptr);
-						s=read_count;
-					}
-					if(s == 0)
-						break;
-					r[s+v]=0;
-					//convert it to utf-32
-					const auto z=char_set::utf16_to_utf32(buffer+i,r,1);
-					if(!z)
-						die_with(locale::str::code_convert_error);
-					s=z.processed_output().size();
-					if(echo_stream)
-						WriteConsoleW(echo_stream,r,(DWORD)s,nullptr,nullptr);
-					v=char_set::utf32_to_utf16_code_size-s;
-					copy_assign[v](r,r+s);
-				}
-				read_size = i;
-				//put back chars if v != 0
-				if(v != 0)
-					basic_seek_impl(stream,-(ptrdiff_t)v*sizeof(char16_t),cur);
-			#endif
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
+			size_t s;
+			size_t v=0;
+			base_input_char_type r[code_convert_buf_size+1];//+1是为了保证最后一个字符是0以方便编码转换函数判断
+			pop_msvc_warning();
+			size_t i=0;
+			for(;i<size;i++){
+				//read it from stream
+				s=basic_read_for_terminal_impl(stream,r+v,sizeof(char8_t)*(code_convert_buf_size-v));
+				if(s == 0)
+					break;
+				r[s+v]=0;
+				//convert it to utf-32
+				auto z=code_convert_to_char_t_impl(buffer+i,r,1);
+				if(!z)
+					die_with(locale::str::code_convert_error);
+				s=z.processed_output().size();
+				if(echo_stream)
+					basic_write_for_terminal_impl(echo_stream,r,s);
+				v=code_convert_buf_size-s;
+				copy_assign[v](r,r+s);
+			}
+			read_size = i;
+			//put back chars if v != 0
+			if(v != 0)
+				basic_seek_impl(stream,-(ptrdiff_t)v*sizeof(char8_t),cur);
 			#if SYSTEM_TYPE == windows
 				SetConsoleMode(stream, ConsoleModeBackup);
 			#elif SYSTEM_TYPE == linux
