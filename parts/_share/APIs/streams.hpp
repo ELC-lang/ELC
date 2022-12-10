@@ -258,9 +258,10 @@ elc依赖的基础函数.
 				termios oldt;
 				tcgetattr(stream, &oldt);
 				{
-					termios newt = oldt;
-					newt.c_lflag &= ~(ICANON | ECHO);
-					tcsetattr(stream, TCSANOW, &newt);
+					auto flgbak = oldt.c_lflag;
+					oldt.c_lflag &= ~(ECHO | ICANON);
+					tcsetattr(stream, TCSANOW, &oldt);
+					oldt.c_lflag = flgbak;
 				}
 			#endif
 			//read base_input_char_type and convert it to utf-32
