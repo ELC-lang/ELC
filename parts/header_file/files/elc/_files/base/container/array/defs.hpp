@@ -17,7 +17,7 @@ namespace array_n{
 
 		#if defined(DEBUG) || defined(_DEBUG)
 		/*return{ptr,size};*/
-		constexpr array_t(T*a,size_t s):_m(a),_size_for_debug_view(s)noexcept{}
+		constexpr array_t(T*a,size_t s)noexcept:_m(a),_size_for_debug_view(s){}
 		#else
 		/*return{ptr};*/
 		constexpr array_t(T*a)noexcept:_m(a){}

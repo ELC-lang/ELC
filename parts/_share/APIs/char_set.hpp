@@ -82,6 +82,8 @@ elc依赖的基础函数.
 					*out = (code1 << 18) + (code2 << 12) + (code3 << 6) + code4 - 0x3C82080;
 					return 4;
 				}
+				else
+					return npos;
 			}
 			inline constexpr size_t get_decode_utf8_size(const char8_t* in)noexcept{
 				if(*in < 0x80) /* 1-byte sequence */
@@ -434,6 +436,87 @@ elc依赖的基础函数.
 		inline constexpr void utf16_to_utf32(char32_t *out, char16_t in)noexcept=delete;
 		inline constexpr void utf8_to_utf16(char16_t *out, char8_t in)noexcept=delete;
 
+		//
+
+		//utf32 to utf32 for compatible
+		inline constexpr auto utf32_to_utf32(char32_t *out, const char32_t *in, size_t len)noexcept{
+			const auto end = in + len;
+			//for return
+			const auto out_start = out;
+			const auto in_start = in;
+			auto result_builder = [&](bool success)noexcept{
+				return code_convert_result<char32_t, char32_t>(success, string_view_t<char32_t>(in_start, in - in_start), string_view_t<char32_t>(out_start, out - out_start));
+			};
+			while(in < end){
+				*out++ = *in++;
+			}
+			return result_builder(true);
+		}
+		inline constexpr auto utf32_to_utf32(char32_t *out, string_view_u32_t in)noexcept{
+			return utf32_to_utf32(out, in.data(), in.size());
+		}
+		inline constexpr auto utf32_to_utf32(char32_t ch, char32_t *out)noexcept{
+			return utf32_to_utf32(out, &ch, 1);
+		}
+
+		//utf32 to auto
+		force_inline constexpr auto utf32_to_auto(char32_t *out, const char32_t *in, size_t len)noexcept{
+			return utf32_to_utf32(out, in, len);
+		}
+		force_inline constexpr auto utf32_to_auto(char16_t *out, const char32_t *in, size_t len)noexcept{
+			return utf32_to_utf16(out, in, len);
+		}
+		force_inline constexpr auto utf32_to_auto(char8_t *out, const char32_t *in, size_t len)noexcept{
+			return utf32_to_utf8(out, in, len);
+		}
+		force_inline constexpr auto utf32_to_auto(char32_t *out, string_view_u32_t in)noexcept{
+			return utf32_to_utf32(out, in.data(), in.size());
+		}
+		force_inline constexpr auto utf32_to_auto(char16_t *out, string_view_u32_t in)noexcept{
+			return utf32_to_utf16(out, in.data(), in.size());
+		}
+		force_inline constexpr auto utf32_to_auto(char8_t *out, string_view_u32_t in)noexcept{
+			return utf32_to_utf8(out, in.data(), in.size());
+		}
+		force_inline constexpr auto utf32_to_auto(char32_t ch, char32_t *out)noexcept{
+			return utf32_to_utf32(out, &ch, 1);
+		}
+		force_inline constexpr auto utf32_to_auto(char32_t ch, char16_t *out)noexcept{
+			return utf32_to_utf16(out, &ch, 1);
+		}
+		force_inline constexpr auto utf32_to_auto(char32_t ch, char8_t *out)noexcept{
+			return utf32_to_utf8(out, &ch, 1);
+		}
+
+		//auto to utf32
+		force_inline constexpr auto auto_to_utf32(char32_t *out, const char32_t *in, size_t len)noexcept{
+			return utf32_to_utf32(out, in, len);
+		}
+		force_inline constexpr auto auto_to_utf32(char32_t *out, const char16_t *in, size_t len)noexcept{
+			return utf16_to_utf32(out, in, len);
+		}
+		force_inline constexpr auto auto_to_utf32(char32_t *out, const char8_t *in, size_t len)noexcept{
+			return utf8_to_utf32(out, in, len);
+		}
+		force_inline constexpr auto auto_to_utf32(char32_t *out, string_view_u32_t in)noexcept{
+			return utf32_to_utf32(out, in.data(), in.size());
+		}
+		force_inline constexpr auto auto_to_utf32(char32_t *out, string_view_u16_t in)noexcept{
+			return utf16_to_utf32(out, in.data(), in.size());
+		}
+		force_inline constexpr auto auto_to_utf32(char32_t *out, string_view_u8_t in)noexcept{
+			return utf8_to_utf32(out, in.data(), in.size());
+		}
+		force_inline constexpr auto auto_to_utf32(char32_t ch, char32_t *out)noexcept{
+			return utf32_to_utf32(out, &ch, 1);
+		}
+		force_inline constexpr auto auto_to_utf32(char16_t ch, char32_t *out)noexcept{
+			return utf16_to_utf32(out, &ch, 1);
+		}
+		force_inline constexpr auto auto_to_utf32(char8_t ch, char32_t *out)noexcept{
+			return utf8_to_utf32(out, &ch, 1);
+		}
+		
 		#include "../../_share/_undefs.hpp"
 	}
 	//

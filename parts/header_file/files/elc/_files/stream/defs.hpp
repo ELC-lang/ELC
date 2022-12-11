@@ -61,7 +61,7 @@ namespace base_fstream_defs{
 		using base_t::base_t;
 
 		virtual size_t read(char_T*buf,size_t size)noexcept override{
-			return basic_read_impl(base_t::_file,buf,size*sizeof(char_T))/sizeof(char_T);
+			return basic_read_impl(base_t::_file,buf,size);
 		}
 	};
 	template<class char_T,class base_fstream_T>
@@ -74,7 +74,7 @@ namespace base_fstream_defs{
 		using base_t::base_t;
 
 		virtual void write(const char_T*buf,size_t size)noexcept override{
-			basic_write_impl(base_t::_file,buf,size*sizeof(char_T));
+			basic_write_impl(base_t::_file,buf,size);
 		}
 	};
 
