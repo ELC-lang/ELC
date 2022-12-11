@@ -85,7 +85,7 @@ elc依赖的基础函数.
 				return char_set::utf32_to_utf8(in, out);
 			#endif
 		}
-		inline auto code_convert_to_char_t_impl(base_input_char_type in, char32_t* out)noexcept=delete;
+		inline void code_convert_to_char_t_impl(base_input_char_type in, char32_t* out)noexcept=delete;
 
 		//初始化流
 		force_inline handle_type init_output_stream()noexcept{
