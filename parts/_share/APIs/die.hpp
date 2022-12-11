@@ -118,7 +118,7 @@ elc依赖的基础函数.
 					ConsoleLogEnd(state);
 				}
 				elseif constexpr(wchar_t_same_as_char_t){
-					string_view_t<wchar_t> err_msg_in_wchar{(const wchar_t*)err_msg.data(),err_msg.size()};
+					const string_view_t<wchar_t> err_msg_in_wchar{(const wchar_t*)err_msg.data(),err_msg.size()};
 					#if defined(_WINMAIN_)
 						::MessageBoxW(NULL,err_msg_in_wchar.data(),NULL,MB_ICONERROR);
 					#endif
@@ -139,7 +139,7 @@ elc依赖的基础函数.
 					for(auto c:err_msg){
 						s = ::std::c32rtomb(err_msg_write, c, &stat);
 						push_and_disable_msvc_warning(26475)//强转警告diss
-						if(s == size_t(-1))
+						if(s == range_n::npos)
 							die();
 						pop_msvc_warning();
 						err_msg_write += s;

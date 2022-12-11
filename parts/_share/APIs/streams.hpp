@@ -240,7 +240,7 @@ elc依赖的基础函数.
 			for(size_t i=0;i<size;i++){
 				//convert it to base_input_char_type
 				s=code_convert_to_input_char_t_impl(buffer[i],r).processed_output().size();
-				if(s == size_t(-1))
+				if(s == range_n::npos)
 					die_with(locale::str::code_convert_error);
 				//write it to stream
 				basic_write_for_terminal_impl(stream,r,s*sizeof(char8_t));
@@ -279,7 +279,7 @@ elc依赖的基础函数.
 					break;
 				r[s+v]=0;
 				//convert it to utf-32
-				auto z=code_convert_to_char_t_impl(buffer+i,r,1);
+				const auto z=code_convert_to_char_t_impl(buffer+i,r,1);
 				if(!z)
 					die_with(locale::str::code_convert_error);
 				s=z.processed_output().size();
