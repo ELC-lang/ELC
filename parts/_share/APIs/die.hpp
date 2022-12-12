@@ -15,7 +15,7 @@ elc依赖的基础函数.
 	#include <cuchar>
 	#include <clocale>
 	#include "../default_data_type.hpp"
-	#include "./char_set.hpp"
+	#include "../char_set/_body.hpp"
 	#include "_tools/decl_system_type.hpp"
 	#if SYSTEM_TYPE == windows
 		#define NOMINMAX

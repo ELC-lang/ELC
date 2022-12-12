@@ -900,7 +900,7 @@ namespace string_n{
 		template<class text_istream_T> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
 		friend auto& operator>>(text_istream_T& is,string_t& str)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
 			str.clear();
-			using namespace locale::char_n;
+			using namespace char_set;
 			while(isspace(is.peek()))
 				is.get();
 			while(!is.eof()&&!isspace(is.peek()))

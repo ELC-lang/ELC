@@ -16,7 +16,7 @@ elc依赖的基础函数.
 	#include <clocale>
 	#include <cstdio>
 	#include "../default_data_type.hpp"
-	#include "./char_set.hpp"
+	#include "../char_set/_body.hpp"
 	#include "../../header_file/files/elc/string"
 	#include "../../header_file/files/elc/base_stream"
 	#include "_tools/decl_system_type.hpp"

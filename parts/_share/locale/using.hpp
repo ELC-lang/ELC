@@ -14,9 +14,6 @@ elc使用的字符串.
 	#define ELC_LOCALE
 	#include <locale>
 	//
-	#include "../default_data_type.hpp"
-	#include "_char.hpp"
-	//
 	#include "../../header_file/files/elc/base_defs"
 	//
 	#include "../_defs.hpp"
