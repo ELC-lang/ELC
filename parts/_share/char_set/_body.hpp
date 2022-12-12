@@ -18,14 +18,14 @@ elc依赖的基础函数.
 		#include "../../_share/_defs.hpp"
 
 		using namespace ::elc::defs;//string_view_t
-		
+
 		#include "marcos/_defs.hpp"
 		#include "constexprs.hpp"
 		#include "props_data.hpp"
 		#include "convert.hpp"
 		#include "isX.hpp"
 		#include "marcos/_undefs.hpp"
-		
+
 		#include "../../_share/_undefs.hpp"
 	}
 #endif

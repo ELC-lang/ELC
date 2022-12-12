@@ -8,7 +8,7 @@
 */
 
 /// 快捷定义特殊类型的constexpr
-#define defspecflag(name)\
+#define defspecflag(name) \
 constexpr struct name##_t{} name{}
 
 /// 引用计数从不为0的构造

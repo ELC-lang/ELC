@@ -1449,17 +1449,17 @@ inline constexpr uint16_t props_index[23016]={
 
 inline constexpr struct propstrie_t{
 	/* protected: used by macros and functions for reading values */
-    const uint16_t *index;
-    int32_t indexLength;
+	const uint16_t *index;
+	int32_t indexLength;
 
-    /* Start of the last range which ends at U+10ffff, and its value. */
-    char32_t highStart;
-    int32_t highValueIndex;
+	/* Start of the last range which ends at U+10ffff, and its value. */
+	char32_t highStart;
+	int32_t highValueIndex;
 }propstrie{
 	props_index,
 	4692,
 	0x110000,
-    0x59e4
+	0x59e4
 };
 
 //file_end

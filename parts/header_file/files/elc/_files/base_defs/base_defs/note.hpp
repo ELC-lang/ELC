@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace note_n{
-	#define def_note(name)\
+	#define def_note(name) \
 	template<typename T>\
 	struct name##_t{\
 		T value;\

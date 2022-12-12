@@ -51,7 +51,7 @@ struct invoke_t{
 	};
 	template<class Ret_t>
 	static constexpr with_return_type_t<Ret_t>with_return_type{};
-	
+
 	/*!
 	A function that returns a lambda that applies a function to a value.
 
