@@ -23,7 +23,5 @@
 
 #undef GET_PROPS
 
-#undef IS_THAT_CONTROL_SPACE
-
 //file_end
 

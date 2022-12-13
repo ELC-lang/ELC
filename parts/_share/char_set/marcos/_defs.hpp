@@ -43,8 +43,5 @@
 
 #define GET_PROPS(c, result) ((result)=UTRIE_GET16(&propstrie, c))
 
-#define IS_THAT_CONTROL_SPACE(c) \
-	(c<=0x9f && ((c>=TAB && c<=CR) || (c>=0x1c && c <=0x1f) || c==0x85))
-
 //file_end
 

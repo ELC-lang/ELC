@@ -53,15 +53,14 @@ elc依赖的基础函数.
 
 		struct handle_type{
 			base_handle_type _handle;
-			bool _is_terminal;
-			constexpr handle_type(base_handle_type handle)noexcept:_handle(handle),_is_terminal(handle&&is_terminal_stream(handle)){}
+			constexpr handle_type(base_handle_type handle)noexcept:_handle(handle){}
 			constexpr handle_type()noexcept:handle_type(base_handle_type(0)){}
 			constexpr handle_type(const handle_type&)=default;
 			constexpr handle_type(handle_type&&)=default;
 			constexpr handle_type&operator=(const handle_type&)=default;
 			constexpr handle_type&operator=(handle_type&&)=default;
 			constexpr operator base_handle_type()const noexcept{return _handle;}
-			constexpr bool is_terminal()const noexcept{return _is_terminal;}
+			inline bool is_terminal()const noexcept{return is_terminal_stream(_handle);}
 			explicit constexpr operator bool()const noexcept{return _handle;}
 		};
 
