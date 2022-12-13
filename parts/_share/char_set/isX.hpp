@@ -6,34 +6,34 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 /* Checks if ch is a lower case letter.*/
-constexpr inline bool islower(char_t c)noexcept{
+inline constexpr bool islower(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return(GET_CATEGORY(props)==U_LOWERCASE_LETTER);
 }
 
 /* Checks if ch is an upper case letter.*/
-constexpr inline bool isupper(char_t c)noexcept{
+inline constexpr bool isupper(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return(GET_CATEGORY(props)==U_UPPERCASE_LETTER);
 }
 
 /* Checks if ch is a title case letter; usually upper case letters.*/
-constexpr inline bool istitle(char_t c)noexcept{
+inline constexpr bool istitle(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return(GET_CATEGORY(props)==U_TITLECASE_LETTER);
 }
 
 /* Checks if ch is a decimal digit. */
-constexpr inline bool isdigit(char_t c)noexcept{
+inline constexpr bool isdigit(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return(GET_CATEGORY(props)==U_DECIMAL_DIGIT_NUMBER);
 }
 
-constexpr inline bool isxdigit(char_t c)noexcept{
+inline constexpr bool isxdigit(char_t c)noexcept{
 	uint32_t props;
 
 	/* check ASCII and Fullwidth ASCII a-fA-F */
@@ -49,41 +49,41 @@ constexpr inline bool isxdigit(char_t c)noexcept{
 }
 
 /* Checks if the Unicode character is a letter.*/
-constexpr inline bool isalpha(char_t c)noexcept{
+inline constexpr bool isalpha(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return((CAT_MASK(props)&U_GC_L_MASK)!=0);
 }
 
 /* Checks if c is a letter or a decimal digit */
-constexpr inline bool isalnum(char_t c)noexcept{
+inline constexpr bool isalnum(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return((CAT_MASK(props)&(U_GC_L_MASK|U_GC_ND_MASK))!=0);
 }
 
 /* Checks if ch is a unicode character with assigned character type.*/
-constexpr inline bool isdefined(char_t c)noexcept{
+inline constexpr bool isdefined(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return(GET_CATEGORY(props)!=0);
 }
 
 /* Checks if the Unicode character is a base form character that can take a diacritic.*/
-constexpr inline bool isbase(char_t c)noexcept{
+inline constexpr bool isbase(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return((CAT_MASK(props)&(U_GC_L_MASK|U_GC_N_MASK|U_GC_MC_MASK|U_GC_ME_MASK))!=0);
 }
 
 /* Checks if the Unicode character is a control character.*/
-constexpr inline bool iscntrl(char_t c)noexcept{
+inline constexpr bool iscntrl(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return((CAT_MASK(props)&(U_GC_CC_MASK|U_GC_CF_MASK|U_GC_ZL_MASK|U_GC_ZP_MASK))!=0);
 }
 
-constexpr inline bool isISOControl(char_t c)noexcept{
+inline constexpr bool isISOControl(char_t c)noexcept{
 	return (uint32_t)c<=0x9f && (c<=0x1f || c>=0x7f);
 }
 
@@ -92,7 +92,7 @@ constexpr inline bool isISOControl(char_t c)noexcept{
 	(c<=0x9f && ((c>=TAB && c<=CR) || (c>=0x1c && c <=0x1f) || c==0x85))
 
 /* Checks if the Unicode character is a space character.*/
-constexpr inline bool isspace(char_t c)noexcept{
+inline constexpr bool isspace(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return((CAT_MASK(props)&U_GC_Z_MASK)!=0 || IS_THAT_CONTROL_SPACE(c));
@@ -100,7 +100,7 @@ constexpr inline bool isspace(char_t c)noexcept{
 
 #undef IS_THAT_CONTROL_SPACE
 
-constexpr inline bool isblank(char_t c)noexcept{
+inline constexpr bool isblank(char_t c)noexcept{
 	if((uint32_t)c<=0x9f){
 		return c==9 || c==0x20; /* TAB or SPACE */
 	}else{
@@ -112,14 +112,14 @@ constexpr inline bool isblank(char_t c)noexcept{
 }
 
 /* Checks if the Unicode character is printable.*/
-constexpr inline bool isprint(char_t c)noexcept{
+inline constexpr bool isprint(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	/* comparing ==0 returns false for the categories mentioned */
 	return((CAT_MASK(props)&U_GC_C_MASK)==0);
 }
 
-constexpr inline bool isgraph(char_t c)noexcept{
+inline constexpr bool isgraph(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	/* comparing ==0 returns false for the categories mentioned */
@@ -128,7 +128,7 @@ constexpr inline bool isgraph(char_t c)noexcept{
 				   ==0);
 }
 
-constexpr inline bool ispunct(char_t c)noexcept{
+inline constexpr bool ispunct(char_t c)noexcept{
 	uint32_t props;
 	GET_PROPS(c, props);
 	return((CAT_MASK(props)&U_GC_P_MASK)!=0);
