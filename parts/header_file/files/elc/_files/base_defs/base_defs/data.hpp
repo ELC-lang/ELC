@@ -106,8 +106,10 @@ struct data_block:non_copy_construct_able,non_move_construct_able{
 /*!
 	功能: data_block辅助类模板，接受一个size_t描述对齐大小的类型模板
 */
+push_and_disable_msvc_warning(4324);
 template<class...Ts>
 struct alignas(max_align_of<Ts...>)align_as_t{};
+pop_msvc_warning();
 
 /*!
 	功能: data_view类模板,接受一个类型参数，提供对byte数组的访问和遍历
