@@ -39,7 +39,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_to(str)
 	{
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
-		copy_assign[_used_size](note::from(end.begin()),note::to((char_T*)_m));
+		copy_assign[_used_size](note::from(end.begin()),note::to(_m.data()));
 	}
 	end_apply_string_data_t(ptr_t str,size_t count,char_T ch)noexcept:
 		_to_size(str->get_size()),
@@ -47,7 +47,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_to(str)
 	{
 		_m.resize(get_next_gold_size_to_resize_for_array(_to_size+_used_size));
-		copy_assign[_used_size](ch,note::to((char_T*)_m));
+		copy_assign[_used_size](ch,note::to(_m.data()));
 	}
 	end_apply_string_data_t(ptr_t str,size_t count)noexcept:
 		_to_size(str->get_size()),
@@ -155,7 +155,7 @@ public:
 	[[nodiscard]]virtual ptr_t apply_str_to_end(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
 			if(_m.size()-_used_size>=str.size())
-				copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m+_used_size));
+				copy_assign[str.size()](note::from(str.begin()),note::to(_m.data()+_used_size));
 			else{
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
@@ -231,7 +231,7 @@ public:
 		if(this->is_unique() && _used_size>=size){
 			_used_size-=size;
 			self_changed();
-			return get<comn_string_data_t<char_T>>(string_view_t{(char_T*)_m+_used_size,size});
+			return get<comn_string_data_t<char_T>>(string_view_t{_m.data()+_used_size,size});
 		}
 		else
 			return base_t::do_pop_back(size,self);

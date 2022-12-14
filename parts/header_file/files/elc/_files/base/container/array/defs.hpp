@@ -133,6 +133,8 @@ namespace array_n{
 		void clear()noexcept(re_construct.nothrow<this_t>){
 			re_construct(this);
 		}
+		[[nodiscard]]T*data()noexcept{return _m;}
+		[[nodiscard]]const T*data()const noexcept{return _m;}
 		[[nodiscard]]T&operator[](size_t pos)noexcept{return _m[pos];}
 		[[nodiscard]]const T&operator[](size_t pos)const noexcept{return _m[pos];}
 		[[nodiscard]]explicit operator hash_t()const noexcept(hash.nothrow<T>){return hash(_m,size());}

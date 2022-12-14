@@ -42,16 +42,16 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	}
 
 	comn_string_data_t(string_view_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str.size()+1)){
-		copy_assign[str.size()](note::from(str.begin()),note::to((char_T*)_m));
+		copy_assign[str.size()](note::from(str.begin()),note::to(_m.data()));
 		_m[str.size()]=zero;
 	}
 	comn_string_data_t(ptr_t str)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(str->get_size()+1)){
 		const auto size=this->get_size();
-		str->copy_part_data_to((char_T*)_m,0,size);
+		str->copy_part_data_to(_m.data(),0,size);
 		_m[size]=zero;
 	}
 	comn_string_data_t(ptr_t str,size_t pos,size_t size)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1)){
-		str->copy_part_data_to((char_T*)_m,pos,size);
+		str->copy_part_data_to(_m.data(),pos,size);
 		_m[size]=zero;
 	}
 	comn_string_data_t(size_t size,char_T ch)noexcept(construct_nothrow&&copy_assign_nothrow):_m(note::size(size+1),ch){
@@ -69,10 +69,10 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		_m.clear();
 		base_t::be_replace_as(a);
 	}
-	[[nodiscard]]virtual string_ptr_t get_c_str(ptr_t&)noexcept override final{ return (char_T*)_m; }
+	[[nodiscard]]virtual string_ptr_t get_c_str(ptr_t&)noexcept override final{ return _m.data(); }
 	[[nodiscard]]virtual string_ptr_t get_unique_c_str(ptr_t&p)noexcept(get_data_nothrow)override final{
 		if(this->is_unique())
-			return (char_T*)_m;
+			return _m.data();
 		else
 			return base_t::get_unique_c_str(p);
 	}
