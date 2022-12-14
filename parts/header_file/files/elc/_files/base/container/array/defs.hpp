@@ -59,7 +59,7 @@ namespace array_n{
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
 		*/
 		//template<as_concept<get<T>.as_array.able> U>
-		template<class U> requires(get<T>.as_array.able<U>)
+		template<class U> requires(get<T>.as_array.able<U> && type_info<remove_cvref<U>>!=type_info<this_t>)
 		array_t(U&&a)noexcept(get<T>.as_array.nothrow<U>){
 			_m=get<T>.as_array(forward<U>(a));
 			#if defined(DEBUG) || defined(_DEBUG)

@@ -15,6 +15,12 @@ namespace iterator_n{
 		base_t_rw _m;
 		template<typename build_base_t_T> requires(construct<base_t_rw>.able<build_base_t_T>)
 		constexpr reverse_base_t(build_base_t_T&& a)noexcept(construct<base_t_rw>.nothrow<build_base_t_T>):_m(a){}
+		constexpr reverse_base_t(const reverse_base_t&a)noexcept(construct<base_t_rw>.nothrow<const base_t_rw&>):_m(a._m){}
+		constexpr reverse_base_t(reverse_base_t&&a)noexcept(construct<base_t_rw>.nothrow<base_t_rw&&>):_m(move(a._m)){}
+		constexpr reverse_base_t& operator=(const reverse_base_t&a)&noexcept{_m=a._m;return*this;}
+		constexpr reverse_base_t& operator=(const reverse_base_t&&a)&noexcept{_m=move(a._m);return*this;}
+		constexpr auto operator==(const reverse_base_t&a)noexcept{return _m==a._m;}
+		constexpr auto operator<=>(const reverse_base_t&a)noexcept{return _m<=>a._m;}
 
 		static constexpr bool is_pointer=::std::is_pointer_v<base_t_w>;
 
@@ -36,12 +42,12 @@ namespace iterator_n{
 
 		[[nodiscard]]auto get_before()noexcept(is_get_before_noexcept()){
 			if constexpr(is_pointer)
-				return _m++;
+				return _m+1;
 			else return ((base_t_w&)_m).get_next();
 		}
 		[[nodiscard]]auto get_next()noexcept(is_get_next_noexcept()){ 
 			if constexpr(is_pointer)
-				return _m--;
+				return _m-1;
 			else return ((base_t_w&)_m).get_before();
 		}
 		[[nodiscard]]auto get_handle()noexcept(is_get_handle_noexcept()){ 
@@ -70,6 +76,9 @@ namespace iterator_n{
 	[[nodiscard]]auto operator==(T&& a,const reverse_base_t<base_t>& b)noexcept(equal.nothrow<base_t,T>){
 		return equal((const base_t&)b._m,a);
 	}
+	template<typename base_t>
+	inline void swap(reverse_base_t<base_t>&a,reverse_base_t<base_t>&b)noexcept_as(swap(a._m,b._m))
+	{swap(a._m,b._m);}
 
 	template<typename value_t,typename base_t_w>
 	class same_base_t{
@@ -170,7 +179,7 @@ namespace iterator_n{
 		template<typename build_base_t_T> requires(construct<base_t_rw>.able<build_base_t_T>)
 		constexpr same_base_t(build_base_t_T&&a)noexcept(construct<base_t_rw>.nothrow<build_base_t_T>):_m(a){}
 		constexpr same_base_t(const this_t&a)noexcept(construct<base_t_rw>.nothrow<const base_t_rw>):_m(a._m){}
-		constexpr same_base_t(this_t&&a)noexcept_as(declvalue(this_t).swap_with(a)){swap_with(a);}
+		constexpr same_base_t(this_t&&a)noexcept_as(construct<base_t_rw>.nothrow<base_t_rw&&>):_m(move(a._m)){}
 		template<typename other_T,typename other_base_t> requires(construct<base_t_rw>.able<other_base_t>)
 		constexpr same_base_t(const same_base_t<other_T,other_base_t>&a)noexcept(construct<base_t_rw>.nothrow<other_base_t>):_m(a._m){}
 		~same_base_t()noexcept(destruct.nothrow<base_t_rw>)=default;

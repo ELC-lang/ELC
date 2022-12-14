@@ -100,7 +100,7 @@ namespace array_like_n{
 		[[nodiscard]]constexpr T&back()noexcept{return _begin[size()-1];}
 		[[nodiscard]]constexpr const T&back()const noexcept{return _begin[size()-1];}
 
-		[[nodiscard]]constexpr bool empty()const noexcept{return size();}
+		[[nodiscard]]constexpr bool empty()const noexcept{return!size();}
 
 		[[nodiscard]]constexpr T&operator[](size_t pos)noexcept{return begin()[pos];}
 		[[nodiscard]]constexpr const T&operator[](size_t pos)const noexcept{return remove_const(*this)[pos];}
