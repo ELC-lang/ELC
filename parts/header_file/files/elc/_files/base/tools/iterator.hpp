@@ -15,9 +15,40 @@ namespace iterator_n{
 		base_t_rw _m;
 		template<typename build_base_t_T> requires(construct<base_t_rw>.able<build_base_t_T>)
 		constexpr reverse_base_t(build_base_t_T&& a)noexcept(construct<base_t_rw>.nothrow<build_base_t_T>):_m(a){}
-		[[nodiscard]]auto get_before()noexcept_as(declvalue(base_t_w).get_next()){ return ((base_t_w&)_m).get_next(); }
-		[[nodiscard]]auto get_next()noexcept_as(declvalue(base_t_w).get_before()){ return ((base_t_w&)_m).get_before(); }
-		[[nodiscard]]auto get_handle()noexcept_as(declvalue(base_t_w).get_handle()){ return ((base_t_w&)_m).get_handle(); }
+
+		static constexpr bool is_pointer=::std::is_pointer_v<base_t_w>;
+
+		[[nodiscard]]static constexpr bool is_get_before_noexcept()noexcept{
+			if constexpr(is_pointer)
+				return true;
+			else return noexcept(declvalue(base_t_w).get_next());
+		}
+		[[nodiscard]]static constexpr bool is_get_next_noexcept()noexcept{
+			if constexpr(is_pointer)
+				return true;
+			else return noexcept(declvalue(base_t_w).get_before());
+		}
+		[[nodiscard]]static constexpr bool is_get_handle_noexcept()noexcept{
+			if constexpr(is_pointer)
+				return true;
+			else return noexcept(declvalue(base_t_w).get_handle());
+		}
+
+		[[nodiscard]]auto get_before()noexcept(is_get_before_noexcept()){
+			if constexpr(is_pointer)
+				return _m++;
+			else return ((base_t_w&)_m).get_next();
+		}
+		[[nodiscard]]auto get_next()noexcept(is_get_next_noexcept()){ 
+			if constexpr(is_pointer)
+				return _m--;
+			else return ((base_t_w&)_m).get_before();
+		}
+		[[nodiscard]]auto get_handle()noexcept(is_get_handle_noexcept()){ 
+			if constexpr(is_pointer)
+				return _m;
+			else return ((base_t_w&)_m).get_handle();
+		}
 	};
 	template<typename base_t> requires(compare.able<base_t>)
 	[[nodiscard]]auto operator<=>(const reverse_base_t<base_t>&a,const reverse_base_t<base_t>&b)noexcept(compare.nothrow<base_t>){

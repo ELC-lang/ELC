@@ -168,6 +168,26 @@ namespace array_n{
 		[[nodiscard]]const_iterator cend()const noexcept{
 			return end();
 		}
+		typedef reverse_iterator_t<T>reverse_iterator;
+		typedef reverse_const_iterator_t<T>reverse_const_iterator;
+		[[nodiscard]]reverse_iterator rbegin()noexcept{
+			return _m+size()-1;
+		}
+		[[nodiscard]]constexpr reverse_iterator rend()noexcept{
+			return _m-1;
+		}
+		[[nodiscard]]reverse_const_iterator rbegin()const noexcept{
+			return _m+size()-1;
+		}
+		[[nodiscard]]constexpr reverse_const_iterator rend()const noexcept{
+			return _m-1;
+		}
+		[[nodiscard]]reverse_const_iterator rcbegin()const noexcept{
+			return rbegin();
+		}
+		[[nodiscard]]constexpr reverse_const_iterator rcend()const noexcept{
+			return rend();
+		}
 
 		[[nodiscard]]constexpr auto operator<=>(array_like_view_t<const T> a)const noexcept(compare.nothrow<array_like_view_t<T>>){
 			return compare(array_like_view_t<const T>(*this),a);

@@ -50,6 +50,23 @@ namespace array_like_n{
 		typedef T* iterator;
 		typedef const T* const_iterator;
 		typedef array_like_view_t<T>this_t;
+		struct reverse_iterator{
+			T* _m;
+			constexpr reverse_iterator(T*p)noexcept:_m(p){}
+			constexpr reverse_iterator(const reverse_iterator&)noexcept=default;
+			constexpr reverse_iterator(reverse_iterator&&)noexcept=default;
+			constexpr reverse_iterator operator++()noexcept{_m--;return *this;}
+			constexpr reverse_iterator operator--()noexcept{_m++;return *this;}
+			constexpr reverse_iterator operator++(int)noexcept{auto tmp=*this;this->operator++();return tmp;}
+			constexpr reverse_iterator operator--(int)noexcept{auto tmp=*this;this->operator--();return tmp;}
+			[[nodiscard]]constexpr T& operator*()noexcept{return*_m;}
+			[[nodiscard]]constexpr T* operator->()noexcept{return _m;}
+			[[nodiscard]]constexpr reverse_iterator operator+(ptrdiff_t diff)noexcept{return _m-diff;}
+			[[nodiscard]]constexpr reverse_iterator operator-(ptrdiff_t diff)noexcept{return _m+diff;}
+			[[nodiscard]]constexpr operator T*()noexcept{return _m;}
+			[[nodiscard]]constexpr bool operator==(T*p)noexcept{return _m==p;}
+			[[nodiscard]]constexpr auto operator<=>(T*p)noexcept{return _m<=>p;}
+		};
 	private:
 		T*_begin=nullptr;
 		size_t _size=0;
@@ -74,6 +91,9 @@ namespace array_like_n{
 
 		[[nodiscard]]constexpr const_iterator cbegin()const noexcept{return remove_const(this)->begin();}
 		[[nodiscard]]constexpr const_iterator cend()const noexcept{return remove_const(this)->end();}
+
+		[[nodiscard]]constexpr reverse_iterator rbegin()noexcept{return _begin+size()-1;}
+		[[nodiscard]]constexpr reverse_iterator rend()noexcept{return _begin-1;}
 
 		[[nodiscard]]constexpr T&front()noexcept{return _begin[0];}
 		[[nodiscard]]constexpr const T&front()const noexcept{return _begin[0];}

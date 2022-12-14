@@ -341,6 +341,8 @@ elc依赖的基础函数.
 
 		#include "../_undefs.hpp"
 	}
+	//
+	#include "_tools/undef_decl_system_type.hpp"
 #endif
 
 //file_end
