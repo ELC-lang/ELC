@@ -41,7 +41,7 @@
 
 #define UTRIE_GET16(trie, c) _UTRIE_GET((trie), index, (trie)->indexLength, (c))
 
-#define GET_PROPS(c, result) ((result)=UTRIE_GET16(&propstrie, c))
+#define GET_PROPS(c) (UTRIE_GET16(&propstrie, c))
 
 //file_end
 

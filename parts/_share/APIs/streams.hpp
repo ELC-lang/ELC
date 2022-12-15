@@ -43,6 +43,10 @@ elc依赖的基础函数.
 		#endif
 		base_handle_type;
 
+		push_and_disable_msvc_warning(26475);//强制转换警告diss
+		inline constexpr auto zero_base_handle = base_handle_type(0);
+		pop_msvc_warning();
+
 		inline bool is_terminal_stream(base_handle_type handle)noexcept{
 			#if SYSTEM_TYPE == windows
 				return GetFileType(handle)==FILE_TYPE_CHAR;
@@ -54,7 +58,7 @@ elc依赖的基础函数.
 		struct handle_type{
 			base_handle_type _handle;
 			constexpr handle_type(base_handle_type handle)noexcept:_handle(handle){}
-			constexpr handle_type()noexcept:handle_type(base_handle_type(0)){}
+			constexpr handle_type()noexcept:handle_type(zero_base_handle){}
 			constexpr handle_type(const handle_type&)=default;
 			constexpr handle_type(handle_type&&)=default;
 			constexpr handle_type&operator=(const handle_type&)=default;
@@ -329,8 +333,8 @@ elc依赖的基础函数.
 					oldt.c_lflag = flgbak;
 				}
 			#endif
-			size_t read_size=base_read_text_with_code_convert_impl<base_input_char_type,code_convert_buf_size,
-																   basic_read_for_terminal_impl,basic_write_for_terminal_impl>(stream,buffer,size,echo_stream);
+			const size_t read_size=base_read_text_with_code_convert_impl<base_input_char_type,code_convert_buf_size,
+																		 basic_read_for_terminal_impl,basic_write_for_terminal_impl>(stream,buffer,size,echo_stream);
 			#if SYSTEM_TYPE == windows
 				SetConsoleMode(stream, ConsoleModeBackup);
 			#elif SYSTEM_TYPE == linux

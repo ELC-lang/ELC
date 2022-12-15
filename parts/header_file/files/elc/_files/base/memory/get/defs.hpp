@@ -303,7 +303,7 @@ namespace get_n{
 				const APIs::alloc::source_location_guard slg;
 				if constexpr(type_info<T>.has_attribute(never_in_array))
 					template_error("You can\'t get an array for never_in_array type.");
-				auto size=a.size();
+				const auto size=a.size();
 				auto aret=alloc<T>[size]();
 				copy_construct[size](note::from(a.begin()),note::to(aret));
 				return aret;
