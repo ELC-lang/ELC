@@ -38,12 +38,14 @@ namespace array_like_n{
 	constexpr bool is_not_signal_value_for_array_like=!is_signal_value_for_array_like<T>;
 
 	template<class T,class U>
-	constexpr bool is_array_like_for=was_not_an_ill_form_with_parameter(
+	constexpr bool strict_is_array_like_for=was_not_an_ill_form_with_parameter(
 										(U v){
 											begin_of_array_like<T>(v);
 											size_of_array_like<T>(v);
 										}
 									);
+	template<class T,class U>
+	constexpr bool is_array_like_for=strict_is_array_like_for<T,U>||strict_is_array_like_for<const T,U>;
 
 	template<class T>
 	struct array_like_view_t{
@@ -59,20 +61,23 @@ namespace array_like_n{
 			constexpr reverse_iterator operator--()noexcept{_m++;return *this;}
 			constexpr reverse_iterator operator++(int)noexcept{auto tmp=*this;this->operator++();return tmp;}
 			constexpr reverse_iterator operator--(int)noexcept{auto tmp=*this;this->operator--();return tmp;}
-			[[nodiscard]]constexpr T& operator*()noexcept{return*_m;}
-			[[nodiscard]]constexpr T* operator->()noexcept{return _m;}
-			[[nodiscard]]constexpr reverse_iterator operator+(ptrdiff_t diff)noexcept{return _m-diff;}
-			[[nodiscard]]constexpr reverse_iterator operator-(ptrdiff_t diff)noexcept{return _m+diff;}
-			[[nodiscard]]constexpr operator T*()noexcept{return _m;}
-			[[nodiscard]]constexpr bool operator==(T*p)noexcept{return _m==p;}
+			[[nodiscard]]constexpr T& operator*()const noexcept{return*_m;}
+			[[nodiscard]]constexpr T& operator[](ptrdiff_t a)const noexcept{return*(_m-a);}
+			[[nodiscard]]constexpr T* operator->()const noexcept{return _m;}
+			[[nodiscard]]constexpr reverse_iterator operator+(ptrdiff_t diff)const noexcept{return _m-diff;}
+			[[nodiscard]]constexpr reverse_iterator operator-(ptrdiff_t diff)const noexcept{return _m+diff;}
+			[[nodiscard]]constexpr operator T*()const noexcept{return _m;}
+			[[nodiscard]]constexpr bool operator==(T*p)const noexcept{return _m==p;}
+			[[nodiscard]]constexpr bool operator==(const reverse_iterator&a)const noexcept{return _m==a._m;}
 			[[nodiscard]]constexpr auto operator<=>(T*p)noexcept{return _m<=>p;}
+			[[nodiscard]]constexpr bool operator<=>(const reverse_iterator&a)const noexcept{return a._m<=>_m;}
 		};
 	private:
 		T*_begin=nullptr;
 		size_t _size=0;
 	public:
 		constexpr explicit array_like_view_t(T*a,size_t b)noexcept:_begin(a),_size(b){}
-		template<class U> requires is_array_like_for<T,U>
+		template<class U> requires strict_is_array_like_for<T,U>
 		explicit constexpr_as_auto array_like_view_t(U&&a)noexcept_as(begin_of_array_like<T>(a),size_of_array_like<T>(a)):array_like_view_t(begin_of_array_like<T>(a),size_of_array_like<T>(a)){}
 		constexpr array_like_view_t(const this_t&)noexcept=default;
 
@@ -141,6 +146,7 @@ using array_like_n::is_array_like;
 using array_like_n::is_signal_value_for_array_like;
 using array_like_n::is_not_signal_value_for_array_like;
 using array_like_n::is_array_like_for;
+using array_like_n::strict_is_array_like_for;
 using array_like_n::array_like_view_t;
 using array_like_n::array_end_by_zero_t;
 
