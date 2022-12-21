@@ -22,6 +22,7 @@ namespace elc::defs{ //在elc::defs中定义内容
 	namespace memory{
 		#include "memory/lifetime/_body.hpp"
 	}
+	using namespace memory;
 	namespace base{
 		#include "tools/_body.hpp"//依赖lifetime
 	}
