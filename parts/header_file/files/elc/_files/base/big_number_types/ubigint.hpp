@@ -27,9 +27,9 @@ public:
 			value=T(value/base_type_mod);
 			i++;
 		}
-		auto end=_data.end();
+		const auto end=_data.end();
 		while(i!=end){
-			*i=base_type(0);
+			*i=0;
 			i++;
 		}
 	}
@@ -43,7 +43,7 @@ private:
 	static data_view_type get_data_view_of_data(const base_type*data,size_t size)noexcept{
 		size_t i = size;
 		while(i--)
-			if(data[i]!=base_type(0))
+			if(data[i]!=0)
 				break;
 		return data_view_type{data,i+1};
 	}
@@ -85,7 +85,7 @@ private:
 
 		array_t<base_type> tmp(note::size(size));
 		copy_assign[base_size](tmp.data(),a.data());
-		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type(0));
+		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
 		add_to_base(tmp.data(),b);
 		return tmp;
 	}
@@ -121,7 +121,7 @@ private:
 
 		array_t<base_type> tmp(note::size(size));
 		copy_assign[base_size](tmp.data(),a.data());
-		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type(0));
+		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
 		sub_with_base(tmp.data(),b);
 		return tmp;
 	}
@@ -157,7 +157,7 @@ private:
 	[[nodiscard]]static data_type muti_base(data_view_type a,base_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
 		//下面的muti_with_base至少会写入a.size()个元素，所以只需要置零tmp中最后一个元素就行
-		tmp.back()=base_type(0);
+		tmp.back()=0;
 		muti_with_base(tmp.data(),a,b);
 		return tmp;
 	}
@@ -180,14 +180,14 @@ private:
 		size_t muti_sacle=0;
 		while(muti_sacle!=b.size()){
 			//下面的muti_with_base至少会写入a.size()个元素，所以只需要置零tmp中最后一个元素就行
-			tmp.back()=base_type(0);
+			tmp.back()=0;
 			muti_with_base(tmp.data(),a,b[muti_sacle]);
 			add_to_base(buf+muti_sacle,tmp);
 			muti_sacle++;
 		}
 	}
 	[[nodiscard]]static data_type muti_base(data_view_type a,data_view_type b)noexcept{
-		array_t<base_type> tmp(note::size(a.size()+b.size()),base_type(0));
+		array_t<base_type> tmp(note::size(a.size()+b.size()),0);
 		muti_with_base(tmp.data(),a,b);
 		return tmp;
 	}
@@ -202,9 +202,9 @@ private:
 		const calc_type divisor=calc_type(b.back());
 		base_type aret=base_type(dividend/divisor);
 		tryto=get_data_view_of_data(tryto.data(),tryto.size());
-		while(aret!=base_type(0)){
+		while(aret!=0){
 			//下面的muti_with_base至少会写入b.size()个元素，所以只需要置零buf中最后一个元素就行
-			buf.back()=base_type(0);
+			buf.back()=0;
 			muti_with_base(buf.data(),b,aret);
 			const auto myview=get_data_view_of_data(buf);
 			if(compare(tryto,myview)>=0){
@@ -214,7 +214,7 @@ private:
 			else
 				aret--;
 		}
-		return base_type(0);
+		return 0;
 	}
 	[[nodiscard]]static base_type div_base(base_type*a,data_view_type b)noexcept{
 		array_t<base_type> fortry(note::size(b.size()+1));
@@ -223,11 +223,11 @@ private:
 	[[nodiscard]]static data_type div_base(data_view_type a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
 		copy_assign[a.size()](tmp.data(), a.data());
-		tmp.back()=base_type(0);
+		tmp.back()=0;
 		return div_with_base(tmp,b);
 	}
 	static data_type div_with_base(data_type&a,data_view_type b)noexcept{
-		array_t<base_type> tmp(note::size(a.size()-b.size()),base_type(0));
+		array_t<base_type> tmp(note::size(a.size()-b.size()),0);
 		const auto end=a.rend();
 		auto begin=a.rbegin()+b.size();
 		auto tmpwritter=tmp.rbegin();
@@ -253,7 +253,7 @@ private:
 	[[nodiscard]]static data_type mod_base(data_view_type a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
 		copy_assign[a.size()](tmp.data(), a.data());
-		tmp.back()=base_type(0);
+		tmp.back()=0;
 		mod_with_base(tmp,b);
 		return tmp;
 	}
@@ -303,7 +303,7 @@ public:
 		auto new_size = max(origin_size,other_view.size())+1;
 		auto size_diff = new_size - origin_size;
 		_data.resize(new_size);
-		copy_assign[size_diff](base_type(0),note::to(_data.data()+origin_size));
+		copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
 		add_to_base(_data.data(),other_view);
 		return*this;
 	}
