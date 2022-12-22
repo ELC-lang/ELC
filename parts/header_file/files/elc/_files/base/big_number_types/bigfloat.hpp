@@ -78,6 +78,13 @@ public:
 		a._denominator=abs(move(a._denominator));
 		return move(a);
 	}
+	//friend trunc
+	[[nodiscard]]friend bigint trunc(const bigfloat& a)noexcept{
+		return a._numerator/a._denominator;
+	}
+	[[nodiscard]]explicit operator bigint()noexcept{
+		return trunc(*this);
+	}
 	//operator+
 	[[nodiscard]]bigfloat operator+(const bigfloat& other)const&noexcept{
 		auto numerator = _numerator * other._denominator + other._numerator * _denominator;
