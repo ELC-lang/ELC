@@ -20,6 +20,14 @@ namespace elc::defs{
 			#undef TYPE_MAPPER
 			{}
 		}());
+		/*! 至少有给定大小的快速无符号整数类型 */
+		template<size_t size>
+		using unsigned_specific_size_fast_t=decltype(lambda(){
+			#define TYPE_MAPPER(type) if constexpr(size <= sizeof(type))return (type)0;else
+			#include "./arithmetic_mapper/unsigned_fast_mapper.hpp"
+			#undef TYPE_MAPPER
+			{}
+		}());
 		//这里的定义不能使用basedefs中的type_info，所以得重新造一个小轮子
 		struct type_uniquer_t{
 			constexpr bool operator==(const type_uniquer_t&other)const noexcept{return this==&other;}
@@ -97,6 +105,7 @@ namespace elc::defs{
 	}
 	using basic_environment::BIT_POSSIBILITY;
 	using basic_environment::unsigned_specific_size_t;
+	using basic_environment::unsigned_specific_size_fast_t;
 	using basic_environment::to_arithmetic;
 	using basic_environment::wchar_t_same_as_char_t;
 	using basic_environment::wchar_t_same_as_char16_t;

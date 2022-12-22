@@ -7,7 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 class ubigint{
-	typedef uint_fast16_t base_type;
+	typedef unsigned_specific_size_fast_t<BIT_POSSIBILITY> base_type;
 	typedef array_t<base_type> data_type;
 	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
 	data_type _data;
