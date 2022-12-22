@@ -7,6 +7,7 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace array_like_n{
+	enable_adl(size_of_array_like);
 	template<class T>
 	[[nodiscard]]inline constexpr size_t size_of_array_like(T&&)noexcept{return 1;}
 	template<class T,size_t N>
@@ -14,6 +15,7 @@ namespace array_like_n{
 	template<class T>
 	[[nodiscard]]inline size_t size_of_array_like(::std::initializer_list<T>&a)noexcept{return a.size();}
 
+	enable_adl(begin_of_array_like);
 	template<class T>
 	[[nodiscard]]inline constexpr auto begin_of_array_like(T&&a)noexcept{return addressof(a);}
 	template<class T,size_t N>
@@ -21,6 +23,7 @@ namespace array_like_n{
 	template<class T>
 	[[nodiscard]]inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
 
+	enable_adl(end_of_array_like);
 	template<class T>
 	[[nodiscard]]inline auto end_of_array_like(T&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
 
