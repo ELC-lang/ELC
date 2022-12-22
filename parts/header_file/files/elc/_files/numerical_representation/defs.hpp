@@ -251,15 +251,10 @@ private:
 	inline string to_string_rough_no_special_value_check(T num)const noexcept{
 		string aret;
 		const bool is_negative=magic_number::is_negative(num);
-		typedef to_unsigned_t<T> UT;
-		//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
-		UT unum=UT(num);
 		if constexpr(!::std::is_unsigned_v<T>)
-			if(is_negative){
+			if(is_negative)
 				aret=_negative_sign;
-				unum=UT(-num);
-			}
-		aret+=to_string_num_base(unum);
+		aret+=to_string_num_base(abs(num));
 		return aret;
 	}
 public:
@@ -394,12 +389,7 @@ public:
 		const bool is_negative=magic_number::is_negative(num);
 		if(to_string_special_value_check(num,aret,is_negative))
 			return aret;
-		typedef to_unsigned_t<T> UT;
-		//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
-		UT unum=UT(num);
-		if constexpr(!::std::is_unsigned_v<T>)
-			if(is_negative)
-				unum=UT(-num);
+		auto unum=abs(num);
 		aret=to_string_num_base(unum);
 		if constexpr(::std::is_floating_point_v<T>) {
 			size_t dot_pos = aret.find(_fractional_sign);

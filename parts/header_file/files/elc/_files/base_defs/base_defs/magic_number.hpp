@@ -35,14 +35,22 @@ namespace magic_number{
 		else
 			return::std::make_unsigned_t<T>();
 	}());
+	//isNaN
+	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]force_inline constexpr bool isNaN(const T v)noexcept{
+		if constexpr(::std::is_floating_point_v<T>)
+			return v!=v;
+		else
+			return false;
+	}
 	/*! 符号位查询 */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr bool is_negative(T x)noexcept{
 		if constexpr(::std::is_signed_v<T>){
 			if constexpr(::std::is_floating_point_v<T>)
-				return ::std::signbit(x);
-			else
-				return x<0;
+				if(isNaN(x))
+					return false;
+			return x<0;
 		}
 		else
 			return false;
@@ -238,8 +246,11 @@ namespace magic_number{
 	//abs
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr auto abs(const T v)noexcept{
-		if constexpr(::std::is_signed_v<T>)
-			return v>=0?v:-v;
+		if constexpr(::std::is_signed_v<T>){
+			//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
+			typedef to_unsigned_t<T> UT;
+			return is_negative(v)?UT(-v):UT(v);
+		}
 		else
 			return v;
 	}
@@ -247,14 +258,6 @@ namespace magic_number{
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr bool feq(const T a,const T b)noexcept{
 		return abs(a-b)<=::std::numeric_limits<T>::epsilon();
-	}
-	//isNaN
-	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]force_inline constexpr bool isNaN(const T v)noexcept{
-		if constexpr(::std::is_floating_point_v<T>)
-			return v!=v;
-		else
-			return false;
 	}
 	//sub
 	template<class T1,class T2> requires was_not_an_ill_form(declvalue(T1)-declvalue(T2))
@@ -403,9 +406,9 @@ namespace magic_number{
 		if constexpr(::std::is_floating_point_v<T>)
 			if(a != ceil(a))
 				return false;
-		a=abs(a);
+		auto b=abs(a);
 
-		if(a<4)
+		if(b<4)
 			return true;//1和0也是prime,我不管.
 		/*
 		当x≥1,那么≥5的自然数如下:
@@ -417,34 +420,34 @@ namespace magic_number{
 		6x,排除.
 		那么,只用考虑6x±1是否是prime.
 		*/
-		if(mod(mod(a,6)-1,4))
+		if(mod(mod(b,6)-1,4))
 			return false;
 		/*
 		因为no_pre_check判定没有考虑到≤5的数,所以本函数第一个if进行判定补全.
 		*/
-		return is_prime_num_no_pre_check(a);
+		return is_prime_num_no_pre_check(b);
 	}
 	/// 求大于或等于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a)noexcept{
+	[[nodiscard]]inline constexpr auto get_prime_num_big_or_eq_than(T a)noexcept{
 		if constexpr(::std::is_floating_point_v<T>)
 			a=ceil(a);
-		a=abs(a);
-		if(a<4)return a;
-		//将a转换为6x-1的形式.
+		auto b=abs(a);
+		if(b<4)return a;
+		//将ua转换为6x-1的形式.
 		{
-			T b=mod(a,6);
-			if(b==1 && is_prime_num_no_pre_check(a))return a;
-			a+=b?5-b:1;
+			T c=mod(b,6);
+			if(c==1 && is_prime_num_no_pre_check(b))return b;
+			b+=c?5-c:1;
 		}
 		//循环判断.
-		for(;;a+=6)
-			if(is_prime_num_no_pre_check(a))return a;
-			elseif(is_prime_num_no_pre_check(a+2))return a+2;
+		for(;;b+=6)
+			if(is_prime_num_no_pre_check(b))return b;
+			elseif(is_prime_num_no_pre_check(b+2))return b+2;
 	}
 	/// 求大于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]inline constexpr T get_prime_num_big_than(T a)noexcept{
+	[[nodiscard]]inline constexpr auto get_prime_num_big_than(T a)noexcept{
 		return get_prime_num_big_or_eq_than(a+1);
 	}
 	push_and_disable_msvc_warning(26467);//gold_of_resize永远为正数
