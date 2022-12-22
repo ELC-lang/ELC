@@ -56,6 +56,28 @@ private:
 		_denominator(denominator)
 	{}
 public:
+	//friend abs
+	[[nodiscard]]friend bigfloat abs(const bigfloat& a)noexcept{
+		return bigfloat{abs(a._numerator),abs(a._denominator)};
+	}
+	[[nodiscard]]friend bigfloat&& abs(bigfloat&& a)noexcept{
+		a._numerator=abs(move(a._numerator));
+		a._denominator=abs(move(a._denominator));
+		return move(a);
+	}
+	//friend is_negative
+	[[nodiscard]]friend bool is_negative(const bigfloat& a)noexcept{
+		return is_negative(a._numerator)^is_negative(a._denominator);
+	}
+	//friend copy_as_negative
+	[[nodiscard]]friend bigfloat copy_as_negative(const bigfloat& a,bool sign=true)noexcept{
+		return bigfloat{copy_as_negative(a._numerator,sign),abs(a._denominator)};
+	}
+	[[nodiscard]]friend bigfloat&& copy_as_negative(bigfloat&& a,bool sign=true)noexcept{
+		a._numerator=copy_as_negative(move(a._numerator),sign);
+		a._denominator=abs(move(a._denominator));
+		return move(a);
+	}
 	//operator+
 	[[nodiscard]]bigfloat operator+(const bigfloat& other)const&noexcept{
 		auto numerator = _numerator * other._denominator + other._numerator * _denominator;

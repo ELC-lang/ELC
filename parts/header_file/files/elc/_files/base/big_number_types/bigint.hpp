@@ -20,11 +20,23 @@ public:
 	bigint()noexcept = default;
 	bigint(const bigint&)noexcept = default;
 	bigint(bigint&&)noexcept = default;
+	bigint(const ubigint&a)noexcept:_num(a),_is_negative(false){}
+	bigint(ubigint&&a)noexcept:_num(move(a)),_is_negative(false){}
 	template<typename T> requires ::std::is_integral_v<T>
 	bigint(T value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
 
 	bigint& operator=(const bigint&)&noexcept = default;
 	bigint& operator=(bigint&&)&noexcept = default;
+	bigint& operator=(const ubigint&a)&noexcept{
+		_num = a;
+		_is_negative = false;
+		return *this;
+	}
+	bigint& operator=(ubigint&&a)&noexcept{
+		_num = move(a);
+		_is_negative = false;
+		return *this;
+	}
 
 	~bigint() = default;
 public:
@@ -52,12 +64,11 @@ public:
 		return move(*this);
 	}
 	//friend abs
-	[[nodiscard]]friend bigint abs(const bigint& a)noexcept{
-		return {a._num,false};
+	[[nodiscard]]friend ubigint abs(const bigint& a)noexcept{
+		return a._num;
 	}
-	[[nodiscard]]friend bigint&& abs(bigint&& a)noexcept{
-		a._is_negative=false;
-		return move(a);
+	[[nodiscard]]friend ubigint&& abs(bigint&& a)noexcept{
+		return move(a._num);
 	}
 	//friend is_negative
 	[[nodiscard]]friend bool is_negative(const bigint& a)noexcept{

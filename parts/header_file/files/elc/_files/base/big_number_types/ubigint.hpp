@@ -258,6 +258,17 @@ private:
 		return tmp;
 	}
 public:
+	//friend abs
+	[[nodiscard]]friend ubigint abs(const ubigint& a)noexcept{
+		return a;
+	}
+	[[nodiscard]]friend ubigint&& abs(ubigint&& a)noexcept{
+		return move(a);
+	}
+	//friend is_negative
+	[[nodiscard]]friend bool is_negative(const ubigint&)noexcept{
+		return false;
+	}
 	//operator+
 	[[nodiscard]]ubigint operator+(const ubigint& other)const&noexcept{
 		return ubigint{add_base(get_data_view(), other.get_data_view())};
