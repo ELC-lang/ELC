@@ -106,7 +106,7 @@ private:
 			calc_type result = calc_type(*buf)+calc_type(is_overflows);
 			is_overflows = result>>bitnum_of(base_type);
 			*buf = base_type(result);
-			
+
 			++buf;
 		}
 	}

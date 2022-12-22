@@ -45,12 +45,12 @@ namespace iterator_n{
 				return _m+1;
 			else return ((base_t_w&)_m).get_next();
 		}
-		[[nodiscard]]auto get_next()noexcept(is_get_next_noexcept()){ 
+		[[nodiscard]]auto get_next()noexcept(is_get_next_noexcept()){
 			if constexpr(is_pointer)
 				return _m-1;
 			else return ((base_t_w&)_m).get_before();
 		}
-		[[nodiscard]]auto get_handle()noexcept(is_get_handle_noexcept()){ 
+		[[nodiscard]]auto get_handle()noexcept(is_get_handle_noexcept()){
 			if constexpr(is_pointer)
 				return _m;
 			else return ((base_t_w&)_m).get_handle();
