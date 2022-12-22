@@ -107,14 +107,41 @@ public:
 		const bool sign = _is_negative != other._is_negative;
 		return bigint{_num*other._num,sign};
 	}
+	[[nodiscard]]bigint operator*(const ubigint& other)const&noexcept{
+		return bigint{_num*other,_is_negative};
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint operator*(T other)const&noexcept{
+		if constexpr(::std::is_signed_v<T>)
+			return *this*bigint(other);
+		else
+			return *this*ubigint(other);
+	}
 	//operator/
 	[[nodiscard]]bigint operator/(const bigint& other)const&noexcept{
 		const bool sign = _is_negative != other._is_negative;
 		return bigint{_num/other._num,sign};
 	}
+	[[nodiscard]]bigint operator/(const ubigint& other)const&noexcept{
+		return bigint{_num/other,_is_negative};
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint operator/(T other)const&noexcept{
+		if constexpr(::std::is_signed_v<T>)
+			return *this/bigint(other);
+		else
+			return *this/ubigint(other);
+	}
 	//operator%
 	[[nodiscard]]bigint operator%(const bigint& other)const&noexcept{
 		return bigint{_num%other._num,_is_negative};
+	}
+	[[nodiscard]]bigint operator%(const ubigint& other)const&noexcept{
+		return bigint{_num%other,_is_negative};
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint operator%(T other)const&noexcept{
+		return *this%ubigint(abs(other));
 	}
 	//operator+=
 	bigint& operator+=(const bigint& other)&noexcept{
@@ -164,6 +191,18 @@ public:
 		_num *= other._num;
 		return*this;
 	}
+	bigint& operator*=(bigint&& other)&noexcept{
+		_is_negative = _is_negative != other._is_negative;
+		_num *= move(other._num);
+		return*this;
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	bigint& operator*=(T other)&noexcept{
+		if constexpr(::std::is_signed_v<T>)
+			return *this*=bigint(other);
+		else
+			return *this*=ubigint(other);
+	}
 	//operator/=
 	bigint& operator/=(const bigint& other)&noexcept{
 		_is_negative = _is_negative != other._is_negative;
@@ -174,6 +213,13 @@ public:
 		_is_negative = _is_negative != other._is_negative;
 		_num /= move(other._num);
 		return*this;
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	bigint& operator/=(T other)&noexcept{
+		if constexpr(::std::is_signed_v<T>)
+			return *this/=bigint(other);
+		else
+			return *this/=ubigint(other);
 	}
 	//operator%=
 	bigint& operator%=(const bigint& other)&noexcept{
@@ -186,6 +232,10 @@ public:
 		_num %= move(other._num);
 		return*this;
 	}
+	template<typename T> requires ::std::is_integral_v<T>
+	bigint& operator%=(T other)&noexcept{
+		return *this%=ubigint(abs(other));
+	}
 	//operatorX for rvalue
 	[[nodiscard]]bigint&& operator+(const bigint& other)&&noexcept{
 		return move(*this+=other);
@@ -196,10 +246,31 @@ public:
 	[[nodiscard]]bigint&& operator*(const bigint& other)&&noexcept{
 		return move(*this*=other);
 	}
+	[[nodiscard]]bigint&& operator*(const ubigint& other)&&noexcept{
+		return move(*this*=other);
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint&& operator*(T other)&&noexcept{
+		return move(*this*=other);
+	}
 	[[nodiscard]]bigint&& operator/(const bigint& other)&&noexcept{
 		return move(*this/=other);
 	}
+	[[nodiscard]]bigint&& operator/(const ubigint& other)&&noexcept{
+		return move(*this/=other);
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint&& operator/(T other)&&noexcept{
+		return move(*this/=other);
+	}
 	[[nodiscard]]bigint&& operator%(const bigint& other)&&noexcept{
+		return move(*this%=other);
+	}
+	[[nodiscard]]bigint&& operator%(const ubigint& other)&&noexcept{
+		return move(*this%=other);
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint&& operator%(T other)&&noexcept{
 		return move(*this%=other);
 	}
 	[[nodiscard]]bigint&& operator+(bigint&& other)noexcept{
