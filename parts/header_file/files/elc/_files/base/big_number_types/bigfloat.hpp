@@ -33,17 +33,22 @@ public:
 			}
 		_numerator = 0;
 		_denominator = 1;
+		ptrdiff_t exp = 0;
 		while(num > BIT_POSSIBILITY){
 			num /= BIT_POSSIBILITY;
-			_denominator *= BIT_POSSIBILITY;
+			exp++;
 		}
 		while(num != 0){
 			num *= BIT_POSSIBILITY;
 			_numerator *= BIT_POSSIBILITY;
-			_denominator *= BIT_POSSIBILITY;
+			exp--;
 			_numerator += static_cast<unsigned char>(num);
 			num -= static_cast<unsigned char>(num);
 		}
+		if(exp > 0)
+			_numerator *= (unsigned_specific_size_t<sizeof(T)>)pow(BIT_POSSIBILITY, exp);
+		else
+			_denominator *= (unsigned_specific_size_t<sizeof(T)>)pow(BIT_POSSIBILITY, -exp);
 		_numerator = copy_as_negative(_numerator, sign);
 	}
 private:

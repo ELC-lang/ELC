@@ -20,7 +20,8 @@ public:
 	ubigint(ubigint&&)noexcept = default;
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
 	ubigint(T value)noexcept{
-		_data.resize(sizeof(T));
+		const auto size = sizeof(T)/sizeof(base_type)+(sizeof(T)%sizeof(base_type)?1:0);
+		_data.resize(size);
 		auto i=_data.begin();
 		while(value){
 			*i=base_type(value%base_type_mod);
