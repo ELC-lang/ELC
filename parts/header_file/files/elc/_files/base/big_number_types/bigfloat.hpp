@@ -278,6 +278,13 @@ public:
 	[[nodiscard]]explicit operator bool()const noexcept{
 		return !operator!();
 	}
+public:
+	//化简
+	void simplify()noexcept{
+		bigint g=gcd(abs(_numerator),abs(_denominator));
+		_numerator/=g;
+		_denominator/=g;
+	}
 };
 
 //file_end

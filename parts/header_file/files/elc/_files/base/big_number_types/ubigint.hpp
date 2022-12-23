@@ -389,6 +389,11 @@ public:
 		return !operator!();
 	}
 };
+//求出最大公约数
+inline ubigint gcd(ubigint a,ubigint b)noexcept{
+	if(b) while((a %= b) && (b %= a));
+	return a+b;
+}
 
 //file_end
 
