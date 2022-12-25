@@ -28,11 +28,9 @@ public:
 			value=T(value/base_type_mod);
 			i++;
 		}
-		if constexpr(size>1){
-			const auto end=_data.begin()+size;
-			while(i!=end)
-				*(i++)=0;
-		}
+		const auto used_size=i-_data.begin();
+		if(used_size!=size)
+			_data.resize(used_size);
 	}
 
 	ubigint& operator=(const ubigint&)&noexcept = default;
@@ -41,7 +39,20 @@ public:
 	~ubigint() = default;
 private:
 	typedef array_like_view_t<const base_type> data_view_type;
+	static void shrink_to_fit(data_type&a)noexcept{
+		auto size=a.size();
+		while(size--)
+			if(a[size]!=0)
+				break;
+		a.resize(size+1);
+	}
+	void shrink_to_fit()noexcept{
+		shrink_to_fit(_data);
+	}
 	static data_view_type get_data_view_of_data(const base_type*data,size_t size)noexcept{
+		return data_view_type{data,size};
+	}
+	static data_view_type get_shrinked_data_view_of_data(const base_type*data,size_t size)noexcept{
 		size_t i = size;
 		while(i--)
 			if(data[i]!=0)
@@ -51,8 +62,14 @@ private:
 	static data_view_type get_data_view_of_data(const data_type&a)noexcept{
 		return get_data_view_of_data(a.data(), a.size());
 	}
+	static data_view_type get_shrinked_data_view_of_data(const data_type&a)noexcept{
+		return get_shrinked_data_view_of_data(a.data(), a.size());
+	}
 	data_view_type get_data_view()const noexcept{
 		return get_data_view_of_data(_data);
+	}
+	data_view_type get_shrinked_data_view()const noexcept{
+		return get_shrinked_data_view_of_data(_data);
 	}
 public:
 	//operator==
@@ -88,6 +105,7 @@ private:
 		copy_assign[base_size](tmp.data(),a.data());
 		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
 		add_to_base(tmp.data(),b);
+		shrink_to_fit(tmp);
 		return tmp;
 	}
 	static void add_to_base(base_type*buf,data_view_type b)noexcept{
@@ -124,6 +142,7 @@ private:
 		copy_assign[base_size](tmp.data(),a.data());
 		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
 		sub_with_base(tmp.data(),b);
+		shrink_to_fit(tmp);
 		return tmp;
 	}
 	static void sub_with_base(base_type*buf,data_view_type b)noexcept{
@@ -160,6 +179,7 @@ private:
 		//下面的muti_with_base至少会写入a.size()个元素，所以只需要置零tmp中最后一个元素就行
 		tmp.back()=0;
 		muti_with_base(tmp.data(),a,b);
+		shrink_to_fit(tmp);
 		return tmp;
 	}
 	static void muti_with_base(base_type*buf,data_view_type a,base_type b)noexcept{
@@ -183,13 +203,14 @@ private:
 			//下面的muti_with_base至少会写入a.size()个元素，所以只需要置零tmp中最后一个元素就行
 			tmp.back()=0;
 			muti_with_base(tmp.data(),a,b[muti_sacle]);
-			add_to_base(buf+muti_sacle,tmp);
+			add_to_base(buf+muti_sacle,get_shrinked_data_view_of_data(tmp));
 			muti_sacle++;
 		}
 	}
 	[[nodiscard]]static data_type muti_base(data_view_type a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+b.size()),0);
 		muti_with_base(tmp.data(),a,b);
+		shrink_to_fit(tmp);
 		return tmp;
 	}
 	///
@@ -202,12 +223,12 @@ private:
 		}();
 		const calc_type divisor=calc_type(b.back());
 		base_type aret=base_type(dividend/divisor);
-		tryto=get_data_view_of_data(tryto.data(),tryto.size());
+		tryto=get_shrinked_data_view_of_data(tryto.data(),tryto.size());
 		while(aret!=0){
 			//下面的muti_with_base至少会写入b.size()个元素，所以只需要置零buf中最后一个元素就行
 			buf.back()=0;
 			muti_with_base(buf.data(),b,aret);
-			const auto myview=get_data_view_of_data(buf);
+			const auto myview=get_shrinked_data_view_of_data(buf);
 			if(compare(tryto,myview)>=0){
 				sub_with_base(a,myview);
 				return aret;
@@ -225,7 +246,8 @@ private:
 		array_t<base_type> tmp(note::size(a.size()+1));
 		copy_assign[a.size()](tmp.data(), a.data());
 		tmp.back()=0;
-		return div_with_base(tmp,b);
+		tmp=div_with_base(tmp,b);
+		return tmp;
 	}
 	static data_type div_with_base(data_type&a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()-b.size()),0);
@@ -239,6 +261,7 @@ private:
 			tmpwritter++;
 			begin++;
 		};
+		shrink_to_fit(tmp);
 		return tmp;
 	}
 	//%
@@ -256,6 +279,7 @@ private:
 		copy_assign[a.size()](tmp.data(), a.data());
 		tmp.back()=0;
 		mod_with_base(tmp,b);
+		shrink_to_fit(tmp);
 		return tmp;
 	}
 public:
@@ -317,6 +341,7 @@ public:
 		_data.resize(new_size);
 		copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
 		add_to_base(_data.data(),other_view);
+		shrink_to_fit();
 		return*this;
 	}
 	//operator-=
@@ -325,8 +350,10 @@ public:
 		const auto other_view = other.get_data_view();
 		if(compare(this_view, other_view)<0)
 			_data.clear();
-		else
+		else{
 			sub_with_base(_data.data(),other_view);
+			shrink_to_fit();
+		}
 		return*this;
 	}
 	//operator*=
