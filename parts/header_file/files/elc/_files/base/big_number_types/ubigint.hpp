@@ -32,6 +32,27 @@ public:
 		if(used_size!=size)
 			_data.resize(used_size);
 	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	[[nodiscard]]bool is_safe_convert_to()const noexcept{
+		constexpr auto min_value=min(type_info<T>);
+		constexpr auto max_value=max(type_info<T>);
+		if constexpr(min_value)
+			if(*this<min_value)
+				return false;
+		if(*this>max_value)
+			return false;
+		return true;
+	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	[[nodiscard]]T convert_to()const noexcept{
+		T value=0;
+		auto i=_data.rbegin();
+		while(i!=_data.rend()){
+			value*=base_type_mod;
+			value+=*i++;
+		}
+		return value;
+	}
 
 	ubigint& operator=(const ubigint&)&noexcept = default;
 	ubigint& operator=(ubigint&&)&noexcept = default;
@@ -49,26 +70,26 @@ private:
 	void shrink_to_fit()noexcept{
 		shrink_to_fit(_data);
 	}
-	static data_view_type get_data_view_of_data(const base_type*data,size_t size)noexcept{
+	[[nodiscard]]static data_view_type get_data_view_of_data(const base_type*data,size_t size)noexcept{
 		return data_view_type{data,size};
 	}
-	static data_view_type get_shrinked_data_view_of_data(const base_type*data,size_t size)noexcept{
+	[[nodiscard]]static data_view_type get_shrinked_data_view_of_data(const base_type*data,size_t size)noexcept{
 		size_t i = size;
 		while(i--)
 			if(data[i]!=0)
 				break;
 		return data_view_type{data,i+1};
 	}
-	static data_view_type get_data_view_of_data(const data_type&a)noexcept{
+	[[nodiscard]]static data_view_type get_data_view_of_data(const data_type&a)noexcept{
 		return get_data_view_of_data(a.data(), a.size());
 	}
-	static data_view_type get_shrinked_data_view_of_data(const data_type&a)noexcept{
+	[[nodiscard]]static data_view_type get_shrinked_data_view_of_data(const data_type&a)noexcept{
 		return get_shrinked_data_view_of_data(a.data(), a.size());
 	}
-	data_view_type get_data_view()const noexcept{
+	[[nodiscard]]data_view_type get_data_view()const noexcept{
 		return get_data_view_of_data(_data);
 	}
-	data_view_type get_shrinked_data_view()const noexcept{
+	[[nodiscard]]data_view_type get_shrinked_data_view()const noexcept{
 		return get_shrinked_data_view_of_data(_data);
 	}
 public:
@@ -293,6 +314,10 @@ public:
 	//friend is_negative
 	[[nodiscard]]friend bool is_negative(const ubigint&)noexcept{
 		return false;
+	}
+	//friend to_size_t
+	[[nodiscard]]friend size_t to_size_t(const ubigint& a)noexcept{
+		return a.convert_to<size_t>();
 	}
 	//operator+
 	[[nodiscard]]ubigint operator+(const ubigint& other)const&noexcept{

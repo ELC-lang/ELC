@@ -56,6 +56,28 @@ public:
 		return tmp;
 	}
 public:
+	template<typename T> requires(::std::is_integral_v<T>)
+	[[nodiscard]]bool is_safe_convert_to()const noexcept{
+		constexpr auto min_value=min(type_info<T>);
+		constexpr auto max_value=max(type_info<T>);
+		if constexpr(min_value)
+			if(*this<min_value)
+				return false;
+		if(*this>max_value)
+			return false;
+		return true;
+	}
+	template<typename T> requires(::std::is_integral_v<T>)
+	[[nodiscard]]T convert_to()const noexcept{
+		if constexpr(::std::is_signed_v<T>){
+			typedef to_unsigned_t<T> UT;
+			UT tmp=_num.convert_to<UT>();
+			return _is_negative?-(T)tmp:(T)tmp;
+		}
+		else
+			return _num.convert_to<T>();
+	}
+public:
 	[[nodiscard]]bigint operator-()const&noexcept{
 		return {_num,!_is_negative};
 	}
@@ -81,6 +103,10 @@ public:
 	[[nodiscard]]friend bigint&& copy_as_negative(bigint&& a,bool sign=true)noexcept{
 		a._is_negative=sign;
 		return move(a);
+	}
+	//friend to_size_t
+	[[nodiscard]]friend size_t to_size_t(const bigint& a)noexcept{
+		return a.convert_to<size_t>();
 	}
 	//operator+
 	[[nodiscard]]bigint operator+(const bigint& other)const&noexcept{

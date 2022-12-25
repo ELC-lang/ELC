@@ -16,6 +16,10 @@ public:
 	bigfloat(bigfloat&& other)noexcept=default;
 	bigfloat& operator=(const bigfloat& other)&noexcept=default;
 	bigfloat& operator=(bigfloat&& other)&noexcept=default;
+	bigfloat(const bigint& other)noexcept:_numerator(other),_denominator(1){}
+	bigfloat(bigint&& other)noexcept:_numerator(move(other)),_denominator(1){}
+	bigfloat(const ubigint& other)noexcept:_numerator(other),_denominator(1){}
+	bigfloat(ubigint&& other)noexcept:_numerator(move(other)),_denominator(1){}
 
 	template<typename T> requires ::std::is_integral_v<T>
 	bigfloat(T num)noexcept:_numerator(num),_denominator(1){}
@@ -50,6 +54,68 @@ public:
 		else
 			_denominator *= (unsigned_specific_size_t<sizeof(T)>)pow(BIT_POSSIBILITY, -exp);
 		_numerator = copy_as_negative(_numerator, sign);
+		simplify();
+	}
+public:
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]bool is_safe_convert_to()const noexcept{
+		constexpr auto min_value=min(type_info<T>);
+		constexpr auto max_value=max(type_info<T>);
+		if constexpr(min_value)
+			if(*this<min_value)
+				return false;
+		if(*this>max_value)
+			return false;
+		if constexpr(::std::is_integral_v<T>)
+			if(_numerator%_denominator)
+				return false;
+		return true;
+	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]T convert_to()const noexcept{
+		if constexpr(::std::is_integral_v<T>)
+			return trunc(*this).convert_to<T>();
+		else{
+			T ans=0;
+			{
+				bigfloat tmp=abs(*this);
+				bigint num=trunc(tmp);
+				tmp-=num;
+				typedef unsigned_specific_size_fast_t<sizeof(T)> integer_get_type;
+				{
+					size_t exp=0;
+					bigfloat fnum=num;
+					while(trunc(fnum)){
+						fnum/=BIT_POSSIBILITY;
+						exp++;
+					}
+					while(exp--){
+						fnum*=BIT_POSSIBILITY;
+						ans*=BIT_POSSIBILITY;
+						num = trunc(fnum);
+						fnum -= num;
+						ans += num.convert_to<integer_get_type>();
+					}
+				}
+				{
+					T ans_mantissa=0;
+					size_t exp=0;
+					while(tmp){
+						tmp*=BIT_POSSIBILITY;
+						ans_mantissa*=BIT_POSSIBILITY;
+						num=trunc(tmp);
+						tmp-=num;
+						ans_mantissa+=num.convert_to<integer_get_type>();
+						exp++;
+					}
+					ans_mantissa/=pow(BIT_POSSIBILITY,exp);
+					ans+=ans_mantissa;
+				}
+			}
+			if(is_negative(*this))
+				ans=-ans;
+			return ans;
+		}
 	}
 private:
 	bigfloat(bigint&& numerator, bigint&& denominator)noexcept:
@@ -89,6 +155,10 @@ public:
 	}
 	[[nodiscard]]explicit operator bigint()noexcept{
 		return trunc(*this);
+	}
+	//friend to_size_t
+	[[nodiscard]]friend size_t to_size_t(const bigfloat& a)noexcept{
+		return to_size_t(trunc(a));
 	}
 	//operator+
 	[[nodiscard]]bigfloat operator+(const bigfloat& other)const&noexcept{
