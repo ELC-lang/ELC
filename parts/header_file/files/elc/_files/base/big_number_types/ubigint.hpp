@@ -403,7 +403,10 @@ public:
 		}
 		const auto this_view = get_data_view();
 		if(this_view.size() < other_view.size())return*this;
+		_data.resize(_data.size()+1);
+		_data.back()=0;
 		mod_with_base(_data,other_view);
+		shrink_to_fit();
 		return*this;
 	}
 	//operatorX for rvalue
