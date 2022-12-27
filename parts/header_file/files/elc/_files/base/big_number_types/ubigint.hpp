@@ -20,7 +20,7 @@ public:
 	ubigint(ubigint&&)noexcept = default;
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
 	ubigint(T value)noexcept{
-		constexpr auto size = sizeof(T)/sizeof(base_type)+(sizeof(T)%sizeof(base_type)?1:0);
+		constexpr auto size = sizeof(T)/sizeof(base_type)+((sizeof(T)%sizeof(base_type))?1:0);
 		_data.resize(size);
 		auto i=_data.begin();
 		while(value){
@@ -355,6 +355,52 @@ public:
 		if(this_view.size() < other_view.size())return*this;
 		return ubigint{mod_base(this_view, other_view)};
 	}
+	//operator<<
+	template<typename T> requires ::std::integral<T>
+	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
+		if(!*this)return ubigint{};
+		if constexpr(::std::is_unsigned_v<T>){
+			auto aret=*this;
+			while(n--)
+				aret*=BIT_POSSIBILITY;
+			return aret;
+		}else{
+			if(n<0)return*this>>abs(n);
+			else return*this<<abs(n);
+		}
+	}
+	[[nodiscard]]ubigint operator<<(ubigint n)const&noexcept{
+		if(!*this)return ubigint{};
+		auto aret=*this;
+		while(n){
+			aret*=BIT_POSSIBILITY;
+			--n;
+		}
+		return aret;
+	}
+	//operator>>
+	template<typename T> requires ::std::integral<T>
+	[[nodiscard]]ubigint operator>>(T n)const&noexcept{
+		if(!*this)return ubigint{};
+		if constexpr(::std::is_unsigned_v<T>){
+			auto aret=*this;
+			while(n-- && aret)
+				aret/=BIT_POSSIBILITY;
+			return aret;
+		}else{
+			if(n<0)return*this<<abs(n);
+			else return*this>>abs(n);
+		}
+	}
+	[[nodiscard]]ubigint operator>>(ubigint n)const&noexcept{
+		if(!*this)return ubigint{};
+		auto aret=*this;
+		while(n && aret){
+			aret/=BIT_POSSIBILITY;
+			--n;
+		}
+		return aret;
+	}
 	//operator+=
 	ubigint& operator+=(const ubigint& other)&noexcept{
 		//using add_to_base to avoid new alloc
@@ -409,6 +455,44 @@ public:
 		shrink_to_fit();
 		return*this;
 	}
+	//operator<<=
+	template<typename T> requires ::std::integral<T>
+	ubigint& operator<<=(T n)&noexcept{
+		if constexpr(::std::is_unsigned_v<T>){
+			while(n--)
+				*this*=BIT_POSSIBILITY;
+		}else{
+			if(n<0)*this>>=abs(n);
+			else *this<<=abs(n);
+		}
+		return*this;
+	}
+	ubigint& operator<<=(ubigint n)&noexcept{
+		while(n){
+			*this*=BIT_POSSIBILITY;
+			--n;
+		}
+		return*this;
+	}
+	//operator>>=
+	template<typename T> requires ::std::integral<T>
+	ubigint& operator>>=(T n)&noexcept{
+		if constexpr(::std::is_unsigned_v<T>){
+			while(n-- && *this)
+				*this/=BIT_POSSIBILITY;
+		}else{
+			if(n<0)*this<<=abs(n);
+			else *this>>=abs(n);
+		}
+		return*this;
+	}
+	ubigint& operator>>=(ubigint n)&noexcept{
+		while(n && *this){
+			*this/=BIT_POSSIBILITY;
+			--n;
+		}
+		return*this;
+	}
 	//operatorX for rvalue
 	[[nodiscard]]ubigint&& operator+(const ubigint& other)&&noexcept{
 		return move(*this+=other);
@@ -424,6 +508,20 @@ public:
 	}
 	[[nodiscard]]ubigint&& operator%(const ubigint& other)&&noexcept{
 		return move(*this%=other);
+	}
+	template<typename T> requires ::std::integral<T>
+	[[nodiscard]]ubigint&& operator<<(T n)&&noexcept{
+		return move(*this<<=n);
+	}
+	[[nodiscard]]ubigint&& operator<<(const ubigint& other)&&noexcept{
+		return move(*this<<=other);
+	}
+	template<typename T> requires ::std::integral<T>
+	[[nodiscard]]ubigint&& operator>>(T n)&&noexcept{
+		return move(*this>>=n);
+	}
+	[[nodiscard]]ubigint&& operator>>(const ubigint& other)&&noexcept{
+		return move(*this>>=other);
 	}
 	[[nodiscard]]ubigint&& operator+(ubigint&& other)noexcept{
 		return move(other+=*this);
@@ -442,6 +540,24 @@ public:
 	}
 	[[nodiscard]]explicit operator bool()const noexcept{
 		return !operator!();
+	}
+	//operator++
+	ubigint& operator++()&noexcept{
+		return *this+=1u;
+	}
+	[[nodiscard]]ubigint operator++(int)&noexcept{
+		auto tmp = *this;
+		++*this;
+		return tmp;
+	}
+	//operator--
+	ubigint& operator--()&noexcept{
+		return *this-=1u;
+	}
+	[[nodiscard]]ubigint operator--(int)&noexcept{
+		auto tmp = *this;
+		--*this;
+		return tmp;
 	}
 };
 //求出最大公约数

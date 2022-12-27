@@ -8,7 +8,7 @@
 */
 class bigint{
 	ubigint _num;
-	bool _is_negative;
+	bool _is_negative=0;
 
 	bigint(const ubigint&num,bool is_negative)noexcept:_num(num),_is_negative(is_negative){
 		if(!_num)_is_negative = false;
@@ -34,6 +34,12 @@ public:
 	}
 	bigint& operator=(ubigint&&a)&noexcept{
 		_num = move(a);
+		_is_negative = false;
+		return *this;
+	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	bigint& operator=(T value)&noexcept{
+		_num = value;
 		_is_negative = false;
 		return *this;
 	}
@@ -169,6 +175,47 @@ public:
 	[[nodiscard]]bigint operator%(T other)const&noexcept{
 		return *this%ubigint(abs(other));
 	}
+	//operator<<
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint operator<<(T n)const&noexcept{
+		return bigint{_num<<n,_is_negative};
+	}
+	[[nodiscard]]bigint operator<<(const bigint& n)const&noexcept{
+		if(n._is_negative)
+			return *this>>n._num;
+		else
+			return *this<<n._num;
+	}
+	[[nodiscard]]bigint operator<<(const ubigint& n)const&noexcept{
+		return {_num<<n,_is_negative};
+	}
+	//operator>>
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint operator>>(T n)const&noexcept{
+		return bigint{_num>>n,_is_negative};
+	}
+	[[nodiscard]]bigint operator>>(const bigint& n)const&noexcept{
+		if(n._is_negative)
+			return *this<<n._num;
+		else
+			return *this>>n._num;
+	}
+	[[nodiscard]]bigint operator>>(const ubigint& n)const&noexcept{
+		return {_num>>n,_is_negative};
+	}
+	//friend operator<< and operator>> for ubigint
+	[[nodiscard]]friend bigint operator<<(const ubigint& a,const bigint& b)noexcept{
+		if(b._is_negative)
+			return a>>b._num;
+		else
+			return a<<b._num;
+	}
+	[[nodiscard]]friend bigint operator>>(const ubigint& a,const bigint& b)noexcept{
+		if(b._is_negative)
+			return a<<b._num;
+		else
+			return a>>b._num;
+	}
 	//operator+=
 	bigint& operator+=(const bigint& other)&noexcept{
 		if(_is_negative == other._is_negative)
@@ -262,6 +309,51 @@ public:
 	bigint& operator%=(T other)&noexcept{
 		return *this%=ubigint(abs(other));
 	}
+	//operator<<=
+	template<typename T> requires ::std::is_integral_v<T>
+	bigint& operator<<=(T n)&noexcept{
+		_num <<= n;
+		return*this;
+	}
+	bigint& operator<<=(const bigint& other)&noexcept{
+		if(other._is_negative)
+			return*this>>=other._num;
+		else
+			return*this<<=other._num;
+	}
+	bigint& operator<<=(const ubigint& other)&noexcept{
+		_num <<= other;
+		return*this;
+	}
+	//operator>>=
+	template<typename T> requires ::std::is_integral_v<T>
+	bigint& operator>>=(T n)&noexcept{
+		_num >>= n;
+		return*this;
+	}
+	bigint& operator>>=(const bigint& other)&noexcept{
+		if(other._is_negative)
+			return*this<<=other._num;
+		else
+			return*this>>=other._num;
+	}
+	bigint& operator>>=(const ubigint& other)&noexcept{
+		_num >>= other;
+		return*this;
+	}
+	//friend operator<<= and operator>>= for ubigint
+	friend ubigint& operator<<=(ubigint& lhs, const bigint& rhs)noexcept{
+		if(rhs._is_negative)
+			return lhs>>=rhs._num;
+		else
+			return lhs<<=rhs._num;
+	}
+	friend ubigint& operator>>=(ubigint& lhs, const bigint& rhs)noexcept{
+		if(rhs._is_negative)
+			return lhs<<=rhs._num;
+		else
+			return lhs>>=rhs._num;
+	}
 	//operatorX for rvalue
 	[[nodiscard]]bigint&& operator+(const bigint& other)&&noexcept{
 		return move(*this+=other);
@@ -299,6 +391,32 @@ public:
 	[[nodiscard]]bigint&& operator%(T other)&&noexcept{
 		return move(*this%=other);
 	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint&& operator<<(T other)&&noexcept{
+		return move(*this<<=other);
+	}
+	[[nodiscard]]bigint&& operator<<(const bigint& other)&&noexcept{
+		return move(*this<<=other);
+	}
+	[[nodiscard]]bigint&& operator<<(const ubigint& other)&&noexcept{
+		return move(*this<<=other);
+	}
+	template<typename T> requires ::std::is_integral_v<T>
+	[[nodiscard]]bigint&& operator>>(T other)&&noexcept{
+		return move(*this>>=other);
+	}
+	[[nodiscard]]bigint&& operator>>(const bigint& other)&&noexcept{
+		return move(*this>>=other);
+	}
+	[[nodiscard]]bigint&& operator>>(const ubigint& other)&&noexcept{
+		return move(*this>>=other);
+	}
+	friend ubigint&& operator<<(ubigint&& lhs, const bigint& rhs)noexcept{
+		return move(lhs<<=rhs);
+	}
+	friend ubigint&& operator>>(ubigint&& lhs, const bigint& rhs)noexcept{
+		return move(lhs>>=rhs);
+	}
 	[[nodiscard]]bigint&& operator+(bigint&& other)noexcept{
 		return move(move(other)+*this);
 	}
@@ -314,6 +432,24 @@ public:
 	}
 	[[nodiscard]]explicit operator bool()const noexcept{
 		return !operator!();
+	}
+	//operator++
+	bigint& operator++()&noexcept{
+		return *this+=1u;
+	}
+	[[nodiscard]]bigint operator++(int)&noexcept{
+		auto tmp = *this;
+		++*this;
+		return tmp;
+	}
+	//operator--
+	bigint& operator--()&noexcept{
+		return *this-=1u;
+	}
+	[[nodiscard]]bigint operator--(int)&noexcept{
+		auto tmp = *this;
+		--*this;
+		return tmp;
 	}
 };
 
