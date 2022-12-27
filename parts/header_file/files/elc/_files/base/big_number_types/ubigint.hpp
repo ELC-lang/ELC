@@ -18,6 +18,7 @@ public:
 	ubigint()noexcept = default;
 	ubigint(const ubigint&)noexcept = default;
 	ubigint(ubigint&&)noexcept = default;
+	ubigint(const zero_t&)noexcept:ubigint(){}
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
 	ubigint(T value)noexcept{
 		constexpr auto size = sizeof(T)/sizeof(base_type)+((sizeof(T)%sizeof(base_type))?1:0);
@@ -56,6 +57,10 @@ public:
 
 	ubigint& operator=(const ubigint&)&noexcept = default;
 	ubigint& operator=(ubigint&&)&noexcept = default;
+	ubigint& operator=(const zero_t&)noexcept{
+		_data.clear();
+		return*this;
+	}
 
 	~ubigint() = default;
 private:
@@ -359,46 +364,28 @@ public:
 	template<typename T> requires ::std::integral<T>
 	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
 		if(!*this)return ubigint{};
-		if constexpr(::std::is_unsigned_v<T>){
-			auto aret=*this;
-			while(n--)
-				aret*=BIT_POSSIBILITY;
-			return aret;
-		}else{
-			if(n<0)return*this>>abs(n);
-			else return*this<<abs(n);
-		}
+		auto aret=*this;
+		aret<<=n;
+		return aret;
 	}
 	[[nodiscard]]ubigint operator<<(ubigint n)const&noexcept{
 		if(!*this)return ubigint{};
 		auto aret=*this;
-		while(n){
-			aret*=BIT_POSSIBILITY;
-			--n;
-		}
+		aret<<=n;
 		return aret;
 	}
 	//operator>>
 	template<typename T> requires ::std::integral<T>
 	[[nodiscard]]ubigint operator>>(T n)const&noexcept{
 		if(!*this)return ubigint{};
-		if constexpr(::std::is_unsigned_v<T>){
-			auto aret=*this;
-			while(n-- && aret)
-				aret/=BIT_POSSIBILITY;
-			return aret;
-		}else{
-			if(n<0)return*this<<abs(n);
-			else return*this>>abs(n);
-		}
+		auto aret=*this;
+		aret>>=n;
+		return aret;
 	}
 	[[nodiscard]]ubigint operator>>(ubigint n)const&noexcept{
 		if(!*this)return ubigint{};
 		auto aret=*this;
-		while(n && aret){
-			aret/=BIT_POSSIBILITY;
-			--n;
-		}
+		aret>>=n;
 		return aret;
 	}
 	//operator+=
@@ -458,7 +445,16 @@ public:
 	//operator<<=
 	template<typename T> requires ::std::integral<T>
 	ubigint& operator<<=(T n)&noexcept{
+		if(!*this)return*this;
 		if constexpr(::std::is_unsigned_v<T>){
+			if(n>bitnum_of(base_type)){
+				const auto oldsize=_data.size();
+				const auto newsize_diff=n/bitnum_of(base_type);
+				const auto newsize=oldsize+newsize_diff;
+				_data.forward_resize(newsize);
+				copy_assign[newsize_diff](note::to(_data.data()+oldsize), base_type{0});
+				n%=bitnum_of(base_type);
+			}
 			while(n--)
 				*this*=BIT_POSSIBILITY;
 		}else{
@@ -468,6 +464,15 @@ public:
 		return*this;
 	}
 	ubigint& operator<<=(ubigint n)&noexcept{
+		if(!*this)return*this;
+		if(n>bitnum_of(base_type)){
+			const auto oldsize=_data.size();
+			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+			const auto newsize=oldsize+newsize_diff;
+			_data.forward_resize(newsize);
+			copy_assign[newsize_diff](note::to(_data.data()+oldsize), base_type{0});
+			n%=bitnum_of(base_type);
+		}
 		while(n){
 			*this*=BIT_POSSIBILITY;
 			--n;
@@ -477,7 +482,16 @@ public:
 	//operator>>=
 	template<typename T> requires ::std::integral<T>
 	ubigint& operator>>=(T n)&noexcept{
+		if(!*this)return*this;
 		if constexpr(::std::is_unsigned_v<T>){
+			if(n>bitnum_of(base_type)){
+				const auto oldsize=_data.size();
+				const auto newsize_diff=n/bitnum_of(base_type);
+				if(newsize_diff>=oldsize)return*this=zero;
+				const auto newsize=oldsize-newsize_diff;
+				_data.forward_resize(newsize);
+				n%=bitnum_of(base_type);
+			}
 			while(n-- && *this)
 				*this/=BIT_POSSIBILITY;
 		}else{
@@ -487,6 +501,15 @@ public:
 		return*this;
 	}
 	ubigint& operator>>=(ubigint n)&noexcept{
+		if(!*this)return*this;
+		if(n>bitnum_of(base_type)){
+			const auto oldsize=_data.size();
+			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+			if(newsize_diff>=oldsize)return*this=zero;
+			const auto newsize=oldsize-newsize_diff;
+			_data.forward_resize(newsize);
+			n%=bitnum_of(base_type);
+		}
 		while(n && *this){
 			*this/=BIT_POSSIBILITY;
 			--n;

@@ -46,7 +46,7 @@ public:
 				if(exponent>0)
 					_numerator<<=exponent;
 				else
-					_denominator<<=-exponent;
+					_denominator<<=abs(exponent);
 			}
 		}
 		_numerator = copy_as_negative(_numerator, sign);

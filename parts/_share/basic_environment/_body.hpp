@@ -120,7 +120,7 @@ namespace elc::defs{
 		*/
 		//自浮点数获取精确数部分，舍去指数和符号位
 		template<class T> requires(::std::is_floating_point_v<T>)
-		inline constexpr auto get_precision(T v)noexcept{
+		force_inline constexpr auto get_precision(T v)noexcept{
 			if constexpr(::std::is_same_v<T,float>){
 				auto tmp=*(uint32_t*)&v;
 				tmp&=0x007FFFFF;
@@ -143,7 +143,7 @@ namespace elc::defs{
 		}
 		//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
 		template<class T> requires(::std::is_floating_point_v<T>)
-		inline constexpr auto get_precision_base(T)noexcept{
+		force_inline constexpr auto get_precision_base(T)noexcept{
 			if constexpr(::std::is_same_v<T,float>){
 				return 0x800000;
 			}
@@ -160,7 +160,7 @@ namespace elc::defs{
 		}
 		//（基础的）自浮点数获取指数部分，舍去基数和符号位
 		template<class T> requires(::std::is_floating_point_v<T>)
-		inline constexpr auto base_get_exponent(T v)noexcept{
+		force_inline constexpr auto base_get_exponent(T v)noexcept{
 			if constexpr(::std::is_same_v<T,float>){
 				auto tmp=*(uint32_t*)&v;
 				tmp&=0x7FFFFFFF;
@@ -186,7 +186,7 @@ namespace elc::defs{
 		}
 		//自浮点数获取指数部分，舍去基数和符号位
 		template<class T> requires(::std::is_floating_point_v<T>)
-		inline constexpr auto get_exponent(T v)noexcept{
+		force_inline constexpr auto get_exponent(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
 			if constexpr(::std::is_same_v<T,float>){
 				if(tmp==0)return -126;
@@ -207,7 +207,7 @@ namespace elc::defs{
 		}
 		//自浮点数获取基数
 		template<class T> requires(::std::is_floating_point_v<T>)
-		inline constexpr auto get_base_num(T v)noexcept{
+		force_inline constexpr auto get_base_num(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
 			typedef decltype(get_precision_base(v)) precision_base_t;
 			if(tmp==0)return precision_base_t{};
