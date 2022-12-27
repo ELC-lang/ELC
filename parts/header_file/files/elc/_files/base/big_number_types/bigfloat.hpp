@@ -27,7 +27,7 @@ public:
 	bigfloat(T num)noexcept{
 		if(isNaN(num))return;
 		//将一个浮点类型无损的转换为两个bigint相除
-		bool sign = is_negative(num);
+		const bool sign = is_negative(num);
 		if(sign)num = -num;
 		if constexpr(::std::numeric_limits<T>::has_infinity)
 			if(num == ::std::numeric_limits<T>::infinity()){
@@ -35,24 +35,20 @@ public:
 				_denominator = 0;
 				return;
 			}
-		_numerator = 0;
-		_denominator = 1;
-		ptrdiff_t exp = 0;
-		while(num > BIT_POSSIBILITY){
-			num /= BIT_POSSIBILITY;
-			exp++;
+		{
+			const auto exponent = get_exponent(num);
+			const auto base_num = get_base_num(num);
+			const auto precision = get_precision(num);
+			const auto precision_base = get_precision_base(num);
+			_numerator = base_num + precision;
+			_denominator = precision_base;
+			if(exponent){
+				if(exponent>0)
+					_numerator<<=exponent;
+				else
+					_denominator<<=-exponent;
+			}
 		}
-		while(num != 0){
-			num *= BIT_POSSIBILITY;
-			_numerator *= BIT_POSSIBILITY;
-			exp--;
-			_numerator += static_cast<unsigned char>(num);
-			num -= static_cast<unsigned char>(num);
-		}
-		if(exp > 0)
-			_numerator *= (unsigned_specific_size_t<sizeof(T)>)pow(BIT_POSSIBILITY, exp);
-		else
-			_denominator *= (unsigned_specific_size_t<sizeof(T)>)pow(BIT_POSSIBILITY, -exp);
 		_numerator = copy_as_negative(_numerator, sign);
 		simplify();
 	}

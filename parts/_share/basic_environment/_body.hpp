@@ -102,6 +102,117 @@ namespace elc::defs{
 		inline constexpr bool wchar_t_same_as_char_t=sizeof(wchar_t)==sizeof(char_t);
 		//判断wchar_t是否和char16_t相同
 		inline constexpr bool wchar_t_same_as_char16_t=sizeof(wchar_t)==sizeof(char16_t);
+		/*
+		参考信息：
+		float:
+			Sign bit: 1 bit
+			Exponent width: 8 bits
+			Significand precision: 24 bits (23 explicitly stored)
+		double:
+			Sign bit: 1 bit
+			Exponent: 11 bits
+			Significand precision: 53 bits (52 explicitly stored)
+		long double(IEEE-754 binary128):
+			Sign bit: 1 bit
+			Exponent width: 15 bits
+			Significand precision: 113 bits (112 explicitly stored)
+		注意一下long double在msvc上是double，得预处理判断一下
+		*/
+		//自浮点数获取精确数部分，舍去指数和符号位
+		template<class T> requires(::std::is_floating_point_v<T>)
+		inline constexpr auto get_precision(T v)noexcept{
+			if constexpr(::std::is_same_v<T,float>){
+				auto tmp=*(uint32_t*)&v;
+				tmp&=0x007FFFFF;
+				return tmp;
+			}
+			else if constexpr(::std::is_same_v<T,double>){
+				auto tmp=*(uint64_t*)&v;
+				tmp&=0x000FFFFFFFFFFFFF;
+				return tmp;
+			}
+			else if constexpr(::std::is_same_v<T,long double>){
+				#if defined(_MSC_VER)//msvc上long double就是double
+					return get_precision((double)v);
+				#else
+					auto tmp=*(uint128_t*)&v;
+					tmp&=0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF;
+					return tmp;
+				#endif
+			}
+		}
+		//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
+		template<class T> requires(::std::is_floating_point_v<T>)
+		inline constexpr auto get_precision_base(T)noexcept{
+			if constexpr(::std::is_same_v<T,float>){
+				return 0x800000;
+			}
+			else if constexpr(::std::is_same_v<T,double>){
+				return 0x10000000000000;
+			}
+			else if constexpr(::std::is_same_v<T,long double>){
+				#if defined(_MSC_VER)//msvc上long double就是double
+					return get_precision_base(double{});
+				#else
+					return 0x10000000000000000000000000000;
+				#endif
+			}
+		}
+		//（基础的）自浮点数获取指数部分，舍去基数和符号位
+		template<class T> requires(::std::is_floating_point_v<T>)
+		inline constexpr auto base_get_exponent(T v)noexcept{
+			if constexpr(::std::is_same_v<T,float>){
+				auto tmp=*(uint32_t*)&v;
+				tmp&=0x7FFFFFFF;
+				tmp>>=23;
+				return uint8_t(tmp);
+			}
+			else if constexpr(::std::is_same_v<T,double>){
+				auto tmp=*(uint64_t*)&v;
+				tmp&=0x7FFFFFFFFFFFFFFF;
+				tmp>>=52;
+				return uint16_t(tmp);
+			}
+			else if constexpr(::std::is_same_v<T,long double>){
+				#if defined(_MSC_VER)//msvc上long double就是double
+					return get_exponent((double)v);
+				#else
+					auto tmp=*(uint128_t*)&v;
+					tmp&=0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
+					tmp>>=112;
+					return uint16_t(tmp);
+				#endif
+			}
+		}
+		//自浮点数获取指数部分，舍去基数和符号位
+		template<class T> requires(::std::is_floating_point_v<T>)
+		inline constexpr auto get_exponent(T v)noexcept{
+			const auto tmp=base_get_exponent(v);
+			if constexpr(::std::is_same_v<T,float>){
+				if(tmp==0)return -126;
+				else return int8_t(tmp)-127;
+			}
+			else if constexpr(::std::is_same_v<T,double>){
+				if(tmp==0)return -1022;
+				else return int16_t(tmp)-1023;
+			}
+			else if constexpr(::std::is_same_v<T,long double>){
+				#if defined(_MSC_VER)//msvc上long double就是double
+					return get_exponent((double)v);
+				#else
+					if(tmp==0)return -16382;
+					else return int16_t(tmp)-16383;
+				#endif
+			}
+		}
+		//自浮点数获取基数
+		template<class T> requires(::std::is_floating_point_v<T>)
+		inline constexpr auto get_base_num(T v)noexcept{
+			const auto tmp=base_get_exponent(v);
+			typedef decltype(get_precision_base(v)) precision_base_t;
+			if(tmp==0)return precision_base_t{};
+			else return get_precision_base(v);
+		}
 	}
 	using basic_environment::BIT_POSSIBILITY;
 	using basic_environment::unsigned_specific_size_t;
@@ -109,6 +220,10 @@ namespace elc::defs{
 	using basic_environment::to_arithmetic;
 	using basic_environment::wchar_t_same_as_char_t;
 	using basic_environment::wchar_t_same_as_char16_t;
+	using basic_environment::get_exponent;
+	using basic_environment::get_base_num;
+	using basic_environment::get_precision;
+	using basic_environment::get_precision_base;
 
 	#include "../_undefs.hpp"
 }
