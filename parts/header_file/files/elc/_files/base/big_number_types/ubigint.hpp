@@ -49,7 +49,7 @@ public:
 		T value=0;
 		auto i=_data.rbegin();
 		while(i!=_data.rend()){
-			value*=base_type_mod;
+			value=T(value*base_type_mod);
 			value+=*i++;
 		}
 		return value;

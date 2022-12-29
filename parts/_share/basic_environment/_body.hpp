@@ -118,100 +118,250 @@ namespace elc::defs{
 			Significand precision: 113 bits (112 explicitly stored)
 		注意一下long double在msvc上是double，得预处理判断一下
 		*/
+		namespace float_infos{
+			//精确数部分的掩码
+			template<class T>
+			constexpr auto precision_mask=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return(uint32_t)0x007FFFFFu;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return(uint64_t)0x000FFFFFFFFFFFFFu;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return(uint64_t)0x000FFFFFFFFFFFFFu;
+					#else
+						return(uint128_t)0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFu;
+					#endif
+				}
+			}();
+			//精确数的无符号整数类型
+			template<class T>
+			using precision_type=decltype(precision_mask<T>);
+			
+			//浮点数的无符号整数数据类型
+			template<class T>
+			using data_type=decltype(lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return uint32_t{};
+				elseif constexpr(::std::is_same_v<T,double>)
+					return uint64_t{};
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return uint64_t{};
+					#else
+						return uint128_t{};
+					#endif
+				}
+			}());
+
+			//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
+			template<class T>
+			constexpr auto precision_base=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return(uint32_t)0x800000u;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return(uint64_t)0x10000000000000u;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return(uint64_t)0x10000000000000u;
+					#else
+						return(uint128_t)0x10000000000000000000000000000u;
+					#endif
+				}
+			}();
+
+			//自浮点数获取精确数的基的位数（如float是23）
+			template<class T>
+			constexpr auto precision_base_bit=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return 23u;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return 52u;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return 52u;
+					#else
+						return 112u;
+					#endif
+				}
+			}();
+
+			//浮点数的指数部分的diff（如float是127，double是1023，long double是16383）
+			template<class T>
+			constexpr auto exponent_diff=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return 127;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return 1023;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return 1023;
+					#else
+						return 16383;
+					#endif
+				}
+			}();
+			//浮点数的指数部分的min（如float是-126，double是-1022，long double是-16382）
+			template<class T>
+			constexpr auto exponent_min=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return -126;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return -1022;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return -1022;
+					#else
+						return -16382;
+					#endif
+				}
+			}();
+			//浮点数的指数部分的max（如float是127，double是1023，long double是16383）
+			template<class T>
+			constexpr auto exponent_max=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return 127;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return 1023;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return 1023;
+					#else
+						return 16383;
+					#endif
+				}
+			}();
+
+			//浮点数的指数部分的无符号整数类型
+			template<class T>
+			using exponent_unsigned_type=decltype(lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return uint8_t{};
+				elseif constexpr(::std::is_same_v<T,double>)
+					return uint16_t{};
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return uint16_t{};
+					#else
+						return uint16_t{};
+					#endif
+				}
+			}());
+			//浮点数的指数部分的经过偏移后的有符号整数类型
+			template<class T>
+			using exponent_type=decltype(lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return int8_t{};
+				elseif constexpr(::std::is_same_v<T,double>)
+					return int16_t{};
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return int16_t{};
+					#else
+						return int16_t{};
+					#endif
+				}
+			}());
+			//浮点数的指数部分的掩码
+			template<class T>
+			constexpr auto exponent_mask=lambda(){
+				if constexpr(::std::is_same_v<T,float>)
+					return 0x7FFFFFFFu;
+				elseif constexpr(::std::is_same_v<T,double>)
+					return 0x7FFFFFFFFFFFFFFFu;
+				elseif constexpr(::std::is_same_v<T,long double>){
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return 0x7FFFFFFFFFFFFFFFu;
+					#else
+						return 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFu;
+					#endif
+				}
+			}();
+		}
 		//自浮点数获取精确数部分，舍去指数和符号位
 		template<class T> requires(::std::is_floating_point_v<T>)
 		force_inline constexpr auto get_precision(T v)noexcept{
-			if constexpr(::std::is_same_v<T,float>){
-				auto tmp=*(uint32_t*)&v;
-				tmp&=0x007FFFFF;
-				return tmp;
-			}
-			else if constexpr(::std::is_same_v<T,double>){
-				auto tmp=*(uint64_t*)&v;
-				tmp&=0x000FFFFFFFFFFFFF;
-				return tmp;
-			}
-			else if constexpr(::std::is_same_v<T,long double>){
-				#if defined(_MSC_VER)//msvc上long double就是double
-					return get_precision((double)v);
-				#else
-					auto tmp=*(uint128_t*)&v;
-					tmp&=0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF;
-					return tmp;
-				#endif
-			}
+			using namespace float_infos;
+			auto tmp=*(data_type<T>*)&v;
+			tmp&=precision_mask<T>;
+			return tmp;
 		}
 		//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
 		template<class T> requires(::std::is_floating_point_v<T>)
 		force_inline constexpr auto get_precision_base(T=T{})noexcept{
-			if constexpr(::std::is_same_v<T,float>){
-				return 0x800000u;
-			}
-			else if constexpr(::std::is_same_v<T,double>){
-				return 0x10000000000000u;
-			}
-			else if constexpr(::std::is_same_v<T,long double>){
-				#if defined(_MSC_VER)//msvc上long double就是double
-					return get_precision_base(double{});
-				#else
-					return 0x10000000000000000000000000000u;
-				#endif
-			}
+			return float_infos::precision_base<T>;
 		}
+		template<class T> requires(::std::is_floating_point_v<T>)
+		using float_precision_base_t = decltype(get_precision_base<T>());
 		//（基础的）自浮点数获取指数部分，舍去基数和符号位
 		template<class T> requires(::std::is_floating_point_v<T>)
 		force_inline constexpr auto base_get_exponent(T v)noexcept{
-			if constexpr(::std::is_same_v<T,float>){
-				auto tmp=*(uint32_t*)&v;
-				tmp&=0x7FFFFFFF;
-				tmp>>=23;
-				return uint8_t(tmp);
-			}
-			else if constexpr(::std::is_same_v<T,double>){
-				auto tmp=*(uint64_t*)&v;
-				tmp&=0x7FFFFFFFFFFFFFFF;
-				tmp>>=52;
-				return uint16_t(tmp);
-			}
-			else if constexpr(::std::is_same_v<T,long double>){
-				#if defined(_MSC_VER)//msvc上long double就是double
-					return get_exponent((double)v);
-				#else
-					auto tmp=*(uint128_t*)&v;
-					tmp&=0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
-					tmp>>=112;
-					return uint16_t(tmp);
-				#endif
-			}
+			using namespace float_infos;
+			auto tmp=*(data_type<T>*)&v;
+			tmp&=exponent_mask<T>;
+			tmp>>=precision_base_bit<T>;
+			return exponent_unsigned_type<T>(tmp);
 		}
 		//自浮点数获取指数部分，舍去基数和符号位
 		template<class T> requires(::std::is_floating_point_v<T>)
 		force_inline constexpr auto get_exponent(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
-			if constexpr(::std::is_same_v<T,float>){
-				if(tmp==0)return -126;
-				else return int8_t(tmp)-127;
-			}
-			else if constexpr(::std::is_same_v<T,double>){
-				if(tmp==0)return -1022;
-				else return int16_t(tmp)-1023;
-			}
-			else if constexpr(::std::is_same_v<T,long double>){
-				#if defined(_MSC_VER)//msvc上long double就是double
-					return get_exponent((double)v);
-				#else
-					if(tmp==0)return -16382;
-					else return int16_t(tmp)-16383;
-				#endif
-			}
+			using namespace float_infos;
+			if(tmp==0)return exponent_min<T>;
+			else return exponent_type<T>(tmp)-exponent_diff<T>;
 		}
 		//自浮点数获取基数
 		template<class T> requires(::std::is_floating_point_v<T>)
 		force_inline constexpr auto get_base_num(T v)noexcept{
+			//特殊情况处理（exp=0时，base=0）
 			const auto tmp=base_get_exponent(v);
-			typedef decltype(get_precision_base(v)) precision_base_t;
-			if(tmp==0)return precision_base_t{};
-			else return get_precision_base(v);
+			return tmp?get_precision_base(v):float_precision_base_t<T>{};
+		}
+		//自基数和指数构造浮点数
+		//num=base_num*2^exponent
+		template<class T> requires(::std::is_floating_point_v<T>)
+		force_inline constexpr T make_float(float_precision_base_t<T> base_num,ptrdiff_t exponent)noexcept{
+			{
+				constexpr auto precision_base_bit=float_infos::precision_base_bit<T>;
+				//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
+				//并在此过程中加减指数
+				//需要注意的是，这里的基数是包含1的，所以转换目标是base_num>>precision_base_bit为1
+				if(base_num>>precision_base_bit)
+					while(base_num>>(precision_base_bit+1)){
+						base_num>>=1;
+						++exponent;
+					}
+				else
+					while(!(base_num>>precision_base_bit)){
+						base_num<<=1;
+						--exponent;
+					}
+				//适当放缩后，需要偏移指数部分，原因如下：
+				//原有逻辑是num=base_num*2^exponent，这是大分数的表达逻辑
+				//但是浮点数的逻辑是num=(base_num/precision_base)*2^exponent
+				//将precision_base合并到exponent中，即可得到浮点数的逻辑
+				exponent+=precision_base_bit;
+			}
+			using namespace float_infos;
+			while(exponent < exponent_min<T>){//指数过小，需要舍去
+				base_num>>=1;
+				++exponent;
+				if(base_num==0)return 0;
+			}
+			if(exponent>exponent_max<T>)return 0;//指数过大，无法表示
+			{
+				auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
+				//需要注意exponent==exponent_min的情况，在这种情况下，base_num的最高位浮点表达为0
+				//所以需要将base_num右移一位，exponent不变
+				if(exponent==exponent_min<T>)
+					base_num>>=1;
+				else//其他情况下，根据浮点数表示规则去掉基数多余的1
+					base_num-=get_precision_base<T>();
+				data_type<T> data=base_num;
+				data&=precision_mask<T>;
+				data|=data_type<T>(exp)<<precision_base_bit<T>;
+				return *(T*)&data;
+			}
 		}
 	}
 	using basic_environment::BIT_POSSIBILITY;
@@ -224,6 +374,8 @@ namespace elc::defs{
 	using basic_environment::get_base_num;
 	using basic_environment::get_precision;
 	using basic_environment::get_precision_base;
+	using basic_environment::float_precision_base_t;
+	using basic_environment::make_float;
 
 	#include "../_undefs.hpp"
 }

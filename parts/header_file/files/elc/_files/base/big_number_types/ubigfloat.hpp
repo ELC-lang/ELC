@@ -66,7 +66,48 @@ public:
 		return true;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]T convert_to()&&noexcept{
+	[[nodiscard]]T convert_to()&&noexcept{//只对于右值，便于编写。
+		//左值版本只需要创建一个临时变量，然后调用右值版本即可。
+		if constexpr(::std::is_integral_v<T>)
+			return trunc(*this).convert_to<T>();
+		else{//浮点数
+			simplify();
+			if(!_denominator)
+				if constexpr(::std::numeric_limits<T>::has_infinity)
+					return ::std::numeric_limits<T>::infinity();
+				else
+					return ::std::numeric_limits<T>::max();
+
+			constexpr auto precision_base_bitnum = bitnum_of(float_precision_base_t<T>);
+			ptrdiff_t exp=0;
+			while(!(_numerator%BIT_POSSIBILITY)){
+				_numerator/=BIT_POSSIBILITY;
+				++exp;
+			}
+			while(!(_denominator%BIT_POSSIBILITY)){
+				_denominator/=BIT_POSSIBILITY;
+				--exp;
+			}
+			//将精度调整到T的精度
+			_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
+			exp-=precision_base_bitnum;//指数相应的减少
+			_numerator/=_denominator;//有损舍入精度
+			//_denominator=1;_denominator<<=precision_base_bitnum;//不必要的数据更新
+			while(_numerator>>precision_base_bitnum){//对多余的精度进行舍入，仍然，这是可能有损的
+				_numerator/=BIT_POSSIBILITY;
+				++exp;
+			}
+			//现在我们有了一个合适的基数和合适的指数！
+			//接下来只需要将它们转换为T即可
+			return make_float<T>(_numerator.convert_to<float_precision_base_t<T>>(),exp);
+		}
+	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]T convert_to()const&noexcept{
+		if constexpr(::std::is_integral_v<T>)
+			return trunc(*this).convert_to<T>();
+		else
+			return ubigfloat(*this).convert_to<T>();
 	}
 private:
 	ubigfloat(ubigint&& numerator, ubigint&& denominator)noexcept:

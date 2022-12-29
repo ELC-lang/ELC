@@ -43,11 +43,13 @@ public:
 		return true;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]T convert_to()&&noexcept{
+	[[nodiscard]]T convert_to()const noexcept{
 		if constexpr(::std::is_unsigned_v<T>)
 			return _num.convert_to<T>();
-		else
+		else{
+			using magic_number::copy_as_negative;//貌似msvc在这里有bug
 			return copy_as_negative(_num.convert_to<to_unsigned_t<T>>(),_is_negative);
+		}
 	}
 private:
 	bigfloat(ubigfloat&& number, bool is_negative)noexcept:
