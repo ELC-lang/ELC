@@ -143,18 +143,18 @@ namespace elc::defs{
 		}
 		//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
 		template<class T> requires(::std::is_floating_point_v<T>)
-		force_inline constexpr auto get_precision_base(T)noexcept{
+		force_inline constexpr auto get_precision_base(T=T{})noexcept{
 			if constexpr(::std::is_same_v<T,float>){
-				return 0x800000;
+				return 0x800000u;
 			}
 			else if constexpr(::std::is_same_v<T,double>){
-				return 0x10000000000000;
+				return 0x10000000000000u;
 			}
 			else if constexpr(::std::is_same_v<T,long double>){
 				#if defined(_MSC_VER)//msvc上long double就是double
 					return get_precision_base(double{});
 				#else
-					return 0x10000000000000000000000000000;
+					return 0x10000000000000000000000000000u;
 				#endif
 			}
 		}

@@ -6,6 +6,10 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+class bigint;
+[[nodiscard]]bigint copy_as_negative(const ubigint&,bool sign=true)noexcept;
+[[nodiscard]]bigint copy_as_negative(ubigint&&,bool sign=true)noexcept;
+
 class bigint{
 	ubigint _num;
 	bool _is_negative=0;
@@ -109,6 +113,12 @@ public:
 	[[nodiscard]]friend bigint&& copy_as_negative(bigint&& a,bool sign=true)noexcept{
 		a._is_negative=sign;
 		return move(a);
+	}
+	[[nodiscard]]friend bigint copy_as_negative(const ubigint& a,bool sign)noexcept{
+		return {a,sign};
+	}
+	[[nodiscard]]friend bigint copy_as_negative(ubigint&& a,bool sign)noexcept{
+		return {move(a),sign};
 	}
 	//friend to_size_t
 	[[nodiscard]]friend size_t to_size_t(const bigint& a)noexcept{

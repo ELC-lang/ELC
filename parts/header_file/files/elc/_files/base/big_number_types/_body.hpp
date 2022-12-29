@@ -8,6 +8,7 @@
 */
 #include "ubigint.hpp"
 #include "bigint.hpp"
+#include "ubigfloat.hpp"
 #include "bigfloat.hpp"
 
 #if defined(ELC_TEST_ON)

@@ -6,9 +6,13 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+class bigfloat;
+[[nodiscard]]bigfloat copy_as_negative(const ubigfloat&,bool sign=true)noexcept;
+[[nodiscard]]bigfloat copy_as_negative(ubigfloat&&,bool sign=true)noexcept;
+
 class bigfloat{
-	bigint _numerator;
-	bigint _denominator;
+	ubigfloat _num;
+	bool _is_negative=false;
 public:
 	//constructors
 	bigfloat()noexcept=default;
@@ -16,42 +20,13 @@ public:
 	bigfloat(bigfloat&& other)noexcept=default;
 	bigfloat& operator=(const bigfloat& other)&noexcept=default;
 	bigfloat& operator=(bigfloat&& other)&noexcept=default;
-	bigfloat(const bigint& other)noexcept:_numerator(other),_denominator(1){}
-	bigfloat(bigint&& other)noexcept:_numerator(move(other)),_denominator(1){}
-	bigfloat(const ubigint& other)noexcept:_numerator(other),_denominator(1){}
-	bigfloat(ubigint&& other)noexcept:_numerator(move(other)),_denominator(1){}
+	bigfloat(const bigint& other)noexcept:_num(abs(other)),_is_negative(is_negative(other)){}
+	bigfloat(bigint&& other)noexcept:_num(abs(move(other))),_is_negative(is_negative(other)){}
+	bigfloat(const ubigint& other)noexcept:_num(other){}
+	bigfloat(ubigint&& other)noexcept:_num(move(other)){}
 
-	template<typename T> requires ::std::is_integral_v<T>
-	bigfloat(T num)noexcept:_numerator(num),_denominator(1){}
-	template<typename T> requires ::std::is_floating_point_v<T>
-	bigfloat(T num)noexcept{
-		if(isNaN(num))return;
-		//将一个浮点类型无损的转换为两个bigint相除
-		const bool sign = is_negative(num);
-		if(sign)num = -num;
-		if constexpr(::std::numeric_limits<T>::has_infinity)
-			if(num == ::std::numeric_limits<T>::infinity()){
-				_numerator = copy_as_negative(1, sign);
-				_denominator = 0;
-				return;
-			}
-		{
-			const auto exponent = get_exponent(num);
-			const auto base_num = get_base_num(num);
-			const auto precision = get_precision(num);
-			const auto precision_base = get_precision_base(num);
-			_numerator = base_num + precision;
-			_denominator = precision_base;
-			if(exponent){
-				if(exponent>0)
-					_numerator<<=exponent;
-				else
-					_denominator<<=abs(exponent);
-			}
-		}
-		_numerator = copy_as_negative(_numerator, sign);
-		simplify();
-	}
+	template<typename T> requires ::std::is_arithmetic_v<T>
+	bigfloat(T num)noexcept:_num(abs(num)),_is_negative(is_negative(num)){}
 public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
@@ -63,91 +38,63 @@ public:
 		if(*this>max_value)
 			return false;
 		if constexpr(::std::is_integral_v<T>)
-			if(_numerator%_denominator)
+			if(trunc(*this)!=*this)
 				return false;
 		return true;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]T convert_to()const noexcept{
-		if constexpr(::std::is_integral_v<T>)
-			return trunc(*this).convert_to<T>();
-		else{
-			T ans=0;
-			{
-				bigfloat tmp=abs(*this);
-				bigint num=trunc(tmp);
-				tmp-=num;
-				typedef unsigned_specific_size_fast_t<sizeof(T)> integer_get_type;
-				{
-					size_t exp=0;
-					bigfloat fnum=num;
-					while(trunc(fnum)){
-						fnum/=BIT_POSSIBILITY;
-						exp++;
-					}
-					while(exp--){
-						fnum*=BIT_POSSIBILITY;
-						ans*=BIT_POSSIBILITY;
-						num = trunc(fnum);
-						fnum -= num;
-						ans += num.convert_to<integer_get_type>();
-					}
-				}
-				{
-					T ans_mantissa=0;
-					size_t exp=0;
-					while(tmp){
-						tmp*=BIT_POSSIBILITY;
-						ans_mantissa*=BIT_POSSIBILITY;
-						num=trunc(tmp);
-						tmp-=num;
-						ans_mantissa+=num.convert_to<integer_get_type>();
-						exp++;
-					}
-					ans_mantissa/=pow(BIT_POSSIBILITY,exp);
-					ans+=ans_mantissa;
-				}
-			}
-			if(is_negative(*this))
-				ans=-ans;
-			return ans;
-		}
+	[[nodiscard]]T convert_to()&&noexcept{
+		if constexpr(::std::is_unsigned_v<T>)
+			return _num.convert_to<T>();
+		else
+			return copy_as_negative(_num.convert_to<to_unsigned_t<T>>(),_is_negative);
 	}
 private:
-	bigfloat(bigint&& numerator, bigint&& denominator)noexcept:
-		_numerator(move(numerator)),
-		_denominator(move(denominator))
+	bigfloat(ubigfloat&& number, bool is_negative)noexcept:
+		_num(move(number)),
+		_is_negative(is_negative)
 	{}
-	bigfloat(const bigint& numerator, const bigint& denominator)noexcept:
-		_numerator(numerator),
-		_denominator(denominator)
+	bigfloat(const ubigfloat& number, bool is_negative)noexcept:
+		_num(number),
+		_is_negative(is_negative)
 	{}
 public:
-	//friend abs
-	[[nodiscard]]friend bigfloat abs(const bigfloat& a)noexcept{
-		return bigfloat{abs(a._numerator),abs(a._denominator)};
+	//operator-
+	[[nodiscard]]bigfloat operator-()const&noexcept{
+		return bigfloat{_num, !_is_negative};
 	}
-	[[nodiscard]]friend bigfloat&& abs(bigfloat&& a)noexcept{
-		a._numerator=abs(move(a._numerator));
-		a._denominator=abs(move(a._denominator));
-		return move(a);
+	[[nodiscard]]bigfloat&& operator-()&&noexcept{
+		_is_negative=!_is_negative;
+		return move(*this);
+	}
+	//friend abs
+	[[nodiscard]]friend ubigfloat abs(const bigfloat& a)noexcept{
+		return a._num;
+	}
+	[[nodiscard]]friend ubigfloat&& abs(bigfloat&& a)noexcept{
+		return move(a._num);
 	}
 	//friend is_negative
 	[[nodiscard]]friend bool is_negative(const bigfloat& a)noexcept{
-		return is_negative(a._numerator)^is_negative(a._denominator);
+		return a._is_negative;
 	}
 	//friend copy_as_negative
 	[[nodiscard]]friend bigfloat copy_as_negative(const bigfloat& a,bool sign=true)noexcept{
-		return bigfloat{copy_as_negative(a._numerator,sign),abs(a._denominator)};
+		return bigfloat{a._num, sign};
 	}
 	[[nodiscard]]friend bigfloat&& copy_as_negative(bigfloat&& a,bool sign=true)noexcept{
-		a._numerator=copy_as_negative(move(a._numerator),sign);
-		a._denominator=abs(move(a._denominator));
+		a._is_negative=sign;
 		return move(a);
+	}
+	[[nodiscard]]friend bigfloat copy_as_negative(const ubigfloat& a,bool sign)noexcept{
+		return bigfloat{a, sign};
+	}
+	[[nodiscard]]friend bigfloat copy_as_negative(ubigfloat&& a,bool sign)noexcept{
+		return bigfloat{move(a), sign};
 	}
 	//friend trunc
 	[[nodiscard]]friend bigint trunc(const bigfloat& a)noexcept{
-		return a._numerator/a._denominator;
+		return copy_as_negative(trunc(a._num),a._is_negative);
 	}
 	[[nodiscard]]explicit operator bigint()noexcept{
 		return trunc(*this);
@@ -158,135 +105,390 @@ public:
 	}
 	//operator+
 	[[nodiscard]]bigfloat operator+(const bigfloat& other)const&noexcept{
-		auto numerator = _numerator * other._denominator + other._numerator * _denominator;
-		auto denominator = _denominator * other._denominator;
-		return bigfloat(move(numerator), move(denominator));
+		if(_is_negative==other._is_negative)
+			return bigfloat{_num+other._num, _is_negative};
+		else{
+			if(_num>other._num)
+				return bigfloat{_num-other._num, _is_negative};
+			else
+				return bigfloat{other._num-_num, other._is_negative};
+		}
 	}
 	[[nodiscard]]bigfloat operator+(const bigint& other)const&noexcept{
-		auto numerator = _numerator + other * _denominator;
-		return bigfloat(move(numerator), _denominator);
+		if(_is_negative==is_negative(other))
+			return bigfloat{_num+abs(other), _is_negative};
+		else{
+			auto uother=abs(other);
+			if(_num>uother)
+				return bigfloat{_num-move(uother), _is_negative};
+			else
+				return bigfloat{move(uother)-_num, !_is_negative};
+		}
 	}
 	[[nodiscard]]bigfloat operator+(bigint&& other)const&noexcept{
-		auto numerator = _numerator + move(other) * _denominator;
-		return bigfloat(move(numerator), _denominator);
+		if(_is_negative==is_negative(other))
+			return bigfloat{_num+abs(move(other)), _is_negative};
+		else{
+			auto uother=abs(move(other));
+			if(_num>uother)
+				return bigfloat{_num-move(uother), _is_negative};
+			else
+				return bigfloat{move(uother)-_num, !_is_negative};
+		}
+	}
+	[[nodiscard]]bigfloat operator+(const ubigint& other)const&noexcept{
+		if(_is_negative){
+			if(_num>other)
+				return bigfloat{_num-other, _is_negative};
+			else
+				return bigfloat{other-_num, false};
+		}
+		else
+			return bigfloat{_num+other, _is_negative};
+	}
+	[[nodiscard]]bigfloat operator+(ubigint&& other)const&noexcept{
+		if(_is_negative){
+			if(_num>other)
+				return bigfloat{_num-move(other), _is_negative};
+			else
+				return bigfloat{move(other)-_num, false};
+		}
+		else
+			return bigfloat{_num+move(other), _is_negative};
 	}
 	//operator-
 	[[nodiscard]]bigfloat operator-(const bigfloat& other)const&noexcept{
-		auto numerator = _numerator * other._denominator - other._numerator * _denominator;
-		auto denominator = _denominator * other._denominator;
-		return bigfloat(move(numerator), move(denominator));
+		if(_is_negative!=other._is_negative)
+			return bigfloat{_num+other._num, _is_negative};
+		else{
+			if(_num>other._num)
+				return bigfloat{_num-other._num, _is_negative};
+			else
+				return bigfloat{other._num-_num, !other._is_negative};
+		}
 	}
 	[[nodiscard]]bigfloat operator-(const bigint& other)const&noexcept{
-		auto numerator = _numerator - other * _denominator;
-		return bigfloat(move(numerator), _denominator);
+		if(_is_negative!=is_negative(other))
+			return bigfloat{_num+abs(other), _is_negative};
+		else{
+			auto uother=abs(other);
+			if(_num>uother)
+				return bigfloat{_num-move(uother), _is_negative};
+			else
+				return bigfloat{move(uother)-_num, !_is_negative};
+		}
 	}
 	[[nodiscard]]bigfloat operator-(bigint&& other)const&noexcept{
-		auto numerator = _numerator - move(other) * _denominator;
-		return bigfloat(move(numerator), _denominator);
+		if(_is_negative!=is_negative(other))
+			return bigfloat{_num+abs(move(other)), _is_negative};
+		else{
+			auto uother=abs(move(other));
+			if(_num>uother)
+				return bigfloat{_num-move(uother), _is_negative};
+			else
+				return bigfloat{move(uother)-_num, !_is_negative};
+		}
+	}
+	[[nodiscard]]bigfloat operator-(const ubigint& other)const&noexcept{
+		if(_is_negative)
+			return bigfloat{_num+other, _is_negative};
+		else{
+			if(_num>other)
+				return bigfloat{_num-other, _is_negative};
+			else
+				return bigfloat{other-_num, true};
+		}
+	}
+	[[nodiscard]]bigfloat operator-(ubigint&& other)const&noexcept{
+		if(_is_negative)
+			return bigfloat{_num+move(other), _is_negative};
+		else{
+			if(_num>other)
+				return bigfloat{_num-move(other), _is_negative};
+			else
+				return bigfloat{move(other)-_num, true};
+		}
 	}
 	//operator*
 	[[nodiscard]]bigfloat operator*(const bigfloat& other)const&noexcept{
-		auto numerator = _numerator * other._numerator;
-		auto denominator = _denominator * other._denominator;
-		return bigfloat(move(numerator), move(denominator));
+		const bool sign=_is_negative!=other._is_negative;
+		return bigfloat{_num*other._num, sign};
 	}
 	[[nodiscard]]bigfloat operator*(const bigint& other)const&noexcept{
-		auto numerator = _numerator * other;
-		return bigfloat(move(numerator), _denominator);
+		const bool sign=_is_negative!=is_negative(other);
+		return bigfloat{_num*abs(other), sign};
 	}
 	[[nodiscard]]bigfloat operator*(bigint&& other)const&noexcept{
-		auto numerator = _numerator * move(other);
-		return bigfloat(move(numerator), _denominator);
+		const bool sign=_is_negative!=is_negative(other);
+		return bigfloat{_num*abs(move(other)), sign};
+	}
+	[[nodiscard]]bigfloat operator*(const ubigint& other)const&noexcept{
+		return bigfloat{_num*other, _is_negative};
+	}
+	[[nodiscard]]bigfloat operator*(ubigint&& other)const&noexcept{
+		return bigfloat{_num*move(other), _is_negative};
 	}
 	//operator/
 	[[nodiscard]]bigfloat operator/(const bigfloat& other)const&noexcept{
-		auto numerator = _numerator * other._denominator;
-		auto denominator = _denominator * other._numerator;
-		return bigfloat(move(numerator), move(denominator));
+		const bool sign=_is_negative!=other._is_negative;
+		return bigfloat{_num/other._num, sign};
 	}
 	[[nodiscard]]bigfloat operator/(const bigint& other)const&noexcept{
-		auto denominator = _denominator * other;
-		return bigfloat(_numerator, move(denominator));
+		const bool sign=_is_negative!=is_negative(other);
+		return bigfloat{_num/abs(other), sign};
 	}
 	[[nodiscard]]bigfloat operator/(bigint&& other)const&noexcept{
-		auto denominator = _denominator * move(other);
-		return bigfloat(_numerator, move(denominator));
+		const bool sign=_is_negative!=is_negative(other);
+		return bigfloat{_num/abs(move(other)), sign};
+	}
+	[[nodiscard]]bigfloat operator/(const ubigint& other)const&noexcept{
+		return bigfloat{_num/other, _is_negative};
+	}
+	[[nodiscard]]bigfloat operator/(ubigint&& other)const&noexcept{
+		return bigfloat{_num/move(other), _is_negative};
 	}
 	//operator+=
 	bigfloat& operator+=(const bigfloat& other)&noexcept{
-		_numerator = _numerator * other._denominator + other._numerator * _denominator;
-		_denominator *= other._denominator;
-		return*this;
+		if(_is_negative==other._is_negative){
+			_num+=other._num;
+			return*this;
+		}
+		else{
+			if(_num>other._num){
+				_num-=other._num;
+				return*this;
+			}
+			else{
+				_num=other._num-_num;
+				_is_negative=!other._is_negative;
+				return*this;
+			}
+		}
 	}
 	bigfloat& operator+=(const bigint& other)&noexcept{
-		_numerator += other * _denominator;
-		return*this;
+		if(_is_negative==is_negative(other)){
+			_num+=abs(other);
+			return*this;
+		}
+		else{
+			auto uother=abs(other);
+			if(_num>uother){
+				_num-=move(uother);
+				return*this;
+			}
+			else{
+				_num=move(uother)-_num;
+				_is_negative=!_is_negative;
+				return*this;
+			}
+		}
 	}
 	bigfloat& operator+=(bigint&& other)&noexcept{
-		_numerator += move(other) * _denominator;
+		if(_is_negative==is_negative(other)){
+			_num+=abs(move(other));
+			return*this;
+		}
+		else{
+			auto uother=abs(move(other));
+			if(_num>uother){
+				_num-=move(uother);
+				return*this;
+			}
+			else{
+				_num=move(uother)-_num;
+				_is_negative=!_is_negative;
+				return*this;
+			}
+		}
+	}
+	bigfloat& operator+=(const ubigint& other)&noexcept{
+		_num+=other;
+		return*this;
+	}
+	bigfloat& operator+=(ubigint&& other)&noexcept{
+		_num+=move(other);
 		return*this;
 	}
 	//operator-=
 	bigfloat& operator-=(const bigfloat& other)&noexcept{
-		_numerator = _numerator * other._denominator - other._numerator * _denominator;
-		_denominator *= other._denominator;
-		return*this;
+		if(_is_negative==other._is_negative){
+			if(_num>other._num){
+				_num-=other._num;
+				return*this;
+			}
+			else{
+				_num=other._num-_num;
+				_is_negative=!other._is_negative;
+				return*this;
+			}
+		}
+		else{
+			_num+=other._num;
+			return*this;
+		}
 	}
 	bigfloat& operator-=(const bigint& other)&noexcept{
-		_numerator -= other * _denominator;
-		return*this;
+		if(_is_negative==is_negative(other)){
+			auto uother=abs(other);
+			if(_num>uother){
+				_num-=move(uother);
+				return*this;
+			}
+			else{
+				_num=move(uother)-_num;
+				_is_negative=!_is_negative;
+				return*this;
+			}
+		}
+		else{
+			_num+=abs(other);
+			return*this;
+		}
 	}
 	bigfloat& operator-=(bigint&& other)&noexcept{
-		_numerator -= move(other) * _denominator;
-		return*this;
+		if(_is_negative==is_negative(other)){
+			auto uother=abs(move(other));
+			if(_num>uother){
+				_num-=move(uother);
+				return*this;
+			}
+			else{
+				_num=move(uother)-_num;
+				_is_negative=!_is_negative;
+				return*this;
+			}
+		}
+		else{
+			_num+=abs(move(other));
+			return*this;
+		}
+	}
+	bigfloat& operator-=(const ubigint& other)&noexcept{
+		if(_num>other){
+			_num-=other;
+			return*this;
+		}
+		else{
+			_num=other-_num;
+			_is_negative=!_is_negative;
+			return*this;
+		}
+	}
+	bigfloat& operator-=(ubigint&& other)&noexcept{
+		if(_num>other){
+			_num-=move(other);
+			return*this;
+		}
+		else{
+			_num=move(other)-_num;
+			_is_negative=!_is_negative;
+			return*this;
+		}
 	}
 	//operator*=
 	bigfloat& operator*=(const bigfloat& other)&noexcept{
-		_numerator *= other._numerator;
-		_denominator *= other._denominator;
+		_is_negative=_is_negative!=other._is_negative;
+		_num*=other._num;
 		return*this;
 	}
 	bigfloat& operator*=(const bigint& other)&noexcept{
-		_numerator *= other;
+		_is_negative=_is_negative!=is_negative(other);
+		_num*=abs(other);
 		return*this;
 	}
 	bigfloat& operator*=(bigint&& other)&noexcept{
-		_numerator *= move(other);
+		_is_negative=_is_negative!=is_negative(other);
+		_num*=abs(move(other));
+		return*this;
+	}
+	bigfloat& operator*=(const ubigint& other)&noexcept{
+		_num*=other;
+		return*this;
+	}
+	bigfloat& operator*=(ubigint&& other)&noexcept{
+		_num*=move(other);
 		return*this;
 	}
 	//operator/=
 	bigfloat& operator/=(const bigfloat& other)&noexcept{
-		_numerator *= other._denominator;
-		_denominator *= other._numerator;
+		_is_negative=_is_negative!=other._is_negative;
+		_num/=other._num;
 		return*this;
 	}
 	bigfloat& operator/=(const bigint& other)&noexcept{
-		_denominator *= other;
+		_is_negative=_is_negative!=is_negative(other);
+		_num/=abs(other);
 		return*this;
 	}
 	bigfloat& operator/=(bigint&& other)&noexcept{
-		_denominator *= move(other);
+		_is_negative=_is_negative!=is_negative(other);
+		_num/=abs(move(other));
+		return*this;
+	}
+	bigfloat& operator/=(const ubigint& other)&noexcept{
+		_num/=other;
+		return*this;
+	}
+	bigfloat& operator/=(ubigint&& other)&noexcept{
+		_num/=move(other);
 		return*this;
 	}
 	//operator==
 	[[nodiscard]]bool operator==(const bigfloat& other)const noexcept{
-		return _numerator * other._denominator == other._numerator * _denominator;
+		if(_is_negative!=other._is_negative)return false;
+		return _num==other._num;
 	}
 	[[nodiscard]]bool operator==(const bigint& other)const noexcept{
-		return _numerator == other * _denominator;
+		if(_is_negative!=is_negative(other))return false;
+		return _num==abs(other);
 	}
 	[[nodiscard]]bool operator==(bigint&& other)const noexcept{
-		return _numerator == move(other) * _denominator;
+		if(_is_negative!=is_negative(other))return false;
+		return _num==abs(move(other));
+	}
+	[[nodiscard]]bool operator==(const ubigint& other)const noexcept{
+		if(_is_negative)return false;
+		return _num==other;
+	}
+	[[nodiscard]]bool operator==(ubigint&& other)const noexcept{
+		if(_is_negative)return false;
+		return _num==move(other);
 	}
 	//operator<=>
 	[[nodiscard]]auto operator<=>(const bigfloat& other)const noexcept{
-		return _numerator * other._denominator <=> other._numerator * _denominator;
+		if(_is_negative!=other._is_negative)
+			return _is_negative?strong_ordering::less:strong_ordering::greater;
+		const bool needs_reverse=_is_negative;
+		auto result=_num <=> other._num;
+		if(needs_reverse)
+			result=compare.reverse(result);
+		return result;
 	}
 	[[nodiscard]]auto operator<=>(const bigint& other)const noexcept{
-		return _numerator <=> other * _denominator;
+		if(_is_negative!=is_negative(other))
+			return _is_negative?strong_ordering::less:strong_ordering::greater;
+		const bool needs_reverse=_is_negative;
+		auto result=_num <=> abs(other);
+		if(needs_reverse)
+			result=compare.reverse(result);
+		return result;
 	}
 	[[nodiscard]]auto operator<=>(bigint&& other)const noexcept{
-		return _numerator <=> move(other) * _denominator;
+		if(_is_negative!=is_negative(other))
+			return _is_negative?strong_ordering::less:strong_ordering::greater;
+		const bool needs_reverse=_is_negative;
+		auto result=_num <=> abs(move(other));
+		if(needs_reverse)
+			result=compare.reverse(result);
+		return result;
+	}
+	[[nodiscard]]auto operator<=>(const ubigint& other)const noexcept{
+		if(_is_negative)return strong_ordering::less;
+		return _num <=> other;
+	}
+	[[nodiscard]]auto operator<=>(ubigint&& other)const noexcept{
+		if(_is_negative)return strong_ordering::less;
+		return _num <=> move(other);
 	}
 	//operatorX for rvalue
 	[[nodiscard]]bigfloat&& operator+(const bigfloat& other)&&noexcept{
@@ -298,6 +500,12 @@ public:
 	[[nodiscard]]bigfloat&& operator+(bigint&& other)&&noexcept{
 		return move(*this += move(other));
 	}
+	[[nodiscard]]bigfloat&& operator+(const ubigint& other)&&noexcept{
+		return move(*this += other);
+	}
+	[[nodiscard]]bigfloat&& operator+(ubigint&& other)&&noexcept{
+		return move(*this += move(other));
+	}
 	[[nodiscard]]bigfloat&& operator-(const bigfloat& other)&&noexcept{
 		return move(*this -= other);
 	}
@@ -305,6 +513,12 @@ public:
 		return move(*this -= other);
 	}
 	[[nodiscard]]bigfloat&& operator-(bigint&& other)&&noexcept{
+		return move(*this -= move(other));
+	}
+	[[nodiscard]]bigfloat&& operator-(const ubigint& other)&&noexcept{
+		return move(*this -= other);
+	}
+	[[nodiscard]]bigfloat&& operator-(ubigint&& other)&&noexcept{
 		return move(*this -= move(other));
 	}
 	[[nodiscard]]bigfloat&& operator*(const bigfloat& other)&&noexcept{
@@ -316,6 +530,12 @@ public:
 	[[nodiscard]]bigfloat&& operator*(bigint&& other)&&noexcept{
 		return move(*this *= move(other));
 	}
+	[[nodiscard]]bigfloat&& operator*(const ubigint& other)&&noexcept{
+		return move(*this *= other);
+	}
+	[[nodiscard]]bigfloat&& operator*(ubigint&& other)&&noexcept{
+		return move(*this *= move(other));
+	}
 	[[nodiscard]]bigfloat&& operator/(const bigfloat& other)&&noexcept{
 		return move(*this /= other);
 	}
@@ -325,21 +545,24 @@ public:
 	[[nodiscard]]bigfloat&& operator/(bigint&& other)&&noexcept{
 		return move(*this /= move(other));
 	}
+	[[nodiscard]]bigfloat&& operator/(const ubigint& other)&&noexcept{
+		return move(*this /= other);
+	}
+	[[nodiscard]]bigfloat&& operator/(ubigint&& other)&&noexcept{
+		return move(*this /= move(other));
+	}
 	[[nodiscard]]bigfloat&& operator+(bigfloat&& other)noexcept{
 		return move(move(other) + *this);
 	}
 	[[nodiscard]]bigfloat&& operator-(bigfloat&& other)noexcept{
-		return move(move(other) - *this);
+		return move((-move(other)) + *this);
 	}
 	[[nodiscard]]bigfloat&& operator*(bigfloat&& other)noexcept{
 		return move(move(other) * *this);
 	}
-	[[nodiscard]]bigfloat&& operator/(bigfloat&& other)noexcept{
-		return move(move(other) / *this);
-	}
 	//operator!
 	[[nodiscard]]bool operator!()const noexcept{
-		return!_numerator;
+		return!_num;
 	}
 	[[nodiscard]]explicit operator bool()const noexcept{
 		return !operator!();
@@ -347,9 +570,7 @@ public:
 public:
 	//化简
 	void simplify()noexcept{
-		bigint g=gcd(abs(_numerator),abs(_denominator));
-		_numerator/=g;
-		_denominator/=g;
+		_num.simplify();
 	}
 };
 
