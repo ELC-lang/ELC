@@ -89,10 +89,15 @@ public:
 				--exp;
 			}
 			//将精度调整到T的精度
-			_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
-			exp-=precision_base_bitnum;//指数相应的减少
-			_numerator/=_denominator;//有损舍入精度
-			//_denominator=1;_denominator<<=precision_base_bitnum;//不必要的数据更新
+			{
+				ubigint tmp;
+				do{
+					_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
+					exp-=precision_base_bitnum;//指数相应的减少
+					tmp=_numerator/_denominator;//有损舍入精度
+				}while(!(tmp>>precision_base_bitnum));
+				_numerator=tmp;
+			}
 			while(_numerator>>precision_base_bitnum){//对多余的精度进行舍入，仍然，这是可能有损的
 				_numerator/=BIT_POSSIBILITY;
 				++exp;

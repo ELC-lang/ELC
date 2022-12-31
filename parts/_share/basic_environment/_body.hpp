@@ -350,7 +350,7 @@ namespace elc::defs{
 			}
 			if(exponent>exponent_max<T>)return 0;//指数过大，无法表示
 			{
-				auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
+				const auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
 				//需要注意exponent==exponent_min的情况，在这种情况下，base_num的最高位浮点表达为0
 				//所以需要将base_num右移一位，exponent不变
 				if(exponent==exponent_min<T>)
