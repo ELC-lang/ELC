@@ -452,7 +452,7 @@ public:
 				const auto newsize_diff=n/bitnum_of(base_type);
 				const auto newsize=oldsize+newsize_diff;
 				_data.forward_resize(newsize);
-				copy_assign[newsize_diff](note::to(_data.data()+oldsize), base_type{0});
+				copy_assign[newsize_diff](note::to(_data.data()), base_type{0});
 				n%=bitnum_of(base_type);
 			}
 			while(n--)
@@ -470,7 +470,7 @@ public:
 			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
 			const auto newsize=oldsize+newsize_diff;
 			_data.forward_resize(newsize);
-			copy_assign[newsize_diff](note::to(_data.data()+oldsize), base_type{0});
+			copy_assign[newsize_diff](note::to(_data.data()), base_type{0});
 			n%=bitnum_of(base_type);
 		}
 		while(n){
@@ -584,10 +584,34 @@ public:
 	}
 };
 //求出最大公约数
-inline ubigint gcd(ubigint a,ubigint b)noexcept{
-	if(b) while((a %= b) && (b %= a));
-	return a+b;
+inline ubigint gcd(ubigint x, ubigint y)noexcept{
+	size_t shift = 0;
+	while(y){
+		// 如果 x 比 y 小，交换 x 和 y 的值
+		if(x < y)swap(x, y);
+		if(!(x % 2u))
+			// x,y 都是偶数
+			if(!(y % 2u)){
+				x /= 2u;
+				y /= 2u;
+				shift++;
+			}
+			// x 是偶数，y 是奇数
+			else
+				x /= 2u;
+		else
+			// x 是奇数，y 是偶数
+			if(!(y % 2u))
+				y /= 2u;
+			// x, y 都是奇数
+			else
+				x -= y;
+	}
+	// 返回 x 左移 shift 位的结果
+	return x << shift;
 }
+
+
 
 //file_end
 

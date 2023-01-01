@@ -321,44 +321,41 @@ namespace elc::defs{
 		//num=base_num*2^exponent
 		template<class T> requires(::std::is_floating_point_v<T>)
 		force_inline constexpr T make_float(float_precision_base_t<T> base_num,ptrdiff_t exponent)noexcept{
-			{
-				constexpr auto precision_base_bit=float_infos::precision_base_bit<T>;
-				//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
-				//并在此过程中加减指数
-				//需要注意的是，这里的基数是包含1的，所以转换目标是base_num>>precision_base_bit为1
-				if(base_num>>precision_base_bit)
-					while(base_num>>(precision_base_bit+1)){
-						base_num>>=1;
-						++exponent;
-					}
-				else
-					while(!(base_num>>precision_base_bit)){
-						base_num<<=1;
-						--exponent;
-					}
-				//适当放缩后，需要偏移指数部分，原因如下：
-				//原有逻辑是num=base_num*2^exponent，这是大分数的表达逻辑
-				//但是浮点数的逻辑是num=(base_num/precision_base)*2^exponent
-				//将precision_base合并到exponent中，即可得到浮点数的逻辑
-				exponent+=precision_base_bit;
-			}
 			using namespace float_infos;
+			//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
+			//并在此过程中加减指数
+			//需要注意的是，这里的基数是包含1的，所以转换目标是base_num>>precision_base_bit为1
+			if(base_num>>precision_base_bit<T>)
+				while(base_num>>precision_base_bit<T> != 1u){
+					base_num>>=1;
+					++exponent;
+				}
+			else
+				while(base_num>>precision_base_bit<T> != 1u){
+					base_num<<=1;
+					--exponent;
+				}
+			//适当放缩后，需要偏移指数部分，原因如下：
+			//原有逻辑是num=base_num*2^exponent，这是大分数的表达逻辑
+			//但是浮点数的逻辑是num=(base_num/precision_base)*2^exponent
+			//将precision_base合并到exponent中，即可得到浮点数的逻辑
+			exponent+=precision_base_bit<T>;
 			while(exponent < exponent_min<T>){//指数过小，需要舍去
 				base_num>>=1;
 				++exponent;
 				if(base_num==0)return 0;
 			}
 			if(exponent>exponent_max<T>)return 0;//指数过大，无法表示
-			{
-				const auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
-				//需要注意exponent==exponent_min的情况，在这种情况下，base_num的最高位浮点表达为0
-				//所以需要将base_num右移一位，exponent不变
-				if(exponent==exponent_min<T>)
-					base_num>>=1;
-				else//其他情况下，根据浮点数表示规则去掉基数多余的1
-					base_num-=get_precision_base<T>();
+			//DEN情况判断
+			const bool is_den=!(base_num>>precision_base_bit<T>);//若基数最高位为0，则exponent一定为exponent_min，不用判断
+			if(is_den){
 				data_type<T> data=base_num;
-				data&=precision_mask<T>;
+				return *(T*)&data;
+			}
+			else{//非DEN情况下，根据浮点数表示规则去掉基数多余的1
+				auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
+				base_num-=get_precision_base<T>();
+				data_type<T> data=base_num;
 				data|=data_type<T>(exp)<<precision_base_bit<T>;
 				return *(T*)&data;
 			}

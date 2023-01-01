@@ -79,7 +79,9 @@ public:
 					return ::std::numeric_limits<T>::max();
 
 			constexpr auto precision_base_bitnum = bitnum_of(float_precision_base_t<T>);
+			//将大分数转换为合适的指数和基数的组合
 			ptrdiff_t exp=0;
+			//将分子分母的指数部分提取出来
 			while(!(_numerator%BIT_POSSIBILITY)){
 				_numerator/=BIT_POSSIBILITY;
 				++exp;
@@ -88,23 +90,35 @@ public:
 				_denominator/=BIT_POSSIBILITY;
 				--exp;
 			}
-			//将精度调整到T的精度
-			{
-				ubigint tmp;
-				do{
-					_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
-					exp-=precision_base_bitnum;//指数相应的减少
-					tmp=_numerator/_denominator;//有损舍入精度
-				}while(!(tmp>>precision_base_bitnum));
-				_numerator=tmp;
+			//将精度调整到T的精度，获取有精度损失但仍然可能过精的数
+			if(_denominator!=1u){
+				{
+					ubigint tmp;
+					do{
+						_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
+						exp-=precision_base_bitnum;//指数相应的减少
+						tmp=_numerator/_denominator;//有损舍入精度
+					}while(!(tmp>>precision_base_bitnum));
+					_numerator=tmp;
+				}
+				while(!(_numerator%BIT_POSSIBILITY)){
+					_numerator/=BIT_POSSIBILITY;
+					++exp;
+				}
 			}
 			while(_numerator>>precision_base_bitnum){//对多余的精度进行舍入，仍然，这是可能有损的
 				_numerator/=BIT_POSSIBILITY;
 				++exp;
 			}
-			//现在我们有了一个合适的基数和合适的指数！
-			//接下来只需要将它们转换为T即可
-			return make_float<T>(_numerator.convert_to<float_precision_base_t<T>>(),exp);
+			{
+				//大数转换为基础类型
+				const auto num=_numerator.convert_to<float_precision_base_t<T>>();
+				//num与exp满足关系：num*BIT_POSSIBILITY^exp≈原始数
+
+				//现在我们有了一个合适的基数和合适的指数！
+				//接下来只需要将它们转换为T即可
+				return make_float<T>(num,exp);
+			}
 		}
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>

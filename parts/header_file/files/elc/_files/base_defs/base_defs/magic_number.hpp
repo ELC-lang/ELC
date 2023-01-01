@@ -35,6 +35,14 @@ namespace magic_number{
 		else
 			return::std::make_unsigned_t<T>();
 	}());
+	/*! 有符号位的对应类型 */
+	template<typename T>
+	using to_signed_t = decltype(lambda{
+		if constexpr(::std::is_signed_v<T>||::std::is_floating_point_v<T>)
+			return T();
+		else
+			return::std::make_signed_t<T>();
+	}());
 	//isNaN
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr bool isNaN(const T v)noexcept{
@@ -68,7 +76,7 @@ namespace magic_number{
 			return x;
 	}
 	[[nodiscard]]force_inline constexpr auto copy_as_negative(auto x,bool negative=1)noexcept{
-		return copy_as_negative<decltype(x)>(x,negative);
+		return copy_as_negative<to_signed_t<decltype(x)>>(x,negative);
 	}
 	[[nodiscard]]force_inline constexpr auto copy_as_not_negative(auto x)noexcept{
 		return copy_as_negative(x,false);
