@@ -566,13 +566,13 @@ namespace get_n{
 		static constexpr bool nothrow=noexcept(get_size_of_alloc(declvalue(const T*)));
 
 		template<typename T> requires able<T>
-		static size_t base_call(const T*arg)noexcept(nothrow<T>){
+		[[nodiscard]]inline static size_t base_call(const T*arg)noexcept(nothrow<T>){
 			const APIs::alloc::source_location_guard slg{1};
 			return get_size_of_alloc(arg);
 		}
 
 		template<typename T> requires able<T>
-		size_t operator()(const T*arg)const noexcept(nothrow<T>){
+		[[nodiscard]]inline size_t operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}
 	}get_size_of_get{};
@@ -584,7 +584,7 @@ namespace get_n{
 		static constexpr bool nothrow=copy_construct.nothrow<T>;
 
 		template<typename T> requires able<T>
-		static T*base_call(const T*arg)noexcept(nothrow<T>){
+		[[nodiscard]]inline static T*base_call(const T*arg)noexcept(nothrow<T>){
 			const APIs::alloc::source_location_guard slg{1};
 			if constexpr(type_info<T>.has_attribute(abstract_base))
 				return remove_const(attribute_ptr_cast<abstract_base>(arg))->abstract_method_copy_get_this();
@@ -593,7 +593,7 @@ namespace get_n{
 		}
 
 		template<typename T> requires able<T>
-		T*operator()(const T*arg)const noexcept(nothrow<T>){
+		[[nodiscard]]inline T*operator()(const T*arg)const noexcept(nothrow<T>){
 			return base_call(arg);
 		}
 	}copy_get{};

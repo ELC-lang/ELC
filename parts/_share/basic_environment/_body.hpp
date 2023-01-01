@@ -353,11 +353,11 @@ namespace elc::defs{
 			//DEN情况判断
 			const bool is_den=!(base_num>>precision_base_bit<T>);//若基数最高位为0，则exponent一定为exponent_min，不用判断
 			if(is_den){
-				data_type<T> data=base_num;
-				return *(T*)&data;
+				const data_type<T> data=base_num;
+				return *(const T*)&data;
 			}
 			else{//非DEN情况下，根据浮点数表示规则去掉基数多余的1
-				auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
+				const auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
 				base_num-=get_precision_base<T>();
 				data_type<T> data=base_num;
 				data|=data_type<T>(exp)<<precision_base_bit<T>;

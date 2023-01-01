@@ -83,12 +83,12 @@ public:
 			ptrdiff_t exp=0;
 			//将分子分母的指数部分提取出来
 			{
-				auto tmp=countr_zero(_numerator);
+				const auto tmp=countr_zero(_numerator);
 				_numerator>>=tmp;
 				exp+=tmp;
 			}
 			{
-				auto tmp=countr_zero(_denominator);
+				const auto tmp=countr_zero(_denominator);
 				_denominator>>=tmp;
 				exp-=tmp;
 			}
@@ -104,7 +104,7 @@ public:
 					_numerator=tmp;
 				}
 				{
-					auto tmp=countr_zero(_numerator);
+					const auto tmp=countr_zero(_numerator);
 					_numerator>>=tmp;
 					exp+=tmp;
 				}

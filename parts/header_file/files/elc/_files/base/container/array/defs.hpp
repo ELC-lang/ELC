@@ -127,7 +127,7 @@ namespace array_n{
 				_size_for_debug_view=new_size;
 			#endif
 		}
-		[[nodiscard]]bool empty()const{
+		[[nodiscard]]bool empty()const noexcept{
 			return _m==null_ptr;
 		}
 		void clear()noexcept(re_construct.nothrow<this_t>){

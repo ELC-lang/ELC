@@ -34,7 +34,8 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 	void clear_match_pattern()noexcept{
 		unget(_p_match_pattern);
 		unget(_p_reverse_match_pattern);
-		base_t::self_changed();
+		_p_match_pattern=nullptr;
+		_p_reverse_match_pattern=nullptr;
 	}
 	void self_changed()noexcept{
 		clear_match_pattern();
