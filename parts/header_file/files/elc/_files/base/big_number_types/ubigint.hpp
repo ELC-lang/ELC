@@ -582,6 +582,28 @@ public:
 		--*this;
 		return tmp;
 	}
+	//friend countr_zero
+	[[nodiscard]]friend size_t countr_zero(const ubigint& x)noexcept{
+		size_t aret=0;
+		auto i=x._data.begin();
+		const auto end=x._data.end();
+		while(i!=end){
+			if(!*i)
+				aret+=bitnum_of(base_type);
+			else{
+				aret+=countr_zero(*i);
+				break;
+			}
+			++i;
+		}
+		return aret;
+	}
+	//friend get_bitnum
+	[[nodiscard]]friend size_t get_bitnum(const ubigint& x)noexcept{
+		auto&data=x._data;
+		if(data.empty())return 0;
+		return data.size()*bitnum_of(base_type)-::std::countl_zero(data.back());
+	}
 };
 //求出最大公约数
 inline ubigint gcd(ubigint x, ubigint y)noexcept{
@@ -610,8 +632,6 @@ inline ubigint gcd(ubigint x, ubigint y)noexcept{
 	// 返回 x 左移 shift 位的结果
 	return x << shift;
 }
-
-
 
 //file_end
 

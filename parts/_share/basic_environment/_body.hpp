@@ -325,25 +325,29 @@ namespace elc::defs{
 			//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
 			//并在此过程中加减指数
 			//需要注意的是，这里的基数是包含1的，所以转换目标是base_num>>precision_base_bit为1
-			if(base_num>>precision_base_bit<T>)
-				while(base_num>>precision_base_bit<T> != 1u){
-					base_num>>=1;
-					++exponent;
+			{
+				const auto tmp=::std::countl_zero(base_num);
+				constexpr auto need_shift=bitnum_of(base_num)-precision_base_bit<T>-1;
+				const ptrdiff_t shift=tmp-need_shift;
+				if(shift>0){
+					base_num<<=shift;
+					exponent-=shift;
 				}
-			else
-				while(base_num>>precision_base_bit<T> != 1u){
-					base_num<<=1;
-					--exponent;
+				elseif(shift<0){
+					base_num>>=-shift;
+					exponent-=shift;
 				}
+			}
 			//适当放缩后，需要偏移指数部分，原因如下：
 			//原有逻辑是num=base_num*2^exponent，这是大分数的表达逻辑
 			//但是浮点数的逻辑是num=(base_num/precision_base)*2^exponent
 			//将precision_base合并到exponent中，即可得到浮点数的逻辑
 			exponent+=precision_base_bit<T>;
-			while(exponent < exponent_min<T>){//指数过小，需要舍去
-				base_num>>=1;
-				++exponent;
-				if(base_num==0)return 0;
+			if(exponent < exponent_min<T>){//指数过小，需要舍去
+				const auto diff=exponent_min<T> - exponent;
+				base_num>>=diff;
+				exponent+=diff;
+				if(!base_num)return 0;//基数过小，无法表示
 			}
 			if(exponent>exponent_max<T>)return 0;//指数过大，无法表示
 			//DEN情况判断

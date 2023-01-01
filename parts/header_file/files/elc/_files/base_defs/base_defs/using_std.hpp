@@ -42,5 +42,10 @@ using ::std::partial_ordering;
 using ::std::weak_ordering;
 using ::std::strong_ordering;
 
+using ::std::countr_zero;
+using ::std::countl_zero;
+using ::std::countr_one;
+using ::std::countl_one;
+
 //file_end
 

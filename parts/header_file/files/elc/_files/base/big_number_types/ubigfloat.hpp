@@ -82,13 +82,15 @@ public:
 			//将大分数转换为合适的指数和基数的组合
 			ptrdiff_t exp=0;
 			//将分子分母的指数部分提取出来
-			while(!(_numerator%BIT_POSSIBILITY)){
-				_numerator/=BIT_POSSIBILITY;
-				++exp;
+			{
+				auto tmp=countr_zero(_numerator);
+				_numerator>>=tmp;
+				exp+=tmp;
 			}
-			while(!(_denominator%BIT_POSSIBILITY)){
-				_denominator/=BIT_POSSIBILITY;
-				--exp;
+			{
+				auto tmp=countr_zero(_denominator);
+				_denominator>>=tmp;
+				exp-=tmp;
 			}
 			//将精度调整到T的精度，获取有精度损失但仍然可能过精的数
 			if(_denominator!=1u){
@@ -101,14 +103,20 @@ public:
 					}while(!(tmp>>precision_base_bitnum));
 					_numerator=tmp;
 				}
-				while(!(_numerator%BIT_POSSIBILITY)){
-					_numerator/=BIT_POSSIBILITY;
-					++exp;
+				{
+					auto tmp=countr_zero(_numerator);
+					_numerator>>=tmp;
+					exp+=tmp;
 				}
 			}
-			while(_numerator>>precision_base_bitnum){//对多余的精度进行舍入，仍然，这是可能有损的
-				_numerator/=BIT_POSSIBILITY;
-				++exp;
+			{
+				//对多余的精度进行舍入，仍然，这是可能有损的
+				const auto bitnum_now=get_bitnum(_numerator);
+				const ptrdiff_t diff=bitnum_now-precision_base_bitnum;
+				if(diff>0){
+					_numerator>>=diff;
+					exp+=diff;
+				}
 			}
 			{
 				//大数转换为基础类型
