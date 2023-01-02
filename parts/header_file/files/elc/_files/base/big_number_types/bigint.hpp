@@ -56,11 +56,26 @@ public:
 			return false;
 		return _num == other._num;
 	}
+	template<typename T> requires(::std::is_integral_v<T>)
+	bool operator==(T value)const noexcept{
+		if(_is_negative != is_negative(value))
+			return false;
+		return _num == abs(value);
+	}
 	//operator<=>
 	auto operator<=>(const bigint& other)const noexcept{
 		if(_is_negative != other._is_negative)
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
 		auto tmp = _num <=> other._num;
+		if(_is_negative)
+			tmp=compare.reverse(tmp);
+		return tmp;
+	}
+	template<typename T> requires(::std::is_integral_v<T>)
+	auto operator<=>(T value)const noexcept{
+		if(_is_negative != is_negative(value))
+			return _is_negative?strong_ordering::less:strong_ordering::greater;
+		auto tmp = _num <=> abs(value);
 		if(_is_negative)
 			tmp=compare.reverse(tmp);
 		return tmp;

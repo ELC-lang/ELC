@@ -93,17 +93,15 @@ public:
 				exp-=tmp;
 			}
 			//将精度调整到T的精度，获取有精度损失但仍然可能过精的数
-			if(_denominator!=1u){
-				{
-					ubigint tmp;
-					do{
+			{
+				auto result=divmod(_numerator,_denominator);//同时获取商和余数
+				if(result.mod){
+					while(result.mod && !(result.quot>>precision_base_bitnum)){
 						_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
 						exp-=precision_base_bitnum;//指数相应的减少
-						tmp=_numerator/_denominator;//有损舍入精度
-					}while(!(tmp>>precision_base_bitnum));
-					_numerator=tmp;
-				}
-				{
+						result=divmod(_numerator,_denominator);
+					}
+					_numerator=result.quot;//有损舍入精度
 					const auto tmp=countr_zero(_numerator);
 					_numerator>>=tmp;
 					exp+=tmp;

@@ -99,12 +99,30 @@ private:
 	}
 public:
 	//operator==
-	bool operator==(const ubigint& other)const noexcept{
+	[[nodiscard]]bool operator==(const ubigint& other)const noexcept{
 		return equal(get_data_view(),other.get_data_view());
+	}
+	template<typename T> requires(::std::is_integral_v<T>)
+	[[nodiscard]]bool operator==(T other)const noexcept{
+		if constexpr(::std::is_signed_v<T>){
+			if(is_negative(other))return false;
+			return *this==to_unsigned_t<T>(other);
+		}else{
+			auto i=_data.begin();
+			const auto end=_data.end();
+			while(i!=end){
+				if(other<*i)
+					return false;
+				other-=*i;
+				other/=base_type_mod;
+				i++;
+			}
+			return other==0;
+		}
 	}
 	//operator<=>
 	//由于低位在前，不能使用elc的默认compare
-	static auto compare(data_view_type a, data_view_type b)noexcept{
+	[[nodiscard]]static auto compare(data_view_type a, data_view_type b)noexcept{
 		if(const auto tmp=a.size()<=>b.size(); tmp!=0)
 			return tmp;
 
@@ -114,8 +132,26 @@ public:
 				return tmp;
 		return strong_ordering::equivalent;
 	}
-	auto operator<=>(const ubigint& other)const noexcept{
+	[[nodiscard]]auto operator<=>(const ubigint& other)const noexcept{
 		return compare(get_data_view(),other.get_data_view());
+	}
+	template<typename T> requires(::std::is_integral_v<T>)
+	[[nodiscard]]auto operator<=>(T other)const noexcept{
+		if constexpr(::std::is_signed_v<T>){
+			if(is_negative(other))return strong_ordering::greater;
+			return *this<=>to_unsigned_t<T>(other);
+		}else{
+			auto i=_data.begin();
+			const auto end=_data.end();
+			while(i!=end){
+				if(other<*i)//this>other
+					return strong_ordering::greater;
+				other-=*i;
+				other/=base_type_mod;
+				i++;
+			}
+			return other==0?strong_ordering::equivalent:strong_ordering::less;
+		}
 	}
 private:
 	//operator+-*/%s
@@ -359,6 +395,25 @@ public:
 		const auto this_view = get_data_view();
 		if(this_view.size() < other_view.size())return*this;
 		return ubigint{mod_base(this_view, other_view)};
+	}
+	//friend divmod
+	[[nodiscard]]friend auto divmod(const ubigint& a,const ubigint& b)noexcept{
+		struct divmod_result{
+			ubigint quot;
+			ubigint mod;
+		};
+		const auto b_view = b.get_data_view();
+		if(b_view.empty())return divmod_result{};
+		const auto a_view = a.get_data_view();
+		if(a_view.size() < b_view.size())return divmod_result{ubigint{},a};
+		{
+			array_t<base_type> mod(note::size(a_view.size() + 1));
+			copy_assign[a_view.size()](mod.data(), a_view.data());
+			mod.back()=0;
+			array_t<base_type> quot = div_with_base(mod, b_view);
+			shrink_to_fit(mod);
+			return divmod_result{ubigint{move(quot)},ubigint{move(mod)}};
+		}
 	}
 	//operator<<
 	template<typename T> requires ::std::integral<T>
@@ -606,25 +661,28 @@ public:
 	}
 };
 //求出最大公约数
-inline ubigint gcd(ubigint x, ubigint y)noexcept{
+[[nodiscard]]inline ubigint gcd(ubigint x, ubigint y)noexcept{
 	size_t shift = 0;
+	const ubigint two=2u;
 	while(y){
 		// 如果 x 比 y 小，交换 x 和 y 的值
 		if(x < y)swap(x, y);
-		if(!(x % 2u))
+		auto xdivmod=divmod(x, two);//使用divmod同时得到商和余数
+		auto ydivmod=divmod(y, two);
+		if(!xdivmod.mod)
 			// x,y 都是偶数
-			if(!(y % 2u)){
-				x /= 2u;
-				y /= 2u;
+			if(!ydivmod.mod){
+				x = xdivmod.quot;
+				y = ydivmod.quot;
 				shift++;
 			}
 			// x 是偶数，y 是奇数
 			else
-				x /= 2u;
+				x = xdivmod.quot;
 		else
 			// x 是奇数，y 是偶数
-			if(!(y % 2u))
-				y /= 2u;
+			if(!ydivmod.mod)
+				y = ydivmod.quot;
 			// x, y 都是奇数
 			else
 				x -= y;
