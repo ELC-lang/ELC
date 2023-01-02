@@ -502,35 +502,54 @@ public:
 	ubigint& operator<<=(T n)&noexcept{
 		if(!*this)return*this;
 		if constexpr(::std::is_unsigned_v<T>){
-			if(n>bitnum_of(base_type)){
-				const auto oldsize=_data.size();
-				const auto newsize_diff=n/bitnum_of(base_type);
-				const auto newsize=oldsize+newsize_diff;
+			const auto oldsize=_data.size();
+			const auto newsize_diff=n/bitnum_of(base_type);
+			const auto newsize=oldsize+newsize_diff;
+			if(newsize_diff){
 				_data.forward_resize(newsize);
 				copy_assign[newsize_diff](note::to(_data.data()), base_type{0});
 				n%=bitnum_of(base_type);
 			}
-			while(n--)
-				*this*=BIT_POSSIBILITY;
+			if(n){
+				auto i=newsize_diff;
+				const auto end=newsize;
+				const auto another_offset=bitnum_of(base_type)-n;
+				base_type carry=0;
+				for(;i<end;++i){
+					const auto tmp=_data[i];
+					_data[i]=(tmp<<n)|carry;
+					carry=tmp>>another_offset;
+				}
+				if(carry)_data.push_back(carry);
+			}
+			return*this;
 		}else{
-			if(n<0)*this>>=abs(n);
-			else *this<<=abs(n);
+			if(n<0)return*this>>=abs(n);
+			else return*this<<=abs(n);
 		}
-		return*this;
 	}
 	ubigint& operator<<=(ubigint n)&noexcept{
 		if(!*this)return*this;
-		if(n>bitnum_of(base_type)){
-			const auto oldsize=_data.size();
-			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
-			const auto newsize=oldsize+newsize_diff;
+		const auto oldsize=_data.size();
+		const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+		const auto newsize=oldsize+newsize_diff;
+		if(newsize_diff){
 			_data.forward_resize(newsize);
 			copy_assign[newsize_diff](note::to(_data.data()), base_type{0});
 			n%=bitnum_of(base_type);
 		}
-		while(n){
-			*this*=BIT_POSSIBILITY;
-			--n;
+		if(n){
+			const auto offset=to_size_t(n);
+			auto i=newsize_diff;
+			const auto end=newsize;
+			const auto another_offset=bitnum_of(base_type)-offset;
+			base_type carry=0;
+			for(;i<end;++i){
+				const auto tmp=_data[i];
+				_data[i]=(tmp<<offset)|carry;
+				carry=tmp>>another_offset;
+			}
+			if(carry)_data.push_back(carry);
 		}
 		return*this;
 	}
@@ -539,35 +558,52 @@ public:
 	ubigint& operator>>=(T n)&noexcept{
 		if(!*this)return*this;
 		if constexpr(::std::is_unsigned_v<T>){
-			if(n>bitnum_of(base_type)){
-				const auto oldsize=_data.size();
-				const auto newsize_diff=n/bitnum_of(base_type);
+			const auto oldsize=_data.size();
+			const auto newsize_diff=n/bitnum_of(base_type);
+			const auto newsize=oldsize-newsize_diff;
+			if(newsize_diff){
 				if(newsize_diff>=oldsize)return*this=zero;
-				const auto newsize=oldsize-newsize_diff;
 				_data.forward_resize(newsize);
 				n%=bitnum_of(base_type);
 			}
-			while(n-- && *this)
-				*this/=BIT_POSSIBILITY;
+			if(n){
+				auto i=newsize;
+				const auto another_offset=bitnum_of(base_type)-n;
+				base_type carry=0;
+				for(;i--;){
+					const auto tmp=_data[i];
+					_data[i]=(tmp>>n)|carry;
+					carry=tmp<<another_offset;
+				}
+				shrink_to_fit();
+			}
+			return*this;
 		}else{
-			if(n<0)*this<<=abs(n);
-			else *this>>=abs(n);
+			if(n<0)return*this<<=abs(n);
+			else return*this>>=abs(n);
 		}
-		return*this;
 	}
 	ubigint& operator>>=(ubigint n)&noexcept{
 		if(!*this)return*this;
-		if(n>bitnum_of(base_type)){
-			const auto oldsize=_data.size();
-			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+		const auto oldsize=_data.size();
+		const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+		const auto newsize=oldsize-newsize_diff;
+		if(newsize_diff){
 			if(newsize_diff>=oldsize)return*this=zero;
-			const auto newsize=oldsize-newsize_diff;
 			_data.forward_resize(newsize);
 			n%=bitnum_of(base_type);
 		}
-		while(n && *this){
-			*this/=BIT_POSSIBILITY;
-			--n;
+		if(n){
+			const size_t offset=to_size_t(n);
+			auto i=newsize;
+			const auto another_offset=bitnum_of(base_type)-offset;
+			base_type carry=0;
+			for(;i--;){
+				const auto tmp=_data[i];
+				_data[i]=(tmp>>offset)|carry;
+				carry=tmp<<another_offset;
+			}
+			shrink_to_fit();
 		}
 		return*this;
 	}
