@@ -11,32 +11,15 @@ namespace array_n{
 	class array_t{
 		typedef array_t<T>this_t;
 		T*_m;
-		#if defined(DEBUG) || defined(_DEBUG)
-			size_t _size_for_debug_view=0;
-		#endif
 
-		#if defined(DEBUG) || defined(_DEBUG)
-		/*return{ptr,size};*/
-		constexpr array_t(T*a,size_t s)noexcept:_m(a),_size_for_debug_view(s){}
-		#else
 		/*return{ptr};*/
 		constexpr array_t(T*a)noexcept:_m(a){}
-		#endif
 		/*返回一个自身的副本*/
 		[[nodiscard]]this_t copy()const noexcept(copy_get.nothrow<T>) requires(copy_get.able<T>){
-			#if defined(DEBUG) || defined(_DEBUG)
-				return{copy_get(_m),_size_for_debug_view};
-			#else
-				return{copy_get(_m)};
-			#endif
+			return{copy_get(_m)};
 		}
 	public:
-		void swap_with(this_t&a)noexcept{
-			swap(_m,a._m);
-			#if defined(DEBUG) || defined(_DEBUG)
-				swap(_size_for_debug_view,a._size_for_debug_view);
-			#endif
-		}
+		void swap_with(this_t&a)noexcept{swap(_m,a._m);}
 	public:
 		/*默认构造*/
 		constexpr array_t()noexcept:_m(null_ptr){}
@@ -45,15 +28,9 @@ namespace array_n{
 		*/
 		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size.value;
-			#endif
 		}
 		explicit array_t(note::size_t<size_t>size,const T&elem)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value](elem);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size.value;
-			#endif
 		}
 		/*
 		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
@@ -62,9 +39,6 @@ namespace array_n{
 		template<class U> requires(get<T>.as_array.able<U> && type_info<remove_cvref<U>>!=type_info<this_t>)
 		array_t(U&&a)noexcept(get<T>.as_array.nothrow<U>){
 			_m=get<T>.as_array(forward<U>(a));
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size();
-			#endif
 		}
 
 		//复制和移动函数
@@ -90,42 +64,24 @@ namespace array_n{
 		static constexpr bool resize_nothrow = get_resize.nothrow<T>;
 		void resize(size_t size)noexcept(resize_nothrow){
 			get_resize(_m,size);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size;
-			#endif
 		}
 		static constexpr bool forward_resize_nothrow = get_forward_resize.nothrow<T>;
 		void forward_resize(size_t size)noexcept(forward_resize_nothrow){
 			get_forward_resize(_m,size);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size;
-			#endif
 		}
 		static constexpr bool insert_nothrow = get_resize.insert.nothrow<T>;
 		void insert(size_t index,size_t count)noexcept(insert_nothrow){
 			get_resize.insert(_m,index,count);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view+=count;
-			#endif
 		}
 		void insert(size_t index,size_t count,const T*data)noexcept(insert_nothrow){
 			get_resize.insert(_m,index,count,data);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view+=count;
-			#endif
 		}
 		void insert_with_resize(size_t index,size_t count,const T*data,size_t new_size)noexcept(insert_nothrow){
 			get_resize.insert_with_resize(_m,index,count,data,new_size);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=new_size;
-			#endif
 		}
 		static constexpr bool insert_with_forward_resize_nothrow = get_forward_resize.insert_with_resize.nothrow<T>;
 		void insert_with_forward_resize(size_t index,size_t count,const T*data,size_t new_size)noexcept(insert_with_forward_resize_nothrow){
 			get_forward_resize.insert_with_resize(_m,index,count,data,new_size);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=new_size;
-			#endif
 		}
 		[[nodiscard]]bool empty()const noexcept{
 			return _m==null_ptr;
@@ -234,21 +190,12 @@ namespace array_n{
 
 		void push_back(const T&a){
 			get<T>.apply_end(note::to<T*&>(_m),a);
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size();
-			#endif
 		}
 		void push_back(T&&a){
 			get<T>.apply_end(note::to<T*&>(_m),move(a));
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size();
-			#endif
 		}
 		void remove(T a){
 			get<T>.remove(a,note::from(_m));
-			#if defined(DEBUG) || defined(_DEBUG)
-				_size_for_debug_view=size();
-			#endif
 		}
 		//template<as_concept<get<T>.apply_end.able> U>
 		template<class U,enable_if(get<T>.apply_end.able)>
