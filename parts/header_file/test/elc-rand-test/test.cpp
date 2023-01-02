@@ -1,4 +1,4 @@
-﻿#include <elc/base_defs>
+#include <elc/base_defs>
 #include <iostream>
 //opencv to write png
 #include <opencv2/opencv.hpp>

@@ -137,7 +137,7 @@ namespace elc::defs{
 			//精确数的无符号整数类型
 			template<class T>
 			using precision_type=decltype(precision_mask<T>);
-			
+
 			//浮点数的无符号整数数据类型
 			template<class T>
 			using data_type=decltype(lambda(){
