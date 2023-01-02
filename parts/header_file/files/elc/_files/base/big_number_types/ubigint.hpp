@@ -499,7 +499,7 @@ public:
 	}
 	//operator<<=
 	template<typename T> requires ::std::integral<T>
-	ubigint& operator<<=(T n)&noexcept{
+	inline ubigint& operator<<=(T n)&noexcept{
 		if(!*this)return*this;
 		if constexpr(::std::is_unsigned_v<T>){
 			const auto oldsize=_data.size();
@@ -555,7 +555,7 @@ public:
 	}
 	//operator>>=
 	template<typename T> requires ::std::integral<T>
-	ubigint& operator>>=(T n)&noexcept{
+	inline ubigint& operator>>=(T n)&noexcept{
 		if(!*this)return*this;
 		if constexpr(::std::is_unsigned_v<T>){
 			const auto oldsize=_data.size();
@@ -695,30 +695,35 @@ public:
 		if(data.empty())return 0;
 		return data.size()*bitnum_of(base_type)-::std::countl_zero(data.back());
 	}
+	//friend is_odd
+	[[nodiscard]]friend bool is_odd(const ubigint& x)noexcept{
+		return x._data.empty()?false:x._data.front()&1u;
+	}
+	//friend is_even
+	[[nodiscard]]friend bool is_even(const ubigint& x)noexcept{
+		return !is_odd(x);
+	}
 };
 //求出最大公约数
 [[nodiscard]]inline ubigint gcd(ubigint x, ubigint y)noexcept{
 	size_t shift = 0;
-	const ubigint two=2u;
 	while(y){
 		// 如果 x 比 y 小，交换 x 和 y 的值
 		if(x < y)swap(x, y);
-		auto xdivmod=divmod(x, two);//使用divmod同时得到商和余数
-		auto ydivmod=divmod(y, two);
-		if(!xdivmod.mod)
+		if(is_even(x))
 			// x,y 都是偶数
-			if(!ydivmod.mod){
-				x = xdivmod.quot;
-				y = ydivmod.quot;
+			if(is_even(y)){
+				x >>= 1u;
+				y >>= 1u;
 				shift++;
 			}
 			// x 是偶数，y 是奇数
 			else
-				x = xdivmod.quot;
+				x >>= 1u;
 		else
 			// x 是奇数，y 是偶数
-			if(!ydivmod.mod)
-				y = ydivmod.quot;
+			if(is_even(y))
+				y >>= 1u;
 			// x, y 都是奇数
 			else
 				x -= y;

@@ -179,6 +179,12 @@ namespace array_n{
 		[[nodiscard]]reverse_const_iterator rbegin()const noexcept{
 			return _m+size()-1;
 		}
+		[[nodiscard]]auto&front()noexcept{
+			return*begin();
+		}
+		[[nodiscard]]auto&front()const noexcept{
+			return*begin();
+		}
 		[[nodiscard]]auto&back()noexcept{
 			return*rbegin();
 		}
