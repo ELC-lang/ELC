@@ -48,7 +48,6 @@ public:
 					_denominator<<=abs(exponent);
 			}
 		}
-		simplify();
 	}
 public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
@@ -71,7 +70,6 @@ public:
 		if constexpr(::std::is_integral_v<T>)
 			return trunc(*this).convert_to<T>();
 		else{//浮点数
-			simplify();
 			if(!_denominator)
 				if constexpr(::std::numeric_limits<T>::has_infinity)
 					return ::std::numeric_limits<T>::infinity();
