@@ -94,12 +94,41 @@ public:
 	[[nodiscard]]friend bigfloat copy_as_negative(ubigfloat&& a,bool sign)noexcept{
 		return bigfloat{move(a), sign};
 	}
+	//friend get_numerator
+	[[nodiscard]]friend ubigint get_numerator(const bigfloat& a)noexcept{
+		return get_numerator(a._num);
+	}
+	[[nodiscard]]friend ubigint&& get_numerator(bigfloat&& a)noexcept{
+		return get_numerator(move(a._num));
+	}
+	//friend get_denominator
+	[[nodiscard]]friend ubigint get_denominator(const bigfloat& a)noexcept{
+		return get_denominator(a._num);
+	}
+	[[nodiscard]]friend ubigint&& get_denominator(bigfloat&& a)noexcept{
+		return get_denominator(move(a._num));
+	}
 	//friend trunc
 	[[nodiscard]]friend bigint trunc(const bigfloat& a)noexcept{
 		return copy_as_negative(trunc(a._num),a._is_negative);
 	}
 	[[nodiscard]]explicit operator bigint()noexcept{
 		return trunc(*this);
+	}
+	//friend split
+	[[nodiscard]]friend auto split(const bigfloat& a)noexcept{
+		struct result_t{
+			bigint integer;
+			bigfloat fraction;
+		};
+		auto result=split(a._num);
+		return result_t{copy_as_negative(result.integer,a._is_negative),
+						copy_as_negative(result.fraction,a._is_negative)};
+	}
+	//friend trunc_with_sub
+	[[nodiscard]]friend bigint trunc_with_sub(bigfloat& a)noexcept{
+		auto result=trunc_with_sub(a._num);
+		return copy_as_negative(result,a._is_negative);
 	}
 	//friend to_size_t
 	[[nodiscard]]friend size_t to_size_t(const bigfloat& a)noexcept{

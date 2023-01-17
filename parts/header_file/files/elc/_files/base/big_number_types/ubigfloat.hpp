@@ -34,6 +34,34 @@ public:
 				_denominator = zero;
 				return;
 			}
+		//优先进行猜测以处理近似的简单分数
+		{
+			T integer_part;
+			T fraction_part=::std::modf(num,&integer_part);
+			size_t numerator=1,denominator;
+			if(fraction_part){
+				//猜测分数
+				constexpr size_t max_numerator = 1u<<7;
+				while(numerator<max_numerator){
+					denominator = to_size_t(numerator/fraction_part);
+					if(feq(T(numerator)/denominator,fraction_part)){//近似相等即可
+						const auto numerator_backup=numerator;
+						//补正整数部分
+						numerator += to_size_t(integer_part*denominator);
+						//更新
+						_numerator = numerator;
+						_denominator = denominator;
+						//校验
+						if(convert_to<T>()==num)//保证无损所以不用feq
+							return;
+						//回滚
+						_numerator = numerator_backup;
+					}
+					numerator++;
+				}
+			}
+		}
+		//其余情况
 		{
 			const auto exponent = get_exponent(num);
 			const auto base_num = get_base_num(num);
@@ -93,17 +121,15 @@ public:
 			//将精度调整到T的精度，获取有精度损失但仍然可能过精的数
 			{
 				auto result=divmod(_numerator,_denominator);//同时获取商和余数
-				if(result.mod){
-					while(result.mod && !(result.quot>>precision_base_bitnum)){
-						_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
-						exp-=precision_base_bitnum;//指数相应的减少
-						result=divmod(_numerator,_denominator);
-					}
-					_numerator=result.quot;//有损舍入精度
-					const auto tmp=countr_zero(_numerator);
-					_numerator>>=tmp;
-					exp+=tmp;
+				while(result.mod && !(result.quot>>precision_base_bitnum)){
+					_numerator<<=precision_base_bitnum;//扩大数字来容纳可能在除法中产生的数
+					exp-=precision_base_bitnum;//指数相应的减少
+					result=divmod(_numerator,_denominator);
 				}
+				_numerator=move(result.quot);//有损舍入精度
+				const auto tmp=countr_zero(_numerator);
+				_numerator>>=tmp;
+				exp+=tmp;
 			}
 			{
 				//对多余的精度进行舍入，仍然，这是可能有损的
@@ -153,12 +179,49 @@ public:
 	[[nodiscard]]friend bool is_negative(const ubigfloat&)noexcept{
 		return false;
 	}
+	//friend get_numerator
+	[[nodiscard]]friend ubigint get_numerator(const ubigfloat& a)noexcept{
+		return a._numerator;
+	}
+	[[nodiscard]]friend ubigint&& get_numerator(ubigfloat&& a)noexcept{
+		return move(a._numerator);
+	}
+	//friend get_denominator
+	[[nodiscard]]friend ubigint get_denominator(const ubigfloat& a)noexcept{
+		return a._denominator;
+	}
+	[[nodiscard]]friend ubigint&& get_denominator(ubigfloat&& a)noexcept{
+		return move(a._denominator);
+	}
+	//friend isNaN
+	[[nodiscard]]friend constexpr bool isNaN(const ubigfloat&)noexcept{
+		return false;
+	}
+	//friend isinf
+	[[nodiscard]]friend bool isinf(const ubigfloat&a)noexcept{
+		return!a._denominator;
+	}
 	//friend trunc
 	[[nodiscard]]friend ubigint trunc(const ubigfloat& a)noexcept{
 		return a._numerator/a._denominator;
 	}
 	[[nodiscard]]explicit operator ubigint()noexcept{
 		return trunc(*this);
+	}
+	//friend split
+	[[nodiscard]]friend auto split(const ubigfloat& a)noexcept{
+		struct result_t{
+			ubigint integer;
+			ubigfloat fraction;
+		};
+		const auto result=divmod(a._numerator,a._denominator);
+		return result_t{result.quot,ubigfloat{result.mod,a._denominator}};
+	}
+	//friend trunc_with_sub
+	[[nodiscard]]friend ubigint trunc_with_sub(ubigfloat& a)noexcept{
+		const auto result=divmod(move(a._numerator),a._denominator);
+		a._numerator=move(result.mod);
+		return result.quot;
 	}
 	//friend to_size_t
 	[[nodiscard]]friend size_t to_size_t(const ubigfloat& a)noexcept{

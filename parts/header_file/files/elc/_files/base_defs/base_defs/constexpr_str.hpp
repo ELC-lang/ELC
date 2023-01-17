@@ -64,6 +64,7 @@ namespace constexpr_str_n{
 		constexpr constexpr_str_t(const_string_ptr_t str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
 		[[nodiscard]]constexpr hash_t hash()const noexcept{return hash_result;}
 	};
+	using constexpr_str=constexpr_str_t<char_t>;
 	template<class char_T,size_t N>
 	struct constexpr_str_t_literal_helper{
 		typedef char_T*string_ptr_t;
@@ -83,7 +84,7 @@ namespace constexpr_str_n{
 	//别问，问就是傻逼c++
 	/// 告知其他elc库接口这是编译时常量字符串，并提供编译时计算好的内容，包括但不限于hash、bmh头、bitmark等，用于加速库操作
 	template<constexpr_str_t_literal_helper str_helper>
-	[[nodiscard]]inline consteval auto& operator ""_constexpr_str()noexcept{
+	[[nodiscard]]inline consteval const auto& operator ""_constexpr_str()noexcept{
 		return literal_result_provider<str_helper>::value;
 	}
 	/// 空字串常量且str或begin会指向一个0终止字符串（而不是nullptr），便于安全初始化
@@ -92,6 +93,7 @@ namespace constexpr_str_n{
 };
 using constexpr_str_n::constexpr_str_view_t;
 using constexpr_str_n::constexpr_str_t;
+using constexpr_str_n::constexpr_str;
 using constexpr_str_n::empty_constexpr_str_of;
 using constexpr_str_n::operator ""_constexpr_str;
 

@@ -188,13 +188,13 @@ namespace array_n{
 		}
 		#undef expr
 
-		void push_back(const T&a){
+		void push_back(const T&a)noexcept(get<T>.apply_end.nothrow<const T&>){
 			get<T>.apply_end(note::to<T*&>(_m),a);
 		}
-		void push_back(T&&a){
+		void push_back(T&&a)noexcept(get<T>.apply_end.nothrow<T>){
 			get<T>.apply_end(note::to<T*&>(_m),move(a));
 		}
-		void remove(T a){
+		void remove(T a)noexcept(get<T>.remove.nothrow<T>){
 			get<T>.remove(a,note::from(_m));
 		}
 		//template<as_concept<get<T>.apply_end.able> U>

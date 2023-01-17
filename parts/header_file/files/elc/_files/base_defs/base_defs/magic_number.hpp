@@ -6,6 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
+//TODO: 将magic_number分割为magic_number、math、bit三个文件
 namespace magic_number{
 	/*! 黄金分割比
 		数理逻辑不应通过强奸感性来定义审美.
@@ -27,22 +28,32 @@ namespace magic_number{
 
 	constexpr auto god=72;/// 神已死,神万岁.
 
+	/*! 无符号位的对应类型：帮助类型 */
+	template<typename T>
+	struct to_unsigned_t_helper{
+		using type=decltype(lambda{
+			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
+				return T();
+			else
+				return::std::make_unsigned_t<T>();
+		}());
+	};
 	/*! 无符号位的对应类型 */
 	template<typename T>
-	using to_unsigned_t = decltype(lambda{
-		if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
-			return T();
-		else
-			return::std::make_unsigned_t<T>();
-	}());
+	using to_unsigned_t = typename to_unsigned_t_helper<T>::type;
+	/*! 有符号位的对应类型：帮助类型 */
+	template<typename T>
+	struct to_signed_t_helper{
+		using type=decltype(lambda{
+			if constexpr(::std::is_signed_v<T>||::std::is_floating_point_v<T>)
+				return T();
+			else
+				return::std::make_signed_t<T>();
+		}());
+	};
 	/*! 有符号位的对应类型 */
 	template<typename T>
-	using to_signed_t = decltype(lambda{
-		if constexpr(::std::is_signed_v<T>||::std::is_floating_point_v<T>)
-			return T();
-		else
-			return::std::make_signed_t<T>();
-	}());
+	using to_signed_t = typename to_signed_t_helper<T>::type;
 	//isNaN
 	template<class T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr bool isNaN(const T v)noexcept{
@@ -63,7 +74,7 @@ namespace magic_number{
 		else
 			return false;
 	}
-	/*!符号位设置 */
+	/*! 符号位设置 */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr T copy_as_negative(auto x,bool negative=1)noexcept{
 		if constexpr(::std::is_signed_v<decltype(x)>){
@@ -106,6 +117,20 @@ namespace magic_number{
 			return ::std::fmod(a,b);
 		else
 			return a%b;
+	}
+	//divmod
+	template<typename T1,typename T2> requires ::std::is_arithmetic_v<T1> and ::std::is_arithmetic_v<T2>
+	[[nodiscard]]force_inline constexpr auto divmod(T1 a,T2 b){
+		typedef decltype(a/b) quot_t;
+		typedef decltype(a%b) mod_t;
+		struct divmod_result{
+			quot_t quot;
+			mod_t mod;
+		};
+		if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
+			return divmod_result{::std::floor(a/b),::std::fmod(a,b)};
+		else
+			return divmod_result{a/b,a%b};
 	}
 	/*! 设置浮点舍入 */
 	template<typename T>
@@ -359,6 +384,20 @@ namespace magic_number{
 		else
 			return ::std::ceil(v);
 	}
+	//floor
+	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
+	template<class T> requires ::std::is_floating_point_v<T>
+	[[nodiscard]]force_inline constexpr auto floor(const T v)noexcept{
+		if in_consteval{
+			typedef decltype(::std::floor(v)) RT;
+			auto floor_impl = lambda(T x, T y)noexcept{
+				return feq(x,y) ? y : y-T{1};
+			};
+			return v<0 ? -static_cast<T>(to_uintmax_t(-v+T{1})) : floor_impl(v,static_cast<T>(to_uintmax_t(v)));
+		}
+		else
+			return ::std::floor(v);
+	}
 	//sqrt
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<class T> requires ::std::is_arithmetic_v<T>
@@ -435,23 +474,56 @@ namespace magic_number{
 		*/
 		return is_prime_num_no_pre_check(b);
 	}
+	/// 求小于或等于某数的素数
+	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]inline constexpr T get_prime_num_less_or_eq_than(T a)noexcept;
 	/// 求大于或等于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]inline constexpr auto get_prime_num_big_or_eq_than(T a)noexcept{
-		if constexpr(::std::is_floating_point_v<T>)
+	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a)noexcept{
+		if constexpr(::std::is_floating_point_v<T>){
 			a=ceil(a);
-		auto b=abs(a);
-		if(b<4)return a;
-		//将ua转换为6x-1的形式.
+		}
+		if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>){
+			if(is_negative(a)){
+				auto tmp = get_prime_num_less_or_eq_than(abs(a));
+				return copy_as_negative(tmp);
+			}
+		}
+		if(a<4)return a;
+		//将a转换为6x-1的形式.
 		{
-			T c=mod(b,6);
-			if(c==1 && is_prime_num_no_pre_check(b))return b;
-			b+=c?5-c:1;
+			T b=mod(a,6);
+			if(b==1 && is_prime_num_no_pre_check(a))return a;
+			a+=b?5-b:1;
 		}
 		//循环判断.
-		for(;;b+=6)
-			if(is_prime_num_no_pre_check(b))return b;
-			elseif(is_prime_num_no_pre_check(b+2))return b+2;
+		for(;;a+=6)
+			if(is_prime_num_no_pre_check(a))return a;
+			elseif(is_prime_num_no_pre_check(a+2))return a+2;
+	}
+	/// 求小于或等于某数的素数
+	template<class T> requires ::std::is_arithmetic_v<T>
+	[[nodiscard]]inline constexpr T get_prime_num_less_or_eq_than(T a)noexcept{
+		if constexpr(::std::is_floating_point_v<T>){
+			a=floor(a);
+		}
+		if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>){
+			if(is_negative(a)){
+				auto tmp = get_prime_num_big_or_eq_than(abs(a));
+				return copy_as_negative(tmp);
+			}
+		}
+		if(a<4)return a;
+		//将a转换为6x-1的形式.
+		{
+			T b=mod(a,6);
+			if(b==1 && is_prime_num_no_pre_check(a))return a;
+			a-=b?b-1:5;
+		}
+		//循环判断.
+		for(;;a-=6)
+			if(is_prime_num_no_pre_check(a))return a;
+			elseif(is_prime_num_no_pre_check(a-2))return a-2;
 	}
 	/// 求大于某数的素数
 	template<class T> requires ::std::is_arithmetic_v<T>
@@ -495,6 +567,166 @@ namespace magic_number{
 			return y-diff;
 		}
 	}
+	//质因数分解
+	//由于array在之后定义所以泛型容器
+	//用法 get_prime_factorization(num).to<容器类型>(); 或 get_prime_factorization(num).unique().to<容器类型>();
+	constexpr struct get_prime_factorization_t{
+		template<class T>
+		class result_t{
+			T _m;
+		public:
+			template<class container_t>
+			static constexpr bool able=was_not_an_ill_form(declvalue(container_t&).push_back(declvalue(T)));
+
+			constexpr force_inline result_t(T m)noexcept:_m(m){}
+
+			template<class container_t> requires able<container_t>
+			[[nodiscard]]constexpr container_t to()const noexcept{
+				container_t aret;
+				//思路：获取小于等于m的所有素数，依次除以m，若能整除则将素数加入结果，否则跳过，直到m为1.
+				T i=T{2},m=abs(_m);
+				while(m!=1){
+					while(!(m%i)){
+						aret.push_back(i);
+						m/=i;
+					}
+					i=get_prime_num_big_than(i);
+				}
+				if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>)
+					if(is_negative(_m))
+						aret.push_back(T{-1});
+				return aret;
+			}
+			//operator container_t()
+			template<class container_t>
+			[[nodiscard]]constexpr force_inline operator container_t()const noexcept{
+				return to<container_t>();
+			}
+			class unique_t{
+				T _m;
+			public:
+				constexpr force_inline unique_t(T m)noexcept:_m(m){}
+
+				template<class container_t> requires able<container_t>
+				[[nodiscard]]constexpr container_t to()const noexcept{
+					container_t aret;
+					//思路：获取小于等于m的所有素数，依次除以m，若能整除则将素数加入结果，否则跳过，直到m为1.
+					T i=T{2},m=abs(_m);
+					while(m!=1){
+						if(!(m%i)){
+							aret.push_back(i);
+							do m/=i;while(!(m%i));
+						}	
+						i=get_prime_num_big_than(i);
+					}
+					if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>)
+						if(is_negative(_m))
+							aret.push_back(T{-1});
+					return aret;
+				}
+				//operator container_t()
+				template<class container_t>
+				[[nodiscard]]constexpr force_inline operator container_t()const noexcept{
+					return to<container_t>();
+				}
+			};
+			[[nodiscard]]constexpr force_inline auto unique()const noexcept{
+				return unique_t{_m};
+			}
+		};
+		template<class T> requires ::std::is_arithmetic_v<T>
+		[[nodiscard]]constexpr force_inline auto operator()(T m)const noexcept{
+			return result_t<T>{m};
+		}
+	}get_prime_factorization{};
+	//编译时质因数分解到质因数表
+	template<size_t number>
+	struct prime_factorization_table_t{
+		static constexpr size_t table_size=lambda{
+			size_t i=2,m=number;
+			size_t ret=0;
+			while(m!=1){
+				while(!(m%i)){
+					++ret;
+					m/=i;
+				}
+				i=get_prime_num_big_than(i);
+			}
+			return ret;
+		}();
+		size_t _table[table_size];
+		constexpr force_inline prime_factorization_table_t()noexcept{
+			size_t i=2,m=number;
+			size_t index=0;
+			while(m!=1){
+				while(!(m%i)){
+					_table[index++]=i;
+					m/=i;
+				}
+				i=get_prime_num_big_than(i);
+			}
+		}
+		[[nodiscard]]constexpr force_inline size_t operator[](size_t index)const noexcept{
+			return _table[index];
+		}
+		//begin and end for range for
+		[[nodiscard]]constexpr force_inline size_t* begin()noexcept{
+			return _table;
+		}
+		[[nodiscard]]constexpr force_inline size_t* end()noexcept{
+			return _table+table_size;
+		}
+		[[nodiscard]]constexpr force_inline const size_t* begin()const noexcept{
+			return _table;
+		}
+		[[nodiscard]]constexpr force_inline const size_t* end()const noexcept{
+			return _table+table_size;
+		}
+	};
+	//编译时的唯一质因数分解到质因数表
+	template<size_t number>
+	struct unique_prime_factorization_table_t{
+		static constexpr size_t table_size=lambda{
+			size_t i=2,m=number;
+			size_t ret=0;
+			while(m!=1){
+				if(!(m%i)){
+					++ret;
+					do m/=i;while(!(m%i));
+				}
+				i=get_prime_num_big_than(i);
+			}
+			return ret;
+		}();
+		size_t _table[table_size]={};
+		constexpr force_inline unique_prime_factorization_table_t()noexcept{
+			size_t i=2,m=number;
+			size_t index=0;
+			while(m!=1){
+				if(!(m%i)){
+					_table[index++]=i;
+					do m/=i;while(!(m%i));
+				}
+				i=get_prime_num_big_than(i);
+			}
+		}
+		[[nodiscard]]constexpr force_inline size_t operator[](size_t index)const noexcept{
+			return _table[index];
+		}
+		//begin and end for range for
+		[[nodiscard]]constexpr force_inline size_t* begin()noexcept{
+			return _table;
+		}
+		[[nodiscard]]constexpr force_inline size_t* end()noexcept{
+			return _table+table_size;
+		}
+		[[nodiscard]]constexpr force_inline const size_t* begin()const noexcept{
+			return _table;
+		}
+		[[nodiscard]]constexpr force_inline const size_t* end()const noexcept{
+			return _table+table_size;
+		}
+	};
 }
 using magic_number::to_unsigned_t;
 using magic_number::is_negative;
@@ -502,6 +734,7 @@ using magic_number::copy_as_negative;
 using magic_number::copy_as_not_negative;
 using magic_number::to_size_t;
 using magic_number::mod;
+using magic_number::divmod;
 using magic_number::set_rounding;
 using magic_number::get_rounding;
 using magic_number::rounding_auto_setter;
@@ -510,12 +743,14 @@ using magic_number::rotr;
 using magic_number::rotl_nomod;
 using magic_number::rotr_nomod;
 using magic_number::rot_iterator;
+using magic_number::feq;
 using magic_number::isNaN;
 using magic_number::abs;
 using magic_number::exp;
 using magic_number::log;
 using magic_number::pow;
 using magic_number::ceil;
+using magic_number::floor;
 using magic_number::sqrt;
 using magic_number::trunc;
 using magic_number::is_prime_num;
@@ -523,6 +758,9 @@ using magic_number::get_prime_num_big_or_eq_than;
 using magic_number::get_prime_num_big_than;
 using magic_number::get_next_gold_size_to_resize_for_array;
 using magic_number::get_next_gold_size_to_resize_for_hash;
+using magic_number::get_prime_factorization;
+using magic_number::prime_factorization_table_t;
+using magic_number::unique_prime_factorization_table_t;
 
 //file_end
 

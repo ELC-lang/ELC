@@ -38,7 +38,7 @@ elc依赖的基础函数.
 			#endif
 		};
 
-		void Init_die_state(die_state&state)noexcept{
+		inline void Init_die_state(die_state&state)noexcept{
 			#if SYSTEM_TYPE == windows
 				state.hConsole=GetStdHandle(STD_ERROR_HANDLE);
 				//chenge color to red
@@ -52,21 +52,21 @@ elc依赖的基础函数.
 			#endif
 		}
 
-		void ConsoleLog(const die_state&state,string_view_t<char> str)noexcept{
+		inline void ConsoleLog(const die_state&state,string_view_t<char> str)noexcept{
 			#if SYSTEM_TYPE == windows
 				WriteConsoleA(state.hConsole,str.data(),(DWORD)str.size(),nullptr,nullptr);
 			#elif SYSTEM_TYPE == linux
 				fputs(str.data(),stderr);
 			#endif
 		}
-		void ConsoleLog(const die_state&state,string_view_t<wchar_t> str)noexcept{
+		inline void ConsoleLog(const die_state&state,string_view_t<wchar_t> str)noexcept{
 			#if SYSTEM_TYPE == windows
 				WriteConsoleW(state.hConsole,str.data(),(DWORD)str.size(),nullptr,nullptr);
 			#elif SYSTEM_TYPE == linux
 				fputws(str.data(),stderr);
 			#endif
 		}
-		void ConsoleLogEnd(const die_state&state)noexcept{
+		inline void ConsoleLogEnd(const die_state&state)noexcept{
 			#if SYSTEM_TYPE == windows
 				FlushFileBuffers(state.hConsole);
 				//chenge color back

@@ -7,7 +7,11 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 class ubigint{
-	typedef unsigned_specific_size_fast_t<BIT_POSSIBILITY> base_type;
+	#if defined(_DEBUG)
+		typedef unsigned char base_type;
+	#else
+		typedef unsigned_specific_size_fast_t<BIT_POSSIBILITY> base_type;
+	#endif
 	typedef array_t<base_type> data_type;
 	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
 	data_type _data;
@@ -68,9 +72,11 @@ private:
 	static void shrink_to_fit(data_type&a)noexcept{
 		auto size=a.size();
 		while(size--)
-			if(a[size]!=0)
-				break;
-		a.resize(size+1);
+			if(a[size]!=0){
+				a.resize(size+1);
+				return;
+			}
+		a.clear();
 	}
 	void shrink_to_fit()noexcept{
 		shrink_to_fit(_data);
@@ -114,7 +120,7 @@ public:
 				if(other<*i)
 					return false;
 				other-=*i;
-				other/=base_type_mod;
+				other=T(other/base_type_mod);
 				i++;
 			}
 			return other==0;
@@ -284,21 +290,37 @@ private:
 			return tmp;
 		}();
 		const calc_type divisor=calc_type(b.back());
-		base_type aret=base_type(dividend/divisor);
+		calc_type left=dividend/(divisor+1);
+		calc_type right=dividend/divisor;
+		base_type last_work_able=0;
+		//left<=a/b<=right
 		tryto=get_shrinked_data_view_of_data(tryto.data(),tryto.size());
-		while(aret!=0){
+		while(left<=right) {
 			//下面的muti_with_base至少会写入b.size()个元素，所以只需要置零buf中最后一个元素就行
 			buf.back()=0;
-			muti_with_base(buf.data(),b,aret);
+			const calc_type test=(left+right)/2;//二分法
+			muti_with_base(buf.data(),b,base_type(test));
 			const auto myview=get_shrinked_data_view_of_data(buf);
-			if(compare(tryto,myview)>=0){
-				sub_with_base(a,myview);
-				return aret;
+			const auto cmp=compare(tryto,myview);
+			if(cmp>=0)
+				last_work_able=base_type(test);
+			if(cmp>0){//tryto>myview：测试值太小或合适
+				left=test+1;
+				if(!base_type(left))//溢出了，test是最大的可用值
+					break;
 			}
-			else
-				aret--;
+			elseif(cmp<0)//tryto<myview：测试值太大
+				right=test-1;
+			else//tryto==myview：测试值合适
+				break;
 		}
-		return 0;
+		if(last_work_able==0)
+			return 0;
+		//下面的muti_with_base至少会写入b.size()个元素，所以只需要置零buf中最后一个元素就行
+		buf.back()=0;
+		muti_with_base(buf.data(),b,last_work_able);
+		sub_with_base(a,get_shrinked_data_view_of_data(buf));
+		return last_work_able;
 	}
 	[[nodiscard]]static base_type div_base(base_type*a,data_view_type b)noexcept{
 		array_t<base_type> fortry(note::size(b.size()+1));
@@ -413,6 +435,20 @@ public:
 			array_t<base_type> quot = div_with_base(mod, b_view);
 			shrink_to_fit(mod);
 			return divmod_result{ubigint{move(quot)},ubigint{move(mod)}};
+		}
+	}
+	[[nodiscard]]friend auto divmod(ubigint&& a,const ubigint& b)noexcept{
+		//直接使用a的内存而避免不必要的分配
+		typedef decltype(divmod(a,b)) divmod_result;
+		const auto b_view = b.get_data_view();
+		if(b_view.empty())return divmod_result{};
+		const auto a_view = a.get_data_view();
+		if(a_view.size() < b_view.size())return divmod_result{ubigint{},move(a)};
+		{
+			a._data.push_back(0);
+			array_t<base_type> quot = div_with_base(a._data, b_view);
+			shrink_to_fit(a._data);
+			return divmod_result{ubigint{move(quot)},move(a)};
 		}
 	}
 	//operator<<
@@ -708,25 +744,16 @@ public:
 [[nodiscard]]inline ubigint gcd(ubigint x, ubigint y)noexcept{
 	size_t shift = 0;
 	while(y){
-		// 如果 x 比 y 小，交换 x 和 y 的值
+		//都是偶数时，shift++并位移
+		const auto x_rzero=countr_zero(x);
+		const auto y_rzero=countr_zero(y);
+		shift+=min(x_rzero,y_rzero);
+		//一偶一奇时，只移动偶数 直到都是奇数
+		x>>=x_rzero;
+		y>>=y_rzero;
+		//都是奇数时，大数-=小数
 		if(x < y)swap(x, y);
-		if(is_even(x))
-			// x,y 都是偶数
-			if(is_even(y)){
-				x >>= 1u;
-				y >>= 1u;
-				shift++;
-			}
-			// x 是偶数，y 是奇数
-			else
-				x >>= 1u;
-		else
-			// x 是奇数，y 是偶数
-			if(is_even(y))
-				y >>= 1u;
-			// x, y 都是奇数
-			else
-				x -= y;
+		x-=y;
 	}
 	// 返回 x 左移 shift 位的结果
 	return x << shift;
