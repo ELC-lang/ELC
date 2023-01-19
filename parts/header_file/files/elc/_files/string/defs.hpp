@@ -512,6 +512,13 @@ namespace string_n{
 		[[nodiscard]]reverse_const_iterator rend()const noexcept{ return get_reverse_iterator_at(-1); }
 		[[nodiscard]]reverse_const_iterator rcend()const noexcept{ return rend(); }
 
+		//自迭代器构造string
+		string_t(const_iterator begin,const_iterator end)noexcept{
+			const auto& beg = begin.get_base();
+			const auto& ed	= end.get_base();
+			if(beg._to!=ed._to)return;
+			_ncso_construct_mptr(beg._to->substr(beg._index, ed._index - beg._index)._m);
+		}
 		//
 
 		void push_back(const string_t& str)&noexcept{
@@ -530,6 +537,16 @@ namespace string_n{
 		void push_back(char_T ch)&noexcept{ push_back(string_view_t{&ch,1}); }
 		void push_back(const arec_t&& ch)&noexcept{ push_back(move(ch).operator char_T()); }
 		void push_back(const_string_ptr_t str)&noexcept{ push_back(string_view_t(str)); }
+		//
+		void push_back(char_T ch,size_t count)&noexcept{
+			if(count==0)return;
+			_cso_check();
+			string_t str{ch,count};
+			_m=_m->apply_str_to_end(str._m);
+		}
+		void push_back(const arec_t&& ch,size_t count)&noexcept{
+			push_back(move(ch).operator char_T(),count);
+		}
 
 		void push_front(const string_t& str)&noexcept{
 			full_copy_cso_check(*this);
@@ -547,6 +564,16 @@ namespace string_n{
 		void push_front(char_T ch)&noexcept{ push_front(string_view_t{&ch,1}); }
 		void push_front(const arec_t&& ch)&noexcept{ push_front(move(ch).operator char_T()); }
 		void push_front(const_string_ptr_t str)&noexcept{ push_front(string_view_t(str)); }
+		//
+		void push_front(char_T ch,size_t count)&noexcept{
+			if(count==0)return;
+			_cso_check();
+			string_t str{ch,count};
+			_m=_m->apply_str_to_begin(str._m);
+		}
+		void push_front(const arec_t&& ch,size_t count)&noexcept{
+			push_front(move(ch).operator char_T(),count);
+		}
 
 		void remove_back(size_t size=1)noexcept{ _cso_check();_m=_m->do_remove_back(size); }
 		void remove_front(size_t size=1)noexcept{ _cso_check();_m=_m->do_remove_front(size); }

@@ -77,6 +77,8 @@ namespace magic_number{
 	/*! 符号位设置 */
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]force_inline constexpr T copy_as_negative(auto x,bool negative=1)noexcept{
+		if constexpr(::std::is_unsigned_v<T>)
+			template_error("copy_as_negative:unsigned type");
 		if constexpr(::std::is_signed_v<decltype(x)>){
 			if constexpr(::std::is_floating_point_v<decltype(x)>)
 				return(T)::std::copysign(x,negative?-1:1);
@@ -84,7 +86,7 @@ namespace magic_number{
 				return(T)negative?T{}-x:x;
 		}
 		else
-			return x;
+			return copy_as_negative<T>((T)x,negative);
 	}
 	[[nodiscard]]force_inline constexpr auto copy_as_negative(auto x,bool negative=1)noexcept{
 		return copy_as_negative<to_signed_t<decltype(x)>>(x,negative);

@@ -76,6 +76,7 @@ public:
 					_denominator<<=abs(exponent);
 			}
 		}
+		simplify();
 	}
 public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
@@ -168,6 +169,10 @@ private:
 		_denominator(denominator)
 	{}
 public:
+	//friend build_ubigfloat_from_numerator_and_denominator
+	friend ubigfloat build_ubigfloat_from_numerator_and_denominator(const ubigint& numerator,const ubigint& denominator)noexcept{
+		return ubigfloat{numerator,denominator};
+	}
 	//friend abs
 	[[nodiscard]]friend ubigfloat abs(const ubigfloat& a)noexcept{
 		return a;
@@ -180,18 +185,24 @@ public:
 		return false;
 	}
 	//friend get_numerator
-	[[nodiscard]]friend ubigint get_numerator(const ubigfloat& a)noexcept{
+	[[nodiscard]]friend const ubigint& get_numerator(const ubigfloat& a)noexcept{
 		return a._numerator;
 	}
 	[[nodiscard]]friend ubigint&& get_numerator(ubigfloat&& a)noexcept{
 		return move(a._numerator);
 	}
+	[[nodiscard]]friend ubigint& get_numerator_as_ref(ubigfloat& a)noexcept{
+		return a._numerator;
+	}
 	//friend get_denominator
-	[[nodiscard]]friend ubigint get_denominator(const ubigfloat& a)noexcept{
+	[[nodiscard]]friend const ubigint& get_denominator(const ubigfloat& a)noexcept{
 		return a._denominator;
 	}
 	[[nodiscard]]friend ubigint&& get_denominator(ubigfloat&& a)noexcept{
 		return move(a._denominator);
+	}
+	[[nodiscard]]friend ubigint& get_denominator_as_ref(ubigfloat& a)noexcept{
+		return a._denominator;
 	}
 	//friend isNaN
 	[[nodiscard]]friend constexpr bool isNaN(const ubigfloat&)noexcept{

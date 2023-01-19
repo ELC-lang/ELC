@@ -197,6 +197,8 @@ namespace iterator_n{
 			if constexpr(compare.able<base_t_rw,other_base_t_w>)
 				return compare(_m,a._m);
 		}
+		base_t_rw& get_base()noexcept{ return _m; }
+		const base_t_rw& get_base()const noexcept{ return _m; }
 	};
 	template<typename value_t,typename base_t_w>
 	inline void swap(same_base_t<value_t,base_t_w>&a,same_base_t<value_t,base_t_w>&b)noexcept_as(a.swap_with(b))
