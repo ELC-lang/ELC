@@ -8,7 +8,6 @@
 */
 #define export using defs::numerical_representation_n::
 export to_string;
-export to_string_rough;
 export from_string_get;
 #undef export
 
