@@ -44,7 +44,7 @@ public:
 				constexpr size_t max_numerator = 1u<<7;
 				while(numerator<max_numerator){
 					denominator = to_size_t(numerator/fraction_part);
-					if(feq(T(numerator)/denominator,fraction_part)){//近似相等即可
+					if(is_close(T(numerator)/denominator,fraction_part)){//近似相等即可
 						const auto numerator_backup=numerator;
 						//补正整数部分
 						numerator += to_size_t(integer_part*denominator);
@@ -52,7 +52,7 @@ public:
 						_numerator = numerator;
 						_denominator = denominator;
 						//校验
-						if(convert_to<T>()==num)//保证无损所以不用feq
+						if(convert_to<T>()==num)//保证无损所以不用is_close
 							return;
 						//回滚
 						_numerator = numerator_backup;

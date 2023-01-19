@@ -231,9 +231,9 @@ namespace math{
 		else
 			return v;
 	}
-	//feq
+	//is_close
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr bool feq(const T a,const T b)noexcept{
+	[[nodiscard]]force_inline constexpr bool is_close(const T a,const T b)noexcept{
 		if constexpr(is_float_type<T> && is_basic_type<T>)
 			return abs(a-b)<=::std::numeric_limits<T>::epsilon();
 		else
@@ -266,7 +266,7 @@ namespace math{
 			}()) RT;
 			auto exp_impl = recursive_lambda(RT x,RT sum,RT n,size_t i,RT t)noexcept -> RT{
 				const auto epsilon=sum+t/n;
-				if(feq(sum,epsilon))
+				if(is_close(sum,epsilon))
 					return sum;
 				else
 					return self_recursion(x,epsilon,n*i,i+1,t*x);
@@ -293,7 +293,7 @@ namespace math{
 					const auto exp_y = exp(y);
 					return y + T{2u}*(x-exp_y)/(x+exp_y);
 				};
-				return RT(feq(y,log_iter(x,y)) ? y : self_recursion(x,log_iter(x,y)));
+				return RT(is_close(y,log_iter(x,y)) ? y : self_recursion(x,log_iter(x,y)));
 			};
 			auto log_impl_caller = get_recursive_lambda_caller(log_impl);
 			return log_impl_caller((RT)a,RT{0u});
@@ -334,7 +334,7 @@ namespace math{
 		if in_consteval{
 			typedef decltype(::std::ceil(v)) RT;
 			auto ceil_impl = lambda(T x, T y)noexcept{
-				return feq(x,y) ? y : y+T{1};
+				return is_close(x,y) ? y : y+T{1};
 			};
 			return v<0 ? -static_cast<T>(to_uintmax_t(-v)) : ceil_impl(v,static_cast<T>(to_uintmax_t(v)));
 		}
@@ -348,7 +348,7 @@ namespace math{
 		if in_consteval{
 			typedef decltype(::std::floor(v)) RT;
 			auto floor_impl = lambda(T x, T y)noexcept{
-				return feq(x,y) ? y : y-T{1};
+				return is_close(x,y) ? y : y-T{1};
 			};
 			return v<0 ? -static_cast<T>(to_uintmax_t(-v+T{1})) : floor_impl(v,static_cast<T>(to_uintmax_t(v)));
 		}
@@ -367,7 +367,7 @@ namespace math{
 					return T{};
 			}()) RT;
 			auto sqrt_impl = recursive_lambda(const RT x,const RT curr,const RT prev)noexcept -> RT{
-				return feq(curr,prev) ? curr : self_recursion(x,(curr+x/curr)/RT{2u},curr);
+				return is_close(curr,prev) ? curr : self_recursion(x,(curr+x/curr)/RT{2u},curr);
 			};
 			auto sqrt_impl_caller = get_recursive_lambda_caller(sqrt_impl);
 			if(v >= 0u && v < ::std::numeric_limits<RT>::infinity())
@@ -716,7 +716,7 @@ using math::divmod;
 using math::set_rounding;
 using math::get_rounding;
 using math::rounding_auto_setter;
-using math::feq;
+using math::is_close;
 using math::isNaN;
 using math::abs;
 using math::exp;
