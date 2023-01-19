@@ -10,31 +10,6 @@ class bigfloat;
 [[nodiscard]]bigfloat copy_as_negative(const ubigfloat&,bool sign=true)noexcept;
 [[nodiscard]]bigfloat copy_as_negative(ubigfloat&&,bool sign=true)noexcept;
 
-
-//注入magic_number::to_unsigned_t 和 to_signed_t
-BREAK_NAMESPACE;
-
-namespace base::magic_number{
-	using namespace big_number_types;
-
-	template<>struct to_unsigned_t_helper<bigfloat>{
-		using type=ubigfloat;
-	};
-	template<>struct to_signed_t_helper<bigfloat>{
-		using type=bigfloat;
-	};
-	
-	template<>struct to_unsigned_t_helper<ubigfloat>{
-		using type=ubigfloat;
-	};
-	template<>struct to_signed_t_helper<ubigfloat>{
-		using type=bigfloat;
-	};
-}
-
-INTER_NAMESPACE(big_number_types);
-
-
 class bigfloat{
 	ubigfloat _num;
 	bool _is_negative=false;
@@ -72,7 +47,7 @@ public:
 		if constexpr(::std::is_unsigned_v<T>)
 			return _num.convert_to<T>();
 		else{
-			using magic_number::copy_as_negative;//貌似msvc在这里有bug
+			using math::copy_as_negative;//貌似msvc在这里有bug
 			return copy_as_negative(_num.convert_to<to_unsigned_t<T>>(),_is_negative);
 		}
 	}

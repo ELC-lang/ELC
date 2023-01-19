@@ -11,6 +11,8 @@
 #include "using_std.hpp"
 #include "concept.hpp"
 #include "magic_number.hpp"
+#include "math.hpp"
+#include "bit.hpp"
 
 #include "other.hpp"
 

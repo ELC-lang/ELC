@@ -354,20 +354,20 @@ namespace string_n{
 		//floating arec.
 	private:
 		static constexpr bool floating_arec_result_able=was_not_an_ill_form(
-			magic_number::linear_interpolation::get_result(declvalue(size_t),
-				 magic_number::linear_interpolation::get_k(declvalue(char_T),declvalue(char_T)),
+			math::linear_interpolation::get_result(declvalue(size_t),
+				 math::linear_interpolation::get_k(declvalue(char_T),declvalue(char_T)),
 														   declvalue(float_t))
 		);
 		static auto floating_arec_result_type_helper()noexcept{
 			if constexpr(floating_arec_result_able)
-				return magic_number::linear_interpolation::get_result(size_t{},
-					 magic_number::linear_interpolation::get_k(char_T{},char_T{}),
+				return math::linear_interpolation::get_result(size_t{},
+					 math::linear_interpolation::get_k(char_T{},char_T{}),
 															   float_t{});
 		}
 		typedef decltype(floating_arec_result_type_helper()) floating_arec_result_type;
 		static constexpr bool floating_arec_set_able=was_not_an_ill_form(
-			magic_number::linear_interpolation::get_reverse_result(
-				 magic_number::linear_interpolation::get_k(declvalue(char_T),declvalue(char_T)),
+			math::linear_interpolation::get_reverse_result(
+				 math::linear_interpolation::get_k(declvalue(char_T),declvalue(char_T)),
 														   declvalue(float_t),declvalue(char_T))
 		);
 	public:
@@ -392,18 +392,18 @@ namespace string_n{
 				char_T y1=_to->arec(_index_x1);
 				char_T y2=_to->arec(_index_x2);
 				auto δx=_index-_index_x1;
-				return magic_number::linear_interpolation::get_result(y1,
-							magic_number::linear_interpolation::get_k(y1,y2),
+				return math::linear_interpolation::get_result(y1,
+							math::linear_interpolation::get_k(y1,y2),
 														   			  δx);
 			}
 			floating_arec_t&& operator=(floating_arec_result_type a)&&noexcept requires set_able{
 				char_T y1=_to->arec(_index_x1);
 				char_T y2=_to->arec(_index_x2);
-				auto k=magic_number::linear_interpolation::get_k(y1,y2);
+				auto k=math::linear_interpolation::get_k(y1,y2);
 				auto δx1=_index-_index_x1;
 				auto δx2=_index-_index_x2;
-				y1=(char_T)magic_number::linear_interpolation::get_reverse_result(k,δx1,a);
-				y2=(char_T)magic_number::linear_interpolation::get_reverse_result(k,δx2,a);
+				y1=(char_T)math::linear_interpolation::get_reverse_result(k,δx1,a);
+				y2=(char_T)math::linear_interpolation::get_reverse_result(k,δx2,a);
 				_to->arec_set(_index_x1,y1);
 				_to->arec_set(_index_x2,y2);
 				return move(*this);

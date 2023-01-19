@@ -10,31 +10,6 @@ class bigint;
 [[nodiscard]]bigint copy_as_negative(const ubigint&,bool sign=true)noexcept;
 [[nodiscard]]bigint copy_as_negative(ubigint&&,bool sign=true)noexcept;
 
-
-//注入magic_number::to_unsigned_t 和 to_signed_t
-BREAK_NAMESPACE;
-
-namespace base::magic_number{
-	using namespace big_number_types;
-
-	template<>struct to_unsigned_t_helper<bigint>{
-		using type=ubigint;
-	};
-	template<>struct to_signed_t_helper<bigint>{
-		using type=bigint;
-	};
-	
-	template<>struct to_unsigned_t_helper<ubigint>{
-		using type=ubigint;
-	};
-	template<>struct to_signed_t_helper<ubigint>{
-		using type=bigint;
-	};
-}
-
-INTER_NAMESPACE(big_number_types);
-
-
 class bigint{
 	ubigint _num;
 	bool _is_negative=0;
