@@ -251,7 +251,7 @@ private:
 		return tmp;
 	}
 	static void muti_with_base(base_type*buf,data_view_type a,base_type b)noexcept{
-		auto i=0;
+		size_t i=0;
 		calc_type num=0;
 		while(i!=a.size()){
 			num+=calc_type(a[i])*calc_type(b);
