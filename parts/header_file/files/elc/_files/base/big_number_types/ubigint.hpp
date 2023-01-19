@@ -748,24 +748,6 @@ public:
 		return !is_odd(x);
 	}
 };
-//求出最大公约数
-[[nodiscard]]inline ubigint gcd(ubigint x, ubigint y)noexcept{
-	size_t shift = 0;
-	while(y){
-		//都是偶数时，shift++并位移
-		const auto x_rzero=countr_zero(x);
-		const auto y_rzero=countr_zero(y);
-		shift+=min(x_rzero,y_rzero);
-		//一偶一奇时，只移动偶数 直到都是奇数
-		x>>=x_rzero;
-		y>>=y_rzero;
-		//都是奇数时，大数-=小数
-		if(x < y)swap(x, y);
-		x-=y;
-	}
-	// 返回 x 左移 shift 位的结果
-	return x << shift;
-}
 
 //file_end
 

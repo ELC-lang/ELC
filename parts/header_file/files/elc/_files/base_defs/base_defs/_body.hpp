@@ -11,8 +11,6 @@
 #include "using_std.hpp"
 #include "concept.hpp"
 #include "magic_number.hpp"
-#include "math.hpp"
-#include "bit.hpp"
 
 #include "other.hpp"
 
@@ -23,6 +21,8 @@
 #include "special_attribute.hpp"
 #include "type_info.hpp"
 #include "min_max.hpp"
+#include "math.hpp"
+#include "bit.hpp"
 #include "null_ptr.hpp"
 #include "compare.hpp"
 #include "note.hpp"

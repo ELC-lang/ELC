@@ -20,7 +20,7 @@ namespace math{
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type=::std::is_floating_point_v<T>;
 		//bool：是否是有符号类型
-		static constexpr bool is_signed_type=::std::is_signed_v<T>;
+		static constexpr bool is_signed=::std::is_signed_v<T>;
 		//bool：是否有NaN
 		static constexpr bool has_NaN=::std::numeric_limits<T>::has_quiet_NaN || ::std::numeric_limits<T>::has_signaling_NaN;
 		//bool：是否有inf
@@ -73,17 +73,35 @@ namespace math{
 		template<typename T>
 		concept float_type=is_float_type<T>;
 
+		/// 整数类型概念
+		template<typename T>
+		constexpr bool is_integer_type=!is_float_type<T>;
+		template<typename T>
+		concept integer_type=is_integer_type<T>;
+
 		/// 有符号类型概念
 		template<typename T>
-		constexpr bool is_signed_type=arithmetic_type_info_helper<T>::is_signed_type;
+		constexpr bool is_signed=arithmetic_type_info_helper<T>::is_signed;
 		template<typename T>
-		concept signed_type=is_signed_type<T>;
+		concept signed_type=is_signed<T>;
 
 		/// 无符号类型概念
 		template<typename T>
-		constexpr bool is_unsigned_type=!is_signed_type<T>;
+		constexpr bool is_unsigned=!is_signed<T>;
 		template<typename T>
-		concept unsigned_type=is_unsigned_type<T>;
+		concept unsigned_type=is_unsigned<T>;
+
+		/// 有符号整数类型概念
+		template<typename T>
+		constexpr bool is_signed_integer_type=is_integer_type<T>&&is_signed<T>;
+		template<typename T>
+		concept signed_integer_type=is_signed_integer_type<T>;
+
+		/// 无符号整数类型概念
+		template<typename T>
+		constexpr bool is_unsigned_integer_type=is_integer_type<T>&&is_unsigned<T>;
+		template<typename T>
+		concept unsigned_integer_type=is_unsigned_integer_type<T>;
 
 		/// 有NaN的类型概念
 		template<typename T>
@@ -105,7 +123,7 @@ namespace math{
 	/*! 符号位查询 */
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr bool is_negative(T x)noexcept{
-		if constexpr(is_signed_type<T>){
+		if constexpr(is_signed<T>){
 			if constexpr(has_NaN<T>)
 				if(isNaN(x))
 					return false;
@@ -117,7 +135,7 @@ namespace math{
 	/*! 符号位设置 */
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr T copy_as_negative(auto x,bool negative=1)noexcept{
-		if constexpr(is_unsigned_type<T>)
+		if constexpr(is_unsigned<T>)
 			template_error("copy_as_negative:unsigned type");
 		if constexpr(is_basic_type<decltype(x)>){
 			if constexpr(is_float_type<decltype(x)>)
@@ -205,7 +223,7 @@ namespace math{
 	//abs
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr auto abs(const T v)noexcept{
-		if constexpr(is_signed_type<T>){
+		if constexpr(is_signed<T>){
 			//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
 			typedef to_unsigned_t<T> UT;
 			return is_negative(v)?UT(-v):UT(v);
@@ -426,7 +444,7 @@ namespace math{
 	[[nodiscard]]inline constexpr T get_prime_num_big_or_eq_than(T a)noexcept{
 		if constexpr(is_float_type<T>)
 			a=ceil(a);
-		if constexpr(is_signed_type<T>)
+		if constexpr(is_signed<T>)
 			if(is_negative(a)){
 				auto tmp = get_prime_num_less_or_eq_than(abs(a));
 				return copy_as_negative(tmp);
@@ -448,7 +466,7 @@ namespace math{
 	[[nodiscard]]inline constexpr T get_prime_num_less_or_eq_than(T a)noexcept{
 		if constexpr(is_float_type<T>)
 			a=floor(a);
-		if constexpr(is_signed_type<T>)
+		if constexpr(is_signed<T>)
 			if(is_negative(a)){
 				auto tmp = get_prime_num_big_or_eq_than(abs(a));
 				return copy_as_negative(tmp);
@@ -667,7 +685,27 @@ namespace math{
 			return _table+table_size;
 		}
 	};
+	//求出最大公约数
+	template<integer_type T>
+	[[nodiscard]]inline auto gcd(T x, T y)noexcept{
+		size_t shift = 0;
+		while(y){
+			//都是偶数时，shift++并位移
+			const auto x_rzero=countr_zero(x);
+			const auto y_rzero=countr_zero(y);
+			shift+=min(x_rzero,y_rzero);
+			//一偶一奇时，只移动偶数 直到都是奇数
+			x>>=x_rzero;
+			y>>=y_rzero;
+			//都是奇数时，大数-=小数
+			if(x < y)swap(x, y);
+			x-=y;
+		}
+		// 返回 x 左移 shift 位的结果
+		return x << shift;
+	}
 }
+using namespace math::concepts;
 using math::to_unsigned_t;
 using math::is_negative;
 using math::copy_as_negative;
@@ -696,6 +734,7 @@ using math::get_next_gold_size_to_resize_for_hash;
 using math::get_prime_factorization;
 using math::prime_factorization_table_t;
 using math::unique_prime_factorization_table_t;
+using math::gcd;
 
 //file_end
 
