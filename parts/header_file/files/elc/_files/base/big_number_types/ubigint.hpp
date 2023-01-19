@@ -159,6 +159,14 @@ public:
 			return other==0?strong_ordering::equivalent:strong_ordering::less;
 		}
 	}
+	//调试用，返回一个可以输出到流的内部结构查看器
+	[[nodiscard]]auto get_data_viewr()const noexcept{
+		return lambda_with_catch(this)(auto&stream)noexcept->auto&{
+			for(auto& i: _data)
+				stream << i << U' ';
+			return stream;
+		};
+	}
 private:
 	//operator+-*/%s
 	typedef unsigned_specific_size_t<BIT_POSSIBILITY*sizeof(base_type)> calc_type;
@@ -291,7 +299,7 @@ private:
 		}();
 		const calc_type divisor=calc_type(b.back());
 		calc_type left=dividend/(divisor+1);
-		calc_type right=dividend/divisor;
+		calc_type right=min(calc_type(dividend/divisor),(calc_type)max(type_info<base_type>));
 		base_type last_work_able=0;
 		//left<=a/b<=right
 		tryto=get_shrinked_data_view_of_data(tryto.data(),tryto.size());
