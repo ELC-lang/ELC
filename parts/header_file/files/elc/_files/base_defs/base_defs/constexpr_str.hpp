@@ -62,6 +62,7 @@ namespace constexpr_str_n{
 					is_bitmark_for_unindex_workable=bitmark_for_unindex.mark(*this);
 			}
 		constexpr constexpr_str_t(const_string_ptr_t str):constexpr_str_t(str,array_end_by_zero_t::get_length_of(str)){}
+		consteval constexpr_str_t(const constexpr_str_t&str)=default;
 		[[nodiscard]]constexpr hash_t hash()const noexcept{return hash_result;}
 	};
 	using constexpr_str=constexpr_str_t<char_t>;

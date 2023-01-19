@@ -48,23 +48,18 @@ class comn_constexpr_numerical_representation_t:public base_numerical_representa
 	char_t _fractional_sign=ec('.');
 	char_t _positive_sign=ec('+');
 	char_t _negative_sign=ec('-');
-
-	static constexpr const auto& nan_default_value=es"NaN"_constexpr_str;
-	static constexpr const auto& signaling_nan_default_value=es"signaling_NaN"_constexpr_str;
-	static constexpr const auto& quiet_nan_default_value=es"quiet_NaN"_constexpr_str;
-	static constexpr const auto& inf_default_value=es"Infinity"_constexpr_str;
-
-	const constexpr_str& _nan=nan_default_value;
-	const constexpr_str& _signaling_nan=signaling_nan_default_value;
-	const constexpr_str& _quiet_nan=quiet_nan_default_value;
-	const constexpr_str& _inf=inf_default_value;
+	
+	const constexpr_str _nan=es"NaN"_constexpr_str;
+	const constexpr_str _signaling_nan=es"signaling_NaN"_constexpr_str;
+	const constexpr_str _quiet_nan=es"quiet_NaN"_constexpr_str;
+	const constexpr_str _inf=es"Infinity"_constexpr_str;
 
 	char_t _fractional_separator=ec('/');
 	char_t _exponent_separator=ec('e');
 	char_t _unknown_data_start_sign=ec('['), _unknown_data_split_sign=ec(','), _unknown_data_end_sign=ec(']');
 public:
 	constexpr comn_constexpr_numerical_representation_t()noexcept=default;
-	constexpr comn_constexpr_numerical_representation_t(
+	consteval comn_constexpr_numerical_representation_t(
 		char_t fractional_sign,char_t positive_sign,char_t negative_sign,
 		const constexpr_str& nan,
 		const constexpr_str& signaling_nan,
@@ -128,7 +123,7 @@ template<char_t zero,size_t radix>
 class constexpr_continuous_numerical_representation_t final:public comn_constexpr_numerical_representation_t{
 	unique_prime_factorization_table_t<radix> _prime_factorization_table;
 public:
-	constexpr constexpr_continuous_numerical_representation_t(
+	consteval constexpr_continuous_numerical_representation_t(
 		char_t fractional_sign,char_t positive_sign,char_t negative_sign,
 		const constexpr_str& nan,
 		const constexpr_str& signaling_nan,
@@ -218,12 +213,12 @@ class constexpr_str_numerical_representation_t final:public comn_constexpr_numer
 
 	unique_prime_factorization_table_t<radix> _prime_factorization_table;
 public:
-	constexpr constexpr_str_numerical_representation_t(
+	consteval constexpr_str_numerical_representation_t(
 		char_t fractional_sign,char_t positive_sign,char_t negative_sign,
-		constexpr_str nan,
-		constexpr_str signaling_nan,
-		constexpr_str quiet_nan,
-		constexpr_str inf,
+		const constexpr_str& nan,
+		const constexpr_str& signaling_nan,
+		const constexpr_str& quiet_nan,
+		const constexpr_str& inf,
 		char_t fractional_separator,
 		char_t exponent_separator,
 		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign)noexcept:
