@@ -11,6 +11,8 @@
 #include "ubigfloat.hpp"
 #include "bigfloat.hpp"
 
+#include "friend_concepts.hpp"
+
 #if defined(ELC_TEST_ON)
 	#include "_test.hpp"
 #endif
