@@ -60,7 +60,7 @@ class comn_constexpr_numerical_representation_t:public base_numerical_representa
 	const constexpr_str& _inf=inf_default_value;
 
 	char_t _fractional_separator=ec('/');
-	char_t _exponent_separator=ec('V');
+	char_t _exponent_separator=ec('e');
 	char_t _unknown_data_start_sign=ec('['), _unknown_data_split_sign=ec(','), _unknown_data_end_sign=ec(']');
 public:
 	constexpr comn_constexpr_numerical_representation_t()noexcept=default;
@@ -78,40 +78,43 @@ public:
 		_fractional_separator(fractional_separator),
 		_exponent_separator(exponent_separator),
 		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign){}
-	[[nodiscard]]virtual char_t get_fractional_sign()const noexcept override{
+	constexpr comn_constexpr_numerical_representation_t(char_t exponent_separator)noexcept:
+		_exponent_separator(exponent_separator){}
+	
+	[[nodiscard]]constexpr virtual char_t get_fractional_sign()const noexcept override{
 		return _fractional_sign;
 	}
-	[[nodiscard]]virtual char_t get_positive_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_positive_sign()const noexcept override{
 		return _positive_sign;
 	}
-	[[nodiscard]]virtual char_t get_negative_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_negative_sign()const noexcept override{
 		return _negative_sign;
 	}
-	[[nodiscard]]virtual string_view get_nan()const noexcept override{
+	[[nodiscard]]constexpr virtual string_view get_nan()const noexcept override{
 		return _nan;
 	}
-	[[nodiscard]]virtual string_view get_signaling_nan()const noexcept override{
+	[[nodiscard]]constexpr virtual string_view get_signaling_nan()const noexcept override{
 		return _signaling_nan;
 	}
-	[[nodiscard]]virtual string_view get_quiet_nan()const noexcept override{
+	[[nodiscard]]constexpr virtual string_view get_quiet_nan()const noexcept override{
 		return _quiet_nan;
 	}
-	[[nodiscard]]virtual string_view get_inf()const noexcept override{
+	[[nodiscard]]constexpr virtual string_view get_inf()const noexcept override{
 		return _inf;
 	}
-	[[nodiscard]]virtual char_t get_fractional_separator()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_fractional_separator()const noexcept override{
 		return _fractional_separator;
 	}
-	[[nodiscard]]virtual char_t get_exponent_separator()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_exponent_separator()const noexcept override{
 		return _exponent_separator;
 	}
-	[[nodiscard]]virtual char_t get_unknown_data_start_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_unknown_data_start_sign()const noexcept override{
 		return _unknown_data_start_sign;
 	}
-	[[nodiscard]]virtual char_t get_unknown_data_split_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_unknown_data_split_sign()const noexcept override{
 		return _unknown_data_split_sign;
 	}
-	[[nodiscard]]virtual char_t get_unknown_data_end_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_unknown_data_end_sign()const noexcept override{
 		return _unknown_data_end_sign;
 	}
 };
@@ -142,21 +145,24 @@ public:
 			unknown_data_start_sign,unknown_data_split_sign,unknown_data_end_sign
 		){}
 	constexpr constexpr_continuous_numerical_representation_t()noexcept{};
-	[[nodiscard]]virtual size_t get_radix()const noexcept override{
+	constexpr constexpr_continuous_numerical_representation_t(char_t exponent_separator)noexcept:
+		comn_constexpr_numerical_representation_t(exponent_separator){}
+
+	[[nodiscard]]constexpr virtual size_t get_radix()const noexcept override{
 		return radix;
 	}
-	[[nodiscard]]virtual char_t get_char(size_t index)const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_char(size_t index)const noexcept override{
 		return char_t(zero+index);
 	}
-	[[nodiscard]]virtual size_t get_index(char_t c)const noexcept override{
+	[[nodiscard]]constexpr virtual size_t get_index(char_t c)const noexcept override{
 		return c-zero;
 	}
-	[[nodiscard]]virtual bool is_valid_char(char_t ch)const noexcept override{
+	[[nodiscard]]constexpr virtual bool is_valid_char(char_t ch)const noexcept override{
 		return ch>=zero&&ch<zero+radix;
 	}
 protected:
 	//bigfloat的分母部分的质因数只有radix的质因数组成时才是有限小数
-	[[nodiscard]]virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
+	[[nodiscard]]constexpr virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
 		for(const auto i:_prime_factorization_table){
 			auto result=divmod(num,i);
 			while(!result.mod){
@@ -169,7 +175,7 @@ protected:
 		return false;
 	}
 public:
-	[[nodiscard]]virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
+	[[nodiscard]]constexpr virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
 		ubigint aret=1u;
 		for(const auto i:_prime_factorization_table){
 			const auto i_complement=radix/i;
@@ -229,21 +235,24 @@ public:
 			unknown_data_start_sign,unknown_data_split_sign,unknown_data_end_sign
 		){}
 	constexpr constexpr_str_numerical_representation_t()noexcept{};
-	[[nodiscard]]virtual size_t get_radix()const noexcept override{
+	constexpr constexpr_str_numerical_representation_t(char_t exponent_separator)noexcept:
+		comn_constexpr_numerical_representation_t(exponent_separator){}
+
+	[[nodiscard]]constexpr virtual size_t get_radix()const noexcept override{
 		return radix_table.size();
 	}
-	[[nodiscard]]virtual char_t get_char(size_t index)const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_char(size_t index)const noexcept override{
 		return radix_table[index];
 	}
-	[[nodiscard]]virtual size_t get_index(char_t ch)const noexcept override{
+	[[nodiscard]]constexpr virtual size_t get_index(char_t ch)const noexcept override{
 		return radix_table.find(ch);
 	}
-	[[nodiscard]]virtual bool is_valid_char(char_t ch)const noexcept override{
+	[[nodiscard]]constexpr virtual bool is_valid_char(char_t ch)const noexcept override{
 		return radix_table.find(ch)!=constexpr_str::npos;
 	}
 protected:
 	//bigfloat的分母部分的质因数只有radix的质因数组成时才是有限小数
-	[[nodiscard]]virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
+	[[nodiscard]]constexpr virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
 		for(const auto i:_prime_factorization_table){
 			auto result=divmod(num,i);
 			while(!result.mod){
@@ -256,7 +265,7 @@ protected:
 		return false;
 	}
 public:
-	[[nodiscard]]virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
+	[[nodiscard]]constexpr virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
 		ubigint aret=1u;
 		for(const auto i:_prime_factorization_table){
 			const auto i_complement=radix/i;
@@ -274,8 +283,8 @@ public:
 push_and_disable_msvc_warning(26426);
 //在上方已经定义了trinary,binary,octal,decimal
 //这里定义hexadecimal和hexadecimal_upper
-distinctive inline constexpr constexpr_str_numerical_representation_t<&es"0123456789abcdef"_constexpr_str> hexadecimal{};
-distinctive inline constexpr constexpr_str_numerical_representation_t<&es"0123456789ABCDEF"_constexpr_str> hexadecimal_upper{};
+distinctive inline constexpr constexpr_str_numerical_representation_t<&es"0123456789abcdef"_constexpr_str> hexadecimal{ec('V')};
+distinctive inline constexpr constexpr_str_numerical_representation_t<&es"0123456789ABCDEF"_constexpr_str> hexadecimal_upper{ec('v')};
 pop_msvc_warning();
 
 /// @brief 一个简单的数字表示方式，以string存储进制内容
@@ -300,7 +309,7 @@ public:
 		string quiet_nan=es"quiet_NaN"_constexpr_str,
 		string inf=es"Infinity"_constexpr_str,
 		char_t fractional_separator=ec('.'),
-		char_t exponent_separator=ec('V'),
+		char_t exponent_separator=ec('e'),
 		char_t unknown_data_start_sign=ec('['), char_t unknown_data_split_sign=ec(','), char_t unknown_data_end_sign=ec(']'))noexcept:
 		_radix_table(move(radix_table)),
 		_fractional_sign(fractional_sign),_positive_sign(positive_sign),_negative_sign(negative_sign),
@@ -314,13 +323,13 @@ public:
 	[[nodiscard]]virtual size_t get_radix()const noexcept override{
 		return _radix_table.size();
 	}
-	[[nodiscard]]virtual char_t get_fractional_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_fractional_sign()const noexcept override{
 		return _fractional_sign;
 	}
-	[[nodiscard]]virtual char_t get_positive_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_positive_sign()const noexcept override{
 		return _positive_sign;
 	}
-	[[nodiscard]]virtual char_t get_negative_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_negative_sign()const noexcept override{
 		return _negative_sign;
 	}
 	[[nodiscard]]virtual string_view get_nan()const noexcept override{
@@ -335,19 +344,19 @@ public:
 	[[nodiscard]]virtual string_view get_inf()const noexcept override{
 		return _inf;
 	}
-	[[nodiscard]]virtual char_t get_fractional_separator()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_fractional_separator()const noexcept override{
 		return _fractional_separator;
 	}
-	[[nodiscard]]virtual char_t get_exponent_separator()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_exponent_separator()const noexcept override{
 		return _exponent_separator;
 	}
-	[[nodiscard]]virtual char_t get_unknown_data_start_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_unknown_data_start_sign()const noexcept override{
 		return _unknown_data_start_sign;
 	}
-	[[nodiscard]]virtual char_t get_unknown_data_split_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_unknown_data_split_sign()const noexcept override{
 		return _unknown_data_split_sign;
 	}
-	[[nodiscard]]virtual char_t get_unknown_data_end_sign()const noexcept override{
+	[[nodiscard]]constexpr virtual char_t get_unknown_data_end_sign()const noexcept override{
 		return _unknown_data_end_sign;
 	}
 	[[nodiscard]]virtual char_t get_char(size_t index)const noexcept override{
