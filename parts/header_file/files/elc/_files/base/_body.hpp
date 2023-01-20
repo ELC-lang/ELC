@@ -42,11 +42,6 @@ namespace elc::defs{ //在elc::defs中定义内容
 	}
 	using namespace memory;//只是强迫症
 
-	namespace big_number_types{
-		#include "big_number_types/_body.hpp"
-	}
-	using namespace big_number_types;
-
 	#if defined(ELC_TEST_ON)
 	namespace base_part_test{
 		#include "_test.hpp"

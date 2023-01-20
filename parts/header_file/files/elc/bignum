@@ -1,4 +1,4 @@
-//numerical_representation
+//bignum
 //at namespace ::
 /*
 未完成的elc解释器include文件
@@ -7,11 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #include "../../../_share/pre_checks.hpp"
-#if !defined(ELC_NUMERICAL_REPRESENTATION)
-	#include "string"
-	#include "bignum"
-	#define ELC_NUMERICAL_REPRESENTATION
-	#include "_files/numerical_representation/_body.hpp"
+#if !defined(ELC_BIGNUM)
+	#include "base"
+	#define ELC_BIGNUM
+	#include "_files/bignum/_body.hpp"
 #endif
 
 //file_end

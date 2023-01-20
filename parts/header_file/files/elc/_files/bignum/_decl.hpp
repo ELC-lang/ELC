@@ -1,22 +1,22 @@
 //_decl.hpp
-//at namespace elc::defs::big_number_types
+//at namespace elc::defs
 /*
-未完成的elc解释器base文件
+未完成的elc解释器bignum文件
 由steve02081504与Alex0125设计、编写
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-
-class bigint;
-class ubigint;
-class bigfloat;
-class ubigfloat;
+namespace bignum_n{
+	class bigint;
+	class ubigint;
+	class bigfloat;
+	class ubigfloat;
+}
+using namespace bignum_n;//干净的符号导出！
 
 //注入math::arithmetic_type_info_helper
-BREAK_NAMESPACE;
-
 namespace base::math{
-	using namespace big_number_types;
+	using namespace bignum_n;
 	template<>struct arithmetic_type_info_helper<bigint>{
 		//bool：是否是算数类型
 		static constexpr bool is_arithmetic_type = true;
@@ -97,8 +97,6 @@ namespace base::math{
 		using signed_type = bigfloat;
 	};
 }
-
-INTER_NAMESPACE(big_number_types);
 
 //file_end
 
