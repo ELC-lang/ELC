@@ -10,7 +10,7 @@ namespace base_fstream_defs{
 	using namespace elc::APIs::streams;
 	typedef handle_type handle_t;
 
-	struct base_frefstream:virtual noexcept_stream,instance_struct<base_frefstream>{
+	struct base_frefstream:virtual noexcept_stream_t,instance_struct<base_frefstream>{
 	protected:
 		handle_t _file;
 	public:
@@ -52,7 +52,7 @@ namespace base_fstream_defs{
 		}
 	};
 	template<class char_T,class base_fstream_T>
-	struct base_text_ifstream_wrapper:base_fstream_T,virtual noexcept_text_istream<char_T>,instance_struct<base_text_ifstream_wrapper<char_T,base_fstream_T>>{
+	struct base_text_ifstream_wrapper:base_fstream_T,virtual noexcept_text_istream_t<char_T>,instance_struct<base_text_ifstream_wrapper<char_T,base_fstream_T>>{
 	private:
 		typedef base_fstream_T base_t;
 		typedef base_text_ifstream_wrapper<char_T,base_fstream_T> this_t;
@@ -65,7 +65,7 @@ namespace base_fstream_defs{
 		}
 	};
 	template<class char_T,class base_fstream_T>
-	struct base_text_ofstream_wrapper:base_fstream_T,virtual noexcept_text_ostream<char_T>,instance_struct<base_text_ofstream_wrapper<char_T,base_fstream_T>>{
+	struct base_text_ofstream_wrapper:base_fstream_T,virtual noexcept_text_ostream_t<char_T>,instance_struct<base_text_ofstream_wrapper<char_T,base_fstream_T>>{
 	private:
 		typedef base_fstream_T base_t;
 		typedef base_text_ofstream_wrapper<char_T,base_fstream_T> this_t;
@@ -109,7 +109,7 @@ namespace base_fstream_defs{
 			APIs::streams::write_text_to_terminal_stream(base_t::_file, buf, size);
 		}
 	}err_impl{};
-	struct input_stream_iterface_t:virtual noexcept_text_istream<char_t>{
+	struct input_stream_iterface_t:virtual noexcept_text_istream_t<char_t>{
 		virtual void echo_to(base_frefstream&)noexcept=0;
 		virtual void tie_with(base_frefstream&)noexcept=0;
 		virtual size_t no_echo_read(char_t*buf,size_t size)noexcept=0;

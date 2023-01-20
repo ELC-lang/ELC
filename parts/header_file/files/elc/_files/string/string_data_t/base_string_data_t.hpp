@@ -445,7 +445,7 @@ public:
 	[[nodiscard]]virtual ptr_t pre_alloc_after_end(size_t size)noexcept;
 
 	//io
-	virtual void do_output(text_ostream<char_T>& os){
+	virtual void do_output(text_ostream_t<char_T>& os){
 		size_t index=0;
 		auto a=this->get_the_largest_complete_data_block_begin_form(index);
 		while(a.size()){

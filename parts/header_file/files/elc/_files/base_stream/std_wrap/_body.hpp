@@ -7,9 +7,9 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 push_and_disable_msvc_warning(26447);//noexcept警告diss
-//wrap std::istream to elc::noexcept_text_istream
+//wrap std::istream to elc::noexcept_text_istream_t
 template<class char_T,class traits=::std::char_traits<char_T>>
-struct std_istream_wrap:noexcept_text_istream<char_T>,instance_struct<std_istream_wrap<char_T,traits>>{
+struct std_istream_wrap:noexcept_text_istream_t<char_T>,instance_struct<std_istream_wrap<char_T,traits>>{
 	typedef ::std::basic_istream<char_T,traits> stream_t;
 	stream_t& _stream;
 	std_istream_wrap(stream_t&stream)noexcept:_stream(stream){}
@@ -94,9 +94,9 @@ public:
 		return 0;
 	}
 };
-//wrap std::ostream to elc::noexcept_text_ostream
+//wrap std::ostream to elc::noexcept_text_ostream_t
 template<class char_T,class traits=::std::char_traits<char_T>>
-struct std_ostream_wrap:noexcept_text_ostream<char_T>,instance_struct<std_ostream_wrap<char_T,traits>>{
+struct std_ostream_wrap:noexcept_text_ostream_t<char_T>,instance_struct<std_ostream_wrap<char_T,traits>>{
 	typedef ::std::basic_ostream<char_T,traits> stream_t;
 	stream_t& _stream;
 	std_ostream_wrap(stream_t&stream)noexcept:_stream(stream){}

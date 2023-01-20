@@ -8,18 +8,18 @@
 */
 enum class log_type{error,warning,info,note};
 using enum log_type;
-struct logger:noexcept_ostream{
+struct logger:noexcept_ostream_t{
 private:
-	noexcept_ostream*_tie_with=nullptr;
+	noexcept_ostream_t*_tie_with=nullptr;
 	bool _has_info=true;
-	void(*_destroyer)(noexcept_ostream*)noexcept=nullptr;
+	void(*_destroyer)(noexcept_ostream_t*)noexcept=nullptr;
 public:
 	constexpr logger()noexcept=default;
 	~logger()noexcept{
 		if(_destroyer && _tie_with)
 			_destroyer(_tie_with);
 	}
-	void tie_with(noexcept_ostream*ostm,void(*destroyer)(noexcept_ostream*)noexcept)noexcept{
+	void tie_with(noexcept_ostream_t*ostm,void(*destroyer)(noexcept_ostream_t*)noexcept)noexcept{
 		_tie_with=ostm;
 		_destroyer=destroyer;
 	}

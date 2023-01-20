@@ -6,59 +6,59 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-//text_stream
+//text_stream_t
 
-//operator<< of template<class char_T>struct text_ostream
-template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
-decltype(auto)operator<<(text_ostream_T&&stream,const char_T ch)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
+//operator<< of template<class char_T>struct text_ostream_t
+template<text_ostream_class text_ostream_T,class char_T> requires(type_info<char_T> == type_info<typename remove_cvref<text_ostream_T>::char_type>)
+decltype(auto)operator<<(text_ostream_T&&stream,const char_T ch)noexcept(noexcept_text_ostream_class<text_ostream_T>){
 	stream.write(&ch,1);
 	return stream;
 }
-template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
-decltype(auto)operator<<(text_ostream_T&&stream,array_like_view_t<const char_T>str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
+template<text_ostream_class text_ostream_T,class char_T> requires(type_info<char_T> == type_info<typename remove_cvref<text_ostream_T>::char_type>)
+decltype(auto)operator<<(text_ostream_T&&stream,array_like_view_t<const char_T>str)noexcept(noexcept_text_ostream_class<text_ostream_T>){
 	stream.write(str.data(),str.size());
 	return stream;
 }
-template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
-decltype(auto)operator<<(text_ostream_T&&stream,const char_T*str)noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
+template<text_ostream_class text_ostream_T,class char_T> requires(type_info<char_T> == type_info<typename remove_cvref<text_ostream_T>::char_type>)
+decltype(auto)operator<<(text_ostream_T&&stream,const char_T*str)noexcept(noexcept_text_ostream_class<text_ostream_T>){
 	return stream << array_end_by_zero_t<const char_T>{str};
 }
-//operator>> of template<class char_T>struct text_istream
-template<class text_istream_T,class char_T=typename text_istream_T::char_type> requires(type_info<text_istream_T>.base_on<text_istream<char_T>>)
-decltype(auto)operator>>(text_istream_T&stream,char_T&ch)noexcept(type_info<text_istream_T>.base_on<noexcept_text_istream<char_T>>){
+//operator>> of template<class char_T>struct text_istream_t
+template<text_istream_class text_istream_T,class char_T=typename text_istream_T::char_type>
+decltype(auto)operator>>(text_istream_T&stream,char_T&ch)noexcept(noexcept_text_istream_class<text_istream_T>){
 	stream.read(&ch,1);
 	return stream;
 }
 
 //data_stream of any is_trivially_copyable
 
-//operator<< of template<class T>struct data_ostream
-template<class data_ostream_T,class T> requires(type_info<data_ostream_T>.base_on<data_ostream> && ::std::is_trivially_copyable_v<T>)
-decltype(auto)operator<<(data_ostream_T&&stream,const T&data)noexcept(type_info<data_ostream_T>.base_on<noexcept_data_ostream>){
+//operator<< of template<class T>struct data_ostream_t
+template<data_ostream_class data_ostream_T,class T> requires(::std::is_trivially_copyable_v<T>)
+decltype(auto)operator<<(data_ostream_T&&stream,const T&data)noexcept(noexcept_data_ostream_class<data_ostream_T>){
 	stream.write(&data,1);
 	return stream;
 }
-template<class data_ostream_T,class T,size_t N> requires(type_info<data_ostream_T>.base_on<data_ostream> && ::std::is_trivially_copyable_v<T>)
-decltype(auto)operator<<(data_ostream_T&&stream,const T(&data)[N])noexcept(type_info<data_ostream_T>.base_on<noexcept_data_ostream>){
+template<data_ostream_class data_ostream_T,class T,size_t N> requires(::std::is_trivially_copyable_v<T>)
+decltype(auto)operator<<(data_ostream_T&&stream,const T(&data)[N])noexcept(noexcept_data_ostream_class<data_ostream_T>){
 	stream.write(data,N);
 	return stream;
 }
-//operator>> of template<class T>struct data_istream
-template<class data_istream_T,class T> requires(type_info<data_istream_T>.base_on<data_istream> && ::std::is_trivially_copyable_v<T>)
-decltype(auto)operator>>(data_istream_T&&stream,T&data)noexcept(type_info<data_istream_T>.base_on<noexcept_data_istream>){
+//operator>> of template<class T>struct data_istream_t
+template<data_istream_class data_istream_T,class T> requires(::std::is_trivially_copyable_v<T>)
+decltype(auto)operator>>(data_istream_T&&stream,T&data)noexcept(noexcept_data_istream_class<data_istream_T>){
 	stream.read(&data,1);
 	return stream;
 }
-template<class data_istream_T,class T,size_t N> requires(type_info<data_istream_T>.base_on<data_istream> && ::std::is_trivially_copyable_v<T>)
-decltype(auto)operator>>(data_istream_T&&stream,T(&data)[N])noexcept(type_info<data_istream_T>.base_on<noexcept_data_istream>){
+template<data_istream_class data_istream_T,class T,size_t N> requires(::std::is_trivially_copyable_v<T>)
+decltype(auto)operator>>(data_istream_T&&stream,T(&data)[N])noexcept(noexcept_data_istream_class<data_istream_T>){
 	stream.read(data,N);
 	return stream;
 }
 
 //flush
 inline constexpr struct flush_t{
-	template<class ostream_T>requires(type_info<ostream_T>.base_on<base_ostream>)
-	constexpr decltype(auto)operator()(ostream_T&stream)const noexcept(type_info<ostream_T>.base_on<noexcept_ostream>){
+	template<ostream_class ostream_T>
+	constexpr decltype(auto)operator()(ostream_T&stream)const noexcept(noexcept_ostream_class<ostream_T>){
 		stream.flush();
 		return stream;
 	}
@@ -66,8 +66,8 @@ inline constexpr struct flush_t{
 
 //endline
 inline constexpr struct endline_t{
-	template<class text_ostream_T,class char_T=typename text_ostream_T::char_type> requires(type_info<text_ostream_T>.base_on<text_ostream<char_T>>)
-	constexpr decltype(auto)operator()(text_ostream_T& stream)const noexcept(type_info<text_ostream_T>.base_on<noexcept_text_ostream<char_T>>){
+	template<text_ostream_class text_ostream_T,class char_T=typename remove_cvref<text_ostream_T>::char_type>
+	constexpr decltype(auto)operator()(text_ostream_T& stream)const noexcept(noexcept_text_ostream_class<text_ostream_T>){
 		stream << char_T{'\n'};
 		stream.flush();
 		return stream;
@@ -75,7 +75,7 @@ inline constexpr struct endline_t{
 }endline{};
 
 //operator<< of functions
-template<class callable_T,class stream_T> requires(type_info<stream_T>.base_on<base_ostream> && invoke<callable_T>.able<stream_T>)
+template<class callable_T,ostream_class stream_T> requires(invoke<callable_T>.able<stream_T>)
 decltype(auto)operator<<(stream_T&&stream,callable_T&&callable)noexcept(invoke<callable_T>.nothrow<stream_T>){
 	return callable(stream);
 }

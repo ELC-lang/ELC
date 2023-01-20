@@ -7,26 +7,26 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 #define export using defs::
-export base_stream;
-export base_ostream;
-export base_istream;
-export base_iostream;
-export noexcept_stream;
-export noexcept_ostream;
-export noexcept_istream;
-export noexcept_iostream;
-export text_istream;
-export text_ostream;
-export text_iostream;
-export noexcept_text_istream;
-export noexcept_text_ostream;
-export noexcept_text_iostream;
-export data_istream;
-export data_ostream;
-export data_iostream;
-export noexcept_data_istream;
-export noexcept_data_ostream;
-export noexcept_data_iostream;
+export base_stream_t;
+export base_ostream_t;
+export base_istream_t;
+export base_iostream_t;
+export noexcept_stream_t;
+export noexcept_ostream_t;
+export noexcept_istream_t;
+export noexcept_iostream_t;
+export text_istream_t;
+export text_ostream_t;
+export text_iostream_t;
+export noexcept_text_istream_t;
+export noexcept_text_ostream_t;
+export noexcept_text_iostream_t;
+export data_istream_t;
+export data_ostream_t;
+export data_iostream_t;
+export noexcept_data_istream_t;
+export noexcept_data_ostream_t;
+export noexcept_data_iostream_t;
 export null_text_stream;
 export null_data_stream;
 export endline;

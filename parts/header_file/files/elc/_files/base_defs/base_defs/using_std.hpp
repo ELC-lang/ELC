@@ -37,6 +37,8 @@ template<class T>
 using remove_ref= ::std::remove_reference_t<T>;
 template<bool B,class T,class F>
 using conditional= ::std::conditional_t<B,T,F>;
+template<class T,class U>
+constexpr bool is_base_of= ::std::is_convertible_v<remove_cvref<U>*,remove_cvref<T>*>;
 //
 using ::std::partial_ordering;
 using ::std::weak_ordering;

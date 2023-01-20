@@ -13,24 +13,21 @@ namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
 	namespace stream_n{
-		//arithmetic output only for text_ostream<char_t>
-		template<arithmetic_type T,class stream_T> requires(type_info<stream_T>.base_on<text_ostream<char_t>> &&
-															type_info<remove_cvref<T>> != type_info<char_t> &&
-															type_info<remove_cvref<T>> != type_info<bool>)
-		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
+		//arithmetic output only for text_ostream
+		template<arithmetic_type T,text_ostream stream_T> requires(type_info<remove_cvref<T>> != type_info<char_t> &&
+																   type_info<remove_cvref<T>> != type_info<bool>)
+		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
 			return stream << to_string(forward<T>(data));
 		}
 
-		template<typename T,class stream_T> requires(!::std::is_arithmetic_v<remove_cvref<T>> &&
-													 to_arithmetic.able<remove_cvref<T>> &&
-													 type_info<stream_T>.base_on<text_ostream<char_t>>)
-		decltype(auto)operator<<(stream_T&& stream, T&& data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>> && to_arithmetic.nothrow<T>) {
+		template<typename T,text_ostream stream_T> requires(!::std::is_arithmetic_v<remove_cvref<T>> &&
+															to_arithmetic.able<remove_cvref<T>>)
+		decltype(auto)operator<<(stream_T&& stream, T&& data)noexcept(noexcept_text_ostream<stream_T> && to_arithmetic.nothrow<T>) {
 			return stream << to_arithmetic(forward<T>(data));
 		}
 
-		template<typename T,class stream_T> requires(type_info<stream_T>.base_on<text_ostream<char_t>> &&
-													 type_info<remove_cvref<T>> == type_info<bool>)
-		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
+		template<typename T,text_ostream stream_T> requires(type_info<remove_cvref<T>> == type_info<bool>)
+		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
 			if(data==true)
 				stream << es"true"_constexpr_str;
 			elseif(data==false)
@@ -40,9 +37,9 @@ namespace elc::defs{
 			return stream;
 		}
 
-		//T* output only for text_ostream<char_t>
-		template<typename T,class stream_T> requires(type_info<stream_T>.base_on<text_ostream<char_t>>)
-		decltype(auto)operator<<(stream_T&&stream,T*data)noexcept(type_info<stream_T>.base_on<noexcept_text_ostream<char_t>>){
+		//T* output only for text_ostream
+		template<typename T,text_ostream stream_T>
+		decltype(auto)operator<<(stream_T&&stream,T*data)noexcept(noexcept_text_ostream<stream_T>){
 			//output name of type at first
 			stream << type_info<T>.get_name();
 			if constexpr(::std::is_polymorphic_v<T> && !::std::is_final_v<T>){//RTTI
@@ -51,7 +48,7 @@ namespace elc::defs{
 					stream << ec("(") << typeinfo.get_name() << ec(")");
 			}
 			//output address
-			stream << ec("@") << to_string((size_t)data,numerical_representation_n::hexadecimal);
+			stream << ec("@") << to_string((size_t)data,hexadecimal);
 			return stream;
 		}
 	}

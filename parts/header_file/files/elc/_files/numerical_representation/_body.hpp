@@ -15,7 +15,18 @@ namespace elc::defs{
 	namespace numerical_representation_n{
 		#include "representations/_body.hpp"
 		#include "to_string/_body.hpp"
+		#include "operators/_body.hpp"
 	}
+	using numerical_representation_n::to_string;
+	using numerical_representation_n::from_string_get;
+	using numerical_representation_n::decimal;
+	using numerical_representation_n::binary;
+	using numerical_representation_n::octal;
+	using numerical_representation_n::hexadecimal;
+	using numerical_representation_n::hexadecimal_upper;
+	using numerical_representation_n::trinary;
+	using numerical_representation_n::valanlottish;
+
 	#if defined(ELC_TEST_ON)
 	namespace numerical_representation_part_test{
 		#include "_test.hpp"

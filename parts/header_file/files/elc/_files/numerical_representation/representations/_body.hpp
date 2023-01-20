@@ -41,7 +41,7 @@ public:
 	[[nodiscard]]virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept=0;
 };
 template<class T>
-concept numerical_representation = ::std::is_base_of_v<base_numerical_representation_t,T>;//type_info<T>.is_base_on<base_numerical_representation_t>;
+concept numerical_representation = is_base_of<base_numerical_representation_t,T>;//type_info<T>.is_base_on<base_numerical_representation_t>;
 
 /// @brief constexpr数字表示方式的默认内容，用于快速定义constexpr数字表示方式
 class comn_constexpr_numerical_representation_t:public base_numerical_representation_t{

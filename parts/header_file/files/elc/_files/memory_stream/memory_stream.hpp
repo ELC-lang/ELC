@@ -6,7 +6,7 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-struct memory_stream:noexcept_iostream{
+struct memory_stream:noexcept_iostream_t{
 	constexpr size_t buf_size=pow(10,BIT_POSSIBILITY);
 	byte* _m;
 	size_t _s;

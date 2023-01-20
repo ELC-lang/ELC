@@ -6,9 +6,18 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-#define export using defs::numerical_representation_n::
+#define export using defs::
 export to_string;
 export from_string_get;
+export to_string;
+export from_string_get;
+export decimal;
+export binary;
+export octal;
+export hexadecimal;
+export hexadecimal_upper;
+export trinary;
+export valanlottish;
 #undef export
 
 //file_end
