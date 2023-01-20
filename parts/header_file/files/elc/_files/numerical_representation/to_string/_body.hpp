@@ -353,7 +353,7 @@ namespace to_string_n{
 						str.remove_back();
 						data_block<T> block;
 						size_t		  write_index = 0;
-						
+
 						const auto radix = _repres.get_radix();
 						const auto unknown_data_split_sign = _repres.get_unknown_data_split_sign();
 						const bool needs_split_sign = radix < number_of_possible_values_per<char>;

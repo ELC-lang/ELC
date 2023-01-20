@@ -36,7 +36,7 @@ namespace base::math{
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
 	};
-	
+
 	template<>struct arithmetic_type_info_helper<ubigint>{
 		//bool：是否是算数类型
 		static constexpr bool is_arithmetic_type = true;

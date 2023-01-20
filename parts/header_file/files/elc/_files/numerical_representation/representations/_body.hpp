@@ -48,7 +48,7 @@ class comn_constexpr_numerical_representation_t:public base_numerical_representa
 	char_t _fractional_sign=ec('.');
 	char_t _positive_sign=ec('+');
 	char_t _negative_sign=ec('-');
-	
+
 	const constexpr_str _nan=es"NaN"_constexpr_str;
 	const constexpr_str _signaling_nan=es"signaling_NaN"_constexpr_str;
 	const constexpr_str _quiet_nan=es"quiet_NaN"_constexpr_str;
@@ -75,7 +75,7 @@ public:
 		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign){}
 	constexpr comn_constexpr_numerical_representation_t(char_t exponent_separator)noexcept:
 		_exponent_separator(exponent_separator){}
-	
+
 	[[nodiscard]]constexpr virtual char_t get_fractional_sign()const noexcept override{
 		return _fractional_sign;
 	}

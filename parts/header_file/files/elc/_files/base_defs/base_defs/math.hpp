@@ -54,7 +54,7 @@ namespace math{
 		constexpr bool is_arithmetic_type=arithmetic_type_info_helper<T>::is_arithmetic_type;
 		template<typename T>
 		concept arithmetic_type=is_arithmetic_type<T>;
-		
+
 		/// 基础类型概念
 		template<typename T>
 		constexpr bool is_basic_type=arithmetic_type_info_helper<T>::is_basic_type;
