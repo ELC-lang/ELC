@@ -13,11 +13,32 @@ namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
 	namespace stream_n{
+		using namespace numerical_representation_n;
+
+		const auto&default_numerical_representation=decimal;
+		const auto&default_bool_representation=common_bool_representation;
+
+		template<text_ostream stream_T>
+		decltype(auto)get_numerical_representation_of(stream_T&&stream)noexcept{
+			if constexpr was_not_an_ill_form(stream.get_numerical_representation())
+				return stream.get_numerical_representation();
+			else
+				return default_numerical_representation;
+		}
+
+		template<text_ostream stream_T>
+		decltype(auto)get_bool_representation_of(stream_T&&stream)noexcept{
+			if constexpr was_not_an_ill_form(stream.get_bool_representation())
+				return stream.get_bool_representation();
+			else
+				return default_bool_representation;
+		}
+
 		//arithmetic output only for text_ostream
 		template<arithmetic_type T,text_ostream stream_T> requires(type_info<remove_cvref<T>> != type_info<char_t> &&
 																   type_info<remove_cvref<T>> != type_info<bool>)
 		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
-			return stream << to_string(forward<T>(data));
+			return stream << to_string(forward<T>(data),get_numerical_representation_of(stream));
 		}
 
 		template<typename T,text_ostream stream_T> requires(!::std::is_arithmetic_v<remove_cvref<T>> &&
@@ -28,12 +49,13 @@ namespace elc::defs{
 
 		template<typename T,text_ostream stream_T> requires(type_info<remove_cvref<T>> == type_info<bool>)
 		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
+			const auto&representation=get_bool_representation_of(stream);
 			if(data==true)
-				stream << es"true"_constexpr_str;
+				stream << representation.get_true();
 			elseif(data==false)
-				stream << es"false"_constexpr_str;
+				stream << representation.get_false();
 			else
-				stream << es"others("_constexpr_str << union_cast<unsigned_specific_size_t<sizeof(bool)>>(data) << ec(')');
+				stream << representation.get_other_prefix() << union_cast<unsigned_specific_size_t<sizeof(bool)>>(data) << representation.get_other_suffix();
 			return stream;
 		}
 
