@@ -139,7 +139,7 @@ namespace to_string_n{
 				const auto radix=_repres.get_radix();
 				push_and_disable_msvc_warning(4244);
 				do{//do-while是为了保证至少有一位"0"
-					auto res=divmod(num,radix);
+					auto res=divmod(move(num),radix);
 					const auto index=to_size_t(move(res.mod));
 					const auto ch=_repres.get_char(index);
 					#if defined(_DEBUG)
