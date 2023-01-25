@@ -24,6 +24,7 @@ namespace to_string_n{
 	public:
 		constexpr string_convert_impl(const representation_t&repres)noexcept:_repres(repres){}
 	private:
+		template<float_type T>
 		[[nodiscard]]string to_string_base(ubigfloat num)const noexcept{
 			string aret;
 			//判断是否是有限小数
@@ -56,6 +57,20 @@ namespace to_string_n{
 						if(denominator!=1u)
 							__debugbreak();
 					#endif
+					if constexpr(is_basic_type<T>){//若T是基础类型
+						//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
+						constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
+						//获取info_threshold_num
+						auto info_threshold_num=info_threshold_base*radix;
+						//更新exp并舍入numerator直到numerator小于info_threshold_num
+						while(numerator>info_threshold_num){
+							++exp;
+							result=divmod(move(numerator),radix);
+							if(result.mod>=radix/2)//舍入
+								++result.quot;
+							numerator=move(result.quot);
+						}
+					}
 					result=divmod(numerator,radix);
 					while(result.quot&&!(result.mod)){
 						numerator=move(result.quot);
@@ -103,7 +118,7 @@ namespace to_string_n{
 				return _repres.get_nan();
 			if(isinf(num))
 				return _repres.get_inf();
-			return to_string_base(move(num));
+			return to_string_base<ubigfloat>(move(num));
 		}
 	public:
 		[[nodiscard]]string to_string(const bigfloat&num)const noexcept{
@@ -137,6 +152,12 @@ namespace to_string_n{
 			else{
 				string aret;
 				const auto radix=_repres.get_radix();
+				if constexpr(is_basic_type<T>){
+					//基本类型有最大值，可以预分配足够的空间来提高效率
+					constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnum_of(T));
+					const auto info_threshold = to_size_t(ceil(log(info_threshold_base, radix)));
+					aret.pre_alloc_before_begin(info_threshold);
+				}
 				push_and_disable_msvc_warning(4244);
 				do{//do-while是为了保证至少有一位"0"
 					auto res=divmod(move(num),radix);
@@ -156,7 +177,7 @@ namespace to_string_n{
 	private:
 		template<class T> requires ::std::is_floating_point_v<T>
 		[[nodiscard]]string to_string_unsigneded(T num)const noexcept{
-			return to_string_base(move(num));
+			return to_string_base<T>(move(num));
 		}
 	public:
 		template<class T> requires ::std::is_floating_point_v<T>
@@ -236,8 +257,7 @@ namespace to_string_n{
 						ch=*i;
 						if(ch==_repres.get_exponent_separator()){//科学计数法：123.456e789
 							++i;
-							auto expstr=string{i,end};
-							auto exp=from_string_get<ptrdiff_t>(expstr,state);
+							auto exp=from_string_get<ptrdiff_t>(string{i,end},state);
 							if(!state.success)
 								return {};
 							ubigfloat aret{move(base)};
@@ -284,8 +304,7 @@ namespace to_string_n{
 				}
 				elseif(ch==_repres.get_exponent_separator()){//科学计数法：123e456
 					++i;
-					auto expstr=string(i,end);
-					auto exp=from_string_get<ptrdiff_t>(expstr,state);
+					auto exp=from_string_get<ptrdiff_t>(string{i,end},state);
 					if(!state.success)
 						return {};
 					ubigfloat aret{move(base)};
