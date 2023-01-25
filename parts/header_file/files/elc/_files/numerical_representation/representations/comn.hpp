@@ -34,11 +34,40 @@ struct base_numerical_representation_t{
 		return is_finite_denominator_part(get_denominator(num));
 	}
 protected:
+	//获取unique_prime_factorization_table of radix
+	[[nodiscard]]virtual array_like_view_t<const size_t>get_unique_prime_factorization_table_of_radix()const noexcept=0;
 	//bigfloat的分母部分的质因数只有radix的质因数组成时才是有限小数
-	[[nodiscard]]virtual bool is_finite_denominator_part(ubigint)const noexcept=0;
+	[[nodiscard]]bool is_finite_denominator_part(ubigint num)const noexcept{
+		const auto table=get_unique_prime_factorization_table_of_radix();
+		for(const auto i:table){
+			auto result=divmod(num,i);
+			while(!result.mod){
+				num=move(result.quot);
+				result=divmod(num,i);
+			}
+			if(num==1u)
+				return true;
+		}
+		return false;
+	}
 public:
 	//根据分母部分获取弥补分母到radix的幂的乘数并返回，将分母部分置零并递增exp值
-	[[nodiscard]]virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept=0;
+	[[nodiscard]]ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept{
+		const auto table=get_unique_prime_factorization_table_of_radix();
+		const auto radix=get_radix();
+		ubigint aret=1u;
+		for(const auto i:table){
+			const auto i_complement=radix/i;
+			auto result=divmod(denominator,i);
+			while(result.quot && !result.mod){
+				denominator=move(result.quot);
+				aret*=i_complement;
+				result=divmod(denominator,i);
+				exp--;
+			}
+		}
+		return aret;
+	}
 };
 template<class T>
 concept numerical_representation = is_base_of<base_numerical_representation_t,T>;//type_info<T>.is_base_on<base_numerical_representation_t>;
@@ -156,33 +185,8 @@ public:
 		return ch>=zero&&ch<zero+radix;
 	}
 protected:
-	//bigfloat的分母部分的质因数只有radix的质因数组成时才是有限小数
-	[[nodiscard]]constexpr virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
-		for(const auto i:_prime_factorization_table){
-			auto result=divmod(num,i);
-			while(!result.mod){
-				num=move(result.quot);
-				result=divmod(num,i);
-			}
-			if(num==1u)
-				return true;
-		}
-		return false;
-	}
-public:
-	[[nodiscard]]constexpr virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
-		ubigint aret=1u;
-		for(const auto i:_prime_factorization_table){
-			const auto i_complement=radix/i;
-			auto result=divmod(denominator,i);
-			while(result.quot && !result.mod){
-				denominator=move(result.quot);
-				aret*=i_complement;
-				result=divmod(denominator,i);
-				exp--;
-			}
-		}
-		return aret;
+	[[nodiscard]]virtual array_like_view_t<const size_t>get_unique_prime_factorization_table_of_radix()const noexcept override{
+		return array_like_view_t<const size_t>{_prime_factorization_table};
 	}
 };
 push_and_disable_msvc_warning(26426);
@@ -246,33 +250,8 @@ public:
 		return radix_table.find(ch)!=constexpr_str::npos;
 	}
 protected:
-	//bigfloat的分母部分的质因数只有radix的质因数组成时才是有限小数
-	[[nodiscard]]constexpr virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
-		for(const auto i:_prime_factorization_table){
-			auto result=divmod(num,i);
-			while(!result.mod){
-				num=move(result.quot);
-				result=divmod(num,i);
-			}
-			if(num==1u)
-				return true;
-		}
-		return false;
-	}
-public:
-	[[nodiscard]]constexpr virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
-		ubigint aret=1u;
-		for(const auto i:_prime_factorization_table){
-			const auto i_complement=radix/i;
-			auto result=divmod(denominator,i);
-			while(result.quot && !result.mod){
-				denominator=move(result.quot);
-				aret*=i_complement;
-				result=divmod(denominator,i);
-				exp--;
-			}
-		}
-		return aret;
+	[[nodiscard]]virtual array_like_view_t<const size_t>get_unique_prime_factorization_table_of_radix()const noexcept override{
+		return array_like_view_t<const size_t>{_prime_factorization_table};
 	}
 };
 push_and_disable_msvc_warning(26426);
@@ -364,33 +343,8 @@ public:
 		return _radix_table.find(ch)!=string::npos;
 	}
 protected:
-	[[nodiscard]]virtual bool is_finite_denominator_part(ubigint num)const noexcept override{
-		for(const auto& i:_unique_prime_factorization_table){
-			auto result=divmod(num,i);
-			while(!result.mod){
-				num=move(result.quot);
-				result=divmod(num,i);
-			}
-			if(num==1u)
-				return true;
-		}
-		return false;
-	}
-public:
-	[[nodiscard]]virtual ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept override{
-		ubigint aret=1u;
-		const auto radix = get_radix();
-		for(const auto& i: _unique_prime_factorization_table) {
-			const auto i_complement=radix/i;
-			auto result=divmod(denominator,i);
-			while(result.quot && !result.mod){
-				denominator=move(result.quot);
-				aret *=i_complement;
-				result=divmod(denominator,i);
-				exp--;
-			}
-		}
-		return aret;
+	[[nodiscard]]virtual array_like_view_t<const size_t>get_unique_prime_factorization_table_of_radix()const noexcept override{
+		return array_like_view_t<const size_t>{_unique_prime_factorization_table};
 	}
 };
 

@@ -640,6 +640,31 @@ namespace math{
 		[[nodiscard]]constexpr force_inline const size_t* end()const noexcept{
 			return _table+table_size;
 		}
+		//size
+		[[nodiscard]]constexpr force_inline size_t size()const noexcept{
+			return table_size;
+		}
+		//friend
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto size_of_array_like(const prime_factorization_table_t<number>&)noexcept{
+			return table_size;
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto begin_of_array_like(prime_factorization_table_t<number>&table)noexcept{
+			return table.begin();
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto end_of_array_like(prime_factorization_table_t<number>&table)noexcept{
+			return table.end();
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto begin_of_array_like(const prime_factorization_table_t<number>&table)noexcept{
+			return table.begin();
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto end_of_array_like(const prime_factorization_table_t<number>&table)noexcept{
+			return table.end();
+		}
 	};
 	//编译时的唯一质因数分解到质因数表
 	template<size_t number>
@@ -683,6 +708,31 @@ namespace math{
 		}
 		[[nodiscard]]constexpr force_inline const size_t* end()const noexcept{
 			return _table+table_size;
+		}
+		//size
+		[[nodiscard]]constexpr force_inline size_t size()const noexcept{
+			return table_size;
+		}
+		//friend
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto size_of_array_like(const unique_prime_factorization_table_t<number>&)noexcept{
+			return table_size;
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto begin_of_array_like(unique_prime_factorization_table_t<number>&table)noexcept{
+			return table.begin();
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto end_of_array_like(unique_prime_factorization_table_t<number>&table)noexcept{
+			return table.end();
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto begin_of_array_like(const unique_prime_factorization_table_t<number>&table)noexcept{
+			return table.begin();
+		}
+		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
+		[[nodiscard]]friend inline auto end_of_array_like(const unique_prime_factorization_table_t<number>&table)noexcept{
+			return table.end();
 		}
 	};
 	//求出最大公约数
