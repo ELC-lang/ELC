@@ -44,13 +44,7 @@ namespace to_string_n{
 				const auto radix=_repres.get_radix();
 				//化简为numerator*radix^exp
 				{
-					auto result=divmod(numerator,radix);
-					while(result.quot&&!(result.mod)){
-						numerator=move(result.quot);
-						++exp;
-						result=divmod(numerator,radix);
-					}
-					result=divmod(denominator,radix);
+					auto result=divmod(denominator,radix);
 					while(result.quot&&!(result.mod)){
 						denominator=move(result.quot);
 						--exp;
@@ -62,6 +56,12 @@ namespace to_string_n{
 						if(denominator!=1u)
 							__debugbreak();
 					#endif
+					result=divmod(numerator,radix);
+					while(result.quot&&!(result.mod)){
+						numerator=move(result.quot);
+						++exp;
+						result=divmod(numerator,radix);
+					}
 				}
 				//先获取numerator和exp的字符串表示
 				aret=to_string(move(numerator));
