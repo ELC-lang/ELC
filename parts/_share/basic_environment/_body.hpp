@@ -39,7 +39,7 @@ namespace elc::defs{
 			template<class T,class type>
 			//由于::std::is_convertible_v的歧义性质，使用requires表达式辅助推断type是否为实际支持的类型
 			//由于requires表达式的强制性质，使用::std::is_convertible_v辅助推断隐式转换是否可行
-			static inline constexpr bool is_convertible=::std::is_convertible_v<T,type> && requires{declvalue(T).operator type();};
+			static inline constexpr bool is_convertible = ::std::is_convertible_v<T, type> && was_not_an_ill_form(static_cast<type>(declvalue(T)));
 			template<class T>
 			static inline constexpr bool r_able_helper()noexcept{
 				#define TYPE_MAPPER(type) if constexpr(is_convertible<T,type>)return true;else
