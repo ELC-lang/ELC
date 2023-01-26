@@ -43,7 +43,7 @@ namespace elc::defs{
 
 		template<typename T,text_ostream stream_T> requires(!::std::is_arithmetic_v<remove_cvref<T>> &&
 															to_arithmetic.able<remove_cvref<T>>)
-		decltype(auto)operator<<(stream_T&& stream, T&& data)noexcept(noexcept_text_ostream<stream_T> && to_arithmetic.nothrow<T>) {
+		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T> && to_arithmetic.nothrow<T>) {
 			return stream << to_arithmetic(forward<T>(data));
 		}
 

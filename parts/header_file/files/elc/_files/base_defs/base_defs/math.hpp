@@ -35,41 +35,41 @@ namespace math{
 		using signed_type=decltype(lambda{
 			if constexpr(::std::is_signed_v<T>||::std::is_floating_point_v<T>)
 				return T();
-			elseif constexpr(::std::is_unsigned_v<T>)
+			elseif constexpr(::std::is_unsigned_v<T> && (type_info<T>!=type_info<bool>))
 				return::std::make_signed_t<T>();
 		}());
 	};
 	/*! 无符号位的对应类型 */
 	template<typename T>
-	using to_unsigned_t = typename arithmetic_type_info_helper<T>::unsigned_type;
+	using to_unsigned_t = typename arithmetic_type_info_helper<remove_cvref<T>>::unsigned_type;
 	/*! 有符号位的对应类型 */
 	template<typename T>
-	using to_signed_t = typename arithmetic_type_info_helper<T>::signed_type;
+	using to_signed_t = typename arithmetic_type_info_helper<remove_cvref<T>>::signed_type;
 
 	/// 概念名称空间
 	/// 基于标准库的概念，但是使用帮助类型来便于后续定义中的新算数类型重载
 	inline namespace concepts{
 		/// 算术类型概念
 		template<typename T>
-		constexpr bool is_arithmetic_type=arithmetic_type_info_helper<T>::is_arithmetic_type;
+		constexpr bool is_arithmetic_type=arithmetic_type_info_helper<remove_cvref<T>>::is_arithmetic_type;
 		template<typename T>
 		concept arithmetic_type=is_arithmetic_type<T>;
 
 		/// 基础类型概念
 		template<typename T>
-		constexpr bool is_basic_type=arithmetic_type_info_helper<T>::is_basic_type;
+		constexpr bool is_basic_type=arithmetic_type_info_helper<remove_cvref<T>>::is_basic_type;
 		template<typename T>
 		concept basic_type=is_basic_type<T>;
 
 		/// 大数类型概念
 		template<typename T>
-		constexpr bool is_big_type=arithmetic_type_info_helper<T>::is_big_type;
+		constexpr bool is_big_type=arithmetic_type_info_helper<remove_cvref<T>>::is_big_type;
 		template<typename T>
 		concept big_type=is_big_type<T>;
 
 		/// 浮点类型概念
 		template<typename T>
-		constexpr bool is_float_type=arithmetic_type_info_helper<T>::is_float_type;
+		constexpr bool is_float_type=arithmetic_type_info_helper<remove_cvref<T>>::is_float_type;
 		template<typename T>
 		concept float_type=is_float_type<T>;
 
@@ -81,7 +81,7 @@ namespace math{
 
 		/// 有符号类型概念
 		template<typename T>
-		constexpr bool is_signed=arithmetic_type_info_helper<T>::is_signed;
+		constexpr bool is_signed=arithmetic_type_info_helper<remove_cvref<T>>::is_signed;
 		template<typename T>
 		concept signed_type=is_signed<T>;
 
@@ -105,11 +105,11 @@ namespace math{
 
 		/// 有NaN的类型概念
 		template<typename T>
-		concept has_NaN=arithmetic_type_info_helper<T>::has_NaN;
+		concept has_NaN=arithmetic_type_info_helper<remove_cvref<T>>::has_NaN;
 
 		/// 有inf的类型概念
 		template<typename T>
-		concept has_inf=arithmetic_type_info_helper<T>::has_inf;
+		concept has_inf=arithmetic_type_info_helper<remove_cvref<T>>::has_inf;
 	}
 
 	//isNaN

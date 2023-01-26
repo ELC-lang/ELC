@@ -49,7 +49,7 @@ struct specified_numerical_representation_istream_wrapper:virtual text_istream_t
 	virtual void read(char_t*data,size_t size)noexcept_as(stream.read(data,size)) override{
 		stream.read(data,size);
 	}
-	
+
 	//获取包装的流
 	stream_T& get_wrapped_stream()noexcept{return stream;}
 	//获取数字表示方式
