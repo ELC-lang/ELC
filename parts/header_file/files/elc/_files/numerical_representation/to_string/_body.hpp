@@ -484,13 +484,13 @@ namespace to_string_n{
 	/// @brief to_string
 	constexpr struct to_string_t{
 		template<arithmetic_type T,numerical_representation Repres>
-		[[nodiscard]]string operator()(const T&val,const Repres&repres)const noexcept{
+		[[nodiscard]]string operator()(T&&val,const Repres&repres)const noexcept{
 			const string_convert_impl<Repres> impl{repres};
-			return impl.to_string(val);
+			return impl.to_string(forward<T>(val));
 		}
 		template<arithmetic_type T>
-		[[nodiscard]]string operator()(const T&val)const noexcept{
-			return (*this)(val,decimal);
+		[[nodiscard]]string operator()(T&&val)const noexcept{
+			return (*this)(forward<T>(val),decimal);
 		}
 	}to_string{};
 	/// @brief from_string_get

@@ -114,7 +114,7 @@ namespace math{
 
 	//isNaN
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr bool isNaN(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr bool isNaN(const T&v)noexcept{
 		if constexpr(has_NaN<T>)
 			return v!=v;
 		else
@@ -122,7 +122,7 @@ namespace math{
 	}
 	/*! 符号位查询 */
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr bool is_negative(T x)noexcept{
+	[[nodiscard]]force_inline constexpr bool is_negative(const T&x)noexcept{
 		if constexpr(is_signed<T>){
 			if constexpr(has_NaN<T>)
 				if(isNaN(x))
@@ -172,7 +172,7 @@ namespace math{
 	}
 	/*! 求余 */
 	template<arithmetic_type T1,arithmetic_type T2>
-	[[nodiscard]]force_inline constexpr auto mod(T1 a,T2 b){
+	[[nodiscard]]force_inline constexpr auto mod(const T1&a,const T2&b){
 		if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
 			return ::std::fmod(a,b);
 		else
@@ -180,7 +180,7 @@ namespace math{
 	}
 	//divmod
 	template<arithmetic_type T1,arithmetic_type T2> requires(!is_big_type<T1>&&!is_big_type<T2>)
-	[[nodiscard]]force_inline constexpr auto divmod(T1 a,T2 b){
+	[[nodiscard]]force_inline constexpr auto divmod(const T1&a,const T2&b){
 		typedef decltype(a/b) quot_t;
 		typedef decltype(a%b) mod_t;
 		struct divmod_result{
@@ -222,7 +222,7 @@ namespace math{
 
 	//abs
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr auto abs(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr auto abs(const T&v)noexcept{
 		if constexpr(is_signed<T>){
 			//符号转无符号而不是num=-num避免INT_MAX这种情况下的溢出
 			typedef to_unsigned_t<T> UT;
@@ -233,7 +233,7 @@ namespace math{
 	}
 	//is_close
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr bool is_close(const T a,const T b)noexcept{
+	[[nodiscard]]force_inline constexpr bool is_close(const T&a,const T&b)noexcept{
 		if constexpr(is_float_type<T> && is_basic_type<T>)
 			return abs(a-b)<=::std::numeric_limits<T>::epsilon();
 		else
@@ -241,7 +241,7 @@ namespace math{
 	}
 	//sub
 	template<arithmetic_type T1,arithmetic_type T2>
-	[[nodiscard]]force_inline constexpr auto sub(const T1 a,const T2 b)noexcept{
+	[[nodiscard]]force_inline constexpr auto sub(const T1&a,const T2&b)noexcept{
 		if constexpr(is_basic_type<T1>&&is_basic_type<T2>){
 			if constexpr(is_float_type<T1>||is_float_type<T2>)
 				return a-b;
@@ -256,7 +256,7 @@ namespace math{
 	//exp
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<float_type T>
-	[[nodiscard]]force_inline constexpr T exp(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr T exp(const T&v)noexcept{
 		if(in_consteval||!is_basic_type<T>){
 			typedef decltype(lambda{
 				if constexpr(is_basic_type<T>)
@@ -280,7 +280,7 @@ namespace math{
 	//log
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr auto log(const T a)noexcept{
+	[[nodiscard]]force_inline constexpr auto log(const T&a)noexcept{
 		if(in_consteval||!is_basic_type<T>){
 			typedef decltype(lambda{
 				if constexpr(is_basic_type<T>)
@@ -302,13 +302,13 @@ namespace math{
 			return ::std::log(a);
 	}
 	template<arithmetic_type T,arithmetic_type U>
-	[[nodiscard]]force_inline constexpr auto log(const T a,const U b)noexcept{
+	[[nodiscard]]force_inline constexpr auto log(const T&a,const U&b)noexcept{
 		return log(a)/log(b);
 	}
 	//pow
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<arithmetic_type T,arithmetic_type U>
-	[[nodiscard]]force_inline constexpr auto pow(const T a,const U b)noexcept{
+	[[nodiscard]]force_inline constexpr auto pow(const T&a,const U&b)noexcept{
 		if(in_consteval||!is_basic_type<T>){
 			typedef decltype(::std::pow(a,b)) RT;
 			return RT(exp(b*log(a)));
@@ -319,7 +319,7 @@ namespace math{
 	//trunc
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<float_type T> requires is_basic_type<T>
-	[[nodiscard]]force_inline constexpr auto trunc(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr auto trunc(const T&v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::trunc(v)) RT;
 			return static_cast<RT>((intmax_t)v);
@@ -330,7 +330,7 @@ namespace math{
 	//ceil
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<float_type T> requires is_basic_type<T>
-	[[nodiscard]]force_inline constexpr auto ceil(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr auto ceil(const T&v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::ceil(v)) RT;
 			auto ceil_impl = lambda(T x, T y)noexcept{
@@ -344,7 +344,7 @@ namespace math{
 	//floor
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<float_type T> requires is_basic_type<T>
-	[[nodiscard]]force_inline constexpr auto floor(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr auto floor(const T&v)noexcept{
 		if in_consteval{
 			typedef decltype(::std::floor(v)) RT;
 			auto floor_impl = lambda(T x, T y)noexcept{
@@ -358,7 +358,7 @@ namespace math{
 	//sqrt
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr auto sqrt(const T v)noexcept{
+	[[nodiscard]]force_inline constexpr auto sqrt(const T&v)noexcept{
 		if(in_consteval||!is_basic_type<T>){
 			typedef decltype(lambda(){
 				if constexpr(is_basic_type<T>)
