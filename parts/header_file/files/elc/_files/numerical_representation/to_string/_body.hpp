@@ -366,7 +366,7 @@ namespace to_string_n{
 					}
 				if(str.starts_with(_repres.get_nan())){
 					str.remove_front(_repres.get_nan().size());
-					if(str && str.back()==_repres.get_unknown_data_start_sign()){
+					if(str && str.back()==_repres.get_unknown_data_end_sign()){
 						state={};
 						str.remove_front();
 						str.remove_back();
@@ -473,7 +473,8 @@ namespace to_string_n{
 			elseif(str[0]==_repres.get_positive_sign())
 				str.remove_front();
 			typedef to_unsigned_t<T> UT;
-			return copy_as_negative(from_string_get_unsigneded<UT>(move(str),state),is_negative);
+			auto unum=from_string_get_unsigneded<UT>(move(str),state);
+			return is_negative?copy_as_negative(move(unum)):move(unum);
 		}
 		template<arithmetic_type T>
 		[[nodiscard]]T from_string_get(const string&str)const noexcept{
