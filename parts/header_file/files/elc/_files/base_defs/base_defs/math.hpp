@@ -574,7 +574,7 @@ namespace math{
 						if(!(m%i)){
 							aret.push_back(i);
 							do m/=i;while(!(m%i));
-						}	
+						}
 						i=get_prime_num_big_than(i);
 					}
 					if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>)

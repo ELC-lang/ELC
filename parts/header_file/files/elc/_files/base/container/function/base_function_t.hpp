@@ -247,7 +247,7 @@ namespace function_n{
 		}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
 		base_function_t(nullptr_t)noexcept:base_function_t(null_ptr){}
-		template<class T> requires(get_data_able<T>)
+		template<class T> requires get_data_able<T>
 		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
 			_m=get_data_from(forward<T>(a));
 		}
@@ -265,7 +265,7 @@ namespace function_n{
 			base_t::operator=(a);
 			return*this;
 		}
-		template<class T> requires(get_data_able<T>)
+		template<class T> requires get_data_able<T>
 		this_t&operator=(T&&a)noexcept(get_data_nothrow<T> && promise_nothrow_at_destruct){
 			_m=get_data_from(forward<T>(a));
 			return*this;
@@ -390,7 +390,7 @@ namespace function_n{
 		}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
 		base_function_t(nullptr_t)noexcept:base_function_t(null_ptr){}
-		template<class T> requires(get_data_able<T>)
+		template<class T> requires get_data_able<T>
 		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
 			_m=get_data_from(forward<T>(a));
 		}
@@ -408,7 +408,7 @@ namespace function_n{
 			base_t::operator=(a);
 			return*this;
 		}
-		template<class T> requires(get_data_able<T>)
+		template<class T> requires get_data_able<T>
 		this_t&operator=(T&&a)noexcept(get_data_nothrow<T> && promise_nothrow_at_destruct){
 			_m=get_data_from(forward<T>(a));
 			return*this;
@@ -535,7 +535,7 @@ namespace function_n{
 		}
 		base_function_t(null_ptr_t)noexcept:base_function_t(){}
 		base_function_t(nullptr_t)noexcept:base_function_t(null_ptr){}
-		template<class T> requires(get_data_able<T>)
+		template<class T> requires get_data_able<T>
 		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
 			_m=get_data_from(forward<T>(a));
 		}
@@ -553,7 +553,7 @@ namespace function_n{
 			base_t::operator=(a);
 			return*this;
 		}
-		template<class T> requires(get_data_able<T>)
+		template<class T> requires get_data_able<T>
 		this_t&operator=(T&&a)noexcept(get_data_nothrow<T> && promise_nothrow_at_destruct){
 			_m=get_data_from(forward<T>(a));
 			return*this;

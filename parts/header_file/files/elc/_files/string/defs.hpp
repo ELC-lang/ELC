@@ -409,8 +409,8 @@ namespace string_n{
 				return move(*this);
 			}
 		};
-		[[nodiscard]]floating_arec_t operator[](float_t index)noexcept requires(floating_arec_able){ return{this,index}; }
-		[[nodiscard]]const floating_arec_t operator[](float_t index)const noexcept requires(floating_arec_able){ return{remove_const(this),index}; }
+		[[nodiscard]]floating_arec_t operator[](float_t index)noexcept requires floating_arec_able{ return{this,index}; }
+		[[nodiscard]]const floating_arec_t operator[](float_t index)const noexcept requires floating_arec_able{ return{remove_const(this),index}; }
 
 		//泛型arec.
 		template<typename T> requires ::std::is_arithmetic_v<T>

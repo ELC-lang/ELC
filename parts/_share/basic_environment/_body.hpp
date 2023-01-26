@@ -39,7 +39,7 @@ namespace elc::defs{
 			template<class T,class type>
 			//由于::std::is_convertible_v的歧义性质，使用requires表达式辅助推断type是否为实际支持的类型
 			//由于requires表达式的强制性质，使用::std::is_convertible_v辅助推断隐式转换是否可行
-			static inline constexpr bool is_convertible=std::is_convertible_v<T,type> && requires{declvalue(T).operator type();};
+			static inline constexpr bool is_convertible=::std::is_convertible_v<T,type> && requires{declvalue(T).operator type();};
 			template<class T>
 			static inline constexpr bool r_able_helper()noexcept{
 				#define TYPE_MAPPER(type) if constexpr(is_convertible<T,type>)return true;else
@@ -93,7 +93,7 @@ namespace elc::defs{
 			template<class T>
 			static inline constexpr bool nothrow = nothrow_helper<T>();
 			//算数类型转任意类型
-			template<class T> requires(able<T>)
+			template<class T> requires able<T>
 			force_inline constexpr auto operator()(T&&v)const noexcept(nothrow<T>){
 				return to_arithmetic_base(::std::forward<T>(v));
 			}
@@ -279,7 +279,7 @@ namespace elc::defs{
 			}();
 		}
 		//自浮点数获取精确数部分，舍去指数和符号位
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto get_precision(T v)noexcept{
 			using namespace float_infos;
 			auto tmp=*(data_type<T>*)&v;
@@ -287,14 +287,14 @@ namespace elc::defs{
 			return tmp;
 		}
 		//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto get_precision_base(T=T{})noexcept{
 			return float_infos::precision_base<T>;
 		}
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		using float_precision_base_t = decltype(get_precision_base<T>());
 		//（基础的）自浮点数获取指数部分，舍去基数和符号位
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto base_get_exponent(T v)noexcept{
 			using namespace float_infos;
 			auto tmp=*(data_type<T>*)&v;
@@ -303,7 +303,7 @@ namespace elc::defs{
 			return exponent_unsigned_type<T>(tmp);
 		}
 		//自浮点数获取指数部分，舍去基数和符号位
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto get_exponent(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
 			using namespace float_infos;
@@ -311,7 +311,7 @@ namespace elc::defs{
 			else return exponent_type<T>(tmp)-exponent_diff<T>;
 		}
 		//自浮点数获取基数
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto get_base_num(T v)noexcept{
 			//特殊情况处理（exp=0时，base=0）
 			const auto tmp=base_get_exponent(v);
@@ -319,7 +319,7 @@ namespace elc::defs{
 		}
 		//自基数和指数构造浮点数
 		//num=base_num*2^exponent
-		template<class T> requires(::std::is_floating_point_v<T>)
+		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr T make_float(float_precision_base_t<T> base_num,ptrdiff_t exponent)noexcept{
 			using namespace float_infos;
 			//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子

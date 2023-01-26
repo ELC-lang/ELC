@@ -33,23 +33,23 @@ decltype(auto)operator>>(text_istream_T&stream,char_T&ch)noexcept(noexcept_text_
 //data_stream of any is_trivially_copyable
 
 //operator<< of template<class T>struct data_ostream_t
-template<data_ostream_class data_ostream_T,class T> requires(::std::is_trivially_copyable_v<T>)
+template<data_ostream_class data_ostream_T,class T> requires ::std::is_trivially_copyable_v<T>
 decltype(auto)operator<<(data_ostream_T&&stream,const T&data)noexcept(noexcept_data_ostream_class<data_ostream_T>){
 	stream.write(&data,1);
 	return stream;
 }
-template<data_ostream_class data_ostream_T,class T,size_t N> requires(::std::is_trivially_copyable_v<T>)
+template<data_ostream_class data_ostream_T,class T,size_t N> requires ::std::is_trivially_copyable_v<T>
 decltype(auto)operator<<(data_ostream_T&&stream,const T(&data)[N])noexcept(noexcept_data_ostream_class<data_ostream_T>){
 	stream.write(data,N);
 	return stream;
 }
 //operator>> of template<class T>struct data_istream_t
-template<data_istream_class data_istream_T,class T> requires(::std::is_trivially_copyable_v<T>)
+template<data_istream_class data_istream_T,class T> requires ::std::is_trivially_copyable_v<T>
 decltype(auto)operator>>(data_istream_T&&stream,T&data)noexcept(noexcept_data_istream_class<data_istream_T>){
 	stream.read(&data,1);
 	return stream;
 }
-template<data_istream_class data_istream_T,class T,size_t N> requires(::std::is_trivially_copyable_v<T>)
+template<data_istream_class data_istream_T,class T,size_t N> requires ::std::is_trivially_copyable_v<T>
 decltype(auto)operator>>(data_istream_T&&stream,T(&data)[N])noexcept(noexcept_data_istream_class<data_istream_T>){
 	stream.read(data,N);
 	return stream;

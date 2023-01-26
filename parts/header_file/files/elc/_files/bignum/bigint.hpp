@@ -56,7 +56,7 @@ public:
 			return false;
 		return _num == other._num;
 	}
-	template<typename T> requires(::std::is_integral_v<T>)
+	template<typename T> requires ::std::is_integral_v<T>
 	bool operator==(T value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return false;
@@ -71,7 +71,7 @@ public:
 			tmp=compare.reverse(tmp);
 		return tmp;
 	}
-	template<typename T> requires(::std::is_integral_v<T>)
+	template<typename T> requires ::std::is_integral_v<T>
 	auto operator<=>(T value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
@@ -81,7 +81,7 @@ public:
 		return tmp;
 	}
 public:
-	template<typename T> requires(::std::is_integral_v<T>)
+	template<typename T> requires ::std::is_integral_v<T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
 		constexpr auto min_value=min(type_info<T>);
 		constexpr auto max_value=max(type_info<T>);
@@ -92,7 +92,7 @@ public:
 			return false;
 		return true;
 	}
-	template<typename T> requires(::std::is_integral_v<T>)
+	template<typename T> requires ::std::is_integral_v<T>
 	[[nodiscard]]T convert_to()const noexcept{
 		if constexpr(::std::is_signed_v<T>){
 			typedef to_unsigned_t<T> UT;

@@ -64,7 +64,7 @@ namespace lifetime_n{
 	constexpr bool move_assign_trivial=::std::is_trivially_move_assignable_v<T>;
 	//
 
-	template<class T> requires(::std::is_trivially_copyable_v<T>)
+	template<class T> requires ::std::is_trivially_copyable_v<T>
 	force_inline T* super_speed_trivial_copy_from_one(T*to,const T&value,size_t size)noexcept{
 		if constexpr(sizeof(T)==sizeof(unsigned char))
 			::std::memset((unsigned char*)to,(unsigned char)value,size);
@@ -77,7 +77,7 @@ namespace lifetime_n{
 				::std::fill_n(to,size,value);
 		return to;
 	}
-	template<class T> requires(::std::is_trivially_copyable_v<T>)
+	template<class T> requires ::std::is_trivially_copyable_v<T>
 	force_inline T* super_speed_trivial_copy_from_one(T*to,const T&value)noexcept{
 		if constexpr(sizeof(T)>=sizeof(::std::max_align_t))
 			if(is_all_byte_zero(value))

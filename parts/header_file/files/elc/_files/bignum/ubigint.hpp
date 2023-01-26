@@ -108,7 +108,7 @@ public:
 	[[nodiscard]]bool operator==(const ubigint& other)const noexcept{
 		return equal(get_data_view(),other.get_data_view());
 	}
-	template<typename T> requires(::std::is_integral_v<T>)
+	template<typename T> requires ::std::is_integral_v<T>
 	[[nodiscard]]bool operator==(T other)const noexcept{
 		if constexpr(::std::is_signed_v<T>){
 			if(is_negative(other))return false;
@@ -141,7 +141,7 @@ public:
 	[[nodiscard]]auto operator<=>(const ubigint& other)const noexcept{
 		return compare(get_data_view(),other.get_data_view());
 	}
-	template<typename T> requires(::std::is_integral_v<T>)
+	template<typename T> requires ::std::is_integral_v<T>
 	[[nodiscard]]auto operator<=>(T other)const noexcept{
 		if constexpr(::std::is_signed_v<T>){
 			if(is_negative(other))return strong_ordering::greater;
