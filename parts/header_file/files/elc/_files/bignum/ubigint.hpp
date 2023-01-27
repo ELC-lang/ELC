@@ -212,15 +212,15 @@ private:
 	static void add_to_base(base_type*buf,size_t end_size,T num)noexcept{
 		//定义运算类型：若T比calc_type大，则使用T，否则使用calc_type
 		using calc_t = conditional<(sizeof(T) > sizeof(calc_type)),T,calc_type>;
-		//首先判断第一个数是否溢出
-		{
+		//首先判断第一个数是否溢出：这只在T比calc_type大或相等时才有可能
+		if constexpr(sizeof(T) >= sizeof(calc_type)){
 			const calc_t result = calc_t(*buf)+num;
 			const bool is_overflows = result<num;
 			if(is_overflows){
 				//若T不是uintmax_t，提升到uintmax_t并递归
 				if constexpr(type_info<T>!=type_info<uintmax_t>)
 					add_to_base(buf,end_size,uintmax_t(num));
-				else{
+				else{//否则直接构建一个ubigint进行加法
 					ubigint tmp=num;
 					add_to_base(buf,tmp.get_data_view());
 				}
