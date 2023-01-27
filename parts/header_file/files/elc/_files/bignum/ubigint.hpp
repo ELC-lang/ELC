@@ -208,6 +208,33 @@ private:
 	static void add_to_base(base_type*buf,const data_type&b)noexcept{
 		add_to_base(buf,get_data_view_of_data(b));
 	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	static void add_to_base(base_type*buf,size_t end_size,T num)noexcept{
+		//定义运算类型：若T比calc_type大，则使用T，否则使用calc_type
+		using calc_t = conditional<(sizeof(T) > sizeof(calc_type)),T,calc_type>;
+		//首先判断第一个数是否溢出
+		{
+			calc_t result = calc_t(*buf)+num;
+			const bool is_overflows = result<num;
+			if(is_overflows){
+				//若T不是uintmax_t，提升到uintmax_t并递归
+				if constexpr(type_info<T>!=type_info<uintmax_t>)
+					add_to_base(buf,end_size,uintmax_t(num));
+				else{
+					ubigint tmp=num;
+					add_to_base(buf,tmp.get_data_view());
+				}
+				return;
+			}
+		}
+		//现在确保了第一个数不会溢出：放心进行加法
+		for(size_t i=0;i<end_size && num;++i){
+			num+=*buf;
+			*buf=base_type(num);
+			num>>=bitnum_of(base_type);
+			++buf;
+		}
+	}
 	//-
 	[[nodiscard]]static data_type sub_base(data_view_type a,data_view_type b)noexcept{
 		//调用方保证a>=b
@@ -499,6 +526,29 @@ public:
 		copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
 		add_to_base(_data.data(),other_view);
 		shrink_to_fit();
+		return*this;
+	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	ubigint& operator+=(T other)&noexcept{
+		//using add_to_base to avoid new alloc
+		auto origin_size = _data.size();
+		auto size_diff = lambda_with_catch(&)()->size_t{
+			auto back_bits_not_using=countl_zero(_data.back());
+			auto bits_other_not_using=countl_zero(other);
+			auto bitnum_other=bitnum_of(T)-bits_other_not_using;
+			auto bitnum_now=bitnum_of(base_type)*origin_size-back_bits_not_using;
+			if(bitnum_other>bitnum_now)
+				return sizeof(T)/sizeof(base_type)+(bits_other_not_using?0:1);
+			return back_bits_not_using?0:1;
+		}();
+		if(size_diff){
+			auto new_size = origin_size + size_diff;
+			_data.resize(new_size);
+			copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
+		}
+		add_to_base(_data.data(),origin_size,other);
+		if(size_diff)
+			shrink_to_fit();
 		return*this;
 	}
 	//operator-=
