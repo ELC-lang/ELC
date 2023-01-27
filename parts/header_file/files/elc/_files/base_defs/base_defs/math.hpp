@@ -282,7 +282,7 @@ namespace math{
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr auto log(const T&a)noexcept{
 		if(in_consteval||!is_basic_type<T>){
-			typedef decltype(lambda{
+			typedef decltype(lambda()noexcept{
 				if constexpr(is_basic_type<T>)
 					return ::std::log(T{});
 				else
@@ -360,7 +360,7 @@ namespace math{
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr auto sqrt(const T&v)noexcept{
 		if(in_consteval||!is_basic_type<T>){
-			typedef decltype(lambda(){
+			typedef decltype(lambda()noexcept{
 				if constexpr(is_basic_type<T>)
 					return ::std::sqrt(T{});
 				else

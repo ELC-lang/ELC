@@ -214,7 +214,7 @@ private:
 		using calc_t = conditional<(sizeof(T) > sizeof(calc_type)),T,calc_type>;
 		//首先判断第一个数是否溢出
 		{
-			calc_t result = calc_t(*buf)+num;
+			const calc_t result = calc_t(*buf)+num;
 			const bool is_overflows = result<num;
 			if(is_overflows){
 				//若T不是uintmax_t，提升到uintmax_t并递归
@@ -532,17 +532,17 @@ public:
 	ubigint& operator+=(T other)&noexcept{
 		//using add_to_base to avoid new alloc
 		auto origin_size = _data.size();
-		auto size_diff = lambda_with_catch(&)()->size_t{
-			auto back_bits_not_using=countl_zero(_data.back());
-			auto bits_other_not_using=countl_zero(other);
-			auto bitnum_other=bitnum_of(T)-bits_other_not_using;
-			auto bitnum_now=bitnum_of(base_type)*origin_size-back_bits_not_using;
+		const auto size_diff = lambda_with_catch(&)()->size_t{
+			const auto back_bits_not_using=countl_zero(_data.back());
+			const auto bits_other_not_using=countl_zero(other);
+			const auto bitnum_other=bitnum_of(T)-bits_other_not_using;
+			const auto bitnum_now=bitnum_of(base_type)*origin_size-back_bits_not_using;
 			if(bitnum_other>bitnum_now)
 				return sizeof(T)/sizeof(base_type)+(bits_other_not_using?0:1);
 			return back_bits_not_using?0:1;
 		}();
 		if(size_diff){
-			auto new_size = origin_size + size_diff;
+			const auto new_size = origin_size + size_diff;
 			_data.resize(new_size);
 			copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
 		}

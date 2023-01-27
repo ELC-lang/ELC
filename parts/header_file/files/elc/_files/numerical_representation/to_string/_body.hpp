@@ -61,7 +61,7 @@ namespace to_string_n{
 						//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
 						constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
 						//获取info_threshold_num
-						auto info_threshold_num=info_threshold_base*radix;
+						const auto info_threshold_num=info_threshold_base*radix;
 						//更新exp并舍入numerator直到numerator小于info_threshold_num
 						while(numerator>info_threshold_num){
 							++exp;

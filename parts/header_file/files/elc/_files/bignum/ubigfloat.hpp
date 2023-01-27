@@ -38,12 +38,12 @@ public:
 		{
 			T integer_part;
 			T fraction_part=::std::modf(num,&integer_part);
-			size_t numerator=1,denominator;
+			size_t numerator=1;
 			if(fraction_part){
 				//猜测分数
 				constexpr size_t max_numerator = 1u<<7;
 				while(numerator<max_numerator){
-					denominator = to_size_t(numerator/fraction_part);
+					const auto denominator = to_size_t(numerator/fraction_part);
 					if(is_close(T(numerator)/denominator,fraction_part)){//近似相等即可
 						const auto numerator_backup=numerator;
 						//补正整数部分

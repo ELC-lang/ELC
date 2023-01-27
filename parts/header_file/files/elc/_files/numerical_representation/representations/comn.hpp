@@ -179,7 +179,7 @@ public:
 		return char_t(zero+index);
 	}
 	[[nodiscard]]constexpr virtual size_t get_index(char_t c)const noexcept override{
-		return c-zero;
+		return size_t{c}-zero;
 	}
 	[[nodiscard]]constexpr virtual bool is_valid_char(char_t ch)const noexcept override{
 		return ch>=zero&&ch<zero+radix;
