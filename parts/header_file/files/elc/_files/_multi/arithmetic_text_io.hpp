@@ -47,8 +47,8 @@ namespace elc::defs{
 			return stream << to_arithmetic(forward<T>(data));
 		}
 
-		template<typename T,text_ostream stream_T> requires(type_info<remove_cvref<T>> == type_info<bool>)
-		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
+		template<typename T,text_ostream stream_T> requires(type_info<T> == type_info<bool>)
+		decltype(auto)operator<<(stream_T&&stream,T data)noexcept(noexcept_text_ostream<stream_T>){
 			const auto&representation=get_bool_representation_of(stream);
 			if(data==true)
 				stream << representation.get_true();

@@ -14,10 +14,10 @@ namespace bignum_n{
 }
 using namespace bignum_n;//干净的符号导出！
 
-//注入math::arithmetic_type_info_helper
+//注入math::arithmetic_type_info_prover
 namespace base::math{
 	using namespace bignum_n;
-	template<>struct arithmetic_type_info_helper<bigint>{
+	template<>struct arithmetic_type_info_prover<bigint>{
 		//bool：是否是算数类型
 		static constexpr bool is_arithmetic_type = true;
 		//bool：是否是基础类型
@@ -37,7 +37,7 @@ namespace base::math{
 		using signed_type = bigint;
 	};
 
-	template<>struct arithmetic_type_info_helper<ubigint>{
+	template<>struct arithmetic_type_info_prover<ubigint>{
 		//bool：是否是算数类型
 		static constexpr bool is_arithmetic_type = true;
 		//bool：是否是基础类型
@@ -57,7 +57,7 @@ namespace base::math{
 		using signed_type = bigint;
 	};
 
-	template<>struct arithmetic_type_info_helper<bigfloat>{
+	template<>struct arithmetic_type_info_prover<bigfloat>{
 		//bool：是否是算数类型
 		static constexpr bool is_arithmetic_type = true;
 		//bool：是否是基础类型
@@ -77,7 +77,7 @@ namespace base::math{
 		using signed_type = bigfloat;
 	};
 
-	template<>struct arithmetic_type_info_helper<ubigfloat>{
+	template<>struct arithmetic_type_info_prover<ubigfloat>{
 		//bool：是否是算数类型
 		static constexpr bool is_arithmetic_type = true;
 		//bool：是否是基础类型
