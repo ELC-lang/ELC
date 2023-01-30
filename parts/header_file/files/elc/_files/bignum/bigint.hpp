@@ -246,7 +246,7 @@ public:
 		if(_is_negative == other._is_negative)
 			_num+=other._num;
 		elseif(_is_negative)
-			*this = other-(-*this);
+			*this = other-(-move(*this));
 		else
 			*this -= -other;
 		return *this;
@@ -255,7 +255,7 @@ public:
 		if(_is_negative == other._is_negative)
 			_num+=move(other._num);
 		elseif(_is_negative)
-			*this = move(other)-(-*this);
+			*this = other-=(-move(*this));
 		else
 			*this -= -move(other);
 		return *this;
@@ -442,13 +442,13 @@ public:
 	friend ubigint&& operator>>(ubigint&& lhs, const bigint& rhs)noexcept{
 		return move(lhs>>=rhs);
 	}
-	[[nodiscard]]bigint&& operator+(bigint&& other)noexcept{
+	[[nodiscard]]bigint&& operator+(bigint&& other)const&noexcept{
 		return move(move(other)+*this);
 	}
-	[[nodiscard]]bigint&& operator-(bigint&& other)noexcept{
+	[[nodiscard]]bigint&& operator-(bigint&& other)const&noexcept{
 		return move((-move(other))+*this);
 	}
-	[[nodiscard]]bigint&& operator*(bigint&& other)noexcept{
+	[[nodiscard]]bigint&& operator*(bigint&& other)const&noexcept{
 		return move(move(other)**this);
 	}
 	//operator!

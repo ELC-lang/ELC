@@ -532,6 +532,8 @@ public:
 	ubigint& operator+=(T other)&noexcept{
 		//using add_to_base to avoid new alloc
 		auto origin_size = _data.size();
+		if(!origin_size)
+			return (*this) = ubigint{other};
 		const auto size_diff = lambda_with_catch(&)()->size_t{
 			const auto back_bits_not_using=countl_zero(_data.back());
 			const auto bits_other_not_using=countl_zero(other);

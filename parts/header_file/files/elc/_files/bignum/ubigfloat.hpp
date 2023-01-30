@@ -518,10 +518,10 @@ public:
 	return ubigfloat(move(lhs)) - rhs;
 }
 [[nodiscard]]inline ubigfloat&& operator-(const ubigint& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) - lhs;
+	return move(rhs=ubigfloat(lhs)-move(rhs));
 }
 [[nodiscard]]inline ubigfloat&& operator-(ubigint&& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) - move(lhs);
+	return move(rhs=ubigfloat(move(lhs))-move(rhs));
 }
 [[nodiscard]]inline ubigfloat operator*(const ubigint& lhs,const ubigfloat& rhs)noexcept{
 	return rhs * lhs;
@@ -542,10 +542,10 @@ public:
 	return ubigfloat(move(lhs)) / rhs;
 }
 [[nodiscard]]inline ubigfloat&& operator/(const ubigint& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) / lhs;
+	return move(rhs=ubigfloat(lhs)/move(rhs));
 }
 [[nodiscard]]inline ubigfloat&& operator/(ubigint&& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) / move(lhs);
+	return move(rhs=ubigfloat(move(lhs))/move(rhs));
 }
 
 //file_end
