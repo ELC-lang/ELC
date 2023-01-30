@@ -1,4 +1,5 @@
 #include <elc/base_defs>
+#include <elc/random>
 #include <iostream>
 //opencv to write png
 #include <opencv2/opencv.hpp>
@@ -6,11 +7,11 @@
 int main() {
 	using namespace elc::defs;
 	//以下名称和全局名称重复所以需要反复声明
-	using elc::defs::rand;
+	using elc::rand;
 	using elc::defs::type_info;
 
 	typedef uint16_t test_type;
-	//let's output elc::defs::rand<test_type>'s output to a png file
+	//let's output elc::rand<test_type>'s output to a png file
 	typedef unsigned_specific_size_t<sizeof(test_type) / 2> half_type;		 //用这个当作图片坐标
 	constexpr auto											half_max = max(type_info<half_type>);
 	{

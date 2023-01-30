@@ -2,7 +2,7 @@
 //
 
 //elc::rand
-#include <elc/base_defs>
+#include <elc/random>
 //std::mt19937
 #include <random>
 //std::rand
@@ -21,29 +21,29 @@ void Std_rand(benchmark::State& state) {
 BENCHMARK(Std_rand);
 
 void ELC_rand_8bit(benchmark::State& state) {
-	using elc::defs::rand;
+	using elc::rand;
 	for(auto _: state) {
 		benchmark::DoNotOptimize(rand<uint8_t>());
 	}
-	state.counters["state_size"] = sizeof(elc::defs::rand_seed);
+	state.counters["state_size"] = sizeof(elc::rand_seed);
 }
 BENCHMARK(ELC_rand_8bit);
 
 void ELC_rand_32bit(benchmark::State& state) {
-	using elc::defs::rand;
+	using elc::rand;
 	for(auto _: state) {
 		benchmark::DoNotOptimize(rand<uint32_t>());
 	}
-	state.counters["state_size"] = sizeof(elc::defs::rand_seed);
+	state.counters["state_size"] = sizeof(elc::rand_seed);
 }
 BENCHMARK(ELC_rand_32bit);
 
 void ELC_rand_64bit(benchmark::State& state) {
-	using elc::defs::rand;
+	using elc::rand;
 	for(auto _: state) {
 		benchmark::DoNotOptimize(rand<uint64_t>());
 	}
-	state.counters["state_size"] = sizeof(elc::defs::rand_seed);
+	state.counters["state_size"] = sizeof(elc::rand_seed);
 }
 BENCHMARK(ELC_rand_64bit);
 
@@ -52,11 +52,11 @@ struct a256bit_t {
 };
 
 void ELC_rand_256bit(benchmark::State& state) {
-	using elc::defs::rand;
+	using elc::rand;
 	for(auto _: state) {
 		benchmark::DoNotOptimize(rand<a256bit_t>());
 	}
-	state.counters["state_size"] = sizeof(elc::defs::rand_seed);
+	state.counters["state_size"] = sizeof(elc::rand_seed);
 }
 BENCHMARK(ELC_rand_256bit);
 

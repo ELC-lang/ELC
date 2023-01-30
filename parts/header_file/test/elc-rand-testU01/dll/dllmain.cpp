@@ -19,6 +19,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
 //export rand_for_test func
 extern "C" __declspec(dllexport) uint32_t rand_for_test(){
-	return elc::defs::rand<uint32_t>();
+	return elc::rand<uint32_t>();
 }
 

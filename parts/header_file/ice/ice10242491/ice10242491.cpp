@@ -6,7 +6,7 @@
 using namespace elc::defs;
 
 int main() {
-	using elc::defs::rand;
+	using elc::rand;
 	for(int i = 3000; i--;) {
 		auto	 test	  = rand<double>.not_NaN();
 		bigfloat a		  = test;

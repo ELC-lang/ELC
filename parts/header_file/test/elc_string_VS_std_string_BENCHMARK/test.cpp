@@ -9,7 +9,7 @@ void claer_memory_count()noexcept{
 }
 
 using elc::defs::discard;
-using elc::defs::rand;
+using elc::rand;
 
 //*
 

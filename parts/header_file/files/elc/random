@@ -8,6 +8,7 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_RANDOM)
+	#include "base_defs"
 	#define ELC_RANDOM
 	#include "_files/random/_body.hpp"
 #endif
