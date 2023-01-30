@@ -43,6 +43,8 @@ namespace to_string_n{
 				auto& numerator=get_numerator_as_ref(num);
 				auto& denominator=get_denominator_as_ref(num);
 				const auto radix=_repres.get_radix();
+				if(!numerator)
+					return to_string(move(numerator));
 				//化简为numerator*radix^exp
 				{
 					auto result=divmod(denominator,radix);
