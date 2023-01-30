@@ -40,7 +40,5 @@
 #include "invoke.hpp"
 #include "maybe_fail_reference.hpp"
 
-#include "rand.hpp"
-
 //file_end
 
