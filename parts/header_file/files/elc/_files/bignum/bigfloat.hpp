@@ -20,6 +20,8 @@ public:
 	bigfloat(bigfloat&& other)noexcept=default;
 	bigfloat& operator=(const bigfloat& other)&noexcept=default;
 	bigfloat& operator=(bigfloat&& other)&noexcept=default;
+	bigfloat(const ubigfloat& number)noexcept:_num(number){}
+	bigfloat(ubigfloat&& number)noexcept:_num(move(number)){}
 	bigfloat(const bigint& other)noexcept:_num(abs(other)),_is_negative(is_negative(other)){}
 	bigfloat(bigint&& other)noexcept:_num(abs(move(other))),_is_negative(is_negative(other)){}
 	bigfloat(const ubigint& other)noexcept:_num(other){}
@@ -602,6 +604,17 @@ public:
 	//化简
 	void simplify()noexcept{
 		_num.simplify();
+	}
+	//friend pow
+	friend [[nodiscard]] bigfloat pow(bigfloat base,ubigint exp)noexcept{
+		bool sign=is_negative(base)&&is_odd(exp);
+		auto uret=pow(abs(base),exp);
+		return {move(uret),sign};
+	}
+	friend [[nodiscard]] bigfloat pow(bigfloat base,bigint exp)noexcept{
+		bool sign=is_negative(base)&&is_odd(exp);
+		auto uret=pow(abs(base),abs(exp));
+		return {move(uret),sign};
 	}
 };
 

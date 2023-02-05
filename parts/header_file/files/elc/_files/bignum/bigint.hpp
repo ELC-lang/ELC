@@ -476,6 +476,14 @@ public:
 		--*this;
 		return tmp;
 	}
+	//friend is_odd
+	friend bool is_odd(const bigint& n)noexcept{
+		return is_odd(n._num);
+	}
+	//friend is_even
+	friend bool is_even(const bigint& n)noexcept{
+		return is_even(n._num);
+	}
 };
 
 //file_end

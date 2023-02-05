@@ -44,7 +44,7 @@ namespace to_string_n{
 				auto& denominator=get_denominator_as_ref(num);
 				const auto radix=_repres.get_radix();
 				if(!numerator)
-					return to_string(move(numerator));
+					return _repres.get_char(0);
 				//化简为numerator*radix^exp
 				{
 					auto result=divmod(denominator,radix);
@@ -83,20 +83,15 @@ namespace to_string_n{
 				//先获取numerator和exp的字符串表示
 				aret=to_string(move(numerator));
 				auto expstr=to_string(exp);
-				/*两种情况：
-					若exp是负数，在exp的绝对值大于aret.size+expstr.size()+1时使用科学计数法有意义
-					若exp正数，在exp大于expstr.size()+1时使用科学计数法有意义
-				*/
 				if(exp<0){
-					if(size_t(-exp)>aret.size()+expstr.size()+1){
+					//首先计算需要的前置0的个数
+					const size_t need_zero=max((-exp)-aret.size()+1,size_t{});
+					if(need_zero>expstr.size()){//选取最短表达
 						aret+=_repres.get_exponent_separator();
 						aret+=expstr;
 					}
 					else{
-						//否则，插入小数点
-						//首先计算需要的前置0的个数
-						const ptrdiff_t need_zero=(-exp)-aret.size()+1;
-						if(need_zero>0)
+						if(need_zero)
 							aret.push_front(_repres.get_char(0),need_zero);
 						//插入小数点
 						const auto dot_pos=aret.size()+exp;
@@ -241,94 +236,57 @@ namespace to_string_n{
 	private:
 		//to_string定义完了，开始定义from_string_get
 		template<class T> requires(type_info<T> == type_info<ubigfloat>)
-		[[nodiscard]]ubigfloat from_string_get_base(const string&str,convert_state_t&state)const noexcept{
+		[[nodiscard]]ubigfloat from_string_get_base(string str,convert_state_t&state)const noexcept{
 			state={};
-			ubigint base;
-			const auto radix=_repres.get_radix();
-			const auto end=str.end();
-			auto i=str.begin();
-			for(;i!=end;++i){
-				char_t ch=*i;
-				if(ch==_repres.get_fractional_sign()){//小数：123.456
-					state.is_integer=false;
-					++i;
-					ubigint radix_power=1u;
-					for(;i!=end;++i){
-						radix_power*=radix;
-						base*=radix;
-						ch=*i;
-						if(ch==_repres.get_exponent_separator()){//科学计数法：123.456e789
-							++i;
-							auto exp=from_string_get<ptrdiff_t>(string{i,end},state);
-							if(!state.success)
-								return {};
-							ubigfloat aret{move(base)};
-							aret/=radix_power;
-							while(exp<0){
-								aret/=radix;
-								++exp;
-							}
-							while(exp>0){
-								aret*=radix;
-								--exp;
-							}
-							return aret;
-						}
-						if(_repres.is_valid_char(ch))
-							base+=_repres.get_index(ch);
-						else{//error
-							state.success=false;
-							return {};
-						}
-					}
-					ubigfloat aret{move(base)};
-					aret/=radix_power;
-					return aret;
-				}
-				elseif(ch==_repres.get_fractional_separator()){//分数：123/456
-					state.is_integer=false;
-					state.is_finite=false;
-					++i;
-					ubigint denopart;
-					for(;i!=end;++i){
-						denopart*=radix;
-						ch=*i;
-						if(_repres.is_valid_char(ch))
-							denopart+=_repres.get_index(ch);
-						else{//error
-							state.success=false;
-							return {};
-						}
-					}
-					ubigfloat aret{move(base)};
-					aret/=denopart;
-					return aret;
-				}
-				elseif(ch==_repres.get_exponent_separator()){//科学计数法：123e456
-					++i;
-					auto exp=from_string_get<ptrdiff_t>(string{i,end},state);
-					if(!state.success)
+			{
+				auto exponent_pos = str.find_last_of(_repres.get_exponent_separator());
+				if(exponent_pos != string::npos){
+					auto expstr = str.substr(exponent_pos+1);
+					str = str.substr(0,exponent_pos);
+					auto exp = from_string_get<bigint>(expstr,state);
+					if(not state.success)
 						return {};
-					ubigfloat aret{move(base)};
-					while(exp<0){
-						aret/=radix;
-						++exp;
-					}
-					while(exp>0){
-						aret*=radix;
-						--exp;
-					}
-					return aret;
-				}
-				base*=radix;
-				if(_repres.is_valid_char(ch))
-					base+=_repres.get_index(ch);
-				else{//error
-					state.success=false;
-					return {};
+					auto base = from_string_get_base<T>(str,state);
+					if(not state.success)
+						return {};
+					return base*pow(_repres.get_radix(),exp);
 				}
 			}
-			return base;//这里直接他妈的返回了一个整数
+			{
+				auto fractional_pos = str.find_first_of(_repres.get_fractional_separator());//分数
+				if(fractional_pos != string::npos){
+					auto numeratorstr = str.substr(0,fractional_pos);
+					str = str.substr(fractional_pos+1);
+					auto& denominatorstr = str;
+					auto numerator = from_string_get_base<T>(numeratorstr,state);
+					if(not state.success)
+						return {};
+					auto denominator = from_string_get_base<T>(denominatorstr,state);
+					if(not state.success)
+						return {};
+					return numerator/denominator;
+				}
+			}
+			{
+				auto fractional_pos = str.find_first_of(_repres.get_fractional_sign());//小数
+				if(fractional_pos != string::npos){
+					auto integerstr = str.substr(0,fractional_pos);
+					str = str.substr(fractional_pos+1);
+					auto& fractionalstr = str;
+					auto integer = from_string_get<ubigint>(integerstr,state);
+					if(not state.success)
+						return {};
+					auto fractional = from_string_get<ubigint>(fractionalstr,state);
+					if(not state.success)
+						return {};
+					auto saclen = pow(ubigint{_repres.get_radix()},fractionalstr.size());
+					auto numerator = integer*saclen+fractional;
+					auto denominator = saclen;
+					return ubigfloat::build_from_numerator_and_denominator(numerator, denominator);
+				}
+			}
+			//纯纯的整数
+			return from_string_get<ubigint>(str,state);
 		}
 		//ubigfloat
 		template<class T> requires(type_info<T> == type_info<ubigfloat>)

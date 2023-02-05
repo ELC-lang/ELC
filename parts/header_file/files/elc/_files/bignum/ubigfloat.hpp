@@ -169,8 +169,8 @@ private:
 		_denominator(denominator)
 	{}
 public:
-	//friend build_ubigfloat_from_numerator_and_denominator
-	friend ubigfloat build_ubigfloat_from_numerator_and_denominator(const ubigint& numerator,const ubigint& denominator)noexcept{
+	//build_from_numerator_and_denominator
+	static ubigfloat build_from_numerator_and_denominator(const ubigint& numerator,const ubigint& denominator)noexcept{
 		return ubigfloat{numerator,denominator};
 	}
 	//friend abs
@@ -497,7 +497,35 @@ public:
 		_numerator/=g;
 		_denominator/=g;
 	}
+	//friend pow
+	friend [[nodiscard]] ubigfloat pow(ubigfloat base,ubigint exp)noexcept{
+		ubigfloat result=1u;
+		while(exp){
+			if(is_odd(exp))
+				result*=base;
+			base*=base;
+			exp>>=1u;
+		}
+		return result;
+	}
+	friend [[nodiscard]] ubigfloat pow(ubigfloat base,bigint exp)noexcept{
+		ubigfloat aret;
+		if(is_negative(exp))
+			aret={base._denominator,base._numerator};
+		else
+			aret=base;
+		ubigint uexp=abs(move(exp));
+		return pow(move(aret),move(uexp));
+	}
 };
+//pow of bigint
+[[nodiscard]]inline ubigfloat pow(ubigint base,bigint exp)noexcept{
+	return pow(ubigfloat(move(base)),move(exp));
+}
+template<typename T> requires(::std::is_integral_v<T> && ::std::is_unsigned_v<T>)
+[[nodiscard]]inline ubigfloat pow(T base,bigint exp)noexcept{
+	return pow(ubigint(base),move(exp));
+}
 //operator +-*= of ubigint and ubigfloat
 [[nodiscard]]inline ubigfloat operator+(const ubigint& lhs,const ubigfloat& rhs)noexcept{
 	return rhs + lhs;

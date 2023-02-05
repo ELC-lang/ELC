@@ -799,6 +799,26 @@ public:
 	[[nodiscard]]friend bool is_even(const ubigint& x)noexcept{
 		return !is_odd(x);
 	}
+	//friend pow
+	[[nodiscard]]friend ubigint pow(ubigint x,ubigint y)noexcept{
+		ubigint aret=1u;
+		while(y){
+			if(is_odd(y))aret*=x;
+			x*=x;
+			y>>=1u;
+		}
+		return aret;
+	}
+	template<typename T> requires(::std::integral<T> && ::std::is_unsigned_v<T>)
+	[[nodiscard]]friend ubigint pow(ubigint x,T y)noexcept{
+		ubigint aret=1u;
+		while(y){
+			if(y&1u)aret*=x;
+			x*=x;
+			y>>=1u;
+		}
+		return aret;
+	}
 };
 
 //file_end
