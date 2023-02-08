@@ -1,9 +1,10 @@
 // ice10242491.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "../../files/elc/base"
+#include "../../files/elc/random"
+#include "../../files/elc/bignum"
 
-using namespace elc::defs;
+using namespace elc;
 
 int main() {
 	using elc::rand;
@@ -12,7 +13,7 @@ int main() {
 		bigfloat a		  = test;
 		auto	 cvt_back = a.convert_to<double>();
 		if(cvt_back != test)
-			die();
+			defs::die();
 	}
 }
 
