@@ -7,15 +7,39 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 namespace to_string_n{
-	struct convert_state_t{
-		//转换状态
-		//用于记录转换过程中的状态
-		/// 是否成功
-		bool success=1;
-		/// 有限小数？
-		bool is_finite=1;
-		/// 纯整数？
-		bool is_integer=1;
+	//用于记录转换过程中的状态
+	class convert_state_t{
+		//是否出错
+		bool _error=false;
+		//是否出现了非法字符
+		bool _has_invalid_char=false;
+		//含有分数？
+		bool _has_fractional=false;
+		//含有小数？
+		bool _has_decimal=false;
+		//含有指数？
+		bool _has_exponent=false;
+	public:
+		constexpr convert_state_t()noexcept=default;
+		constexpr convert_state_t(const convert_state_t&)=default;
+		constexpr convert_state_t(convert_state_t&&)=default;
+		constexpr convert_state_t&operator=(const convert_state_t&)=default;
+		constexpr convert_state_t&operator=(convert_state_t&&)=default;
+		~convert_state_t()noexcept=default;
+		void reset()noexcept{
+			*this=convert_state_t{};
+		}
+		[[nodiscard]]constexpr bool error()const noexcept{return _error;}
+		[[nodiscard]]constexpr bool success()const noexcept{return !error();}
+		[[nodiscard]]constexpr bool has_invalid_char()const noexcept{return _has_invalid_char;}
+		[[nodiscard]]constexpr bool has_fractional()const noexcept{return _has_fractional;}
+		[[nodiscard]]constexpr bool has_decimal()const noexcept{return _has_decimal;}
+		[[nodiscard]]constexpr bool has_exponent()const noexcept{return _has_exponent;}
+		constexpr void set_error()noexcept{_error=true;}
+		constexpr void set_has_invalid_char()noexcept{_has_invalid_char=true;}
+		constexpr void set_has_fractional()noexcept{_has_fractional=true;}
+		constexpr void set_has_decimal()noexcept{_has_decimal=true;}
+		constexpr void set_has_exponent()noexcept{_has_exponent=true;}
 	};
 	template<numerical_representation representation_t>
 	class string_convert_impl{
@@ -237,17 +261,17 @@ namespace to_string_n{
 		//to_string定义完了，开始定义from_string_get
 		template<class T> requires(type_info<T> == type_info<ubigfloat>)
 		[[nodiscard]]ubigfloat from_string_get_base(string str,convert_state_t&state)const noexcept{
-			state={};
 			{
 				auto exponent_pos = str.find_last_of(_repres.get_exponent_separator());
 				if(exponent_pos != string::npos){
+					state.set_has_exponent();
 					auto expstr = str.substr(exponent_pos+1);
 					str = str.substr(0,exponent_pos);
 					auto exp = from_string_get<bigint>(expstr,state);
-					if(not state.success)
+					if(not state.success())
 						return {};
 					auto base = from_string_get_base<T>(str,state);
-					if(not state.success)
+					if(not state.success())
 						return {};
 					return base*pow(_repres.get_radix(),exp);
 				}
@@ -255,14 +279,15 @@ namespace to_string_n{
 			{
 				auto fractional_pos = str.find_first_of(_repres.get_fractional_separator());//分数
 				if(fractional_pos != string::npos){
+					state.set_has_fractional();
 					auto numeratorstr = str.substr(0,fractional_pos);
 					str = str.substr(fractional_pos+1);
 					auto& denominatorstr = str;
 					auto numerator = from_string_get_base<T>(numeratorstr,state);
-					if(not state.success)
+					if(not state.success())
 						return {};
 					auto denominator = from_string_get_base<T>(denominatorstr,state);
-					if(not state.success)
+					if(not state.success())
 						return {};
 					return numerator/denominator;
 				}
@@ -270,14 +295,15 @@ namespace to_string_n{
 			{
 				auto fractional_pos = str.find_first_of(_repres.get_fractional_sign());//小数
 				if(fractional_pos != string::npos){
+					state.set_has_decimal();
 					auto integerstr = str.substr(0,fractional_pos);
 					str = str.substr(fractional_pos+1);
 					auto& fractionalstr = str;
 					auto integer = from_string_get<ubigint>(integerstr,state);
-					if(not state.success)
+					if(not state.success())
 						return {};
 					auto fractional = from_string_get<ubigint>(fractionalstr,state);
-					if(not state.success)
+					if(not state.success())
 						return {};
 					auto saclen = pow(ubigint{_repres.get_radix()},fractionalstr.size());
 					auto numerator = integer*saclen+fractional;
@@ -292,14 +318,10 @@ namespace to_string_n{
 		template<class T> requires(type_info<T> == type_info<ubigfloat>)
 		[[nodiscard]]ubigfloat from_string_get_unsigneded(const string&str,convert_state_t&state)const noexcept{
 			//首先判断特殊值
-			if(str==_repres.get_nan()){
-				state={};
+			if(str==_repres.get_nan())
 				return ::std::numeric_limits<double>::quiet_NaN();
-			}
-			elseif(str==_repres.get_inf()){
-				state={};
+			elseif(str==_repres.get_inf())
 				return ::std::numeric_limits<double>::infinity();
-			}
 			else
 				return from_string_get_base<ubigfloat>(str,state);
 		}
@@ -315,19 +337,14 @@ namespace to_string_n{
 			//首先判断特殊值
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
 				if constexpr(::std::numeric_limits<T>::has_signaling_NaN)
-					if(str==_repres.get_signaling_nan()){
-						state={};
+					if(str==_repres.get_signaling_nan())
 						return ::std::numeric_limits<T>::signaling_NaN();
-					}
 				if constexpr(::std::numeric_limits<T>::has_quiet_NaN)
-					if(str==_repres.get_quiet_nan()){
-						state={};
+					if(str==_repres.get_quiet_nan())
 						return ::std::numeric_limits<T>::quiet_NaN();
-					}
 				if(str.starts_with(_repres.get_nan())){
 					str.remove_front(_repres.get_nan().size());
 					if(str && str.back()==_repres.get_unknown_data_end_sign()){
-						state={};
 						str.remove_front();
 						str.remove_back();
 						data_block<T> block;
@@ -336,7 +353,7 @@ namespace to_string_n{
 						const auto radix = _repres.get_radix();
 						const auto unknown_data_split_sign = _repres.get_unknown_data_split_sign();
 						const bool needs_split_sign = radix < number_of_possible_values_per<char>;
-						while(state.success){
+						while(state.success()){
 							if(needs_split_sign){
 								const size_t dot_pos = str.find(unknown_data_split_sign);
 								auto byte_str		 = str.substr(0, dot_pos);
@@ -348,19 +365,15 @@ namespace to_string_n{
 							else
 								block[write_index++] = (byte)from_string_get_unsigneded<unsigned char>(str.pop_front(),state);
 						}
-						return state.success?data_cast<T>(block):T{};
+						return state.success()?data_cast<T>(block):T{};
 					}
-					else{
-						state={};
+					else
 						return ::std::numeric_limits<T>::quiet_NaN();
-					}
 				}
 			}
 			if constexpr(::std::numeric_limits<T>::has_infinity)
-				if(str==_repres.get_inf()){
-					state={};
+				if(str==_repres.get_inf())
 					return ::std::numeric_limits<T>::infinity();
-				}
 			//由于基本类型的浮点数转换实现有损，所以这里直接转换为ubigfloat再转换为T
 			return from_string_get_base<ubigfloat>(move(str),state).convert_to<T>();
 		}
@@ -386,7 +399,8 @@ namespace to_string_n{
 					if(_repres.is_valid_char(ch))
 						aret+=_repres.get_index(ch);
 					else{//error
-						state.success=false;
+						state.set_error();
+						state.set_has_invalid_char();
 						return {};
 					}
 				}
@@ -403,12 +417,11 @@ namespace to_string_n{
 		//特殊：从单个字符中获取数值
 		template<unsigned_type T>
 		[[nodiscard]]T from_string_get_unsigneded(const char_t&ch,convert_state_t&state)const noexcept{
-			if(_repres.is_valid_char(ch)){
-				state={};
+			if(_repres.is_valid_char(ch))
 				return(T)_repres.get_index(ch);
-			}
 			else{
-				state.success=false;
+				state.set_error();
+				state.set_has_invalid_char();
 				return {};
 			}
 		}
