@@ -460,7 +460,11 @@ public:
 	}
 	//operator++
 	bigint& operator++()&noexcept{
-		return *this+=1u;
+		if(_is_negative)
+			--_num;
+		else
+			++_num;
+		return*this;
 	}
 	[[nodiscard]]bigint operator++(int)&noexcept{
 		auto tmp = *this;
@@ -469,7 +473,11 @@ public:
 	}
 	//operator--
 	bigint& operator--()&noexcept{
-		return *this-=1u;
+		if(_is_negative)
+			++_num;
+		else
+			--_num;
+		return*this;
 	}
 	[[nodiscard]]bigint operator--(int)&noexcept{
 		auto tmp = *this;

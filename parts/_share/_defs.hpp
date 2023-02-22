@@ -103,7 +103,7 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 }\
 
 #define floop while(__builtin_is_my_dick_still_there())
-#if defined(_MSC_VER) && _MSC_VER==1935
+#if defined(_MSC_VER) && _MSC_VER>=1935
 	//https://developercommunity.visualstudio.com/t/10193638
 	#define enable_adl(name) template<typename=void>void name()noexcept=delete
 #else

@@ -209,31 +209,61 @@ private:
 		add_to_base(buf,get_data_view_of_data(b));
 	}
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
-	static void add_to_base(base_type*buf,size_t end_size,T num)noexcept{
+	static void add_to_base(data_type&buf,T num)noexcept{
 		//定义运算类型：若T比calc_type大，则使用T，否则使用calc_type
 		using calc_t = conditional<(sizeof(T) > sizeof(calc_type)),T,calc_type>;
-		//首先判断第一个数是否溢出：这只在T比calc_type大或相等时才有可能
-		if constexpr(sizeof(T) >= sizeof(calc_type)){
-			const calc_t result = calc_t(*buf)+num;
-			const bool is_overflows = result<num;
-			if(is_overflows){
-				//若T不是uintmax_t，提升到uintmax_t并递归
-				if constexpr(type_info<T>!=type_info<uintmax_t>)
-					add_to_base(buf,end_size,uintmax_t(num));
-				else{//否则直接构建一个ubigint进行加法
-					ubigint tmp=num;
-					add_to_base(buf,tmp.get_data_view());
-				}
-				return;
+		//初始化
+		calc_t tmp=num;
+		base_type*intr=buf.begin();
+		const auto end=buf.end();
+		bool is_overflows = false;
+		while(intr!=end && tmp){
+			calc_t result = calc_t(*intr)+tmp+calc_t(is_overflows);
+			is_overflows = result <= tmp;
+			tmp = result>>bitnum_of(base_type);
+			*intr=base_type(result);
+			++intr;
+		}
+		if(tmp){
+			{
+				const auto intr_pos=intr-buf.begin();
+				buf.resize(buf.size()+sizeof(tmp));
+				intr=buf.begin()+intr_pos;
 			}
+			while(tmp){
+				*intr=base_type(tmp)+is_overflows;
+				is_overflows = is_overflows && *intr==0;
+				tmp>>=bitnum_of(base_type);
+				++intr;
+			}
+			buf.resize(intr-buf.begin());
 		}
-		//现在确保了第一个数不会溢出：放心进行加法
-		for(size_t i=0;i<end_size && num;++i){
-			num+=*buf;
-			*buf=base_type(num);
-			num>>=bitnum_of(base_type);
-			++buf;
+	}
+	/// 将b向前偏移offset个base_type后加到buf上，等价于buf+=b<<offset*bitnum_of(base_type)
+	/// 用于乘法优化
+	static void offset_add_to_base(base_type*buf,const data_type&b,size_t offset)noexcept{
+		add_to_base(buf+offset,get_data_view_of_data(b));
+	}
+	static void offset_add_to_base(data_type&buf,data_view_type b,size_t offset)noexcept{
+		//检查是否需要扩容
+		if(buf.size()<offset+b.size()){
+			const auto size_now = buf.size();
+			const auto size_need = offset+b.size()+1;//考虑进位
+			buf.resize(size_need);
+			copy_assign[size_now](note::to(buf.data()+size_now),base_type{0});//填充0
 		}
+		offset_add_to_base(buf.data(),b,offset);
+		shrink_to_fit(buf);
+	}
+	auto& offset_add_to_base(data_view_type b,size_t offset)noexcept{
+		offset_add_to_base(_data,b,offset);
+		return*this;
+	}
+	auto& offset_add_to_base(const data_type&b,size_t offset)noexcept{
+		return offset_add_to_base(get_data_view_of_data(b),offset);
+	}
+	auto& offset_add_to_base(const ubigint&b,size_t offset)noexcept{
+		return offset_add_to_base(b._data,offset);
 	}
 	//-
 	[[nodiscard]]static data_type sub_base(data_view_type a,data_view_type b)noexcept{
@@ -275,6 +305,40 @@ private:
 
 			++buf;
 		}
+	}
+	//++
+	//add_one_to_base
+	static void add_one_to_base(data_type&buf)noexcept{
+		base_type*intr=buf.begin();
+		const auto end=buf.end();
+		while(intr!=end){
+			++*intr;
+			if(*intr)
+				return;
+			++intr;
+		}
+		buf.resize(buf.size()+1);
+		buf.back()=1;
+	}
+	void add_one_to_base()noexcept{
+		add_one_to_base(_data);
+	}
+	//--
+	//sub_one_from_base
+	static void sub_one_from_base(data_type&buf)noexcept{
+		base_type*intr=buf.begin();
+		const auto end=buf.end();
+		while(intr!=end){
+			if(*intr){
+				--*intr;
+				return;
+			}
+			*intr=max(type_info<base_type>);
+		}
+		//整个buf都是0，说明buf是0，不需要做任何操作
+	}
+	void sub_one_from_base()noexcept{
+		sub_one_from_base(_data);
 	}
 	//*
 	[[nodiscard]]static data_type muti_base(data_view_type a,base_type b)noexcept{
@@ -340,9 +404,8 @@ private:
 		ubigint middle{fast_muti_base(add_base(a_high,a_low),add_base(b_high,b_low))};
 		//合并结果
 		middle -= high+low;
-		high <<= split_point*bitnum_of(base_type);
-		middle <<= split_point*bitnum_of(base_type)/2;
-		return (move(high)+move(middle)+move(low))._data;
+		return move(low.offset_add_to_base(high,split_point*2).
+						offset_add_to_base(middle,split_point)._data);
 	}
 	[[nodiscard]]static data_type fast_muti_base(data_type&& a,data_type&& b)noexcept{
 		return fast_muti_base(get_data_view_of_data(a),get_data_view_of_data(b));
@@ -566,26 +629,7 @@ public:
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
 	ubigint& operator+=(T other)&noexcept{
 		//using add_to_base to avoid new alloc
-		auto origin_size = _data.size();
-		if(!origin_size)
-			return (*this) = ubigint{other};
-		const auto size_diff = lambda_with_catch(&)()->size_t{
-			const auto back_bits_not_using=countl_zero(_data.back());
-			const auto bits_other_not_using=countl_zero(other);
-			const auto bitnum_other=bitnum_of(T)-bits_other_not_using;
-			const auto bitnum_now=bitnum_of(base_type)*origin_size-back_bits_not_using;
-			if(bitnum_other>bitnum_now)
-				return sizeof(T)/sizeof(base_type)+(bits_other_not_using?0:1);
-			return back_bits_not_using?0:1;
-		}();
-		if(size_diff){
-			const auto new_size = origin_size + size_diff;
-			_data.resize(new_size);
-			copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
-		}
-		add_to_base(_data.data(),origin_size,other);
-		if(size_diff)
-			shrink_to_fit();
+		add_to_base(_data,other);
 		return*this;
 	}
 	//operator-=
@@ -788,7 +832,8 @@ public:
 	}
 	//operator++
 	ubigint& operator++()&noexcept{
-		return *this+=1u;
+		add_one_to_base();
+		return*this;
 	}
 	[[nodiscard]]ubigint operator++(int)&noexcept{
 		auto tmp = *this;
@@ -797,7 +842,8 @@ public:
 	}
 	//operator--
 	ubigint& operator--()&noexcept{
-		return *this-=1u;
+		sub_one_from_base();
+		return*this;
 	}
 	[[nodiscard]]ubigint operator--(int)&noexcept{
 		auto tmp = *this;
