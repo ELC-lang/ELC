@@ -311,10 +311,47 @@ private:
 		}
 	}
 	[[nodiscard]]static data_type muti_base(data_view_type a,data_view_type b)noexcept{
+		if(a.size()<b.size())swap(a,b);//大数在前循环数小
 		array_t<base_type> tmp(note::size(a.size()+b.size()),0);
 		muti_with_base(tmp.data(),a,b);
 		shrink_to_fit(tmp);
 		return tmp;
+	}
+	//分割乘法以提高效率
+	[[nodiscard]]static data_type fast_muti_base(data_view_type a,data_view_type b)noexcept{
+		constexpr auto fast_muti_base_threshold=1<<4;
+		if(min(a.size(),b.size())<fast_muti_base_threshold)
+			return muti_base(a,b);
+		//计算分割点
+		const auto split_point=max(
+			min((a.size()+1)/2,b.size()-1),
+			min(a.size()-1,(b.size()+1)/2)
+		);
+		//拆成4个数
+		const auto a_split_point=a.data()+split_point;
+		data_view_type a_high{a.data(),split_point};
+		data_view_type a_low{a_split_point,a.size()-split_point};
+		const auto b_split_point=b.data()+split_point;
+		data_view_type b_high{b.data(),split_point};
+		data_view_type b_low{b_split_point,b.size()-split_point};
+		//计算结果
+		ubigint high{fast_muti_base(a_high,b_high)};
+		ubigint low{fast_muti_base(a_low,b_low)};
+		ubigint middle{fast_muti_base(add_base(a_high,a_low),add_base(b_high,b_low))};
+		//合并结果
+		middle -= high+low;
+		high <<= split_point*bitnum_of(base_type);
+		middle <<= split_point*bitnum_of(base_type)/2;
+		return (move(high)+move(middle)+move(low))._data;
+	}
+	[[nodiscard]]static data_type fast_muti_base(data_type&& a,data_type&& b)noexcept{
+		return fast_muti_base(get_data_view_of_data(a),get_data_view_of_data(b));
+	}
+	[[nodiscard]]static data_type fast_muti_base(data_type&& a,data_view_type b)noexcept{
+		return fast_muti_base(get_data_view_of_data(a),b);
+	}
+	[[nodiscard]]static data_type fast_muti_base(data_view_type a,data_type&& b)noexcept{
+		return fast_muti_base(a,get_data_view_of_data(b));
 	}
 	///
 	static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
@@ -433,9 +470,7 @@ public:
 	[[nodiscard]]ubigint operator*(const ubigint& other)const&noexcept{
 		auto this_view = get_data_view();
 		auto other_view = other.get_data_view();
-		if(this_view.size() < other_view.size())//大数在前循环数小
-			swap(this_view, other_view);
-		return ubigint{muti_base(this_view, other_view)};
+		return ubigint{fast_muti_base(this_view, other_view)};
 	}
 	//operator/
 	[[nodiscard]]ubigint operator/(const ubigint& other)const&noexcept{
