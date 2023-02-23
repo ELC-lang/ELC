@@ -460,8 +460,11 @@ public:
 	}
 	//operator++
 	bigint& operator++()&noexcept{
-		if(_is_negative)
+		if(_is_negative){
 			--_num;
+			if(!_num)
+				_is_negative=false;
+		}
 		else
 			++_num;
 		return*this;
@@ -473,6 +476,8 @@ public:
 	}
 	//operator--
 	bigint& operator--()&noexcept{
+		if(!_is_negative && !_num)
+			_is_negative=true;
 		if(_is_negative)
 			++_num;
 		else
