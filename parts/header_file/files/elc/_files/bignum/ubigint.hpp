@@ -231,7 +231,7 @@ private:
 				intr=buf.begin()+intr_pos;
 			}
 			while(tmp){
-				*intr=base_type(tmp)+is_overflows;
+				*intr=base_type(tmp)+calc_t(is_overflows);
 				is_overflows = is_overflows && *intr==0;
 				tmp>>=bitnum_of(base_type);
 				++intr;
@@ -393,11 +393,11 @@ private:
 		);
 		//拆成4个数
 		const auto a_split_point=a.data()+split_point;
-		data_view_type a_high{a.data(),split_point};
-		data_view_type a_low{a_split_point,a.size()-split_point};
+		const data_view_type a_high{a.data(),split_point};
+		const data_view_type a_low{a_split_point,a.size()-split_point};
 		const auto b_split_point=b.data()+split_point;
-		data_view_type b_high{b.data(),split_point};
-		data_view_type b_low{b_split_point,b.size()-split_point};
+		const data_view_type b_high{b.data(),split_point};
+		const data_view_type b_low{b_split_point,b.size()-split_point};
 		//计算结果
 		ubigint high{fast_muti_base(a_high,b_high)};
 		ubigint low{fast_muti_base(a_low,b_low)};
@@ -407,13 +407,13 @@ private:
 		return move(low.offset_add_to_base(high,split_point*2).
 						offset_add_to_base(middle,split_point)._data);
 	}
-	[[nodiscard]]static data_type fast_muti_base(data_type&& a,data_type&& b)noexcept{
+	[[nodiscard]]static data_type fast_muti_base(const data_type& a,const data_type& b)noexcept{
 		return fast_muti_base(get_data_view_of_data(a),get_data_view_of_data(b));
 	}
-	[[nodiscard]]static data_type fast_muti_base(data_type&& a,data_view_type b)noexcept{
+	[[nodiscard]]static data_type fast_muti_base(const data_type& a,data_view_type b)noexcept{
 		return fast_muti_base(get_data_view_of_data(a),b);
 	}
-	[[nodiscard]]static data_type fast_muti_base(data_view_type a,data_type&& b)noexcept{
+	[[nodiscard]]static data_type fast_muti_base(data_view_type a,const data_type& b)noexcept{
 		return fast_muti_base(a,get_data_view_of_data(b));
 	}
 	///
@@ -531,8 +531,8 @@ public:
 	}
 	//operator*
 	[[nodiscard]]ubigint operator*(const ubigint& other)const&noexcept{
-		auto this_view = get_data_view();
-		auto other_view = other.get_data_view();
+		const auto this_view = get_data_view();
+		const auto other_view = other.get_data_view();
 		return ubigint{fast_muti_base(this_view, other_view)};
 	}
 	//operator/

@@ -303,7 +303,7 @@ elc依赖的基础函数.
 				read_size = i;
 				//put back chars if v != 0
 				if(v != 0)
-					basic_seek_impl(stream,-(ptrdiff_t)v*sizeof(char_T),cur);
+					basic_seek_impl(stream,-(int_t)v*sizeof(char_T),cur);
 			}else{
 				//read it from stream
 				read_size=reader(stream,buffer,size);

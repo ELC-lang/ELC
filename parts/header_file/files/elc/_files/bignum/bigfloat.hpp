@@ -607,12 +607,12 @@ public:
 	}
 	//friend pow
 	friend [[nodiscard]] bigfloat pow(bigfloat base,ubigint exp)noexcept{
-		bool sign=is_negative(base)&&is_odd(exp);
+		const bool sign=is_negative(base)&&is_odd(exp);
 		auto uret=pow(abs(base),exp);
 		return {move(uret),sign};
 	}
 	friend [[nodiscard]] bigfloat pow(bigfloat base,bigint exp)noexcept{
-		bool sign=is_negative(base)&&is_odd(exp);
+		const bool sign=is_negative(base)&&is_odd(exp);
 		auto uret=pow(abs(base),abs(exp));
 		return {move(uret),sign};
 	}
