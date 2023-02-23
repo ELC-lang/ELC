@@ -8,6 +8,11 @@
 */
 namespace rand_n{
 	typedef uint_t seed_type;//考虑到通用性以便于跨平台通用的seed，不可以使用uintmax_t
+
+	//修复32位环境下的溢出问题
+	typedef uint64_t size_t;
+	typedef int64_t ptrdiff_t;
+
 	namespace linear_congruential_arguments_n{
 		//type
 		template<class T>

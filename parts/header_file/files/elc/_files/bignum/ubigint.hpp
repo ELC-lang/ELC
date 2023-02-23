@@ -103,7 +103,7 @@ private:
 	[[nodiscard]]data_view_type get_shrinked_data_view()const noexcept{
 		return get_shrinked_data_view_of_data(_data);
 	}
-	[[nodiscard]]data_view_type re_shrink(data_view_type a)noexcept{
+	[[nodiscard]]static data_view_type re_shrink(data_view_type a)noexcept{
 		return get_shrinked_data_view_of_data(a.data(), a.size());
 	}
 public:
@@ -130,6 +130,7 @@ public:
 		}
 	}
 	//operator<=>
+private:
 	//由于低位在前，不能使用elc的默认compare
 	[[nodiscard]]static auto compare(data_view_type a, data_view_type b)noexcept{
 		if(const auto tmp=a.size()<=>b.size(); tmp!=0)
@@ -141,6 +142,7 @@ public:
 				return tmp;
 		return strong_ordering::equivalent;
 	}
+public:
 	[[nodiscard]]auto operator<=>(const ubigint& other)const noexcept{
 		return compare(get_data_view(),other.get_data_view());
 	}
@@ -178,7 +180,7 @@ private:
 		//判断进位所需空间
 		if(a.size()!=b.size()){
 			auto i = a.size();
-			while(--i != b.size())//判断进位区是否没有足够的空间以至于需要进位
+			while(i-- != b.size())//判断进位区是否没有足够的空间以至于需要进位
 				if(a[i]!=max(type_info<base_type>))//任意一位不是最大值就不需要进位
 					return 0;
 			return 1;
