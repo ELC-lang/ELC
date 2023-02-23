@@ -103,6 +103,9 @@ private:
 	[[nodiscard]]data_view_type get_shrinked_data_view()const noexcept{
 		return get_shrinked_data_view_of_data(_data);
 	}
+	[[nodiscard]]data_view_type re_shrink(data_view_type a)noexcept{
+		return get_shrinked_data_view_of_data(a.data(), a.size());
+	}
 public:
 	//operator==
 	[[nodiscard]]bool operator==(const ubigint& other)const noexcept{
@@ -419,10 +422,10 @@ private:
 		);
 		//拆成4个数
 		const auto a_split_point=a.data()+split_point;
-		const data_view_type a_low{a.data(),split_point};
+		const data_view_type a_low=get_shrinked_data_view_of_data(a.data(),split_point);
 		const data_view_type a_high{a_split_point,a.size()-split_point};
 		const auto b_split_point=b.data()+split_point;
-		const data_view_type b_low{b.data(),split_point};
+		const data_view_type b_low=get_shrinked_data_view_of_data(b.data(),split_point);
 		const data_view_type b_high{b_split_point,b.size()-split_point};
 		//计算结果
 		ubigint high{fast_muti_base(a_high,b_high)};
