@@ -79,10 +79,6 @@ namespace to_string_n{
 					}
 					numerator*=_repres.get_denominator_complement(denominator,exp);
 					//现在denominator是1
-					#if defined(_DEBUG)
-						if(denominator!=1u)
-							__debugbreak();
-					#endif
 					if constexpr(is_basic_type<T>){//若T是基础类型
 						//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
 						constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
@@ -184,10 +180,6 @@ namespace to_string_n{
 					auto res=divmod(move(num),radix);
 					const auto index=to_size_t(move(res.mod));
 					const auto ch=_repres.get_char(index);
-					#if defined(_DEBUG)
-						if(!_repres.is_valid_char(ch))
-							__debugbreak();
-					#endif
 					aret.push_front(ch);
 					num=move(res.quot);
 				}while(num);

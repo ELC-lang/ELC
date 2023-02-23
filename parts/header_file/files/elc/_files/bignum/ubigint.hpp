@@ -7,10 +7,10 @@
 项目地址：https://github.com/steve02081504/ELC
 */
 class ubigint{
-	#if defined(_DEBUG)
+	#if defined(_DEBUG) && !defined(ELC_SPEED_TEST)
 		typedef unsigned char base_type;
 	#else
-		typedef unsigned_specific_size_fast_t<BIT_POSSIBILITY> base_type;
+		typedef unsigned_specific_size_fast_t<sizeof(uintmax_t)/2> base_type;
 	#endif
 	typedef array_t<base_type> data_type;
 	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
