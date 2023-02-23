@@ -412,7 +412,7 @@ private:
 	}
 	//分割乘法以提高效率
 	[[nodiscard]]static data_type fast_muti_base(data_view_type a,data_view_type b)noexcept{
-		constexpr auto fast_muti_base_threshold=BIT_POSSIBILITY;
+		constexpr auto fast_muti_base_threshold=1<<2;
 		if(min(a.size(),b.size())<fast_muti_base_threshold)
 			return muti_base(a,b);
 		//计算分割点
