@@ -187,7 +187,7 @@ private:
 		}
 		else{
 			//只需要判断最高位是否需要进位
-			auto res=calc_type(a.back())+calc_type(b.back())+1;//+1是因为次高位可能进位
+			const auto res=calc_type(a.back())+calc_type(b.back())+1;//+1是因为次高位可能进位
 			return res>>bitnum_of(base_type);
 		}
 	}
@@ -414,7 +414,7 @@ private:
 	}
 	//分割乘法以提高效率
 	[[nodiscard]]static data_type fast_muti_base(data_view_type a,data_view_type b)noexcept{
-		constexpr auto fast_muti_base_threshold=1<<2;
+		constexpr auto fast_muti_base_threshold=1<<6;//对小于1000的随机数阶乘测试后选择此数
 		if(min(a.size(),b.size())<fast_muti_base_threshold)
 			return muti_base(a,b);
 		//计算分割点
@@ -648,9 +648,9 @@ public:
 		//using add_to_base to avoid new alloc
 		const auto this_view = get_data_view();
 		const auto other_view = other.get_data_view();
-		auto origin_size = this_view.size();
-		auto new_size = get_safety_add_buf_size_with_not_copmared_buf(this_view,other_view);
-		auto size_diff = new_size - origin_size;
+		const auto origin_size = this_view.size();
+		const auto new_size = get_safety_add_buf_size_with_not_copmared_buf(this_view,other_view);
+		const auto size_diff = new_size - origin_size;
 		if(size_diff){
 			_data.resize(new_size);
 			copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
