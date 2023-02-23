@@ -11,7 +11,7 @@
 #if defined(_MSC_VER)
 	#pragma warning(pop)
 #endif
-#undef suppress_msvc_warning
+//#undef suppress_msvc_warning
 #undef disable_msvc_warning
 #undef push_msvc_warning
 #undef pop_msvc_warning

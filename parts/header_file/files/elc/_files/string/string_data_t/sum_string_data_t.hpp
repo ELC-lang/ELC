@@ -199,8 +199,9 @@ public:
 	}
 protected:
 	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
-		suppress_msvc_warning(26494)//未初始化警告diss
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		hash_t result;
+		pop_msvc_warning();
 		if(_before_size){
 			result=_before->get_hash(_before);
 			if(_after_size)

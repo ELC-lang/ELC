@@ -140,9 +140,10 @@ namespace function_n{
 			catch(void*){}
 			return note::fail;
 		}
-		suppress_msvc_warning(26440)//nothrow警告diss
+		push_and_disable_msvc_warning(26440);//nothrow警告diss
 		void operator=(const this_t&a){_m=a._m;}
 		Ret_t call(Args_t&&...rest)const{return _m->call(forward<Args_t>(rest)...);}
+		pop_msvc_warning();
 	};
 
 	template<class T,bool promise_nothrow_at_destruct>
@@ -278,8 +279,9 @@ namespace function_n{
 		}
 
 		Ret_t operator()(Args_t...args)const noexcept(nothrow){
-			suppress_msvc_warning(26447)
+			push_and_disable_msvc_warning(26447);
 			return base_t::call(forward<Args_t>(args)...);
+			pop_msvc_warning();
 		}
 
 	private:
@@ -565,14 +567,14 @@ namespace function_n{
 			return bool(_m);
 		}
 
+		push_and_disable_msvc_warning(26447);
 		Ret_t operator()(Args_t...args)noexcept{
-			suppress_msvc_warning(26447)
 			return base_t::call(forward<Args_t>(args)...);
 		}
 		Ret_t operator()(Args_t...args)const noexcept{
-			suppress_msvc_warning(26447)
 			return base_t::call(forward<Args_t>(args)...);
 		}
+		pop_msvc_warning();
 
 	private:
 		//以下是突然想加的功能(没什么用<迷惑行为大赏>).

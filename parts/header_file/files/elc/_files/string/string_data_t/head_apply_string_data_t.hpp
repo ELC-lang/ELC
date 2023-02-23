@@ -232,8 +232,9 @@ public:
 	}
 protected:
 	virtual hash_t get_hash_detail(ptr_t&)noexcept(hash_nothrow)override final{
-		suppress_msvc_warning(26494)//未初始化警告diss
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		hash_t result;
+		pop_msvc_warning();
 		if(_used_size){
 			const char_T* head_begin=_m.end()-_used_size;
 			result=hash(head_begin,_used_size);

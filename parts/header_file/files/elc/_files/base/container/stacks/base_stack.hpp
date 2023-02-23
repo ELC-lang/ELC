@@ -49,8 +49,9 @@ public:
 	}
 	base_stack_t(const this_t&a)noexcept_as(declvalue(this_t).copy()):base_stack_t(a.copy()){}
 	~base_stack_t()noexcept(unget.nothrow<data_t>){
-		suppress_msvc_warning(26494)//未初始化警告diss
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		data_t*tmp;
+		pop_msvc_warning();
 		while(_m!=null_ptr){
 			tmp=_m;
 			_m=_m->_next;

@@ -138,10 +138,11 @@ namespace range_n{
 			}
 		}
 	};
-	suppress_msvc_warning(26475)//强制转换警告diss
+	push_and_disable_msvc_warning(26475);//强制转换警告diss
 	//  npos
 	/// 用以指定不存在的位置
 	static constexpr size_t npos = size_t(-1);
+	pop_msvc_warning();
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* in_range(const remove_cvref<T>&pattern,const array_like_view_t<T>&range){

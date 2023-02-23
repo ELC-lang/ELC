@@ -22,7 +22,7 @@ namespace null_ptr_n{
 	enable_adl(the_get_null_ptr);
 	template<typename T>
 	[[nodiscard]]constexpr auto get_null_ptr()noexcept{
-		suppress_msvc_warning(26462)//貌似msvc在这里有bug
+		push_and_disable_msvc_warning(26462);//貌似msvc在这里有bug
 		constexpr auto null_as_T = static_cast<T*>(nullptr);
 		if constexpr(was_not_an_ill_form(the_get_null_ptr(null_as_T)))
 			return the_get_null_ptr(null_as_T);
@@ -32,6 +32,7 @@ namespace null_ptr_n{
 		}
 		else
 			return null_as_T;
+		pop_msvc_warning();
 	}
 
 

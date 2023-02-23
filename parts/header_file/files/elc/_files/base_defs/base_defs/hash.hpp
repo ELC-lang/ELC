@@ -178,8 +178,9 @@ namespace hash_n{
 				//关於此,咱确信咱发现一种美妙的证法来保证这个优化不影响结果,但可惜凋可怜的脑容量不足以让他看懂.
 				constexpr size_t bit_range_max=bitnum_of(hash_base_t);
 				constexpr hash_base_t void_hash{nothing};
-				suppress_msvc_warning(26475)//强制转换警告diss.
+				push_and_disable_msvc_warning(26475)//强制转换警告diss.
 				constexpr hash_base_t npos_hash{hash_base_t(-1)};
+				pop_msvc_warning();
 				constexpr size_t bitnumof_void=bit_range_max*BIT_POSSIBILITY;
 
 				size=size%bitnumof_void;

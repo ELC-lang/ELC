@@ -954,12 +954,13 @@ namespace string_n{
 		typename stream_t::iostate		 state = stream_t::goodbit;
 
 		size_t size = str.size();
-		suppress_msvc_warning(26494);//未初始化警告diss
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		size_t pad;
 		if(os.width() <= 0 || static_cast<size_t>(os.width()) <= size)
 			pad = 0;
 		else
 			pad = static_cast<size_t>(os.width()) - size;
+		pop_msvc_warning();
 
 		const typename stream_t::sentry isok(os);
 

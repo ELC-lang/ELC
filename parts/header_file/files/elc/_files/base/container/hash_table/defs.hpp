@@ -82,7 +82,7 @@ namespace hash_table_n{
 		template<typename U>
 		[[nodiscard]]maybe_fail_reference<T>find(U&&a)noexcept(find_nothrow<U>){
 			auto&bucket=find_bucket(hash(a));
-			suppress_msvc_warning(26496)//?
+			push_and_disable_msvc_warning(26496)//?
 			auto reference=bucket.find(a);
 			if constexpr(is_unstable_hash<T>)
 				if(reference.fail()){
@@ -94,6 +94,7 @@ namespace hash_table_n{
 							break;
 					}
 				}
+			pop_msvc_warning();
 			return reference;
 		}
 		[[nodiscard]]bool in_table(const T&a)noexcept_as(declvalue(this_t).find(a).not_fail()){

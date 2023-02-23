@@ -116,7 +116,7 @@ protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept=0;
 private:
 	[[nodiscard]]bool base_equal_with(ptr_t with)noexcept(equal.nothrow<char_T>){
-		suppress_msvc_warning(26494)//未初始化警告diss
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		bool aret;
 		{
 			//同结构比较优化比较方式
@@ -126,6 +126,7 @@ private:
 			else
 				aret=default_equal_method(with);
 		}
+		pop_msvc_warning();
 		//如果equal，则eq处理
 		if(aret)
 			equivalent_optimization(this,with);
@@ -241,7 +242,7 @@ public:
 	}
 private:
 	[[nodiscard]]compare_type base_compare_with(ptr_t with)noexcept(compare.nothrow<char_T>){
-		suppress_msvc_warning(26494)//未初始化警告diss
+		push_and_disable_msvc_warning(26494);//未初始化警告diss
 		compare_type aret;
 		{
 			//同结构比较优化比较方式
@@ -251,6 +252,7 @@ private:
 			else
 				aret=default_compare_method(with);
 		}
+		pop_msvc_warning();
 		//如果equal，则eq处理
 		if(aret==0)
 			equivalent_optimization(this,with);
