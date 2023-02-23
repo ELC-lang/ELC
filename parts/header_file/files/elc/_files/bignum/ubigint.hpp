@@ -246,11 +246,12 @@ private:
 	}
 	static void offset_add_to_base(data_type&buf,data_view_type b,size_t offset)noexcept{
 		//检查是否需要扩容
-		if(buf.size()<offset+b.size()){
+		if(buf.size()<=offset+b.size()){
 			const auto size_now = buf.size();
 			const auto size_need = offset+b.size()+1;//考虑进位
+			const auto size_diff = size_need - size_now;
 			buf.resize(size_need);
-			copy_assign[size_now](note::to(buf.data()+size_now),base_type{0});//填充0
+			copy_assign[size_diff](note::to(buf.data()+size_now),base_type{0});//填充0
 		}
 		offset_add_to_base(buf.data(),b,offset);
 		shrink_to_fit(buf);
@@ -383,7 +384,7 @@ private:
 	}
 	//分割乘法以提高效率
 	[[nodiscard]]static data_type fast_muti_base(data_view_type a,data_view_type b)noexcept{
-		constexpr auto fast_muti_base_threshold=1<<4;
+		constexpr auto fast_muti_base_threshold=BIT_POSSIBILITY;
 		if(min(a.size(),b.size())<fast_muti_base_threshold)
 			return muti_base(a,b);
 		//计算分割点
@@ -393,11 +394,11 @@ private:
 		);
 		//拆成4个数
 		const auto a_split_point=a.data()+split_point;
-		const data_view_type a_high{a.data(),split_point};
-		const data_view_type a_low{a_split_point,a.size()-split_point};
+		const data_view_type a_low{a.data(),split_point};
+		const data_view_type a_high{a_split_point,a.size()-split_point};
 		const auto b_split_point=b.data()+split_point;
-		const data_view_type b_high{b.data(),split_point};
-		const data_view_type b_low{b_split_point,b.size()-split_point};
+		const data_view_type b_low{b.data(),split_point};
+		const data_view_type b_high{b_split_point,b.size()-split_point};
 		//计算结果
 		ubigint high{fast_muti_base(a_high,b_high)};
 		ubigint low{fast_muti_base(a_low,b_low)};
