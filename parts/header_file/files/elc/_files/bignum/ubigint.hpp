@@ -171,17 +171,42 @@ private:
 	//operator+-*/%s
 	typedef unsigned_specific_size_t<BIT_POSSIBILITY*sizeof(base_type)> calc_type;
 	//+
+	[[nodiscard]]static size_t get_safety_add_buf_size_diff(data_view_type a,data_view_type b)noexcept{
+		//判断进位所需空间
+		if(a.size()!=b.size()){
+			auto i = a.size();
+			while(--i != b.size())//判断进位区是否没有足够的空间以至于需要进位
+				if(a[i]!=max(type_info<base_type>))//任意一位不是最大值就不需要进位
+					return 0;
+			return 1;
+		}
+		else{
+			//只需要判断最高位是否需要进位
+			auto res=calc_type(a.back())+calc_type(b.back())+1;//+1是因为次高位可能进位
+			return res>>bitnum_of(base_type);
+		}
+	}
+	[[nodiscard]]static size_t get_safety_add_buf_size(data_view_type a,data_view_type b)noexcept{
+		return a.size()+get_safety_add_buf_size_diff(a,b);
+	}
+	[[nodiscard]]static size_t get_safety_add_buf_size_with_not_copmared_buf(data_view_type a,data_view_type b)noexcept{
+		if(a.size()<b.size())
+			swap(a,b);
+		return get_safety_add_buf_size(a,b);
+	}
 	[[nodiscard]]static data_type add_base(data_view_type a,data_view_type b)noexcept{
 		if(a.size()<b.size())
 			swap(a,b);
 		auto base_size = a.size();
-		const auto size = base_size+1;
+		const auto size_diff = get_safety_add_buf_size_diff(a,b);
+		const auto size = base_size+size_diff;
 
 		array_t<base_type> tmp(note::size(size));
 		copy_assign[base_size](tmp.data(),a.data());
-		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
+		copy_assign[size_diff](note::to(tmp.data()+base_size),base_type{0});
 		add_to_base(tmp.data(),b);
-		shrink_to_fit(tmp);
+		if(size_diff)
+			shrink_to_fit(tmp);
 		return tmp;
 	}
 	static void add_to_base(base_type*buf,data_view_type b)noexcept{
@@ -619,12 +644,15 @@ public:
 		const auto this_view = get_data_view();
 		const auto other_view = other.get_data_view();
 		auto origin_size = this_view.size();
-		auto new_size = max(origin_size,other_view.size())+1;
+		auto new_size = get_safety_add_buf_size_with_not_copmared_buf(this_view,other_view);
 		auto size_diff = new_size - origin_size;
-		_data.resize(new_size);
-		copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
+		if(size_diff){
+			_data.resize(new_size);
+			copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
+		}
 		add_to_base(_data.data(),other_view);
-		shrink_to_fit();
+		if(size_diff)
+			shrink_to_fit();
 		return*this;
 	}
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
