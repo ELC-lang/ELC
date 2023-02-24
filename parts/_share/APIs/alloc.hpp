@@ -71,6 +71,14 @@ elc依赖的基础函数.
 		#endif
 		//BLOCK_END
 
+		inline constexpr bool use_debug_alloc_lib=
+			#if defined(_DEBUG) && !defined(ELC_SPEED_TEST)
+				true
+			#else
+				false
+			#endif
+		;
+
 		/*!
 		aligned_alloc 内存分配函数，需提供对齐需求
 		return空指针被允许
@@ -80,11 +88,10 @@ elc依赖的基础函数.
 			void* aret;//返回值放这里
 
 			#if SYSTEM_TYPE == windows
-				#if defined(_DEBUG)
+				if constexpr(use_debug_alloc_lib)
 					aret = _aligned_malloc_dbg(size,align,operate_source_location.file(),operate_source_location.line());
-				#else
+				else
 					aret = _aligned_malloc(size,align);
-				#endif
 			#else
 				using namespace overhead_n;
 				void*tmp=::std::aligned_alloc(correct_align(align),correct_size(size,align));
@@ -120,11 +127,10 @@ elc依赖的基础函数.
 			void* aret;//返回值放这里
 
 			#if SYSTEM_TYPE == windows
-				#if defined(_DEBUG)
+				if constexpr(use_debug_alloc_lib)
 					aret = _aligned_realloc_dbg(ptr,nsize,align,operate_source_location.file(),operate_source_location.line());
-				#else
+				else
 					aret = _aligned_realloc(ptr,nsize,align);
-				#endif
 			#else
 				using namespace overhead_n;
 				void*tmp=::std::realloc(recorrect_pointer(ptr,align),correct_size(nsize,align));
@@ -158,11 +164,10 @@ elc依赖的基础函数.
 			#endif
 
 			#if SYSTEM_TYPE == windows
-				#if defined(_DEBUG)
+				if constexpr(use_debug_alloc_lib)
 					_aligned_free_dbg(p);
-				#else
+				else
 					_aligned_free(p);
-				#endif
 			#else
 				using namespace overhead_n;
 				::std::free(recorrect_pointer(p,align));
@@ -174,11 +179,10 @@ elc依赖的基础函数.
 		*/
 		[[nodiscard]]inline size_t get_size_of_alloc(const byte*p,[[maybe_unused]]size_t align)noexcept{
 			#if SYSTEM_TYPE == windows
-				#if defined(_DEBUG)
+				if constexpr(use_debug_alloc_lib)
 					return _aligned_msize_dbg(remove_const(p),align,0);
-				#else
+				else
 					return _aligned_msize(remove_const(p),align,0);
-				#endif
 			#else
 				using namespace overhead_n;
 				return get_overhead(recorrect_pointer(p,align));
