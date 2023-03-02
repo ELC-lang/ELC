@@ -49,6 +49,9 @@ namespace base_streams_impl_n{
 	virtual void unread(const char_t*buf,size_t size)noexcept override{\
 		(expr).unread(buf,size);\
 	}\
+	virtual explicit operator bool()noexcept override{\
+		return (expr).operator bool();\
+	}\
 
 	#define inheriting_istream_operations_from_pointer(ptr) \
 			inheriting_istream_operations_from(*ptr)
@@ -62,7 +65,7 @@ namespace base_streams_impl_n{
 
 	#define inheriting_ostream_operations_from_pointer(ptr) \
 			inheriting_ostream_operations_from(*ptr)
-	
+
 
 	template<class char_T>
 	struct not_unreadable_code_cvted_text_irefstream:virtual noexcept_not_unreadable_text_istream_t<char_t>,instance_struct<not_unreadable_code_cvted_text_irefstream<char_T>>{
@@ -70,12 +73,12 @@ namespace base_streams_impl_n{
 		typedef noexcept_not_unreadable_text_istream_t<char_t> base_t;
 		typedef not_unreadable_code_cvted_text_irefstream this_t;
 		override_instance_struct;
-	
+
 		noexcept_text_istream_t<char_T>*_base;
 	public:
 		explicit not_unreadable_code_cvted_text_irefstream(noexcept_text_istream_t<char_T>&base)noexcept:_base(&base){}
 		virtual ~not_unreadable_code_cvted_text_irefstream()noexcept override=default;
-	
+
 		inheriting_base_stream_operations_from_pointer(_base);
 
 		virtual bool is_end()noexcept override{
@@ -110,12 +113,12 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_ostream_t<char_t> base_t;
 		typedef code_cvted_text_orefstream this_t;
 		override_instance_struct;
-	
+
 		noexcept_text_ostream_t<char_T>*_base;
 	public:
 		explicit code_cvted_text_orefstream(noexcept_text_ostream_t<char_T>&base)noexcept:_base(&base){}
 		virtual ~code_cvted_text_orefstream()noexcept override=default;
-	
+
 		inheriting_base_stream_operations_from_pointer(_base);
 
 		virtual void write(const char_t*buf,size_t size)noexcept override{
@@ -137,7 +140,7 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_istream_t<char_t> base_t;
 		typedef terminal_irefstream_impl this_t;
 		override_instance_struct;
-	
+
 		system_terminal_irefstream _in;
 		code_cvted_text_irefstream<base_io_char_type> _code_cvt{_in};
 	public:
@@ -151,7 +154,7 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_ostream_t<char_t> base_t;
 		typedef terminal_orefstream_impl this_t;
 		override_instance_struct;
-	
+
 		system_terminal_orefstream _out;
 		code_cvted_text_orefstream<base_io_char_type> _code_cvt{_out};
 	public:
@@ -167,7 +170,7 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_istream_t<char_t> base_t;
 		typedef file_irefstream_impl this_t;
 		override_instance_struct;
-	
+
 		base_text_irefstream<char8_t> _in;
 		code_cvted_text_irefstream<char8_t> _code_cvt{_in};
 	public:
@@ -183,7 +186,7 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_ostream_t<char_t> base_t;
 		typedef file_orefstream_impl this_t;
 		override_instance_struct;
-	
+
 		base_text_orefstream<char8_t> _out;
 		code_cvted_text_orefstream<char8_t> _code_cvt{_out};
 	public:
@@ -198,7 +201,7 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_istream_t<char_t> base_t;
 		typedef handle_istream_impl this_t;
 		override_instance_struct;
-	
+
 		noexcept_text_istream_t<char_t>*_base;
 	public:
 		handle_istream_impl(handle_type handle)noexcept{
@@ -219,7 +222,7 @@ namespace base_streams_impl_n{
 		typedef noexcept_text_ostream_t<char_t> base_t;
 		typedef handle_ostream_impl this_t;
 		override_instance_struct;
-	
+
 		noexcept_text_ostream_t<char_t>*_base;
 	public:
 		handle_ostream_impl(handle_type handle)noexcept{
@@ -287,6 +290,9 @@ namespace base_streams_impl_n{
 		}
 		virtual bool waitting_for_data()noexcept override{
 			return _in.waitting_for_data();
+		}
+		virtual explicit operator bool()noexcept override{
+			return _in.operator bool();
 		}
 		virtual void unread(const char_t*buf,size_t size)noexcept override{
 			_in.unread(buf,size);

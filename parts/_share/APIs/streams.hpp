@@ -115,7 +115,7 @@ elc依赖的基础函数.
 			#endif
 			return aret;
 		}
-		
+
 		//判断handle是否eof
 		inline bool is_eof(handle_type stream)noexcept{
 			#if SYSTEM_TYPE == windows
@@ -314,6 +314,7 @@ elc依赖的基础函数.
 				//nothing to do
 			#endif
 		}
+
 		#include "../_undefs.hpp"
 	}
 	//
