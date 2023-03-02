@@ -6,144 +6,312 @@
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/steve02081504/ELC
 */
-namespace base_fstream_defs{
+namespace base_streams_impl_n{
 	using namespace elc::APIs::streams;
-	typedef handle_type handle_t;
+	using namespace base_fstream_n;
 
-	struct base_frefstream:virtual noexcept_stream_t,instance_struct<base_frefstream>{
-	protected:
-		handle_t _file;
-	public:
-		explicit base_frefstream(handle_t file)noexcept:_file(file){}
-		virtual int_t seek(seek_type dir,int_t off)noexcept override{
-			return basic_seek_impl(_file,off,dir);
-		}
-		virtual int_t tell()noexcept override{
-			return basic_tell_impl(_file);
-		}
-		virtual void seek_to(int_t pos)noexcept override{
-			basic_seek_impl(_file,pos,seek_type::beg);
-		}
-		virtual void sync()noexcept override{
-			basic_sync_impl(_file);
-		}
-		virtual void flush()noexcept override{
-			basic_flush_impl(_file);
-		}
-		virtual void close()noexcept override{
-			basic_close_impl(_file);
-		}
-		//fried get_handle_from
-		friend handle_t get_handle_from(base_frefstream&stream)noexcept{
-			return stream._file;
-		}
-	};
-	struct base_fstream:base_frefstream,instance_struct<base_fstream>{
-	private:
-		typedef base_frefstream base_t;
-		typedef base_fstream this_t;
-		override_instance_struct;
-	public:
-		using base_t::base_t;
+	#define inheriting_base_stream_operations_from(expr) \
+	\
+	virtual int_t seek(seek_type dir,int_t off)noexcept override{\
+		return (expr).seek(dir,off);\
+	}\
+	virtual int_t tell()noexcept override{\
+		return (expr).tell();\
+	}\
+	virtual bool seek_to(int_t pos)noexcept override{\
+		return (expr).seek_to(pos);\
+	}\
+	virtual void sync()noexcept override{\
+		(expr).sync();\
+	}\
+	virtual void flush()noexcept override{\
+		(expr).flush();\
+	}\
+	virtual void close()noexcept override{\
+		(expr).close();\
+	}\
 
-		virtual ~base_fstream()noexcept override{
-			if(base_t::_file)
-				base_t::close();
-		}
-	};
-	template<class char_T,class base_fstream_T>
-	struct base_text_ifstream_wrapper:base_fstream_T,virtual noexcept_text_istream_t<char_T>,instance_struct<base_text_ifstream_wrapper<char_T,base_fstream_T>>{
-	private:
-		typedef base_fstream_T base_t;
-		typedef base_text_ifstream_wrapper<char_T,base_fstream_T> this_t;
-		override_instance_struct;
-	public:
-		using base_t::base_t;
+	#define inheriting_base_stream_operations_from_pointer(ptr) \
+			inheriting_base_stream_operations_from(*ptr)
 
-		virtual size_t read(char_T*buf,size_t size)noexcept override{
-			return basic_read_impl(base_t::_file,buf,size);
-		}
-	};
-	template<class char_T,class base_fstream_T>
-	struct base_text_ofstream_wrapper:base_fstream_T,virtual noexcept_text_ostream_t<char_T>,instance_struct<base_text_ofstream_wrapper<char_T,base_fstream_T>>{
-	private:
-		typedef base_fstream_T base_t;
-		typedef base_text_ofstream_wrapper<char_T,base_fstream_T> this_t;
-		override_instance_struct;
-	public:
-		using base_t::base_t;
+	#define inheriting_istream_operations_from(expr) \
+			inheriting_base_stream_operations_from(expr)\
+	\
+	virtual bool is_end()noexcept override{\
+		return (expr).is_end();\
+	}\
+	virtual bool waitting_for_data()noexcept override{\
+		return (expr).waitting_for_data();\
+	}\
+	virtual size_t read(char_t*buf,size_t size)noexcept override{\
+		return (expr).read(buf,size);\
+	}\
+	virtual void unread(const char_t*buf,size_t size)noexcept override{\
+		(expr).unread(buf,size);\
+	}\
 
-		virtual void write(const char_T*buf,size_t size)noexcept override{
-			basic_write_impl(base_t::_file,buf,size);
-		}
-	};
+	#define inheriting_istream_operations_from_pointer(ptr) \
+			inheriting_istream_operations_from(*ptr)
+
+	#define inheriting_ostream_operations_from(expr) \
+			inheriting_base_stream_operations_from(expr)\
+	\
+	virtual void write(const char_t*buf,size_t size)noexcept override{\
+		(expr).write(buf,size);\
+	}\
+
+	#define inheriting_ostream_operations_from_pointer(ptr) \
+			inheriting_ostream_operations_from(*ptr)
+	
 
 	template<class char_T>
-	using base_text_ifstream=base_text_ifstream_wrapper<char_T,base_fstream>;
-	template<class char_T>
-	using base_text_ofstream=base_text_ofstream_wrapper<char_T,base_fstream>;
-	template<class char_T>
-	using base_text_irefstream=base_text_ifstream_wrapper<char_T,base_frefstream>;
-	template<class char_T>
-	using base_text_orefstream=base_text_ofstream_wrapper<char_T,base_frefstream>;
+	struct not_unreadable_code_cvted_text_irefstream:virtual noexcept_not_unreadable_text_istream_t<char_t>,instance_struct<not_unreadable_code_cvted_text_irefstream<char_T>>{
+	private:
+		typedef noexcept_not_unreadable_text_istream_t<char_t> base_t;
+		typedef not_unreadable_code_cvted_text_irefstream this_t;
+		override_instance_struct;
+	
+		noexcept_text_istream_t<char_T>*_base;
+	public:
+		explicit not_unreadable_code_cvted_text_irefstream(noexcept_text_istream_t<char_T>&base)noexcept:_base(&base){}
+		virtual ~not_unreadable_code_cvted_text_irefstream()noexcept override=default;
+	
+		inheriting_base_stream_operations_from_pointer(_base);
 
-	distinctive inline struct output_stream_impl_t:base_text_orefstream<char_t>,instance_struct<output_stream_impl_t>{
-	private:
-		typedef base_text_orefstream<char_t> base_t;
-		typedef output_stream_impl_t this_t;
-		override_instance_struct;
-	public:
-		output_stream_impl_t()noexcept:base_t(init_output_stream()){}
-		virtual void write(const char_t*buf,size_t size)noexcept override{
-			APIs::streams::write_text_to_terminal_stream(base_t::_file, buf, size);
+		virtual bool is_end()noexcept override{
+			return _base->is_end();
 		}
-	}out_impl{};
-	distinctive inline struct error_stream_impl_t:base_text_orefstream<char_t>,instance_struct<error_stream_impl_t>{
-	private:
-		typedef base_text_orefstream<char_t> base_t;
-		typedef error_stream_impl_t this_t;
-		override_instance_struct;
-	public:
-		error_stream_impl_t()noexcept:base_t(init_error_stream()){}
-		virtual void write(const char_t*buf,size_t size)noexcept override{
-			APIs::streams::write_text_to_terminal_stream(base_t::_file, buf, size);
-		}
-	}err_impl{};
-	struct input_stream_iterface_t:virtual noexcept_text_istream_t<char_t>{
-		virtual void echo_to(base_frefstream&)noexcept=0;
-		virtual void tie_with(base_frefstream&)noexcept=0;
-		virtual size_t no_echo_read(char_t*buf,size_t size)noexcept=0;
-	};
-	distinctive inline struct input_stream_impl_t:input_stream_iterface_t,base_text_irefstream<char_t>,instance_struct<input_stream_impl_t>{
-	private:
-		typedef base_text_irefstream<char_t> base_t;
-		typedef input_stream_impl_t this_t;
-		override_instance_struct;
-
-		handle_t _echo_to,_tie_with;
-	public:
-		virtual void echo_to(base_frefstream&stream)noexcept override{
-			_echo_to=get_handle_from(stream);
-		}
-		virtual void tie_with(base_frefstream&stream)noexcept override{
-			_tie_with=get_handle_from(stream);
-		}
-		input_stream_impl_t()noexcept:base_t(init_input_stream()){
-			echo_to(out_impl);
-			tie_with(out_impl);
+		virtual bool waitting_for_data()noexcept override{
+			return _base->waitting_for_data();
 		}
 		virtual size_t read(char_t*buf,size_t size)noexcept override{
-			basic_flush_impl(_tie_with);
-			return APIs::streams::read_text_from_terminal_stream(base_t::_file, buf, size, _echo_to);
+			constexpr size_t this_code_convert_buf_size=char_set::to_u32_code_size<char_T>;
+			char_T code_convert_buf[this_code_convert_buf_size];
+			size_t readed=0;
+			while(readed<size){
+				size_t readed_this_time=_base->read(code_convert_buf,this_code_convert_buf_size);
+				if(readed_this_time==0)
+					break;
+				auto result=char_set::auto_to_utf32(buf+readed,code_convert_buf,readed_this_time);
+				if(!result)
+					die_with(locale::str::code_convert_error);
+				readed+=result.processed_output().size();
+				auto size_processed_input=result.processed_input().size();
+				_base->unread(code_convert_buf+size_processed_input,readed_this_time-size_processed_input);
+			}
+			return readed;
 		}
-		virtual size_t no_echo_read(char_t*buf,size_t size)noexcept override{
-			return APIs::streams::read_text_from_terminal_stream(base_t::_file, buf, size, nullptr);
+	};
+	template<class char_T>
+	using code_cvted_text_irefstream=unreadable_wrap<not_unreadable_code_cvted_text_irefstream<char_T>>;
+	template<class char_T>
+	struct code_cvted_text_orefstream:virtual noexcept_text_ostream_t<char_t>,instance_struct<code_cvted_text_orefstream<char_T>>{
+	private:
+		typedef noexcept_text_ostream_t<char_t> base_t;
+		typedef code_cvted_text_orefstream this_t;
+		override_instance_struct;
+	
+		noexcept_text_ostream_t<char_T>*_base;
+	public:
+		explicit code_cvted_text_orefstream(noexcept_text_ostream_t<char_T>&base)noexcept:_base(&base){}
+		virtual ~code_cvted_text_orefstream()noexcept override=default;
+	
+		inheriting_base_stream_operations_from_pointer(_base);
+
+		virtual void write(const char_t*buf,size_t size)noexcept override{
+			constexpr size_t this_code_convert_buf_size=char_set::to_u32_code_size<char_T>;
+			char_T code_convert_buf[this_code_convert_buf_size];
+			size_t writed=0;
+			while(writed<size){
+				auto result=char_set::utf32_to_auto(buf[writed],code_convert_buf);
+				if(!result)
+					die_with(locale::str::code_convert_error);
+				_base->write(code_convert_buf,result.processed_output().size());
+				writed++;
+			}
 		}
-	}in_impl{};
+	};
+
+	struct terminal_irefstream_impl:virtual noexcept_text_istream_t<char_t>,instance_struct<terminal_irefstream_impl>{
+	private:
+		typedef noexcept_text_istream_t<char_t> base_t;
+		typedef terminal_irefstream_impl this_t;
+		override_instance_struct;
+	
+		system_terminal_irefstream _in;
+		code_cvted_text_irefstream<base_io_char_type> _code_cvt{_in};
+	public:
+		terminal_irefstream_impl(handle_type handle)noexcept:_in(handle){}
+		virtual ~terminal_irefstream_impl()noexcept override=default;
+
+		inheriting_istream_operations_from(_code_cvt);
+	};
+	struct terminal_orefstream_impl:virtual noexcept_text_ostream_t<char_t>,instance_struct<terminal_orefstream_impl>{
+	private:
+		typedef noexcept_text_ostream_t<char_t> base_t;
+		typedef terminal_orefstream_impl this_t;
+		override_instance_struct;
+	
+		system_terminal_orefstream _out;
+		code_cvted_text_orefstream<base_io_char_type> _code_cvt{_out};
+	public:
+		terminal_orefstream_impl(handle_type handle)noexcept:_out(handle){}
+		virtual ~terminal_orefstream_impl()noexcept override=default;
+
+		inheriting_ostream_operations_from(_code_cvt);
+	};
+	//文件流读入（自句柄读写）实现
+	//目前懒得写各种编码转换，所以目前只假设编码utf-8。
+	struct file_irefstream_impl:virtual noexcept_text_istream_t<char_t>,instance_struct<file_irefstream_impl>{
+	private:
+		typedef noexcept_text_istream_t<char_t> base_t;
+		typedef file_irefstream_impl this_t;
+		override_instance_struct;
+	
+		base_text_irefstream<char8_t> _in;
+		code_cvted_text_irefstream<char8_t> _code_cvt{_in};
+	public:
+		file_irefstream_impl(handle_type handle)noexcept:_in(handle){}
+		virtual ~file_irefstream_impl()noexcept override=default;
+
+		inheriting_istream_operations_from(_code_cvt);
+	};
+	//文件流写出（自句柄读写）实现
+	//目前懒得写各种编码转换，所以目前只假设编码utf-8。
+	struct file_orefstream_impl:virtual noexcept_text_ostream_t<char_t>,instance_struct<file_orefstream_impl>{
+	private:
+		typedef noexcept_text_ostream_t<char_t> base_t;
+		typedef file_orefstream_impl this_t;
+		override_instance_struct;
+	
+		base_text_orefstream<char8_t> _out;
+		code_cvted_text_orefstream<char8_t> _code_cvt{_out};
+	public:
+		file_orefstream_impl(handle_type handle)noexcept:_out(handle){}
+		virtual ~file_orefstream_impl()noexcept override=default;
+
+		inheriting_ostream_operations_from(_code_cvt);
+	};
+	//句柄io流
+	struct handle_istream_impl:virtual noexcept_text_istream_t<char_t>,instance_struct<handle_istream_impl>{
+	private:
+		typedef noexcept_text_istream_t<char_t> base_t;
+		typedef handle_istream_impl this_t;
+		override_instance_struct;
+	
+		noexcept_text_istream_t<char_t>*_base;
+	public:
+		handle_istream_impl(handle_type handle)noexcept{
+			using defs::get;//貌似msvc在这里有bug
+			if(handle.is_terminal())
+				_base=get<terminal_irefstream_impl>(handle);
+			else
+				_base=get<file_irefstream_impl>(handle);
+		}
+		virtual ~handle_istream_impl()noexcept override{
+			unget(_base);
+		}
+
+		inheriting_istream_operations_from_pointer(_base);
+	};
+	struct handle_ostream_impl:virtual noexcept_text_ostream_t<char_t>,instance_struct<handle_ostream_impl>{
+	private:
+		typedef noexcept_text_ostream_t<char_t> base_t;
+		typedef handle_ostream_impl this_t;
+		override_instance_struct;
+	
+		noexcept_text_ostream_t<char_t>*_base;
+	public:
+		handle_ostream_impl(handle_type handle)noexcept{
+			if(handle.is_terminal())
+				_base=get<terminal_orefstream_impl>(handle);
+			else
+				_base=get<file_orefstream_impl>(handle);
+		}
+		virtual ~handle_ostream_impl()noexcept override{
+			unget(_base);
+		}
+
+		inheriting_ostream_operations_from_pointer(_base);
+	};
+
+	distinctive inline auto ori_base_in_handle{init_input_stream()};
+	distinctive inline auto ori_base_out_handle{init_output_stream()};
+	distinctive inline auto ori_base_err_handle{init_error_stream()};
+
+	distinctive inline handle_ostream_impl out_impl{ori_base_out_handle};
+	distinctive inline handle_ostream_impl err_impl{ori_base_err_handle};
+	//由于in需要回显，所以需要多一层定义以处理回显相关事宜
+	distinctive inline struct in_impl_t:noexcept_text_istream_t<char_t>,instance_struct<in_impl_t>{
+	private:
+		handle_istream_impl _in{ori_base_in_handle};
+		noexcept_text_ostream_t<char_t>*_tie_with;
+		size_t _unread_size=0;//避免重复回显
+	public:
+		in_impl_t()noexcept:_tie_with(&out_impl){}
+		virtual ~in_impl_t()noexcept override=default;
+
+		inheriting_base_stream_operations_from(_in);
+
+		virtual size_t read(char_t*buf,size_t size)noexcept override{
+			const size_t ret=_in.read(buf,size);
+			if(_tie_with)
+				if(ret>_unread_size){
+					const size_t tie_size=ret-_unread_size;
+					//回显中需要将回车换行、回车转换为换行
+					string_view str{buf+size-tie_size,tie_size};
+					while(str.size()){
+						const auto pos=str.find(ec('\r'));
+						if(pos==string_view::npos){
+							*_tie_with<<str;
+							break;
+						}
+						else{
+							_tie_with->write(str.data(),pos);
+							if(pos+1<str.size()&&str[pos+1]==ec('\n'))
+								str=str.substr(pos+2);
+							else
+								str=str.substr(pos+1);
+							*_tie_with << ec('\n');
+						}
+					}
+				}
+			if(ret<=_unread_size)
+				_unread_size-=ret;
+			else
+				_unread_size=0;
+			return ret;
+		}
+		virtual bool is_end()noexcept override{
+			return _in.is_end();
+		}
+		virtual bool waitting_for_data()noexcept override{
+			return _in.waitting_for_data();
+		}
+		virtual void unread(const char_t*buf,size_t size)noexcept override{
+			_in.unread(buf,size);
+			_unread_size+=size;
+		}
+		void tie_with(noexcept_text_ostream_t<char_t>*stream)noexcept{
+			_tie_with=stream;
+		}
+		noexcept_text_ostream_t<char_t>*tie_with()noexcept{
+			return _tie_with;
+		}
+	}in_impl;
+
+	#undef inheriting_base_stream_operations_from_pointer
+	#undef inheriting_base_stream_operations_from
+
+	#undef inheriting_istream_operations_from_pointer
+	#undef inheriting_istream_operations_from
+
+	#undef inheriting_ostream_operations_from_pointer
+	#undef inheriting_ostream_operations_from
 }
-inline auto&out=base_fstream_defs::out_impl;
-inline auto&err=base_fstream_defs::err_impl;
-inline auto&in=base_fstream_defs::in_impl;
+inline auto&out=base_streams_impl_n::out_impl;
+inline auto&err=base_streams_impl_n::err_impl;
+inline auto&in=base_streams_impl_n::in_impl;
 
 //file_end
 

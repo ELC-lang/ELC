@@ -14,6 +14,7 @@ namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
 	namespace stream_n{
+		#include "base_fstream/_body.hpp"
 		#include "defs.hpp"
 	}
 	#if defined(ELC_TEST_ON)

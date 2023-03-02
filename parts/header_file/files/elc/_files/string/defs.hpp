@@ -930,8 +930,20 @@ namespace string_n{
 			using namespace char_set;
 			while(isspace(is.peek()))
 				is.get();
-			while(!is.eof()&&!isspace(is.peek()))
+			while(!is.is_end()&&!isspace(is.peek()))
 				str+=is.get();
+			return is;
+		}
+		template<class text_istream_T> requires(type_info<text_istream_T>.base_on<text_istream_t<char_T>>)
+		friend auto& getline(text_istream_T& is,string_t& str)noexcept(noexcept_text_istream_class<text_istream_T>){
+			str.clear();
+			using namespace char_set;
+			while(isspace(is.peek()))
+				is.get();
+			while(!is.is_end()&&is.peek()!='\r'&&is.peek()!='\n')
+				str+=is.get();
+			is>>endline;//处理结尾
+			return is;
 		}
 		#undef _m
 	};

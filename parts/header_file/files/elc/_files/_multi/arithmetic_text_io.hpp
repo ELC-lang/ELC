@@ -18,7 +18,7 @@ namespace elc::defs{
 		const auto&default_numerical_representation=decimal;
 		const auto&default_bool_representation=common_bool_representation;
 
-		template<text_ostream stream_T>
+		template<text_stream stream_T>
 		decltype(auto)get_numerical_representation_of(stream_T&&stream)noexcept{
 			if constexpr was_not_an_ill_form(stream.get_numerical_representation())
 				return stream.get_numerical_representation();
@@ -26,7 +26,7 @@ namespace elc::defs{
 				return default_numerical_representation;
 		}
 
-		template<text_ostream stream_T>
+		template<text_stream stream_T>
 		decltype(auto)get_bool_representation_of(stream_T&&stream)noexcept{
 			if constexpr was_not_an_ill_form(stream.get_bool_representation())
 				return stream.get_bool_representation();
@@ -56,6 +56,36 @@ namespace elc::defs{
 				stream << representation.get_false();
 			else
 				stream << representation.get_other_prefix() << union_cast<unsigned_specific_size_t<sizeof(bool)>>(data) << representation.get_other_suffix();
+			return stream;
+		}
+
+		//arithmetic input only for text_istream
+		template<arithmetic_type T,text_istream stream_T> requires(type_info<remove_cvref<T>> != type_info<char_t> &&
+																   type_info<remove_cvref<T>> != type_info<bool>)
+		decltype(auto)operator>>(stream_T&&stream,T&data)noexcept(noexcept_text_istream<stream_T>){
+			string temp;
+			stream >> temp;
+			data=from_string_get<T>(temp,get_numerical_representation_of(stream));
+			return stream;
+		}
+		template<typename T,text_istream stream_T> requires(type_info<T> == type_info<bool>)
+		decltype(auto)operator>>(stream_T&&stream,T&data)noexcept(noexcept_text_istream<stream_T>){
+			string temp;
+			stream >> temp;
+			const auto&representation=get_bool_representation_of(stream);
+			if(temp==representation.get_true())
+				data=true;
+			elseif(temp==representation.get_false())
+				data=false;
+			else{
+				if(temp.starts_with(representation.get_other_prefix())){
+					temp.remove_front(representation.get_other_prefix().size());
+					if(temp.ends_with(representation.get_other_suffix())){
+						temp.remove_back(representation.get_other_suffix().size());
+						data=union_cast<bool>(from_string_get<unsigned_specific_size_t<sizeof(bool)>>(temp,get_numerical_representation_of(stream)));
+					}
+				}
+			}
 			return stream;
 		}
 

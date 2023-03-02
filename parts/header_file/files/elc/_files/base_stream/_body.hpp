@@ -16,6 +16,7 @@ namespace elc::defs{
 		#include "base_streams/_body.hpp"
 		#include "operators/_body.hpp"
 
+		#include "unreadable_wrap/_body.hpp"
 		#include "std_wrap/_body.hpp"
 	}
 	using namespace stream_n;

@@ -49,9 +49,9 @@ template<class T>
 	用法: union_cast<U>(T&) -> U&
 */
 template<class U,class T>
-[[nodiscard]]force_inline constexpr U&union_cast(T&t)noexcept{return*reinterpret_cast<U*>(&t);}
+[[nodiscard]]force_inline constexpr U&union_cast(T&&t)noexcept{return*reinterpret_cast<U*>(&t);}
 template<class U,class T>
-[[nodiscard]]force_inline constexpr U&launder_union_cast(T&t)noexcept{return*::std::launder(union_cast<U>(t));}
+[[nodiscard]]force_inline constexpr U&launder_union_cast(T&&t)noexcept{return*::std::launder(union_cast<U>(t));}
 
 /*!
 	功能: data_block辅助变量模板，接受数个类型并表现为其中的最大对齐值

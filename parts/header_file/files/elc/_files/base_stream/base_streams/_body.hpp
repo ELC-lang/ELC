@@ -13,18 +13,27 @@ no_vtable_struct base_stream_t:abstract_base<base_stream_t>{
 	virtual ~base_stream_t()=default;
 	virtual int_t seek(seek_type,int_t)=0;
 	virtual int_t tell(){return this->seek(cur,0);}
-	virtual void seek_to(int_t)=0;
+	virtual bool seek_to(int_t)=0;
 	virtual void sync()=0;
 	virtual void flush()=0;
 	virtual void close()=0;
 };
-no_vtable_struct base_istream_t:abstract_base<base_istream_t>,virtual base_stream_t{};
+no_vtable_struct base_not_unreadable_istream_t:abstract_base<base_not_unreadable_istream_t>,virtual base_stream_t{
+	virtual bool is_end()=0;
+	virtual bool waitting_for_data()=0;
+	virtual explicit operator bool(){
+		return !this->is_end();
+	}
+};
+no_vtable_struct base_istream_t:abstract_base<base_istream_t>,virtual base_not_unreadable_istream_t{};
 no_vtable_struct base_ostream_t:abstract_base<base_ostream_t>,virtual base_stream_t{};
 no_vtable_struct base_iostream_t:abstract_base<base_iostream_t>,virtual base_ostream_t,virtual base_istream_t{};
 
 //concept: any class that base on base_stream_t
 template<class T>
 concept stream_class=is_base_of<base_stream_t,T>;
+template<class T>
+concept not_unreadable_istream_class=is_base_of<base_not_unreadable_istream_t,T>;
 template<class T>
 concept istream_class=is_base_of<base_istream_t,T>;
 template<class T>
@@ -36,12 +45,19 @@ concept iostream_class=is_base_of<base_iostream_t,T>;
 no_vtable_struct noexcept_stream_t:abstract_base<noexcept_stream_t>,virtual base_stream_t{
 	virtual int_t seek(seek_type,int_t)noexcept override=0;
 	virtual int_t tell()noexcept override{return this->seek(cur,0);}
-	virtual void seek_to(int_t)noexcept override=0;
+	virtual bool seek_to(int_t)noexcept override=0;
 	virtual void sync()noexcept override=0;
 	virtual void flush()noexcept override=0;
 	virtual void close()noexcept override=0;
 };
-no_vtable_struct noexcept_istream_t:abstract_base<noexcept_istream_t>,virtual base_istream_t,virtual noexcept_stream_t{};
+no_vtable_struct noexcept_not_unreadable_istream_t:abstract_base<noexcept_not_unreadable_istream_t>,virtual base_not_unreadable_istream_t{
+	virtual bool is_end()noexcept override=0;
+	virtual bool waitting_for_data()noexcept override=0;
+	virtual explicit operator bool()noexcept override{
+		return !this->is_end();
+	}
+};
+no_vtable_struct noexcept_istream_t:abstract_base<noexcept_istream_t>,virtual base_istream_t,virtual noexcept_stream_t,virtual noexcept_not_unreadable_istream_t{};
 no_vtable_struct noexcept_ostream_t:abstract_base<noexcept_ostream_t>,virtual base_ostream_t,virtual noexcept_stream_t{};
 no_vtable_struct noexcept_iostream_t:abstract_base<noexcept_iostream_t>,virtual base_iostream_t,virtual noexcept_ostream_t,virtual noexcept_istream_t{};
 static_assert(noexcept(((noexcept_iostream_t*)(nullptr))->~noexcept_iostream_t()));
@@ -50,6 +66,8 @@ static_assert(noexcept(((noexcept_iostream_t*)(nullptr))->sync()));
 //concept: any class that base on noexcept_stream_t
 template<class T>
 concept noexcept_stream_class=is_base_of<noexcept_stream_t,T>;
+template<class T>
+concept noexcept_not_unreadable_istream_class=is_base_of<noexcept_not_unreadable_istream_t,T>;
 template<class T>
 concept noexcept_istream_class=is_base_of<noexcept_istream_t,T>;
 template<class T>
@@ -61,10 +79,28 @@ concept noexcept_iostream_class=is_base_of<noexcept_iostream_t,T>;
 template<class char_T>
 no_vtable_struct text_stream_t:abstract_base<text_stream_t<char_T>>,virtual base_stream_t{
 	typedef char_T char_type;
+	typedef char_type data_type;
 };
 template<class char_T>
-no_vtable_struct text_istream_t:abstract_base<text_istream_t<char_T>>,virtual base_istream_t,virtual text_stream_t<char_T>{
+no_vtable_struct text_not_unreadable_istream_t:abstract_base<text_not_unreadable_istream_t<char_T>>,virtual base_not_unreadable_istream_t,virtual text_stream_t<char_T>{
 	virtual size_t read(char_T*buf,size_t size)=0;
+};
+template<class char_T>
+no_vtable_struct text_istream_t:abstract_base<text_istream_t<char_T>>,virtual base_istream_t,virtual text_not_unreadable_istream_t<char_T>{
+	virtual void unread(const char_T*buf,size_t size)=0;
+	virtual char_T peek(){
+		char_T buf;
+		size_t size=this->read(&buf,1);
+		if(size==0)return 0;
+		this->unread(&buf,1);
+		return buf;
+	}
+	virtual char_T get(){
+		char_T buf;
+		size_t size=this->read(&buf,1);
+		if(size==0)return 0;
+		return buf;
+	}
 };
 template<class char_T>
 no_vtable_struct text_ostream_t:abstract_base<text_ostream_t<char_T>>,virtual base_ostream_t,virtual text_stream_t<char_T>{
@@ -77,6 +113,8 @@ no_vtable_struct text_iostream_t:abstract_base<text_iostream_t<char_T>>,virtual 
 template<class T>
 concept text_stream_class=is_base_of<text_stream_t<typename remove_cvref<T>::char_type>,T>;
 template<class T>
+concept text_not_unreadable_istream_class=is_base_of<text_not_unreadable_istream_t<typename remove_cvref<T>::char_type>,T>;
+template<class T>
 concept text_istream_class=is_base_of<text_istream_t<typename remove_cvref<T>::char_type>,T>;
 template<class T>
 concept text_ostream_class=is_base_of<text_ostream_t<typename remove_cvref<T>::char_type>,T>;
@@ -84,6 +122,8 @@ template<class T>
 concept text_iostream_class=is_base_of<text_iostream_t<typename remove_cvref<T>::char_type>,T>;
 template<class T>
 concept text_stream=is_base_of<text_stream_t<char_t>,T>;
+template<class T>
+concept text_not_unreadable_istream=is_base_of<text_not_unreadable_istream_t<char_t>,T>;
 template<class T>
 concept text_istream=is_base_of<text_istream_t<char_t>,T>;
 template<class T>
@@ -93,11 +133,30 @@ concept text_iostream=is_base_of<text_iostream_t<char_t>,T>;
 
 //noexcept_
 template<class char_T>
-no_vtable_struct noexcept_text_istream_t:abstract_base<noexcept_text_istream_t<char_T>>,virtual noexcept_istream_t,virtual text_istream_t<char_T>{
+no_vtable_struct noexcept_text_stream_t:abstract_base<noexcept_text_stream_t<char_T>>,virtual text_stream_t<char_T>,virtual noexcept_stream_t{};
+template<class char_T>
+no_vtable_struct noexcept_not_unreadable_text_istream_t:abstract_base<noexcept_not_unreadable_text_istream_t<char_T>>,virtual noexcept_text_stream_t<char_T>,virtual noexcept_not_unreadable_istream_t,virtual text_not_unreadable_istream_t<char_T>{
 	virtual size_t read(char_T*buf,size_t size)noexcept override=0;
 };
 template<class char_T>
-no_vtable_struct noexcept_text_ostream_t:abstract_base<noexcept_text_ostream_t<char_T>>,virtual noexcept_ostream_t,virtual text_ostream_t<char_T>{
+no_vtable_struct noexcept_text_istream_t:abstract_base<noexcept_text_istream_t<char_T>>,virtual noexcept_istream_t,virtual noexcept_not_unreadable_text_istream_t<char_T>,virtual text_istream_t<char_T>{
+	virtual void unread(const char_T*buf,size_t size)noexcept override=0;
+	virtual char_T peek()noexcept override{
+		char_T buf;
+		const size_t size=this->read(&buf,1);
+		if(size==0)return 0;
+		this->unread(&buf,1);
+		return buf;
+	}
+	virtual char_T get()noexcept override{
+		char_T buf;
+		const size_t size=this->read(&buf,1);
+		if(size==0)return 0;
+		return buf;
+	}
+};
+template<class char_T>
+no_vtable_struct noexcept_text_ostream_t:abstract_base<noexcept_text_ostream_t<char_T>>,virtual noexcept_text_stream_t<char_T>,virtual noexcept_ostream_t,virtual text_ostream_t<char_T>{
 	virtual void write(const char_T*buf,size_t size)noexcept override=0;
 };
 template<class char_T>
@@ -107,11 +166,17 @@ no_vtable_struct noexcept_text_iostream_t:abstract_base<noexcept_text_iostream_t
 
 //concept: any class that base on noexcept_text_stream<char_t>
 template<class T>
+concept noexcept_text_stream_class=is_base_of<noexcept_text_stream_t<typename remove_cvref<T>::char_type>,T>;
+template<class T>
+concept noexcept_not_unreadable_text_istream_class=is_base_of<noexcept_not_unreadable_text_istream_t<typename remove_cvref<T>::char_type>,T>;
+template<class T>
 concept noexcept_text_istream_class=is_base_of<noexcept_text_istream_t<typename remove_cvref<T>::char_type>,T>;
 template<class T>
 concept noexcept_text_ostream_class=is_base_of<noexcept_text_ostream_t<typename remove_cvref<T>::char_type>,T>;
 template<class T>
 concept noexcept_text_iostream_class=is_base_of<noexcept_text_iostream_t<typename remove_cvref<T>::char_type>,T>;
+template<class T>
+concept noexcept_text_not_unreadable_istream=is_base_of<noexcept_not_unreadable_text_istream_t<char_t>,T>;
 template<class T>
 concept noexcept_text_istream=is_base_of<noexcept_text_istream_t<char_t>,T>;
 template<class T>
@@ -120,14 +185,24 @@ template<class T>
 concept noexcept_text_iostream=is_base_of<noexcept_text_iostream_t<char_t>,T>;
 
 //data streams
-no_vtable_struct data_istream_t:abstract_base<data_istream_t>,virtual base_istream_t{
+no_vtable_struct data_stream_t:abstract_base<data_stream_t>,virtual base_stream_t{
+	typedef byte data_type;
+};
+no_vtable_struct data_not_unreadable_istream_t:abstract_base<data_not_unreadable_istream_t>,virtual data_stream_t,virtual base_not_unreadable_istream_t{
 	virtual size_t read(byte*buf,size_t size)=0;
 	template<class T> requires ::std::is_trivially_copyable_v<T>
 	size_t read(T*v,size_t size=1){
 		return this->read(cast_to_data(v),size*sizeof(T))/sizeof(T);
 	}
 };
-no_vtable_struct data_ostream_t:abstract_base<data_ostream_t>,virtual base_ostream_t{
+no_vtable_struct data_istream_t:abstract_base<data_istream_t>,virtual base_istream_t,virtual data_not_unreadable_istream_t{
+	virtual void unread(const byte*buf,size_t size)=0;
+	template<class T> requires ::std::is_trivially_copyable_v<T>
+	void unread(const T*v,size_t size=1){
+		this->unread(cast_to_data(v),size*sizeof(T));
+	}
+};
+no_vtable_struct data_ostream_t:abstract_base<data_ostream_t>,virtual data_stream_t,virtual base_ostream_t{
 	virtual void write(const byte*buf,size_t size)=0;
 	template<class T> requires ::std::is_trivially_copyable_v<T>
 	void write(const T*v,size_t size=1){
@@ -138,6 +213,10 @@ no_vtable_struct data_iostream_t:abstract_base<data_iostream_t>,virtual base_ios
 
 //concept: any class that base on data_stream
 template<class T>
+concept data_stream_class=is_base_of<data_stream_t,T>;
+template<class T>
+concept data_not_unreadable_istream_class=is_base_of<data_not_unreadable_istream_t,T>;
+template<class T>
 concept data_istream_class=is_base_of<data_istream_t,T>;
 template<class T>
 concept data_ostream_class=is_base_of<data_ostream_t,T>;
@@ -145,14 +224,22 @@ template<class T>
 concept data_iostream_class=is_base_of<data_iostream_t,T>;
 
 //noexcept_
-no_vtable_struct noexcept_data_istream_t:abstract_base<noexcept_data_istream_t>,virtual noexcept_istream_t,virtual data_istream_t{
+no_vtable_struct noexcept_data_stream_t:abstract_base<noexcept_stream_t>,virtual noexcept_stream_t,virtual data_stream_t{};
+no_vtable_struct noexcept_not_unreadable_data_istream_t:abstract_base<noexcept_not_unreadable_data_istream_t>,virtual noexcept_data_stream_t,virtual noexcept_not_unreadable_istream_t,virtual data_not_unreadable_istream_t{
 	virtual size_t read(byte*buf,size_t size)noexcept override=0;
 	template<class T> requires ::std::is_trivially_copyable_v<T>
 	size_t read(T*v,size_t size=1)noexcept{
 		return this->read(cast_to_data(v),size*sizeof(T))/sizeof(T);
 	}
 };
-no_vtable_struct noexcept_data_ostream_t:abstract_base<noexcept_data_ostream_t>,virtual noexcept_ostream_t,virtual data_ostream_t{
+no_vtable_struct noexcept_data_istream_t:abstract_base<noexcept_data_istream_t>,virtual noexcept_not_unreadable_data_istream_t,virtual noexcept_istream_t,virtual data_istream_t{
+	virtual void unread(const byte*buf,size_t size)noexcept override=0;
+	template<class T> requires ::std::is_trivially_copyable_v<T>
+	void unread(const T*v,size_t size=1)noexcept{
+		this->unread(cast_to_data(v),size*sizeof(T));
+	}
+};
+no_vtable_struct noexcept_data_ostream_t:abstract_base<noexcept_data_ostream_t>,virtual noexcept_data_stream_t,virtual noexcept_ostream_t,virtual data_ostream_t{
 	virtual void write(const byte*buf,size_t size)noexcept override=0;
 	template<class T> requires ::std::is_trivially_copyable_v<T>
 	void write(const T*v,size_t size=1)noexcept{
@@ -165,6 +252,10 @@ no_vtable_struct noexcept_data_iostream_t:abstract_base<noexcept_data_iostream_t
 
 //concept: any class that base on noexcept_data_stream
 template<class T>
+concept noexcept_data_stream_class=is_base_of<noexcept_data_stream_t,T>;
+template<class T>
+concept noexcept_not_unreadable_data_istream_class=is_base_of<noexcept_not_unreadable_data_istream_t,T>;
+template<class T>
 concept noexcept_data_istream_class=is_base_of<noexcept_data_istream_t,T>;
 template<class T>
 concept noexcept_data_ostream_class=is_base_of<noexcept_data_ostream_t,T>;
@@ -172,27 +263,34 @@ template<class T>
 concept noexcept_data_iostream_class=is_base_of<noexcept_data_iostream_t,T>;
 
 pop_msvc_warning();
+
 //special streams
 template<class char_T>
 struct null_text_stream:noexcept_text_iostream_t<char_T>,instance_struct<null_text_stream<char_T>>{
 	virtual int_t seek(seek_type,int_t)noexcept override{return 0;}
 	virtual int_t tell()noexcept override{return 0;}
-	virtual void seek_to(int_t)noexcept override{}
+	virtual bool seek_to(int_t)noexcept override{return true;}
 	virtual void sync()noexcept override{}
 	virtual void flush()noexcept override{}
 	virtual void close()noexcept override{}
 	virtual void write(const char_T*,size_t)noexcept override{}
 	virtual size_t read(char_T*,size_t)noexcept override{return 0;}
+	virtual void unread(const char_T*,size_t)noexcept override{}
+	virtual bool is_end()noexcept override{return false;}
+	virtual bool waitting_for_data()noexcept override{return false;}
 };
 struct null_data_stream:noexcept_data_iostream_t,instance_struct<null_data_stream>{
 	virtual int_t seek(seek_type,int_t)noexcept override{return 0;}
 	virtual int_t tell()noexcept override{return 0;}
-	virtual void seek_to(int_t)noexcept override{}
+	virtual bool seek_to(int_t)noexcept override{return true;}
 	virtual void sync()noexcept override{}
 	virtual void flush()noexcept override{}
 	virtual void close()noexcept override{}
 	virtual void write(const byte*,size_t)noexcept override{}
 	virtual size_t read(byte*,size_t)noexcept override{return 0;}
+	virtual void unread(const byte*,size_t)noexcept override{}
+	virtual bool is_end()noexcept override{return false;}
+	virtual bool waitting_for_data()noexcept override{return false;}
 };
 
 //file_end

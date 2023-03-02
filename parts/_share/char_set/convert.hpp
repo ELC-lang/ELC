@@ -13,6 +13,9 @@ inline constexpr size_t utf16_to_utf8_code_size  = 2;
 inline constexpr size_t utf32_to_utf8_code_size  = 4;
 inline constexpr size_t utf32_to_utf16_code_size = 2;
 
+template<class char_T>
+inline constexpr size_t to_u32_code_size=sizeof(char32_t)/sizeof(char_T);
+
 using range_n::npos;
 inline namespace convert_impl{
 	inline constexpr size_t decode_utf8(char32_t *out, const char8_t *in, size_t in_size_max)noexcept{

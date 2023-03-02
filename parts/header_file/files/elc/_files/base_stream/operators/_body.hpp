@@ -24,7 +24,7 @@ decltype(auto)operator<<(text_ostream_T&&stream,const char_T*str)noexcept(noexce
 	return stream << array_end_by_zero_t<const char_T>{str};
 }
 //operator>> of template<class char_T>struct text_istream_t
-template<text_istream_class text_istream_T,class char_T=typename text_istream_T::char_type>
+template<text_istream_class text_istream_T,class char_T> requires(type_info<char_T> == type_info<typename remove_cvref<text_istream_T>::char_type>)
 decltype(auto)operator>>(text_istream_T&stream,char_T&ch)noexcept(noexcept_text_istream_class<text_istream_T>){
 	stream.read(&ch,1);
 	return stream;
@@ -72,11 +72,34 @@ inline constexpr struct endline_t{
 		stream.flush();
 		return stream;
 	}
+	//对于换行的读入特殊处理
+	template<text_istream_class text_istream_T,class char_T=typename remove_cvref<text_istream_T>::char_type>
+	constexpr decltype(auto)operator()(text_istream_T& stream)const noexcept(noexcept_text_istream_class<text_istream_T>){
+		char_T ch;
+		while(stream>>ch){
+			if(ch==char_T{'\n'})
+				break;
+			if(ch==char_T{'\r'}){
+				if(!stream.waitting_for_data() && stream>>ch) {
+					if(ch==char_T{'\n'})
+						break;
+					stream.unread(&ch,1);
+				}
+				break;
+			}
+		}
+		return stream;
+	}
 }endline{};
 
 //operator<< of functions
 template<class callable_T,ostream_class stream_T> requires(invoke<callable_T>.able<stream_T>)
 decltype(auto)operator<<(stream_T&&stream,callable_T&&callable)noexcept(invoke<callable_T>.nothrow<stream_T>){
+	return callable(stream);
+}
+//operator>> of functions
+template<class callable_T,istream_class stream_T> requires(invoke<callable_T>.able<stream_T>)
+decltype(auto)operator>>(stream_T&&stream,callable_T&&callable)noexcept(invoke<callable_T>.nothrow<stream_T>){
 	return callable(stream);
 }
 
