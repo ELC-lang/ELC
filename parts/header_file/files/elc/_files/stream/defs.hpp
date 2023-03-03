@@ -89,17 +89,19 @@ namespace base_streams_impl_n{
 		}
 		virtual size_t read(char_t*buf,size_t size)noexcept override{
 			constexpr size_t this_code_convert_buf_size=char_set::to_u32_code_size<char_T>;
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			char_T code_convert_buf[this_code_convert_buf_size];
+			pop_msvc_warning();
 			size_t readed=0;
 			while(readed<size){
-				size_t readed_this_time=_base->read(code_convert_buf,this_code_convert_buf_size);
+				const size_t readed_this_time=_base->read(code_convert_buf,this_code_convert_buf_size);
 				if(readed_this_time==0)
 					break;
-				auto result=char_set::auto_to_utf32(buf+readed,code_convert_buf,readed_this_time);
+				const auto result=char_set::auto_to_utf32(buf+readed,code_convert_buf,readed_this_time);
 				if(!result)
 					die_with(locale::str::code_convert_error);
 				readed+=result.processed_output().size();
-				auto size_processed_input=result.processed_input().size();
+				const auto size_processed_input=result.processed_input().size();
 				_base->unread(code_convert_buf+size_processed_input,readed_this_time-size_processed_input);
 			}
 			return readed;
@@ -123,10 +125,12 @@ namespace base_streams_impl_n{
 
 		virtual void write(const char_t*buf,size_t size)noexcept override{
 			constexpr size_t this_code_convert_buf_size=char_set::to_u32_code_size<char_T>;
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			char_T code_convert_buf[this_code_convert_buf_size];
+			pop_msvc_warning();
 			size_t writed=0;
 			while(writed<size){
-				auto result=char_set::utf32_to_auto(buf[writed],code_convert_buf);
+				const auto result=char_set::utf32_to_auto(buf[writed],code_convert_buf);
 				if(!result)
 					die_with(locale::str::code_convert_error);
 				_base->write(code_convert_buf,result.processed_output().size());
@@ -238,6 +242,7 @@ namespace base_streams_impl_n{
 		inheriting_ostream_operations_from_pointer(_base);
 	};
 
+	push_and_disable_msvc_warning(26426);//非常量初始化警告diss
 	distinctive inline auto ori_base_in_handle{init_input_stream()};
 	distinctive inline auto ori_base_out_handle{init_output_stream()};
 	distinctive inline auto ori_base_err_handle{init_error_stream()};
@@ -305,6 +310,7 @@ namespace base_streams_impl_n{
 			return _tie_with;
 		}
 	}in_impl;
+	pop_msvc_warning();
 
 	#undef inheriting_base_stream_operations_from_pointer
 	#undef inheriting_base_stream_operations_from

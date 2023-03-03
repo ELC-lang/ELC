@@ -85,7 +85,7 @@ namespace base_fstream_n{
 		using base_t::base_t;
 
 		virtual void write(const char_T*buf,size_t size)noexcept override{
-			auto var=before_terminal_write(_file);
+			const auto var=before_terminal_write(_file);
 			basic_write_impl(_file,buf,size);
 			after_terminal_write(_file,var);
 		}
@@ -109,7 +109,7 @@ namespace base_fstream_n{
 		using base_t::_file;
 	protected:
 		virtual size_t base_read_impl_for_wrapper(base_io_char_type*buf,size_t size)noexcept override{
-			auto var=before_terminal_read(_file);
+			const auto var=before_terminal_read(_file);
 			const auto result=basic_read_for_terminal_impl(_file,buf,size);
 			after_terminal_read(_file,var);
 			return result;

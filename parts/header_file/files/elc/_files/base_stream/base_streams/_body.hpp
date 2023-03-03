@@ -90,14 +90,14 @@ no_vtable_struct text_istream_t:abstract_base<text_istream_t<char_T>>,virtual ba
 	virtual void unread(const char_T*buf,size_t size)=0;
 	virtual char_T peek(){
 		char_T buf;
-		size_t size=this->read(&buf,1);
+		const size_t size=this->read(&buf,1);
 		if(size==0)return 0;
 		this->unread(&buf,1);
 		return buf;
 	}
 	virtual char_T get(){
 		char_T buf;
-		size_t size=this->read(&buf,1);
+		const size_t size=this->read(&buf,1);
 		if(size==0)return 0;
 		return buf;
 	}

@@ -254,7 +254,7 @@ namespace to_string_n{
 		template<class T> requires(type_info<T> == type_info<ubigfloat>)
 		[[nodiscard]]ubigfloat from_string_get_base(string str,convert_state_t&state)const noexcept{
 			{
-				auto exponent_pos = str.find_last_of(_repres.get_exponent_separator());
+				const auto exponent_pos = str.find_last_of(_repres.get_exponent_separator());
 				if(exponent_pos != string::npos){
 					state.set_has_exponent();
 					auto expstr = str.substr(exponent_pos+1);
@@ -269,12 +269,12 @@ namespace to_string_n{
 				}
 			}
 			{
-				auto fractional_pos = str.find_first_of(_repres.get_fractional_separator());//分数
+				const auto fractional_pos = str.find_first_of(_repres.get_fractional_separator());//分数
 				if(fractional_pos != string::npos){
 					state.set_has_fractional();
 					auto numeratorstr = str.substr(0,fractional_pos);
 					str = str.substr(fractional_pos+1);
-					auto& denominatorstr = str;
+					const auto& denominatorstr = str;
 					auto numerator = from_string_get_base<T>(numeratorstr,state);
 					if(not state.success())
 						return {};
@@ -285,12 +285,12 @@ namespace to_string_n{
 				}
 			}
 			{
-				auto fractional_pos = str.find_first_of(_repres.get_fractional_sign());//小数
+				const auto fractional_pos = str.find_first_of(_repres.get_fractional_sign());//小数
 				if(fractional_pos != string::npos){
 					state.set_has_decimal();
 					auto integerstr = str.substr(0,fractional_pos);
 					str = str.substr(fractional_pos+1);
-					auto& fractionalstr = str;
+					const auto& fractionalstr = str;
 					auto integer = from_string_get<ubigint>(integerstr,state);
 					if(not state.success())
 						return {};

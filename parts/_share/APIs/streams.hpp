@@ -119,7 +119,9 @@ elc依赖的基础函数.
 		//判断handle是否eof
 		inline bool is_eof(handle_type stream)noexcept{
 			#if SYSTEM_TYPE == windows
+				push_and_disable_msvc_warning(6031);//返回值忽略警告diss
 				ReadFile(stream, nullptr, 0, nullptr, nullptr);
+				pop_msvc_warning();
 				return GetLastError() == ERROR_HANDLE_EOF;
 			#elif SYSTEM_TYPE == linux
 				return feof(stream);

@@ -89,7 +89,9 @@ elc依赖的基础函数.
 		size被保证不为0
 		*/
 		[[nodiscard]]inline byte*aligned_alloc(size_t align,size_t size)noexcept{
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			void* aret;//返回值放这里
+			pop_msvc_warning();
 
 			#if SYSTEM_TYPE == windows
 				if constexpr(use_debug_alloc_lib)
@@ -128,7 +130,9 @@ elc依赖的基础函数.
 			#if defined(ELC_TEST_COUNT_MEMORY_ALLOC)
 				const auto osize=get_size_of_alloc(ptr,align);
 			#endif
+			push_and_disable_msvc_warning(26494);//未初始化警告diss
 			void* aret;//返回值放这里
+			pop_msvc_warning();
 
 			#if SYSTEM_TYPE == windows
 				if constexpr(use_debug_alloc_lib)
