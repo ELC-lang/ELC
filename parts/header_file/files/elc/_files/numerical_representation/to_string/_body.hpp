@@ -105,7 +105,7 @@ namespace to_string_n{
 				auto expstr=to_string(exp);
 				if(exp<0){
 					//首先计算需要的前置0的个数
-					const size_t need_zero=max((-exp)-aret.size()+1,size_t{});
+					const auto need_zero=size_t(max(ptrdiff_t{},-exp+1-aret.size()));
 					if(need_zero>expstr.size()){//选取最短表达
 						aret+=_repres.get_exponent_separator();
 						aret+=expstr;

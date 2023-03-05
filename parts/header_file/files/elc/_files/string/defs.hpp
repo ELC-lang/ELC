@@ -102,7 +102,7 @@ namespace string_n{
 
 		//BLOCK: 已知需要拷贝cso全部内容，判断是否值得结束cso的检查
 		static force_inline constexpr bool the_size_worth_to_end_cso(size_t size)noexcept{
-			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),(size_t)1);
+			constexpr auto max_size=max(sizeof(comn_string_data_t<char_T>)*2/sizeof(char_T),1u);
 			return size>=max_size;
 		}
 		static force_inline void full_copy_cso_check(const string_t&str)noexcept{

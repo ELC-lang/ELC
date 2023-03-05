@@ -25,6 +25,24 @@ constexpr struct min_t{
 	[[nodiscard]]constexpr auto operator()(Args&&...rest)const noexcept{
 		return ::std::min(forward<Args>(rest)...);
 	}
+	template<class T,class...Args> requires able<::std::initializer_list<T>>
+	[[nodiscard]]constexpr auto operator()(T a,Args&&...rest)const noexcept{
+		return ::std::min(a,T(rest)...);
+	}
+	template<typename T>
+	struct for_type_t{
+		template<class T> requires able<::std::initializer_list<T>>
+		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept{
+			return ::std::min(l);
+		}
+		template<class...Args>
+		[[nodiscard]]constexpr auto operator()(Args&&...rest)const noexcept{
+			return ::std::min(T(rest)...);
+		}
+	};
+	template<typename T>
+	static constexpr for_type_t<T>for_type{};
+
 	template<class T> requires able<::std::initializer_list<T>>
 	[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept{
 		return ::std::min(l);
@@ -53,6 +71,24 @@ constexpr struct max_t{
 	[[nodiscard]]constexpr auto operator()(Args&&...rest)const noexcept{
 		return ::std::max(forward<Args>(rest)...);
 	}
+	template<class T,class...Args> requires able<::std::initializer_list<T>>
+	[[nodiscard]]constexpr auto operator()(T a,Args&&...rest)const noexcept{
+		return ::std::max(a,T(rest)...);
+	}
+	template<typename T>
+	struct for_type_t{
+		template<class T> requires able<::std::initializer_list<T>>
+		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept{
+			return ::std::max(l);
+		}
+		template<class...Args>
+		[[nodiscard]]constexpr auto operator()(Args&&...rest)const noexcept{
+			return ::std::max(T(rest)...);
+		}
+	};
+	template<typename T>
+	static constexpr for_type_t<T>for_type{};
+
 	template<class T> requires able<::std::initializer_list<T>>
 	[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept{
 		return ::std::max(l);

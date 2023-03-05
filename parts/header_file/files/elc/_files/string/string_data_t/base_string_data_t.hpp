@@ -225,7 +225,7 @@ public:
 			auto b=with+index;
 			if(!*b)
 				return false;
-			size_t step=min({a.size(),size});
+			const size_t step=min({a.size(),size});
 			if(!equal(a.begin(),step,just_an_part,b,end_by_zero))
 				return false;
 			index+=step;
