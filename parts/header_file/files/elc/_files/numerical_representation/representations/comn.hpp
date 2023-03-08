@@ -291,7 +291,7 @@ public:
 		_fractional_separator(fractional_separator),
 		_exponent_separator(exponent_separator),
 		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign){
-		//计算质因数：get_prime_factorization(num).unique().to<容器类型>(); 
+		//计算质因数：get_prime_factorization(num).unique().to<容器类型>();
 		_unique_prime_factorization_table=get_prime_factorization(_radix_table.size()).unique().to<array_t<size_t>>();
 	}
 	[[nodiscard]]virtual size_t get_radix()const noexcept override{
