@@ -909,8 +909,40 @@ namespace string_n{
 
 		/*
 		compare
-		replace
 		*/
+
+		//replace
+		this_t replace(size_t pos,size_t size,const string_t& str)const noexcept{
+			return substr(0,pos)+str+substr(pos+size);
+		}
+		this_t replace(char_t ch,const string_t& str)const noexcept{
+			//replace all ch
+			this_t ret;
+			size_t pos=0;
+			floop{
+				auto pos2=find(ch,pos);
+				if(pos2==npos)
+					break;
+				ret+=substr(pos,pos2-pos)+str;
+				pos=pos2+1;
+			}
+			ret+=substr(pos);
+			return ret;
+		}
+		this_t replace(const string_t& str1,const string_t& str2)const noexcept{
+			//replace all str1
+			this_t ret;
+			size_t pos=0;
+			floop{
+				auto pos2=find(str1,pos);
+				if(pos2==npos)
+					break;
+				ret+=substr(pos,pos2-pos)+str2;
+				pos=pos2+str1.size();
+			}
+			ret+=substr(pos);
+			return ret;
+		}
 
 		//iostream
 		template<class text_ostream_T> requires(type_info<text_ostream_T>.base_on<text_ostream_t<char_T>>)
