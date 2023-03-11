@@ -55,6 +55,18 @@ namespace elc::defs{
 		#endif
 			return ::std::uintmax_t{};
 	}()) intmax_t;
+	typedef ::std::intmax_t intmax_index_t;
+	typedef ::std::uintmax_t uintmax_index_t;
+	template<class T>
+	constexpr inline bool is_elc_expansion_base_type()noexcept{
+		#if defined(ELC_BASE_ENV_HAS_INT128)
+		if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t) && ::std::is_same_v<T,uint128_t>)
+			return true;
+		if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t) && ::std::is_same_v<T,int128_t>)
+			return true;
+		#endif
+		return false;
+	}
 
 	namespace basic_environment{
 		/// 每个bit（不是字节）的可能性

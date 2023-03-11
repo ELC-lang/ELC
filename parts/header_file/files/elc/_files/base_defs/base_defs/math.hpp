@@ -34,7 +34,7 @@ namespace math{
 	template<typename T>
 	struct arithmetic_type_info_prover{
 		//bool：是否是算数类型
-		static constexpr bool is_arithmetic_type=::std::is_arithmetic_v<T>;
+		static constexpr bool is_arithmetic_type=::std::is_arithmetic_v<T> || is_elc_expansion_base_type<T>();
 		//bool：是否是基础类型
 		static constexpr bool is_basic_type=::std::is_arithmetic_v<T>;
 		//bool：是否是大数类型

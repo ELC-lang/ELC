@@ -32,7 +32,7 @@
 	每个T的可能性大小
 */
 template<class T> requires ::std::is_integral_v<T>
-constexpr auto number_of_possible_values_per=uintmax_t(max(type_info<::std::make_unsigned_t<T>>))+1;
+constexpr auto number_of_possible_values_per=uintmax_index_t(max(type_info<::std::make_unsigned_t<T>>))+1;
 
 /*!
 	功能: byte* 类型数据转换为 T&，不进行任何检查
