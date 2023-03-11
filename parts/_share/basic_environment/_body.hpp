@@ -27,10 +27,17 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
+#if defined(_MSC_VER)//int128
+	#include <__msvc_int128.hpp>
+#endif
 namespace elc::defs{
 	#include "../_defs.hpp"
 
-	#if defined(__SIZEOF_INT128__)
+	#if defined(_MSC_VER)//int128
+		#define ELC_BASE_ENV_HAS_INT128
+		typedef ::std::_Signed128 int128_t;
+		typedef ::std::_Unsigned128 uint128_t;
+	#elif defined(__SIZEOF_INT128__)
 		#define ELC_BASE_ENV_HAS_INT128
 		typedef __int128_t int128_t;
 		typedef __uint128_t uint128_t;
