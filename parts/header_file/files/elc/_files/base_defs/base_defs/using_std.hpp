@@ -32,8 +32,6 @@
 //这不比博人传燃?
 using ::std::byte;
 using ::std::size_t;
-using ::std::uintmax_t;
-using ::std::intmax_t;
 
 using ::std::forward;
 using ::std::addressof;

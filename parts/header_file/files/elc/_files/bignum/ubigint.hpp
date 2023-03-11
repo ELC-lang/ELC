@@ -210,7 +210,7 @@ private:
 		else{
 			//只需要判断最高位是否需要进位
 			const auto res=calc_type(a.back())+calc_type(b.back())+1;//+1是因为次高位可能进位
-			return res>>bitnum_of(base_type);
+			return static_cast<size_t>(res>>bitnum_of(base_type));
 		}
 	}
 	[[nodiscard]]static size_t get_safety_add_buf_size(data_view_type a,data_view_type b)noexcept{
@@ -243,7 +243,7 @@ private:
 
 		for(size_t i=0;i<end_size;++i){
 			calc_type result = calc_type(*buf)+calc_type(*other_begin)+calc_type(is_overflows);
-			is_overflows = result>>bitnum_of(base_type);
+			is_overflows = static_cast<bool>(result>>bitnum_of(base_type));
 			*buf = base_type(result);
 
 			++buf;
@@ -251,7 +251,7 @@ private:
 		}
 		while(is_overflows){
 			calc_type result = calc_type(*buf)+calc_type(is_overflows);
-			is_overflows = result>>bitnum_of(base_type);
+			is_overflows = static_cast<bool>(result>>bitnum_of(base_type));
 			*buf = base_type(result);
 
 			++buf;
