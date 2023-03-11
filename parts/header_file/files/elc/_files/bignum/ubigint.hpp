@@ -196,7 +196,7 @@ public:
 	}
 private:
 	//operator+-*/%s
-	typedef unsigned_specific_size_t<BIT_POSSIBILITY*sizeof(base_type)> calc_type;
+	typedef unsigned_specific_size_fast_t<BIT_POSSIBILITY*sizeof(base_type)> calc_type;
 	//+
 	[[nodiscard]]static size_t get_safety_add_buf_size_diff(data_view_type a,data_view_type b)noexcept{
 		//判断进位所需空间
