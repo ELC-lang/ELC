@@ -27,8 +27,38 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
+#if defined(_MSC_VER)//int128
+	#include <__msvc_int128.hpp>
+#endif
 namespace elc::defs{
 	#include "../_defs.hpp"
+
+	#if defined(_MSC_VER)//int128
+		#define ELC_BASE_ENV_HAS_INT128
+		typedef ::std::_Signed128 int128_t;
+		typedef ::std::_Unsigned128 uint128_t;
+	#elif defined(__SIZEOF_INT128__)
+		#define ELC_BASE_ENV_HAS_INT128
+		typedef __int128_t int128_t;
+		typedef __uint128_t uint128_t;
+	#endif
+	#if defined(ELC_BASE_ENV_HAS_INT128)
+		typedef int128_t int_fast128_t;
+		typedef uint128_t uint_fast128_t;
+	#endif
+	typedef decltype(lambda{
+		if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t))
+			return uint128_t{};
+		else
+			return ::std::uintmax_t{};
+	}()) uintmax_t;
+	//intmax
+	typedef decltype(lambda{
+		if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t))
+			return int128_t{};
+		else
+			return ::std::uintmax_t{};
+	}()) intmax_t;
 
 	namespace basic_environment{
 		/// 每个bit（不是字节）的可能性

@@ -31,6 +31,9 @@ TYPE_MAPPER(int_fast8_t)
 TYPE_MAPPER(int_fast16_t)
 TYPE_MAPPER(int_fast32_t)
 TYPE_MAPPER(int_fast64_t)
+#if defined(ELC_BASE_ENV_HAS_INT128)
+	TYPE_MAPPER(int_fast128_t)
+#endif
 
 //file_end
 
