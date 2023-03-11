@@ -40,41 +40,43 @@ namespace elc::defs{
 
 		#if defined(_MSC_VER) && _MSVC_STL_UPDATE > 202303L//after https://github.com/microsoft/STL/pull/3559
 			#define ELC_BASE_ENV_HAS_INT128
-			typedef ::std::_Signed128 int128_t;
 			typedef ::std::_Unsigned128 uint128_t;
+			typedef ::std::_Signed128 int128_t;
 		#elif defined(__SIZEOF_INT128__)
 			#define ELC_BASE_ENV_HAS_INT128
-			typedef __int128_t int128_t;
 			typedef __uint128_t uint128_t;
+			typedef __int128_t int128_t;
 		#endif
 		#if defined(ELC_BASE_ENV_HAS_INT128)
-			typedef int128_t int_fast128_t;
 			typedef uint128_t uint_fast128_t;
+			typedef int128_t int_fast128_t;
 		#endif
+		typedef ::std::uintmax_t basic_uintmax_t;
+		typedef ::std::intmax_t basic_intmax_t;
 		typedef decltype(lambda{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
-			if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t))
+			if constexpr(sizeof(basic_uintmax_t) < sizeof(uint128_t))
 				return uint128_t{};
 			else
 			#endif
-				return ::std::uintmax_t{};
+				return basic_uintmax_t{};
 		}()) uintmax_t;
 		typedef decltype(lambda{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
-			if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t))
+			if constexpr(sizeof(basic_intmax_t) < sizeof(int128_t))
 				return int128_t{};
 			else
 			#endif
-				return ::std::uintmax_t{};
+				return basic_intmax_t{};
 		}()) intmax_t;
-		typedef ::std::intmax_t intmax_index_t;
-		typedef ::std::uintmax_t uintmax_index_t;
+		typedef basic_uintmax_t uintmax_index_t;
+		typedef basic_intmax_t intmax_index_t;
 		template<class T>
 		constexpr inline bool is_elc_expansion_base_type_helper()noexcept{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
-			if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t) && ::std::is_same_v<T,uint128_t>)
+			if constexpr(sizeof(basic_uintmax_t) < sizeof(uint128_t) && ::std::is_same_v<T,uint128_t>)
 				return true;
-			if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t) && ::std::is_same_v<T,int128_t>)
+			if constexpr(sizeof(basic_intmax_t) < sizeof(int128_t) && ::std::is_same_v<T,int128_t>)
 				return true;
 			#endif
 			return false;
@@ -437,13 +439,15 @@ namespace elc::defs{
 	}
 	using basic_environment::BIT_POSSIBILITY;
 
-	using basic_environment::intmax_index_t;
+	using basic_environment::basic_uintmax_t;
+	using basic_environment::basic_intmax_t;
 	using basic_environment::uintmax_index_t;
-	using basic_environment::intmax_t;
+	using basic_environment::intmax_index_t;
 	using basic_environment::uintmax_t;
+	using basic_environment::intmax_t;
 	#if defined(ELC_BASE_ENV_HAS_INT128)
-	using basic_environment::int128_t;
 	using basic_environment::uint128_t;
+	using basic_environment::int128_t;
 	#endif
 	using basic_environment::is_elc_expansion_base_type;
 
