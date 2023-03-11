@@ -33,52 +33,55 @@
 namespace elc::defs{
 	#include "../_defs.hpp"
 
-	#if defined(_MSC_VER)//int128
-		#define ELC_BASE_ENV_HAS_INT128
-		typedef ::std::_Signed128 int128_t;
-		typedef ::std::_Unsigned128 uint128_t;
-	#elif defined(__SIZEOF_INT128__)
-		#define ELC_BASE_ENV_HAS_INT128
-		typedef __int128_t int128_t;
-		typedef __uint128_t uint128_t;
-	#endif
-	#if defined(ELC_BASE_ENV_HAS_INT128)
-		typedef int128_t int_fast128_t;
-		typedef uint128_t uint_fast128_t;
-	#endif
-	typedef decltype(lambda{
-		#if defined(ELC_BASE_ENV_HAS_INT128)
-		if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t))
-			return uint128_t{};
-		else
-		#endif
-			return ::std::uintmax_t{};
-	}()) uintmax_t;
-	typedef decltype(lambda{
-		#if defined(ELC_BASE_ENV_HAS_INT128)
-		if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t))
-			return int128_t{};
-		else
-		#endif
-			return ::std::uintmax_t{};
-	}()) intmax_t;
-	typedef ::std::intmax_t intmax_index_t;
-	typedef ::std::uintmax_t uintmax_index_t;
-	template<class T>
-	constexpr inline bool is_elc_expansion_base_type()noexcept{
-		#if defined(ELC_BASE_ENV_HAS_INT128)
-		if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t) && ::std::is_same_v<T,uint128_t>)
-			return true;
-		if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t) && ::std::is_same_v<T,int128_t>)
-			return true;
-		#endif
-		return false;
-	}
-
 	namespace basic_environment{
 		/// 每个bit（不是字节）的可能性
 		/// 为什么c艹委员会不定义这个？
 		constexpr size_t BIT_POSSIBILITY=2;
+
+		#if defined(_MSC_VER)//int128
+			#define ELC_BASE_ENV_HAS_INT128
+			typedef ::std::_Signed128 int128_t;
+			typedef ::std::_Unsigned128 uint128_t;
+		#elif defined(__SIZEOF_INT128__)
+			#define ELC_BASE_ENV_HAS_INT128
+			typedef __int128_t int128_t;
+			typedef __uint128_t uint128_t;
+		#endif
+		#if defined(ELC_BASE_ENV_HAS_INT128)
+			typedef int128_t int_fast128_t;
+			typedef uint128_t uint_fast128_t;
+		#endif
+		typedef decltype(lambda{
+			#if defined(ELC_BASE_ENV_HAS_INT128)
+			if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t))
+				return uint128_t{};
+			else
+			#endif
+				return ::std::uintmax_t{};
+		}()) uintmax_t;
+		typedef decltype(lambda{
+			#if defined(ELC_BASE_ENV_HAS_INT128)
+			if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t))
+				return int128_t{};
+			else
+			#endif
+				return ::std::uintmax_t{};
+		}()) intmax_t;
+		typedef ::std::intmax_t intmax_index_t;
+		typedef ::std::uintmax_t uintmax_index_t;
+		template<class T>
+		constexpr inline bool is_elc_expansion_base_type_helper()noexcept{
+			#if defined(ELC_BASE_ENV_HAS_INT128)
+			if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t) && ::std::is_same_v<T,uint128_t>)
+				return true;
+			if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t) && ::std::is_same_v<T,int128_t>)
+				return true;
+			#endif
+			return false;
+		}
+		template<class T>
+		constexpr bool inline is_elc_expansion_base_type=is_elc_expansion_base_type_helper<T>();
+
 		/*! 给定大小的无符号整数类型 */
 		template<size_t size>
 		using unsigned_specific_size_t=decltype(lambda(){
@@ -433,11 +436,25 @@ namespace elc::defs{
 		}
 	}
 	using basic_environment::BIT_POSSIBILITY;
+
+	using basic_environment::intmax_index_t;
+	using basic_environment::uintmax_index_t;
+	using basic_environment::intmax_t;
+	using basic_environment::uintmax_t;
+	#if defined(ELC_BASE_ENV_HAS_INT128)
+	using basic_environment::int128_t;
+	using basic_environment::uint128_t;
+	#endif
+	using basic_environment::is_elc_expansion_base_type;
+
 	using basic_environment::unsigned_specific_size_t;
 	using basic_environment::unsigned_specific_size_fast_t;
+
 	using basic_environment::to_arithmetic;
+
 	using basic_environment::wchar_t_same_as_char_t;
 	using basic_environment::wchar_t_same_as_char16_t;
+	
 	using basic_environment::get_exponent;
 	using basic_environment::get_base_num;
 	using basic_environment::get_precision;
