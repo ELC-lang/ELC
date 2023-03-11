@@ -40,16 +40,19 @@ namespace elc::defs{
 		typedef uint128_t uint_fast128_t;
 	#endif
 	typedef decltype(lambda{
+		#if defined(ELC_BASE_ENV_HAS_INT128)
 		if constexpr(sizeof(::std::uintmax_t) < sizeof(uint128_t))
 			return uint128_t{};
 		else
+		#endif
 			return ::std::uintmax_t{};
 	}()) uintmax_t;
-	//intmax
 	typedef decltype(lambda{
+		#if defined(ELC_BASE_ENV_HAS_INT128)
 		if constexpr(sizeof(::std::intmax_t) < sizeof(int128_t))
 			return int128_t{};
 		else
+		#endif
 			return ::std::uintmax_t{};
 	}()) intmax_t;
 
