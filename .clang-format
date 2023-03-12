@@ -22,6 +22,7 @@ AlwaysBreakBeforeMultilineStrings: 'false'
 AlwaysBreakTemplateDeclarations: 'Yes'
 BinPackArguments: 'true'
 BinPackParameters: 'true'
+RemoveBracesLLVM: true
 BreakAfterJavaFieldAnnotations: 'false'
 BreakBeforeBraces: Custom
 BreakConstructorInitializers: AfterColon
@@ -52,17 +53,34 @@ SpaceBeforeAssignmentOperators: 'true'
 SpaceBeforeCpp11BracedList: 'false'
 SpaceBeforeCtorInitializerColon: 'false'
 SpaceBeforeInheritanceColon: 'false'
+SpaceBeforeCaseColon: false
 SpaceBeforeParens: Never
 SpaceBeforeRangeBasedForLoopColon: 'false'
 SpaceInEmptyParentheses: 'false'
-SpacesBeforeTrailingComments: '7'
+SpacesBeforeTrailingComments: '0'
 SpacesInAngles: 'false'
 SpacesInCStyleCastParentheses: 'false'
 SpacesInContainerLiterals: 'false'
 SpacesInParentheses: 'false'
 SpacesInSquareBrackets: 'false'
-Standard: Auto
+Standard: Latest
 TabWidth: '4'
+RequiresClausePosition: WithPreceding
 UseTab: Always
+RemoveSemicolon: true
+LineEnding: 'LF'
+TypenameMacros: ['re_decltype']
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: true
+  BeforeElse: true
+  IndentBraces: false
 
 ...
