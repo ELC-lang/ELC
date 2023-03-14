@@ -132,9 +132,7 @@ namespace elc::defs{
 			template<class T>
 			static inline constexpr size_t get_arithmetic_muti_convertible_count()noexcept{
 				typedef decltype(to_arithmetic_base(declvalue(T))) my_type;
-				push_and_disable_msvc_warning(26496);//未初始化警告diss
 				size_t muti_convertible_count=0;
-				pop_msvc_warning();
 				#define TYPE_MAPPER(type) \
 				if constexpr(type_uniquer<my_type>!=type_uniquer<type> && is_convertible<T,type>)\
 					muti_convertible_count++;
