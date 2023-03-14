@@ -51,8 +51,10 @@ namespace elc::defs{
 			typedef uint128_t uint_fast128_t;
 			typedef int128_t int_fast128_t;
 		#endif
+		//基础的uintmax_t
 		typedef ::std::uintmax_t basic_uintmax_t;
 		typedef ::std::intmax_t basic_intmax_t;
+		//更新uintmax_t和intmax_t的代指
 		typedef decltype(lambda{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
 			if constexpr(sizeof(basic_uintmax_t) < sizeof(uint128_t))
@@ -69,6 +71,7 @@ namespace elc::defs{
 			#endif
 				return basic_intmax_t{};
 		}()) intmax_t;
+		//众所周知，class不能作为数组下标，所以uintmax_index_t等类型的存在是有必要的
 		typedef basic_uintmax_t uintmax_index_t;
 		typedef basic_intmax_t intmax_index_t;
 		template<class T>
