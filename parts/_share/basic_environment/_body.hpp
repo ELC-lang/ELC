@@ -61,12 +61,12 @@ namespace elc::defs{
 					else
 						return c-'0';
 				}
-				template<int base, uint128_t val>
-				constexpr uint128_t eval_literal()noexcept{
+				template<int base>
+				constexpr uint128_t eval_literal(uint128_t val=0)noexcept{
 					return val;
 				}
-				template<int base, uint128_t val, char c, char...cs>
-				constexpr uint128_t eval_literal()noexcept{
+				template<int base, char c, char...cs>
+				constexpr uint128_t eval_literal(uint128_t val=0)noexcept{
 					static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
 					static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
 					static_assert(base!=16 || sizeof...(cs)<=32-1,"literal too long");
@@ -74,31 +74,31 @@ namespace elc::defs{
 					static_assert(base!=8 || sizeof...(cs)<=44-1,"literal too long");
 					static_assert(base!=2 || sizeof...(cs)<=128-1,"literal too long");
 					static_assert(base>hexval(c),"invalid char");
-					return eval_literal<base,val*base+hexval(c),cs...>();
+					return eval_literal<base,cs...>(val*base+hexval(c));
 				}
 				template<char...cs>
 				struct literal_evaler{
-					static constexpr uint128_t value=eval_literal<10,0,cs...>();
+					static constexpr uint128_t value=eval_literal<10,cs...>();
 				};
 				template<char...cs>
 				struct literal_evaler<'0','x',cs...>{
-					static constexpr uint128_t value=eval_literal<16,0,cs...>();
+					static constexpr uint128_t value=eval_literal<16,cs...>();
 				};
 				template<char...cs>
 				struct literal_evaler<'0','X',cs...>{
-					static constexpr uint128_t value=eval_literal<16,0,cs...>();
+					static constexpr uint128_t value=eval_literal<16,cs...>();
 				};
 				template<char...cs>
 				struct literal_evaler<'0','b',cs...>{
-					static constexpr uint128_t value=eval_literal<2,0,cs...>();
+					static constexpr uint128_t value=eval_literal<2,cs...>();
 				};
 				template<char...cs>
 				struct literal_evaler<'0','B',cs...>{
-					static constexpr uint128_t value=eval_literal<2,0,cs...>();
+					static constexpr uint128_t value=eval_literal<2,cs...>();
 				};
 				template<char...cs>
 				struct literal_evaler<'0',cs...>{
-					static constexpr uint128_t value=eval_literal<8,0,cs...>();
+					static constexpr uint128_t value=eval_literal<8,cs...>();
 				};
 				template<char...cs>
 				constexpr uint128_t operator ""_u128()noexcept{
