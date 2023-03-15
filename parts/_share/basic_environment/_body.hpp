@@ -30,6 +30,8 @@
 #if defined(_MSC_VER)//int128
 	#include <__msvc_int128.hpp>
 #endif
+#include <bit>
+#include <climits>
 namespace elc::defs{
 	#include "../_defs.hpp"
 

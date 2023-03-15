@@ -41,6 +41,7 @@
 	#include <cfenv>//rounding
 	#include <ctime>//time
 	#include <ranges>
+	#include <initializer_list>
 	#define ELC_BASE_DEFS
 	#include "_files/base_defs/_body.hpp"
 #endif
