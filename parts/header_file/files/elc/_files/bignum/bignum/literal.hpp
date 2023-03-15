@@ -31,12 +31,19 @@
 namespace literal_n{
 	//在此我们定义对于ubigint\bigint\ubigfloat\bigfloat的字面量支持。
 	constexpr uint8_t hexval(char c)noexcept{
-		if(c>='A')
-			return c+10-'A';
-		elseif(c>='a')
-			return c+10-'a';
-		else
-			return c-'0';
+		if constexpr('a'>'A'){
+			if(c>='a')
+				return c+10-'a';
+			elseif(c>='A')
+				return c+10-'A';
+		}
+		else{
+			if(c>='A')
+				return c+10-'A';
+			elseif(c>='a')
+				return c+10-'a';
+		}
+		return c-'0';
 	}
 	template<unsigned base>
 	constexpr_as_auto ubigint eval_bigint_literal(ubigint val=zero)noexcept{
