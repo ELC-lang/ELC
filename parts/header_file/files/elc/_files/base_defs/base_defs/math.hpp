@@ -370,7 +370,6 @@ namespace math{
 	template<float_type T> requires is_basic_type<T>
 	[[nodiscard]]force_inline constexpr auto ceil(const T&v)noexcept{
 		if in_consteval{
-			typedef decltype(::std::ceil(v)) RT;
 			auto ceil_impl = lambda(T x, T y)noexcept{
 				return is_close(x,y) ? y : y+T{1};
 			};
@@ -384,7 +383,6 @@ namespace math{
 	template<float_type T> requires is_basic_type<T>
 	[[nodiscard]]force_inline constexpr auto floor(const T&v)noexcept{
 		if in_consteval{
-			typedef decltype(::std::floor(v)) RT;
 			auto floor_impl = lambda(T x, T y)noexcept{
 				return is_close(x,y) ? y : y-T{1};
 			};

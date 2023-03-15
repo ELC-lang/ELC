@@ -419,12 +419,21 @@ namespace elc::defs{
 					#endif
 				}
 			}();
+			template<class T>
+			union float_data_union{
+				T v;
+				data_type<T> data;
+			};
+			template<class T>
+			constexpr data_type<T> get_float_data(T v)noexcept{
+				return float_data_union<T>{v}.data;
+			}
 		}
 		//自浮点数获取精确数部分，舍去指数和符号位
 		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto get_precision(T v)noexcept{
 			using namespace float_infos;
-			auto tmp=*(data_type<T>*)&v;
+			auto tmp=get_float_data(v);
 			tmp&=precision_mask<T>;
 			return tmp;
 		}
@@ -439,7 +448,7 @@ namespace elc::defs{
 		template<class T> requires ::std::is_floating_point_v<T>
 		force_inline constexpr auto base_get_exponent(T v)noexcept{
 			using namespace float_infos;
-			auto tmp=*(data_type<T>*)&v;
+			auto tmp=get_float_data(v);
 			tmp&=exponent_mask<T>;
 			tmp>>=precision_base_bit<T>;
 			return exponent_unsigned_type<T>(tmp);
