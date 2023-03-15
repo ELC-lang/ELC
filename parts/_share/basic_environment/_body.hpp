@@ -211,7 +211,7 @@ namespace elc::defs{
 			}
 			template<class T>
 			static inline constexpr bool convertible_unique_helper()noexcept{
-				return get_arithmetic_muti_convertible_count<T>()==1;
+				return get_arithmetic_muti_convertible_count<T>()==1;//the oly way we can save all lifes........
 			}
 			template<class T>
 			static inline constexpr bool able_helper()noexcept{
@@ -428,6 +428,10 @@ namespace elc::defs{
 			constexpr data_type<T> get_float_data(T v)noexcept{
 				return float_data_union<T>{v}.data;
 			}
+			template<class T>
+			constexpr T get_float_from_data(data_type<T> data)noexcept{
+				return float_data_union<T>{data}.v;
+			}
 		}
 		//自浮点数获取精确数部分，舍去指数和符号位
 		template<class T> requires ::std::is_floating_point_v<T>
@@ -503,16 +507,14 @@ namespace elc::defs{
 			if(exponent>exponent_max<T>)return 0;//指数过大，无法表示
 			//DEN情况判断
 			const bool is_den=!(base_num>>precision_base_bit<T>);//若基数最高位为0，则exponent一定为exponent_min，不用判断
-			if(is_den){
-				const data_type<T> data=base_num;
-				return *(const T*)&data;
-			}
+			if(is_den)
+				return get_float_from_data(base_num);
 			else{//非DEN情况下，根据浮点数表示规则去掉基数多余的1
 				const auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
 				base_num-=get_precision_base<T>();
 				data_type<T> data=base_num;
 				data|=data_type<T>(exp)<<precision_base_bit<T>;
-				return *(T*)&data;
+				return get_float_from_data(data);
 			}
 		}
 	}
