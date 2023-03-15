@@ -99,7 +99,7 @@ namespace elc::defs{
 					static constexpr uint128_t value=eval_literal<8,0,cs...>();
 				};
 				template<char...cs>
-				constexpr uint128_t operator ""_ui128()noexcept{
+				constexpr uint128_t operator ""_u128()noexcept{
 					return literal_evaler<cs...>::value;
 				}
 				template<char...cs>
@@ -115,7 +115,7 @@ namespace elc::defs{
 					return signed_literal_evaler<cs...>::value;
 				}
 			}
-			using int128_literal_detail::operator ""_ui128;
+			using int128_literal_detail::operator ""_u128;
 			using int128_literal_detail::operator ""_i128;
 		#endif
 		//基础的uintmax_t
@@ -270,7 +270,7 @@ namespace elc::defs{
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return(uint64_t)0x000FFFFFFFFFFFFFu;
 					#else
-						return(uint128_t)0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF_ui128;
+						return(uint128_t)0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
 					#endif
 				}
 			}();
@@ -305,7 +305,7 @@ namespace elc::defs{
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return(uint64_t)0x10000000000000u;
 					#else
-						return(uint128_t)0x10000000000000000000000000000_ui128;
+						return(uint128_t)0x10000000000000000000000000000_u128;
 					#endif
 				}
 			}();
@@ -413,7 +413,7 @@ namespace elc::defs{
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return 0x7FFFFFFFFFFFFFFFu;
 					#else
-						return 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_ui128;
+						return 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
 					#endif
 				}
 			}();
@@ -516,6 +516,8 @@ namespace elc::defs{
 	#if defined(ELC_BASE_ENV_HAS_INT128)
 	using basic_environment::uint128_t;
 	using basic_environment::int128_t;
+	using basic_environment::operator""_u128;
+	using basic_environment::operator""_i128;
 	#endif
 	using basic_environment::is_elc_expansion_base_type;
 
