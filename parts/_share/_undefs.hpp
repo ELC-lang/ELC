@@ -41,6 +41,9 @@
 #if defined(_MSC_VER)
 	#pragma pack(pop)
 #endif
+#if defined(__GNUC__)
+	#pragma GCC diagnostic pop
+#endif
 #if defined(_MSC_VER)
 	#pragma pop_macro("new")
 	#pragma pop_macro("delete")

@@ -56,6 +56,11 @@
 	#pragma warning(disable:26482)//非常数数组索引警告diss
 	#pragma warning(disable:26493)//c_cast转换警告diss：虽然有用但是太烦了，爬
 #endif
+#if defined(__GNUC__)
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic warning "-Wall"//开启所有警告
+	#pragma GCC diagnostic ignored "-Wmissing-template-keyword"//忽略模板警告
+#endif
 #if defined(_MSC_VER)
 	//#define suppress_msvc_warning(...) __pragma(warning(suppress:__VA_ARGS__)) //不再使用因为其不确定的作用域
 	#define disable_msvc_warning(...) __pragma(warning(disable:__VA_ARGS__))
