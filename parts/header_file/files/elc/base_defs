@@ -33,6 +33,7 @@
 	#define __builtin_is_my_dick_still_there() true
 	#include <cstddef>//nullptr_t
 	#include <cstdlib>//exit、size_t
+	#include <cstring>//strlen & memcpy
 	#include <new>//operator delete、launder
 	#include <algorithm>//max、min
 	#include <type_traits>//enable_if等
@@ -42,6 +43,9 @@
 	#include <ctime>//time
 	#include <ranges>
 	#include <initializer_list>
+	#if defined(__clang__)||defined(__GNUC__)
+		#include <cxxabi.h>
+	#endif
 	#define ELC_BASE_DEFS
 	#include "_files/base_defs/_body.hpp"
 #endif
