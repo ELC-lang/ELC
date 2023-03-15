@@ -53,8 +53,7 @@ constexpr struct min_t{
 	}
 	template<typename T>
 	struct for_type_t{
-		template<class T> requires able<::std::initializer_list<T>>
-		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept{
+		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept requires able<::std::initializer_list<T>>{
 			return ::std::min(l);
 		}
 		template<class...Args>
@@ -99,8 +98,7 @@ constexpr struct max_t{
 	}
 	template<typename T>
 	struct for_type_t{
-		template<class T> requires able<::std::initializer_list<T>>
-		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept{
+		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept requires able<::std::initializer_list<T>>{
 			return ::std::max(l);
 		}
 		template<class...Args>

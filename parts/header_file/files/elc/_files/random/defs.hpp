@@ -192,7 +192,7 @@ namespace rand_n{
 		}
 
 		template<size_t sand_size,size_t size>
-		[[nodiscard]]force_inline constexpr void gen_randbit_with_sand_size_to_pointer(byte*to)noexcept{
+		force_inline constexpr void gen_randbit_with_sand_size_to_pointer(byte*to)noexcept{
 			typedef unsigned_specific_size_t<sand_size> sand_type;
 			constexpr size_t sand_num = size/sand_size;
 			if constexpr(sand_num)
