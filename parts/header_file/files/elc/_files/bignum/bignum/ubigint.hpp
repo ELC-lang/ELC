@@ -383,7 +383,8 @@ private:
 		const auto end=buf.end();
 		while(intr!=end){
 			if(*intr){
-				--*intr;
+				if((!--*intr) && intr==buf.rbegin())
+					buf.resize(buf.size()-1);
 				return;
 			}
 			*intr=max(type_info<base_type>);
