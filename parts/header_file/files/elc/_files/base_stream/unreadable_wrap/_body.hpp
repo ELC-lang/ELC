@@ -31,6 +31,7 @@
 //warp for not_unreadable_istream to make it unreadable
 template<class stream_T> requires not_unreadable_istream_class<stream_T>
 struct unreadable_wrap:stream_T,instance_struct<unreadable_wrap<stream_T>>,virtual conditional<
+	//use conditional as workaround, see https://github.com/ELC-lang/ELC/commit/d352be02ff232d1e2b8b15197a34058166775b92 for more detail.
 	noexcept_stream_class<stream_T>,
 		conditional<data_stream_class<stream_T>,
 			noexcept_data_istream_t
