@@ -36,6 +36,8 @@ export bigfloat;
 
 export operator""_ubigint;
 export operator""_bigint;
+export operator""_ubigfloat;
+export operator""_bigfloat;
 #undef export
 
 //file_end
