@@ -211,7 +211,7 @@ namespace elc::defs{
 			}
 			template<class T>
 			static inline constexpr bool convertible_unique_helper()noexcept{
-				return get_arithmetic_muti_convertible_count<T>()==0;
+				return get_arithmetic_muti_convertible_count<T>()==1;
 			}
 			template<class T>
 			static inline constexpr bool able_helper()noexcept{
