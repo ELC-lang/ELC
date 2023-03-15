@@ -31,10 +31,10 @@
 namespace literal_n{
 	//在此我们定义对于ubigint\bigint\ubigfloat\bigfloat的字面量支持。
 	constexpr uint8_t hexval(char c)noexcept{
-		if(c>'A')
-			return c-'A'+10;
-		elseif(c>'a')
-			return c-'a'+10;
+		if(c>='A')
+			return c+10-'A';
+		elseif(c>='a')
+			return c+10-'a';
 		else
 			return c-'0';
 	}

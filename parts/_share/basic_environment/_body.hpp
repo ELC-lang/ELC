@@ -54,10 +54,10 @@ namespace elc::defs{
 			typedef int128_t int_fast128_t;
 			namespace int128_literal_detail{
 				constexpr uint8_t hexval(char c)noexcept{
-					if(c>'A')
-						return c-'A'+10;
-					elseif(c>'a')
-						return c-'a'+10;
+					if(c>='A')
+						return c+10-'A';
+					elseif(c>='a')
+						return c+10-'a';
 					else
 						return c-'0';
 				}
