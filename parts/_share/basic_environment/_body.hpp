@@ -426,11 +426,15 @@ namespace elc::defs{
 			};
 			template<class T>
 			constexpr data_type<T> get_float_data(T v)noexcept{
-				return float_data_union<T>{v}.data;
+				float_data_union<T> tmp;
+				tmp.v=v;
+				return tmp.data;
 			}
 			template<class T>
 			constexpr T get_float_from_data(data_type<T> data)noexcept{
-				return float_data_union<T>{data}.v;
+				float_data_union<T> tmp;
+				tmp.data=data;
+				return tmp.v;
 			}
 		}
 		//自浮点数获取精确数部分，舍去指数和符号位
@@ -508,13 +512,13 @@ namespace elc::defs{
 			//DEN情况判断
 			const bool is_den=!(base_num>>precision_base_bit<T>);//若基数最高位为0，则exponent一定为exponent_min，不用判断
 			if(is_den)
-				return get_float_from_data(base_num);
+				return get_float_from_data<T>(base_num);
 			else{//非DEN情况下，根据浮点数表示规则去掉基数多余的1
 				const auto exp=exponent_unsigned_type<T>(exponent+exponent_diff<T>);
 				base_num-=get_precision_base<T>();
 				data_type<T> data=base_num;
 				data|=data_type<T>(exp)<<precision_base_bit<T>;
-				return get_float_from_data(data);
+				return get_float_from_data<T>(data);
 			}
 		}
 	}

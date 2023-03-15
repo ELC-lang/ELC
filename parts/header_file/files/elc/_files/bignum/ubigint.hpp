@@ -180,7 +180,7 @@ public:
 				if(other<*i)//this>other
 					return strong_ordering::greater;
 				other-=*i;
-				other/=base_type_mod;
+				other=T(other/base_type_mod);
 				i++;
 			}
 			return other==0?strong_ordering::equivalent:strong_ordering::less;
