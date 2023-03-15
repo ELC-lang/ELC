@@ -30,20 +30,19 @@
 */
 //warp for not_unreadable_istream to make it unreadable
 template<class stream_T> requires not_unreadable_istream_class<stream_T>
-struct unreadable_wrap:stream_T,instance_struct<unreadable_wrap<stream_T>>,virtual decltype(lambda{
-	if constexpr(noexcept_stream_class<stream_T>) {
-		if constexpr(data_stream_class<stream_T>)
-			return type_info<noexcept_data_istream_t>;
-		else
-			return type_info<noexcept_text_istream_t<typename stream_T::char_type>>;
-	}
-	else {
-		if constexpr(data_stream_class<stream_T>)
-			return type_info<data_istream_t>;
-		else
-			return type_info<text_istream_t<typename stream_T::char_type>>;
-	}
-}())::type{
+struct unreadable_wrap:stream_T,instance_struct<unreadable_wrap<stream_T>>,virtual conditional<
+	noexcept_stream_class<stream_T>,
+		conditional<data_stream_class<stream_T>,
+			noexcept_data_istream_t
+		,
+			noexcept_text_istream_t<typename stream_T::char_type>
+	>,
+		conditional<data_stream_class<stream_T>,
+			data_istream_t
+		,
+			text_istream_t<typename stream_T::char_type>
+	>
+>{
 private:
 	typedef stream_T base_t;
 	typedef unreadable_wrap<stream_T> this_t;
