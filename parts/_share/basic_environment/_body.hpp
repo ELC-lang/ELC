@@ -50,6 +50,73 @@ namespace elc::defs{
 		#if defined(ELC_BASE_ENV_HAS_INT128)
 			typedef uint128_t uint_fast128_t;
 			typedef int128_t int_fast128_t;
+			namespace int128_literal_detail{
+				constexpr uint8_t hexval(char c)noexcept{
+					if(c>'A')
+						return c-'A'+10;
+					elseif(c>'a')
+						return c-'a'+10;
+					else
+						return c-'0';
+				}
+				template<int base, uint128_t val>
+				constexpr uint128_t eval_literal()noexcept{
+					return val;
+				}
+				template<int base, uint128_t val, char c, char...cs>
+				constexpr uint128_t eval_literal()noexcept{
+					static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
+					static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
+					static_assert(base!=16 || sizeof...(cs)<=32-1,"literal too long");
+					static_assert(base!=10 || sizeof...(cs)<=39-1,"literal too long");
+					static_assert(base!=8 || sizeof...(cs)<=44-1,"literal too long");
+					static_assert(base!=2 || sizeof...(cs)<=128-1,"literal too long");
+					static_assert(base>hexval(c),"invalid char");
+					return eval_literal<base,val*base+hexval(c),cs...>();
+				}
+				template<char...cs>
+				struct literal_evaler{
+					static constexpr uint128_t value=eval_literal<10,0,cs...>();
+				};
+				template<char...cs>
+				struct literal_evaler<'0','x',cs...>{
+					static constexpr uint128_t value=eval_literal<16,0,cs...>();
+				};
+				template<char...cs>
+				struct literal_evaler<'0','X',cs...>{
+					static constexpr uint128_t value=eval_literal<16,0,cs...>();
+				};
+				template<char...cs>
+				struct literal_evaler<'0','b',cs...>{
+					static constexpr uint128_t value=eval_literal<2,0,cs...>();
+				};
+				template<char...cs>
+				struct literal_evaler<'0','B',cs...>{
+					static constexpr uint128_t value=eval_literal<2,0,cs...>();
+				};
+				template<char...cs>
+				struct literal_evaler<'0',cs...>{
+					static constexpr uint128_t value=eval_literal<8,0,cs...>();
+				};
+				template<char...cs>
+				constexpr uint128_t operator ""_ui128()noexcept{
+					return literal_evaler<cs...>::value;
+				}
+				template<char...cs>
+				struct signed_literal_evaler{
+					static constexpr int128_t value=static_cast<int128_t>(literal_evaler<cs...>::value);
+				};
+				template<char...cs>
+				struct signed_literal_evaler<'-',cs...>{
+					static constexpr int128_t value=-static_cast<int128_t>(literal_evaler<cs...>::value);
+				};
+				template<char...cs>
+				constexpr int128_t operator ""_i128()noexcept{
+					return signed_literal_evaler<cs...>::value;
+				}
+			}
+			using int128_literal_detail::operator ""_ui128;
+			using int128_literal_detail::operator ""_i128;
 		#endif
 		//基础的uintmax_t
 		typedef ::std::uintmax_t basic_uintmax_t;
@@ -203,7 +270,7 @@ namespace elc::defs{
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return(uint64_t)0x000FFFFFFFFFFFFFu;
 					#else
-						return(uint128_t)0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFu;
+						return(uint128_t)0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF_ui128;
 					#endif
 				}
 			}();
@@ -238,7 +305,7 @@ namespace elc::defs{
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return(uint64_t)0x10000000000000u;
 					#else
-						return(uint128_t)0x10000000000000000000000000000u;
+						return(uint128_t)0x10000000000000000000000000000_ui128;
 					#endif
 				}
 			}();
@@ -346,7 +413,7 @@ namespace elc::defs{
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return 0x7FFFFFFFFFFFFFFFu;
 					#else
-						return 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFu;
+						return 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_ui128;
 					#endif
 				}
 			}();
