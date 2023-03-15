@@ -688,6 +688,18 @@ public:
 		add_to_base(_data,other);
 		return*this;
 	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	ubigint& operator+(T other)&&noexcept{
+		//using add_to_base to avoid new alloc
+		add_to_base(_data,other);
+		return*this;
+	}
+	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	[[nodiscard]]ubigint operator+(T other)const&noexcept{
+		auto aret = *this;
+		aret+=other;
+		return aret;
+	}
 	//operator-=
 	ubigint& operator-=(const ubigint& other)&noexcept{
 		const auto this_view = get_data_view();

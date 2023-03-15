@@ -67,14 +67,18 @@ namespace elc::defs{
 				}
 				template<int base, char c, char...cs>
 				constexpr uint128_t eval_literal(uint128_t val=0)noexcept{
-					static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
-					static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
-					static_assert(base!=16 || sizeof...(cs)<=32-1,"literal too long");
-					static_assert(base!=10 || sizeof...(cs)<=39-1,"literal too long");
-					static_assert(base!=8 || sizeof...(cs)<=44-1,"literal too long");
-					static_assert(base!=2 || sizeof...(cs)<=128-1,"literal too long");
-					static_assert(base>hexval(c),"invalid char");
-					return eval_literal<base,cs...>(val*base+hexval(c));
+					if constexpr(c!='\''){
+						static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
+						static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
+						static_assert(base!=16 || sizeof...(cs)<=32-1,"literal too long");
+						static_assert(base!=10 || sizeof...(cs)<=39-1,"literal too long");
+						static_assert(base!=8 || sizeof...(cs)<=44-1,"literal too long");
+						static_assert(base!=2 || sizeof...(cs)<=128-1,"literal too long");
+						static_assert(base>hexval(c),"invalid char");
+						return eval_literal<base,cs...>(val*base+hexval(c));
+					}
+					else
+						return eval_literal<base,cs...>(val);
 				}
 				template<char...cs>
 				struct literal_evaler{

@@ -1,5 +1,5 @@
-//_export.hpp
-//at namespace elc
+//_body.hpp
+//at namespace elc::defs::bignum_n
 /*
 未完成的elc解释器bignum文件
 由steve02081504与Alex0125设计、编写
@@ -28,15 +28,11 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-#define export using defs::
-export ubigint;
-export bigint;
-export ubigfloat;
-export bigfloat;
-
-export operator""_ubigint;
-export operator""_bigint;
-#undef export
+#include "ubigint.hpp"
+#include "bigint.hpp"
+#include "ubigfloat.hpp"
+#include "bigfloat.hpp"
+#include "literal.hpp"
 
 //file_end
 

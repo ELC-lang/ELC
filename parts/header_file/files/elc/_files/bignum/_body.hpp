@@ -36,12 +36,9 @@ namespace elc::defs{
 
 	#include "_decl.hpp"
 	namespace bignum_n{
-		#include "ubigint.hpp"
-		#include "bigint.hpp"
-		#include "ubigfloat.hpp"
-		#include "bigfloat.hpp"
+		#include "bignum/_body.hpp"
 	}
-	//符号导出已经在decl中完成
+	#include "bignum/_export.hpp"
 
 	#if defined(ELC_TEST_ON)
 	namespace bignum_part_test{
