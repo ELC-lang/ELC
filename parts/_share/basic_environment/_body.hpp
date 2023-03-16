@@ -40,11 +40,7 @@ namespace elc::defs{
 		/// 为什么c艹委员会不定义这个？
 		constexpr size_t BIT_POSSIBILITY=2;
 
-		#if defined(_MSC_VER) && _MSVC_STL_UPDATE > 202303L//after https://github.com/microsoft/STL/pull/3559
-			#define ELC_BASE_ENV_HAS_INT128
-			typedef ::std::_Unsigned128 uint128_t;
-			typedef ::std::_Signed128 int128_t;
-		#elif defined(__SIZEOF_INT128__)
+		#if defined(__SIZEOF_INT128__)
 			#define ELC_BASE_ENV_HAS_INT128
 			typedef __uint128_t uint128_t;
 			typedef __int128_t int128_t;
