@@ -488,6 +488,23 @@ public:
 		_num/=move(other);
 		return*this;
 	}
+	//operator+-*/of any type
+	template<typename T> requires is_arithmetic_type<T>
+	[[nodiscard]]friend bigfloat operator+(T&&lhs,const bigfloat& rhs)noexcept{
+		return bigfloat(forward<T>(lhs))+rhs;
+	}
+	template<typename T> requires is_arithmetic_type<T>
+	[[nodiscard]]friend bigfloat operator-(T&&lhs,const bigfloat& rhs)noexcept{
+		return bigfloat(forward<T>(lhs))-rhs;
+	}
+	template<typename T> requires is_arithmetic_type<T>
+	[[nodiscard]]friend bigfloat operator*(T&&lhs,const bigfloat& rhs)noexcept{
+		return bigfloat(forward<T>(lhs))*rhs;
+	}
+	template<typename T> requires is_arithmetic_type<T>
+	[[nodiscard]]friend bigfloat operator/(T&&lhs,const bigfloat& rhs)noexcept{
+		return bigfloat(forward<T>(lhs))/rhs;
+	}
 	//operator==
 	[[nodiscard]]bool operator==(const bigfloat& other)const noexcept{
 		if(_is_negative!=other._is_negative)return false;
