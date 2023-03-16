@@ -471,7 +471,7 @@ private:
 		return fast_muti_base(a,get_data_view_of_data(b));
 	}
 	///
-	static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
+	[[nodiscard]]static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
 		data_view_type tryto{a,b.size()+1};
 		const calc_type dividend=[&](){
 			const base_type*p=tryto.rbegin();
@@ -690,7 +690,7 @@ public:
 		return*this;
 	}
 	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
-	ubigint& operator+(T other)&&noexcept{
+	[[nodiscard]]ubigint& operator+(T other)&&noexcept{
 		//using add_to_base to avoid new alloc
 		add_to_base(_data,other);
 		return*this;

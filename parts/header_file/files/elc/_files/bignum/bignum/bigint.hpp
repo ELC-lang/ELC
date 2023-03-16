@@ -73,19 +73,19 @@ public:
 	~bigint() = default;
 public:
 	//operator==
-	bool operator==(const bigint& other)const noexcept{
+	[[nodiscard]]bool operator==(const bigint& other)const noexcept{
 		if(_is_negative != other._is_negative)
 			return false;
 		return _num == other._num;
 	}
 	template<typename T> requires ::std::is_integral_v<T>
-	bool operator==(T value)const noexcept{
+	[[nodiscard]]bool operator==(T value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return false;
 		return _num == abs(value);
 	}
 	//operator<=>
-	auto operator<=>(const bigint& other)const noexcept{
+	[[nodiscard]]auto operator<=>(const bigint& other)const noexcept{
 		if(_is_negative != other._is_negative)
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
 		auto tmp = _num <=> other._num;
@@ -94,7 +94,7 @@ public:
 		return tmp;
 	}
 	template<typename T> requires ::std::is_integral_v<T>
-	auto operator<=>(T value)const noexcept{
+	[[nodiscard]]auto operator<=>(T value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
 		auto tmp = _num <=> abs(value);
@@ -512,11 +512,11 @@ public:
 		return tmp;
 	}
 	//friend is_odd
-	friend bool is_odd(const bigint& n)noexcept{
+	friend [[nodiscard]] bool is_odd(const bigint& n)noexcept{
 		return is_odd(n._num);
 	}
 	//friend is_even
-	friend bool is_even(const bigint& n)noexcept{
+	friend [[nodiscard]] bool is_even(const bigint& n)noexcept{
 		return is_even(n._num);
 	}
 };
