@@ -521,5 +521,9 @@ public:
 	}
 };
 
+[[nodiscard]]inline bigint operator-(const ubigint&num)noexcept{
+	return copy_as_negative(num);
+}
+
 //file_end
 
