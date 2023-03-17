@@ -552,7 +552,7 @@ namespace elc::defs{
 
 	using basic_environment::wchar_t_same_as_char_t;
 	using basic_environment::wchar_t_same_as_char16_t;
-	
+
 	using basic_environment::get_exponent;
 	using basic_environment::get_base_num;
 	using basic_environment::get_precision;
