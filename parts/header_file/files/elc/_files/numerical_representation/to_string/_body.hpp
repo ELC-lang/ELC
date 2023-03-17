@@ -73,24 +73,16 @@ namespace to_string_n{
 		template<float_type T>
 		[[nodiscard]]string to_string_base(ubigfloat num)const noexcept{
 			string aret;
-			//判断是否是有限小数
+			//化简
 			num.simplify();
-			const bool is_finite=_repres.is_finite(num);
-			//若无限小数，以分数形式输出
-			if(!is_finite)[[unlikely]]{
-				auto&numpart=get_numerator_as_ref(num);
-				auto&denopart=get_denominator_as_ref(num);
-				auto fractional_separator=_repres.get_fractional_separator();
-				aret=to_string(move(numpart))+fractional_separator+to_string(move(denopart));
-			}
-			//有限小数
-			else[[likely]]{
-				ptrdiff_t exp=0;
-				auto& numerator=get_numerator_as_ref(num);
-				auto& denominator=get_denominator_as_ref(num);
-				const auto radix=_repres.get_radix();
-				if(!numerator)
-					return _repres.get_char(0);
+			ptrdiff_t exp=0;
+			auto& numerator=get_numerator_as_ref(num);
+			if(!numerator)
+				return _repres.get_char(0);
+			auto& denominator=get_denominator_as_ref(num);
+			const auto radix=_repres.get_radix();
+			{
+				auto denominator_backup=denominator;//备份denominator用于在发现此为无限小数时继续输出（省去还原计算）
 				//化简为numerator*radix^exp
 				{
 					auto result=divmod(denominator,radix);
@@ -99,55 +91,67 @@ namespace to_string_n{
 						--exp;
 						result=divmod(denominator,radix);
 					}
-					numerator*=_repres.get_denominator_complement(denominator,exp);
-					//现在denominator是1
-					if constexpr(is_basic_type<T>){//若T是基础类型
-						//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
-						constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
-						//获取info_threshold_num
-						const auto info_threshold_num=info_threshold_base*radix;
-						//更新exp并舍入numerator直到numerator小于info_threshold_num
-						while(numerator>info_threshold_num){
-							++exp;
-							result=divmod(move(numerator),radix);
-							if(result.mod>=radix/2)//舍入
-								++result.quot;
-							numerator=move(result.quot);
-						}
-					}
+				}
+				auto comple=_repres.get_denominator_complement(denominator,exp);
+				//现在denominator是1？若不是则说明这是一个无限小数
+				//若无限小数，以分数形式输出
+				if(denominator!=1){
+					auto fractional_separator=_repres.get_fractional_separator();
+					swap(denominator_backup,denominator);
+					denominator_backup=decltype(denominator_backup){};
+					return to_string(move(numerator))+fractional_separator+to_string(move(denominator));
+				}
+				//不是无限小数，清空denominator_backup以节省内存
+				denominator_backup=decltype(denominator_backup){};
+				numerator*=comple;
+			}
+			if constexpr(is_basic_type<T>){//若T是基础类型
+				//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
+				constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
+				//获取info_threshold_num
+				const auto info_threshold_num=info_threshold_base*radix;
+				//更新exp并舍入numerator直到numerator小于info_threshold_num
+				while(numerator>info_threshold_num){
+					++exp;
+					auto result=divmod(move(numerator),radix);
+					if(result.mod>=radix/2)//舍入
+						++result.quot;
+					numerator=move(result.quot);
+				}
+			}
+			{
+				auto result=divmod(numerator,radix);
+				while(result.quot&&!(result.mod)){
+					numerator=move(result.quot);
+					++exp;
 					result=divmod(numerator,radix);
-					while(result.quot&&!(result.mod)){
-						numerator=move(result.quot);
-						++exp;
-						result=divmod(numerator,radix);
-					}
 				}
-				//先获取numerator和exp的字符串表示
-				aret=to_string(move(numerator));
-				auto expstr=to_string(exp);
-				if(exp<0){
-					//首先计算需要的前置0的个数
-					const auto need_zero=size_t(max(ptrdiff_t{},-exp+1-aret.size()));
-					if(need_zero>expstr.size()){//选取最短表达
-						aret+=_repres.get_exponent_separator();
-						aret+=expstr;
-					}
-					else{
-						if(need_zero)
-							aret.push_front(_repres.get_char(0),need_zero);
-						//插入小数点
-						const auto dot_pos=aret.size()+exp;
-						aret.insert(dot_pos,_repres.get_fractional_sign());
-					}
+			}
+			//先获取numerator和exp的字符串表示
+			aret=to_string(move(numerator));
+			auto expstr=to_string(exp);
+			if(exp<0){
+				//首先计算需要的前置0的个数
+				const auto need_zero=size_t(max(ptrdiff_t{},-exp+1-aret.size()));
+				if(need_zero>expstr.size()){//选取最短表达
+					aret+=_repres.get_exponent_separator();
+					aret+=expstr;
 				}
-				elseif(exp>0){
-					if(size_t(exp)>expstr.size()+1){
-						aret+=_repres.get_exponent_separator();
-						aret+=expstr;
-					}
-					else//否则，补0
-						aret.push_back(_repres.get_char(0),exp);
+				else{
+					if(need_zero)
+						aret.push_front(_repres.get_char(0),need_zero);
+					//插入小数点
+					const auto dot_pos=aret.size()+exp;
+					aret.insert(dot_pos,_repres.get_fractional_sign());
 				}
+			}
+			elseif(exp>0){
+				if(size_t(exp)>expstr.size()+1){
+					aret+=_repres.get_exponent_separator();
+					aret+=expstr;
+				}
+				else//否则，补0
+					aret.push_back(_repres.get_char(0),exp);
 			}
 			return aret;
 		}
@@ -210,12 +214,12 @@ namespace to_string_n{
 			}
 		}
 	private:
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<float_type T>
 		[[nodiscard]]string to_string_unsigneded(T num)const noexcept{
 			return to_string_base<T>(move(num));
 		}
 	public:
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		[[nodiscard]]string to_string(T num)const noexcept{
 			//首先，特殊值检查
 			if(isNaN(num)){
@@ -346,7 +350,7 @@ namespace to_string_n{
 		}
 		//floats
 	private:
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		[[nodiscard]]T from_string_get_unsigneded(string str,convert_state_t&state)const noexcept{
 			//首先判断特殊值
 			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
@@ -392,7 +396,7 @@ namespace to_string_n{
 			return from_string_get_base<ubigfloat>(move(str),state).convert_to<T>();
 		}
 	public:
-		template<class T> requires(::std::is_floating_point_v<T> && ::std::is_unsigned_v<T>)
+		template<class T> requires(float_type<T> && unsigned_type<T>)
 		[[nodiscard]]T from_string_get(const string&str,convert_state_t&state)const noexcept{
 			return from_string_get_unsigneded<T>(str,state);
 		}

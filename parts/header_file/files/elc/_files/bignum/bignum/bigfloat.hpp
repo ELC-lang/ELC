@@ -61,14 +61,14 @@ public:
 				return false;
 		if(*this>max_value)
 			return false;
-		if constexpr(::std::is_integral_v<T>)
+		if constexpr(integer_type<T>)
 			if(trunc(*this)!=*this)
 				return false;
 		return true;
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]T convert_to()const noexcept{
-		if constexpr(::std::is_unsigned_v<T>)
+		if constexpr(unsigned_type<T>)
 			return _num.convert_to<T>();
 		else{
 			using math::copy_as_negative;//貌似msvc在这里有bug

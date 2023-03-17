@@ -53,7 +53,7 @@ template<typename T>
 
 /// 判断类型是否为指针
 template<class T>
-inline constexpr bool is_pointer= ::std::is_pointer_v<T>;
+concept is_pointer= ::std::is_pointer_v<T>;
 /// 未知类型指针
 typedef void*pointer;
 /// 未知类型指针，不可写

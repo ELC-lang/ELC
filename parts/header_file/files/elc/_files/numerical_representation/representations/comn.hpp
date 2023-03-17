@@ -49,31 +49,11 @@ struct base_numerical_representation_t{
 	[[nodiscard]]virtual char_t get_char(size_t index)const noexcept=0;
 	[[nodiscard]]virtual size_t get_index(char_t c)const noexcept=0;
 	[[nodiscard]]virtual bool is_valid_char(char_t ch)const noexcept=0;
-	[[nodiscard]]bool is_finite(const bigfloat&num)const noexcept{
-		return is_finite_denominator_part(get_denominator(num));
-	}
-	[[nodiscard]]bool is_finite(const ubigfloat&num)const noexcept{
-		return is_finite_denominator_part(get_denominator(num));
-	}
 protected:
 	//获取unique_prime_factorization_table of radix
 	[[nodiscard]]virtual array_like_view_t<const size_t>get_unique_prime_factorization_table_of_radix()const noexcept=0;
-	//bigfloat的分母部分的质因数只有radix的质因数组成时才是有限小数
-	[[nodiscard]]bool is_finite_denominator_part(ubigint num)const noexcept{
-		const auto table=get_unique_prime_factorization_table_of_radix();
-		for(const auto i:table){
-			auto result=divmod(num,i);
-			while(!result.mod){
-				num=move(result.quot);
-				result=divmod(num,i);
-			}
-			if(num==1u)
-				return true;
-		}
-		return false;
-	}
 public:
-	//根据分母部分获取弥补分母到radix的幂的乘数并返回，将分母部分置零并递增exp值
+	//根据分母部分获取弥补分母到radix的幂的乘数并返回，若是有限小数将分母部分置1并递增exp值
 	[[nodiscard]]ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept{
 		const auto table=get_unique_prime_factorization_table_of_radix();
 		const auto radix=get_radix();

@@ -48,7 +48,7 @@ public:
 	bigint(bigint&&)noexcept = default;
 	bigint(const ubigint&a)noexcept:_num(a),_is_negative(false){}
 	bigint(ubigint&&a)noexcept:_num(move(a)),_is_negative(false){}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	bigint(T value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
 
 	bigint& operator=(const bigint&)&noexcept = default;
@@ -63,7 +63,7 @@ public:
 		_is_negative = false;
 		return *this;
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<typename T> requires(unsigned_integer_type<T>)
 	bigint& operator=(T value)&noexcept{
 		_num = value;
 		_is_negative = false;
@@ -78,7 +78,7 @@ public:
 			return false;
 		return _num == other._num;
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bool operator==(T value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return false;
@@ -93,7 +93,7 @@ public:
 			tmp=compare.reverse(tmp);
 		return tmp;
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]auto operator<=>(T value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
@@ -103,7 +103,7 @@ public:
 		return tmp;
 	}
 public:
-	template<typename T> requires ::std::is_integral_v<T>
+	template<typename T> requires basic_integer_type<T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
 		constexpr auto min_value=min(type_info<T>);
 		constexpr auto max_value=max(type_info<T>);
@@ -114,9 +114,9 @@ public:
 			return false;
 		return true;
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<typename T> requires basic_integer_type<T>
 	[[nodiscard]]T convert_to()const noexcept{
-		if constexpr(::std::is_signed_v<T>){
+		if constexpr(signed_type<T>){
 			typedef to_unsigned_t<T> UT;
 			UT tmp=_num.convert_to<UT>();
 			return _is_negative?-(T)tmp:(T)tmp;
@@ -189,9 +189,9 @@ public:
 	[[nodiscard]]bigint operator*(const ubigint& other)const&noexcept{
 		return bigint{_num*other,_is_negative};
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint operator*(T other)const&noexcept{
-		if constexpr(::std::is_signed_v<T>)
+		if constexpr(signed_type<T>)
 			return *this*bigint(other);
 		else
 			return *this*ubigint(other);
@@ -204,9 +204,9 @@ public:
 	[[nodiscard]]bigint operator/(const ubigint& other)const&noexcept{
 		return bigint{_num/other,_is_negative};
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint operator/(T other)const&noexcept{
-		if constexpr(::std::is_signed_v<T>)
+		if constexpr(signed_type<T>)
 			return *this/bigint(other);
 		else
 			return *this/ubigint(other);
@@ -218,12 +218,12 @@ public:
 	[[nodiscard]]bigint operator%(const ubigint& other)const&noexcept{
 		return bigint{_num%other,_is_negative};
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint operator%(T other)const&noexcept{
 		return *this%ubigint(abs(other));
 	}
 	//operator<<
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint operator<<(T n)const&noexcept{
 		return bigint{_num<<n,_is_negative};
 	}
@@ -237,7 +237,7 @@ public:
 		return {_num<<n,_is_negative};
 	}
 	//operator>>
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint operator>>(T n)const&noexcept{
 		return bigint{_num>>n,_is_negative};
 	}
@@ -316,9 +316,9 @@ public:
 		_num *= move(other._num);
 		return*this;
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	bigint& operator*=(T other)&noexcept{
-		if constexpr(::std::is_signed_v<T>)
+		if constexpr(signed_type<T>)
 			return *this*=bigint(other);
 		else
 			return *this*=ubigint(other);
@@ -334,9 +334,9 @@ public:
 		_num /= move(other._num);
 		return*this;
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	bigint& operator/=(T other)&noexcept{
-		if constexpr(::std::is_signed_v<T>)
+		if constexpr(signed_type<T>)
 			return *this/=bigint(other);
 		else
 			return *this/=ubigint(other);
@@ -352,12 +352,12 @@ public:
 		_num %= move(other._num);
 		return*this;
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	bigint& operator%=(T other)&noexcept{
 		return *this%=ubigint(abs(other));
 	}
 	//operator<<=
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	bigint& operator<<=(T n)&noexcept{
 		_num <<= n;
 		return*this;
@@ -373,7 +373,7 @@ public:
 		return*this;
 	}
 	//operator>>=
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	bigint& operator>>=(T n)&noexcept{
 		_num >>= n;
 		return*this;
@@ -414,7 +414,7 @@ public:
 	[[nodiscard]]bigint&& operator*(const ubigint& other)&&noexcept{
 		return move(*this*=other);
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint&& operator*(T other)&&noexcept{
 		return move(*this*=other);
 	}
@@ -424,7 +424,7 @@ public:
 	[[nodiscard]]bigint&& operator/(const ubigint& other)&&noexcept{
 		return move(*this/=other);
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint&& operator/(T other)&&noexcept{
 		return move(*this/=other);
 	}
@@ -434,11 +434,11 @@ public:
 	[[nodiscard]]bigint&& operator%(const ubigint& other)&&noexcept{
 		return move(*this%=other);
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint&& operator%(T other)&&noexcept{
 		return move(*this%=other);
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint&& operator<<(T other)&&noexcept{
 		return move(*this<<=other);
 	}
@@ -448,7 +448,7 @@ public:
 	[[nodiscard]]bigint&& operator<<(const ubigint& other)&&noexcept{
 		return move(*this<<=other);
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bigint&& operator>>(T other)&&noexcept{
 		return move(*this>>=other);
 	}

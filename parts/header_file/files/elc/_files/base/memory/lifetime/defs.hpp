@@ -37,53 +37,53 @@ namespace lifetime_n{
 	template<class T>
 	class construct_t;
 	template<class T,class...Args>
-	constexpr bool construct_able=::std::is_constructible_v<T,Args...>;
+	concept construct_able=::std::is_constructible_v<T,Args...>;
 	template<class T,class...Args>
-	constexpr bool construct_nothrow=::std::is_nothrow_constructible_v<T,Args...>;
+	concept construct_nothrow=::std::is_nothrow_constructible_v<T,Args...>;
 	template<class T,class...Args>
-	constexpr bool construct_trivial=::std::is_trivially_constructible_v<T,Args...>;
+	concept construct_trivial=::std::is_trivially_constructible_v<T,Args...>;
 
 	class destruct_t;
 	template<class T>
-	constexpr bool destruct_able=::std::is_destructible_v<T>;
+	concept destruct_able=::std::is_destructible_v<T>;
 	template<class T>
-	constexpr bool destruct_nothrow=::std::is_nothrow_destructible_v<T>;
+	concept destruct_nothrow=::std::is_nothrow_destructible_v<T>;
 	template<class T>
-	constexpr bool destruct_trivial=::std::is_trivially_destructible_v<T>;
+	concept destruct_trivial=::std::is_trivially_destructible_v<T>;
 	//
 
 	class copy_construct_t;
 	template<class T>
-	constexpr bool copy_construct_able=::std::is_copy_constructible_v<T>;
+	concept copy_construct_able=::std::is_copy_constructible_v<T>;
 	template<class T>
-	constexpr bool copy_construct_nothrow=::std::is_nothrow_copy_constructible_v<T>;
+	concept copy_construct_nothrow=::std::is_nothrow_copy_constructible_v<T>;
 	template<class T>
-	constexpr bool copy_construct_trivial=::std::is_trivially_copy_constructible_v<T>;
+	concept copy_construct_trivial=::std::is_trivially_copy_constructible_v<T>;
 
 	class move_construct_t;
 	template<class T>
-	constexpr bool move_construct_able=::std::is_move_constructible_v<T>;
+	concept move_construct_able=::std::is_move_constructible_v<T>;
 	template<class T>
-	constexpr bool move_construct_nothrow=::std::is_nothrow_move_constructible_v<T>;
+	concept move_construct_nothrow=::std::is_nothrow_move_constructible_v<T>;
 	template<class T>
-	constexpr bool move_construct_trivial=::std::is_trivially_move_constructible_v<T>;
+	concept move_construct_trivial=::std::is_trivially_move_constructible_v<T>;
 	//
 
 	class copy_assign_t;
 	template<class T>
-	constexpr bool copy_assign_able=::std::is_copy_assignable_v<T>;
+	concept copy_assign_able=::std::is_copy_assignable_v<T>;
 	template<class T>
-	constexpr bool copy_assign_nothrow=::std::is_nothrow_copy_assignable_v<T>;
+	concept copy_assign_nothrow=::std::is_nothrow_copy_assignable_v<T>;
 	template<class T>
-	constexpr bool copy_assign_trivial=::std::is_trivially_copy_assignable_v<T>;
+	concept copy_assign_trivial=::std::is_trivially_copy_assignable_v<T>;
 
 	class move_assign_t;
 	template<class T>
-	constexpr bool move_assign_able=::std::is_move_assignable_v<T>;
+	concept move_assign_able=::std::is_move_assignable_v<T>;
 	template<class T>
-	constexpr bool move_assign_nothrow=::std::is_nothrow_move_assignable_v<T>;
+	concept move_assign_nothrow=::std::is_nothrow_move_assignable_v<T>;
 	template<class T>
-	constexpr bool move_assign_trivial=::std::is_trivially_move_assignable_v<T>;
+	concept move_assign_trivial=::std::is_trivially_move_assignable_v<T>;
 	//
 
 	template<class T> requires ::std::is_trivially_copyable_v<T>

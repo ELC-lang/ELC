@@ -43,9 +43,9 @@ public:
 	ubigfloat(const ubigint& other)noexcept:_numerator(other){}
 	ubigfloat(ubigint&& other)noexcept:_numerator(move(other)){}
 
-	template<typename T> requires (::std::is_integral_v<T> && ::std::is_unsigned_v<T>)
+	template<unsigned_integer_type T>
 	ubigfloat(T num)noexcept:_numerator(num){}
-	template<typename T> requires ::std::is_floating_point_v<T>
+	template<basic_float_type T>
 	ubigfloat(T num)noexcept{
 		if(isNaN(num))return;
 		//将一个浮点类型无损的转换为两个bigint相除
@@ -110,7 +110,7 @@ public:
 				return false;
 		if(*this>max_value)
 			return false;
-		if constexpr(::std::is_integral_v<T>)
+		if constexpr(integer_type<T>)
 			if(_numerator%_denominator)
 				return false;
 		return true;
@@ -118,7 +118,7 @@ public:
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]T convert_to()&&noexcept{//只对于右值，便于编写。
 		//左值版本只需要创建一个临时变量，然后调用右值版本即可。
-		if constexpr(::std::is_integral_v<T>)
+		if constexpr(basic_integer_type<T>)
 			return trunc(*this).convert_to<T>();
 		else{//浮点数
 			if(!_denominator)
@@ -176,7 +176,7 @@ public:
 	}
 	template<typename T> requires ::std::is_arithmetic_v<T>
 	[[nodiscard]]T convert_to()const&noexcept{
-		if constexpr(::std::is_integral_v<T>)
+		if constexpr(basic_integer_type<T>)
 			return trunc(*this).convert_to<T>();
 		else
 			return ubigfloat(*this).convert_to<T>();
@@ -420,11 +420,11 @@ public:
 	}
 	[[nodiscard]]bool operator==(const bigint& other)const noexcept{
 		if(is_negative(other))return false;
-		return _numerator == other * _denominator;
+		return _numerator == abs(other) * _denominator;
 	}
 	[[nodiscard]]bool operator==(bigint&& other)const noexcept{
 		if(is_negative(other))return false;
-		return _numerator == move(other) * _denominator;
+		return _numerator == abs(move(other)) * _denominator;
 	}
 	//operator<=>
 	[[nodiscard]]auto operator<=>(const ubigfloat& other)const noexcept{
@@ -438,11 +438,11 @@ public:
 	}
 	[[nodiscard]]auto operator<=>(const bigint& other)const noexcept{
 		if(is_negative(other))return strong_ordering::greater;
-		return _numerator <=> other * _denominator;
+		return _numerator <=> abs(other) * _denominator;
 	}
 	[[nodiscard]]auto operator<=>(bigint&& other)const noexcept{
 		if(is_negative(other))return strong_ordering::greater;
-		return _numerator <=> move(other) * _denominator;
+		return _numerator <=> abs(move(other)) * _denominator;
 	}
 	//operatorX for rvalue
 	[[nodiscard]]ubigfloat&& operator+(const ubigfloat& other)&&noexcept{
@@ -496,14 +496,8 @@ public:
 	[[nodiscard]]ubigfloat&& operator+(ubigfloat&& other)noexcept{
 		return move(move(other) + *this);
 	}
-	[[nodiscard]]ubigfloat&& operator-(ubigfloat&& other)noexcept{
-		return move(move(other) - *this);
-	}
 	[[nodiscard]]ubigfloat&& operator*(ubigfloat&& other)noexcept{
 		return move(move(other) * *this);
-	}
-	[[nodiscard]]ubigfloat&& operator/(ubigfloat&& other)noexcept{
-		return move(move(other) / *this);
 	}
 	//operator!
 	[[nodiscard]]bool operator!()const noexcept{
@@ -520,16 +514,6 @@ public:
 		_denominator/=g;
 	}
 	//friend pow
-	friend [[nodiscard]] ubigfloat pow(ubigfloat base,ubigint exp)noexcept{
-		ubigfloat result=1u;
-		while(exp){
-			if(is_odd(exp))
-				result*=base;
-			base*=base;
-			exp>>=1u;
-		}
-		return result;
-	}
 	friend [[nodiscard]] ubigfloat pow(ubigfloat base,bigint exp)noexcept{
 		ubigfloat aret;
 		if(is_negative(exp))
@@ -537,14 +521,24 @@ public:
 		else
 			aret=base;
 		ubigint uexp=abs(move(exp));
-		return pow(move(aret),move(uexp));
+		return math::pow(move(aret),move(uexp));
 	}
 };
 //pow of bigint
-[[nodiscard]]inline ubigfloat pow(ubigint base,bigint exp)noexcept{
-	return pow(ubigfloat(move(base)),move(exp));
+[[nodiscard]]inline ubigfloat pow(ubigint base,ubigint exp)noexcept{
+	return math::pow(move(base),move(exp));
 }
-template<typename T> requires(::std::is_integral_v<T> && ::std::is_unsigned_v<T>)
+template<unsigned_basic_integer_type T>
+[[nodiscard]]inline ubigint pow(T base,ubigint exp)noexcept{
+	return pow(ubigint(base),move(exp));
+}
+[[nodiscard]]inline ubigfloat pow(ubigint base,bigint exp)noexcept{
+	if(is_negative(exp))
+		return ubigfloat{1u} / pow(move(base),abs(move(exp)));
+	else
+		return pow(move(base),abs(move(exp)));
+}
+template<unsigned_basic_integer_type T>
 [[nodiscard]]inline ubigfloat pow(T base,bigint exp)noexcept{
 	return pow(ubigint(base),move(exp));
 }

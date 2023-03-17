@@ -437,14 +437,14 @@ namespace string_n{
 		//泛型arec.
 		template<typename T> requires ::std::is_arithmetic_v<T>
 		[[nodiscard]]auto operator[](T index)noexcept{
-			if constexpr(::std::is_floating_point_v<T>)
+			if constexpr(float_type<T>)
 				return operator[](static_cast<float_t>(index));
 			else
 				return operator[](static_cast<size_t>(index));
 		}
 		template<typename T> requires ::std::is_arithmetic_v<T>
 		[[nodiscard]]const auto operator[](T index)const noexcept{
-			if constexpr(::std::is_floating_point_v<T>)
+			if constexpr(float_type<T>)
 				return operator[](static_cast<float_t>(index));
 			else
 				return operator[](static_cast<size_t>(index));

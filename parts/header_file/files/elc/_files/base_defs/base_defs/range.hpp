@@ -289,7 +289,7 @@ namespace range_n{
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_first_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
-		if constexpr(::std::is_integral_v<T>){
+		if constexpr(basic_integer_type<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
 				return find_first_of_bitmark(mark,range);
@@ -328,7 +328,7 @@ namespace range_n{
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_last_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
-		if constexpr(::std::is_integral_v<T>){
+		if constexpr(basic_integer_type<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
 				return find_last_of_bitmark(mark,range);
@@ -368,7 +368,7 @@ namespace range_n{
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_first_not_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
-		if constexpr(::std::is_integral_v<T>){
+		if constexpr(basic_integer_type<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
 				return find_first_not_of_bitmark(mark,range);
@@ -461,7 +461,7 @@ namespace range_n{
 	/// 若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* find_last_not_of(const array_like_view_t<T>&pattern,const array_like_view_t<T>&range){
-		if constexpr(::std::is_integral_v<T>){
+		if constexpr(basic_integer_type<T>){
 			bitmark_for_finds<T> mark;
 			if(mark.mark(pattern))
 				return find_last_not_of_bitmark(mark,range);

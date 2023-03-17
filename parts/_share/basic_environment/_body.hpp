@@ -161,7 +161,7 @@ namespace elc::defs{
 			return false;
 		}
 		template<class T>
-		constexpr bool inline is_elc_expansion_base_type=is_elc_expansion_base_type_helper<T>();
+		concept is_elc_expansion_base_type=is_elc_expansion_base_type_helper<T>();
 
 		/*! 给定大小的无符号整数类型 */
 		template<size_t size>

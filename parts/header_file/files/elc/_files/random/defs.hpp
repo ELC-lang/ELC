@@ -235,14 +235,14 @@ namespace rand_n{
 		[[nodiscard]]force_inline T operator()()const noexcept{return _seed.gen_randbit<T>();}
 		//浮点特供：[0,1)和[0,1]
 		/// [0,1)
-		[[nodiscard]]force_inline constexpr T between_0_and_1_exclusive()const noexcept requires ::std::is_floating_point_v<T>{
+		[[nodiscard]]force_inline constexpr T between_0_and_1_exclusive()const noexcept requires basic_float_type<T>{
 			T base=T(_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>());
 			constexpr size_t div_times=bitnum_of(base);
 			constexpr auto div_num=pow(BIT_POSSIBILITY,div_times);
 			return T(base/div_num);
 		}
 		/// [0,1]
-		[[nodiscard]]force_inline constexpr T between_0_and_1_inclusive()const noexcept requires ::std::is_floating_point_v<T>{
+		[[nodiscard]]force_inline constexpr T between_0_and_1_inclusive()const noexcept requires basic_float_type<T>{
 			auto rnd=_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>();
 			//考虑到浮点数总会使用一些位来表示指数，取rnd的最低位来表示rand到1.0或以上的概率也不会影响到结果
 			const bool is_one=rnd&1;rnd>>=1;
@@ -300,7 +300,7 @@ namespace rand_n{
 	public:
 		[[nodiscard]]force_inline constexpr auto between(T amin,T amax)const noexcept requires ::std::is_arithmetic_v<T>{
 			#define args _seed,min(amax,amin),max(amax,amin)
-			if constexpr(::std::is_integral_v<T>)
+			if constexpr(integer_type<T>)
 				return between_integral_t(args);
 			else
 				return between_floating_t(args);

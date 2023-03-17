@@ -44,9 +44,9 @@ namespace hash_n{
 	};
 
 	template<class T>
-	inline constexpr bool is_unstable_hash = type_info<T const>.can_convert_to<unstable_hash_value_t>;
+	concept is_unstable_hash = type_info<T const>.can_convert_to<unstable_hash_value_t>;
 	template<class T>
-	inline constexpr bool is_fundamental_hash = ::std::is_fundamental_v<T>;
+	concept is_fundamental_hash = ::std::is_fundamental_v<T>;
 
 	enable_adl(the_pointer_hash);
 	/*!

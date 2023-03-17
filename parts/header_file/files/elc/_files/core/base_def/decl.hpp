@@ -70,13 +70,13 @@ constexpr bool as_ptr_nothrow_helper()noexcept{
 		return noexcept(const_ptr(declvalue(T)));
 	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
 		return noexcept(make_long_term_binary_node_from<char_t>(declvalue(T)));
-	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
-		if constexpr(::std::is_signed_v<remove_cvref<T>>)
+	elseif constexpr(basic_integer_type<remove_cvref<T>>){
+		if constexpr(signed_type<remove_cvref<T>>)
 			return noexcept(make_long_term_binary_node_from<int_t>(declvalue(T)));
 		else
 			return noexcept(make_long_term_binary_node_from<uint_t>(declvalue(T)));
 	}
-	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
+	elseif constexpr(basic_float_type<remove_cvref<T>>)
 		return noexcept(make_long_term_binary_node_from<float_t>(declvalue(T)));
 	elseif constexpr(construct<string>.able<T>){
 		return noexcept(make_long_term_binary_node_from<string>(declvalue(T)));
@@ -103,13 +103,13 @@ decltype(auto) as_ptr(T&&a)noexcept(as_ptr_nothrow_helper<T>()){
 		return const_ptr(a);
 	elseif constexpr(type_info<remove_cvref<T>> == type_info<char_t>)
 		return make_long_term_binary_node_from<char_t>(a);
-	elseif constexpr(::std::is_integral_v<remove_cvref<T>>){
-		if constexpr(::std::is_signed_v<remove_cvref<T>>)
+	elseif constexpr(basic_integer_type<remove_cvref<T>>){
+		if constexpr(signed_type<remove_cvref<T>>)
 			return make_long_term_binary_node_from<int_t>(a);
 		else
 			return make_long_term_binary_node_from<uint_t>(a);
 	}
-	elseif constexpr(::std::is_floating_point_v<remove_cvref<T>>)
+	elseif constexpr(basic_float_type<remove_cvref<T>>)
 		return make_long_term_binary_node_from<float_t>(a);
 	elseif constexpr(construct<string>.able<T>){
 		return make_long_term_binary_node_from<string>(a);

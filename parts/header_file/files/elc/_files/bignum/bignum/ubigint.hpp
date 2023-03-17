@@ -45,7 +45,7 @@ public:
 	ubigint(const ubigint&)noexcept = default;
 	ubigint(ubigint&&)noexcept = default;
 	ubigint(const zero_t&)noexcept:ubigint(){}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<unsigned_basic_integer_type T>
 	ubigint(T value)noexcept{
 		constexpr auto size = sizeof(T)/sizeof(base_type)+((sizeof(T)%sizeof(base_type))?1:0);
 		_data.resize(size);
@@ -59,7 +59,7 @@ public:
 		if(used_size!=size)
 			_data.resize(used_size);
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<typename T> requires(unsigned_integer_type<T>)
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
 		constexpr auto min_value=min(type_info<T>);
 		constexpr auto max_value=max(type_info<T>);
@@ -70,7 +70,7 @@ public:
 			return false;
 		return true;
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<typename T> requires(unsigned_integer_type<T>)
 	[[nodiscard]]T convert_to()const noexcept{
 		T value=0;
 		auto i=_data.rbegin();
@@ -133,9 +133,9 @@ public:
 	[[nodiscard]]bool operator==(const ubigint& other)const noexcept{
 		return equal(get_data_view(),other.get_data_view());
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]bool operator==(T other)const noexcept{
-		if constexpr(::std::is_signed_v<T>){
+		if constexpr(signed_type<T>){
 			if(is_negative(other))return false;
 			return *this==to_unsigned_t<T>(other);
 		}else{
@@ -168,9 +168,9 @@ public:
 	[[nodiscard]]auto operator<=>(const ubigint& other)const noexcept{
 		return compare(get_data_view(),other.get_data_view());
 	}
-	template<typename T> requires ::std::is_integral_v<T>
+	template<integer_type T>
 	[[nodiscard]]auto operator<=>(T other)const noexcept{
-		if constexpr(::std::is_signed_v<T>){
+		if constexpr(signed_type<T>){
 			if(is_negative(other))return strong_ordering::greater;
 			return *this<=>to_unsigned_t<T>(other);
 		}else{
@@ -260,7 +260,7 @@ private:
 	static void add_to_base(base_type*buf,const data_type&b)noexcept{
 		add_to_base(buf,get_data_view_of_data(b));
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<unsigned_basic_integer_type T>
 	static void add_to_base(data_type&buf,T num)noexcept{
 		//定义运算类型：若T比calc_type大，则使用T，否则使用calc_type
 		using calc_t = conditional<(sizeof(T) > sizeof(calc_type)),T,calc_type>;
@@ -543,7 +543,7 @@ private:
 		auto begin=a.rbegin()+b.size();
 		array_t<base_type> fortry(note::size(b.size()+1));
 		while(begin!=end){
-			div_with_base(fortry,begin,b);
+			discard(div_with_base(fortry,begin,b));
 			begin++;
 		};
 	}
@@ -639,7 +639,7 @@ public:
 		}
 	}
 	//operator<<
-	template<typename T> requires ::std::integral<T>
+	template<integer_type T>
 	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
 		if(!*this)return ubigint{};
 		auto aret=*this;
@@ -653,7 +653,7 @@ public:
 		return aret;
 	}
 	//operator>>
-	template<typename T> requires ::std::integral<T>
+	template<integer_type T>
 	[[nodiscard]]ubigint operator>>(T n)const&noexcept{
 		if(!*this)return ubigint{};
 		auto aret=*this;
@@ -683,19 +683,19 @@ public:
 			shrink_to_fit();
 		return*this;
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<unsigned_basic_integer_type T>
 	ubigint& operator+=(T other)&noexcept{
 		//using add_to_base to avoid new alloc
 		add_to_base(_data,other);
 		return*this;
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]ubigint& operator+(T other)&&noexcept{
 		//using add_to_base to avoid new alloc
 		add_to_base(_data,other);
 		return*this;
 	}
-	template<typename T> requires(::std::is_integral_v<T>&&::std::is_unsigned_v<T>)
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]ubigint operator+(T other)const&noexcept{
 		auto aret = *this;
 		aret+=other;
@@ -742,10 +742,10 @@ public:
 		return*this;
 	}
 	//operator<<=
-	template<typename T> requires ::std::integral<T>
+	template<integer_type T>
 	inline ubigint& operator<<=(T n)&noexcept{
 		if(!*this)return*this;
-		if constexpr(::std::is_unsigned_v<T>){
+		if constexpr(unsigned_type<T>){
 			const auto oldsize=_data.size();
 			const auto newsize_diff=n/bitnum_of(base_type);
 			const auto newsize=oldsize+newsize_diff;
@@ -798,10 +798,10 @@ public:
 		return*this;
 	}
 	//operator>>=
-	template<typename T> requires ::std::integral<T>
+	template<integer_type T>
 	inline ubigint& operator>>=(T n)&noexcept{
 		if(!*this)return*this;
-		if constexpr(::std::is_unsigned_v<T>){
+		if constexpr(unsigned_type<T>){
 			const auto oldsize=_data.size();
 			const auto newsize_diff=n/bitnum_of(base_type);
 			const auto newsize=oldsize-newsize_diff;
@@ -867,14 +867,14 @@ public:
 	[[nodiscard]]ubigint&& operator%(const ubigint& other)&&noexcept{
 		return move(*this%=other);
 	}
-	template<typename T> requires ::std::integral<T>
+	template<integer_type T>
 	[[nodiscard]]ubigint&& operator<<(T n)&&noexcept{
 		return move(*this<<=n);
 	}
 	[[nodiscard]]ubigint&& operator<<(const ubigint& other)&&noexcept{
 		return move(*this<<=other);
 	}
-	template<typename T> requires ::std::integral<T>
+	template<integer_type T>
 	[[nodiscard]]ubigint&& operator>>(T n)&&noexcept{
 		return move(*this>>=n);
 	}
@@ -948,26 +948,6 @@ public:
 	//friend is_even
 	[[nodiscard]]friend bool is_even(const ubigint& x)noexcept{
 		return !is_odd(x);
-	}
-	//friend pow
-	[[nodiscard]]friend ubigint pow(ubigint x,ubigint y)noexcept{
-		ubigint aret=1u;
-		while(y){
-			if(is_odd(y))aret*=x;
-			x*=x;
-			y>>=1u;
-		}
-		return aret;
-	}
-	template<typename T> requires(::std::integral<T> && ::std::is_unsigned_v<T>)
-	[[nodiscard]]friend ubigint pow(ubigint x,T y)noexcept{
-		ubigint aret=1u;
-		while(y){
-			if(y&1u)aret*=x;
-			x*=x;
-			y>>=1u;
-		}
-		return aret;
 	}
 };
 

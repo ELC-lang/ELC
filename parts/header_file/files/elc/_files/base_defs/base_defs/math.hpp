@@ -89,57 +89,105 @@ namespace math{
 	inline namespace concepts{
 		/// 算术类型概念
 		template<typename T>
-		constexpr bool is_arithmetic_type=arithmetic_type_info_prover<remove_cvref<T>>::is_arithmetic_type;
+		concept arithmetic_type=arithmetic_type_info_prover<remove_cvref<T>>::is_arithmetic_type;
 		template<typename T>
-		concept arithmetic_type=is_arithmetic_type<T>;
+		concept is_arithmetic_type=arithmetic_type<T>;
 
 		/// 基础类型概念
 		template<typename T>
-		constexpr bool is_basic_type=arithmetic_type_info_prover<remove_cvref<T>>::is_basic_type;
+		concept basic_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_basic_type;
 		template<typename T>
-		concept basic_type=is_basic_type<T>;
+		concept is_basic_type=basic_type<T>;
 
 		/// 大数类型概念
 		template<typename T>
-		constexpr bool is_big_type=arithmetic_type_info_prover<remove_cvref<T>>::is_big_type;
+		concept big_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_big_type;
 		template<typename T>
-		concept big_type=is_big_type<T>;
+		concept is_big_type=big_type<T>;
 
 		/// 浮点类型概念
 		template<typename T>
-		constexpr bool is_float_type=arithmetic_type_info_prover<remove_cvref<T>>::is_float_type;
+		concept float_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_float_type;
 		template<typename T>
-		concept float_type=is_float_type<T>;
+		concept is_float_type=float_type<T>;
+
+		/// 基础浮点数类型概念
+		template<typename T>
+		concept basic_float_type=float_type<T> && basic_type<T>;
+		template<typename T>
+		concept is_basic_float_type=basic_float_type<T>;
 
 		/// 整数类型概念
 		template<typename T>
-		constexpr bool is_integer_type=!is_float_type<T>;
+		concept integer_type=arithmetic_type<T> && !float_type<T>;
 		template<typename T>
-		concept integer_type=is_integer_type<T>;
+		concept is_integer_type=integer_type<T>;
+
+		/// 基础整数类型概念
+		template<typename T>
+		concept basic_integer_type=integer_type<T> && basic_type<T>;
+		template<typename T>
+		concept is_basic_integer_type=basic_integer_type<T>;
 
 		/// 有符号类型概念
 		template<typename T>
-		constexpr bool is_signed=arithmetic_type_info_prover<remove_cvref<T>>::is_signed;
+		concept signed_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_signed;
 		template<typename T>
-		concept signed_type=is_signed<T>;
+		concept is_signed=signed_type<T>;
 
 		/// 无符号类型概念
 		template<typename T>
-		constexpr bool is_unsigned=!is_signed<T>;
+		concept unsigned_type=arithmetic_type<T> && !is_signed<T>;
 		template<typename T>
-		concept unsigned_type=is_unsigned<T>;
+		concept is_unsigned=unsigned_type<T>;
 
 		/// 有符号整数类型概念
 		template<typename T>
-		constexpr bool is_signed_integer_type=is_integer_type<T>&&is_signed<T>;
+		concept signed_integer_type=integer_type<T> && is_signed<T>;
 		template<typename T>
-		concept signed_integer_type=is_signed_integer_type<T>;
+		concept is_signed_integer_type=signed_integer_type<T>;
 
 		/// 无符号整数类型概念
 		template<typename T>
-		constexpr bool is_unsigned_integer_type=is_integer_type<T>&&is_unsigned<T>;
+		concept unsigned_integer_type=integer_type<T> && is_unsigned<T>;
 		template<typename T>
-		concept unsigned_integer_type=is_unsigned_integer_type<T>;
+		concept is_unsigned_integer_type=unsigned_integer_type<T>;
+
+		/// 无符号浮点数类型概念
+		template<typename T>
+		concept unsigned_float_type=float_type<T> && is_unsigned<T>;
+		template<typename T>
+		concept is_unsigned_float_type=unsigned_float_type<T>;
+
+		/// 有符号浮点数类型概念
+		template<typename T>
+		concept signed_float_type=float_type<T> && is_signed<T>;
+		template<typename T>
+		concept is_signed_float_type=signed_float_type<T>;
+
+		/// 有符号基础整数类型概念
+		template<typename T>
+		concept signed_basic_integer_type=basic_integer_type<T> && is_signed<T>;
+		template<typename T>
+		concept is_signed_basic_integer_type=signed_basic_integer_type<T>;
+
+		/// 无符号基础整数类型概念
+		template<typename T>
+		concept unsigned_basic_integer_type=basic_integer_type<T> && is_unsigned<T>;
+		template<typename T>
+		concept is_unsigned_basic_integer_type=unsigned_basic_integer_type<T>;
+
+		/// 有符号基础浮点数类型概念
+		template<typename T>
+		concept signed_basic_float_type=basic_float_type<T> && is_signed<T>;
+		template<typename T>
+		concept is_signed_basic_float_type=signed_basic_float_type<T>;
+
+		/// 无符号基础浮点数类型概念
+		template<typename T>
+		concept unsigned_basic_float_type=basic_float_type<T> && is_unsigned<T>;
+		template<typename T>
+		concept is_unsigned_basic_float_type=unsigned_basic_float_type<T>;
 
 		/// 有NaN的类型概念
 		template<typename T>
@@ -193,7 +241,7 @@ namespace math{
 	/*! 任意算数类型安全转型(ub避免.). */
 	template<arithmetic_type T,arithmetic_type U>
 	[[nodiscard]]force_inline constexpr T safe_arithmetic_cast(U x)noexcept{
-		if constexpr(::std::is_floating_point_v<U> && ::std::is_unsigned_v<T>)
+		if constexpr(basic_float_type<U> && unsigned_type<T>)
 			return (T)(intmax_t)x;
 		else
 			return (T)x;
@@ -211,10 +259,23 @@ namespace math{
 	/*! 求余 */
 	template<arithmetic_type T1,arithmetic_type T2>
 	[[nodiscard]]force_inline constexpr auto mod(const T1&a,const T2&b){
-		if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
+		if constexpr(basic_float_type<T1>||basic_float_type<T2>)
 			return ::std::fmod(a,b);
 		else
 			return a%b;
+	}
+	//is_odd
+	template<arithmetic_type T>
+	[[nodiscard]]force_inline constexpr bool is_odd(const T&x)noexcept{
+		if constexpr(is_integer_type<T>)
+			return x&1;
+		else
+			return mod(x,T(2));
+	}
+	//is_even
+	template<arithmetic_type T>
+	[[nodiscard]]force_inline constexpr bool is_even(const T&x)noexcept{
+		return !is_odd(x);
 	}
 	//divmod
 	template<arithmetic_type T1,arithmetic_type T2> requires(!is_big_type<T1>&&!is_big_type<T2>)
@@ -225,7 +286,7 @@ namespace math{
 			quot_t quot;
 			mod_t mod;
 		};
-		if constexpr(::std::is_floating_point_v<T1>||::std::is_floating_point_v<T2>)
+		if constexpr(basic_float_type<T1>||basic_float_type<T2>)
 			return divmod_result{::std::floor(a/b),::std::fmod(a,b)};
 		else
 			return divmod_result{a/b,a%b};
@@ -234,13 +295,13 @@ namespace math{
 	/*! 设置浮点舍入 */
 	template<typename T>
 	force_inline constexpr void set_rounding(int mode){
-		if constexpr(::std::is_floating_point_v<T>)
+		if constexpr(basic_float_type<T>)
 			::std::fesetround(mode);
 	}
 	/*!获取浮点舍入 */
 	template<typename T>
 	[[nodiscard]]force_inline constexpr int get_rounding(){
-		if constexpr(::std::is_floating_point_v<T>)
+		if constexpr(basic_float_type<T>)
 			return ::std::fegetround();
 		else
 			return 0;
@@ -272,7 +333,7 @@ namespace math{
 	//is_close
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr bool is_close(const T&a,const T&b)noexcept{
-		if constexpr(is_float_type<T> && is_basic_type<T>)
+		if constexpr(basic_float_type<T>)
 			return abs(a-b)<=::std::numeric_limits<T>::epsilon();
 		else
 			return a==b;
@@ -353,6 +414,23 @@ namespace math{
 		}
 		elseif constexpr(is_basic_type<T>)
 			return ::std::pow(a,b);
+	}
+	template<big_type T,unsigned_integer_type U>
+	[[nodiscard]]force_inline constexpr auto pow(T a,U b)noexcept{
+		if constexpr(is_signed<T>){
+			const bool isneg=is_negative(a) && is_odd(b);
+			const auto abs_ret=pow(abs(a),b);
+			return copy_as_negative(abs_ret,isneg);
+		}
+		else{
+			T aret=1u;
+			while(b){
+				if(is_odd(b))aret*=a;
+				a*=a;
+				b>>=1u;
+			}
+			return aret;
+		}
 	}
 	//trunc
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
@@ -586,7 +664,7 @@ namespace math{
 					}
 					i=get_prime_num_big_than(i);
 				}
-				if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>)
+				if constexpr(signed_type<T>)
 					if(is_negative(_m))
 						aret.push_back(T{-1});
 				return aret;
@@ -613,7 +691,7 @@ namespace math{
 						}
 						i=get_prime_num_big_than(i);
 					}
-					if constexpr(::std::is_signed_v<T> || ::std::is_floating_point_v<T>)
+					if constexpr(signed_type<T>)
 						if(is_negative(_m))
 							aret.push_back(T{-1});
 					return aret;
@@ -798,6 +876,8 @@ using math::copy_as_negative;
 using math::copy_as_not_negative;
 using math::to_size_t;
 using math::mod;
+using math::is_odd;
+using math::is_even;
 using math::divmod;
 using math::set_rounding;
 using math::get_rounding;

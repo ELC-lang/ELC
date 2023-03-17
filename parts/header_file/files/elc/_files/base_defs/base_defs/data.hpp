@@ -31,7 +31,7 @@
 /*!
 	每个T的可能性大小
 */
-template<class T> requires ::std::is_integral_v<T>
+template<basic_integer_type T>
 constexpr auto number_of_possible_values_per=uintmax_index_t(max(type_info<::std::make_unsigned_t<T>>))+1;
 
 /*!

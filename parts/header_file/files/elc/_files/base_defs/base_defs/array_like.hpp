@@ -50,7 +50,7 @@ namespace array_like_n{
 	[[nodiscard]]inline auto end_of_array_like(T&&a)noexcept{return begin_of_array_like(a)+size_of_array_like(a);}
 
 	template<class T>
-	constexpr bool is_array_like=was_not_an_ill_form_with_parameter(
+	concept is_array_like=was_not_an_ill_form_with_parameter(
 									(T v){
 										begin_of_array_like(v);
 										size_of_array_like(v);
@@ -58,9 +58,9 @@ namespace array_like_n{
 								);
 
 	template<class T>
-	constexpr bool is_signal_value_for_array_like=type_info<remove_cvref<decltype(*begin_of_array_like(declvalue(T)))>> == type_info<T>;
+	concept is_signal_value_for_array_like=type_info<remove_cvref<decltype(*begin_of_array_like(declvalue(T)))>> == type_info<T>;
 	template<class T>
-	constexpr bool is_not_signal_value_for_array_like=!is_signal_value_for_array_like<T>;
+	concept is_not_signal_value_for_array_like=!is_signal_value_for_array_like<T>;
 
 	template<class T,class U>
 	constexpr bool strict_is_array_like_for=was_not_an_ill_form_with_parameter(

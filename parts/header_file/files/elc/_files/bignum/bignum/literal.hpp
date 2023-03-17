@@ -119,10 +119,7 @@ namespace literal_n{
 	template<unsigned base,char exp_char,bool pointed>
 	constexpr_as_auto ubigfloat eval_bigfloat_literal(ubigint val=zero,bigint exp=0)noexcept{
 		ubigfloat aret=val;
-		if(is_negative(exp))
-			do aret/=base; while(++exp);
-		elseif(exp)
-			do aret*=base; while(--exp);
+		aret*=pow(base,exp);
 		return aret;
 	}
 	template<unsigned base,char exp_char,bool pointed,char c,char...cs>
