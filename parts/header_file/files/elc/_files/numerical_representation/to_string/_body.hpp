@@ -83,6 +83,7 @@ namespace to_string_n{
 			const auto radix=_repres.get_radix();
 			{
 				auto denominator_backup=denominator;//备份denominator用于在发现此为无限小数时继续输出（省去还原计算）
+				auto clear_backup=exlambda{denominator_backup=decltype(denominator_backup){};};//即时清空denominator_backup以节省内存
 				//化简为numerator*radix^exp
 				{
 					auto result=divmod(denominator,radix);
@@ -98,11 +99,10 @@ namespace to_string_n{
 				if(denominator!=1){
 					auto fractional_separator=_repres.get_fractional_separator();
 					swap(denominator_backup,denominator);
-					denominator_backup=decltype(denominator_backup){};
+					clear_backup();
 					return to_string(move(numerator))+fractional_separator+to_string(move(denominator));
 				}
-				//不是无限小数，清空denominator_backup以节省内存
-				denominator_backup=decltype(denominator_backup){};
+				clear_backup();
 				numerator*=comple;
 			}
 			if constexpr(is_basic_type<T>){//若T是基础类型

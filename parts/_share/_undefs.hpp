@@ -118,6 +118,7 @@
 #undef recursive_lambda
 #undef get_recursive_lambda_caller
 #undef lambda
+#undef exlambda
 #undef lambda_with_catch
 #undef self_recursion
 #undef lambda_RLSRRS

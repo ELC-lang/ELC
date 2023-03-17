@@ -201,11 +201,13 @@ class name{}\
 #define recursive_lambda(...) lambda(auto&&lambda_RLSRRS,__VA_ARGS__)
 /*! 让lambda递归更加美观 */
 #define get_recursive_lambda_caller(name) \
-lambda_with_catch(&)(auto&&...Args){\
+exlambda(auto&&...Args){\
 	return name(name,Args...);\
 }
 /*! 让lambda定义更加美观 */
 #define lambda []
+/*! 让lambda定义更加美观 */
+#define exlambda [&]
 /*! 让lambda定义更加美观 */
 #define lambda_with_catch(...) [__VA_ARGS__]
 /*! 让lambda定义更加美观 */

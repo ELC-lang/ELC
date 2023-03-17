@@ -165,7 +165,7 @@ namespace elc::defs{
 
 		/*! 给定大小的无符号整数类型 */
 		template<size_t size>
-		using unsigned_specific_size_t=decltype(lambda(){
+		using unsigned_specific_size_t=decltype(lambda{
 			#define TYPE_MAPPER(type) if constexpr(size == sizeof(type))return (type)0;else
 			#include "./arithmetic_mapper/unsigned_mapper.hpp"
 			#undef TYPE_MAPPER
@@ -173,7 +173,7 @@ namespace elc::defs{
 		}());
 		/*! 至少有给定大小的快速无符号整数类型 */
 		template<size_t size>
-		using unsigned_specific_size_fast_t=decltype(lambda(){
+		using unsigned_specific_size_fast_t=decltype(lambda{
 			#define TYPE_MAPPER(type) if constexpr(size <= sizeof(type))return (type)0;else
 			#include "./arithmetic_mapper/unsigned_fast_mapper.hpp"
 			#undef TYPE_MAPPER
@@ -270,7 +270,7 @@ namespace elc::defs{
 		namespace float_infos{
 			//精确数部分的掩码
 			template<class T>
-			constexpr auto precision_mask=lambda(){
+			constexpr auto precision_mask=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return(uint32_t)0x007FFFFFu;
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -289,7 +289,7 @@ namespace elc::defs{
 
 			//浮点数的无符号整数数据类型
 			template<class T>
-			using data_type=decltype(lambda(){
+			using data_type=decltype(lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return uint32_t{};
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -305,7 +305,7 @@ namespace elc::defs{
 
 			//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
 			template<class T>
-			constexpr auto precision_base=lambda(){
+			constexpr auto precision_base=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return(uint32_t)0x800000u;
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -321,7 +321,7 @@ namespace elc::defs{
 
 			//自浮点数获取精确数的基的位数（如float是23）
 			template<class T>
-			constexpr auto precision_base_bit=lambda(){
+			constexpr auto precision_base_bit=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return 23u;
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -337,7 +337,7 @@ namespace elc::defs{
 
 			//浮点数的指数部分的diff（如float是127，double是1023，long double是16383）
 			template<class T>
-			constexpr auto exponent_diff=lambda(){
+			constexpr auto exponent_diff=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return 127;
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -352,7 +352,7 @@ namespace elc::defs{
 			}();
 			//浮点数的指数部分的min（如float是-126，double是-1022，long double是-16382）
 			template<class T>
-			constexpr auto exponent_min=lambda(){
+			constexpr auto exponent_min=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return -126;
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -367,7 +367,7 @@ namespace elc::defs{
 			}();
 			//浮点数的指数部分的max（如float是127，double是1023，long double是16383）
 			template<class T>
-			constexpr auto exponent_max=lambda(){
+			constexpr auto exponent_max=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return 127;
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -383,7 +383,7 @@ namespace elc::defs{
 
 			//浮点数的指数部分的无符号整数类型
 			template<class T>
-			using exponent_unsigned_type=decltype(lambda(){
+			using exponent_unsigned_type=decltype(lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return uint8_t{};
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -398,7 +398,7 @@ namespace elc::defs{
 			}());
 			//浮点数的指数部分的经过偏移后的有符号整数类型
 			template<class T>
-			using exponent_type=decltype(lambda(){
+			using exponent_type=decltype(lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return int8_t{};
 				elseif constexpr(::std::is_same_v<T,double>)
@@ -413,7 +413,7 @@ namespace elc::defs{
 			}());
 			//浮点数的指数部分的掩码
 			template<class T>
-			constexpr auto exponent_mask=lambda(){
+			constexpr auto exponent_mask=lambda{
 				if constexpr(::std::is_same_v<T,float>)
 					return 0x7FFFFFFFu;
 				elseif constexpr(::std::is_same_v<T,double>)

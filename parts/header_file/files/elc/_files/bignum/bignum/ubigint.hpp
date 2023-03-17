@@ -473,7 +473,7 @@ private:
 	///
 	[[nodiscard]]static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
 		data_view_type tryto{a,b.size()+1};
-		const calc_type dividend=[&](){
+		const calc_type dividend=exlambda{
 			const base_type*p=tryto.rbegin();
 			auto tmp=calc_type(*p);tmp*=base_type_mod;tmp+=calc_type(p[-1]);
 			return tmp;
