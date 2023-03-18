@@ -39,6 +39,7 @@
 	#include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
 	#include <cmath>//sqrt
+	#include <bit>//countX_X
 	#include <cfenv>//rounding
 	#include <ctime>//time
 	#include <ranges>

@@ -27,11 +27,6 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-#if defined(_MSC_VER)//int128
-	#include <__msvc_int128.hpp>
-#endif
-#include <bit>
-#include <climits>
 namespace elc::defs{
 	#include "../_defs.hpp"
 
@@ -83,9 +78,9 @@ namespace elc::defs{
 		template<class T>
 		constexpr inline bool is_elc_expansion_base_type_helper()noexcept{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
-			if constexpr(sizeof(basic_uintmax_t) < sizeof(uint128_t) && ::std::is_same_v<T,uint128_t>)
+			if constexpr(sizeof(basic_uintmax_t) < sizeof(uint128_t) && type_info<T> == type_info<uint128_t>)
 				return true;
-			if constexpr(sizeof(basic_intmax_t) < sizeof(int128_t) && ::std::is_same_v<T,int128_t>)
+			if constexpr(sizeof(basic_intmax_t) < sizeof(int128_t) && type_info<T> == type_info<int128_t>)
 				return true;
 			#endif
 			return false;
@@ -110,11 +105,11 @@ namespace elc::defs{
 			{}
 		}());
 		//任意类型转算数类型
-		inline constexpr struct to_arithmetic_t{
+		inline constexpr class to_arithmetic_t{
 			template<class T,class type>
-			//由于::std::is_convertible_v的歧义性质，使用requires表达式辅助推断type是否为实际支持的类型
-			//由于requires表达式的强制性质，使用::std::is_convertible_v辅助推断隐式转换是否可行
-			static inline constexpr bool is_convertible = ::std::is_convertible_v<T, type> && was_not_an_ill_form(static_cast<type>(declvalue(T)));
+			//由于can_convert_to的歧义性质，使用requires表达式辅助推断type是否为实际支持的类型
+			//由于requires表达式的强制性质，使用can_convert_to辅助推断隐式转换是否可行
+			static inline constexpr bool is_convertible = type_info<T>.can_convert_to<type> && was_not_an_ill_form(static_cast<type>(declvalue(T)));
 			template<class T>
 			static inline constexpr bool r_able_helper()noexcept{
 				#define TYPE_MAPPER(type) if constexpr(is_convertible<T,type>)return true;else
@@ -131,10 +126,10 @@ namespace elc::defs{
 			}
 			template<class T>
 			static inline constexpr size_t get_arithmetic_muti_convertible_count()noexcept{
-				typedef decltype(to_arithmetic_base(declvalue(T))) my_type;
+				typedef decltype(to_arithmetic_base(declvalue(T))) to_type;
 				size_t muti_convertible_count=0;
 				#define TYPE_MAPPER(type) \
-				if constexpr(type_info<my_type>!=type_info<type> && is_convertible<T,type>)\
+				if constexpr(type_info<to_type>!=type_info<type> && is_convertible<T,type>)\
 					muti_convertible_count++;
 				#include "./arithmetic_mapper/all_mapper.hpp"
 				#undef TYPE_MAPPER
@@ -151,24 +146,26 @@ namespace elc::defs{
 				else
 					return false;
 			}
+		public:
 			template<class T>
 			static inline constexpr bool able = able_helper<T>();
+		private:
 			//nothrow
 			template<class T>
-			static inline constexpr bool nothrow_helper()noexcept{
-				if constexpr(able<T>){
-					typedef decltype(to_arithmetic_base(declvalue(T))) my_type;
-					return ::std::is_nothrow_convertible_v<T,my_type>;
-				}
+			static inline constexpr bool nothrow_helper()noexcept{				
+				typedef decltype(to_arithmetic_base(declvalue(T))) to_type;
+				if constexpr(able<T>)
+					return type_info<T>.can_nothrow_convert_to<to_type>;
 				else
 					return false;
 			}
+		public:
 			template<class T>
 			static inline constexpr bool nothrow = nothrow_helper<T>();
 			//算数类型转任意类型
 			template<class T> requires able<T>
 			force_inline constexpr auto operator()(T&&v)const noexcept(nothrow<T>){
-				return to_arithmetic_base(::std::forward<T>(v));
+				return to_arithmetic_base(forward<T>(v));
 			}
 		}to_arithmetic{};
 		//判断wchar_t是否和char_t相同
@@ -193,13 +190,13 @@ namespace elc::defs{
 		*/
 		namespace float_infos{
 			//精确数部分的掩码
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto precision_mask=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return(uint32_t)0x007FFFFFu;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return(uint64_t)0x000FFFFFFFFFFFFFu;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return(uint64_t)0x000FFFFFFFFFFFFFu;
 					#else
@@ -208,17 +205,17 @@ namespace elc::defs{
 				}
 			}();
 			//精确数的无符号整数类型
-			template<class T>
+			template<basic_float_type T>
 			using precision_type=decltype(precision_mask<T>);
 
 			//浮点数的无符号整数数据类型
-			template<class T>
+			template<basic_float_type T>
 			using data_type=decltype(lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return uint32_t{};
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return uint64_t{};
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return uint64_t{};
 					#else
@@ -228,13 +225,13 @@ namespace elc::defs{
 			}());
 
 			//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto precision_base=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return(uint32_t)0x800000u;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return(uint64_t)0x10000000000000u;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return(uint64_t)0x10000000000000u;
 					#else
@@ -244,13 +241,13 @@ namespace elc::defs{
 			}();
 
 			//自浮点数获取精确数的基的位数（如float是23）
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto precision_base_bit=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return 23u;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return 52u;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return 52u;
 					#else
@@ -260,13 +257,13 @@ namespace elc::defs{
 			}();
 
 			//浮点数的指数部分的diff（如float是127，double是1023，long double是16383）
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto exponent_diff=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return 127;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return 1023;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return 1023;
 					#else
@@ -275,13 +272,13 @@ namespace elc::defs{
 				}
 			}();
 			//浮点数的指数部分的min（如float是-126，double是-1022，long double是-16382）
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto exponent_min=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return -126;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return -1022;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return -1022;
 					#else
@@ -290,13 +287,13 @@ namespace elc::defs{
 				}
 			}();
 			//浮点数的指数部分的max（如float是127，double是1023，long double是16383）
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto exponent_max=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return 127;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return 1023;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return 1023;
 					#else
@@ -306,13 +303,13 @@ namespace elc::defs{
 			}();
 
 			//浮点数的指数部分的无符号整数类型
-			template<class T>
+			template<basic_float_type T>
 			using exponent_unsigned_type=decltype(lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return uint8_t{};
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return uint16_t{};
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return uint16_t{};
 					#else
@@ -321,13 +318,13 @@ namespace elc::defs{
 				}
 			}());
 			//浮点数的指数部分的经过偏移后的有符号整数类型
-			template<class T>
+			template<basic_float_type T>
 			using exponent_type=decltype(lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return int8_t{};
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return int16_t{};
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return int16_t{};
 					#else
@@ -336,13 +333,13 @@ namespace elc::defs{
 				}
 			}());
 			//浮点数的指数部分的掩码
-			template<class T>
+			template<basic_float_type T>
 			constexpr auto exponent_mask=lambda{
-				if constexpr(::std::is_same_v<T,float>)
+				if constexpr(type_info<T> == type_info<float>)
 					return 0x7FFFFFFFu;
-				elseif constexpr(::std::is_same_v<T,double>)
+				elseif constexpr(type_info<T> == type_info<double>)
 					return 0x7FFFFFFFFFFFFFFFu;
-				elseif constexpr(::std::is_same_v<T,long double>){
+				elseif constexpr(type_info<T> == type_info<long double>){
 					#if defined(_MSC_VER)//msvc上long double就是double
 						return 0x7FFFFFFFFFFFFFFFu;
 					#else
@@ -350,18 +347,18 @@ namespace elc::defs{
 					#endif
 				}
 			}();
-			template<class T>
+			template<basic_float_type T>
 			union float_data_union{
 				T v;
 				data_type<T> data;
 			};
-			template<class T>
+			template<basic_float_type T>
 			constexpr data_type<T> get_float_data(T v)noexcept{
 				float_data_union<T> tmp;
 				tmp.v=v;
 				return tmp.data;
 			}
-			template<class T>
+			template<basic_float_type T>
 			constexpr T get_float_from_data(data_type<T> data)noexcept{
 				float_data_union<T> tmp;
 				tmp.data=data;
@@ -369,7 +366,7 @@ namespace elc::defs{
 			}
 		}
 		//自浮点数获取精确数部分，舍去指数和符号位
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		force_inline constexpr auto get_precision(T v)noexcept{
 			using namespace float_infos;
 			auto tmp=get_float_data(v);
@@ -377,14 +374,14 @@ namespace elc::defs{
 			return tmp;
 		}
 		//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		force_inline constexpr auto get_precision_base(T=T{})noexcept{
 			return float_infos::precision_base<T>;
 		}
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		using float_precision_base_t = decltype(get_precision_base<T>());
 		//（基础的）自浮点数获取指数部分，舍去基数和符号位
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		force_inline constexpr auto base_get_exponent(T v)noexcept{
 			using namespace float_infos;
 			auto tmp=get_float_data(v);
@@ -393,7 +390,7 @@ namespace elc::defs{
 			return exponent_unsigned_type<T>(tmp);
 		}
 		//自浮点数获取指数部分，舍去基数和符号位
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		force_inline constexpr auto get_exponent(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
 			using namespace float_infos;
@@ -401,7 +398,7 @@ namespace elc::defs{
 			else return exponent_type<T>(tmp)-exponent_diff<T>;
 		}
 		//自浮点数获取基数
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		force_inline constexpr auto get_base_num(T v)noexcept{
 			//特殊情况处理（exp=0时，base=0）
 			const auto tmp=base_get_exponent(v);
@@ -409,14 +406,14 @@ namespace elc::defs{
 		}
 		//自基数和指数构造浮点数
 		//num=base_num*2^exponent
-		template<class T> requires ::std::is_floating_point_v<T>
+		template<basic_float_type T>
 		force_inline constexpr T make_float(float_precision_base_t<T> base_num,ptrdiff_t exponent)noexcept{
 			using namespace float_infos;
 			//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
 			//并在此过程中加减指数
 			//需要注意的是，这里的基数是包含1的，所以转换目标是base_num>>precision_base_bit为1
 			{
-				const auto tmp=::std::countl_zero(base_num);
+				const auto tmp=countl_zero(base_num);
 				constexpr auto need_shift=bitnum_of(base_num)-precision_base_bit<T>-1;
 				const ptrdiff_t shift=tmp-need_shift;
 				if(shift>0){
