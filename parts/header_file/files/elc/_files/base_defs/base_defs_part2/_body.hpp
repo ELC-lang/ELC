@@ -28,21 +28,6 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-//恭喜你找到elc内大部分语法糖所在地
-#include "template_helper.hpp"
-#include "using_std.hpp"
-#include "concept.hpp"
-#include "magic_number.hpp"
-
-#include "other.hpp"
-
-#include "cast.hpp"
-#include "special_flags.hpp"
-#include "non_Xable.hpp"
-#include "attribute.hpp"
-#include "special_attribute.hpp"
-#include "type_info.hpp"
-#include "min_max.hpp"
 #include "math.hpp"
 #include "bit.hpp"
 #include "null_ptr.hpp"

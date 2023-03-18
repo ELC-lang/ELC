@@ -30,7 +30,6 @@
 */
 //include default_data_type：基础数据类型定义
 #include "../../../../../_share/default_data_type.hpp"
-#include "../../../../../_share/basic_environment/_body.hpp"
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
@@ -50,13 +49,23 @@ namespace elc::defs{ //在elc::defs中定义内容
 	#endif
 
 	namespace base{
-		#include "base_defs/_body.hpp"
+		#include "base_defs_part1/_body.hpp"
 	}
 
 	//由于vcruntime的type_info在全局定义,这里需要额外声明使用base::type_info.
 	#if defined(_VCRUNTIME_H)
 		using base::type_info;
 	#endif
+
+	#include "../_share/_undefs.hpp"
+}
+#include "../../../../../_share/basic_environment/_body.hpp"
+namespace elc::defs{ //在elc::defs中定义内容
+	#include "../_share/_defs.hpp"
+
+	namespace base{
+		#include "base_defs_part2/_body.hpp"
+	}
 
 	#include "../_share/_undefs.hpp"
 }

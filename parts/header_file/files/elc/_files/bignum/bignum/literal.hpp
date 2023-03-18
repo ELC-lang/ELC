@@ -30,90 +30,13 @@
 */
 namespace literal_n{
 	//在此我们定义对于ubigint\bigint\ubigfloat\bigfloat的字面量支持。
-	constexpr uint8_t hexval(char c)noexcept{
-		if constexpr('a'>'A'){
-			if(c>='a')
-				return c+10-'a';
-			elseif(c>='A')
-				return c+10-'A';
-		}
-		else{
-			if(c>='A')
-				return c+10-'A';
-			elseif(c>='a')
-				return c+10-'a';
-		}
-		return c-'0';
-	}
-	template<unsigned base>
-	constexpr_as_auto ubigint eval_bigint_literal(ubigint val=zero)noexcept{
-		return val;
-	}
-	template<unsigned base,char c,char...cs>
-	constexpr_as_auto ubigint eval_bigint_literal(ubigint val=zero)noexcept{
-		if constexpr(c!='\''){
-			static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
-			static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
-			static_assert(base>hexval(c),"invalid char");
-			return eval_bigint_literal<base,cs...>(val*base+hexval(c));
-		}else
-			return eval_bigint_literal<base,cs...>(val);
-	}
-	template<unsigned default_base,char...cs>
-	struct bigint_literal_evaler{
-		static constexpr_as_auto ubigint eval()noexcept{
-			return eval_bigint_literal<default_base,cs...>();
-		}
-	};
-	template<unsigned default_base,char...cs>
-	struct bigint_literal_evaler<default_base,'0','x',cs...>{
-		static constexpr_as_auto ubigint eval()noexcept{
-			return eval_bigint_literal<16,cs...>();
-		}
-	};
-	template<unsigned default_base,char...cs>
-	struct bigint_literal_evaler<default_base,'0','X',cs...>{
-		static constexpr_as_auto ubigint eval()noexcept{
-			return eval_bigint_literal<16,cs...>();
-		}
-	};
-	template<unsigned default_base,char...cs>
-	struct bigint_literal_evaler<default_base,'0','b',cs...>{
-		static constexpr_as_auto ubigint eval()noexcept{
-			return eval_bigint_literal<2,cs...>();
-		}
-	};
-	template<unsigned default_base,char...cs>
-	struct bigint_literal_evaler<default_base,'0','B',cs...>{
-		static constexpr_as_auto ubigint eval()noexcept{
-			return eval_bigint_literal<2,cs...>();
-		}
-	};
-	template<unsigned default_base,char...cs>
-	struct bigint_literal_evaler<default_base,'0',cs...>{
-		static constexpr_as_auto ubigint eval()noexcept{
-			return eval_bigint_literal<8,cs...>();
-		}
-	};
 	template<char...cs>
 	constexpr_as_auto ubigint operator""_ubigint()noexcept{
-		return bigint_literal_evaler<10,cs...>::eval();
+		return literal_support::unsigned_integer_literal_evaler<ubigint>::eval<cs...>();
 	}
-	template<unsigned default_base,char...cs>
-	struct signed_bigint_literal_evaler{
-		static constexpr_as_auto bigint eval()noexcept{
-			return bigint_literal_evaler<default_base,cs...>::eval();
-		}
-	};
-	template<unsigned default_base,char...cs>
-	struct signed_bigint_literal_evaler<default_base,'-',cs...>{
-		static constexpr_as_auto bigint eval()noexcept{
-			return -bigint_literal_evaler<default_base,cs...>::eval();
-		}
-	};
 	template<char...cs>
 	constexpr_as_auto bigint operator""_bigint()noexcept{
-		return signed_bigint_literal_evaler<10,cs...>::eval();
+		return literal_support::signed_integer_literal_evaler<bigint,ubigint>::eval<cs...>();
 	}
 	//浮点数字面量
 	template<unsigned base,char exp_char,bool pointed>
@@ -124,6 +47,7 @@ namespace literal_n{
 	}
 	template<unsigned base,char exp_char,bool pointed,char c,char...cs>
 	constexpr_as_auto ubigfloat eval_bigfloat_literal(ubigint val=zero,bigint exp=0)noexcept{
+		using namespace literal_support;
 		if constexpr(c=='\''){
 			return eval_bigfloat_literal<base,exp_char,pointed,cs...>(val,exp);
 		}
@@ -132,7 +56,7 @@ namespace literal_n{
 			return eval_bigfloat_literal<base,exp_char,true,cs...>(val,exp);
 		}
 		elseif constexpr(c==exp_char || c==exp_char+('A'-'a')){
-			exp+=signed_bigint_literal_evaler<base,cs...>::eval();
+			exp+=signed_integer_literal_evaler<bigint,ubigint>::template eval_with_base<base,cs...>();
 			return eval_bigfloat_literal<base,exp_char,pointed>(val,exp);
 		}
 		else{

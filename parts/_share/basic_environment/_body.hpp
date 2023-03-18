@@ -48,84 +48,14 @@ namespace elc::defs{
 		#if defined(ELC_BASE_ENV_HAS_INT128)
 			typedef uint128_t uint_fast128_t;
 			typedef int128_t int_fast128_t;
-			namespace int128_literal_detail{
-				constexpr uint8_t hexval(char c)noexcept{
-					if constexpr('a'>'A'){
-						if(c>='a')
-							return c+10-'a';
-						elseif(c>='A')
-							return c+10-'A';
-					}
-					else{
-						if(c>='A')
-							return c+10-'A';
-						elseif(c>='a')
-							return c+10-'a';
-					}
-					return c-'0';
-				}
-				template<int base>
-				constexpr uint128_t eval_literal(uint128_t val=0)noexcept{
-					return val;
-				}
-				template<int base, char c, char...cs>
-				constexpr uint128_t eval_literal(uint128_t val=0)noexcept{
-					if constexpr(c!='\''){
-						static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
-						static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
-						static_assert(base!=16 || sizeof...(cs)<=32-1,"literal too long");
-						static_assert(base!=10 || sizeof...(cs)<=39-1,"literal too long");
-						static_assert(base!=8 || sizeof...(cs)<=44-1,"literal too long");
-						static_assert(base!=2 || sizeof...(cs)<=128-1,"literal too long");
-						static_assert(base>hexval(c),"invalid char");
-						return eval_literal<base,cs...>(val*base+hexval(c));
-					}
-					else
-						return eval_literal<base,cs...>(val);
-				}
-				template<char...cs>
-				struct literal_evaler{
-					static constexpr uint128_t value=eval_literal<10,cs...>();
-				};
-				template<char...cs>
-				struct literal_evaler<'0','x',cs...>{
-					static constexpr uint128_t value=eval_literal<16,cs...>();
-				};
-				template<char...cs>
-				struct literal_evaler<'0','X',cs...>{
-					static constexpr uint128_t value=eval_literal<16,cs...>();
-				};
-				template<char...cs>
-				struct literal_evaler<'0','b',cs...>{
-					static constexpr uint128_t value=eval_literal<2,cs...>();
-				};
-				template<char...cs>
-				struct literal_evaler<'0','B',cs...>{
-					static constexpr uint128_t value=eval_literal<2,cs...>();
-				};
-				template<char...cs>
-				struct literal_evaler<'0',cs...>{
-					static constexpr uint128_t value=eval_literal<8,cs...>();
-				};
-				template<char...cs>
-				constexpr uint128_t operator ""_u128()noexcept{
-					return literal_evaler<cs...>::value;
-				}
-				template<char...cs>
-				struct signed_literal_evaler{
-					static constexpr int128_t value=static_cast<int128_t>(literal_evaler<cs...>::value);
-				};
-				template<char...cs>
-				struct signed_literal_evaler<'-',cs...>{
-					static constexpr int128_t value=-static_cast<int128_t>(literal_evaler<cs...>::value);
-				};
-				template<char...cs>
-				constexpr int128_t operator ""_i128()noexcept{
-					return signed_literal_evaler<cs...>::value;
-				}
+			template<char...cs>
+			constexpr uint128_t operator ""_u128()noexcept{
+				return literal_support::unsigned_integer_literal_evaler<uint128_t>::eval<cs...>();
 			}
-			using int128_literal_detail::operator ""_u128;
-			using int128_literal_detail::operator ""_i128;
+			template<char...cs>
+			constexpr int128_t operator ""_i128()noexcept{
+				return literal_support::signed_integer_literal_evaler<int128_t,uint128_t>::eval<cs...>();
+			}
 		#endif
 		//基础的uintmax_t
 		typedef ::std::uintmax_t basic_uintmax_t;
@@ -179,12 +109,6 @@ namespace elc::defs{
 			#undef TYPE_MAPPER
 			{}
 		}());
-		//这里的定义不能使用basedefs中的type_info，所以得重新造一个小轮子
-		struct type_uniquer_t{
-			constexpr bool operator==(const type_uniquer_t&other)const noexcept{return this==&other;}
-		};
-		template<class T>
-		inline constexpr type_uniquer_t type_uniquer{};
 		//任意类型转算数类型
 		inline constexpr struct to_arithmetic_t{
 			template<class T,class type>
@@ -210,7 +134,7 @@ namespace elc::defs{
 				typedef decltype(to_arithmetic_base(declvalue(T))) my_type;
 				size_t muti_convertible_count=0;
 				#define TYPE_MAPPER(type) \
-				if constexpr(type_uniquer<my_type>!=type_uniquer<type> && is_convertible<T,type>)\
+				if constexpr(type_info<my_type>!=type_info<type> && is_convertible<T,type>)\
 					muti_convertible_count++;
 				#include "./arithmetic_mapper/all_mapper.hpp"
 				#undef TYPE_MAPPER
