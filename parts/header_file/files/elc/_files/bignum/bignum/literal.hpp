@@ -28,41 +28,35 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-namespace literal_n{
-	//在此我们定义对于ubigint\bigint\ubigfloat\bigfloat的字面量支持。
-	template<char...cs>
-	constexpr_as_auto ubigint operator""_ubigint()noexcept{
-		return literal_support::unsigned_integer_literal_evaler<ubigint>::eval<cs...>();
-	}
-	template<char...cs>
-	constexpr_as_auto bigint operator""_bigint()noexcept{
-		return literal_support::signed_integer_literal_evaler<bigint,ubigint>::eval<cs...>();
-	}
-	
-	template<char...cs>
-	constexpr_as_auto ubigfloat operator""_ubigfloat()noexcept{
-		return literal_support::unsigned_float_literal_evaler<
-			/*float_T*/							ubigfloat,
-			/*base_process_T*/					ubigint,
-			/*exp_process_integer_T*/			bigint,
-			/*exp_process_unsigned_integer_T*/	ubigint
-		>::eval<cs...>();
-	}
-	template<char...cs>
-	constexpr_as_auto bigfloat operator""_bigfloat()noexcept{
-		return literal_support::signed_float_literal_evaler<
-			/*float_T*/							bigfloat,
-			/*unsigned_float_T*/				ubigfloat,
-			/*base_process_T*/					ubigint,
-			/*exp_process_integer_T*/			bigint,
-			/*exp_process_unsigned_integer_T*/	ubigint
-		>::eval<cs...>();
-	}
+//在此我们定义对于ubigint\bigint\ubigfloat\bigfloat的字面量支持。
+template<char...cs>
+constexpr_as_auto ubigint operator""_ubigint()noexcept{
+	return literal_support::unsigned_integer_literal_evaler<ubigint>::eval<cs...>();
 }
-using literal_n::operator""_ubigint;
-using literal_n::operator""_bigint;
-using literal_n::operator""_ubigfloat;
-using literal_n::operator""_bigfloat;
+template<char...cs>
+constexpr_as_auto bigint operator""_bigint()noexcept{
+	return literal_support::signed_integer_literal_evaler<bigint,ubigint>::eval<cs...>();
+}
+
+template<char...cs>
+constexpr_as_auto ubigfloat operator""_ubigfloat()noexcept{
+	return literal_support::unsigned_float_literal_evaler<
+		/*float_T*/							ubigfloat,
+		/*base_process_T*/					ubigint,
+		/*exp_process_integer_T*/			bigint,
+		/*exp_process_unsigned_integer_T*/	ubigint
+	>::eval<cs...>();
+}
+template<char...cs>
+constexpr_as_auto bigfloat operator""_bigfloat()noexcept{
+	return literal_support::signed_float_literal_evaler<
+		/*float_T*/							bigfloat,
+		/*unsigned_float_T*/				ubigfloat,
+		/*base_process_T*/					ubigint,
+		/*exp_process_integer_T*/			bigint,
+		/*exp_process_unsigned_integer_T*/	ubigint
+	>::eval<cs...>();
+}
 
 //file_end
 
