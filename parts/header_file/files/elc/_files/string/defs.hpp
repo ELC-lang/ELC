@@ -919,6 +919,25 @@ namespace string_n{
 			return *this+=string_t{size,ch};
 		}
 
+		//pad_left
+		this_t pad_left(size_t size,char_T ch)const noexcept{
+			if(size<=this->size())
+				return *this;
+			return string_t{size-this->size(),ch}+*this;
+		}
+		this_t pad_left(char_T ch,size_t size)const noexcept{
+			return pad_left(size,ch);
+		}
+		//pad_right
+		this_t pad_right(size_t size,char_T ch)const noexcept{
+			if(size<=this->size())
+				return *this;
+			return *this+string_t{size-this->size(),ch};
+		}
+		this_t pad_right(char_T ch,size_t size)const noexcept{
+			return pad_right(size,ch);
+		}
+
 		//pre_allocate
 		void pre_alloc_before_begin(size_t size)noexcept{
 			_cso_check();

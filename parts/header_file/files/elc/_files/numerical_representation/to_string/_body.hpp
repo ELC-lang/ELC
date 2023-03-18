@@ -201,16 +201,38 @@ namespace to_string_n{
 					const auto info_threshold = to_size_t(ceil(log(info_threshold_base, radix)));
 					aret.pre_alloc_before_begin(info_threshold);
 				}
-				push_and_disable_msvc_warning(4244);
-				do{//do-while是为了保证至少有一位"0"
-					auto res=divmod(move(num),radix);
-					const auto index=to_size_t(move(res.mod));
-					const auto ch=_repres.get_char(index);
-					aret.push_front(ch);
-					num=move(res.quot);
-				}while(num);
-				pop_msvc_warning();
-				return aret;
+				if constexpr(is_big_type<T>){
+					//大整数类型可以通过分治法来提高效率
+					constexpr auto partition_method_threshold=max(type_info<size_t>);
+					if(num>partition_method_threshold){
+						T base{radix};
+						size_t len=1;//计算余数部分要补的前导0
+						//计算分割点
+						while(base.memory_usage()*3 < num.memory_usage()){
+							len *= 2;
+							base *= base;
+						}
+						//算出分割后的高位和低位
+						auto result = divmod(num, base);
+						auto&high = result.quot;
+						auto&low = result.mod;
+						return to_string(move(high)) + to_string(move(low)).pad_left(_repres.get_char(0), len);
+					}
+					else
+						return to_string(num.convert_to<size_t>());
+				}
+				else{
+					push_and_disable_msvc_warning(4244);
+					do{//do-while是为了保证至少有一位"0"
+						auto res=divmod(move(num),radix);
+						const auto index=to_size_t(move(res.mod));
+						const auto ch=_repres.get_char(index);
+						aret.push_front(ch);
+						num=move(res.quot);
+					}while(num);
+					pop_msvc_warning();
+					return aret;
+				}
 			}
 		}
 	private:
@@ -407,23 +429,50 @@ namespace to_string_n{
 			if constexpr(type_info<T> == type_info<bool>)
 				return union_cast<bool>(from_string_get<unsigned_specific_size_t<sizeof(bool)>>(str,state));
 			else{
-				push_and_disable_msvc_warning(4267);
-				T aret={};
 				const auto radix=_repres.get_radix();
-				const auto end=str.end();
-				for(auto i=str.begin();i!=end;++i){
-					aret*=radix;
-					const char_t ch=*i;
-					if(_repres.is_valid_char(ch))
-						aret+=_repres.get_index(ch);
-					else{//error
-						state.set_error();
-						state.set_has_invalid_char();
-						return {};
+				if constexpr(is_big_type<T>){
+					//大整数类型可以通过分治法来提高效率
+					const auto partition_method_threshold=trunc(log(max(type_info<size_t>),radix));
+					if(str.size()>partition_method_threshold){
+						T base{radix};
+						size_t len=1;
+						//计算分割点
+						while(len*3 < str.size()){
+							len *= 2;
+							base *= base;
+						}
+						const auto split_pos=str.size()-len;
+						string high_str=str.substr(0,split_pos);
+						string low_str=str.substr(split_pos);
+						T high=from_string_get_unsigneded<T>(high_str,state);
+						if(!state.success())
+							return {};
+						T low=from_string_get_unsigneded<T>(low_str,state);
+						if(!state.success())
+							return {};
+						return move(high)*move(base)+move(low);
 					}
+					else
+						return from_string_get_unsigneded<size_t>(str,state);
 				}
-				return aret;
-				pop_msvc_warning();
+				else{
+					push_and_disable_msvc_warning(4267);
+					T aret={};
+					const auto end=str.end();
+					for(auto i=str.begin();i!=end;++i){
+						aret*=radix;
+						const char_t ch=*i;
+						if(_repres.is_valid_char(ch))
+							aret+=_repres.get_index(ch);
+						else{//error
+							state.set_error();
+							state.set_has_invalid_char();
+							return {};
+						}
+					}
+					return aret;
+					pop_msvc_warning();
+				}
 			}
 		}
 	public:

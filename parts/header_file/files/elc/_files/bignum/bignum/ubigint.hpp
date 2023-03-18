@@ -174,6 +174,9 @@ public:
 			if(is_negative(other))return strong_ordering::greater;
 			return *this<=>to_unsigned_t<T>(other);
 		}else{
+			if constexpr(is_basic_type<T>)
+				if(_data.size_in_byte()-sizeof(base_type)>sizeof(T))//根据位数快速判断大小
+					return strong_ordering::greater;
 			auto i=_data.begin();
 			const auto end=_data.end();
 			while(i!=end){
@@ -940,6 +943,10 @@ public:
 		auto&data=x._data;
 		if(data.empty())return 0;
 		return data.size()*bitnum_of(base_type)-::std::countl_zero(data.back());
+	}
+	//memory_usage
+	[[nodiscard]]force_inline size_t memory_usage()const noexcept{
+		return _data.size_in_byte();
 	}
 	//friend is_odd
 	[[nodiscard]]friend bool is_odd(const ubigint& x)noexcept{
