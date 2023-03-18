@@ -49,7 +49,7 @@ namespace elc::defs{ //在elc::defs中定义内容
 	#endif
 
 	namespace base{
-		#include "base_defs_part1/_body.hpp"
+		#include "part1/_body.hpp"
 	}
 
 	//由于vcruntime的type_info在全局定义,这里需要额外声明使用base::type_info.
@@ -64,7 +64,7 @@ namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
 	namespace base{
-		#include "base_defs_part2/_body.hpp"
+		#include "part2/_body.hpp"
 	}
 
 	#include "../_share/_undefs.hpp"
