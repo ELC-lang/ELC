@@ -38,73 +38,25 @@ namespace literal_n{
 	constexpr_as_auto bigint operator""_bigint()noexcept{
 		return literal_support::signed_integer_literal_evaler<bigint,ubigint>::eval<cs...>();
 	}
-	//浮点数字面量
-	template<unsigned base,char exp_char,bool pointed>
-	constexpr_as_auto ubigfloat eval_bigfloat_literal(ubigint val=zero,bigint exp=0)noexcept{
-		ubigfloat aret=val;
-		aret*=pow(base,exp);
-		return aret;
-	}
-	template<unsigned base,char exp_char,bool pointed,char c,char...cs>
-	constexpr_as_auto ubigfloat eval_bigfloat_literal(ubigint val=zero,bigint exp=0)noexcept{
-		using namespace literal_support;
-		if constexpr(c=='\''){
-			return eval_bigfloat_literal<base,exp_char,pointed,cs...>(val,exp);
-		}
-		elseif constexpr(c=='.'){
-			static_assert(!pointed,"pointed twice");
-			return eval_bigfloat_literal<base,exp_char,true,cs...>(val,exp);
-		}
-		elseif constexpr(c==exp_char || c==exp_char+('A'-'a')){
-			exp+=signed_integer_literal_evaler<bigint,ubigint>::template eval_with_base<base,cs...>();
-			return eval_bigfloat_literal<base,exp_char,pointed>(val,exp);
-		}
-		else{
-			if constexpr(pointed)
-				--exp;
-			static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
-			static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
-			static_assert(base>hexval(c),"invalid char");
-			return eval_bigfloat_literal<base,exp_char,pointed,cs...>(val*base+hexval(c),exp);
-		}
-	}
-	template<unsigned default_base,char default_exp_char,char...cs>
-	struct bigfloat_literal_evaler{
-		static constexpr_as_auto ubigfloat eval()noexcept{
-			return eval_bigfloat_literal<default_base,default_exp_char,false,cs...>();
-		}
-	};
-	template<unsigned default_base,char default_exp_char,char...cs>
-	struct bigfloat_literal_evaler<default_base,default_exp_char,'0','x',cs...>{
-		static constexpr_as_auto ubigfloat eval()noexcept{
-			return eval_bigfloat_literal<16,'p',false,cs...>();
-		}
-	};
-	template<unsigned default_base,char default_exp_char,char...cs>
-	struct bigfloat_literal_evaler<default_base,default_exp_char,'0','X',cs...>{
-		static constexpr_as_auto ubigfloat eval()noexcept{
-			return eval_bigfloat_literal<16,'p',false,cs...>();
-		}
-	};
+	
 	template<char...cs>
 	constexpr_as_auto ubigfloat operator""_ubigfloat()noexcept{
-		return bigfloat_literal_evaler<10,'e',cs...>::eval();
+		return literal_support::unsigned_float_literal_evaler<
+			/*float_T*/							ubigfloat,
+			/*base_process_T*/					ubigint,
+			/*exp_process_integer_T*/			bigint,
+			/*exp_process_unsigned_integer_T*/	ubigint
+		>::eval<cs...>();
 	}
-	template<unsigned default_base,char default_exp_char,char...cs>
-	struct signed_bigfloat_literal_evaler{
-		static constexpr_as_auto bigfloat eval()noexcept{
-			return bigfloat_literal_evaler<default_base,default_exp_char,cs...>::eval();
-		}
-	};
-	template<unsigned default_base,char default_exp_char,char...cs>
-	struct signed_bigfloat_literal_evaler<default_base,default_exp_char,'-',cs...>{
-		static constexpr_as_auto bigfloat eval()noexcept{
-			return -bigfloat_literal_evaler<default_base,default_exp_char,cs...>::eval();
-		}
-	};
 	template<char...cs>
 	constexpr_as_auto bigfloat operator""_bigfloat()noexcept{
-		return signed_bigfloat_literal_evaler<10,'e',cs...>::eval();
+		return literal_support::signed_float_literal_evaler<
+			/*float_T*/							bigfloat,
+			/*unsigned_float_T*/				ubigfloat,
+			/*base_process_T*/					ubigint,
+			/*exp_process_integer_T*/			bigint,
+			/*exp_process_unsigned_integer_T*/	ubigint
+		>::eval<cs...>();
 	}
 }
 using literal_n::operator""_ubigint;

@@ -117,7 +117,7 @@ namespace literal_support{
 		template<unsigned default_base,char...cs>
 		struct eval_differ<default_base,'-',cs...>{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return -unsigned_integer_literal_evaler<unsigned_integer_T>::template eval_with_base<default_base,cs...>();
+				return -static_cast<integer_T>(unsigned_integer_literal_evaler<unsigned_integer_T>::template eval_with_base<default_base,cs...>());
 			}
 		};
 	public:
@@ -128,6 +128,88 @@ namespace literal_support{
 		template<char...cs>
 		static constexpr_as_auto integer_T eval()noexcept{
 			return eval_with_base<10,cs...>();
+		}
+	};
+	template<class float_T,class base_process_T,class exp_process_integer_T,class exp_process_unsigned_integer_T>
+	class unsigned_float_literal_evaler{
+		template<unsigned base,char exp_char,bool pointed>
+		static constexpr_as_auto float_T eval_impl(base_process_T val={},exp_process_integer_T exp={})noexcept{
+			float_T aret=val;
+			aret*=pow(base,exp);
+			return aret;
+		}
+		template<unsigned base,char exp_char,bool pointed,char c,char...cs>
+		static constexpr_as_auto float_T eval_impl(base_process_T val={},exp_process_integer_T exp={})noexcept{
+			if constexpr(c=='\''){
+				return eval_impl<base,exp_char,pointed,cs...>(val,exp);
+			}
+			elseif constexpr(c=='.'){
+				static_assert(!pointed,"pointed twice");
+				return eval_impl<base,exp_char,true,cs...>(val,exp);
+			}
+			elseif constexpr(c==exp_char || c==exp_char+('A'-'a')){
+				exp+=signed_integer_literal_evaler<exp_process_integer_T,exp_process_unsigned_integer_T>::template eval_with_base<base,cs...>();
+				return eval_impl<base,exp_char,pointed>(val,exp);
+			}
+			else{
+				if constexpr(pointed)
+					--exp;
+				static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
+				static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
+				static_assert(base>hexval(c),"invalid char");
+				return eval_impl<base,exp_char,pointed,cs...>(val*base+hexval(c),exp);
+			}
+		}
+		template<unsigned default_base,char default_exp_char,char...cs>
+		struct eval_differ{
+			static constexpr_as_auto float_T eval()noexcept{
+				return eval_impl<default_base,default_exp_char,false,cs...>();
+			}
+		};
+		template<unsigned default_base,char default_exp_char,char...cs>
+		struct eval_differ<default_base,default_exp_char,'0','x',cs...>{
+			static constexpr_as_auto float_T eval()noexcept{
+				return eval_impl<16,'p',false,cs...>();
+			}
+		};
+		template<unsigned default_base,char default_exp_char,char...cs>
+		struct eval_differ<default_base,default_exp_char,'0','X',cs...>{
+			static constexpr_as_auto float_T eval()noexcept{
+				return eval_impl<16,'p',false,cs...>();
+			}
+		};
+	public:
+		template<unsigned default_base,char default_exp_char,char...cs>
+		static constexpr_as_auto float_T eval_with_base()noexcept{
+			return eval_differ<default_base,default_exp_char,cs...>::eval();
+		}
+		template<char...cs>
+		static constexpr_as_auto float_T eval()noexcept{
+			return eval_with_base<10,'e',cs...>();
+		}
+	};
+	template<class float_T,class unsigned_float_T,class base_process_T,class exp_process_integer_T,class exp_process_unsigned_integer_T>
+	class signed_float_literal_evaler{
+		template<unsigned default_base,char default_exp_char,char...cs>
+		struct eval_differ{
+			static constexpr_as_auto float_T eval()noexcept{
+				return unsigned_float_literal_evaler<unsigned_float_T,base_process_T,exp_process_integer_T,exp_process_unsigned_integer_T>::template eval_with_base<default_base,default_exp_char,cs...>();
+			}
+		};
+		template<unsigned default_base,char default_exp_char,char...cs>
+		struct eval_differ<default_base,default_exp_char,'-',cs...>{
+			static constexpr_as_auto float_T eval()noexcept{
+				return -static_cast<float_T>(unsigned_float_literal_evaler<unsigned_float_T,base_process_T,exp_process_integer_T,exp_process_unsigned_integer_T>::template eval_with_base<default_base,default_exp_char,cs...>());
+			}
+		};
+	public:
+		template<unsigned default_base,char default_exp_char,char...cs>
+		static constexpr_as_auto float_T eval_with_base()noexcept{
+			return eval_differ<default_base,default_exp_char,cs...>::eval();
+		}
+		template<char...cs>
+		static constexpr_as_auto float_T eval()noexcept{
+			return eval_with_base<10,'e',cs...>();
 		}
 	};
 }
