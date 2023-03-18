@@ -28,7 +28,7 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-#include "math.hpp"
+#include "arithmetic_type_info_prover.hpp"
 #include "bit.hpp"
 #include "null_ptr.hpp"
 #include "compare.hpp"

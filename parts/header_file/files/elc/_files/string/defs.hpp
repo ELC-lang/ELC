@@ -939,43 +939,43 @@ namespace string_n{
 			return substr(0,pos)+str+substr(pos+size);
 		}
 		this_t replace(char_T ch,char_T ch2)const noexcept{
-			this_t ret;
+			this_t aret;
 			size_t pos=0;
 			floop{
 				auto pos2=find(ch,pos);
 				if(pos2==npos)
 					break;
-				ret+=substr(pos,pos2-pos)+ch2;
+				aret+=substr(pos,pos2-pos)+ch2;
 				pos=pos2+1;
 			}
-			ret+=substr(pos);
-			return ret;
+			aret+=substr(pos);
+			return aret;
 		}
 		this_t replace(char_T ch,const string_t& str)const noexcept{
-			this_t ret;
+			this_t aret;
 			size_t pos=0;
 			floop{
 				auto pos2=find(ch,pos);
 				if(pos2==npos)
 					break;
-				ret+=substr(pos,pos2-pos)+str;
+				aret+=substr(pos,pos2-pos)+str;
 				pos=pos2+1;
 			}
-			ret+=substr(pos);
-			return ret;
+			aret+=substr(pos);
+			return aret;
 		}
 		this_t replace(const string_t& str1,const string_t& str2)const noexcept{
-			this_t ret;
+			this_t aret;
 			size_t pos=0;
 			floop{
 				auto pos2=find(str1,pos);
 				if(pos2==npos)
 					break;
-				ret+=substr(pos,pos2-pos)+str2;
+				aret+=substr(pos,pos2-pos)+str2;
 				pos=pos2+str1.size();
 			}
-			ret+=substr(pos);
-			return ret;
+			aret+=substr(pos);
+			return aret;
 		}
 
 		//iostream

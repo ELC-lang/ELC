@@ -152,7 +152,7 @@ public:
 /// @tparam radix 基数
 template<char_t zero,size_t radix>
 class constexpr_continuous_numerical_representation_t final:public comn_constexpr_numerical_representation_t{
-	unique_prime_factorization_table_t<radix> _prime_factorization_table;
+	unique_prime_factorization_table_t<size_t,radix> _prime_factorization_table;
 public:
 	consteval constexpr_continuous_numerical_representation_t(
 		char_t fractional_sign,char_t positive_sign,char_t negative_sign,
@@ -217,7 +217,7 @@ class constexpr_str_numerical_representation_t final:public comn_constexpr_numer
 	static constexpr size_t radix=radix_table_p->size();
 	static constexpr const constexpr_str& radix_table=*radix_table_p;
 
-	unique_prime_factorization_table_t<radix> _prime_factorization_table;
+	unique_prime_factorization_table_t<size_t,radix> _prime_factorization_table;
 public:
 	consteval constexpr_str_numerical_representation_t(
 		char_t fractional_sign,char_t positive_sign,char_t negative_sign,

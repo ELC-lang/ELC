@@ -284,10 +284,10 @@ namespace base_streams_impl_n{
 		inheriting_base_stream_operations_from(_in);
 
 		virtual size_t read(char_t*buf,size_t size)noexcept override{
-			const size_t ret=_in.read(buf,size);
+			const size_t aret=_in.read(buf,size);
 			if(_tie_with)
-				if(ret>_unread_size){
-					const size_t tie_size=ret-_unread_size;
+				if(aret>_unread_size){
+					const size_t tie_size=aret-_unread_size;
 					//回显中需要将回车换行、回车转换为换行
 					string_view str{buf+size-tie_size,tie_size};
 					while(str.size()){
@@ -306,11 +306,11 @@ namespace base_streams_impl_n{
 						}
 					}
 				}
-			if(ret<=_unread_size)
-				_unread_size-=ret;
+			if(aret<=_unread_size)
+				_unread_size-=aret;
 			else
 				_unread_size=0;
-			return ret;
+			return aret;
 		}
 		virtual bool is_end()noexcept override{
 			return _in.is_end();

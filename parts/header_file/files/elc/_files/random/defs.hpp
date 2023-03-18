@@ -272,14 +272,14 @@ namespace rand_n{
 			[[nodiscard]]force_inline T operator()()const noexcept{return inclusive();}
 			[[nodiscard]]force_inline operator T()const noexcept{return operator()();}
 			[[nodiscard]]force_inline T exclusive()const noexcept{
-				T ret;
-				do ret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(ret>=_diff);
-				return ret+_min;
+				T aret;
+				do aret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(aret>=_diff);
+				return aret+_min;
 			}
 			[[nodiscard]]force_inline T inclusive()const noexcept{
-				T ret;
-				do ret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(ret>_diff);
-				return ret+_min;
+				T aret;
+				do aret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(aret>_diff);
+				return aret+_min;
 			}
 		};
 		struct between_floating_t{

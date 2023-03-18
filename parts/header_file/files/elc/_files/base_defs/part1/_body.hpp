@@ -43,6 +43,7 @@
 #include "special_attribute.hpp"
 #include "type_info.hpp"
 #include "min_max.hpp"
+#include "math.hpp"
 
 #include "literal_support.hpp"
 

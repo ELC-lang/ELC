@@ -32,51 +32,7 @@ namespace math{
 	/// 算术类型帮助类型
 	/// 任何后续定义的新算术类型都可以重载这些类型来实现数学库的泛型支持
 	template<typename T>
-	struct arithmetic_type_info_prover{
-		//bool：是否是算数类型
-		static constexpr bool is_arithmetic_type=::std::is_arithmetic_v<T> || is_elc_expansion_base_type<T>;
-		//bool：是否是基础类型
-		static constexpr bool is_basic_type=::std::is_arithmetic_v<T>;
-		//bool：是否是大数类型
-		static constexpr bool is_big_type=false;
-		//bool：是否是浮点类型
-		static constexpr bool is_float_type=::std::is_floating_point_v<T>;
-		//bool：是否是有符号类型
-		static constexpr bool is_signed=::std::is_signed_v<T>;
-		//bool：是否有NaN
-	private:
-		static constexpr bool has_NaN_helper()noexcept{
-			if constexpr(is_arithmetic_type)
-				return ::std::numeric_limits<T>::has_quiet_NaN || ::std::numeric_limits<T>::has_signaling_NaN;
-			else
-				return false;
-		}
-	public:
-		static constexpr bool has_NaN=has_NaN_helper();
-		//bool：是否有inf
-	private:
-		static constexpr bool has_inf_helper()noexcept{
-			if constexpr(is_arithmetic_type)
-				return ::std::numeric_limits<T>::has_infinity;
-			else
-				return false;
-		}
-	public:
-		static constexpr bool has_inf=has_inf_helper();
-		//对应的无符号和有符号类型
-		using unsigned_type=decltype(lambda{
-			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
-				return T();
-			elseif constexpr(::std::is_signed_v<T>)
-				return::std::make_unsigned_t<T>();
-		}());
-		using signed_type=decltype(lambda{
-			if constexpr(::std::is_signed_v<T>||::std::is_floating_point_v<T>)
-				return T();
-			elseif constexpr(::std::is_unsigned_v<T> && (type_info<T>!=type_info<bool>))
-				return::std::make_signed_t<T>();
-		}());
-	};
+	struct arithmetic_type_info_prover;
 	/*! 无符号位的对应类型 */
 	template<typename T>
 	using to_unsigned_t = typename arithmetic_type_info_prover<remove_cvref<T>>::unsigned_type;
@@ -604,19 +560,21 @@ namespace math{
 	}
 	push_and_disable_msvc_warning(26467);//gold_of_resize永远为正数
 	/// 已知当前array的size，求下一个合适的提前分配大小
-	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_array(size_t size)noexcept{
+	template<unsigned_integer_type size_T>
+	[[nodiscard]]inline constexpr size_T get_next_gold_size_to_resize_for_array(size_T size)noexcept{
 		/*
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
 		*/
-		return size_t(size*magic_number::gold_of_resize);
+		return size_T(size*magic_number::gold_of_resize);
 	}
 	/// 已知当前hash table的size，求下一个合适的桶大小
-	[[nodiscard]]inline constexpr size_t get_next_gold_size_to_resize_for_hash(size_t size)noexcept{
+	template<unsigned_integer_type size_T>
+	[[nodiscard]]inline constexpr size_T get_next_gold_size_to_resize_for_hash(size_T size)noexcept{
 		/*
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
 		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
 		*/
-		return size_t(get_prime_num_big_or_eq_than(size*magic_number::gold_of_resize));
+		return size_T(get_prime_num_big_or_eq_than(size*magic_number::gold_of_resize));
 	}
 	pop_msvc_warning();
 
@@ -712,24 +670,25 @@ namespace math{
 		}
 	}get_prime_factorization{};
 	//编译时质因数分解到质因数表
-	template<size_t number>
+	template<unsigned_integer_type number_T,number_T number>
 	struct prime_factorization_table_t{
+		typedef prime_factorization_table_t<number_T,number> this_t;
 		static constexpr size_t table_size=lambda{
-			size_t i=2,m=number;
-			size_t ret=0;
+			number_T i=2,m=number;
+			size_t aret=0;
 			while(m!=1){
 				while(!(m%i)){
-					++ret;
+					++aret;
 					m/=i;
 				}
 				i=get_prime_num_big_than(i);
 			}
-			return ret;
+			return aret;
 		}();
-		size_t _table[table_size];
+		number_T _table[table_size];
 		constexpr force_inline prime_factorization_table_t()noexcept{
-			size_t i=2,m=number;
-			size_t index=0;
+			number_T i=2,m=number;
+			number_T index=0;
 			while(m!=1){
 				while(!(m%i)){
 					_table[index++]=i;
@@ -738,20 +697,20 @@ namespace math{
 				i=get_prime_num_big_than(i);
 			}
 		}
-		[[nodiscard]]constexpr force_inline size_t operator[](size_t index)const noexcept{
+		[[nodiscard]]constexpr force_inline number_T operator[](size_t index)const noexcept{
 			return _table[index];
 		}
 		//begin and end for range for
-		[[nodiscard]]constexpr force_inline size_t* begin()noexcept{
+		[[nodiscard]]constexpr force_inline number_T* begin()noexcept{
 			return _table;
 		}
-		[[nodiscard]]constexpr force_inline size_t* end()noexcept{
+		[[nodiscard]]constexpr force_inline number_T* end()noexcept{
 			return _table+table_size;
 		}
-		[[nodiscard]]constexpr force_inline const size_t* begin()const noexcept{
+		[[nodiscard]]constexpr force_inline const number_T* begin()const noexcept{
 			return _table;
 		}
-		[[nodiscard]]constexpr force_inline const size_t* end()const noexcept{
+		[[nodiscard]]constexpr force_inline const number_T* end()const noexcept{
 			return _table+table_size;
 		}
 		//size
@@ -759,45 +718,46 @@ namespace math{
 			return table_size;
 		}
 		//friend
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto size_of_array_like(const prime_factorization_table_t<number>&)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto size_of_array_like(const this_t&)noexcept{
 			return table_size;
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto begin_of_array_like(prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto begin_of_array_like(this_t&table)noexcept{
 			return table.begin();
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto end_of_array_like(prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto end_of_array_like(this_t&table)noexcept{
 			return table.end();
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto begin_of_array_like(const prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto begin_of_array_like(const this_t&table)noexcept{
 			return table.begin();
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto end_of_array_like(const prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto end_of_array_like(const this_t&table)noexcept{
 			return table.end();
 		}
 	};
 	//编译时的唯一质因数分解到质因数表
-	template<size_t number>
+	template<unsigned_integer_type number_T,number_T number>
 	struct unique_prime_factorization_table_t{
+		typedef unique_prime_factorization_table_t<number_T,number> this_t;
 		static constexpr size_t table_size=lambda{
-			size_t i=2,m=number;
-			size_t ret=0;
+			number_T i=2,m=number;
+			size_t aret=0;
 			while(m!=1){
 				if(!(m%i)){
-					++ret;
+					++aret;
 					do m/=i;while(!(m%i));
 				}
 				i=get_prime_num_big_than(i);
 			}
-			return ret;
+			return aret;
 		}();
-		size_t _table[table_size]={};
+		number_T _table[table_size]={};
 		constexpr force_inline unique_prime_factorization_table_t()noexcept{
-			size_t i=2,m=number;
+			number_T i=2,m=number;
 			size_t index=0;
 			while(m!=1){
 				if(!(m%i)){
@@ -807,20 +767,20 @@ namespace math{
 				i=get_prime_num_big_than(i);
 			}
 		}
-		[[nodiscard]]constexpr force_inline size_t operator[](size_t index)const noexcept{
+		[[nodiscard]]constexpr force_inline number_T operator[](size_t index)const noexcept{
 			return _table[index];
 		}
 		//begin and end for range for
-		[[nodiscard]]constexpr force_inline size_t* begin()noexcept{
+		[[nodiscard]]constexpr force_inline number_T* begin()noexcept{
 			return _table;
 		}
-		[[nodiscard]]constexpr force_inline size_t* end()noexcept{
+		[[nodiscard]]constexpr force_inline number_T* end()noexcept{
 			return _table+table_size;
 		}
-		[[nodiscard]]constexpr force_inline const size_t* begin()const noexcept{
+		[[nodiscard]]constexpr force_inline const number_T* begin()const noexcept{
 			return _table;
 		}
-		[[nodiscard]]constexpr force_inline const size_t* end()const noexcept{
+		[[nodiscard]]constexpr force_inline const number_T* end()const noexcept{
 			return _table+table_size;
 		}
 		//size
@@ -828,24 +788,24 @@ namespace math{
 			return table_size;
 		}
 		//friend
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto size_of_array_like(const unique_prime_factorization_table_t<number>&)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto size_of_array_like(const this_t&)noexcept{
 			return table_size;
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto begin_of_array_like(unique_prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto begin_of_array_like(this_t&table)noexcept{
 			return table.begin();
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto end_of_array_like(unique_prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto end_of_array_like(this_t&table)noexcept{
 			return table.end();
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto begin_of_array_like(const unique_prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto begin_of_array_like(const this_t&table)noexcept{
 			return table.begin();
 		}
-		template<class T> requires(type_info<remove_cv<T>> == type_info<size_t>)
-		[[nodiscard]]friend inline auto end_of_array_like(const unique_prime_factorization_table_t<number>&table)noexcept{
+		template<class T> requires(type_info<remove_cv<T>> == type_info<number_T>)
+		[[nodiscard]]friend inline auto end_of_array_like(const this_t&table)noexcept{
 			return table.end();
 		}
 	};
