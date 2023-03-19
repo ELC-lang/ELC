@@ -942,7 +942,7 @@ public:
 	[[nodiscard]]friend size_t get_bitnum(const ubigint& x)noexcept{
 		auto&data=x._data;
 		if(data.empty())return 0;
-		return data.size()*bitnum_of(base_type)-::std::countl_zero(data.back());
+		return data.size()*bitnum_of(base_type)-countl_zero(data.back());
 	}
 	//memory_usage
 	[[nodiscard]]force_inline size_t memory_usage()const noexcept{
