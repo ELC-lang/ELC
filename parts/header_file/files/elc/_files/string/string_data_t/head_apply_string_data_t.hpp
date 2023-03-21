@@ -293,7 +293,7 @@ protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
 		if(begin >= _used_size)
 			return _to->get_the_largest_complete_data_block_begin_form(begin-_used_size);
-		else {
+		else{
 			const char_T* head_begin = _m.end() - _used_size;
 			const char_T* head_end	 = _m.end();
 			const char_T* ret_begin	 = begin+head_begin;

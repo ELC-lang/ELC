@@ -1063,8 +1063,8 @@ namespace string_n{
 
 		if(!isok)
 			state |= stream_t::badbit;
-		else {
-			try {
+		else{
+			try{
 				if((os.flags() & stream_t::adjustfield) != stream_t::left){
 					for(; 0 < pad; --pad){// pad on left
 						if(traits_t::eq_int_type(traits_t::eof(), os.rdbuf()->sputc(os.fill()))){

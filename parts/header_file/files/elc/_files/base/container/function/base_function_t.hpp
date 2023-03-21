@@ -172,7 +172,7 @@ namespace function_n{
 	class base_function_t;
 
 	template<class T>
-	struct is_function_t_helper {
+	struct is_function_t_helper{
 		constexpr static bool value = false;
 	};
 	template<class T, bool promise_nothrow_at_destruct>

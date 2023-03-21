@@ -101,7 +101,7 @@ namespace constexpr_str_n{
 		}
 	};
 	template<constexpr_str_t_literal_helper v>
-	struct literal_result_provider {
+	struct literal_result_provider{
 		distinctive static constexpr auto value = v.get_constexpr_str_t();
 	};
 	//别问，问就是傻逼c++
@@ -121,7 +121,7 @@ using constexpr_str_n::empty_constexpr_str_of;
 using constexpr_str_n::operator ""_constexpr_str;
 
 //重载range操作
-namespace range_n {
+namespace range_n{
 	template<typename T>
 	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
 		return pattern.match_pattern.match(range);

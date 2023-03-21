@@ -239,7 +239,7 @@ namespace range_n{
 	/// bitmark提供了一种快速进行四种泛搜索的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。
 	/// 若bitmark构建失败，程序应当使用正在进行的泛搜索的朴素实现版本。
 	template<typename T>
-	struct bitmark_for_finds {
+	struct bitmark_for_finds{
 		typedef unsigned char index_type;
 		bool _bitmark[number_of_possible_values_per<index_type>]{};
 
@@ -408,7 +408,7 @@ namespace range_n{
 	/// bitmark提供了一种快速进行反索引的实现，前提是构建中的pattern中的每一项的usigned表示都在一个字节（表长）内。
 	/// 若bitmark构建失败，程序应当使用正在进行的反索引的朴素实现版本。
 	template<typename T>
-	struct bitmark_for_quick_unindex {
+	struct bitmark_for_quick_unindex{
 		typedef unsigned char index_type;
 		size_t _bitmark[number_of_possible_values_per<index_type>]{};
 

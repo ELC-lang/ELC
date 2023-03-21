@@ -290,7 +290,7 @@ protected:
 	[[nodiscard]]virtual range_t<const char_T*> get_the_largest_complete_data_block_begin_form(size_t begin)noexcept override final{
 		if(begin < _to_size)
 			return _to->get_the_largest_complete_data_block_begin_form(begin);
-		else {
+		else{
 			begin-=_to_size;
 			return{_m.begin()+begin,note::size(_used_size-begin)};
 		}

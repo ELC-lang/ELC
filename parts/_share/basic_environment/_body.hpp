@@ -152,7 +152,7 @@ namespace elc::defs{
 		private:
 			//nothrow
 			template<class T>
-			static inline constexpr bool nothrow_helper()noexcept{				
+			static inline constexpr bool nothrow_helper()noexcept{
 				typedef decltype(to_arithmetic_base(declvalue(T))) to_type;
 				if constexpr(able<T>)
 					return type_info<T>.can_nothrow_convert_to<to_type>;

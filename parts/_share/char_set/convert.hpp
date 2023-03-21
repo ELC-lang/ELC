@@ -190,7 +190,7 @@ inline namespace convert_impl{
 	}
 }
 template<typename in_char_t, typename out_char_t>
-struct code_convert_result {
+struct code_convert_result{
 	bool _success;
 	string_view_t<in_char_t> _processed_input;
 	string_view_t<out_char_t> _processed_output;

@@ -355,7 +355,7 @@ protected:
 			return _insert_data->get_the_largest_complete_data_block_begin_form(index-_insert_pos);
 		elseif(index>=_insert_pos+_insert_size)
 			return _to->get_the_largest_complete_data_block_begin_form(index-_insert_size);
-		else {
+		else{
 			auto aret=_to->get_the_largest_complete_data_block_begin_form(index);
 			if(aret.size()+index > _insert_pos)
 				aret = {aret.begin(), note::size(_insert_pos-index)};

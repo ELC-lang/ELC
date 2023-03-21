@@ -6,10 +6,10 @@
 #include <ranges>
 using namespace std;
 
-struct package_not_found : runtime_error {
+struct package_not_found : runtime_error{
 	package_not_found(string const& name) : runtime_error("package not found: " + name){}
 };
-struct package_info_t {
+struct package_info_t{
 	string package_name;
 	//Not backward compatible package version
 	size_t package_version_major;
@@ -28,7 +28,7 @@ bool is_this_package_can_be_found(package_info_t& package_info);
 inline bool is_this_package_can_not_be_found(package_info_t& package_info){
 	return !is_this_package_can_be_found(package_info);
 }
-struct package_relay_list {
+struct package_relay_list{
 	vector<package_info_t> package_list;
 
 	package_relay_list(vector<package_info_t> package_list){
@@ -56,7 +56,7 @@ struct package_relay_list {
 	}
 };
 
-struct base_package_relay_info_t {
+struct base_package_relay_info_t{
 	virtual package_relay_list& get_relay_list(package_relay_list&) = 0;
 	package_relay_list get_relay_list(){
 		package_relay_list relay_list;
@@ -69,7 +69,7 @@ typedef shared_ptr<base_package_relay_info_t> base_package_relay_info_ptr;
 
 base_package_relay_info_ptr get_package_relay_info(const package_info_t& package_info);
 
-struct common_package_relay_info_t: public base_package_relay_info_t {
+struct common_package_relay_info_t: public base_package_relay_info_t{
 	vector<base_package_relay_info_ptr> relay_info_list;
 
 	common_package_relay_info_t(vector<base_package_relay_info_ptr> relay_info_list){
@@ -82,7 +82,7 @@ struct common_package_relay_info_t: public base_package_relay_info_t {
 		return package_list;
 	}
 };
-struct signal_package_relay_info_t: public base_package_relay_info_t {
+struct signal_package_relay_info_t: public base_package_relay_info_t{
 	package_info_t package_info;
 
 	signal_package_relay_info_t(package_info_t package_info){
@@ -93,7 +93,7 @@ struct signal_package_relay_info_t: public base_package_relay_info_t {
 		return package_list;
 	}
 };
-struct pick_one_package_relay_info_t: public base_package_relay_info_t {
+struct pick_one_package_relay_info_t: public base_package_relay_info_t{
 	vector<base_package_relay_info_ptr> pick_one_list;
 
 	pick_one_package_relay_info_t(vector<base_package_relay_info_ptr> pick_one_list){
@@ -104,7 +104,7 @@ struct pick_one_package_relay_info_t: public base_package_relay_info_t {
 		vector<vector<package_info_t>> package_list_list;
 		for(auto relay_info: pick_one_list){
 			auto relay_list	   = package_list;
-			try {
+			try{
 				relay_list = relay_info->get_relay_list(relay_list);
 			}
 			catch(package_not_found&){

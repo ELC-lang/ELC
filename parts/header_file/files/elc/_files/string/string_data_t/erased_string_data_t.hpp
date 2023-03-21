@@ -72,7 +72,7 @@ struct erased_string_data_t final:base_string_data_t<char_T>,instance_struct<era
 		else
 			return base_t::get_substr_data(begin,size);
 	}
-	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final {
+	virtual void be_replace_as(ptr_t a)noexcept(clear_nothrow)override final{
 		if(type_info<this_t> == typeid(*a)){
 			const auto p = down_cast<this_t*>(a.get());
 			if(_erase_pos==p->_erase_pos && _erase_size==p->_erase_size && _to!=p->_to)

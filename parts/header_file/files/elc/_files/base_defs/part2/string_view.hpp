@@ -29,14 +29,14 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 //仅是声明
-namespace constexpr_str_n {
+namespace constexpr_str_n{
 	template<typename char_T>
 	struct constexpr_str_t;
 }
 using constexpr_str_n::constexpr_str_t;
 //重载range操作
 //仅是声明以及size_t包装
-namespace range_n {
+namespace range_n{
 	template<typename T>
 	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range);
 	//若成功找到匹配的数据项，返回其距离开头的步数，若未找到，返回npos
