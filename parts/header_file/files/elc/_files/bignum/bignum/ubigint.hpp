@@ -175,7 +175,7 @@ public:
 			return *this<=>to_unsigned_t<T>(other);
 		}else{
 			if constexpr(is_basic_type<T>)
-				if(_data.size_in_byte()-sizeof(base_type)>sizeof(T))//根据位数快速判断大小
+				if(_data.size_in_byte()>sizeof(T)+sizeof(base_type))//根据位数快速判断大小
 					return strong_ordering::greater;
 			auto i=_data.begin();
 			const auto end=_data.end();
