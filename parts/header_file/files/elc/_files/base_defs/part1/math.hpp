@@ -362,8 +362,8 @@ namespace math{
 	}
 	//pow
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
-	template<arithmetic_type T,arithmetic_type U>
-	[[nodiscard]]force_inline constexpr auto pow(const T&a,const U&b)noexcept{
+	template<arithmetic_type T,arithmetic_type U=unsigned>
+	[[nodiscard]]force_inline constexpr auto pow(const T&a,const U&b=2)noexcept{
 		if(in_consteval||!is_basic_type<T>){
 			typedef decltype(::std::pow(a,b)) RT;
 			return RT(exp(b*log(a)));
@@ -371,8 +371,8 @@ namespace math{
 		elseif constexpr(is_basic_type<T>)
 			return ::std::pow(a,b);
 	}
-	template<big_type T,unsigned_integer_type U>
-	[[nodiscard]]force_inline constexpr auto pow(T a,U b)noexcept{
+	template<big_type T,unsigned_integer_type U=unsigned>
+	[[nodiscard]]force_inline constexpr auto pow(T a,U b=2)noexcept{
 		if constexpr(is_signed<T>){
 			const bool isneg=is_negative(a) && is_odd(b);
 			const auto abs_ret=pow(abs(a),b);
