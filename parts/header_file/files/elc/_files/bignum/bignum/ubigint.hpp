@@ -398,15 +398,28 @@ private:
 		sub_one_from_base(_data);
 	}
 	//*
+	//shrink_of_end_zeros
+	//去掉（数理上）末尾的（实现上）开头的0以减少乘法的次数
+	static size_t shrink_of_end_zeros(data_view_type&buf)noexcept{
+		if(buf.empty())
+			return 0;
+		auto begin=buf.begin();
+		const auto end=buf.end();
+		while(begin!=end && !*begin){
+			++begin;
+		}
+		size_t aret=begin-buf.begin();
+		size_t size=end-begin;
+		buf=get_data_view_of_data(begin,size);
+		return aret;
+	}
 	[[nodiscard]]static data_type muti_base(data_view_type a,base_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
-		//下面的muti_with_base至少会写入a.size()个元素，所以只需要置零tmp中最后一个元素就行
-		tmp.back()=0;
 		muti_with_base(tmp.data(),a,b);
 		shrink_to_fit(tmp);
 		return tmp;
 	}
-	static void muti_with_base(base_type*buf,data_view_type a,base_type b)noexcept{
+	static void muti_with_base_no_zero_check(base_type*buf,data_view_type a,base_type b)noexcept{
 		size_t i=0;
 		calc_type num=0;
 		while(i!=a.size()){
@@ -419,15 +432,34 @@ private:
 		}
 		if(num)
 			*buf = base_type(num);
+		else
+			*buf = base_type{0};
+	}
+	static void muti_with_base(base_type*buf,data_view_type a,base_type b)noexcept{
+		if(!b){
+			copy_assign[a.size()+1](note::to(buf),base_type{0});
+			return;
+		}
+		{
+			auto zeros=shrink_of_end_zeros(a);
+			while(zeros--)
+				*buf++ = base_type{0};
+		}
+		return muti_with_base_no_zero_check(buf,a,b);
 	}
 	static void muti_with_base(base_type*buf,data_view_type a,data_view_type b)noexcept{
+		{
+			auto zeros=shrink_of_end_zeros(a)+shrink_of_end_zeros(b);
+			while(zeros--)
+				*buf++ = base_type{0};
+		}
 		array_t<base_type> tmp(note::size(a.size()+1));
 		size_t muti_sacle=0;
 		while(muti_sacle!=b.size()){
-			//下面的muti_with_base至少会写入a.size()个元素，所以只需要置零tmp中最后一个元素就行
-			tmp.back()=0;
-			muti_with_base(tmp.data(),a,b[muti_sacle]);
-			add_to_base(buf+muti_sacle,get_shrinked_data_view_of_data(tmp));
+			if(b[muti_sacle]){
+				muti_with_base_no_zero_check(tmp.data(),a,b[muti_sacle]);
+				add_to_base(buf+muti_sacle,get_shrinked_data_view_of_data(tmp));
+			}
 			muti_sacle++;
 		}
 	}
@@ -488,8 +520,6 @@ private:
 		//left<=a/b<=right
 		tryto=get_shrinked_data_view_of_data(tryto.data(),tryto.size());
 		while(left<=right) {
-			//下面的muti_with_base至少会写入b.size()个元素，所以只需要置零buf中最后一个元素就行
-			buf.back()=0;
 			const calc_type test=(left+right)/2;//二分法
 			muti_with_base(buf.data(),b,base_type(test));
 			const auto myview=get_shrinked_data_view_of_data(buf);
@@ -508,8 +538,6 @@ private:
 		}
 		if(last_work_able==0)
 			return 0;
-		//下面的muti_with_base至少会写入b.size()个元素，所以只需要置零buf中最后一个元素就行
-		buf.back()=0;
 		muti_with_base(buf.data(),b,last_work_able);
 		sub_with_base(a,get_shrinked_data_view_of_data(buf));
 		return last_work_able;
