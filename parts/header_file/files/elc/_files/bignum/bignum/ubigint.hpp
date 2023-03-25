@@ -330,8 +330,7 @@ private:
 		array_t<base_type> tmp(note::size(size));
 		copy_assign[base_size](tmp.data(),a.data());
 		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
-		sub_with_base(tmp.data(),b);
-		shrink_to_fit(tmp);
+		sub_with_base(tmp,b);//already shrink_to_fit ed
 		return tmp;
 	}
 	static void sub_with_base(base_type*buf,data_view_type b)noexcept{
@@ -361,6 +360,16 @@ private:
 
 			++buf;
 		}
+	}
+	static void sub_with_base(base_type*buf,const data_type&b)noexcept{
+		sub_with_base(buf,get_data_view_of_data(b));
+	}
+	static void sub_with_base(data_type&buf,data_view_type b)noexcept{
+		sub_with_base(buf.data(),b);
+		shrink_to_fit(buf);
+	}
+	static void sub_with_base(data_type&buf,const data_type&b)noexcept{
+		sub_with_base(buf,get_data_view_of_data(b));
 	}
 	//++
 	//add_one_to_base
@@ -400,7 +409,7 @@ private:
 	//*
 	//shrink_of_end_zeros
 	//去掉（数理上）末尾的（实现上）开头的0以减少乘法的次数
-	static size_t shrink_of_end_zeros(data_view_type&buf)noexcept{
+	[[nodiscard]]static size_t shrink_of_end_zeros(data_view_type&buf)noexcept{
 		if(buf.empty())
 			return 0;
 		auto begin=buf.begin();
@@ -412,6 +421,21 @@ private:
 		const size_t size=end-begin;
 		buf=get_data_view_of_data(begin,size);
 		return aret;
+	}
+	//unshrink_of_end_zeros
+	//就是他妈的撤销
+	[[nodiscard]]static data_view_type unshrink_of_end_zeros(data_view_type a,size_t zeros)noexcept{
+		return get_data_view_of_data(a.begin()-zeros,a.size()+zeros);
+	}
+	//apply_shrink_of_end_zeros
+	//对于data_type和data_view_type应用已经获得的zeros大小进行shrink
+	static void apply_shrink_of_end_zeros(data_type&buf,size_t zeros)noexcept{
+		if(zeros)
+			buf.forward_resize(buf.size()-zeros);
+	}
+	static void apply_shrink_of_end_zeros(data_view_type&buf,size_t zeros)noexcept{
+		if(zeros)
+			buf=get_data_view_of_data(buf.begin()+zeros,buf.size()-zeros);
 	}
 	[[nodiscard]]static data_type muti_base(data_view_type a,base_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
@@ -506,7 +530,7 @@ private:
 		return fast_muti_base(a,get_data_view_of_data(b));
 	}
 	///
-	[[nodiscard]]static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
+	[[nodiscard]]static base_type div_with_base_no_zero_check(data_type&buf,base_type*a,data_view_type b)noexcept{
 		data_view_type tryto{a,b.size()+1};
 		const calc_type dividend=exlambda{
 			const base_type*p=tryto.rbegin();
@@ -542,18 +566,26 @@ private:
 		sub_with_base(a,get_shrinked_data_view_of_data(buf));
 		return last_work_able;
 	}
+	[[nodiscard]]static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
+		return div_with_base_no_zero_check(buf,a,b);
+	}
 	[[nodiscard]]static base_type div_base(base_type*a,data_view_type b)noexcept{
 		array_t<base_type> fortry(note::size(b.size()+1));
 		return div_with_base(fortry,a,b);
 	}
-	[[nodiscard]]static data_type div_base(data_view_type a,data_view_type b)noexcept{
+	[[nodiscard]]static data_type div_base_no_zero_check(data_view_type a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
 		copy_assign[a.size()](tmp.data(), a.data());
 		tmp.back()=0;
-		tmp=div_with_base(tmp,b);
+		tmp=div_with_base_no_zero_check(tmp,b);
 		return tmp;
 	}
-	static data_type div_with_base(data_type&a,data_view_type b)noexcept{
+	[[nodiscard]]static data_type div_base(data_view_type a,data_view_type b)noexcept{
+		const auto zeros=shrink_of_end_zeros(b);
+		apply_shrink_of_end_zeros(a,zeros);
+		return div_base_no_zero_check(a,b);
+	}
+	static data_type div_with_base_no_zero_check(data_type&a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()-b.size()),0);
 		const auto end=a.rend();
 		auto begin=a.rbegin()+b.size();
@@ -568,13 +600,18 @@ private:
 		shrink_to_fit(tmp);
 		return tmp;
 	}
+	static data_type div_with_base(data_type&a,data_view_type b)noexcept{
+		const auto zeros=shrink_of_end_zeros(b);
+		apply_shrink_of_end_zeros(a,zeros);
+		return div_with_base_no_zero_check(a,b);
+	}
 	//%
 	static void mod_with_base(data_type&a,data_view_type b)noexcept{
 		const auto end=a.rend();
 		auto begin=a.rbegin()+b.size();
 		array_t<base_type> fortry(note::size(b.size()+1));
 		while(begin!=end){
-			discard(div_with_base(fortry,begin,b));
+			discard(div_with_base_no_zero_check(fortry,begin,b));
 			begin++;
 		};
 	}
@@ -585,6 +622,37 @@ private:
 		mod_with_base(tmp,b);
 		shrink_to_fit(tmp);
 		return tmp;
+	}
+	//divmod
+	template<class=void>
+	struct divmod_result_t_base{
+		ubigint quot;
+		ubigint mod;
+	};
+public:
+	typedef divmod_result_t_base<void> divmod_result_t;
+private:
+	[[nodiscard]]static divmod_result_t divmod_with_base(data_type&a,data_view_type b)noexcept{
+		const auto zeros=shrink_of_end_zeros(b);
+		if(!zeros){
+			a.push_back(0);
+			data_type quot = div_with_base_no_zero_check(a, b);
+			shrink_to_fit(a);
+			return {ubigint{move(quot)},ubigint{move(a)}};
+		}
+		else{
+			auto a_view=get_data_view_of_data(a);
+			apply_shrink_of_end_zeros(a_view,zeros);
+			data_type quot = div_base_no_zero_check(a_view, b);
+			auto ori_b_view=unshrink_of_end_zeros(b,zeros);
+			sub_with_base(a,fast_muti_base(quot,ori_b_view));//already shrink_to_fit ed
+			return {ubigint{move(quot)},ubigint{move(a)}};
+		}
+	}
+	[[nodiscard]]static divmod_result_t divmod_base(data_view_type a,data_view_type b)noexcept{
+		array_t<base_type> tmp(note::size(a.size()));
+		copy_assign[a.size()](tmp.data(), a.data());
+		return divmod_with_base(tmp,b);
 	}
 public:
 	//friend abs
@@ -637,37 +705,20 @@ public:
 		return ubigint{mod_base(this_view, other_view)};
 	}
 	//friend divmod
-	[[nodiscard]]friend auto divmod(const ubigint& a,const ubigint& b)noexcept{
-		struct divmod_result{
-			ubigint quot;
-			ubigint mod;
-		};
+	[[nodiscard]]friend divmod_result_t divmod(const ubigint& a,const ubigint& b)noexcept{
 		const auto b_view = b.get_data_view();
-		if(b_view.empty())return divmod_result{};
+		if(b_view.empty())return {};
 		const auto a_view = a.get_data_view();
-		if(a_view.size() < b_view.size())return divmod_result{ubigint{},a};
-		{
-			array_t<base_type> mod(note::size(a_view.size() + 1));
-			copy_assign[a_view.size()](mod.data(), a_view.data());
-			mod.back()=0;
-			array_t<base_type> quot = div_with_base(mod, b_view);
-			shrink_to_fit(mod);
-			return divmod_result{ubigint{move(quot)},ubigint{move(mod)}};
-		}
+		if(a_view.size() < b_view.size())return {ubigint{},a};
+		return divmod_base(a_view,b_view);
 	}
-	[[nodiscard]]friend auto divmod(ubigint&& a,const ubigint& b)noexcept{
+	[[nodiscard]]friend divmod_result_t divmod(ubigint&& a,const ubigint& b)noexcept{
 		//直接使用a的内存而避免不必要的分配
-		typedef decltype(divmod(a,b)) divmod_result;
 		const auto b_view = b.get_data_view();
-		if(b_view.empty())return divmod_result{};
+		if(b_view.empty())return {};
 		const auto a_view = a.get_data_view();
-		if(a_view.size() < b_view.size())return divmod_result{ubigint{},move(a)};
-		{
-			a._data.push_back(0);
-			array_t<base_type> quot = div_with_base(a._data, b_view);
-			shrink_to_fit(a._data);
-			return divmod_result{ubigint{move(quot)},move(a)};
-		}
+		if(a_view.size() < b_view.size())return {ubigint{},move(a)};
+		return divmod_with_base(a._data,b_view);
 	}
 	//operator<<
 	template<integer_type T>
@@ -738,10 +789,8 @@ public:
 		const auto other_view = other.get_data_view();
 		if(compare(this_view, other_view)<0)
 			_data.clear();
-		else{
-			sub_with_base(_data.data(),other_view);
-			shrink_to_fit();
-		}
+		else
+			sub_with_base(_data,other_view);//already shrink_to_fit ed
 		return*this;
 	}
 	//operator*=
