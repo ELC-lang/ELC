@@ -408,8 +408,8 @@ private:
 		while(begin!=end && !*begin){
 			++begin;
 		}
-		size_t aret=begin-buf.begin();
-		size_t size=end-begin;
+		const size_t aret=begin-buf.begin();
+		const size_t size=end-begin;
 		buf=get_data_view_of_data(begin,size);
 		return aret;
 	}
