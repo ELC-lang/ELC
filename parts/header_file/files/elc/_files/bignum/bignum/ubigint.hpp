@@ -441,17 +441,17 @@ private:
 			return;
 		}
 		{
-			auto zeros=shrink_of_end_zeros(a);
-			while(zeros--)
-				*buf++ = base_type{0};
+			const auto zeros=shrink_of_end_zeros(a);
+			copy_assign[zeros](note::to(buf),base_type{0});
+			buf+=zeros;
 		}
 		return muti_with_base_no_zero_check(buf,a,b);
 	}
 	static void muti_with_base(base_type*buf,data_view_type a,data_view_type b)noexcept{
 		{
-			auto zeros=shrink_of_end_zeros(a)+shrink_of_end_zeros(b);
-			while(zeros--)
-				*buf++ = base_type{0};
+			const auto zeros=shrink_of_end_zeros(a)+shrink_of_end_zeros(b);
+			copy_assign[zeros](note::to(buf),base_type{0});
+			buf+=zeros;
 		}
 		array_t<base_type> tmp(note::size(a.size()+1));
 		size_t muti_sacle=0;
