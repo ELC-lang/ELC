@@ -540,6 +540,7 @@ private:
 		const calc_type divisor=calc_type(b.back());
 		calc_type left=dividend/(divisor+1);
 		calc_type right=min(calc_type(dividend/divisor),(calc_type)max(type_info<base_type>));
+		if(right==0)return 0;//a/b<=right==0
 		base_type last_work_able=0;
 		//left<=a/b<=right
 		tryto=get_shrinked_data_view_of_data(tryto.data(),tryto.size());
@@ -560,8 +561,7 @@ private:
 			else//tryto==myview：测试值合适
 				break;
 		}
-		if(last_work_able==0)
-			return 0;
+		if(last_work_able==0)return 0;
 		muti_with_base(buf.data(),b,last_work_able);
 		sub_with_base(a,get_shrinked_data_view_of_data(buf));
 		return last_work_able;
