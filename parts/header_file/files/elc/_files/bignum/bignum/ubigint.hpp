@@ -190,7 +190,7 @@ public:
 		}
 	}
 	//调试用，返回一个可以输出到流的内部结构查看器
-	[[nodiscard]]auto get_data_viewr()const noexcept{
+	[[nodiscard]]auto get_data_viewer()const noexcept{
 		return lambda_with_catch(this)(auto&stream)noexcept->auto&{
 			for(auto& i: _data)
 				stream << i << U' ';
@@ -219,7 +219,7 @@ private:
 	[[nodiscard]]static size_t get_safety_add_buf_size(data_view_type a,data_view_type b)noexcept{
 		return a.size()+get_safety_add_buf_size_diff(a,b);
 	}
-	[[nodiscard]]static size_t get_safety_add_buf_size_with_not_copmared_buf(data_view_type a,data_view_type b)noexcept{
+	[[nodiscard]]static size_t get_safety_add_buf_size_with_not_compared_buf(data_view_type a,data_view_type b)noexcept{
 		if(a.size()<b.size())
 			swap(a,b);
 		return get_safety_add_buf_size(a,b);
@@ -478,13 +478,13 @@ private:
 			buf+=zeros;
 		}
 		array_t<base_type> tmp(note::size(a.size()+1));
-		size_t muti_sacle=0;
-		while(muti_sacle!=b.size()){
-			if(b[muti_sacle]){
-				muti_with_base_no_zero_check(tmp.data(),a,b[muti_sacle]);
-				add_to_base(buf+muti_sacle,get_shrinked_data_view_of_data(tmp));
+		size_t muti_scale=0;
+		while(muti_scale!=b.size()){
+			if(b[muti_scale]){
+				muti_with_base_no_zero_check(tmp.data(),a,b[muti_scale]);
+				add_to_base(buf+muti_scale,get_shrinked_data_view_of_data(tmp));
 			}
-			muti_sacle++;
+			muti_scale++;
 		}
 	}
 	[[nodiscard]]static data_type muti_base(data_view_type a,data_view_type b)noexcept{
@@ -754,7 +754,7 @@ public:
 		const auto this_view = get_data_view();
 		const auto other_view = other.get_data_view();
 		const auto origin_size = this_view.size();
-		const auto new_size = get_safety_add_buf_size_with_not_copmared_buf(this_view,other_view);
+		const auto new_size = get_safety_add_buf_size_with_not_compared_buf(this_view,other_view);
 		const auto size_diff = new_size - origin_size;
 		if(size_diff){
 			_data.resize(new_size);
