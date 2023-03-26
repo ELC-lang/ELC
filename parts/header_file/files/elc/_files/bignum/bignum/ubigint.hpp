@@ -644,7 +644,7 @@ private:
 			auto a_view=get_data_view_of_data(a);
 			apply_shrink_of_end_zeros(a_view,zeros);
 			data_type quot = div_base_no_zero_check(a_view, b);
-			auto ori_b_view=unshrink_of_end_zeros(b,zeros);
+			const auto ori_b_view=unshrink_of_end_zeros(b,zeros);
 			sub_with_base(a,fast_muti_base(quot,ori_b_view));//already shrink_to_fit ed
 			return {ubigint{move(quot)},ubigint{move(a)}};
 		}
