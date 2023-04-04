@@ -175,22 +175,17 @@ namespace rand_n{
 			xor_value = result;
 			return result;
 		}
-		template<typename T> requires(sizeof(seed_type)/2 >= sizeof(T))
+		template<typename T> requires unsigned_basic_integer_type<T>
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			typedef unsigned_specific_size_t<sizeof(T)> result_type;
-			alignas(max_align_of<T,result_type>)result_type aret=base_gen_randbit<result_type>();
-			return union_cast<T>(aret);
+			if constexpr(sizeof(seed_type)/2 >= sizeof(T))
+				return base_gen_randbit<T>();
+			else{//为了加速，这不影响通用性并且大多数时候能节省2ns左右（将内存访问转为位操作）
+				typedef unsigned_specific_size_t<sizeof(T)/2> sand_type;
+				T aret=T(gen_randbit<sand_type>())<<bitnum_of(sand_type);
+				aret|=T(gen_randbit<sand_type>());
+				return aret;
+			}
 		}
-		//为了加速而进行特化，这不影响通用性并且大多数时候能节省2ns左右（将内存访问转为位操作）
-		template<typename T> requires(sizeof(seed_type) == sizeof(T))
-		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			typedef unsigned_specific_size_t<sizeof(T)> result_type;
-			typedef unsigned_specific_size_t<sizeof(T)/2> sand_type;
-			alignas(max_align_of<T,result_type>)result_type aret=result_type(gen_randbit<sand_type>())<<bitnum_of(sand_type);
-			aret|=result_type(gen_randbit<sand_type>());
-			return union_cast<T>(aret);
-		}
-
 		template<size_t sand_size,size_t size>
 		force_inline constexpr void gen_randbit_with_sand_size_to_pointer(byte*to)noexcept{
 			typedef unsigned_specific_size_t<sand_size> sand_type;
@@ -201,11 +196,17 @@ namespace rand_n{
 			if constexpr(size%sand_size)
 				gen_randbit_with_sand_size_to_pointer<sand_size/BIT_POSSIBILITY,size%sand_size>(to);
 		}
-		template<typename T> requires(sizeof(seed_type)/2 < sizeof(T) && sizeof(seed_type) != sizeof(T))//避免与加速特化重叠
+		template<typename T> requires(!unsigned_basic_integer_type<T>)
 		[[nodiscard]]force_inline constexpr T gen_randbit()noexcept{
-			data_block<T,align_as_t<seed_type>>aret;
-			gen_randbit_with_sand_size_to_pointer<sizeof(seed_type),sizeof(T)>(aret);
-			return data_cast<T>(aret);
+			if constexpr(sizeof(seed_type)/2 >= sizeof(T)){
+				typedef unsigned_specific_size_t<sizeof(T)> result_type;
+				return union_cast<T>(gen_randbit<result_type>());
+			}
+			else{
+				data_block<T,align_as_t<seed_type>>aret;
+				gen_randbit_with_sand_size_to_pointer<sizeof(seed_type),sizeof(T)>(aret);
+				return data_cast<T>(aret);
+			}
 		}
 	}rand_seed{};
 
