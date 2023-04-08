@@ -164,22 +164,20 @@ namespace bit{
 	[[nodiscard]]force_inline constexpr size_t countl_zero(const T v)noexcept{
 		return bitnum_of(T)-get_bitnum(v);
 	}
-	/// countr_zero
+	/// countr_one
 	template<unsigned_basic_integer_type T>
-	[[nodiscard]]force_inline constexpr size_t countr_zero(const T v)noexcept{
-		size_t bitnum=0;
-		for(T tmp=1;tmp && !(v&tmp);tmp=T(1)<<++bitnum);
-		return bitnum;
+	[[nodiscard]]force_inline constexpr size_t countr_one(const T v)noexcept{
+		return v&1?1+countr_one(T(v>>1)):0;
 	}
 	/// countl_one
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countl_one(const T v)noexcept{
-		return countl_zero(~v);
+		return countl_zero(T(~v));
 	}
-	/// countr_one
+	/// countr_zero
 	template<unsigned_basic_integer_type T>
-	[[nodiscard]]force_inline constexpr size_t countr_one(const T v)noexcept{
-		return countr_zero(~v);
+	[[nodiscard]]force_inline constexpr size_t countr_zero(const T v)noexcept{
+		return countr_one(T(~v));
 	}
 }
 using bit::rotl;
