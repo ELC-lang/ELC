@@ -97,7 +97,7 @@ public:
 private:
 	template<class A,class B> requires able<A,B>
 	[[nodiscard]]static constexpr auto base_call(A&&a,B&&b)noexcept{
-		auto v=compare(a,b);
+		const auto v=compare(a,b);
 		return v<0?b:a;
 	}
 	template<class A,class B,class C,class...Args> requires able<A,B,Args...>
@@ -206,7 +206,7 @@ public:
 private:
 	template<class A,class B> requires able<A,B>
 	[[nodiscard]]static constexpr auto base_call(A&&a,B&&b)noexcept{
-		auto v=compare(a,b);
+		const auto v=compare(a,b);
 		return v<0?a:b;
 	}
 	template<class A,class B,class C,class...Args> requires able<A,B,Args...>
@@ -223,7 +223,7 @@ public:
 		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept requires able<const T,const T>{
 			auto minlest=l.begin();
 			for(const auto&i:l){
-				auto v=compare(*minlest,i);
+				const auto v=compare(*minlest,i);
 				if(v>0)
 					minlest=&i;
 			}

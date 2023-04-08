@@ -336,7 +336,7 @@ protected:
 				size-=size_before_insert_pos;
 				before_size+=size_before_insert_pos;
 			}
-			auto size_before_insert_end=min(size,_insert_size);
+			const auto size_before_insert_end=min(size,_insert_size);
 			before=_insert_data->get_others_hash_with_calculated_before(before,before_size,_insert_data,0,size_before_insert_end);
 			size-=size_before_insert_end;
 			before_size+=size_before_insert_end;

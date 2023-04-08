@@ -213,7 +213,7 @@ namespace rand_n{
 			if constexpr(is_big_type<T>){
 				typedef T::base_type base_type;
 				constexpr size_t base_bitnum = bitnum_of(base_type);
-				T aret;
+				T aret{};
 				while(bitnum>base_bitnum){
 					bitnum-=base_bitnum;
 					apply_basetype_to_head(aret,gen_randbit<base_type>());
