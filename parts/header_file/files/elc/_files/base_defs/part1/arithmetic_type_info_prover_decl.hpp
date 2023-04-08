@@ -1,4 +1,4 @@
-//_body.hpp
+//arithmetic_type_info_prover_decl.hpp
 //at namespace elc::defs::base
 /*
 未完成的elc解释器base_defs文件
@@ -28,23 +28,12 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-#include "arithmetic_type_info_prover.hpp"
-#include "bit.hpp"
-#include "null_ptr.hpp"
-#include "note.hpp"
-#include "array_like.hpp"
-#include "data.hpp"
-#include "pointer.hpp"
-#include "hash.hpp"
-#include "range.hpp"
-#include "string_view.hpp"
-#include "type_name.hpp"
-#include "constexpr_str.hpp"
-#include "logical_bool.hpp"
-#include "zero.hpp"
-#include "count_able.hpp"
-#include "invoke.hpp"
-#include "maybe_fail_reference.hpp"
+namespace math{
+	/// 算术类型帮助类型
+	/// 任何后续定义的新算术类型都可以重载这些类型来实现数学库的泛型支持
+	template<typename T>
+	struct arithmetic_type_info_prover;
+}
 
 //file_end
 

@@ -61,6 +61,22 @@ namespace math{
 		}
 	public:
 		static constexpr bool has_inf=has_inf_helper();
+	public:
+		//bool：是否有最小值
+		static constexpr bool has_min=is_arithmetic_type;
+		//bool：是否有最大值
+		static constexpr bool has_max=is_arithmetic_type;
+	public:
+		static constexpr T min()noexcept requires(has_min){
+			if constexpr(is_float_type)
+				return ::std::numeric_limits<T>::lowest();
+			else
+				return ::std::numeric_limits<T>::min();
+		}
+		static constexpr T max()noexcept requires(has_max){
+			return ::std::numeric_limits<T>::max();
+		}
+	public:
 		//对应的无符号和有符号类型
 		using unsigned_type=decltype(lambda{
 			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)

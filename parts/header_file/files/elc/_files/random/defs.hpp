@@ -208,6 +208,22 @@ namespace rand_n{
 				return data_cast<T>(aret);
 			}
 		}
+		template<typename T> requires unsigned_integer_type<T>
+		[[nodiscard]]force_inline constexpr T gen_randbit_with_bitnum(size_t bitnum)noexcept{
+			if constexpr(is_big_type<T>){
+				typedef T::base_type base_type;
+				constexpr size_t base_bitnum = bitnum_of(base_type);
+				T aret;
+				while(bitnum>base_bitnum){
+					bitnum-=base_bitnum;
+					apply_basetype_to_head(aret,gen_randbit<base_type>());
+				}
+				apply_basetype_to_head(aret,gen_randbit_with_bitnum<base_type>(bitnum));
+				return aret;
+			}
+			else
+				return gen_randbit<T>()&((T{1}<<bitnum)-1);
+		}
 	}rand_seed{};
 
 	struct base_rand_t{
@@ -224,7 +240,9 @@ namespace rand_n{
 	};
 	template<class T>
 	struct rand_t:base_rand_t{
-		static constexpr bool able=::std::is_trivially_constructible_v<T>;
+		static constexpr bool common_able=::std::is_trivially_constructible_v<T>;
+		static constexpr bool range_able=is_arithmetic_type<T> && !(is_float_type<T> && is_big_type<T>);//大浮点数不支持范围（因为其无限精度）
+		static constexpr bool able=common_able || range_able;
 		static constexpr bool nothrow=able;
 	private:
 		typedef rand_t<T> this_t;
@@ -233,17 +251,17 @@ namespace rand_n{
 		using base_t::base_t;
 		[[nodiscard]]static force_inline constexpr this_t with_seed(rand_seed_t&seed)noexcept{return this_t(seed);}
 		//rand
-		[[nodiscard]]force_inline T operator()()const noexcept(nothrow) requires able{return _seed.gen_randbit<T>();}
+		[[nodiscard]]force_inline T operator()()const noexcept(nothrow) requires common_able{return _seed.gen_randbit<T>();}
 		//浮点特供：[0,1)和[0,1]
 		/// [0,1)
-		[[nodiscard]]force_inline constexpr T between_0_and_1_exclusive()const noexcept(nothrow) requires(able && basic_float_type<T>){
+		[[nodiscard]]force_inline constexpr T between_0_and_1_exclusive()const noexcept(nothrow) requires basic_float_type<T>{
 			T base=T(_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>());
 			constexpr size_t div_times=bitnum_of(base);
 			constexpr auto div_num=pow(BIT_POSSIBILITY,div_times);
 			return T(base/div_num);
 		}
 		/// [0,1]
-		[[nodiscard]]force_inline constexpr T between_0_and_1_inclusive()const noexcept(nothrow) requires(able && basic_float_type<T>){
+		[[nodiscard]]force_inline constexpr T between_0_and_1_inclusive()const noexcept(nothrow) requires basic_float_type<T>{
 			auto rnd=_seed.gen_randbit<unsigned_specific_size_t<sizeof(T)>>();
 			//考虑到浮点数总会使用一些位来表示指数，取rnd的最低位来表示rand到1.0或以上的概率也不会影响到结果
 			const bool is_one=rnd&1;rnd>>=1;
@@ -254,7 +272,7 @@ namespace rand_n{
 			return T(base/div_num);
 		}
 		//not nan.
-		[[nodiscard]]force_inline constexpr T not_NaN()const noexcept(nothrow) requires able{
+		[[nodiscard]]force_inline constexpr T not_NaN()const noexcept(nothrow) requires common_able{//即使是大整数，你也不应该用这个（因为其范围无限）
 			T num;
 			do num=_seed.gen_randbit<T>();while(isNaN(num));
 			return num;
@@ -264,23 +282,25 @@ namespace rand_n{
 		struct between_integral_t{
 		private:
 			rand_seed_t& _seed;
-			T _min,_diff;
+			typedef to_unsigned_t<T> unsigned_T;
+			T _min;
+			unsigned_T _diff;
 			size_t _bitnum;
 		public:
 			constexpr between_integral_t(rand_seed_t&seed,T amin,T amax)noexcept:_seed(seed),_min(amin),_diff(amax-amin){
-				for(_bitnum=1;_diff>>_bitnum;_bitnum++);
+				_bitnum=get_bitnum(_diff);
 			}
 			[[nodiscard]]force_inline T operator()()const noexcept{return inclusive();}
 			[[nodiscard]]force_inline operator T()const noexcept{return operator()();}
 			[[nodiscard]]force_inline T exclusive()const noexcept{
-				T aret;
-				do aret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(aret>=_diff);
-				return aret+_min;
+				unsigned_T diff;
+				do diff=_seed.gen_randbit_with_bitnum<unsigned_T>(_bitnum);while(diff>=_diff);
+				return _min+diff;
 			}
 			[[nodiscard]]force_inline T inclusive()const noexcept{
-				T aret;
-				do aret=_seed.gen_randbit<T>()&(T{1}<<_bitnum)-1;while(aret>_diff);
-				return aret+_min;
+				unsigned_T diff;
+				do diff=_seed.gen_randbit_with_bitnum<unsigned_T>(_bitnum);while(diff>_diff);
+				return _min+diff;
 			}
 		};
 		struct between_floating_t{
@@ -299,7 +319,7 @@ namespace rand_n{
 			}
 		};
 	public:
-		[[nodiscard]]force_inline constexpr auto between(T amin,T amax)const noexcept requires(able && arithmetic_type<T>){
+		[[nodiscard]]force_inline constexpr auto between(T amin,T amax)const noexcept requires range_able{
 			#define args _seed,min(amax,amin),max(amax,amin)
 			if constexpr(integer_type<T>)
 				return between_integral_t(args);
@@ -307,9 +327,14 @@ namespace rand_n{
 				return between_floating_t(args);
 			#undef args
 		}
+		[[nodiscard]]force_inline constexpr auto uniform_in_range()const noexcept requires(range_able && has_min_max<T>){
+			return between(min(type_info<T>),max(type_info<T>));
+		}
 	};
 	//bool rand
 	template<>struct rand_t<bool>:base_rand_t{
+		static constexpr bool common_able=true;
+		static constexpr bool range_able=false;//你打算干什么？
 		static constexpr bool able=true;
 		static constexpr bool nothrow=true;
 	private:

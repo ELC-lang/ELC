@@ -29,11 +29,13 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 class ubigint{
+public:
 	#if defined(_DEBUG) && !defined(ELC_SPEED_TEST)
 		typedef unsigned char base_type;
 	#else
 		typedef unsigned_specific_size_fast_t<sizeof(uintmax_t)/2> base_type;
 	#endif
+private:
 	typedef array_t<base_type> data_type;
 	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
 	data_type _data;
@@ -89,6 +91,11 @@ public:
 	}
 
 	~ubigint() = default;
+
+	//rand所需
+	friend void apply_basetype_to_head(ubigint&x,base_type value)noexcept{
+		x._data.push_back(value);
+	}
 private:
 	typedef array_like_view_t<const base_type> data_view_type;
 	static void shrink_to_fit(data_type&a)noexcept{
@@ -1034,6 +1041,16 @@ public:
 		return !is_odd(x);
 	}
 };
+
+BREAK_NAMESPACE
+//注入math::arithmetic_type_info_prover
+namespace base::math{
+	using namespace bignum_n;
+	ubigint arithmetic_type_info_prover<ubigint>::min()noexcept{
+		return ubigint{};
+	}
+}
+INTER_NAMESPACE(bignum_n)
 
 //file_end
 

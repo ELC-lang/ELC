@@ -166,9 +166,10 @@ template<typename T>
 	返回对应结果类型的反义，与零相等或无法比较时则返回其本身。
 */
 constexpr struct compare_t{
+private:
 	template<class T,class U=T>
 	static constexpr bool r_able= was_not_an_ill_form(declvalue(T)<=>declvalue(U));
-
+public:
 	template<class T,class U=T>
 	static constexpr bool able= r_able<T,U> ||
 								was_not_an_ill_form(
@@ -184,7 +185,7 @@ constexpr struct compare_t{
 														declvalue(U)<declvalue(T)
 													);
 
-
+private:
 	template<class T,class U>
 	[[nodiscard]]static constexpr auto base_call(T&&a,U&&b)noexcept(nothrow<T,U>){
 		//在 <=> 不可用时以 < 和 == 为后备，优于直接 <=>
@@ -195,7 +196,7 @@ constexpr struct compare_t{
 					b < a	? partial_ordering::greater		:
 							  partial_ordering::unordered	;
 	}
-
+public:
 	template<class T,class U=T>
 	using type=decltype(base_call(declvalue(T),declvalue(U)));
 
@@ -281,6 +282,7 @@ constexpr struct compare_t{
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
+		using ::std::min;
 		if(auto tmp=operator()(a,b,min(size1,size2)); tmp!=0)
 			return tmp;
 		else

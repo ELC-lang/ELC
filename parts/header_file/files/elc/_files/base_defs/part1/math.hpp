@@ -29,10 +29,6 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 namespace math{
-	/// 算术类型帮助类型
-	/// 任何后续定义的新算术类型都可以重载这些类型来实现数学库的泛型支持
-	template<typename T>
-	struct arithmetic_type_info_prover;
 	/*! 无符号位的对应类型 */
 	template<typename T>
 	using to_unsigned_t = typename arithmetic_type_info_prover<remove_cvref<T>>::unsigned_type;
@@ -152,7 +148,22 @@ namespace math{
 		/// 有inf的类型概念
 		template<typename T>
 		concept has_inf=arithmetic_type_info_prover<remove_cvref<T>>::has_inf;
+
+		/// 有min的类型概念
+		template<typename T>
+		concept has_min=arithmetic_type_info_prover<remove_cvref<T>>::has_min;
+
+		/// 有max的类型概念
+		template<typename T>
+		concept has_max=arithmetic_type_info_prover<remove_cvref<T>>::has_max;
+
+		/// 有min和max的类型概念
+		template<typename T>
+		concept has_min_max=has_min<T> && has_max<T>;
 	}
+	// min和max在下一个文件中定义，所以先用std的
+	using ::std::min;
+	using ::std::max;
 
 	//isNaN
 	template<arithmetic_type T>

@@ -147,12 +147,23 @@ namespace bit{
 	[[nodiscard]]force_inline constexpr auto rotr(const T v,const rot_iterator<T>&r)noexcept{
 		return rotr_nomod(v,r);
 	}
+	/// 获取位数
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept{
+		return bitnum_of(T)-countl_zero(v);
+	}
+	/// 获取位数
+	template<signed_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept{
+		return get_bitnum(abs(v));
+	}
 }
 using bit::rotl;
 using bit::rotr;
 using bit::rotl_nomod;
 using bit::rotr_nomod;
 using bit::rot_iterator;
+using bit::get_bitnum;
 
 //file_end
 

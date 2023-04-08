@@ -54,6 +54,10 @@ namespace base::math{
 		static constexpr bool has_NaN = false;
 		//bool：是否有inf
 		static constexpr bool has_inf = false;
+		//bool：是否有min
+		static constexpr bool has_min = false;
+		//bool：是否有max
+		static constexpr bool has_max = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
@@ -74,6 +78,12 @@ namespace base::math{
 		static constexpr bool has_NaN = false;
 		//bool：是否有inf
 		static constexpr bool has_inf = false;
+		//bool：是否有min
+		static constexpr bool has_min = true;
+		//min
+		static ubigint min()noexcept;
+		//bool：是否有max
+		static constexpr bool has_max = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
@@ -94,6 +104,10 @@ namespace base::math{
 		static constexpr bool has_NaN = true;
 		//bool：是否有inf
 		static constexpr bool has_inf = false;
+		//bool：是否有min
+		static constexpr bool has_min = false;
+		//bool：是否有max
+		static constexpr bool has_max = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;
@@ -114,6 +128,12 @@ namespace base::math{
 		static constexpr bool has_NaN = true;
 		//bool：是否有inf
 		static constexpr bool has_inf = false;
+		//bool：是否有min
+		static constexpr bool has_min = true;
+		//min
+		static ubigfloat min()noexcept;
+		//bool：是否有max
+		static constexpr bool has_max = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;

@@ -42,6 +42,8 @@
 #include "attribute.hpp"
 #include "special_attribute.hpp"
 #include "type_info.hpp"
+#include "arithmetic_type_info_prover_decl.hpp"
+#include "compare.hpp"
 #include "min_max.hpp"
 #include "math.hpp"
 

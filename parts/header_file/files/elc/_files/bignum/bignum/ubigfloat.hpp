@@ -592,5 +592,15 @@ template<unsigned_basic_integer_type T>
 	return move(rhs=ubigfloat(move(lhs))/move(rhs));
 }
 
+BREAK_NAMESPACE
+//注入math::arithmetic_type_info_prover
+namespace base::math{
+	using namespace bignum_n;
+	ubigfloat arithmetic_type_info_prover<ubigfloat>::min()noexcept{
+		return ubigfloat{};
+	}
+}
+INTER_NAMESPACE(bignum_n)
+
 //file_end
 
