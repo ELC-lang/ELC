@@ -132,7 +132,7 @@ namespace to_string_n{
 			auto expstr=to_string(exp);
 			if(exp<0){
 				//首先计算需要的前置0的个数
-				const auto need_zero=size_t(max(ptrdiff_t{},-exp+1-aret.size()));
+				const auto need_zero=size_t(max(0,-exp+1-ptrdiff_t(aret.size())));
 				if(need_zero>expstr.size()){//选取最短表达
 					aret+=_repres.get_exponent_separator();
 					aret+=expstr;
