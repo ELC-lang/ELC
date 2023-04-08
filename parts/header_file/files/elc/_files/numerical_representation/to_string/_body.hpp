@@ -93,7 +93,7 @@ namespace to_string_n{
 						result=divmod(denominator,radix);
 					}
 				}
-				auto comple=_repres.get_denominator_complement(denominator,exp);
+				auto complete=_repres.get_denominator_complement(denominator,exp);
 				//现在denominator是1？若不是则说明这是一个无限小数
 				//若无限小数，以分数形式输出
 				if(denominator!=1){
@@ -103,7 +103,7 @@ namespace to_string_n{
 					return to_string(move(numerator))+fractional_separator+to_string(move(denominator));
 				}
 				clear_backup();
-				numerator*=comple;
+				numerator*=complete;
 			}
 			if constexpr(is_basic_type<T>){//若T是基础类型
 				//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
@@ -129,13 +129,13 @@ namespace to_string_n{
 			}
 			//先获取numerator和exp的字符串表示
 			aret=to_string(move(numerator));
-			auto expstr=to_string(exp);
+			auto exp_str=to_string(exp);
 			if(exp<0){
 				//首先计算需要的前置0的个数
-				const auto need_zero=size_t(max(0,-exp+1-ptrdiff_t(aret.size())));
-				if(need_zero>expstr.size()){//选取最短表达
+				const auto need_zero=size_t(max.for_type<ptrdiff_t>(0,-exp+1-aret.size()));
+				if(need_zero>exp_str.size()){//选取最短表达
 					aret+=_repres.get_exponent_separator();
-					aret+=expstr;
+					aret+=exp_str;
 				}
 				else{
 					if(need_zero)
@@ -146,9 +146,9 @@ namespace to_string_n{
 				}
 			}
 			elseif(exp>0){
-				if(size_t(exp)>expstr.size()+1){
+				if(size_t(exp)>exp_str.size()+1){
 					aret+=_repres.get_exponent_separator();
-					aret+=expstr;
+					aret+=exp_str;
 				}
 				else//否则，补0
 					aret.push_back(_repres.get_char(0),exp);
