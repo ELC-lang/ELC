@@ -48,6 +48,8 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = false;
+		//bool：是否是整数类型
+		static constexpr bool is_integer_type = true;
 		//bool：是否是有符号类型
 		static constexpr bool is_signed = true;
 		//bool：是否有NaN
@@ -72,6 +74,8 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = false;
+		//bool：是否是整数类型
+		static constexpr bool is_integer_type = true;
 		//bool：是否是有符号类型
 		static constexpr bool is_signed = false;
 		//bool：是否有NaN
@@ -98,6 +102,8 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = true;
+		//bool：是否是整数类型
+		static constexpr bool is_integer_type = false;
 		//bool：是否是有符号类型
 		static constexpr bool is_signed = true;
 		//bool：是否有NaN
@@ -122,6 +128,8 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = true;
+		//bool：是否是整数类型
+		static constexpr bool is_integer_type = false;
 		//bool：是否是有符号类型
 		static constexpr bool is_signed = false;
 		//bool：是否有NaN

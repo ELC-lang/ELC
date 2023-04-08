@@ -39,6 +39,8 @@ namespace math{
 		static constexpr bool is_big_type=false;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type=::std::is_floating_point_v<T>;
+		//bool：是否是整数类型
+		static constexpr bool is_integer_type=::std::is_integral_v<T>;
 		//bool：是否是有符号类型
 		static constexpr bool is_signed=::std::is_signed_v<T>;
 		//bool：是否有NaN
@@ -79,15 +81,19 @@ namespace math{
 	public:
 		//对应的无符号和有符号类型
 		using unsigned_type=decltype(lambda{
-			if constexpr(::std::is_unsigned_v<T>||::std::is_floating_point_v<T>)
+			if constexpr(type_info<T> == type_info<bool>)
 				return T();
-			elseif constexpr(::std::is_signed_v<T>)
+			elseif constexpr(is_float_type)//基础浮点类型没有对应的无符号
+				return T();
+			elseif constexpr(is_integer_type)//考虑到charX_t，所有整数类型都应该过一遍make_unsigned_t
 				return::std::make_unsigned_t<T>();
 		}());
 		using signed_type=decltype(lambda{
-			if constexpr(::std::is_signed_v<T>||::std::is_floating_point_v<T>)
+			if constexpr(type_info<T> == type_info<bool>)
 				return T();
-			elseif constexpr(::std::is_unsigned_v<T> && (type_info<T>!=type_info<bool>))
+			elseif constexpr(is_float_type)
+				return T();
+			elseif constexpr(is_integer_type)//同上
 				return::std::make_signed_t<T>();
 		}());
 	};

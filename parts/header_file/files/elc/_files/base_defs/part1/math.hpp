@@ -71,7 +71,7 @@ namespace math{
 
 		/// 整数类型概念
 		template<typename T>
-		concept integer_type=arithmetic_type<T> && !float_type<T>;
+		concept integer_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_integer_type;
 		template<typename T>
 		concept is_integer_type=integer_type<T>;
 
