@@ -31,12 +31,12 @@
 namespace bit{
 	/// 位操作：循环左移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotl_nomod(const T v,const auto R)noexcept;
 	#define rot_base(opt,antiopt) static_cast<T>(static_cast<T>(v opt r) | static_cast<T>(v antiopt (d - r)))
 	/// 位操作：循环右移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotr_nomod(const T v,const auto r)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		if constexpr(unsigned_type<decltype(r)>){
@@ -56,7 +56,7 @@ namespace bit{
 	}
 	/// 位操作：循环左移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotl_nomod(const T v,const auto r)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		if constexpr(unsigned_type<decltype(r)>){
@@ -77,7 +77,7 @@ namespace bit{
 	#undef rot_base
 	/// 位操作：循环右移
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotr(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		const auto r = mod(R,d);
@@ -85,13 +85,13 @@ namespace bit{
 	}
 	/// 位操作：循环左移
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotl(const T v,const auto R)noexcept{
 		constexpr auto d = ::std::numeric_limits<T>::digits;
 		const auto r = mod(R,d);
 		return rotl_nomod(v,r);
 	}
-	template<class T> requires ::std::is_arithmetic_v<T>
+	template<unsigned_basic_integer_type T>
 	class rot_iterator{
 		static constexpr auto rot_offset_npos = ::std::numeric_limits<T>::digits;//d
 		size_t _offset;
@@ -125,37 +125,64 @@ namespace bit{
 	};
 	/// 位操作：循环左移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotl_nomod(const T v,const rot_iterator<T>&r)noexcept{
 		return rotl_nomod(v,r.value());
 	}
 	/// 位操作：循环右移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotr_nomod(const T v,const rot_iterator<T>&r)noexcept{
 		return rotr_nomod(v,r.value());
 	}
 	/// 位操作：循环左移
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotl(const T v,const rot_iterator<T>&r)noexcept{
 		return rotl_nomod(v,r);
 	}
 	/// 位操作：循环右移
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
-	template<unsigned_type T>
+	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr auto rotr(const T v,const rot_iterator<T>&r)noexcept{
 		return rotr_nomod(v,r);
 	}
 	/// 获取位数
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept{
-		return bitnum_of(T)-countl_zero(v);
+		size_t bitnum=0;
+		for(;v>>bitnum;bitnum++);
+		return bitnum;
 	}
 	/// 获取位数
 	template<signed_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept{
 		return get_bitnum(abs(v));
+	}
+	/// countl_zero
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countl_zero(const T v)noexcept{
+		return bitnum_of(T)-get_bitnum(v);
+	}
+	/// countr_zero
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countr_zero(const T v)noexcept{
+		T tmp=1;
+		size_t bitnum=0;
+		for(;!(v&tmp);bitnum++,tmp<<=1)
+			if(bitnum==bitnum_of(T))
+				break;
+		return bitnum;
+	}
+	/// countl_one
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countl_one(const T v)noexcept{
+		return countl_zero(~v);
+	}
+	/// countr_one
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countr_one(const T v)noexcept{
+		return countr_zero(~v);
 	}
 }
 using bit::rotl;
@@ -164,6 +191,10 @@ using bit::rotl_nomod;
 using bit::rotr_nomod;
 using bit::rot_iterator;
 using bit::get_bitnum;
+using bit::countl_zero;
+using bit::countr_zero;
+using bit::countl_one;
+using bit::countr_one;
 
 //file_end
 

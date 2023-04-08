@@ -820,6 +820,22 @@ namespace math{
 			return table.end();
 		}
 	};
+}
+using namespace math::concepts;
+
+namespace bit{
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countl_zero(const T v)noexcept;
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countr_zero(const T v)noexcept;
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countl_one(const T v)noexcept;
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t countr_one(const T v)noexcept;
+}
+using namespace bit;//干净的符号导出！
+
+namespace math{
 	//求出最大公约数
 	template<integer_type T>
 	[[nodiscard]]inline auto gcd(T x, T y)noexcept{
@@ -840,7 +856,6 @@ namespace math{
 		return x << shift;
 	}
 }
-using namespace math::concepts;
 using math::to_unsigned_t;
 using math::is_negative;
 using math::copy_as_negative;
