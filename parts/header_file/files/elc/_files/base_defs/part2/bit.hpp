@@ -167,11 +167,8 @@ namespace bit{
 	/// countr_zero
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countr_zero(const T v)noexcept{
-		T tmp=1;
 		size_t bitnum=0;
-		for(;!(v&tmp);bitnum++,tmp<<=1)
-			if(bitnum==bitnum_of(T))
-				break;
+		for(T tmp=1;tmp && !(v&tmp);tmp=T(1)<<++bitnum);
 		return bitnum;
 	}
 	/// countl_one
