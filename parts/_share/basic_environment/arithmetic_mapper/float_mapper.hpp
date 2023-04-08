@@ -30,6 +30,21 @@
 TYPE_MAPPER(float)
 TYPE_MAPPER(double)
 TYPE_MAPPER(long double)
+#if defined(__STDCPP_FLOAT16_T__)
+	TYPE_MAPPER(::std::float16_t)
+#endif
+#if defined(__STDCPP_FLOAT32_T__)
+	TYPE_MAPPER(::std::float32_t)
+#endif
+#if defined(__STDCPP_FLOAT64_T__)
+	TYPE_MAPPER(::std::float64_t)
+#endif
+#if defined(__STDCPP_FLOAT128_T__)
+	TYPE_MAPPER(::std::float128_t)
+#endif
+#if defined(__STDCPP_BFLOAT16_T__)
+	TYPE_MAPPER(::std::bfloat16_t)
+#endif
 
 //file_end
 

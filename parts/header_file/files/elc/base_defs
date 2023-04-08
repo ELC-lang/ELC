@@ -39,11 +39,13 @@
 	#include <type_traits>//enable_if等
 	#include <typeinfo>//RTTI
 	#include <cmath>//sqrt
-	#include <bit>//countX_X
 	#include <cfenv>//rounding
 	#include <ctime>//time
 	#include <ranges>
 	#include <initializer_list>
+	#if __has_include(<stdfloat>)
+		#include <stdfloat>
+	#endif
 	#if defined(__clang__)||defined(__GNUC__)
 		#include <cxxabi.h>
 	#endif

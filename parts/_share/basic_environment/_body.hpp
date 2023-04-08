@@ -192,6 +192,26 @@ namespace elc::defs{
 			//精确数部分的掩码
 			template<basic_float_type T>
 			constexpr auto precision_mask=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//11位
+						return(uint16_t)0x07FFu;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//23位
+						return(uint32_t)0x007FFFFFu;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//52位
+						return(uint64_t)0x000FFFFFFFFFFFFFu;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//112位
+						return(uint128_t)0x0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return(uint16_t)0x00FFu;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return(uint32_t)0x007FFFFFu;
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -211,6 +231,26 @@ namespace elc::defs{
 			//浮点数的无符号整数数据类型
 			template<basic_float_type T>
 			using data_type=decltype(lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//11位
+						return uint16_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//23位
+						return uint32_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//52位
+						return uint64_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//112位
+						return uint128_t{};
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return uint16_t{};
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return uint32_t{};
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -227,6 +267,26 @@ namespace elc::defs{
 			//自浮点数获取精确数的基（如float是2^23，double是2^52，long double是2^112）
 			template<basic_float_type T>
 			constexpr auto precision_base=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//11位
+						return(uint16_t)0x0800u;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//23位
+						return(uint32_t)0x800000u;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//52位
+						return(uint64_t)0x10000000000000u;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//112位
+						return(uint128_t)0x10000000000000000000000000000_u128;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return(uint16_t)0x0100u;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return(uint32_t)0x800000u;
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -243,6 +303,26 @@ namespace elc::defs{
 			//自浮点数获取精确数的基的位数（如float是23）
 			template<basic_float_type T>
 			constexpr auto precision_base_bit=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//11位
+						return 11u;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//23位
+						return 23u;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//52位
+						return 52u;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//112位
+						return 112u;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return 8u;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return 23u;
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -259,6 +339,26 @@ namespace elc::defs{
 			//浮点数的指数部分的diff（如float是127，double是1023，long double是16383）
 			template<basic_float_type T>
 			constexpr auto exponent_diff=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//5位
+						return 15;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//8位
+						return 127;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//11位
+						return 1023;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//15位
+						return 16383;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return 127;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return 127;
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -274,6 +374,26 @@ namespace elc::defs{
 			//浮点数的指数部分的min（如float是-126，double是-1022，long double是-16382）
 			template<basic_float_type T>
 			constexpr auto exponent_min=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//5位
+						return -15;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//8位
+						return -126;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//11位
+						return -1022;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//15位
+						return -16382;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return -126;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return -126;
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -289,6 +409,26 @@ namespace elc::defs{
 			//浮点数的指数部分的max（如float是127，double是1023，long double是16383）
 			template<basic_float_type T>
 			constexpr auto exponent_max=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//5位
+						return 15;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//8位
+						return 127;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//11位
+						return 1023;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//15位
+						return 16383;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return 127;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return 127;
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -305,6 +445,26 @@ namespace elc::defs{
 			//浮点数的指数部分的无符号整数类型
 			template<basic_float_type T>
 			using exponent_unsigned_type=decltype(lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//5位
+						return uint8_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//8位
+						return uint8_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//11位
+						return uint16_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//15位
+						return uint16_t{};
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return uint8_t{};
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return uint8_t{};
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -320,6 +480,26 @@ namespace elc::defs{
 			//浮点数的指数部分的经过偏移后的有符号整数类型
 			template<basic_float_type T>
 			using exponent_type=decltype(lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)//5位
+						return int8_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)//8位
+						return int8_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)//11位
+						return int16_t{};
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)//15位
+						return int16_t{};
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)//8位
+						return int8_t{};
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return int8_t{};
 				elseif constexpr(type_info<T> == type_info<double>)
@@ -335,6 +515,26 @@ namespace elc::defs{
 			//浮点数的指数部分的掩码
 			template<basic_float_type T>
 			constexpr auto exponent_mask=lambda{
+				#if defined(__STDCPP_FLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::float16_t>)
+						return 0x7FFFu;
+				#endif
+				#if defined(__STDCPP_FLOAT32_T__)
+					if constexpr(type_info<T> == type_info<::std::float32_t>)
+						return 0x7FFFFFFFu;
+				#endif
+				#if defined(__STDCPP_FLOAT64_T__)
+					if constexpr(type_info<T> == type_info<::std::float64_t>)
+						return 0x7FFFFFFFFFFFFFFFu;
+				#endif
+				#if defined(__STDCPP_FLOAT128_T__)
+					if constexpr(type_info<T> == type_info<::std::float128_t>)
+						return 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
+				#endif
+				#if defined(__STDCPP_BFLOAT16_T__)
+					if constexpr(type_info<T> == type_info<::std::bfloat16_t>)
+						return 0x7FFFu;
+				#endif
 				if constexpr(type_info<T> == type_info<float>)
 					return 0x7FFFFFFFu;
 				elseif constexpr(type_info<T> == type_info<double>)
