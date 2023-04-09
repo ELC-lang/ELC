@@ -181,7 +181,7 @@ namespace float_infos{
 		//浮点数的指数部分的掩码
 		static constexpr auto exponent_mask=uint16_t(0x7FFFu);
 	};
-	
+
 	template<basic_float_type T>
 	static constexpr auto get_float_info()noexcept{
 		#if defined(__STDCPP_FLOAT16_T__)
@@ -224,7 +224,7 @@ namespace float_infos{
 	}
 	template<basic_float_type T>
 	using float_info=decltype(get_float_info<T>());
-	
+
 	//精确数部分的掩码
 	template<basic_float_type T>
 	constexpr auto precision_mask=float_info<T>::precision_mask;

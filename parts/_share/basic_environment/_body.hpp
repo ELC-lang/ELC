@@ -172,7 +172,7 @@ namespace elc::defs{
 		inline constexpr bool wchar_t_same_as_char_t=sizeof(wchar_t)==sizeof(char_t);
 		//判断wchar_t是否和char16_t相同
 		inline constexpr bool wchar_t_same_as_char16_t=sizeof(wchar_t)==sizeof(char16_t);
-		
+
 		#include "float_info.hpp"
 		namespace float_infos{
 			template<basic_float_type T>
