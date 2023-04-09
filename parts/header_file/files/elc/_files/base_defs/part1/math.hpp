@@ -820,6 +820,20 @@ namespace math{
 			return table.end();
 		}
 	};
+	//阶乘快速计算
+	template<unsigned_integer_type T>
+	[[nodiscard]]constexpr inline auto factorial(unsigned n,unsigned start=1u)noexcept{
+		constexpr size_t threshold=1<<4;
+		if (n < threshold) {
+			T s = 1u;
+			unsigned end = start + n;
+			while(start < end)
+				s *= start++;
+			return s;
+		}
+		unsigned m = (n+1u)/2;
+		return factorial<T>(m,start)*factorial<T>(n-m,start+m);
+	}
 }
 using namespace math::concepts;
 
@@ -887,6 +901,7 @@ using math::get_prime_factorization;
 using math::prime_factorization_table_t;
 using math::unique_prime_factorization_table_t;
 using math::gcd;
+using math::factorial;
 
 //file_end
 

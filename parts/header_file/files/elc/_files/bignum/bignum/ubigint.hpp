@@ -785,7 +785,7 @@ public:
 		return*this;
 	}
 	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint operator+(T other)const&noexcept{
+	[[nodiscard]]ubigint operator+(T&&other)const&noexcept{
 		auto aret = *this;
 		aret+=other;
 		return aret;
@@ -955,29 +955,46 @@ public:
 		return move(*this%=other);
 	}
 	template<integer_type T>
-	[[nodiscard]]ubigint&& operator<<(T n)&&noexcept{
+	[[nodiscard]]ubigint&& operator<<(T&&n)&&noexcept{
 		return move(*this<<=n);
 	}
 	[[nodiscard]]ubigint&& operator<<(const ubigint& other)&&noexcept{
 		return move(*this<<=other);
 	}
 	template<integer_type T>
-	[[nodiscard]]ubigint&& operator>>(T n)&&noexcept{
+	[[nodiscard]]ubigint&& operator>>(T&&n)&&noexcept{
 		return move(*this>>=n);
 	}
 	[[nodiscard]]ubigint&& operator>>(const ubigint& other)&&noexcept{
 		return move(*this>>=other);
 	}
-	[[nodiscard]]ubigint&& operator+(ubigint&& other)noexcept{
+	[[nodiscard]]ubigint&& operator+(ubigint&& other)const&noexcept{
 		return move(other+=*this);
 	}
-	/*
-	[[nodiscard]]ubigint&& operator-(ubigint&& other)noexcept{
-		return move((-other)+*this);
-	}
-	*/
-	[[nodiscard]]ubigint&& operator*(ubigint&& other)noexcept{
+	[[nodiscard]]ubigint&& operator*(ubigint&& other)const&noexcept{
 		return move(other*=*this);
+	}
+	//both is r_value
+	[[nodiscard]]ubigint&& operator+(ubigint&& other)&&noexcept{
+		return move(*this+=other);
+	}
+	[[nodiscard]]ubigint&& operator-(ubigint&& other)&&noexcept{
+		return move(*this-=other);
+	}
+	[[nodiscard]]ubigint&& operator*(ubigint&& other)&&noexcept{
+		return move(*this*=other);
+	}
+	[[nodiscard]]ubigint&& operator/(ubigint&& other)&&noexcept{
+		return move(*this/=other);
+	}
+	[[nodiscard]]ubigint&& operator%(ubigint&& other)&&noexcept{
+		return move(*this%=other);
+	}
+	[[nodiscard]]ubigint&& operator<<(ubigint&& other)&&noexcept{
+		return move(*this<<=other);
+	}
+	[[nodiscard]]ubigint&& operator>>(ubigint&& other)&&noexcept{
+		return move(*this>>=other);
 	}
 	//operator!
 	[[nodiscard]]bool operator!()const noexcept{

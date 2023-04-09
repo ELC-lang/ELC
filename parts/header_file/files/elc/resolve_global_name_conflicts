@@ -38,6 +38,9 @@
 		template<class T>
 		constexpr auto&the_rand=rand<T>;
 	}
+	namespace elc{
+		using defs::the_rand;
+	}
 	namespace std{
 		constexpr auto&the_rand=rand;
 	}
