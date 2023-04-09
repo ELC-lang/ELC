@@ -421,9 +421,8 @@ private:
 			return 0;
 		auto begin=buf.begin();
 		const auto end=buf.end();
-		while(begin!=end && !*begin){
+		while(begin!=end && !*begin)
 			++begin;
-		}
 		const size_t aret=begin-buf.begin();
 		const size_t size=end-begin;
 		buf=get_data_view_of_data(begin,size);
@@ -546,7 +545,8 @@ private:
 		}();
 		const calc_type divisor=calc_type(b.back());
 		calc_type left=dividend/(divisor+1);
-		calc_type right=min(calc_type(dividend/divisor),(calc_type)max(type_info<base_type>));
+		calc_type right=calc_type(dividend/divisor);
+		right=min(right,(calc_type)max(type_info<base_type>));
 		if(right==0)return 0;//a/b<=right==0
 		base_type last_work_able=0;
 		//left<=a/b<=right
