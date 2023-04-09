@@ -150,9 +150,18 @@ namespace bit{
 	/// 获取位数
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept{
-		size_t bitnum=0;
-		for(;v>>bitnum;bitnum++);
-		return bitnum;
+		if constexpr(sizeof(T)!=1){//优化
+			typedef unsigned_specific_size_t<sizeof(T)/2> half_t;
+			constexpr size_t half_bitnum = bitnum_of(half_t);
+			const half_t high = half_t(v>>half_bitnum);
+			if(high)
+				return half_bitnum+get_bitnum(high);
+			else
+				return get_bitnum(half_t(v));
+		}
+		else
+			//默认通用实现
+			return v?get_bitnum(T(v>>1))+1:0;
 	}
 	/// 获取位数
 	template<signed_basic_integer_type T>
@@ -162,22 +171,66 @@ namespace bit{
 	/// countl_zero
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countl_zero(const T v)noexcept{
-		return bitnum_of(T)-get_bitnum(v);
+		if constexpr(sizeof(T)!=1){//优化
+			typedef unsigned_specific_size_t<sizeof(T)/2> half_t;
+			constexpr size_t half_bitnum = bitnum_of(half_t);
+			const half_t high = half_t(v>>half_bitnum);
+			if(high)
+				return countl_zero(high);
+			else
+				return half_bitnum+countl_zero(half_t(v));
+		}
+		else
+			//默认通用实现
+			return bitnum_of(T)-get_bitnum(v);
 	}
 	/// countr_one
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countr_one(const T v)noexcept{
-		return v&1?1+countr_one(T(v>>1)):0;
+		if constexpr(sizeof(T)!=1){//优化
+			typedef unsigned_specific_size_t<sizeof(T)/2> half_t;
+			constexpr size_t half_bitnum = bitnum_of(half_t);
+			const half_t low = half_t(v);
+			if(low == half_t(-1))
+				return half_bitnum+countr_one(half_t(v>>half_bitnum));
+			else
+				return countr_one(low);
+		}
+		else
+			//默认通用实现
+			return v&1?countr_one(T(v>>1))+1:0;
 	}
 	/// countl_one
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countl_one(const T v)noexcept{
-		return countl_zero(T(~v));
+		if constexpr(sizeof(T)!=1){//优化
+			typedef unsigned_specific_size_t<sizeof(T)/2> half_t;
+			constexpr size_t half_bitnum = bitnum_of(half_t);
+			const half_t high = half_t(v>>half_bitnum);
+			if(high == half_t(-1))
+				return half_bitnum+countl_one(half_t(v));
+			else
+				return countl_one(high);
+		}
+		else
+			//默认通用实现return countl_zero(T(~v));，不如下面这个（虽然只能用于char）
+			return v&0x80?countl_one(T(v<<1))+1:0;
 	}
 	/// countr_zero
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countr_zero(const T v)noexcept{
-		return countr_one(T(~v));
+		if constexpr(sizeof(T)!=1){//优化
+			typedef unsigned_specific_size_t<sizeof(T)/2> half_t;
+			constexpr size_t half_bitnum = bitnum_of(half_t);
+			const half_t low = half_t(v);
+			if(low)
+				return countr_zero(low);
+			else
+				return half_bitnum+countr_zero(half_t(v>>half_bitnum));
+		}
+		else
+			//默认通用实现
+			return countr_one(T(~v));
 	}
 }
 using bit::rotl;
