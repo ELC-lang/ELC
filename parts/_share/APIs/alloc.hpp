@@ -98,7 +98,7 @@ elc依赖的基础函数.
 		#endif
 
 		inline constexpr bool use_debug_alloc_lib=
-			#if defined(_DEBUG) && !defined(ELC_SPEED_TEST)
+			#if in_debug && !defined(ELC_SPEED_TEST)
 				true
 			#else
 				false

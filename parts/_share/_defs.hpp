@@ -245,8 +245,10 @@ exlambda(auto&&...Args){\
 
 #if defined(DEBUG) || defined(_DEBUG)
 	#define not_in_debug 0
+	#define in_debug 1
 #else
 	#define not_in_debug 1
+	#define in_debug 0
 #endif
 
 #define es U""

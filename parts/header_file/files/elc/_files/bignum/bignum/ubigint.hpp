@@ -30,7 +30,7 @@
 */
 class ubigint{
 public:
-	#if defined(_DEBUG) && !defined(ELC_SPEED_TEST)
+	#if in_debug && !defined(ELC_SPEED_TEST)
 		typedef unsigned char base_type;
 	#else
 		typedef unsigned_specific_size_fast_t<sizeof(uintmax_t)/2> base_type;
