@@ -212,9 +212,12 @@ namespace bit{
 			else
 				return countl_one(high);
 		}
-		else
-			//默认通用实现return countl_zero(T(~v));，不如下面这个（虽然只能用于char）
-			return v&0x80?countl_one(T(v<<1))+1:0;
+		else{
+			//默认通用实现
+			//return countl_zero(T(~v));，或者
+			constexpr T first_bit = T(1)<<(bitnum_of(T)-1);
+			return v&first_bit?countl_one(T(v<<1))+1:0;
+		}
 	}
 	/// countr_zero
 	template<unsigned_basic_integer_type T>

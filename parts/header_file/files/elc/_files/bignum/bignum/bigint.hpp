@@ -69,6 +69,8 @@ public:
 		_is_negative = false;
 		return *this;
 	}
+	template<basic_float_type T>
+	explicit bigint(T&&value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
 
 	~bigint() = default;
 public:

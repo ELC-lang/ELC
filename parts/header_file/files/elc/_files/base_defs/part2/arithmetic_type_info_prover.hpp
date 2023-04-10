@@ -39,6 +39,9 @@ namespace math{
 		static constexpr bool is_big_type=false;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type=::std::is_floating_point_v<T>;
+		//浮点数类型：是指数记录法还是分数记录法
+		static constexpr bool is_exponent_float_type=is_float_type;
+		static constexpr bool is_fraction_float_type=false;
 		//bool：是否是整数类型
 		static constexpr bool is_integer_type=::std::is_integral_v<T>;
 		//bool：是否是有符号类型

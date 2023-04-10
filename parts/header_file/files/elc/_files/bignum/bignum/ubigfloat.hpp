@@ -56,47 +56,23 @@ public:
 				_denominator = zero;
 				return;
 			}
-		//优先进行猜测以处理近似的简单分数
-		{
-			T integer_part;
-			T fraction_part=::std::modf(num,&integer_part);
-			size_t numerator=1;
-			if(fraction_part){
-				//猜测分数
-				constexpr size_t max_numerator = 1u<<7;
-				while(numerator<max_numerator){
-					const auto denominator = to_size_t(numerator/fraction_part);
-					if(is_close(T(numerator)/denominator,fraction_part)){//近似相等即可
-						const auto numerator_backup=numerator;
-						//补正整数部分
-						numerator += to_size_t(integer_part*denominator);
-						//更新
-						_numerator = numerator;
-						_denominator = denominator;
-						//校验
-						if(convert_to<T>()==num)//保证无损所以不用is_close
-							return;
-						//回滚
-						_numerator = numerator_backup;
-					}
-					numerator++;
-				}
+		const auto info=get_precision_and_exponent(num);
+		if(info.exponent<0){//小数，有猜测价值
+			//优先进行猜测以处理近似的简单分数
+			const auto divide=to_divide(num);
+			if(divide){
+				_numerator = (ubigint)divide.numerator;
+				_denominator = (ubigint)divide.denominator;
+				return;
 			}
 		}
-		//其余情况
-		{
-			const auto exponent = get_exponent(num);
-			const auto base_num = get_base_num(num);
-			const auto precision = get_precision(num);
-			constexpr auto precision_base = get_precision_base<T>();
-			_numerator = base_num + precision;
-			_denominator = precision_base;
-			if(exponent){
-				if(exponent>0)
-					_numerator<<=exponent;
-				else
-					_denominator<<=abs(exponent);
-			}
+		_numerator = info.precision;
+		_denominator = 1u;
+		if(info.exponent){
+			if(info.exponent>0)
+				_numerator<<=info.exponent;
+			else
+				_denominator<<=abs(info.exponent);
 		}
 		simplify();
 	}
@@ -237,9 +213,6 @@ public:
 	//friend trunc
 	[[nodiscard]]friend ubigint trunc(const ubigfloat& a)noexcept{
 		return a._numerator/a._denominator;
-	}
-	[[nodiscard]]explicit operator ubigint()noexcept{
-		return trunc(*this);
 	}
 	//friend split
 	[[nodiscard]]friend auto split(const ubigfloat& a)noexcept{
@@ -523,9 +496,22 @@ public:
 		ubigint uexp=abs(move(exp));
 		return math::pow(move(aret),move(uexp));
 	}
+	//强转
+	[[nodiscard]]explicit operator ubigint()const&noexcept{
+		return trunc(*this);
+	}
+	[[nodiscard]]explicit operator ubigint()&&noexcept{
+		return trunc(move(*this));
+	}
+	[[nodiscard]]explicit operator bigint()const&noexcept{
+		return this->operator ubigint();
+	}
+	[[nodiscard]]explicit operator bigint()&&noexcept{
+		return move(*this).operator ubigint();
+	}
 };
 //pow of bigint
-[[nodiscard]]inline ubigfloat pow(ubigint base,ubigint exp)noexcept{
+[[nodiscard]]inline ubigint pow(ubigint base,ubigint exp)noexcept{
 	return math::pow(move(base),move(exp));
 }
 template<unsigned_basic_integer_type T>
@@ -596,7 +582,7 @@ BREAK_NAMESPACE
 //注入math::arithmetic_type_info_prover
 namespace base::math{
 	using namespace bignum_n;
-	ubigfloat arithmetic_type_info_prover<ubigfloat>::min()noexcept{
+	inline ubigfloat arithmetic_type_info_prover<ubigfloat>::min()noexcept{
 		return ubigfloat{};
 	}
 }

@@ -70,9 +70,308 @@ namespace to_string_n{
 	public:
 		constexpr string_convert_impl(const representation_t&repres)noexcept:_repres(repres){}
 	private:
-		template<float_type T>
-		[[nodiscard]]string to_string_base(ubigfloat num)const noexcept{
+		//基础部分
+		[[nodiscard]]constexpr string build_expression_str(string base,ptrdiff_t exp)const noexcept{
+			//将exp转换为字符串，它可能是负的所以别调用to_string_unsigneded
+			auto exp_str=to_string(exp);
+			if(exp<0){
+				//首先计算需要的前置0的个数
+				const auto need_zero=size_t(max.for_type<ptrdiff_t>(0,-exp+1-base.size()));
+				if(need_zero>exp_str.size()){//选取最短表达
+					base+=_repres.get_exponent_separator();
+					base+=exp_str;
+				}
+				else{
+					if(need_zero)
+						base.push_front(_repres.get_char(0),need_zero);
+					//插入小数点
+					const auto dot_pos=base.size()+exp;
+					base.insert(dot_pos,_repres.get_fractional_sign());
+				}
+			}
+			elseif(exp>0)
+				base=build_expression_str(base,size_t(exp));
+			return base;
+		}
+		[[nodiscard]]constexpr string build_expression_str(string base,size_t exp)const noexcept{
+			if(exp){
+				auto exp_str=to_string(exp);
+				if(exp>exp_str.size()+1){
+					base+=_repres.get_exponent_separator();
+					base+=exp_str;
+				}
+				else//否则，补0
+					base.push_back(_repres.get_char(0),exp);
+			}
+			return base;
+		}
+		//整数部分
+	public:
+		template<integer_type T>//适用于任何c++整数类型以及elc的bigint和ubigint
+		[[nodiscard]]string to_string(T num)const noexcept{
+			if constexpr(type_info<T> == type_info<bool>)
+				return to_string(union_cast<unsigned_specific_size_t<sizeof(bool)>>(move(num)));
+			elseif constexpr(is_signed<T>){
+				if(is_negative(num))
+					return _repres.get_negative_sign()+to_string(abs(move(num)));
+				else
+					return to_string(abs(move(num)));
+			}
+			else
+				return to_string_unsigneded(move(num));
+		}
+	private:
+		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
+		[[nodiscard]]string to_string_unsigneded(T num)const noexcept{
+			return to_string_base<T>(move(num));
+		}
+		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
+		[[nodiscard]]string to_string_with_exp(T num)const noexcept{
+			ptrdiff_t exp;
+			auto aret=to_string_and_set_exp(move(num),exp);
+			return build_expression_str(aret,exp);
+		}
+		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
+		[[nodiscard]]string to_string_and_set_exp(T num,ptrdiff_t&exp)const noexcept{
+			exp=0;
+			return to_string_and_add_exp(move(num),exp);
+		}
+		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
+		[[nodiscard]]string to_string_and_add_exp(T num,ptrdiff_t&exp)const noexcept{
+			const auto radix=_repres.get_radix();
+			do{
+				auto result=divmod(num,radix);
+				if(result.mod)
+					break;
+				num=move(result.quot);
+				++exp;
+			}while(num);
+			return to_string_base(move(num));
+		}
+		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
+		[[nodiscard]]string to_string_base(T num)const noexcept{
 			string aret;
+			const auto radix=_repres.get_radix();
+			if constexpr(is_basic_type<T>){
+				//基本类型有最大值，可以预分配足够的空间来提高效率
+				constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnum_of(T));
+				const auto info_threshold = to_size_t(ceil(log(info_threshold_base, radix)));
+				aret.pre_alloc_before_begin(info_threshold);
+			}
+			if constexpr(is_big_type<T>){
+				//大整数类型可以通过分治法来提高效率
+				constexpr auto partition_method_threshold=max(type_info<size_t>);
+				if(num>partition_method_threshold){
+					T base{radix};
+					size_t len=1;//计算余数部分要补的前导0
+					//计算分割点
+					while(base.memory_usage()*3 < num.memory_usage()){
+						len *= 2;
+						base *= base;
+					}
+					//算出分割后的高位和低位
+					auto result = divmod(num, base);
+					auto&high = result.quot;
+					auto&low = result.mod;
+					return to_string(move(high)) + to_string(move(low)).pad_left(_repres.get_char(0), len);
+				}
+				else
+					return to_string(num.convert_to<size_t>());
+			}
+			else{
+				push_and_disable_msvc_warning(4244);
+				do{//do-while是为了保证至少有一位"0"
+					auto res=divmod(move(num),radix);
+					const auto index=to_size_t(move(res.mod));
+					const auto ch=_repres.get_char(index);
+					aret.push_front(ch);
+					num=move(res.quot);
+				}while(num);
+				pop_msvc_warning();
+				return aret;
+			}
+		}
+		//浮点数部分
+	public:
+		template<float_type T>
+		[[nodiscard]]string to_string(T num)const noexcept{
+			//首先，特殊值检查
+			if(isNaN(num)){
+				if constexpr(is_basic_type<T>){
+					if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
+						constexpr auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
+						if(full_equal_in_byte(signaling_NaN,num)){
+							return _repres.get_signaling_nan();
+						}
+						auto negative_signaling_NaN = copy_as_negative(signaling_NaN);
+						if(full_equal_in_byte(negative_signaling_NaN,num)){
+							return string()+_repres.get_negative_sign()+_repres.get_signaling_nan();
+						}
+					}
+					if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
+						constexpr auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
+						if(full_equal_in_byte(quiet_NaN,num)){
+							return _repres.get_quiet_nan();
+						}
+						auto negative_quiet_NaN = copy_as_negative(quiet_NaN);
+						if(full_equal_in_byte(negative_quiet_NaN,num)){
+							return string()+_repres.get_negative_sign()+_repres.get_quiet_nan();
+						}
+					}
+					string aret=_repres.get_nan();
+					aret+=_repres.get_unknown_data_start_sign();
+					const auto radix = _repres.get_radix();
+					const auto unknown_data_split_sign = _repres.get_unknown_data_split_sign();
+					const bool needs_split_sign = radix < number_of_possible_values_per<char>;
+					data_view<T> view{&num};
+					for(const byte c: view){
+						aret += to_string((unsigned char)c);
+						if(needs_split_sign)
+							aret += unknown_data_split_sign;
+					}
+					if(needs_split_sign)
+						aret.back()=_repres.get_unknown_data_end_sign();
+					else
+						aret+=_repres.get_unknown_data_end_sign();
+					return aret;
+				}
+				else
+					return _repres.get_nan();
+			}
+			if(isInf(num)){
+				if constexpr(is_basic_type<T>){
+					constexpr auto infinity = ::std::numeric_limits<T>::infinity();
+					if(full_equal_in_byte(infinity,num)){
+						return _repres.get_inf();
+					}
+					auto negative_infinity = copy_as_negative(infinity);
+					if(full_equal_in_byte(negative_infinity,num)){
+						return string()+_repres.get_negative_sign()+_repres.get_inf();
+					}
+				}
+				else{
+					if(is_negative(num))
+						return _repres.get_negative_sign()+_repres.get_inf();
+					else
+						return _repres.get_inf();
+				}
+			}
+			if(is_negative(num))
+				return _repres.get_negative_sign()+to_string_unsigneded(abs(move(num)));
+			else
+				return to_string_unsigneded(move(num));
+		}
+	private:
+		template<float_type T>
+		[[nodiscard]]string to_string_unsigneded(T num)const noexcept{
+			return to_string_base(move(num));
+		}
+		template<float_type T,unsigned_integer_type num_t>
+		[[nodiscard]]inline void apply_info_threshold(num_t&num,ptrdiff_t&exp)const noexcept{
+			if constexpr(is_basic_type<T>){//若T是基础类型
+				const auto radix=_repres.get_radix();
+				//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
+				constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
+				//获取info_threshold_num
+				const auto info_threshold_num=info_threshold_base*radix;
+				{
+					//这里我们需要一次生成radix^x大小的数来让num快速减小，以加速后续的循环
+					//但不能通过上文中的info_threshold_base计算，因为适当的舍入是必要的，所以需要一个更为宽松但又合适的阈值
+					//因此我们需要一个新的阈值，根据信息论第一定理，我们可以假设新的阈值基础为unsigned_specific_size_t<sizeof(T)>所容纳的信息量
+					//其比info_threshold_base更为宽松，但又合适于限制num的大小
+					typedef unsigned_specific_size_t<sizeof(T)> new_info_threshold_base;
+					//计算新的阈值
+					const auto info_threshold_of_radix_num=to_size_t(ceil(log(max(type_info<new_info_threshold_base>),radix)));
+					const auto num_of_radix=integer_log(num,radix);
+					const ptrdiff_t diff=num_of_radix-info_threshold_of_radix_num;
+					if(diff>0){
+						num/=pow(num_t{radix},size_t(diff));
+						exp+=diff;
+					}
+				}
+				//更新exp并舍入num直到num小于info_threshold_num
+				while(num>info_threshold_num){
+					++exp;
+					auto result=divmod(move(num),radix);
+					if(result.mod>=radix/2)//舍入
+						++result.quot;
+					num=move(result.quot);
+				}
+			}
+		}
+		template<exponent_float_type T>//适用于任何指数法记录的浮点类型
+		[[nodiscard]]string to_string_base(T num)const noexcept{
+			//首先，猜测分数
+			{
+				const auto divide_info=to_divide(num);
+				if(divide_info){
+					if(divide_info.denominator!=1u){//分母不为1：正规分数
+						//呃，这里我们需要稍微处理一下numerator，考虑到其类型是T，而不是什么整数类型
+						//若numerator小于size_t的最大值，那么我们就可以直接转换为size_t
+						//否则，我们就需要转换为ubigint
+						string aret;
+						if(divide_info.numerator<=max(type_info<size_t>))
+							aret=to_string_with_exp(to_size_t(divide_info.numerator));
+						else
+							aret=to_string_with_exp((ubigint)divide_info.numerator);
+						return aret+_repres.get_fractional_separator()+to_string_unsigneded(divide_info.denominator);
+					}
+					//整数部分可以在这里处理，但是若进入ubigint处理会出现不必要的计算
+					if(divide_info.numerator<=max(type_info<size_t>))
+						return to_string_with_exp(to_size_t(divide_info.numerator));
+					//所以在下面再处理特大整数的情况
+				}
+			}
+			//然后分情况处理
+			const auto info=get_precision_and_exponent(num);//声明个info和exp先
+			ptrdiff_t exp=info.exponent;
+			//首先判断进制是否是BIT_POSSIBILITY的整数倍
+			if(_repres.is_bit_friendly_radix()){
+				const auto radix=_repres.get_radix();
+				const auto radix_diff=radix>>1;//用于补数
+				//这边情况是比较好处理的，因为exp的base是BIT_POSSIBILITY，所以该数肯定是有限小数
+				//所以我们需要做的就是，呃
+				//首先新建一个base是radix的exp值，并将现有的exp降低为0
+				//对于exp部分，塞入number
+				ubigint number=info.precision;//避免溢出
+				if(exp<0)
+					number*=pow((ubigint)radix_diff,abs(exp));
+				elseif(exp>0){
+					auto result=divmod(number,radix_diff);
+					ptrdiff_t new_exp=0;
+					while(exp&&!result.mod){
+						number=move(result.quot);
+						--exp;
+						++new_exp;
+						result=divmod(number,radix_diff);
+					}
+					number<<=exp;
+					exp=new_exp;
+				}
+				//根据类型需求对number进行截断
+				apply_info_threshold<T>(number,exp);
+				//然后将number转换为字符串就着exp输出
+				return build_expression_str(to_string_unsigneded(number),exp);
+			}
+			else{
+				//可惜没有额外的优化
+				//这里很好笑，因为输出进制不是bit的整数倍，这意味着你无法用有限小数表示这个数
+				if(exp<0){
+					//将num转换为分数，然后输出
+					//需要化简分数吗？呃，虚空说答案是不
+					const auto numerator=info.precision;
+					const auto denominator=ubigint(1u)<<abs(info.exponent);
+					return to_string_with_exp(numerator)+_repres.get_fractional_separator()+to_string_unsigneded(denominator);
+				}
+				else{
+					ubigint number=info.precision;
+					number<<=exp;
+					return to_string_with_exp(number);
+				}
+			}
+		}
+		template<fraction_float_type T>//适用于任何分数法记录的浮点类型
+		[[nodiscard]]string to_string_base(T num)const noexcept{
 			//化简
 			num.simplify();
 			ptrdiff_t exp=0;
@@ -80,6 +379,8 @@ namespace to_string_n{
 			if(!numerator)
 				return _repres.get_char(0);
 			auto& denominator=get_denominator_as_ref(num);
+			if(denominator==1u)
+				return to_string(move(numerator));
 			const auto radix=_repres.get_radix();
 			{
 				auto denominator_backup=denominator;//备份denominator用于在发现此为无限小数时继续输出（省去还原计算）
@@ -87,7 +388,7 @@ namespace to_string_n{
 				//化简为numerator*radix^exp
 				{
 					auto result=divmod(denominator,radix);
-					while(result.quot&&!(result.mod)){
+					while(result.quot&&!result.mod){
 						denominator=move(result.quot);
 						--exp;
 						result=divmod(denominator,radix);
@@ -105,197 +406,12 @@ namespace to_string_n{
 				clear_backup();
 				numerator*=complete;
 			}
-			if constexpr(is_basic_type<T>){//若T是基础类型
-				//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
-				constexpr auto info_threshold_base=basic_environment::float_infos::precision_base<T>*2;
-				//获取info_threshold_num
-				const auto info_threshold_num=info_threshold_base*radix;
-				//更新exp并舍入numerator直到numerator小于info_threshold_num
-				while(numerator>info_threshold_num){
-					++exp;
-					auto result=divmod(move(numerator),radix);
-					if(result.mod>=radix/2)//舍入
-						++result.quot;
-					numerator=move(result.quot);
-				}
-			}
-			{
-				auto result=divmod(numerator,radix);
-				while(result.quot&&!(result.mod)){
-					numerator=move(result.quot);
-					++exp;
-					result=divmod(numerator,radix);
-				}
-			}
-			//先获取numerator和exp的字符串表示
-			aret=to_string(move(numerator));
-			auto exp_str=to_string(exp);
-			if(exp<0){
-				//首先计算需要的前置0的个数
-				const auto need_zero=size_t(max.for_type<ptrdiff_t>(0,-exp+1-aret.size()));
-				if(need_zero>exp_str.size()){//选取最短表达
-					aret+=_repres.get_exponent_separator();
-					aret+=exp_str;
-				}
-				else{
-					if(need_zero)
-						aret.push_front(_repres.get_char(0),need_zero);
-					//插入小数点
-					const auto dot_pos=aret.size()+exp;
-					aret.insert(dot_pos,_repres.get_fractional_sign());
-				}
-			}
-			elseif(exp>0){
-				if(size_t(exp)>exp_str.size()+1){
-					aret+=_repres.get_exponent_separator();
-					aret+=exp_str;
-				}
-				else//否则，补0
-					aret.push_back(_repres.get_char(0),exp);
-			}
-			return aret;
-		}
-		[[nodiscard]]string to_string_unsigneded(ubigfloat num)const noexcept{
-			//首先，特殊值检查
-			if(isNaN(num))
-				return _repres.get_nan();
-			if(isinf(num))
-				return _repres.get_inf();
-			return to_string_base<ubigfloat>(move(num));
-		}
-	public:
-		[[nodiscard]]string to_string(const bigfloat&num)const noexcept{
-			if(is_negative(num))
-				return _repres.get_negative_sign()+to_string_unsigneded(abs(num));
-			else
-				return to_string_unsigneded(abs(num));
-		}
-		[[nodiscard]]string to_string(bigfloat&&num)const noexcept{
-			if(is_negative(num))
-				return _repres.get_negative_sign()+to_string_unsigneded(abs(move(num)));
-			else
-				return to_string_unsigneded(abs(move(num)));
-		}
-		[[nodiscard]]string to_string(const ubigfloat&num)const noexcept{
-			return to_string_unsigneded(num);
-		}
-		[[nodiscard]]string to_string(ubigfloat&&num)const noexcept{
-			return to_string_unsigneded(move(num));
-		}
-		template<integer_type T>//适用于任何c++整数类型以及elc的bigint和ubigint
-		[[nodiscard]]string to_string(T num)const noexcept{
-			if constexpr(type_info<T> == type_info<bool>)
-				return to_string(union_cast<unsigned_specific_size_t<sizeof(bool)>>(num));
-			elseif constexpr(is_signed<T>){
-				if(is_negative(num))
-					return _repres.get_negative_sign()+to_string(abs(num));
-				else
-					return to_string(abs(num));
-			}
-			else{
-				string aret;
-				const auto radix=_repres.get_radix();
-				if constexpr(is_basic_type<T>){
-					//基本类型有最大值，可以预分配足够的空间来提高效率
-					constexpr auto info_threshold_base = pow(BIT_POSSIBILITY, bitnum_of(T));
-					const auto info_threshold = to_size_t(ceil(log(info_threshold_base, radix)));
-					aret.pre_alloc_before_begin(info_threshold);
-				}
-				if constexpr(is_big_type<T>){
-					//大整数类型可以通过分治法来提高效率
-					constexpr auto partition_method_threshold=max(type_info<size_t>);
-					if(num>partition_method_threshold){
-						T base{radix};
-						size_t len=1;//计算余数部分要补的前导0
-						//计算分割点
-						while(base.memory_usage()*3 < num.memory_usage()){
-							len *= 2;
-							base *= base;
-						}
-						//算出分割后的高位和低位
-						auto result = divmod(num, base);
-						auto&high = result.quot;
-						auto&low = result.mod;
-						return to_string(move(high)) + to_string(move(low)).pad_left(_repres.get_char(0), len);
-					}
-					else
-						return to_string(num.convert_to<size_t>());
-				}
-				else{
-					push_and_disable_msvc_warning(4244);
-					do{//do-while是为了保证至少有一位"0"
-						auto res=divmod(move(num),radix);
-						const auto index=to_size_t(move(res.mod));
-						const auto ch=_repres.get_char(index);
-						aret.push_front(ch);
-						num=move(res.quot);
-					}while(num);
-					pop_msvc_warning();
-					return aret;
-				}
-			}
-		}
-	private:
-		template<float_type T>
-		[[nodiscard]]string to_string_unsigneded(T num)const noexcept{
-			return to_string_base<T>(move(num));
-		}
-	public:
-		template<basic_float_type T>
-		[[nodiscard]]string to_string(T num)const noexcept{
-			//首先，特殊值检查
-			if(isNaN(num)){
-				if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
-					constexpr auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
-					if(full_equal_in_byte(signaling_NaN,num)){
-						return _repres.get_signaling_nan();
-					}
-					auto negative_signaling_NaN = copy_as_negative(signaling_NaN);
-					if(full_equal_in_byte(negative_signaling_NaN,num)){
-						return string()+_repres.get_negative_sign()+_repres.get_signaling_nan();
-					}
-				}
-				if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
-					constexpr auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
-					if(full_equal_in_byte(quiet_NaN,num)){
-						return _repres.get_quiet_nan();
-					}
-					auto negative_quiet_NaN = copy_as_negative(quiet_NaN);
-					if(full_equal_in_byte(negative_quiet_NaN,num)){
-						return string()+_repres.get_negative_sign()+_repres.get_quiet_nan();
-					}
-				}
-				string aret=_repres.get_nan();
-				aret+=_repres.get_unknown_data_start_sign();
-				const auto radix = _repres.get_radix();
-				const auto unknown_data_split_sign = _repres.get_unknown_data_split_sign();
-				const bool needs_split_sign = radix < number_of_possible_values_per<char>;
-				data_view<T> view{&num};
-				for(const byte c: view){
-					aret += to_string((unsigned char)c);
-					if(needs_split_sign)
-						aret += unknown_data_split_sign;
-				}
-				if(needs_split_sign)
-					aret.back()=_repres.get_unknown_data_end_sign();
-				else
-					aret+=_repres.get_unknown_data_end_sign();
-				return aret;
-			}
-			if constexpr(::std::numeric_limits<T>::has_infinity){
-				constexpr auto infinity = ::std::numeric_limits<T>::infinity();
-				if(full_equal_in_byte(infinity,num)){
-					return _repres.get_inf();
-				}
-				auto negative_infinity = copy_as_negative(infinity);
-				if(full_equal_in_byte(negative_infinity,num)){
-					return string()+_repres.get_negative_sign()+_repres.get_inf();
-				}
-			}
-			if(is_negative(num))
-				return _repres.get_negative_sign()+to_string_unsigneded(-num);
-			else
-				return to_string_unsigneded(num);
+			//根据类型需求对numerator进行截断
+			apply_info_threshold<T>(numerator,exp);
+			//先获取numerator的字符串
+			auto tmp=to_string_and_add_exp(move(numerator),exp);
+			//然后就着exp输出
+			return build_expression_str(move(tmp),exp);
 		}
 	private:
 		//to_string定义完了，开始定义from_string_get

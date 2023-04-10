@@ -63,6 +63,18 @@ namespace math{
 		template<typename T>
 		concept is_float_type=float_type<T>;
 
+		//浮点数类型：指数记录法
+		template<typename T>
+		concept exponent_float_type=is_float_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_exponent_float_type;
+		template<typename T>
+		concept is_exponent_float_type=exponent_float_type<T>;
+
+		//浮点数类型：分数记录法
+		template<typename T>
+		concept fraction_float_type=is_float_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_fraction_float_type;
+		template<typename T>
+		concept is_fraction_float_type=fraction_float_type<T>;
+
 		/// 基础浮点数类型概念
 		template<typename T>
 		concept basic_float_type=float_type<T> && basic_type<T>;
@@ -172,6 +184,18 @@ namespace math{
 			return v!=v;
 		else
 			return false;
+	}
+	//isInf
+	template<basic_type T>
+	[[nodiscard]]force_inline constexpr bool isInf(const T&v)noexcept{
+		if constexpr(has_inf<T>)
+			return v==std::numeric_limits<T>::infinity() || v==-std::numeric_limits<T>::infinity();
+		else
+			return false;
+	}
+	template<arithmetic_type T> requires(!has_inf<T>)
+	[[nodiscard]]force_inline constexpr bool isInf(const T&)noexcept{
+		return false;
 	}
 	/*! 符号位查询 */
 	template<arithmetic_type T>
@@ -846,6 +870,10 @@ namespace bit{
 	[[nodiscard]]force_inline constexpr size_t countl_one(const T v)noexcept;
 	template<unsigned_basic_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t countr_one(const T v)noexcept;
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept;
+	template<signed_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t get_bitnum(const T v)noexcept;
 }
 using namespace bit;//干净的符号导出！
 
@@ -884,6 +912,7 @@ using math::get_rounding;
 using math::rounding_auto_setter;
 using math::is_close;
 using math::isNaN;
+using math::isInf;
 using math::abs;
 using math::exp;
 using math::log;

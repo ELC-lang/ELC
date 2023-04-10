@@ -61,6 +61,14 @@ public:
 		if(used_size!=size)
 			_data.resize(used_size);
 	}
+	template<basic_float_type T>
+	explicit ubigint(T&&value)noexcept{
+		remove_cvref<T> int_part;
+		discard(::std::modf(value,&int_part));
+		const auto info=get_precision_and_exponent(int_part);
+		*this=ubigint(info.precision);
+		*this<<=info.exponent;
+	}
 	template<typename T> requires(unsigned_integer_type<T>)
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
 		constexpr auto min_value=min(type_info<T>);
@@ -727,6 +735,29 @@ public:
 		if(a_view.size() < b_view.size())return {ubigint{},move(a)};
 		return divmod_with_base(a._data,b_view);
 	}
+	//friend integer_log
+private:
+	[[nodiscard]]friend size_t integer_log_base(const ubigint& a,ubigint& tester,const ubigint this_lv,const size_t num)noexcept{
+		auto next_lv=this_lv*this_lv;
+		size_t aret=0;
+		if(next_lv<a)
+			aret=log_base(a,tester,next_lv,num*2);
+		else
+			return 0;
+		floop{
+			auto tmp=tester*this_lv;
+			if(tmp>a)return aret;
+			tester=move(tmp);
+			aret+=num;
+		}
+	}
+public:
+	[[nodiscard]]friend size_t integer_log(const ubigint& a,const ubigint& b)noexcept{
+		if(a<b)return 0u;
+		if(a==b)return 1u;
+		ubigint tester=1u;
+		return log_base(a,tester,b,1u);
+	}
 	//operator<<
 	template<integer_type T>
 	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
@@ -779,7 +810,7 @@ public:
 		return*this;
 	}
 	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint& operator+(T other)&&noexcept{
+	[[nodiscard]]ubigint& operator+(T&&other)&&noexcept{
 		//using add_to_base to avoid new alloc
 		add_to_base(_data,other);
 		return*this;
@@ -800,17 +831,29 @@ public:
 			sub_with_base(_data,other_view);//already shrink_to_fit ed
 		return*this;
 	}
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]ubigint operator-(T&&other)noexcept{
+		return *this - ubigint{other};
+	}
 	//operator*=
 	ubigint& operator*=(const ubigint& other)&noexcept{
 		//as muti always need new alloc, so we use just use operator*.
 		*this = *this * other;
 		return*this;
 	}
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]ubigint operator*(T&&other)noexcept{
+		return *this * ubigint{other};
+	}
 	//operator/=
 	ubigint& operator/=(const ubigint& other)&noexcept{
 		//as div always need new alloc, so we use just use operator/.
 		*this = *this / other;
 		return*this;
+	}
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]ubigint operator/(T&&other)noexcept{
+		return *this / ubigint{other};
 	}
 	//operator%=
 	ubigint& operator%=(const ubigint& other)&noexcept{
@@ -827,6 +870,10 @@ public:
 		mod_with_base(_data,other_view);
 		shrink_to_fit();
 		return*this;
+	}
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]ubigint operator%(T&&other)noexcept{
+		return *this % ubigint{other};
 	}
 	//operator<<=
 	template<integer_type T>
@@ -1043,7 +1090,7 @@ public:
 	[[nodiscard]]friend size_t get_bitnum(const ubigint& x)noexcept{
 		auto&data=x._data;
 		if(data.empty())return 0;
-		return data.size()*get_bitnum(data.back());
+		return data.size()*bitnum_of(base_type)-countl_zero(data.back());
 	}
 	//memory_usage
 	[[nodiscard]]force_inline size_t memory_usage()const noexcept{
@@ -1063,7 +1110,7 @@ BREAK_NAMESPACE
 //注入math::arithmetic_type_info_prover
 namespace base::math{
 	using namespace bignum_n;
-	ubigint arithmetic_type_info_prover<ubigint>::min()noexcept{
+	inline ubigint arithmetic_type_info_prover<ubigint>::min()noexcept{
 		return ubigint{};
 	}
 }

@@ -34,6 +34,9 @@
 struct base_numerical_representation_t{
 	virtual ~base_numerical_representation_t()noexcept=default;
 	[[nodiscard]]virtual size_t get_radix()const noexcept=0;
+	[[nodiscard]]virtual bool is_bit_friendly_radix()const noexcept{
+		return get_radix()%BIT_POSSIBILITY==0;
+	}
 	[[nodiscard]]virtual char_t get_fractional_sign()const noexcept=0;
 	[[nodiscard]]virtual char_t get_positive_sign()const noexcept=0;
 	[[nodiscard]]virtual char_t get_negative_sign()const noexcept=0;
@@ -177,6 +180,9 @@ public:
 	[[nodiscard]]constexpr virtual size_t get_radix()const noexcept override{
 		return radix;
 	}
+	[[nodiscard]]constexpr virtual bool is_bit_friendly_radix()const noexcept override{
+		return get_radix()%BIT_POSSIBILITY==0;
+	}
 	[[nodiscard]]constexpr virtual char_t get_char(size_t index)const noexcept override{
 		return char_t(zero+index);
 	}
@@ -241,6 +247,9 @@ public:
 
 	[[nodiscard]]constexpr virtual size_t get_radix()const noexcept override{
 		return radix_table.size();
+	}
+	[[nodiscard]]constexpr virtual bool is_bit_friendly_radix()const noexcept override{
+		return get_radix()%BIT_POSSIBILITY==0;
 	}
 	[[nodiscard]]constexpr virtual char_t get_char(size_t index)const noexcept override{
 		return radix_table[index];

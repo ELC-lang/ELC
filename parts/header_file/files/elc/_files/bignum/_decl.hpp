@@ -48,6 +48,9 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = false;
+		//浮点数类型：是指数记录法还是分数记录法
+		static constexpr bool is_exponent_float_type=false;
+		static constexpr bool is_fraction_float_type=false;
 		//bool：是否是整数类型
 		static constexpr bool is_integer_type = true;
 		//bool：是否是有符号类型
@@ -74,6 +77,9 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = false;
+		//浮点数类型：是指数记录法还是分数记录法
+		static constexpr bool is_exponent_float_type=false;
+		static constexpr bool is_fraction_float_type=false;
 		//bool：是否是整数类型
 		static constexpr bool is_integer_type = true;
 		//bool：是否是有符号类型
@@ -102,6 +108,9 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = true;
+		//浮点数类型：是指数记录法还是分数记录法
+		static constexpr bool is_exponent_float_type=false;
+		static constexpr bool is_fraction_float_type=true;
 		//bool：是否是整数类型
 		static constexpr bool is_integer_type = false;
 		//bool：是否是有符号类型
@@ -128,6 +137,9 @@ namespace base::math{
 		static constexpr bool is_big_type = true;
 		//bool：是否是浮点类型
 		static constexpr bool is_float_type = true;
+		//浮点数类型：是指数记录法还是分数记录法
+		static constexpr bool is_exponent_float_type=false;
+		static constexpr bool is_fraction_float_type=true;
 		//bool：是否是整数类型
 		static constexpr bool is_integer_type = false;
 		//bool：是否是有符号类型

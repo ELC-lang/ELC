@@ -37,11 +37,11 @@ namespace elc::defs{
 	namespace stream_n{
 		using namespace numerical_representation_n;
 
-		const auto&default_numerical_representation=decimal;
-		const auto&default_bool_representation=common_bool_representation;
+		inline const auto&default_numerical_representation=decimal;
+		inline const auto&default_bool_representation=common_bool_representation;
 
 		template<text_stream stream_T>
-		decltype(auto)get_numerical_representation_of(stream_T&&stream)noexcept{
+		inline decltype(auto)get_numerical_representation_of(stream_T&&stream)noexcept{
 			if constexpr was_not_an_ill_form(stream.get_numerical_representation())
 				return stream.get_numerical_representation();
 			else
@@ -49,7 +49,7 @@ namespace elc::defs{
 		}
 
 		template<text_stream stream_T>
-		decltype(auto)get_bool_representation_of(stream_T&&stream)noexcept{
+		inline decltype(auto)get_bool_representation_of(stream_T&&stream)noexcept{
 			if constexpr was_not_an_ill_form(stream.get_bool_representation())
 				return stream.get_bool_representation();
 			else
@@ -59,18 +59,18 @@ namespace elc::defs{
 		//arithmetic output only for text_ostream
 		template<arithmetic_type T,text_ostream stream_T> requires(type_info<remove_cvref<T>> != type_info<char_t> &&
 																   type_info<remove_cvref<T>> != type_info<bool>)
-		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
+		inline decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T>){
 			return stream << to_string(forward<T>(data),get_numerical_representation_of(stream));
 		}
 
 		template<typename T,text_ostream stream_T> requires(!::std::is_arithmetic_v<remove_cvref<T>> &&
 															to_arithmetic.able<remove_cvref<T>>)
-		decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T> && to_arithmetic.nothrow<T>) {
+		inline decltype(auto)operator<<(stream_T&&stream,T&&data)noexcept(noexcept_text_ostream<stream_T> && to_arithmetic.nothrow<T>) {
 			return stream << to_arithmetic(forward<T>(data));
 		}
 
 		template<typename T,text_ostream stream_T> requires(type_info<T> == type_info<bool>)
-		decltype(auto)operator<<(stream_T&&stream,T data)noexcept(noexcept_text_ostream<stream_T>){
+		inline decltype(auto)operator<<(stream_T&&stream,T data)noexcept(noexcept_text_ostream<stream_T>){
 			const auto&representation=get_bool_representation_of(stream);
 			if(data==true)
 				stream << representation.get_true();
@@ -84,14 +84,14 @@ namespace elc::defs{
 		//arithmetic input only for text_istream
 		template<arithmetic_type T,text_istream stream_T> requires(type_info<remove_cvref<T>> != type_info<char_t> &&
 																   type_info<remove_cvref<T>> != type_info<bool>)
-		decltype(auto)operator>>(stream_T&&stream,T&data)noexcept(noexcept_text_istream<stream_T>){
+		inline decltype(auto)operator>>(stream_T&&stream,T&data)noexcept(noexcept_text_istream<stream_T>){
 			string temp;
 			stream >> temp;
 			data=from_string_get<T>(temp,get_numerical_representation_of(stream));
 			return stream;
 		}
 		template<typename T,text_istream stream_T> requires(type_info<T> == type_info<bool>)
-		decltype(auto)operator>>(stream_T&&stream,T&data)noexcept(noexcept_text_istream<stream_T>){
+		inline decltype(auto)operator>>(stream_T&&stream,T&data)noexcept(noexcept_text_istream<stream_T>){
 			string temp;
 			stream >> temp;
 			const auto&representation=get_bool_representation_of(stream);
@@ -113,7 +113,7 @@ namespace elc::defs{
 
 		//T* output only for text_ostream
 		template<typename T,text_ostream stream_T>
-		decltype(auto)operator<<(stream_T&&stream,T*data)noexcept(noexcept_text_ostream<stream_T>){
+		inline decltype(auto)operator<<(stream_T&&stream,T*data)noexcept(noexcept_text_ostream<stream_T>){
 			//output name of type at first
 			stream << type_info<T>.get_name();
 			if constexpr(::std::is_polymorphic_v<T> && !::std::is_final_v<T>){//RTTI

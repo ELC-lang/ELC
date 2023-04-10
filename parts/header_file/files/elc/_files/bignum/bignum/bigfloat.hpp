@@ -136,9 +136,6 @@ public:
 	[[nodiscard]]friend bigint trunc(const bigfloat& a)noexcept{
 		return copy_as_negative(trunc(a._num),a._is_negative);
 	}
-	[[nodiscard]]explicit operator bigint()noexcept{
-		return trunc(*this);
-	}
 	//friend split
 	[[nodiscard]]friend auto split(const bigfloat& a)noexcept{
 		struct result_t{
@@ -654,6 +651,19 @@ public:
 		const bool sign=is_negative(base)&&is_odd(exp);
 		auto uret=pow(abs(base),abs(exp));
 		return {move(uret),sign};
+	}
+	//强转
+	[[nodiscard]]explicit operator bigint()const&noexcept{
+		return copy_as_negative(ubigint(_num),_is_negative);
+	}
+	[[nodiscard]]explicit operator bigint()&&noexcept{
+		return copy_as_negative(ubigint(move(_num)),_is_negative);
+	}
+	[[nodiscard]]explicit operator ubigint()const&noexcept{
+		return ubigint(_num);
+	}
+	[[nodiscard]]explicit operator ubigint()&&noexcept{
+		return ubigint(move(_num));
 	}
 };
 

@@ -193,9 +193,9 @@ namespace elc::defs{
 				return tmp.v;
 			}
 		}
-		//自浮点数获取精确数部分，舍去指数和符号位
+		//自浮点数获取原生精确数部分，舍去指数和符号位
 		template<basic_float_type T>
-		force_inline constexpr auto get_precision(T v)noexcept{
+		force_inline constexpr auto get_native_precision(T v)noexcept{
 			using namespace float_infos;
 			auto tmp=get_float_data(v);
 			tmp&=precision_mask<T>;
@@ -217,9 +217,9 @@ namespace elc::defs{
 			tmp>>=precision_base_bit<T>;
 			return exponent_unsigned_type<T>(tmp);
 		}
-		//自浮点数获取指数部分，舍去基数和符号位
+		//自浮点数获取原生指数部分，舍去基数和符号位
 		template<basic_float_type T>
-		force_inline constexpr auto get_exponent(T v)noexcept{
+		force_inline constexpr auto get_native_exponent(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
 			using namespace float_infos;
 			if(tmp==0)return exponent_min<T>;
@@ -231,6 +231,28 @@ namespace elc::defs{
 			//特殊情况处理（exp=0时，base=0）
 			const auto tmp=base_get_exponent(v);
 			return tmp?get_precision_base(v):float_precision_base_t<T>{};
+		}
+		//自浮点数获取基数
+		template<basic_float_type T>
+		force_inline constexpr auto get_precision(T v)noexcept{
+			return get_native_precision(v)+get_base_num(v);
+		}
+		//自浮点数获取指数
+		template<basic_float_type T>
+		force_inline constexpr auto get_exponent(T v)noexcept{
+			using namespace float_infos;
+			return ptrdiff_t(get_native_exponent(v))-precision_base_bit<T>;
+		}
+		//自浮点数获取基数和指数
+		template<basic_float_type T>
+		force_inline constexpr auto get_precision_and_exponent(T v)noexcept{
+			struct precision_and_exponent_t{
+				float_precision_base_t<T> precision;
+				ptrdiff_t exponent;
+			};
+			const auto precision=get_precision(v);
+			const auto exponent=get_exponent(v);
+			return precision_and_exponent_t{precision,exponent};
 		}
 		//自基数和指数构造浮点数
 		//num=base_num*2^exponent
@@ -277,6 +299,46 @@ namespace elc::defs{
 				return get_float_from_data<T>(data);
 			}
 		}
+		//若可以，将浮点数分解为两数之商
+		template<basic_float_type T,size_t max_numerator = 1u<<7,size_t max_denominator = 1u<<17>
+		force_inline constexpr auto to_divide(T v)noexcept{
+			struct divide_t{
+				T numerator;
+				size_t denominator;
+			private:
+				bool _success;
+			public:
+				constexpr divide_t(T numerator,size_t denominator)noexcept:_success(true),numerator(numerator),denominator(denominator){}
+				constexpr divide_t()noexcept:_success(false),numerator(0),denominator(0){}
+				[[nodiscard]]constexpr bool success()const noexcept{
+					return _success;
+				}
+				[[nodiscard]]constexpr explicit operator bool()const noexcept{
+					return success();
+				}
+			};
+			T integer_part;
+			const auto fraction_part=std::modf(v,&integer_part);
+			if(fraction_part==0)return divide_t{integer_part,1u};
+			//开始测试分数
+			size_t numerator=1;
+			while(numerator<max_numerator){
+				const auto denominator = to_size_t(numerator/fraction_part);
+				if(denominator<=max_denominator)//忽略分母过大的情况
+				if(is_close(T(numerator)/denominator,fraction_part))//近似相等即可
+				if(gcd(numerator,denominator)==1)//不进行重复检查
+				{
+					//补正整数部分
+					const auto numerator_with_inter = integer_part*denominator+numerator;
+					//检查是否能够转换回
+					const auto f_test = T(numerator_with_inter)/denominator;
+					if(f_test==fraction_part)
+						return divide_t{numerator_with_inter,denominator};
+				}
+				numerator++;
+			}
+			return divide_t{};
+		}
 	}
 	using basic_environment::BIT_POSSIBILITY;
 
@@ -303,11 +365,11 @@ namespace elc::defs{
 	using basic_environment::wchar_t_same_as_char16_t;
 
 	using basic_environment::get_exponent;
-	using basic_environment::get_base_num;
 	using basic_environment::get_precision;
-	using basic_environment::get_precision_base;
 	using basic_environment::float_precision_base_t;
+	using basic_environment::get_precision_and_exponent;
 	using basic_environment::make_float;
+	using basic_environment::to_divide;
 
 	#include "../_undefs.hpp"
 }
