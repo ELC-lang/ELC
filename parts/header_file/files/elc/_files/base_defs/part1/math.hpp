@@ -235,8 +235,11 @@ namespace math{
 		if constexpr(basic_float_type<U> && unsigned_type<T>)
 			if(is_negative(x))
 				return (T)(intmax_t)x;
-			else
+			else{
+				push_and_disable_msvc_warning(26467);//x已非负
 				return (T)(uintmax_t)x;
+				pop_msvc_warning();
+			}
 		else
 			return (T)x;
 	}

@@ -44,19 +44,19 @@ namespace overhead_n{
 	constexpr size_t correct_align(size_t align)noexcept{
 		return overhead_get_align(align);
 	}
-	inline pointer correct_pointer(pointer a,size_t align){
+	constexpr inline pointer correct_pointer(pointer a,size_t align)noexcept{
 		return apply_off_set(a,overhead_get_offset_value(align));
 	}
-	inline pointer recorrect_pointer(pointer a,size_t align){
+	constexpr inline pointer recorrect_pointer(pointer a,size_t align)noexcept{
 		return unapply_off_set(a,overhead_get_offset_value(align));
 	}
-	inline const_pointer recorrect_pointer(const_pointer a, size_t align){
+	constexpr inline const_pointer recorrect_pointer(const_pointer a, size_t align)noexcept{
 		return unapply_off_set(a,overhead_get_offset_value(align));
 	}
-	inline void set_overhead(pointer a,size_t size){
+	inline void set_overhead(pointer a,size_t size)noexcept{
 		*reinterpret_cast<size_t*>(a)=size;
 	}
-	inline size_t get_overhead(const_pointer a){
+	inline size_t get_overhead(const_pointer a)noexcept{
 		return*reinterpret_cast<const size_t*>(a);
 	}
 }

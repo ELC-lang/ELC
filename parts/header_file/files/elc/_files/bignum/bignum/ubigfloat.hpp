@@ -135,7 +135,10 @@ public:
 				const auto bitnum_now=get_bitnum(_numerator);
 				const ptrdiff_t diff=bitnum_now-precision_base_bitnum;
 				if(diff>0){
+					const auto rounding=is_rounding_bit(_numerator.bit_at(diff-1));//视情况进位
 					_numerator>>=diff;
+					if(rounding)
+						++_numerator;
 					exp+=diff;
 				}
 			}
@@ -527,6 +530,10 @@ template<unsigned_basic_integer_type T>
 template<unsigned_basic_integer_type T>
 [[nodiscard]]inline ubigfloat pow(T base,bigint exp)noexcept{
 	return pow(ubigint(base),move(exp));
+}
+template<signed_basic_integer_type T>
+[[nodiscard]]inline ubigfloat pow(ubigint base,T exp)noexcept{
+	return pow(move(base),bigint(exp));
 }
 //operator +-*= of ubigint and ubigfloat
 [[nodiscard]]inline ubigfloat operator+(const ubigint& lhs,const ubigfloat& rhs)noexcept{

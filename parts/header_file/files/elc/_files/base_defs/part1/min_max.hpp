@@ -114,7 +114,7 @@ public:
 		[[nodiscard]]constexpr auto operator()(::std::initializer_list<T>l)const noexcept requires able<const T,const T>{
 			auto maxlest=l.begin();
 			for(const auto&i:l){
-				auto v=compare(*maxlest,i);
+				const auto v=compare(*maxlest,i);
 				if(v<0)
 					maxlest=&i;
 			}

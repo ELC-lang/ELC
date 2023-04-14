@@ -738,12 +738,12 @@ public:
 	//friend integer_log
 private:
 	[[nodiscard]]friend size_t integer_log_base(const ubigint& a,ubigint& tester,const ubigint this_lv,const size_t num)noexcept{
-		auto next_lv=this_lv*this_lv;
 		size_t aret=0;
-		if(next_lv<a)
-			aret=log_base(a,tester,next_lv,num*2);
-		else
-			return 0;
+		{
+			auto next_lv=this_lv*this_lv;
+			if(next_lv<a)
+				aret=integer_log_base(a,tester,next_lv,num*2);
+		}
 		floop{
 			auto tmp=tester*this_lv;
 			if(tmp>a)return aret;
@@ -752,11 +752,10 @@ private:
 		}
 	}
 public:
-	[[nodiscard]]friend size_t integer_log(const ubigint& a,const ubigint& b)noexcept{
-		if(a<b)return 0u;
-		if(a==b)return 1u;
+	template<unsigned_integer_type T>
+	[[nodiscard]]friend size_t integer_log(const ubigint& a,const T& b)noexcept{
 		ubigint tester=1u;
-		return log_base(a,tester,b,1u);
+		return integer_log_base(a,tester,b,1u);
 	}
 	//operator<<
 	template<integer_type T>
@@ -1085,6 +1084,13 @@ public:
 			++i;
 		}
 		return aret;
+	}
+	//bit_at
+	[[nodiscard]]bit_type bit_at(size_t n)noexcept{
+		const auto reslut=divmod(n,bitnum_of(base_type));
+		const auto index=reslut.quot;
+		if(index>=_data.size())return false;
+		return _data[index]&(1u<<reslut.mod);
 	}
 	//friend get_bitnum
 	[[nodiscard]]friend size_t get_bitnum(const ubigint& x)noexcept{

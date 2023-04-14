@@ -59,5 +59,10 @@ static void destroy(T*a)noexcept{
 		template_error("Please overload the function the_destroy in the namespace where this type is defined.");
 }
 
+constexpr struct do_nothing_t{
+	template<class...Args>
+	void operator()(Args&&...)noexcept{}
+}do_nothing;
+
 //file_end
 

@@ -34,6 +34,16 @@ namespace elc::defs{
 		/// 每个bit（不是字节）的可能性
 		/// 为什么c艹委员会不定义这个？
 		constexpr size_t BIT_POSSIBILITY=2;
+		typedef bool bit_type;
+		[[nodiscard]]constexpr force_inline bool is_rounding_bit(bit_type v)noexcept{
+			if constexpr(BIT_POSSIBILITY==2)
+				return v;
+			else{
+				push_and_disable_msvc_warning(4804);//？
+				return v>=BIT_POSSIBILITY/2;
+				pop_msvc_warning();
+			}
+		}
 
 		#if defined(__SIZEOF_INT128__)
 			#define ELC_BASE_ENV_HAS_INT128
@@ -341,6 +351,8 @@ namespace elc::defs{
 		}
 	}
 	using basic_environment::BIT_POSSIBILITY;
+	using basic_environment::bit_type;
+	using basic_environment::is_rounding_bit;
 
 	using basic_environment::basic_uintmax_t;
 	using basic_environment::basic_intmax_t;

@@ -72,9 +72,8 @@ namespace to_string_n{
 	private:
 		//基础部分
 		[[nodiscard]]constexpr string build_expression_str(string base,ptrdiff_t exp)const noexcept{
-			//将exp转换为字符串，它可能是负的所以别调用to_string_unsigneded
-			auto exp_str=to_string(exp);
 			if(exp<0){
+				auto exp_str=to_string(exp);
 				//首先计算需要的前置0的个数
 				const auto need_zero=size_t(max.for_type<ptrdiff_t>(0,-exp+1-base.size()));
 				if(need_zero>exp_str.size()){//选取最短表达
@@ -267,7 +266,7 @@ namespace to_string_n{
 			return to_string_base(move(num));
 		}
 		template<float_type T,unsigned_integer_type num_t>
-		[[nodiscard]]inline void apply_info_threshold(num_t&num,ptrdiff_t&exp)const noexcept{
+		[[nodiscard]]inline void apply_info_threshold(num_t&num,ptrdiff_t&exp,const T&check_num)const noexcept{
 			if constexpr(is_basic_type<T>){//若T是基础类型
 				const auto radix=_repres.get_radix();
 				//根据basic_environment::float_infos::precision_base<T>*2*radix计算阈值
@@ -289,13 +288,40 @@ namespace to_string_n{
 						exp+=diff;
 					}
 				}
-				//更新exp并舍入num直到num小于info_threshold_num
-				while(num>info_threshold_num){
-					++exp;
+				//舍入相关
+				const auto rounding_threshold=radix/2;
+				auto rounding=exlambda(bool skip_zeros,auto backup_updater)noexcept{
 					auto result=divmod(move(num),radix);
-					if(result.mod>=radix/2)//舍入
+					if(skip_zeros)//处理多余的0
+						if(!result.mod){
+							backup_updater(assign(num,move(result.quot)),++exp);
+							result=divmod(move(num),radix);
+						}
+					if(result.mod>=rounding_threshold)//舍入
 						++result.quot;
 					num=move(result.quot);
+					++exp;
+				};
+				//更新exp并舍入num直到num小于info_threshold_num
+				while(num>info_threshold_num)
+					rounding(false,do_nothing);
+				//额外的舍入检查为了更精确的处理
+				if(num>info_threshold_base){
+					auto num_backup=num;auto exp_backup=exp;
+					auto backup_updater=exlambda(const auto&new_num,const auto&new_exp)noexcept{
+						num_backup=new_num;exp_backup=new_exp;
+					};
+					floop{
+						//首先进行舍入
+						rounding(true,backup_updater);
+						//然后判断是否需要继续
+						auto tmp_bigfloat=num*pow((ubigint)radix,exp);
+						if(tmp_bigfloat.convert_to<T>()==check_num)
+							backup_updater(num,exp);
+						else
+							break;
+					}
+					num=move(num_backup);exp=move(exp_backup);
 				}
 			}
 		}
@@ -303,22 +329,33 @@ namespace to_string_n{
 		[[nodiscard]]string to_string_base(T num)const noexcept{
 			//首先，猜测分数
 			{
-				const auto divide_info=to_divide(num);
+				auto divide_info=to_divide(num);
 				if(divide_info){
-					if(divide_info.denominator!=1u){//分母不为1：正规分数
-						//呃，这里我们需要稍微处理一下numerator，考虑到其类型是T，而不是什么整数类型
-						//若numerator小于size_t的最大值，那么我们就可以直接转换为size_t
-						//否则，我们就需要转换为ubigint
-						string aret;
-						if(divide_info.numerator<=max(type_info<size_t>))
-							aret=to_string_with_exp(to_size_t(divide_info.numerator));
-						else
-							aret=to_string_with_exp((ubigint)divide_info.numerator);
-						return aret+_repres.get_fractional_separator()+to_string_unsigneded(divide_info.denominator);
+					auto&numerator=divide_info.numerator;
+					auto&denominator=divide_info.denominator;
+					if(denominator!=1u){//分母不为1：正规分数
+						ptrdiff_t exp=0;
+						const auto complete=_repres.get_denominator_complement(denominator,exp);
+						//现在denominator是1？若不是则说明这是一个无限小数
+						//若无限小数，以分数形式输出
+						if(denominator!=1u){
+							//先恢复denominator
+							denominator*=complete;
+							//呃，这里我们需要稍微处理一下numerator，考虑到其类型是T，而不是什么整数类型
+							//若numerator小于size_t的最大值，那么我们就可以直接转换为size_t
+							//否则，我们就需要转换为ubigint
+							string aret;
+							if(numerator<=max(type_info<size_t>))
+								aret=to_string_with_exp(to_size_t(numerator));
+							else
+								aret=to_string_with_exp((ubigint)numerator);
+							return aret+_repres.get_fractional_separator()+to_string_unsigneded(denominator);
+						}
+						//否则我们下落到以小数形式输出
 					}
 					//整数部分可以在这里处理，但是若进入ubigint处理会出现不必要的计算
-					if(divide_info.numerator<=max(type_info<size_t>))
-						return to_string_with_exp(to_size_t(divide_info.numerator));
+					elseif(numerator<=max(type_info<size_t>))
+						return to_string_with_exp(to_size_t(numerator));
 					//所以在下面再处理特大整数的情况
 				}
 			}
@@ -349,9 +386,11 @@ namespace to_string_n{
 					exp=new_exp;
 				}
 				//根据类型需求对number进行截断
-				apply_info_threshold<T>(number,exp);
-				//然后将number转换为字符串就着exp输出
-				return build_expression_str(to_string_unsigneded(number),exp);
+				apply_info_threshold<T>(number,exp,num);
+				//先获取number的字符串
+				auto tmp=to_string_and_add_exp(move(number),exp);
+				//然后就着exp输出
+				return build_expression_str(tmp,exp);
 			}
 			else{
 				//可惜没有额外的优化
@@ -380,7 +419,7 @@ namespace to_string_n{
 				return _repres.get_char(0);
 			auto& denominator=get_denominator_as_ref(num);
 			if(denominator==1u)
-				return to_string(move(numerator));
+				return to_string_with_exp(move(numerator));
 			const auto radix=_repres.get_radix();
 			{
 				auto denominator_backup=denominator;//备份denominator用于在发现此为无限小数时继续输出（省去还原计算）
@@ -399,15 +438,15 @@ namespace to_string_n{
 				//若无限小数，以分数形式输出
 				if(denominator!=1){
 					auto fractional_separator=_repres.get_fractional_separator();
-					swap(denominator_backup,denominator);
-					clear_backup();
+					denominator=move(denominator_backup);
+					clear_backup();//考虑到右值赋值的实现很可能是swap，这个调用是有意义的
 					return to_string(move(numerator))+fractional_separator+to_string(move(denominator));
 				}
 				clear_backup();
 				numerator*=complete;
 			}
 			//根据类型需求对numerator进行截断
-			apply_info_threshold<T>(numerator,exp);
+			apply_info_threshold<T>(numerator,exp,num);
 			//先获取numerator的字符串
 			auto tmp=to_string_and_add_exp(move(numerator),exp);
 			//然后就着exp输出
@@ -481,11 +520,6 @@ namespace to_string_n{
 			else
 				return from_string_get_base<ubigfloat>(str,state);
 		}
-	public:
-		template<class T> requires(type_info<T> == type_info<ubigfloat>)
-		[[nodiscard]]ubigfloat from_string_get(const string&str,convert_state_t&state)const noexcept{
-			return from_string_get_unsigneded<ubigfloat>(str,state);
-		}
 		//floats
 	private:
 		template<basic_float_type T>
@@ -530,7 +564,7 @@ namespace to_string_n{
 			if constexpr(::std::numeric_limits<T>::has_infinity)
 				if(str==_repres.get_inf())
 					return ::std::numeric_limits<T>::infinity();
-			//由于基本类型的浮点数转换实现有损，所以这里直接转换为ubigfloat再转换为T
+			//由于基本类型的浮点数转换实现有损，所以这里直接转换为ubigfloat再转换为T：安全、大范围、稳健（尽管速度慢）
 			return from_string_get_base<ubigfloat>(move(str),state).convert_to<T>();
 		}
 	public:

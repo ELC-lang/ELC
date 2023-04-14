@@ -57,10 +57,11 @@ protected:
 	[[nodiscard]]virtual array_like_view_t<const size_t>get_unique_prime_factorization_table_of_radix()const noexcept=0;
 public:
 	//根据分母部分获取弥补分母到radix的幂的乘数并返回，若是有限小数将分母部分置1并递增exp值
-	[[nodiscard]]ubigint get_denominator_complement(ubigint&denominator,ptrdiff_t&exp)const noexcept{
+	template<unsigned_integer_type T>
+	[[nodiscard]]T get_denominator_complement(T&denominator,ptrdiff_t&exp)const noexcept{
 		const auto table=get_unique_prime_factorization_table_of_radix();
 		const auto radix=get_radix();
-		ubigint aret=1u;
+		T aret=1u;
 		for(const auto i:table){
 			const auto i_complement=radix/i;
 			auto result=divmod(denominator,i);
