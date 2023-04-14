@@ -233,7 +233,10 @@ namespace math{
 	template<arithmetic_type T,arithmetic_type U>
 	[[nodiscard]]force_inline constexpr T safe_arithmetic_cast(U x)noexcept{
 		if constexpr(basic_float_type<U> && unsigned_type<T>)
-			return (T)(intmax_t)x;
+			if(is_negative(x))
+				return (T)(intmax_t)x;
+			else
+				return (T)(uintmax_t)x;
 		else
 			return (T)x;
 	}
