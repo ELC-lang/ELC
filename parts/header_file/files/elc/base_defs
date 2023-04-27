@@ -46,6 +46,9 @@
 	#if __has_include(<stdfloat>)
 		#include <stdfloat>
 	#endif
+	#if __has_include(<intrin.h>)
+		#include <intrin.h>
+	#endif
 	#if defined(__clang__)||defined(__GNUC__)
 		#include <cxxabi.h>
 	#endif

@@ -49,7 +49,7 @@ public:
 	ubigint(const zero_t&)noexcept:ubigint(){}
 	template<unsigned_basic_integer_type T>
 	ubigint(T value)noexcept{
-		constexpr auto size = sizeof(T)/sizeof(base_type)+((sizeof(T)%sizeof(base_type))?1:0);
+		constexpr auto size = ceil_div(sizeof(T),sizeof(base_type));
 		_data.resize(size);
 		auto i=_data.begin();
 		while(value){
@@ -259,21 +259,10 @@ private:
 		const auto end_size = b.size();
 		auto other_begin = b.begin();
 
-		for(size_t i=0;i<end_size;++i){
-			calc_type result = calc_type(*buf)+calc_type(*other_begin)+calc_type(is_overflows);
-			is_overflows = static_cast<bool>(result>>bitnum_of(base_type));
-			*buf = base_type(result);
-
-			++buf;
-			++other_begin;
-		}
-		while(is_overflows){
-			calc_type result = calc_type(*buf)+calc_type(is_overflows);
-			is_overflows = static_cast<bool>(result>>bitnum_of(base_type));
-			*buf = base_type(result);
-
-			++buf;
-		}
+		for(size_t i=0;i<end_size;++i)
+			*buf++ = add_carry(*buf,*other_begin++,is_overflows);
+		while(is_overflows)
+			*buf++ = add_carry(*buf,is_overflows);
 	}
 	static void add_to_base(base_type*buf,const data_type&b)noexcept{
 		add_to_base(buf,get_data_view_of_data(b));
@@ -286,23 +275,20 @@ private:
 		calc_t tmp=num;
 		base_type*intr=buf.begin();
 		const auto end=buf.end();
-		bool is_overflows = false;
+		bool is_overflows = 0;
 		while(intr!=end && tmp){
-			calc_t result = calc_t(*intr)+tmp+calc_t(is_overflows);
-			is_overflows = result <= tmp;
-			tmp = result>>bitnum_of(base_type);
-			*intr=base_type(result);
-			++intr;
+			tmp=add_carry(calc_t(*intr),tmp,is_overflows);
+			*intr++=base_type(tmp);
+			tmp>>=bitnum_of(base_type);
 		}
 		if(tmp){
 			{
 				const auto intr_pos=intr-buf.begin();
-				buf.resize(buf.size()+sizeof(tmp));
+				buf.resize(buf.size()+ceil_div(sizeof(tmp),sizeof(base_type)));
 				intr=buf.begin()+intr_pos;
 			}
 			while(tmp){
-				*intr=base_type(tmp)+calc_t(is_overflows);
-				is_overflows = is_overflows && *intr==0;
+				*intr=add_carry(base_type(tmp),is_overflows);
 				tmp>>=bitnum_of(base_type);
 				++intr;
 			}
@@ -354,27 +340,10 @@ private:
 		const auto end_size = b.size();
 		auto other_begin = b.begin();
 
-		for(size_t i=0;i<end_size;++i){
-			auto t_a=calc_type(*buf);
-			auto t_b=calc_type(*other_begin)+calc_type(is_overflows);
-			is_overflows=t_a<t_b;
-			if(is_overflows)
-				t_a+=base_type_mod;
-			*buf = base_type(t_a-t_b);
-
-			++other_begin;
-			++buf;
-		}
-		while(is_overflows){
-			auto t_a=calc_type(*buf);
-			auto t_b=calc_type(is_overflows);
-			is_overflows=!t_a;
-			if(is_overflows)
-				t_a+=base_type_mod;
-			*buf = base_type(t_a-t_b);
-
-			++buf;
-		}
+		for(size_t i=0;i<end_size;++i)
+			*buf++ = sub_borrow(*buf,*other_begin++,is_overflows);
+		while(is_overflows)
+			*buf++ = sub_borrow(*buf,is_overflows);
 	}
 	static void sub_with_base(base_type*buf,const data_type&b)noexcept{
 		sub_with_base(buf,get_data_view_of_data(b));

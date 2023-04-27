@@ -28,7 +28,7 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 namespace elc::defs{
-	#include "../_defs.hpp"
+	#include "_defs.hpp"
 
 	namespace basic_environment{
 		/// 每个bit（不是字节）的可能性
@@ -182,6 +182,8 @@ namespace elc::defs{
 		inline constexpr bool wchar_t_same_as_char_t=sizeof(wchar_t)==sizeof(char_t);
 		//判断wchar_t是否和char16_t相同
 		inline constexpr bool wchar_t_same_as_char16_t=sizeof(wchar_t)==sizeof(char16_t);
+
+		#include "add_sub_carry.hpp"
 
 		#include "float_info.hpp"
 		namespace float_infos{
@@ -376,6 +378,9 @@ namespace elc::defs{
 	using basic_environment::wchar_t_same_as_char_t;
 	using basic_environment::wchar_t_same_as_char16_t;
 
+	using basic_environment::add_carry;
+	using basic_environment::sub_borrow;
+
 	using basic_environment::get_exponent;
 	using basic_environment::get_precision;
 	using basic_environment::float_precision_base_t;
@@ -383,7 +388,7 @@ namespace elc::defs{
 	using basic_environment::make_float;
 	using basic_environment::to_divide;
 
-	#include "../_undefs.hpp"
+	#include "_undefs.hpp"
 }
 
 //file_end

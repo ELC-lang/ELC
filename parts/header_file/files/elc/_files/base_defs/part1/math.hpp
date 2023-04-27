@@ -288,6 +288,12 @@ namespace math{
 		else
 			return divmod_result{a/b,a%b};
 	}
+	//ceil_div
+	template<arithmetic_type T,arithmetic_type U>
+	[[nodiscard]]force_inline constexpr auto ceil_div(const T&a,const U&b)noexcept{
+		const auto info=divmod(a,b);
+		return info.quot+(info.mod?1u:0u);
+	}
 
 	/*! 设置浮点舍入 */
 	template<typename T>
@@ -913,6 +919,7 @@ using math::mod;
 using math::is_odd;
 using math::is_even;
 using math::divmod;
+using math::ceil_div;
 using math::set_rounding;
 using math::get_rounding;
 using math::rounding_auto_setter;
