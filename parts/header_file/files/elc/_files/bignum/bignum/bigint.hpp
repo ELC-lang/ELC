@@ -105,26 +105,40 @@ public:
 		return tmp;
 	}
 public:
-	template<typename T> requires basic_integer_type<T>
+	template<arithmetic_type T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
-		constexpr auto min_value=min(type_info<T>);
-		constexpr auto max_value=max(type_info<T>);
-		if constexpr(min_value)
-			if(*this<min_value)
-				return false;
-		if(*this>max_value)
-			return false;
+		if constexpr(type_info<T>!=type_info<bigint>){
+			if constexpr(has_min<T>){
+				constexpr auto min_value=min(type_info<T>);
+				if(min_value)
+					if(*this<min_value)
+						return false;
+			}
+			if constexpr(has_max<T>){
+				constexpr auto max_value=max(type_info<T>);
+				if(*this>max_value)
+					return false;
+			}
+		}
 		return true;
 	}
-	template<typename T> requires basic_integer_type<T>
+	template<arithmetic_type T>
 	[[nodiscard]]T convert_to()const noexcept{
 		if constexpr(signed_type<T>){
-			typedef to_unsigned_t<T> UT;
-			UT tmp=_num.convert_to<UT>();
-			return _is_negative?-(T)tmp:(T)tmp;
+			using math::copy_as_negative;//貌似msvc在这里有bug
+			return copy_as_negative(move(_num).convert_to<to_unsigned_t<T>>(),_is_negative);
 		}
 		else
 			return _num.convert_to<T>();
+	}
+	//explicit operator T
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()&&noexcept{
+		return move(*this).convert_to<T>();
+	}
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()const&noexcept{
+		return convert_to<T>();
 	}
 public:
 	[[nodiscard]]bigint operator-()const&noexcept{

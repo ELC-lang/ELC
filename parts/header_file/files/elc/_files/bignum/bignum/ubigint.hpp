@@ -38,6 +38,8 @@ public:
 private:
 	typedef array_t<base_type> data_type;
 	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
+	template<unsigned_basic_integer_type T>
+	constexpr static size_t base_type_size_of=ceil_div(sizeof(T),sizeof(base_type));
 	data_type _data;
 
 	explicit ubigint(const data_type&data)noexcept:_data(data){}
@@ -47,14 +49,24 @@ public:
 	ubigint(const ubigint&)noexcept = default;
 	ubigint(ubigint&&)noexcept = default;
 	ubigint(const zero_t&)noexcept:ubigint(){}
+	ubigint& operator=(const ubigint&)&noexcept = default;
+	ubigint& operator=(ubigint&&)&noexcept = default;
+	ubigint& operator=(const zero_t&)noexcept{
+		_data.clear();
+		return*this;
+	}
+
+	~ubigint() = default;
+public:
 	template<unsigned_basic_integer_type T>
 	ubigint(T value)noexcept{
-		constexpr auto size = ceil_div(sizeof(T),sizeof(base_type));
+		constexpr auto size = base_type_size_of<T>;
 		_data.resize(size);
 		auto i=_data.begin();
 		while(value){
-			*i=base_type(value%base_type_mod);
-			value=T(value/base_type_mod);
+			const auto info=divmod(value,base_type_mod);
+			*i=base_type(info.mod);
+			value=T(info.quot);
 			i++;
 		}
 		const auto used_size=i-_data.begin();
@@ -69,37 +81,49 @@ public:
 		*this=ubigint(info.precision);
 		*this<<=info.exponent;
 	}
-	template<typename T> requires(unsigned_integer_type<T>)
+public:
+	template<arithmetic_type T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
-		constexpr auto min_value=min(type_info<T>);
-		constexpr auto max_value=max(type_info<T>);
-		if constexpr(min_value)
-			if(*this<min_value)
-				return false;
-		if(*this>max_value)
-			return false;
+		if constexpr(type_info<T>!=type_info<ubigint>){
+			if constexpr(has_min<T>){
+				constexpr auto min_value=min(type_info<T>);
+				if(min_value)
+					if(*this<min_value)
+						return false;
+			}
+			if constexpr(has_max<T>){
+				constexpr auto max_value=max(type_info<T>);
+				if(*this>max_value)
+					return false;
+			}
+		}
 		return true;
 	}
-	template<typename T> requires(unsigned_integer_type<T>)
+	template<arithmetic_type T>
 	[[nodiscard]]T convert_to()const noexcept{
-		T value=0;
-		auto i=_data.rbegin();
-		while(i!=_data.rend()){
-			value=T(value*base_type_mod);
-			value+=*i++;
+		if constexpr(type_info<T>!=type_info<ubigint>){
+			T value=0;
+			auto i=_data.rbegin();
+			while(i!=_data.rend()){
+				value=T(value*base_type_mod);
+				value+=*i++;
+			}
+			return value;
 		}
-		return value;
+		else
+			return *this;
 	}
 
-	ubigint& operator=(const ubigint&)&noexcept = default;
-	ubigint& operator=(ubigint&&)&noexcept = default;
-	ubigint& operator=(const zero_t&)noexcept{
-		_data.clear();
-		return*this;
+	//explicit operator T
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()&&noexcept{
+		return move(*this).convert_to<T>();
 	}
-
-	~ubigint() = default;
-
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()const&noexcept{
+		return convert_to<T>();
+	}
+public:
 	//rand所需
 	friend void apply_basetype_to_head(ubigint&x,base_type value)noexcept{
 		x._data.push_back(value);
@@ -190,8 +214,8 @@ public:
 			return *this<=>to_unsigned_t<T>(other);
 		}else{
 			if constexpr(is_basic_type<T>)
-				if(_data.size_in_byte()>sizeof(T)+sizeof(base_type))//根据位数快速判断大小
-					return strong_ordering::greater;
+				if(auto tmp=_data.size()<=>base_type_size_of<T>;tmp!=0)//根据位数快速判断大小
+					return tmp;
 			auto i=_data.begin();
 			const auto end=_data.end();
 			while(i!=end){

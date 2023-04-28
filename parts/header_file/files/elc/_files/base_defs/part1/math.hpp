@@ -661,7 +661,7 @@ namespace math{
 			[[nodiscard]]constexpr container_t to()const noexcept{
 				container_t aret{};
 				//思路：获取小于等于m的所有素数，依次除以m，若能整除则将素数加入结果，否则跳过，直到m为1.
-				T i=T{2},m=abs(_m);
+				T i=T{2u},m=abs(_m);
 				while(m!=1){
 					while(!(m%i)){
 						aret.push_back(i);
@@ -688,7 +688,7 @@ namespace math{
 				[[nodiscard]]constexpr container_t to()const noexcept{
 					container_t aret{};
 					//思路：获取小于等于m的所有素数，依次除以m，若能整除则将素数加入结果，否则跳过，直到m为1.
-					T i=T{2},m=abs(_m);
+					T i=T{2u},m=abs(_m);
 					while(m!=1){
 						if(!(m%i)){
 							aret.push_back(i);
@@ -711,7 +711,7 @@ namespace math{
 				return unique_t{_m};
 			}
 		};
-		template<class T> requires ::std::is_arithmetic_v<T>
+		template<arithmetic_type T>
 		[[nodiscard]]constexpr force_inline auto operator()(T m)const noexcept{
 			return result_t<T>{m};
 		}

@@ -49,31 +49,39 @@ public:
 	bigfloat(const ubigint& other)noexcept:_num(other){}
 	bigfloat(ubigint&& other)noexcept:_num(move(other)){}
 
-	template<typename T> requires ::std::is_arithmetic_v<T>
+	template<arithmetic_type T>
 	bigfloat(T num)noexcept:_num(abs(num)),_is_negative(is_negative(num)){}
 public:
-	template<typename T> requires ::std::is_arithmetic_v<T>
+	template<arithmetic_type T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
-		constexpr auto min_value=min(type_info<T>);
-		constexpr auto max_value=max(type_info<T>);
-		if constexpr(min_value)
-			if(*this<min_value)
-				return false;
-		if(*this>max_value)
-			return false;
-		if constexpr(integer_type<T>)
-			if(trunc(*this)!=*this)
-				return false;
-		return true;
+		return _num.is_safe_convert_to<to_unsigned_t<T>>();
 	}
-	template<typename T> requires ::std::is_arithmetic_v<T>
-	[[nodiscard]]T convert_to()const noexcept{
-		if constexpr(unsigned_type<T>)
-			return _num.convert_to<T>();
-		else{
+	template<arithmetic_type T>
+	[[nodiscard]]T convert_to()&&noexcept{
+		if constexpr(signed_type<T>){
+			using math::copy_as_negative;//貌似msvc在这里有bug
+			return copy_as_negative(move(_num).convert_to<to_unsigned_t<T>>(),_is_negative);
+		}
+		else
+			return move(_num).convert_to<T>();
+	}
+	template<arithmetic_type T>
+	[[nodiscard]]T convert_to()const&noexcept{
+		if constexpr(signed_type<T>){
 			using math::copy_as_negative;//貌似msvc在这里有bug
 			return copy_as_negative(_num.convert_to<to_unsigned_t<T>>(),_is_negative);
 		}
+		else
+			return _num.convert_to<T>();
+	}
+	//explicit operator T
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()&&noexcept{
+		return move(*this).convert_to<T>();
+	}
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()const&noexcept{
+		return convert_to<T>();
 	}
 private:
 	bigfloat(ubigfloat&& number, bool is_negative)noexcept:

@@ -151,7 +151,7 @@ elc依赖的基础函数.
 				}
 			};
 		#endif
-		
+
 		#if defined(ELC_USING_OVERHEADED_ALLOC)
 			template<class base_operators>
 			struct overheaded_operators_provider_t{

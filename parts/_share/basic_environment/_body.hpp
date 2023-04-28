@@ -266,6 +266,9 @@ namespace elc::defs{
 			const auto exponent=get_exponent(v);
 			return precision_and_exponent_t{precision,exponent};
 		}
+		//阈值
+		template<basic_float_type T>
+		constexpr auto threshold_precision_bit=float_infos::precision_base_bit<T>+1;
 		//自基数和指数构造浮点数
 		//num=base_num*2^exponent
 		template<basic_float_type T>
@@ -276,7 +279,7 @@ namespace elc::defs{
 			//需要注意的是，这里的基数是包含1的，所以转换目标是base_num>>precision_base_bit为1
 			{
 				const auto tmp=countl_zero(base_num);
-				constexpr auto need_shift=bitnum_of(base_num)-precision_base_bit<T>-1;
+				constexpr auto need_shift=bitnum_of(base_num)-threshold_precision_bit<T>;
 				const ptrdiff_t shift=tmp-need_shift;
 				if(shift>0){
 					base_num<<=shift;

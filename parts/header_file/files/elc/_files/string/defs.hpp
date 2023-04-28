@@ -435,14 +435,14 @@ namespace string_n{
 		[[nodiscard]]const floating_arec_t operator[](float_t index)const noexcept requires floating_arec_able{ return{remove_const(this),index}; }
 
 		//泛型arec.
-		template<typename T> requires ::std::is_arithmetic_v<T>
+		template<arithmetic_type T>
 		[[nodiscard]]auto operator[](T index)noexcept{
 			if constexpr(float_type<T>)
 				return operator[](static_cast<float_t>(index));
 			else
 				return operator[](static_cast<size_t>(index));
 		}
-		template<typename T> requires ::std::is_arithmetic_v<T>
+		template<arithmetic_type T>
 		[[nodiscard]]const auto operator[](T index)const noexcept{
 			if constexpr(float_type<T>)
 				return operator[](static_cast<float_t>(index));

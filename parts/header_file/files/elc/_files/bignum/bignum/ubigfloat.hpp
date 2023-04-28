@@ -77,28 +77,34 @@ public:
 		simplify();
 	}
 public:
-	template<typename T> requires ::std::is_arithmetic_v<T>
+	template<arithmetic_type T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
-		constexpr auto min_value=min(type_info<T>);
-		constexpr auto max_value=max(type_info<T>);
-		if constexpr(min_value)
-			if(*this<min_value)
-				return false;
-		if(*this>max_value)
-			return false;
+		if constexpr(type_info<T>!=type_info<ubigfloat>){
+			if constexpr(has_min<T>){
+				constexpr auto min_value=min(type_info<T>);
+				if(min_value)
+					if(*this<min_value)
+						return false;
+			}
+			if constexpr(has_max<T>){
+				constexpr auto max_value=max(type_info<T>);
+				if(*this>max_value)
+					return false;
+			}
+		}
 		if constexpr(integer_type<T>)
 			if(_numerator%_denominator)
 				return false;
 		return true;
 	}
-	template<typename T> requires ::std::is_arithmetic_v<T>
+	template<arithmetic_type T>
 	[[nodiscard]]T convert_to()&&noexcept{//只对于右值，便于编写。
 		//左值版本只需要创建一个临时变量，然后调用右值版本即可。
-		if constexpr(basic_integer_type<T>)
-			return trunc(*this).convert_to<T>();
-		else{//浮点数
+		if constexpr(integer_type<T>)
+			return trunc(move(*this)).convert_to<T>();
+		elseif constexpr(type_info<T>!=type_info<ubigfloat>){//浮点数
 			if(!_denominator)
-				if constexpr(::std::numeric_limits<T>::has_infinity)
+				if constexpr(has_inf<T>)
 					return ::std::numeric_limits<T>::infinity();
 				else
 					return ::std::numeric_limits<T>::max();
@@ -133,7 +139,7 @@ public:
 			{
 				//对多余的精度进行舍入，仍然，这是可能有损的
 				const auto bitnum_now=get_bitnum(_numerator);
-				const ptrdiff_t diff=bitnum_now-precision_base_bitnum;
+				const ptrdiff_t diff=bitnum_now-basic_environment::threshold_precision_bit<T>;
 				if(diff>0){
 					const auto rounding=is_rounding_bit(_numerator.bit_at(diff-1));//视情况进位
 					_numerator>>=diff;
@@ -152,13 +158,24 @@ public:
 				return make_float<T>(num,exp);
 			}
 		}
+		else
+			return move(*this);
 	}
-	template<typename T> requires ::std::is_arithmetic_v<T>
+	template<arithmetic_type T>
 	[[nodiscard]]T convert_to()const&noexcept{
-		if constexpr(basic_integer_type<T>)
+		if constexpr(integer_type<T>)
 			return trunc(*this).convert_to<T>();
 		else
 			return ubigfloat(*this).convert_to<T>();
+	}
+	//explicit operator T
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()&&noexcept{
+		return move(*this).convert_to<T>();
+	}
+	template<arithmetic_type T>
+	[[nodiscard]]explicit operator T()const&noexcept{
+		return convert_to<T>();
 	}
 private:
 	ubigfloat(ubigint&& numerator, ubigint&& denominator)noexcept:
@@ -217,14 +234,23 @@ public:
 	[[nodiscard]]friend ubigint trunc(const ubigfloat& a)noexcept{
 		return a._numerator/a._denominator;
 	}
+	[[nodiscard]]friend ubigint trunc(ubigfloat&& a)noexcept{
+		return move(a._numerator)/move(a._denominator);
+	}
 	//friend split
+	template<class=void>
+	struct split_result_t_base{
+		ubigint integer;
+		ubigfloat fraction;
+	};
+	typedef split_result_t_base<> split_result_t;
 	[[nodiscard]]friend auto split(const ubigfloat& a)noexcept{
-		struct result_t{
-			ubigint integer;
-			ubigfloat fraction;
-		};
 		const auto result=divmod(a._numerator,a._denominator);
-		return result_t{result.quot,ubigfloat{result.mod,a._denominator}};
+		return split_result_t{move(result.quot),ubigfloat{move(result.mod),a._denominator}};
+	}
+	[[nodiscard]]friend auto split(ubigfloat&& a)noexcept{
+		const auto result=divmod(move(a._numerator),a._denominator);
+		return split_result_t{move(result.quot),ubigfloat{move(result.mod),move(a._denominator)}};
 	}
 	//friend trunc_with_sub
 	[[nodiscard]]friend ubigint trunc_with_sub(ubigfloat& a)noexcept{
@@ -235,6 +261,9 @@ public:
 	//friend to_size_t
 	[[nodiscard]]friend size_t to_size_t(const ubigfloat& a)noexcept{
 		return to_size_t(trunc(a));
+	}
+	[[nodiscard]]friend size_t to_size_t(ubigfloat&& a)noexcept{
+		return to_size_t(trunc(move(a)));
 	}
 	//operator+
 	[[nodiscard]]ubigfloat operator+(const ubigfloat& other)const&noexcept{
