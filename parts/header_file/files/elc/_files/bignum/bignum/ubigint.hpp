@@ -280,6 +280,23 @@ private:
 			shrink_to_fit(tmp);
 		return tmp;
 	}
+	static void add_to_base(data_type&a,data_view_type b)noexcept{
+		const auto this_view = get_data_view_of_data(a);
+		const auto&other_view = b;
+		const auto origin_size = this_view.size();
+		const auto new_size = get_safety_add_buf_size_with_not_compared_buf(this_view,other_view);
+		const auto size_diff = new_size - origin_size;
+		if(size_diff){
+			a.resize(new_size);
+			copy_assign[size_diff](base_type{0},note::to(a.data()+origin_size));
+		}
+		add_to_base(a.data(),other_view);
+		if(size_diff)
+			shrink_to_fit(a);
+	}
+	static void add_to_base(data_type&a,const data_type&b)noexcept{
+		add_to_base(a,get_data_view_of_data(b));
+	}
 	static void add_to_base(base_type*buf,data_view_type b)noexcept{
 		bool is_overflows = 0;
 		const auto end_size = b.size();
@@ -783,18 +800,7 @@ public:
 	//operator+=
 	ubigint& operator+=(const ubigint& other)&noexcept{
 		//using add_to_base to avoid new alloc
-		const auto this_view = get_data_view();
-		const auto other_view = other.get_data_view();
-		const auto origin_size = this_view.size();
-		const auto new_size = get_safety_add_buf_size_with_not_compared_buf(this_view,other_view);
-		const auto size_diff = new_size - origin_size;
-		if(size_diff){
-			_data.resize(new_size);
-			copy_assign[size_diff](base_type{0},note::to(_data.data()+origin_size));
-		}
-		add_to_base(_data.data(),other_view);
-		if(size_diff)
-			shrink_to_fit();
+		add_to_base(_data,other._data);
 		return*this;
 	}
 	template<unsigned_basic_integer_type T>
