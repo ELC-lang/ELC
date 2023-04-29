@@ -173,14 +173,14 @@ namespace function_n{
 
 	template<class T>
 	struct is_function_t_helper{
-		constexpr static bool value = false;
+		static constexpr bool value = false;
 	};
 	template<class T, bool promise_nothrow_at_destruct>
 	struct is_function_t_helper<base_function_t<T, promise_nothrow_at_destruct>> {
-		constexpr static bool value = true;
+		static constexpr bool value = true;
 	};
 	template<class T>
-	constexpr static bool is_function_t = is_function_t_helper<T>::value;
+	static constexpr bool is_function_t = is_function_t_helper<T>::value;
 	#if !defined(_MSC_VER)
 	template<class Ret_t,class...Args_t,bool nothrow,bool promise_nothrow_at_destruct>
 	struct base_function_t<Ret_t(Args_t...)noexcept(nothrow),promise_nothrow_at_destruct>:function_data_saver_t<Ret_t(Args_t...)>{

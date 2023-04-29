@@ -147,7 +147,7 @@ namespace array_like_n{
 		typedef array_like_view_t<T>base_t;
 		using base_t::base_t;
 
-		[[nodiscard]]constexpr static size_t get_length_of(T*ptr)noexcept{
+		[[nodiscard]]static constexpr size_t get_length_of(T*ptr)noexcept{
 			if(*ptr)return get_length_of(ptr+1)+1;
 			else return 0;
 		}

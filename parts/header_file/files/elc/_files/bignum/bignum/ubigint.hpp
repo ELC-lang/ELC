@@ -37,9 +37,12 @@ public:
 	#endif
 private:
 	typedef array_t<base_type> data_type;
-	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
+	typedef array_like_view_t<const base_type> data_view_type;
+
 	template<unsigned_basic_integer_type T>
-	constexpr static size_t base_type_size_of=ceil_div(sizeof(T),sizeof(base_type));
+	static constexpr size_t base_type_size_of=ceil_div(sizeof(T),sizeof(base_type));
+	static constexpr auto base_type_mod=number_of_possible_values_per<base_type>;
+
 	data_type _data;
 
 	explicit ubigint(const data_type&data)noexcept:_data(data){}
@@ -129,7 +132,6 @@ public:
 		x._data.push_back(value);
 	}
 private:
-	typedef array_like_view_t<const base_type> data_view_type;
 	static void shrink_to_fit(data_type&a)noexcept{
 		auto size=a.size();
 		while(size--)
