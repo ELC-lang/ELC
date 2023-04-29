@@ -54,7 +54,7 @@ struct cons:node_like,instance_struct<cons>{
 
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<cons>;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
+	[[nodiscard]]virtual logical_bool was_equal_with(const_ptr a)const noexcept override{
 		if(a->get_type_info() != this->get_type_info())
 			return false;
 		const this_t*p=down_cast<const this_t*>(a.get());

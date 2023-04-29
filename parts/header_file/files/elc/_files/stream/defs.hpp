@@ -231,7 +231,7 @@ namespace base_streams_impl_n{
 		noexcept_text_istream_t<char_t>*_base;
 	public:
 		handle_istream_impl(handle_type handle)noexcept{
-			using defs::get;//貌似msvc在这里有bug
+			using defs::get;//避免流的get函数覆盖defs::get
 			if(handle.is_terminal())
 				_base=get<terminal_irefstream_impl>(handle);
 			else

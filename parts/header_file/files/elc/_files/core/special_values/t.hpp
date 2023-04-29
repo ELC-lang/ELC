@@ -31,7 +31,7 @@
 distinctive inline struct t_t final:base_constexpr_t{
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<t_t>;}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{return logical_bool(a);}
+	[[nodiscard]]virtual logical_bool was_equal_with(const_ptr a)const noexcept override{return logical_bool(a);}
 public:
 	[[nodiscard]]virtual constexpr explicit operator hash_t()const noexcept override{return hash(true);}
 	[[nodiscard]]virtual constexpr explicit operator logical_bool()const noexcept override{return true;}

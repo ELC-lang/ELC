@@ -42,8 +42,8 @@ public:
 	[[nodiscard]]virtual value be_eval();
 	[[nodiscard]]virtual value be_call(ptr);
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr)const noexcept=0;
-	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const noexcept{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
+	[[nodiscard]]virtual logical_bool was_equal_with(const_ptr)const noexcept=0;
+	[[nodiscard]]virtual logical_bool was_eq_with(const_ptr a)const noexcept{return a.get()==this;}//不是a==this：ptr的opertaor==将调用在下方定义的pointer_equal，这会通过eq间接调用eq_with
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept{return 36;}
 	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept{return 36;}
 public:
@@ -75,31 +75,31 @@ public:
 	template<typename...Args>
 	inline value operator()(Args&&...rest){return this->be_call(make_list(forward<Args>(rest)...));}
 
-	[[nodiscard]]logical_bool eq(const_ptr a)const noexcept{
+	[[nodiscard]]logical_bool eq_with(const_ptr a)const noexcept{
 		const auto this_eqlv = this->eq_level();
 		const auto arg_eqlv	 = a->eq_level();
 		if(this_eqlv _small_than_ arg_eqlv)
-			return a->eq_with(this);
+			return a->was_eq_with(this);
 		elseif(this_eqlv _big_than_ arg_eqlv)
-			return this->eq_with(a);
+			return this->was_eq_with(a);
 		else
-			return this->eq_with(a)&&a->eq_with(this);
+			return this->was_eq_with(a)&&a->was_eq_with(this);
 	}
-	[[nodiscard]]logical_bool equal(const_ptr a)const noexcept{
+	[[nodiscard]]logical_bool equal_with(const_ptr a)const noexcept{
 		const auto this_equlv = this->equal_level();
 		const auto arg_equlv  = a->equal_level();
 		if(this_equlv _small_than_ arg_equlv)
-			return a->equal_with(this);
+			return a->was_equal_with(this);
 		elseif(this_equlv _big_than_ arg_equlv)
-			return this->equal_with(a);
+			return this->was_equal_with(a);
 		else
-			return this->equal_with(a)&&a->equal_with(this);
+			return this->was_equal_with(a)&&a->was_equal_with(this);
 	}
 
 	[[nodiscard]]ptr operator&()noexcept{return this;}
 	[[nodiscard]]const_ptr operator&()const noexcept{return this;}
 	[[nodiscard]]logical_bool operator==(const this_t&a)const noexcept{
-		return a.equal(this);
+		return a.equal_with(this);
 	}
 protected:
 	friend void the_waiting_for_destroy(node_like* a)noexcept;
@@ -112,7 +112,7 @@ protected:
 	return a->operator logical_bool();
 }
 [[nodiscard]]inline logical_bool the_pointer_equal(const node_like*a,const node_like*b)noexcept{
-	return a->eq(b);
+	return a->eq_with(b);
 }
 [[nodiscard]]inline hash_t the_pointer_hash(const node_like*a)noexcept{
 	return a->operator hash_t();

@@ -37,7 +37,7 @@ distinctive inline struct void_t final:base_constexpr_t{
 protected:
 	[[nodiscard]]virtual constexpr size_t equal_level()const noexcept override{return max(type_info<size_t>);}
 	[[nodiscard]]virtual constexpr size_t eq_level()const noexcept override{return max(type_info<size_t>);}
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
+	[[nodiscard]]virtual logical_bool was_equal_with(const_ptr a)const noexcept override{
 		if(this==a)
 			return either;//当void是void时，void不是void
 		else

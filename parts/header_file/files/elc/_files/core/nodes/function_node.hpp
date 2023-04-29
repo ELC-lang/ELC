@@ -37,7 +37,7 @@ struct function_node:common_node,instance_struct<function_node>{
 	[[nodiscard]]virtual base_type_info_t get_type_info()const noexcept override{return type_info<this_t>;}
 	[[nodiscard]]virtual value be_call(ptr arg_list)override{return _func(arg_list);}
 protected:
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
+	[[nodiscard]]virtual logical_bool was_equal_with(const_ptr a)const noexcept override{
 
 	}
 };

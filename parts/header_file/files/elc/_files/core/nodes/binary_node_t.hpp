@@ -70,8 +70,7 @@ public:
 protected:
 	[[noreturn]] virtual void throw_self_ptr()const override{throw&_m;}
 	[[noreturn]] virtual void throw_self_ptr()override{throw&_m;}
-	[[nodiscard]]virtual logical_bool eq_with(const_ptr a)const noexcept override{
-		using defs::equal;//貌似msvc在这里有bug
+	[[nodiscard]]virtual logical_bool was_eq_with(const_ptr a)const noexcept override{
 		if constexpr(equal.able<T>){
 			if(a->get_type_info() != this->get_type_info())
 				return false;
@@ -82,10 +81,10 @@ protected:
 			return _m==p->_m;
 		}
 		else
-			return node_like::eq_with(a);
+			return node_like::was_eq_with(a);
 	}
-	[[nodiscard]]virtual logical_bool equal_with(const_ptr a)const noexcept override{
-		return eq_with(a);
+	[[nodiscard]]virtual logical_bool was_equal_with(const_ptr a)const noexcept override{
+		return was_eq_with(a);
 	}
 private:
 	static constexpr bool arec_nothrow_helper=was_not_an_ill_form(arec_as_value(_m,declvalue(const value&)))?

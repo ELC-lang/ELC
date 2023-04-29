@@ -31,6 +31,7 @@
 class bigint;
 [[nodiscard]]bigint copy_as_negative(const ubigint&,bool sign=true)noexcept;
 [[nodiscard]]bigint copy_as_negative(ubigint&&,bool sign=true)noexcept;
+using math::copy_as_negative;//避免可能的符号覆盖
 
 class bigint{
 	ubigint _num;
@@ -124,10 +125,8 @@ public:
 	}
 	template<arithmetic_type T>
 	[[nodiscard]]T convert_to()const noexcept{
-		if constexpr(signed_type<T>){
-			using math::copy_as_negative;//貌似msvc在这里有bug
+		if constexpr(signed_type<T>)
 			return copy_as_negative(move(_num).convert_to<to_unsigned_t<T>>(),_is_negative);
-		}
 		else
 			return _num.convert_to<T>();
 	}
