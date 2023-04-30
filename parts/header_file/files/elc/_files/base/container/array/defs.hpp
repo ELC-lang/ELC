@@ -95,6 +95,9 @@ namespace array_n{
 		void insert(size_t index,size_t count)noexcept(insert_nothrow){
 			get_resize.insert(_m,index,count);
 		}
+		void insert(size_t index,size_t count,const T&value)noexcept(insert_nothrow){
+			get_resize.insert(_m,index,count,value);
+		}
 		void insert(size_t index,size_t count,const T*data)noexcept(insert_nothrow){
 			get_resize.insert(_m,index,count,data);
 		}

@@ -295,10 +295,8 @@ private:
 		const auto origin_size = this_view.size();
 		const auto new_size = get_safety_add_buf_size_with_not_compared_buf(this_view,other_view);
 		const auto size_diff = new_size - origin_size;
-		if(size_diff){
-			a.resize(new_size);
-			copy_assign[size_diff](base_type{0},note::to(a.data()+origin_size));
-		}
+		if(size_diff)
+			a.insert(origin_size,size_diff,base_type{0});
 		add_to_base(a.data(),other_view);
 		if(size_diff)
 			shrink_to_fit(a);
@@ -358,8 +356,7 @@ private:
 			const auto size_now = buf.size();
 			const auto size_need = offset+b.size()+1;//考虑进位
 			const auto size_diff = size_need - size_now;
-			buf.resize(size_need);
-			copy_assign[size_diff](note::to(buf.data()+size_now),base_type{0});//填充0
+			buf.insert(size_now,size_diff,base_type{0});//扩容&填充0
 		}
 		offset_add_to_base(buf.data(),b,offset);
 		shrink_to_fit(buf);
@@ -487,7 +484,7 @@ private:
 		shrink_to_fit(tmp);
 		return tmp;
 	}
-	static void muti_with_base_no_zero_check(base_type*buf,data_view_type a,base_type b)noexcept{
+	static void muti_with_base_no_optimisation(base_type*buf,data_view_type a,base_type b)noexcept{
 		size_t i=0;
 		calc_type num=0;
 		while(i!=a.size()){
@@ -513,7 +510,7 @@ private:
 			copy_assign[zeros](note::to(buf),base_type{0});
 			buf+=zeros;
 		}
-		return muti_with_base_no_zero_check(buf,a,b);
+		return muti_with_base_no_optimisation(buf,a,b);
 	}
 	static void muti_with_base(base_type*buf,data_view_type a,data_view_type b)noexcept{
 		{
@@ -525,7 +522,7 @@ private:
 		size_t muti_scale=0;
 		while(muti_scale!=b.size()){
 			if(b[muti_scale]){
-				muti_with_base_no_zero_check(tmp.data(),a,b[muti_scale]);
+				muti_with_base_no_optimisation(tmp.data(),a,b[muti_scale]);
 				add_to_base(buf+muti_scale,get_shrinked_data_view_of_data(tmp));
 			}
 			muti_scale++;
@@ -573,8 +570,57 @@ private:
 	[[nodiscard]]static data_type fast_muti_base(data_view_type a,const data_type& b)noexcept{
 		return fast_muti_base(a,get_data_view_of_data(b));
 	}
+	[[nodiscard]]static data_type fast_muti_base(data_view_type a,const ubigint& b)noexcept{
+		return fast_muti_base(a,b.get_data_view());
+	}
 	///
-	[[nodiscard]]static base_type div_with_base_no_zero_check(data_type&buf,base_type*a,data_view_type b)noexcept{
+	//除法优化：在不需要余数的情况下可以进行的优化
+	[[nodiscard]]static size_t get_no_mod_optimisation_size(const data_type&a,data_view_type b)noexcept{
+		return get_no_mod_optimisation_size(get_data_view_of_data(a),b);
+	}
+	[[nodiscard]]static size_t get_no_mod_optimisation_size(data_view_type a,data_view_type b)noexcept{
+		return no_mod_optimisation_of_div(a,b);
+	}
+	static size_t no_mod_optimisation_of_div(data_view_type&a,data_view_type&b)noexcept{
+		size_t aret=0;
+		//去除末尾0
+		{
+			const auto zeros=shrink_of_end_zeros(b);
+			apply_shrink_of_end_zeros(a,zeros);
+			aret+=zeros;
+		}
+		//被除数不及两倍除数长度减2时，可以忽略一部分最低位且不影响结果
+		if ((b.size()-1)*2 > a.size()) {
+			const auto ans_len = a.size() - b.size() + 2;
+			const auto shr = b.size() - ans_len;
+			a=a.subview(shr);
+			b=b.subview(shr);
+			aret+=shr;
+			aret+=no_mod_optimisation_of_div(a,b);
+		}
+		return aret;
+	}
+	static size_t no_mod_optimisation_of_div(data_type&a,data_view_type&b)noexcept{
+		size_t aret=0;
+		//去除末尾0
+		{
+			const auto zeros=shrink_of_end_zeros(b);
+			apply_shrink_of_end_zeros(a,zeros);
+			aret+=zeros;
+		}
+		//被除数不及两倍除数长度减2时，可以忽略一部分最低位且不影响结果
+		if ((b.size()-1)*2 > a.size()) {
+			const auto ans_len = a.size() - b.size() + 2;
+			const auto shr = b.size() - ans_len;
+			a.forward_resize(a.size()-shr);
+			b=b.subview(shr);
+			aret+=shr;
+			aret+=no_mod_optimisation_of_div(a,b);
+		}
+		return aret;
+	}
+	//除法实现
+	[[nodiscard]]static base_type div_with_base_no_optimisation(data_type&buf,base_type*a,data_view_type b)noexcept{
 		data_view_type tryto{a,b.size()+1};
 		const calc_type dividend=exlambda{
 			const base_type*p=tryto.rbegin();
@@ -612,25 +658,13 @@ private:
 		return last_work_able;
 	}
 	[[nodiscard]]static base_type div_with_base(data_type&buf,base_type*a,data_view_type b)noexcept{
-		return div_with_base_no_zero_check(buf,a,b);
+		return div_with_base_no_optimisation(buf,a,b);
 	}
 	[[nodiscard]]static base_type div_base(base_type*a,data_view_type b)noexcept{
 		array_t<base_type> fortry(note::size(b.size()+1));
 		return div_with_base(fortry,a,b);
 	}
-	[[nodiscard]]static data_type div_base_no_zero_check(data_view_type a,data_view_type b)noexcept{
-		array_t<base_type> tmp(note::size(a.size()+1));
-		copy_assign[a.size()](tmp.data(), a.data());
-		tmp.back()=0;
-		tmp=div_with_base_no_zero_check(tmp,b);
-		return tmp;
-	}
-	[[nodiscard]]static data_type div_base(data_view_type a,data_view_type b)noexcept{
-		const auto zeros=shrink_of_end_zeros(b);
-		apply_shrink_of_end_zeros(a,zeros);
-		return div_base_no_zero_check(a,b);
-	}
-	static data_type div_with_base_no_zero_check(data_type&a,data_view_type b)noexcept{
+	static data_type div_with_base_no_optimisation_impl(data_type&a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()-b.size()),0);
 		const auto end=a.rend();
 		auto begin=a.rbegin()+b.size();
@@ -645,26 +679,48 @@ private:
 		shrink_to_fit(tmp);
 		return tmp;
 	}
+	static data_type div_with_base_no_optimisation(data_type&a,data_view_type b)noexcept{
+		a.push_back(0);
+		return div_with_base_no_optimisation_impl(a,b);
+	}
 	static data_type div_with_base(data_type&a,data_view_type b)noexcept{
-		const auto zeros=shrink_of_end_zeros(b);
-		apply_shrink_of_end_zeros(a,zeros);
-		return div_with_base_no_zero_check(a,b);
+		no_mod_optimisation_of_div(a,b);
+		return div_with_base_no_optimisation(a,b);
+	}
+	[[nodiscard]]static data_type div_with_base(ubigint&a,const ubigint&b)noexcept{
+		return div_with_base(a._data,b.get_data_view());
+	}
+	[[nodiscard]]static data_type div_base_no_optimisation(data_view_type a,data_view_type b)noexcept{
+		array_t<base_type> tmp(note::size(a.size()+1));
+		copy_assign[a.size()](tmp.data(), a.data());
+		tmp.back()=0;
+		tmp=div_with_base_no_optimisation_impl(tmp,b);
+		return tmp;
+	}
+	[[nodiscard]]static data_type div_base(data_view_type a,data_view_type b)noexcept{
+		no_mod_optimisation_of_div(a,b);
+		return div_base_no_optimisation(a,b);
 	}
 	//%
-	static void mod_with_base(data_type&a,data_view_type b)noexcept{
+	static void mod_with_base_impl(data_type&a,data_view_type b)noexcept{
 		const auto end=a.rend();
 		auto begin=a.rbegin()+b.size();
 		array_t<base_type> fortry(note::size(b.size()+1));
 		while(begin!=end){
-			discard(div_with_base_no_zero_check(fortry,begin,b));
+			discard(div_with_base_no_optimisation(fortry,begin,b));
 			begin++;
 		};
+	}
+	static void mod_with_base(data_type&a,data_view_type b)noexcept{
+		a.push_back(0);
+		mod_with_base_impl(a,b);
+		shrink_to_fit(a);
 	}
 	[[nodiscard]]static data_type mod_base(data_view_type a,data_view_type b)noexcept{
 		array_t<base_type> tmp(note::size(a.size()+1));
 		copy_assign[a.size()](tmp.data(), a.data());
 		tmp.back()=0;
-		mod_with_base(tmp,b);
+		mod_with_base_impl(tmp,b);
 		shrink_to_fit(tmp);
 		return tmp;
 	}
@@ -678,26 +734,118 @@ public:
 	typedef divmod_result_t_base<void> divmod_result_t;
 private:
 	[[nodiscard]]static divmod_result_t divmod_with_base(data_type&a,data_view_type b)noexcept{
-		const auto zeros=shrink_of_end_zeros(b);
-		if(!zeros){
-			a.push_back(0);
-			data_type quot = div_with_base_no_zero_check(a, b);
-			shrink_to_fit(a);
+		const auto opt_size=get_no_mod_optimisation_size(a,b);
+		if(!opt_size){
+			data_type quot = div_with_base_no_optimisation(a, b);
 			return {ubigint{move(quot)},ubigint{move(a)}};
 		}
 		else{
-			auto a_view=get_data_view_of_data(a);
-			apply_shrink_of_end_zeros(a_view,zeros);
-			data_type quot = div_base_no_zero_check(a_view, b);
-			const auto ori_b_view=unshrink_of_end_zeros(b,zeros);
+			const auto a_view=get_data_view_of_data(a).subview(opt_size);
+			const auto ori_b_view=b; b=b.subview(opt_size);
+			data_type quot = div_base_no_optimisation(a_view, b);
 			sub_with_base(a,fast_muti_base(quot,ori_b_view));//already shrink_to_fit ed
 			return {ubigint{move(quot)},ubigint{move(a)}};
 		}
 	}
 	[[nodiscard]]static divmod_result_t divmod_base(data_view_type a,data_view_type b)noexcept{
-		array_t<base_type> tmp(note::size(a.size()));
-		copy_assign[a.size()](tmp.data(), a.data());
+		array_t<base_type> tmp=a;
 		return divmod_with_base(tmp,b);
+	}
+	//除法分治：阈值
+	static constexpr auto fast_div_base_threshold=1<<5;
+	//除法分治：规则化
+	[[nodiscard]]static auto fast_div_regularisation(data_view_type a,data_view_type b)noexcept{
+		constexpr auto max_calc_type=min(max(type_info<calc_type>),base_type_mod*base_type_mod-1);
+		const auto first2=(b.back()*base_type_mod+*(b.rbegin()+1)+1);
+		const ubigint muti=max_calc_type/first2;
+		const ubigint a_after_reg{fast_muti_base(a,muti)};
+		const ubigint b_after_reg{fast_muti_base(b,muti)};
+		struct result_t{
+			ubigint a_after_reg;
+			ubigint b_after_reg;
+			ubigint muti;
+		};
+		return result_t{move(a_after_reg),move(b_after_reg),move(muti)};
+	}
+	[[nodiscard]]static divmod_result_t fast_divmod_base(data_view_type a,data_view_type b)noexcept{
+		if(a.size()<=fast_div_base_threshold)return divmod_base(a,b);
+		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(a,b);
+		auto result=fast_divmod_base_impl(a_after_reg,b_after_reg);
+		result.mod/=muti;
+		return result;
+	}
+	[[nodiscard]]static divmod_result_t fast_divmod_base(const ubigint&a,const ubigint&b)noexcept{
+		return fast_divmod_base(a.get_data_view(),b.get_data_view());
+	}
+	[[nodiscard]]static data_type fast_div_base(data_view_type a,data_view_type b)noexcept{
+		if(a.size()<=fast_div_base_threshold)return div_base(a,b);
+		no_mod_optimisation_of_div(a,b);
+		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(a,b);
+		return fast_divmod_base_impl(a_after_reg,b_after_reg).quot._data;
+	}
+	static void fast_mod_with_base(data_type&a,data_view_type b)noexcept{
+		if(a.size()<=fast_div_base_threshold)return mod_with_base(a,b);
+		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(a,b);
+		auto result=fast_divmod_base_impl(a_after_reg,b_after_reg);
+		result.mod/=muti;
+		a=move(result.mod._data);
+	}
+	[[nodiscard]]static data_type fast_mod_base(data_view_type a,data_view_type b)noexcept{
+		if(a.size()<=fast_div_base_threshold)return mod_base(a,b);
+		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(a,b);
+		auto result=fast_divmod_base_impl(a_after_reg,b_after_reg);
+		result.mod/=muti;
+		return move(result.mod._data);
+	}
+	//除法分治：递归
+	[[nodiscard]]static divmod_result_t fast_divmod_base_impl(data_view_type a,data_view_type b)noexcept{
+		if(compare(a,b)<0)return {ubigint{},ubigint{a}};
+		if(a.size()<=fast_div_base_threshold)return divmod_base(a,b);
+		size_t base = (b.size()+1) / 2;
+		//符合3/2时，进行试商
+		if(a.size() <= base*3) {
+			base = b.size() / 2;
+			auto a_high = a.subview(base);//不需要re_shrink：subview是舍弃低位，下同
+			auto b_high = b.subview(base);
+			//数值优化，这意味着余数不可用（下方的remain确实被舍弃了所以可以这样优化）
+			no_mod_optimisation_of_div(a_high,b_high);
+			auto result=fast_divmod_base_impl(a_high, b_high);
+			auto&ans_base=result.quot._data;auto&remain=result.mod._data;
+			remain=fast_muti_base(ans_base,b);
+			while (compare(remain, a) > 0) {
+				sub_with_base(remain, b);
+				sub_one_from_base(ans_base);
+			}
+			remain=sub_base(a,remain);
+			return result;
+		}
+		//不符合3/2时，进行递归
+		//选择合适的base长度做分割
+		if(a.size() > base*4)
+			base = a.size() / 2;
+		const auto a_high = a.subview(base);
+		auto result=fast_divmod_base_impl(a_high, b);
+		auto&ans_base=result.quot._data;auto&remain=result.mod._data;
+		ans_base.insert(0,base,base_type{0});
+		data_type m{note::size(base + remain.size())};
+		copy_assign[base](note::from(a.data()),note::to(m.data()));
+		copy_assign[remain.size()](add_const(remain.data()),m.data()+base);
+		//这里不需要对m进行shrink，因为remain是已经shrink过的
+		{
+			auto another_result=fast_divmod_base_impl(m, b);
+			add_to_base(ans_base, move(another_result.quot._data));
+			remain=move(another_result.mod._data);
+		}
+		return result;
+	}
+	[[nodiscard]]static divmod_result_t fast_divmod_base_impl(const data_type&a,data_view_type b)noexcept{
+		return fast_divmod_base_impl(get_data_view_of_data(a),b);
+	}
+	[[nodiscard]]static divmod_result_t fast_divmod_base_impl(const data_type&a,const data_type&b)noexcept{
+		return fast_divmod_base_impl(get_data_view_of_data(a),get_data_view_of_data(b));
+	}
+	[[nodiscard]]static divmod_result_t fast_divmod_base_impl(const ubigint&a,const ubigint&b)noexcept{
+		return fast_divmod_base_impl(a._data,b._data);
 	}
 public:
 	//friend abs
@@ -739,7 +887,7 @@ public:
 		if(other_view.empty())return ubigint{};
 		const auto this_view = get_data_view();
 		if(this_view.size() < other_view.size())return ubigint{};
-		return ubigint{div_base(this_view, other_view)};
+		return ubigint{fast_div_base(this_view, other_view)};
 	}
 	//operator%
 	[[nodiscard]]ubigint operator%(const ubigint& other)const&noexcept{
@@ -747,7 +895,7 @@ public:
 		if(other_view.empty())return ubigint{};
 		const auto this_view = get_data_view();
 		if(this_view.size() < other_view.size())return*this;
-		return ubigint{mod_base(this_view, other_view)};
+		return ubigint{fast_mod_base(this_view, other_view)};
 	}
 	//friend divmod
 	[[nodiscard]]friend divmod_result_t divmod(const ubigint& a,const ubigint& b)noexcept{
@@ -755,15 +903,17 @@ public:
 		if(b_view.empty())return {};
 		const auto a_view = a.get_data_view();
 		if(a_view.size() < b_view.size())return {ubigint{},a};
-		return divmod_base(a_view,b_view);
+		return fast_divmod_base(a_view,b_view);
 	}
 	[[nodiscard]]friend divmod_result_t divmod(ubigint&& a,const ubigint& b)noexcept{
-		//直接使用a的内存而避免不必要的分配
 		const auto b_view = b.get_data_view();
 		if(b_view.empty())return {};
 		const auto a_view = a.get_data_view();
 		if(a_view.size() < b_view.size())return {ubigint{},move(a)};
-		return divmod_with_base(a._data,b_view);
+		if(a_view.size()<=fast_div_base_threshold)//若不是很大的数
+			return divmod_with_base(a._data,b_view);//直接使用a的内存而避免不必要的分配
+		else
+			return fast_divmod_base(a_view,b_view);
 	}
 	//friend integer_log
 private:
@@ -883,10 +1033,7 @@ public:
 		}
 		const auto this_view = get_data_view();
 		if(this_view.size() < other_view.size())return*this;
-		_data.resize(_data.size()+1);
-		_data.back()=0;
-		mod_with_base(_data,other_view);
-		shrink_to_fit();
+		fast_mod_with_base(_data,other_view);
 		return*this;
 	}
 	template<unsigned_basic_integer_type T>
@@ -902,8 +1049,7 @@ public:
 			const auto newsize_diff=n/bitnum_of(base_type);
 			const auto newsize=oldsize+newsize_diff;
 			if(newsize_diff){
-				_data.forward_resize(newsize);
-				copy_assign[newsize_diff](note::to(_data.data()), base_type{0});
+				_data.insert(0,newsize_diff,base_type{0});
 				n%=bitnum_of(base_type);
 			}
 			if(n){
@@ -930,8 +1076,7 @@ public:
 		const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
 		const auto newsize=oldsize+newsize_diff;
 		if(newsize_diff){
-			_data.forward_resize(newsize);
-			copy_assign[newsize_diff](note::to(_data.data()), base_type{0});
+			_data.insert(0,newsize_diff,base_type{0});
 			n%=bitnum_of(base_type);
 		}
 		if(n){

@@ -630,6 +630,10 @@ namespace lifetime_n{
 				return base_call(to,from,_size);
 			}
 			template<class T> requires able<T>
+			force_inline T*operator()(const T*from,T*to)const noexcept(nothrow<T>){
+				return base_call(to,from,_size);
+			}
+			template<class T> requires able<T>
 			force_inline T*operator()(note::to_t<T*>to,note::from_t<const T*>from)const noexcept(nothrow<T>){
 				return operator()(to(),from());
 			}

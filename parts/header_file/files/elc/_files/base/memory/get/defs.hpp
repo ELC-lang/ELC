@@ -482,6 +482,14 @@ namespace get_n{
 				}
 			}
 			template<typename T> requires(able<T> && copy_construct.able<T>)
+			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T&initer)const noexcept(nothrow<T>){
+				if(insert_size){
+					const APIs::alloc::source_location_guard slg;
+					alloc_size_grow_with_insert_uninitialized_data(arg,insert_pos,insert_size);
+					copy_construct[insert_size](arg+insert_pos,initer);
+				}
+			}
+			template<typename T> requires(able<T> && copy_construct.able<T>)
 			void operator()(T*&arg,size_t insert_pos,size_t insert_size,const T*insert_data)const noexcept(nothrow<T>){
 				if(insert_size){
 					const APIs::alloc::source_location_guard slg;
