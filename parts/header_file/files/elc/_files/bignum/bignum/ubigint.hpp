@@ -205,6 +205,15 @@ private:
 				return tmp;
 		return strong_ordering::equivalent;
 	}
+	[[nodiscard]]static auto compare(const data_type&a, const data_type&b)noexcept{
+		return compare(get_data_view_of_data(a), get_data_view_of_data(b));
+	}
+	[[nodiscard]]static auto compare(const data_type&a, data_view_type b)noexcept{
+		return compare(get_data_view_of_data(a), b);
+	}
+	[[nodiscard]]static auto compare(data_view_type a, const data_type&b)noexcept{
+		return compare(a, get_data_view_of_data(b));
+	}
 public:
 	[[nodiscard]]auto operator<=>(const ubigint& other)const noexcept{
 		return compare(get_data_view(),other.get_data_view());
@@ -368,12 +377,10 @@ private:
 	//-
 	[[nodiscard]]static data_type sub_base(data_view_type a,data_view_type b)noexcept{
 		//调用方保证a>=b
-		auto base_size = a.size();
-		const auto size = base_size;
+		const auto size = a.size();
 
 		array_t<base_type> tmp(note::size(size));
-		copy_assign[base_size](tmp.data(),a.data());
-		copy_assign[size-base_size](note::to(tmp.data()+base_size),base_type{0});
+		copy_assign[size](tmp.data(),a.data());
 		sub_with_base(tmp,b);//already shrink_to_fit ed
 		return tmp;
 	}
@@ -397,6 +404,15 @@ private:
 	}
 	static void sub_with_base(data_type&buf,const data_type&b)noexcept{
 		sub_with_base(buf,get_data_view_of_data(b));
+	}
+	[[nodiscard]]static data_type sub_base(data_view_type a,const data_type&b)noexcept{
+		return sub_base(a,get_data_view_of_data(b));
+	}
+	[[nodiscard]]static data_type sub_base(const data_type&a,data_view_type b)noexcept{
+		return sub_base(get_data_view_of_data(a),b);
+	}
+	[[nodiscard]]static data_type sub_base(const data_type&a,const data_type&b)noexcept{
+		return sub_base(get_data_view_of_data(a),get_data_view_of_data(b));
 	}
 	//++
 	//add_one_to_base
@@ -434,6 +450,8 @@ private:
 		sub_one_from_base(_data);
 	}
 	//*
+	//这些东西比subview快，因为没有无用的检查
+	//**不要使用subview替代**
 	//shrink_of_end_zeros
 	//去掉（数理上）末尾的（实现上）开头的0以减少乘法的次数
 	[[nodiscard]]static size_t shrink_of_end_zeros(data_view_type&buf)noexcept{

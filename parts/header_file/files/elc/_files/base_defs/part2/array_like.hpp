@@ -141,6 +141,16 @@ namespace array_like_n{
 		[[nodiscard]]constexpr auto operator==(this_t a)const noexcept(equal.nothrow<T>){
 			return equal(_begin,_size,a._begin,a._size);
 		}
+
+		[[nodiscard]]constexpr this_t subview(size_t pos,size_t end_pos)noexcept{
+			if(end_pos>size())end_pos=size();
+			if(pos>end_pos)pos=end_pos;
+			return this_t{_begin+pos,end_pos-pos};
+		}
+		[[nodiscard]]constexpr this_t subview(size_t pos)noexcept{
+			if(pos>size())pos=size();
+			return this_t{_begin+pos,size()-pos};
+		}
 	};
 	template<typename T>
 	struct array_end_by_zero_t:array_like_view_t<T>{
