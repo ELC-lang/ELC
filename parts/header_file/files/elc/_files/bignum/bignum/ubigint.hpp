@@ -785,7 +785,7 @@ private:
 	}
 	static void fast_mod_with_base(data_type&a,data_view_type b)noexcept{
 		if(a.size()<=fast_div_base_threshold)return mod_with_base(a,b);
-		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(a,b);
+		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(get_data_view_of_data(a),b);
 		auto result=fast_divmod_base_impl(a_after_reg,b_after_reg);
 		result.mod/=muti;
 		a=move(result.mod._data);
