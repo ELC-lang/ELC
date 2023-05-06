@@ -44,56 +44,112 @@ namespace literal_support{
 		}
 		return c-'0';
 	}
+	using ::std::move;
+
+	template<class integer_T,unsigned base>
+	class integer_iterator{
+		integer_T& _val;
+	public:
+		constexpr integer_iterator(integer_T& val)noexcept:_val(val){}
+		constexpr_as_auto void operator()(char c)noexcept{
+			_val*=base;
+			_val+=hexval(c);
+		}
+	};
+	template<class integer_T,unsigned base>
+	class fast_integer_iterator{
+		size_t _var_block=0,_scale=1;
+		integer_T& _val;
+	public:
+		constexpr fast_integer_iterator(integer_T& val)noexcept:_val(val){}
+		constexpr_as_auto void operator()(char c)noexcept{
+			const size_t new_scale=_scale*base;
+			if(_scale>new_scale){//溢出，建立新块
+				_val=move(_val)*_scale+_var_block;
+				_var_block=hexval(c);
+				_scale=base;
+			}
+			else{
+				_var_block=_var_block*base+hexval(c);
+				_scale=new_scale;
+			}
+		}
+		constexpr_as_auto ~fast_integer_iterator()noexcept{
+			_val=move(_val)*_scale+_var_block;
+		}
+	};
+
+	template<class integer_T,unsigned base>
+	using integer_iterator_t=conditional<is_big_type<integer_T>,fast_integer_iterator<integer_T,base>,integer_iterator<integer_T,base>>;
+
+	template<unsigned base>
+	constexpr void base_checker()noexcept{
+		static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
+	}
+	template<unsigned base,char c>
+	constexpr void char_checker()noexcept{
+		static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
+		static_assert(base>hexval(c),"invalid char");
+	}
+
 	template<class integer_T>
 	class unsigned_integer_literal_evaler{
 		template<unsigned base>
-		static constexpr_as_auto integer_T eval_impl(integer_T val={})noexcept{
-			return val;
-		}
+		static constexpr_as_auto void eval_impl(integer_iterator_t<integer_T,base>&)noexcept{}
 		template<unsigned base,char c,char...cs>
-		static constexpr_as_auto integer_T eval_impl(integer_T val={})noexcept{
+		static constexpr_as_auto void eval_impl(integer_iterator_t<integer_T,base>&iter)noexcept{
 			if constexpr(c!='\''){
-				static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
-				static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
-				static_assert(base>hexval(c),"invalid char");
-				return eval_impl<base,cs...>(val*base+hexval(c));
-			}else
-				return eval_impl<base,cs...>(val);
+				char_checker<base,c>();
+				iter(c);
+			}
+			eval_impl<base,cs...>(iter);
 		}
+
+		template<unsigned base,char...cs>
+		static constexpr_as_auto integer_T do_eval()noexcept{
+			base_checker<base>();
+			integer_T val{};
+			{
+				integer_iterator_t<integer_T,base> iter(val);
+				eval_impl<base,cs...>(iter);
+			}
+			return move(val);
+		}
+
 		template<unsigned default_base,char...cs>
 		struct eval_differ{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return eval_impl<default_base,cs...>();
+				return do_eval<default_base,cs...>();
 			}
 		};
 		template<unsigned default_base,char...cs>
 		struct eval_differ<default_base,'0','x',cs...>{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return eval_impl<16,cs...>();
+				return do_eval<16,cs...>();
 			}
 		};
 		template<unsigned default_base,char...cs>
 		struct eval_differ<default_base,'0','X',cs...>{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return eval_impl<16,cs...>();
+				return do_eval<16,cs...>();
 			}
 		};
 		template<unsigned default_base,char...cs>
 		struct eval_differ<default_base,'0','b',cs...>{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return eval_impl<2,cs...>();
+				return do_eval<2,cs...>();
 			}
 		};
 		template<unsigned default_base,char...cs>
 		struct eval_differ<default_base,'0','B',cs...>{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return eval_impl<2,cs...>();
+				return do_eval<2,cs...>();
 			}
 		};
 		template<unsigned default_base,char...cs>
 		struct eval_differ<default_base,'0',cs...>{
 			static constexpr_as_auto integer_T eval()noexcept{
-				return eval_impl<8,cs...>();
+				return do_eval<8,cs...>();
 			}
 		};
 	public:
@@ -133,49 +189,57 @@ namespace literal_support{
 	template<class float_T,class base_process_T,class exp_process_integer_T,class exp_process_unsigned_integer_T>
 	class unsigned_float_literal_evaler{
 		template<unsigned base,char exp_char,bool pointed>
-		static constexpr_as_auto float_T eval_impl(base_process_T val={},exp_process_integer_T exp={})noexcept{
-			float_T aret=val;
-			aret*=pow(base,exp);
-			return aret;
-		}
+		static constexpr_as_auto void eval_impl(integer_iterator_t<base_process_T,base>&,exp_process_integer_T&)noexcept{}
 		template<unsigned base,char exp_char,bool pointed,char c,char...cs>
-		static constexpr_as_auto float_T eval_impl(base_process_T val={},exp_process_integer_T exp={})noexcept{
-			if constexpr(c=='\''){
-				return eval_impl<base,exp_char,pointed,cs...>(val,exp);
-			}
-			elseif constexpr(c=='.'){
+		static constexpr_as_auto void eval_impl(integer_iterator_t<base_process_T,base>&iter,exp_process_integer_T&exp)noexcept{
+			if constexpr(c=='.'){
 				static_assert(!pointed,"pointed twice");
-				return eval_impl<base,exp_char,true,cs...>(val,exp);
+				eval_impl<base,exp_char,true,cs...>(iter,exp);
 			}
 			elseif constexpr(c==exp_char || c==exp_char+('A'-'a')){
 				exp+=signed_integer_literal_evaler<exp_process_integer_T,exp_process_unsigned_integer_T>::template eval_with_base<base,cs...>();
-				return eval_impl<base,exp_char,pointed>(val,exp);
+				eval_impl<base,exp_char,pointed>(iter,exp);
 			}
 			else{
-				if constexpr(pointed)
-					--exp;
-				static_assert(base==16||base==10||base==8||base==2,"base must be 16,10,8 or 2");
-				static_assert(c>='0'&&c<='9'||c>='a'&&c<='f'||c>='A'&&c<='F',"invalid char");
-				static_assert(base>hexval(c),"invalid char");
-				return eval_impl<base,exp_char,pointed,cs...>(val*base+hexval(c),exp);
+				if constexpr(c!='\''){
+					if constexpr(pointed)
+						--exp;
+					char_checker<base,c>();
+					iter(c);
+				}
+				eval_impl<base,exp_char,pointed,cs...>(iter,exp);
 			}
 		}
+
+		template<unsigned base,char exp_char,char...cs>
+		static constexpr_as_auto float_T do_eval()noexcept{
+			base_checker<base>();
+			base_process_T val{};exp_process_integer_T exp{};
+			{
+				integer_iterator_t<base_process_T,base> iter(val);
+				eval_impl<base,exp_char,false,cs...>(iter,exp);
+			}
+			float_T aret=move(val);
+			aret*=pow(base,move(exp));
+			return move(aret);
+		}
+
 		template<unsigned default_base,char default_exp_char,char...cs>
 		struct eval_differ{
 			static constexpr_as_auto float_T eval()noexcept{
-				return eval_impl<default_base,default_exp_char,false,cs...>();
+				return do_eval<default_base,default_exp_char,cs...>();
 			}
 		};
 		template<unsigned default_base,char default_exp_char,char...cs>
 		struct eval_differ<default_base,default_exp_char,'0','x',cs...>{
 			static constexpr_as_auto float_T eval()noexcept{
-				return eval_impl<16,'p',false,cs...>();
+				return do_eval<16,'p',cs...>();
 			}
 		};
 		template<unsigned default_base,char default_exp_char,char...cs>
 		struct eval_differ<default_base,default_exp_char,'0','X',cs...>{
 			static constexpr_as_auto float_T eval()noexcept{
-				return eval_impl<16,'p',false,cs...>();
+				return do_eval<16,'p',cs...>();
 			}
 		};
 	public:
