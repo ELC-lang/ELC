@@ -258,7 +258,7 @@ namespace to_string_n{
 			if(is_negative(num))
 				return _repres.get_negative_sign()+to_string_unsigneded(abs(move(num)));
 			else
-				return to_string_unsigneded(move(num));
+				return to_string_unsigneded(abs(move(num)));
 		}
 	private:
 		template<float_type T>

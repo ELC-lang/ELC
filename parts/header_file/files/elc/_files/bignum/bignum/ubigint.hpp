@@ -737,6 +737,7 @@ private:
 		const auto opt_size=get_no_mod_optimisation_size(a,b);
 		if(!opt_size){
 			data_type quot = div_with_base_no_optimisation(a, b);
+			shrink_to_fit(a);
 			return {ubigint{move(quot)},ubigint{move(a)}};
 		}
 		else{
