@@ -323,26 +323,26 @@ private:
 		using calc_t = conditional<(sizeof(T) > sizeof(calc_type)),T,calc_type>;
 		//初始化
 		calc_t tmp=num;
-		base_type*intr=buf.begin();
+		base_type*iter=buf.begin();
 		const auto end=buf.end();
 		bool is_overflows = 0;
-		while(intr!=end && tmp){
-			tmp=add_carry(calc_t(*intr),tmp,is_overflows);
-			*intr++=base_type(tmp);
+		while(iter!=end && tmp){
+			tmp=add_carry(calc_t(*iter),tmp,is_overflows);
+			*iter++=base_type(tmp);
 			tmp>>=bitnum_of(base_type);
 		}
 		if(tmp){
 			{
-				const auto intr_pos=intr-buf.begin();
+				const auto iter_pos=iter-buf.begin();
 				buf.resize(buf.size()+ceil_div(sizeof(tmp),sizeof(base_type)));
-				intr=buf.begin()+intr_pos;
+				iter=buf.begin()+iter_pos;
 			}
 			while(tmp){
-				*intr=add_carry(base_type(tmp),is_overflows);
+				*iter=add_carry(base_type(tmp),is_overflows);
 				tmp>>=bitnum_of(base_type);
-				++intr;
+				++iter;
 			}
-			buf.resize(intr-buf.begin());
+			buf.resize(iter-buf.begin());
 		}
 	}
 	/// 将b向前偏移offset个base_type后加到buf上，等价于buf+=b<<offset*bitnum_of(base_type)
@@ -414,13 +414,13 @@ private:
 	//++
 	//add_one_to_base
 	static void add_one_to_base(data_type&buf)noexcept{
-		base_type*intr=buf.begin();
+		base_type*iter=buf.begin();
 		const auto end=buf.end();
-		while(intr!=end){
-			++*intr;
-			if(*intr)
+		while(iter!=end){
+			++*iter;
+			if(*iter)
 				return;
-			++intr;
+			++iter;
 		}
 		buf.resize(buf.size()+1);
 		buf.back()=1;
@@ -431,15 +431,15 @@ private:
 	//--
 	//sub_one_from_base
 	static void sub_one_from_base(data_type&buf)noexcept{
-		base_type*intr=buf.begin();
+		base_type*iter=buf.begin();
 		const auto end=buf.end();
-		while(intr!=end){
-			if(*intr){
-				if((!--*intr) && intr==buf.rbegin())
+		while(iter!=end){
+			if(*iter){
+				if((!--*iter) && iter==buf.rbegin())
 					buf.resize(buf.size()-1);
 				return;
 			}
-			*intr=max(type_info<base_type>);
+			*iter=max(type_info<base_type>);
 		}
 		//整个buf都是0，说明buf是0，不需要做任何操作
 	}
