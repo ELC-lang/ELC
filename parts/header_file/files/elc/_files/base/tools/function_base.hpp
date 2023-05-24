@@ -51,9 +51,9 @@ namespace function_base_n{
 
 	template<typename T>
 	[[nodiscard]]constexpr auto function_type_getter_conditional_helper()noexcept{
-		if constexpr(::std::is_function_v<T>)
-			return type_info<T>;
-		elseif constexpr(is_pointer<T> && ::std::is_function_v<::std::remove_pointer_t<T>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
+		if constexpr(::std::is_function_v<remove_cvref<T>>)
+			return type_info<remove_cvref<T>>;
+		elseif constexpr(is_pointer<T> && ::std::is_function_v<remove_cvref<::std::remove_pointer_t<T>>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
 			return function_type_getter_conditional_helper<::std::remove_pointer_t<T>>();
 		else
 			return type_info<type_name function_type_getter_helper<decltype(&T::operator())>::type>;
@@ -78,7 +78,7 @@ namespace function_base_n{
 	class function_data_wrapper_t;
 	template<class T,bool nothrow,class Ret_t,class...Args_t>
 	struct function_data_wrapper_t<T,Ret_t(Args_t...)noexcept(nothrow)>{
-		static_assert(!::std::is_function_v<T>);
+		static_assert(!::std::is_function_v<remove_cvref<T>>);
 
 		T _value;
 
@@ -149,9 +149,9 @@ namespace function_base_n{
 
 	template<typename T>
 	[[nodiscard]]constexpr auto function_type_getter_conditional_helper()noexcept{
-		if constexpr(::std::is_function_v<T>)
-			return type_info<T>;
-		elseif constexpr(is_pointer<T> && ::std::is_function_v<::std::remove_pointer_t<T>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
+		if constexpr(::std::is_function_v<remove_cvref<T>>)
+			return type_info<remove_cvref<T>>;
+		elseif constexpr(is_pointer<T> && ::std::is_function_v<remove_cvref<::std::remove_pointer_t<T>>>)//不支持多级函数指针：懒得写（其实挺简单的），而且function_t若支持多级函数指针的推导指引会很不安全
 			return function_type_getter_conditional_helper<::std::remove_pointer_t<T>>();
 		else
 			return type_info<type_name function_type_getter_helper<decltype(&T::operator())>::type>;
@@ -176,7 +176,7 @@ namespace function_base_n{
 	class function_data_wrapper_t;
 	template<class T,class Ret_t,class...Args_t>
 	struct function_data_wrapper_t<T,Ret_t(Args_t...)noexcept>{
-		static_assert(!::std::is_function_v<T>);
+		static_assert(!::std::is_function_v<remove_cvref<T>>);
 
 		T _value;
 
@@ -218,7 +218,7 @@ namespace function_base_n{
 	*/
 	template<class T,class Ret_t,class...Args_t>
 	struct function_data_wrapper_t<T,Ret_t(Args_t...)>{
-		static_assert(!::std::is_function_v<T>);
+		static_assert(!::std::is_function_v<remove_cvref<T>>);
 
 		T _value;
 
