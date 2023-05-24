@@ -226,9 +226,13 @@ namespace function_base_n{
 		~function_data_wrapper_t()noexcept(destruct.nothrow<T>)=default;
 		Ret_t operator()(Args_t...args)noexcept(invoke<T>.with_return_type<Ret_t>.nothrow<Args_t...>){
 			//BLOCK:constexpr checks
-			if constexpr(!invoke<T>.able<Args_t...>)
+			//if constexpr(!invoke<T>.able<Args_t...>)
+			//workaround of https://developercommunity.visualstudio.com/t/name-lookup-problem-after-update-1740/10189035
+			if constexpr(!::std::is_invocable_v<T,Args_t...>)
 				template_error("this T can\'t becall as args.");
-			if constexpr(!invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
+			//if constexpr(!invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
+			//workaround of https://developercommunity.visualstudio.com/t/name-lookup-problem-after-update-1740/10189035
+			if constexpr(!::std::is_invocable_r_v<Ret_t,T,Args_t...>)
 				template_error("the return type of T was wrong.");
 			//BLOCK_END
 			if constexpr(type_info<Ret_t> != type_info<void>)
@@ -238,9 +242,13 @@ namespace function_base_n{
 		}
 		Ret_t operator()(Args_t...args)const noexcept(invoke<const T>.with_return_type<Ret_t>.nothrow<Args_t...>){
 			//BLOCK:constexpr checks
-			if constexpr(!invoke<T>.able<Args_t...>)
+			//if constexpr(!invoke<const T>.able<Args_t...>)
+			//workaround of https://developercommunity.visualstudio.com/t/name-lookup-problem-after-update-1740/10189035
+			if constexpr(!::std::is_invocable_v<const T, Args_t...>)
 				template_error("this T can\'t becall as args.");
-			if constexpr(!invoke<T>.with_return_type<Ret_t>.able<Args_t...>)
+			//if constexpr(!invoke<const T>.with_return_type<Ret_t>.able<Args_t...>)
+			//workaround of https://developercommunity.visualstudio.com/t/name-lookup-problem-after-update-1740/10189035
+			if constexpr(!::std::is_invocable_r_v<Ret_t,const T,Args_t...>)
 				template_error("the return type of T was wrong.");
 			//BLOCK_END
 			if constexpr(type_info<Ret_t> != type_info<void>)

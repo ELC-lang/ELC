@@ -88,7 +88,9 @@ namespace function_n{
 
 		//func ptr convert
 		virtual func_ptr_t get_func_ptr()const noexcept override final{
-			if constexpr(type_info<const T>.can_convert_to<func_ptr_t>)
+			//if constexpr(type_info<const T>.can_convert_to<func_ptr_t>)
+			//workaround of https://developercommunity.visualstudio.com/t/name-lookup-problem-after-update-1740/10189035
+			if constexpr(::std::is_convertible_v<const T,func_ptr_t>)
 				return static_cast<func_ptr_t>(data_t::get_data());
 			else
 				return nullptr;
