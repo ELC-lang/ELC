@@ -28,7 +28,7 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-struct type_name_t:string_view_t<char>{
+struct demangle_name_t:string_view_t<char>{
 	//对于gcc和clang，这个类型有一个malloced的char*，以便于在析构时释放
 	//一切源于abi::__cxa_demangle
 	//对于msvc，这个类型析构时不需要做任何事情
@@ -75,21 +75,25 @@ struct type_name_t:string_view_t<char>{
 		#endif
 	}
 	/// 构造函数
-	type_name_t(const char*original_name)noexcept:base_t(demangle(original_name)){}
+	demangle_name_t(const char*original_name)noexcept:base_t(demangle(original_name)){}
 	/// 复制构造函数
-	type_name_t(const type_name_t&other)noexcept:base_t(copy_demangle(other)){}
+	demangle_name_t(const demangle_name_t&other)noexcept:base_t(copy_demangle(other)){}
 	/// 移动构造函数（swap）
-	type_name_t(type_name_t&&other)noexcept:base_t(nullptr,0){
+	demangle_name_t(demangle_name_t&&other)noexcept:base_t(nullptr,0){
 		swap_with(other);
 	}
 	/// 析构函数
-	~type_name_t()noexcept{
+	~demangle_name_t()noexcept{
 		#if defined(__clang__)||defined(__GNUC__)
 			//gcc和clang
 			//需要释放malloced的char*
 			::std::free((void*)begin());
 		#endif
 	}
+};
+struct type_name_t:demangle_name_t{
+	using base_t=demangle_name_t;
+	using base_t::base_t;
 };
 [[nodiscard]]inline type_name_t base_type_info_t::get_name()const noexcept{
 	return _tid.get_name();

@@ -1,4 +1,4 @@
-//type_name_test_output.hpp
+//type_or_function_name_test_output.hpp
 //at namespace ::
 //multi when ELC_STRING & ELC_BASE_STREAM
 /*
@@ -29,8 +29,8 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-#if !defined(ELC_multi_type_name_test_output)//pls skip define check as this part is muti
-#define ELC_multi_type_name_test_output
+#if !defined(ELC_multi_type_or_function_name_test_output)//pls skip define check as this part is muti
+#define ELC_multi_type_or_function_name_test_output
 namespace elc::defs{
 	#include "../_share/_defs.hpp"
 
@@ -49,6 +49,12 @@ namespace elc::defs{
 		template<text_ostream stream_T>
 		decltype(auto)operator<<(stream_T&&stream,const ::std::type_info&info)noexcept(noexcept_text_ostream<stream_T>){
 			return stream << type_name_t{info.name()};
+		}
+
+		//function name output only for text_ostream_t<char_t>
+		template<text_ostream stream_T>
+		decltype(auto)operator<<(stream_T&&stream,const function_name_t&name)noexcept(noexcept_text_ostream<stream_T>){
+			return stream << to_char_t_str(name);
 		}
 	}
 

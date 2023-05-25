@@ -139,6 +139,24 @@ namespace string_view_n{
 		[[nodiscard]]constexpr string_view_t substr(const char_T*begin,const char_T*end)const noexcept{
 			return string_view_t(begin,end-begin);
 		}
+		//starts_with
+		[[nodiscard]]constexpr bool starts_with(const char_T ch)const noexcept{
+			return base_t::size()&&base_t::cbegin()[0]==ch;
+		}
+		[[nodiscard]]constexpr bool starts_with(string_view_t str)const noexcept{
+			if(str.size()>base_t::size())
+				return false;
+			return equal(base_t::cbegin(),str.cbegin(),str.size());
+		}
+		[[nodiscard]]constexpr bool starts_with(const char_T*str)const noexcept{
+			size_t i=0,len=base_t::size();
+			while(i<len&&str[i])
+				if(base_t::cbegin()[i]!=str[i])
+					return false;
+				else
+					++i;
+			return str[i]==0;
+		}
 		//find
 		[[nodiscard]]constexpr size_t find(const char_T ch)const{
 			return in_range_size_t(ch, *this);
@@ -160,16 +178,16 @@ namespace string_view_n{
 		}
 		//others by range_n::find_last_of_size_t etc
 		[[nodiscard]]constexpr size_t find_first_of(const char_T ch)const{
-			return range_n::find_first_of_size_t(ch, *this);
+			return range_n::find_first_of_size_t(array_like_view_t<const char_T>(&ch, 1), *this);
 		}
 		[[nodiscard]]constexpr size_t find_last_of(const char_T ch)const{
-			return range_n::find_last_of_size_t(ch, *this);
+			return range_n::find_last_of_size_t(array_like_view_t<const char_T>(&ch, 1), *this);
 		}
 		[[nodiscard]]constexpr size_t find_first_not_of(const char_T ch)const{
-			return range_n::find_first_not_of_size_t(ch, *this);
+			return range_n::find_first_not_of_size_t(array_like_view_t<const char_T>(&ch, 1), *this);
 		}
 		[[nodiscard]]constexpr size_t find_last_not_of(const char_T ch)const{
-			return range_n::find_last_not_of_size_t(ch, *this);
+			return range_n::find_last_not_of_size_t(array_like_view_t<const char_T>(&ch, 1), *this);
 		}
 		[[nodiscard]]constexpr size_t find_first_of(string_view_t str)const{
 			return range_n::find_first_of_size_t(str, *this);

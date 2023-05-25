@@ -72,13 +72,13 @@ namespace math{
 		//bool：是否有最大值
 		static constexpr bool has_max=is_arithmetic_type;
 	public:
-		static constexpr T min()noexcept requires(has_min){
+		static constexpr auto min()noexcept requires(has_min){
 			if constexpr(is_float_type)
 				return ::std::numeric_limits<T>::lowest();
 			else
 				return ::std::numeric_limits<T>::min();
 		}
-		static constexpr T max()noexcept requires(has_max){
+		static constexpr auto max()noexcept requires(has_max){
 			return ::std::numeric_limits<T>::max();
 		}
 	public:

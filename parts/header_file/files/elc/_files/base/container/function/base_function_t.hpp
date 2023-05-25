@@ -213,7 +213,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
-				return true;
+				return false;
 			elseif constexpr(is_function_t<T>)
 				return false;
 			elseif constexpr(::std::is_function_v<remove_cvref<T>>)
@@ -228,7 +228,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_nothrow_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
-				return true;
+				return false;
 			elseif constexpr(is_function_t<T>)
 				return false;
 			elseif constexpr(::std::is_function_v<remove_cvref<T>>)
@@ -276,9 +276,6 @@ namespace function_n{
 		template<class T> requires get_data_able<T>
 		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
 			_m=get_data_from(forward<T>(a));
-		}
-		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
-			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
@@ -361,7 +358,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
-				return true;
+				return false;
 			elseif constexpr(is_function_t<T>)
 				return false;
 			elseif constexpr(::std::is_function_v<remove_cvref<T>>)
@@ -376,7 +373,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_nothrow_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
-				return true;
+				return false;
 			elseif constexpr(is_function_t<T>)
 				return false;
 			elseif constexpr(::std::is_function_v<remove_cvref<T>>)
@@ -421,9 +418,6 @@ namespace function_n{
 		template<class T> requires get_data_able<T>
 		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
 			_m=get_data_from(forward<T>(a));
-		}
-		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
-			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 
@@ -504,7 +498,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_able_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
-				return true;
+				return false;
 			elseif constexpr(is_function_t<T>)
 				return false;
 			elseif constexpr(::std::is_function_v<remove_cvref<T>>)
@@ -519,7 +513,7 @@ namespace function_n{
 		template<class T>
 		static constexpr bool get_data_nothrow_helper()noexcept{
 			if constexpr(base_on_this_t_or_more_stringent_restrictions<T>)
-				return true;
+				return false;
 			elseif constexpr(is_function_t<T>)
 				return false;
 			elseif constexpr(::std::is_function_v<remove_cvref<T>>)
@@ -567,9 +561,6 @@ namespace function_n{
 		template<class T> requires get_data_able<T>
 		base_function_t(T&&a)noexcept(get_data_nothrow<T>){
 			_m=get_data_from(forward<T>(a));
-		}
-		base_function_t(func_ptr_t a)noexcept{//当nothrow==0时，noexcept(true)的参数可自动转为noexcept(false)的，不用再次考虑
-			_m=get<func_data_t<func_ptr_t>>(a);
 		}
 		~base_function_t()noexcept(promise_nothrow_at_destruct)=default;
 

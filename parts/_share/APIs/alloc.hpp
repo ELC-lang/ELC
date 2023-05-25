@@ -99,6 +99,13 @@ elc依赖的基础函数.
 		#if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD) && defined(ELC_SPEED_TEST)
 			#error "ELC_MEMORY_ALLOC_LOCATION_RECORD and ELC_SPEED_TEST can't be defined at the same time."
 		#endif
+		#if defined(_MSC_VER)
+			#if defined(ELC_MEMORY_ALLOC_LOCATION_RECORD)
+				#pragma detect_mismatch("ELC_MEMORY_ALLOC_LOCATION_RECORD","true")
+			#else
+				#pragma detect_mismatch("ELC_MEMORY_ALLOC_LOCATION_RECORD","false")
+			#endif
+		#endif
 
 		inline constexpr bool use_debug_alloc_lib=
 			#if in_debug && !defined(ELC_SPEED_TEST)
