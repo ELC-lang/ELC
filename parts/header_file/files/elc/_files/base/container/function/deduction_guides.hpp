@@ -29,8 +29,8 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 namespace function_n{
-	template<typename T,typename Func_t=get_function_type<T>,bool promise_nothrow_at_destruct>
-	base_function_t(T)->base_function_t<Func_t,promise_nothrow_at_destruct>;
+	template<typename T,bool promise_nothrow_at_destruct>
+	base_function_t(T) -> base_function_t<get_function_type<T>, promise_nothrow_at_destruct>;
 }
 
 //file_end
