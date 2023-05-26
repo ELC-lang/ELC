@@ -313,7 +313,9 @@ namespace function_n{
 		static Ret_t _func_ptr_value(Args_t...args)noexcept{
 			if(!_func_ptr_data_local)
 				_func_ptr_data_local=_func_ptr_data_gobal.load(::std::memory_order_relaxed);
+			push_and_disable_msvc_warning(26447);//noexcept不匹配警告diss
 			return _func_ptr_data_local->call(forward<Args_t>(args)...);
+			pop_msvc_warning();
 		}
 	public:
 		//自当前function对象生成一个函数指针，具有与当前function对象相同的行为
@@ -456,7 +458,9 @@ namespace function_n{
 		static Ret_t _func_ptr_value(Args_t...args)noexcept{
 			if(!_func_ptr_data_local)
 				_func_ptr_data_local=_func_ptr_data_gobal.load(::std::memory_order_relaxed);
+			push_and_disable_msvc_warning(26447);//noexcept不匹配警告diss
 			return _func_ptr_data_local->call(forward<Args_t>(args)...);
+			pop_msvc_warning();
 		}
 	public:
 		//自当前function对象生成一个函数指针，具有与当前function对象相同的行为
@@ -601,7 +605,9 @@ namespace function_n{
 		static Ret_t _func_ptr_value(Args_t...args)noexcept{
 			if(!_func_ptr_data_local)
 				_func_ptr_data_local=_func_ptr_data_gobal.load(::std::memory_order_relaxed);
+			push_and_disable_msvc_warning(26447);//noexcept不匹配警告diss
 			return _func_ptr_data_local->call(forward<Args_t>(args)...);
+			pop_msvc_warning();
 		}
 	public:
 		//自当前function对象生成一个函数指针，具有与当前function对象相同的行为

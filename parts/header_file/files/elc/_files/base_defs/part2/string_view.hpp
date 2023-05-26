@@ -149,7 +149,8 @@ namespace string_view_n{
 			return equal(base_t::cbegin(),str.cbegin(),str.size());
 		}
 		[[nodiscard]]constexpr bool starts_with(const char_T*str)const noexcept{
-			size_t i=0,len=base_t::size();
+			size_t i = 0;
+			const auto len = base_t::size();
 			while(i<len&&str[i])
 				if(base_t::cbegin()[i]!=str[i])
 					return false;

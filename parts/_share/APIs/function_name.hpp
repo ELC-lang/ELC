@@ -59,22 +59,23 @@ elc依赖的基础函数.
 			};
 		#elif SYSTEM_TYPE == windows
 			//windows需要额外复制一份
-			/*
-			//使用__unDName来解析
-			//extern "C" __declspec(dllimport) char* __stdcall __unDName(char* outputBuffer,const char* name,int maxStringLength,void*(*pAlloc)(size_t),void(*pFree)(void*),unsigned short disableFlags);
-			*/
+			push_and_disable_msvc_warning(26408);//malloc/free警告diss
 			struct function_name_t:string_view_t<char>{
 				using base_t=string_view_t<char>;
 				string_view_t<char> copy_name(string_view_t<char>name)noexcept{
 					auto tmp=(char*)::std::malloc(name.size()+1);
-					memcpy(tmp,name.data(),name.size());
-					tmp[name.size()]=0;
-					return string_view_t<char>{tmp, name.size()};
+					if(tmp) {
+						memcpy(tmp, name.data(), name.size());
+						tmp[name.size()] = 0;
+						return string_view_t<char>{tmp, name.size()};
+					}
+					else
+						return base_t{nullptr,0};
 				}
 				string_view_t<char> demangle_name(string_view_t<char>name)noexcept{
 					char tmp[1024];
 					if(name.starts_with("@ILT+")){
-						auto lit_end_pos=name.find('(');
+						const auto lit_end_pos=name.find('(');
 						if(lit_end_pos==base_t::npos)
 							return copy_name(name);
 						name=name.substr(lit_end_pos+1);
@@ -83,7 +84,7 @@ elc依赖的基础函数.
 						tmp[name.size()]=0;
 						name={tmp,name.size()};
 					}
-					DWORD len=UnDecorateSymbolName(name.data(),tmp,1024,UNDNAME_COMPLETE);
+					const auto len=UnDecorateSymbolName(name.data(),tmp,1024,UNDNAME_COMPLETE);
 					if(len)
 						return copy_name(string_view_t<char>{tmp,len});
 					else
@@ -107,14 +108,15 @@ elc依赖的基础函数.
 					return *this;
 				}
 			};
+			pop_msvc_warning();
 			//一个额外的全局对象用于SymInitialize和SymCleanup
 			struct symbol_init_t{
 				bool _inited;
-				symbol_init_t(){
+				symbol_init_t()noexcept{
 					SymSetOptions(SYMOPT_DEFERRED_LOADS);
 					_inited=SymInitialize(GetCurrentProcess(), nullptr, true);
 				}
-				~symbol_init_t(){
+				~symbol_init_t()noexcept{
 					if(_inited)
 						SymCleanup(GetCurrentProcess());
 				}
