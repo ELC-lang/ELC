@@ -220,6 +220,8 @@ namespace elc::defs{
 		}
 		template<basic_float_type T>
 		using float_precision_base_t = decltype(get_precision_base<T>());
+		template<basic_float_type T>
+		using float_exponent_t = unsigned_specific_size_fast_t<sizeof(float_infos::exponent_type<T>)+1>;
 		//（基础的）自浮点数获取指数部分，舍去基数和符号位
 		template<basic_float_type T>
 		force_inline constexpr auto base_get_exponent(T v)noexcept{
@@ -253,14 +255,14 @@ namespace elc::defs{
 		template<basic_float_type T>
 		force_inline constexpr auto get_exponent(T v)noexcept{
 			using namespace float_infos;
-			return ptrdiff_t(get_native_exponent(v))-precision_base_bit<T>;
+			return float_exponent_t<T>(get_native_exponent(v)) - precision_base_bit<T>;
 		}
 		//自浮点数获取基数和指数
 		template<basic_float_type T>
 		force_inline constexpr auto get_precision_and_exponent(T v)noexcept{
 			struct precision_and_exponent_t{
 				float_precision_base_t<T> precision;
-				ptrdiff_t exponent;
+				float_exponent_t<T>		  exponent;
 			};
 			const auto precision=get_precision(v);
 			const auto exponent=get_exponent(v);
@@ -272,7 +274,7 @@ namespace elc::defs{
 		//自基数和指数构造浮点数
 		//num=base_num*2^exponent
 		template<basic_float_type T>
-		force_inline constexpr T make_float(float_precision_base_t<T> base_num,ptrdiff_t exponent)noexcept{
+		force_inline constexpr T make_float(float_precision_base_t<T> base_num, float_exponent_t<T> exponent) noexcept {
 			using namespace float_infos;
 			//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
 			//并在此过程中加减指数
@@ -280,7 +282,7 @@ namespace elc::defs{
 			{
 				const auto tmp=countl_zero(base_num);
 				constexpr auto need_shift=bitnum_of(base_num)-threshold_precision_bit<T>;
-				const ptrdiff_t shift=tmp-need_shift;
+				const float_exponent_t<T> shift=tmp-need_shift;
 				if(shift>0){
 					base_num<<=shift;
 					exponent-=shift;
@@ -387,6 +389,7 @@ namespace elc::defs{
 	using basic_environment::get_exponent;
 	using basic_environment::get_precision;
 	using basic_environment::float_precision_base_t;
+	using basic_environment::float_exponent_t;
 	using basic_environment::get_precision_and_exponent;
 	using basic_environment::make_float;
 	using basic_environment::to_divide;

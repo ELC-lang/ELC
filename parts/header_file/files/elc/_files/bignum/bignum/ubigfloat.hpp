@@ -111,7 +111,7 @@ public:
 
 			constexpr auto precision_base_bitnum = bitnum_of(float_precision_base_t<T>);
 			//将大分数转换为合适的指数和基数的组合
-			ptrdiff_t exp=0;
+			float_exponent_t<T> exp=0;
 			//将分子分母的指数部分提取出来
 			{
 				const auto tmp=countr_zero(_numerator);

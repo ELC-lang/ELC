@@ -1047,7 +1047,7 @@ public:
 		if(!*this)return*this;
 		if constexpr(unsigned_type<T>){
 			const auto oldsize=_data.size();
-			const auto newsize_diff=n/bitnum_of(base_type);
+			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
 			const auto newsize=oldsize+newsize_diff;
 			if(newsize_diff){
 				_data.insert(0,newsize_diff,base_type{0});
