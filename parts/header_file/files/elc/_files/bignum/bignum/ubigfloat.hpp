@@ -111,7 +111,7 @@ public:
 
 			constexpr auto precision_base_bitnum = bitnum_of(float_precision_base_t<T>);
 			//将大分数转换为合适的指数和基数的组合
-			float_exponent_t<T> exp=0;
+			signed_specific_size_fast_t<max(sizeof(float_exponent_t<T>),sizeof(ptrdiff_t))> exp=0;
 			//将分子分母的指数部分提取出来
 			{
 				const auto tmp=countr_zero(_numerator);
@@ -155,7 +155,7 @@ public:
 
 				//现在我们有了一个合适的基数和合适的指数！
 				//接下来只需要将它们转换为T即可
-				return make_float<T>(num,exp);
+				return make_float<T>(num,float_exponent_t<T>(exp));
 			}
 		}
 		else

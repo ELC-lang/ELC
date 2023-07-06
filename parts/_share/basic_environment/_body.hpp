@@ -114,6 +114,22 @@ namespace elc::defs{
 			#undef TYPE_MAPPER
 			{}
 		}());
+		/*! 给定大小的有符号整数类型 */
+		template<size_t size>
+		using signed_specific_size_t=decltype(lambda{
+			#define TYPE_MAPPER(type) if constexpr(size == sizeof(type))return (type)0;else
+			#include "./arithmetic_mapper/signed_mapper.hpp"
+			#undef TYPE_MAPPER
+			{}
+		}());
+		/*! 至少有给定大小的快速有符号整数类型 */
+		template<size_t size>
+		using signed_specific_size_fast_t=decltype(lambda{
+			#define TYPE_MAPPER(type) if constexpr(size <= sizeof(type))return (type)0;else
+			#include "./arithmetic_mapper/signed_fast_mapper.hpp"
+			#undef TYPE_MAPPER
+			{}
+		}());
 		//任意类型转算数类型
 		inline constexpr class to_arithmetic_t{
 			template<class T,class type>
@@ -221,7 +237,7 @@ namespace elc::defs{
 		template<basic_float_type T>
 		using float_precision_base_t = decltype(get_precision_base<T>());
 		template<basic_float_type T>
-		using float_exponent_t = unsigned_specific_size_fast_t<sizeof(float_infos::exponent_type<T>)+1>;
+		using float_exponent_t = signed_specific_size_fast_t<sizeof(float_infos::exponent_type<T>)+1>;
 		//（基础的）自浮点数获取指数部分，舍去基数和符号位
 		template<basic_float_type T>
 		force_inline constexpr auto base_get_exponent(T v)noexcept{
@@ -233,7 +249,7 @@ namespace elc::defs{
 		}
 		//自浮点数获取原生指数部分，舍去基数和符号位
 		template<basic_float_type T>
-		force_inline constexpr auto get_native_exponent(T v)noexcept{
+		force_inline constexpr float_infos::exponent_type<T> get_native_exponent(T v)noexcept{
 			const auto tmp=base_get_exponent(v);
 			using namespace float_infos;
 			if(tmp==0)return exponent_min<T>;
@@ -241,19 +257,19 @@ namespace elc::defs{
 		}
 		//自浮点数获取基数
 		template<basic_float_type T>
-		force_inline constexpr auto get_base_num(T v)noexcept{
+		force_inline constexpr float_precision_base_t<T> get_base_num(T v)noexcept{
 			//特殊情况处理（exp=0时，base=0）
 			const auto tmp=base_get_exponent(v);
 			return tmp?get_precision_base(v):float_precision_base_t<T>{};
 		}
 		//自浮点数获取基数
 		template<basic_float_type T>
-		force_inline constexpr auto get_precision(T v)noexcept{
+		force_inline constexpr float_precision_base_t<T> get_precision(T v)noexcept{
 			return get_native_precision(v)+get_base_num(v);
 		}
 		//自浮点数获取指数
 		template<basic_float_type T>
-		force_inline constexpr auto get_exponent(T v)noexcept{
+		force_inline constexpr float_exponent_t<T> get_exponent(T v)noexcept{
 			using namespace float_infos;
 			return float_exponent_t<T>(get_native_exponent(v)) - precision_base_bit<T>;
 		}
@@ -274,7 +290,7 @@ namespace elc::defs{
 		//自基数和指数构造浮点数
 		//num=base_num*2^exponent
 		template<basic_float_type T>
-		force_inline constexpr T make_float(float_precision_base_t<T> base_num, float_exponent_t<T> exponent) noexcept {
+		force_inline constexpr T make_float(float_precision_base_t<T> base_num,float_exponent_t<T> exponent)noexcept{
 			using namespace float_infos;
 			//首先将基数转换为precision_base（2^precision_base_bit）为分母的分数的分子
 			//并在此过程中加减指数
@@ -282,7 +298,7 @@ namespace elc::defs{
 			{
 				const auto tmp=countl_zero(base_num);
 				constexpr auto need_shift=bitnum_of(base_num)-threshold_precision_bit<T>;
-				const float_exponent_t<T> shift=tmp-need_shift;
+				const float_exponent_t<T> shift=float_exponent_t<T>(tmp)-need_shift;
 				if(shift>0){
 					base_num<<=shift;
 					exponent-=shift;
@@ -377,6 +393,8 @@ namespace elc::defs{
 
 	using basic_environment::unsigned_specific_size_t;
 	using basic_environment::unsigned_specific_size_fast_t;
+	using basic_environment::signed_specific_size_t;
+	using basic_environment::signed_specific_size_fast_t;
 
 	using basic_environment::to_arithmetic;
 

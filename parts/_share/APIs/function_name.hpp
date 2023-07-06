@@ -73,7 +73,9 @@ elc依赖的基础函数.
 						return base_t{nullptr,0};
 				}
 				string_view_t<char> demangle_name(string_view_t<char>name)noexcept{
+					push_and_disable_msvc_warning(26494);//未初始化警告diss
 					char tmp[1024];
+					pop_msvc_warning();
 					if(name.starts_with("@ILT+")){
 						const auto lit_end_pos=name.find('(');
 						if(lit_end_pos==base_t::npos)
