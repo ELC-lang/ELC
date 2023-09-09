@@ -94,7 +94,7 @@ namespace lifetime_n{
 			::std::wmemset((wchar_t*)to,(wchar_t)value,size);
 		else
 			if(is_all_byte_zero(value))
-				::std::memset(to,zero,size*sizeof(T));
+				::std::memset(to,0,size*sizeof(T));
 			else
 				::std::fill_n(to,size,value);
 		return to;
@@ -103,7 +103,7 @@ namespace lifetime_n{
 	force_inline T* super_speed_trivial_copy_from_one(T*to,const T&value)noexcept{
 		if constexpr(sizeof(T)>=sizeof(::std::max_align_t))
 			if(is_all_byte_zero(value))
-				::std::memset(to,zero,sizeof(T));
+				::std::memset(to,0,sizeof(T));
 			else
 				*to=value;
 		else
@@ -702,6 +702,34 @@ namespace lifetime_n{
 			}
 		};
 		[[nodiscard]]force_inline constexpr array_move_assign_t operator[](size_t a)const noexcept{return{a};}
+
+		static constexpr struct may_overlap_t{
+			template<class T> requires able<T>
+			static T* base_call(T*to,T*from,size_t size)noexcept(nothrow<T>){
+				if constexpr(trivial<T>)
+					::std::memmove(to,add_const(from),size*sizeof(T));
+				else
+					while(size--)
+						base_call(to[size],from[size]);
+				return to;
+			}
+			struct array_may_overlap_move_assign_t{
+				size_t _size;
+				template<class T> requires able<T>
+				force_inline T*operator()(T*to,T*from)const noexcept(nothrow<T>){
+					return base_call(to,from,_size);
+				}
+				template<class T> requires able<T>
+				force_inline T*operator()(note::to_t<T*>to,note::from_t<T*>from)const noexcept(nothrow<T>){
+					return operator()(to(),from());
+				}
+				template<class T> requires able<T>
+				force_inline T*operator()(note::from_t<T*>from,note::to_t<T*>to)const noexcept(nothrow<T>){
+					return operator()(to(),from());
+				}
+			};
+			[[nodiscard]]force_inline constexpr array_may_overlap_move_assign_t operator[](size_t a)const noexcept{return{a};}
+		}may_overlap{};
 	}move_assign{};
 }
 

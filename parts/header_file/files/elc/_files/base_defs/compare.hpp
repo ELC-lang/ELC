@@ -282,7 +282,7 @@ public:
 	}
 	template<typename T,typename U>
 	[[nodiscard]]constexpr auto lexicographical(T*a,size_t size1,U*b,size_t size2)const noexcept(nothrow<T,U>){
-		using ::std::min;
+		using ::std::min;//elc的min依赖compare，而compare还没有定义完全，所以这里用std的
 		if(auto tmp=operator()(a,b,min(size1,size2)); tmp!=0)
 			return tmp;
 		else

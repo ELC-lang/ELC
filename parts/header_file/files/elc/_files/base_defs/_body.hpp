@@ -49,7 +49,26 @@ namespace elc::defs{ //在elc::defs中定义内容
 	#endif
 
 	namespace base{
-		#include "part1/_body.hpp"
+		//恭喜你找到elc内大部分语法糖所在地
+		#include "template_helper.hpp"
+		#include "using_std.hpp"
+		#include "concept.hpp"
+		#include "magic_number.hpp"
+
+		#include "other.hpp"
+
+		#include "cast.hpp"
+		#include "special_flags.hpp"
+		#include "non_Xable.hpp"
+		#include "attribute.hpp"
+		#include "special_attribute.hpp"
+		#include "type_info.hpp"
+		#include "arithmetic_type_info_prover_decl.hpp"
+		#include "compare.hpp"
+		#include "min_max.hpp"
+		#include "math.hpp"
+
+		#include "literal_support.hpp"
 	}
 
 	//由于vcruntime的type_info在全局定义,这里需要额外声明使用base::type_info.
@@ -63,8 +82,34 @@ namespace elc::defs{ //在elc::defs中定义内容
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
+
 	namespace base{
-		#include "part2/_body.hpp"
+		#include "arithmetic_type_info_prover.hpp"
+		#include "bit.hpp"
+		#include "null_ptr.hpp"
+		#include "note.hpp"
+		#include "array_like.hpp"
+		#include "data.hpp"
+		#include "pointer.hpp"
+		#include "zero.hpp"
+	}
+
+	namespace memory{
+		#include "memory/lifetime/_body.hpp"
+	}
+	using namespace memory;
+
+	namespace base{
+		#include "hash.hpp"
+		#include "range.hpp"
+		#include "sort.hpp"
+		#include "string_view.hpp"
+		#include "type_name.hpp"
+		#include "constexpr_str.hpp"
+		#include "logical_bool.hpp"
+		#include "count_able.hpp"
+		#include "invoke.hpp"
+		#include "maybe_fail_reference.hpp"
 	}
 
 	#include "../_share/_undefs.hpp"
