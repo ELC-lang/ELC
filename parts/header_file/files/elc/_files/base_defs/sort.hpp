@@ -169,9 +169,7 @@ namespace sort_n{
 			introsort_loop(array, pivot + 1, end, depth_limit, compare);
 			end = pivot;
 		}
-		// 如果数组长度小于等于size_threshold，使用插入排序
-		if(begin < end)
-			insertion_sort(array, begin, end, compare);
+		insertion_sort(array, begin, end, compare);
 	}
 
 	// introsort函数
