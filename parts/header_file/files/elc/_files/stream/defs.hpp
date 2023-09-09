@@ -222,7 +222,7 @@ namespace base_streams_impl_n{
 		inheriting_ostream_operations_from(_code_cvt);
 	};
 	//句柄io流
-	struct handle_istream_impl:virtual noexcept_text_istream_t<char_t>,instance_struct<handle_istream_impl>{
+	struct handle_istream_impl:virtual noexcept_text_istream_t<char_t>,instance_struct<handle_istream_impl>,non_copyable{
 	private:
 		typedef noexcept_text_istream_t<char_t> base_t;
 		typedef handle_istream_impl this_t;
@@ -243,7 +243,7 @@ namespace base_streams_impl_n{
 
 		inheriting_istream_operations_from_pointer(_base);
 	};
-	struct handle_ostream_impl:virtual noexcept_text_ostream_t<char_t>,instance_struct<handle_ostream_impl>{
+	struct handle_ostream_impl:virtual noexcept_text_ostream_t<char_t>,instance_struct<handle_ostream_impl>,non_copyable{
 	private:
 		typedef noexcept_text_ostream_t<char_t> base_t;
 		typedef handle_ostream_impl this_t;

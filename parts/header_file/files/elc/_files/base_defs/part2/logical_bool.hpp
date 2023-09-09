@@ -1,4 +1,4 @@
-//logic.hpp
+//logical_bool.hpp
 //at namespace elc::defs::base
 /*
 未完成的elc解释器base_defs文件

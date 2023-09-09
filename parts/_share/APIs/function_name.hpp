@@ -84,7 +84,7 @@ elc依赖的基础函数.
 						name=name.substr(size_t{0},name.size()-1);
 						memcpy(tmp,name.data(),name.size());
 						tmp[name.size()]=0;
-						name={tmp,name.size()};
+						name=string_view_t<char>{tmp,name.size()};
 					}
 					const auto len=UnDecorateSymbolName(name.data(),tmp,1024,UNDNAME_COMPLETE);
 					if(len)
