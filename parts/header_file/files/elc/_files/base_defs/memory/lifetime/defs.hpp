@@ -94,7 +94,7 @@ namespace lifetime_n{
 			::std::wmemset((wchar_t*)to,(wchar_t)value,size);
 		else
 			if(is_all_byte_zero(value))
-				::std::memset(to,0,size*sizeof(T));
+				::std::memset(to,zero,size*sizeof(T));
 			else
 				::std::fill_n(to,size,value);
 		return to;
@@ -103,7 +103,7 @@ namespace lifetime_n{
 	force_inline T* super_speed_trivial_copy_from_one(T*to,const T&value)noexcept{
 		if constexpr(sizeof(T)>=sizeof(::std::max_align_t))
 			if(is_all_byte_zero(value))
-				::std::memset(to,0,sizeof(T));
+				::std::memset(to,zero,sizeof(T));
 			else
 				*to=value;
 		else

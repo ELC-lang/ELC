@@ -98,17 +98,12 @@ namespace sort_n{
 		for (size_t i = begin + 1; i < end; i++) {
 			auto key = move(array[i]);
 			ptrdiff_t j=i-1;
-			while(j>=begin && compare(array[j], key)==strong_ordering::greater){
+			// 将比key大的元素向后移动
+			while (j >= ptrdiff_t(begin) && compare(array[j], key)==strong_ordering::greater) {
 				array[j + 1] = move(array[j]);
 				j--;
 			}
-			/*
-			const size_t move_step=i-j;
-			move_assign.may_overlap[move_step](
-				note::from(array[j+1]),
-				note::to(array[j+1+move_step])
-			);
-			*/
+			// 将key插入到正确的位置
 			array[j + 1] = move(key);
 		}
 		return array;
