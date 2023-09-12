@@ -37,12 +37,12 @@ namespace iterator_n{
 		base_t_rw _m;
 		template<typename build_base_t_T> requires(construct<base_t_rw>.able<build_base_t_T>)
 		constexpr reverse_base_t(build_base_t_T&& a)noexcept(construct<base_t_rw>.nothrow<build_base_t_T>):_m(a){}
-		constexpr reverse_base_t(const reverse_base_t&a)noexcept(construct<base_t_rw>.nothrow<const base_t_rw&>):_m(a._m){}
-		constexpr reverse_base_t(reverse_base_t&&a)noexcept(construct<base_t_rw>.nothrow<base_t_rw&&>):_m(move(a._m)){}
-		constexpr reverse_base_t& operator=(const reverse_base_t&a)&noexcept{_m=a._m;return*this;}
-		constexpr reverse_base_t& operator=(const reverse_base_t&&a)&noexcept{_m=move(a._m);return*this;}
-		constexpr auto operator==(const reverse_base_t&a)const noexcept{return _m==a._m;}
-		constexpr auto operator<=>(const reverse_base_t&a)const noexcept{return _m<=>a._m;}
+		constexpr reverse_base_t(const this_t&a)noexcept(construct<base_t_rw>.nothrow<const base_t_rw&>):_m(a._m){}
+		constexpr reverse_base_t(this_t&&a)noexcept(construct<base_t_rw>.nothrow<base_t_rw&&>):_m(move(a._m)){}
+		constexpr this_t& operator=(const this_t&a)&noexcept{_m=a._m;return*this;}
+		constexpr this_t& operator=(const this_t&&a)&noexcept{_m=move(a._m);return*this;}
+		constexpr auto operator==(const this_t&a)const noexcept{return _m==a._m;}
+		constexpr auto operator<=>(const this_t&a)const noexcept{return _m<=>a._m;}
 
 		static constexpr bool is_pointer=::std::is_pointer_v<base_t_w>;
 
@@ -219,6 +219,7 @@ namespace iterator_n{
 			if constexpr(compare.able<base_t_rw,other_base_t_w>)
 				return compare(_m,a._m);
 		}
+		constexpr this_t& operator=(const this_t&)&noexcept=default;
 		base_t_rw& get_base()noexcept{ return _m; }
 		const base_t_rw& get_base()const noexcept{ return _m; }
 	};
