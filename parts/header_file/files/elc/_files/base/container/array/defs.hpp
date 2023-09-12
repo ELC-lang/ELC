@@ -62,6 +62,19 @@ namespace array_n{
 		array_t(U&&a)noexcept(get<T>.as_array.nothrow<U>){
 			_m=get<T>.as_array(forward<U>(a));
 		}
+		/*初始化器进行构建*/
+		template<class Func> requires(invoke<Func>.with_return_type<T>.able<>)
+		array_t(note::size_t<size_t>size, Func&&func)noexcept(get<T>.nothrow<Func>){
+			_m=get<T>[size.value]();
+			for(auto&i:*this)
+				i=func();
+		}
+		template<class Func> requires(invoke<Func>.with_return_type<T>.able<size_t>)
+		array_t(note::size_t<size_t>size, Func&&func)noexcept(get<T>.nothrow<Func>){
+			_m=get<T>[size.value]();
+			for(size_t i=0;i<size.value;++i)
+				(*this)[i]=func(i);
+		}
 
 		//复制和移动函数
 		array_t(const this_t&a)noexcept_as(declvalue(this_t).copy()):array_t(a.copy()){}

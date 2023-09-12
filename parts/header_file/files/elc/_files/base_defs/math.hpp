@@ -153,6 +153,42 @@ namespace math{
 		template<typename T>
 		concept is_unsigned_basic_float_type=unsigned_basic_float_type<T>;
 
+		/// 大整数类型概念
+		template<typename T>
+		concept big_integer_type=integer_type<T> && big_type<T>;
+		template<typename T>
+		concept is_big_integer_type=big_integer_type<T>;
+
+		/// 大浮点数类型概念
+		template<typename T>
+		concept big_float_type=float_type<T> && big_type<T>;
+		template<typename T>
+		concept is_big_float_type=big_float_type<T>;
+
+		/// 无符号大整数类型概念
+		template<typename T>
+		concept unsigned_big_integer_type=big_integer_type<T> && is_unsigned<T>;
+		template<typename T>
+		concept is_unsigned_big_integer_type=unsigned_big_integer_type<T>;
+
+		/// 有符号大整数类型概念
+		template<typename T>
+		concept signed_big_integer_type=big_integer_type<T> && is_signed<T>;
+		template<typename T>
+		concept is_signed_big_integer_type=signed_big_integer_type<T>;
+
+		/// 无符号大浮点数类型概念
+		template<typename T>
+		concept unsigned_big_float_type=big_float_type<T> && is_unsigned<T>;
+		template<typename T>
+		concept is_unsigned_big_float_type=unsigned_big_float_type<T>;
+
+		/// 有符号大浮点数类型概念
+		template<typename T>
+		concept signed_big_float_type=big_float_type<T> && is_signed<T>;
+		template<typename T>
+		concept is_signed_big_float_type=signed_big_float_type<T>;
+
 		/// 有NaN的类型概念
 		template<typename T>
 		concept has_NaN=arithmetic_type_info_prover<remove_cvref<T>>::has_NaN;
@@ -210,21 +246,20 @@ namespace math{
 			return false;
 	}
 	/*! 符号位设置 */
-	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr T copy_as_negative(auto x,bool negative=1)noexcept{
+	template<typename T=void,typename Arg_t=void>
+	[[nodiscard]]force_inline constexpr auto copy_as_negative(Arg_t x,bool negative=1)noexcept{
 		if constexpr(is_unsigned<T>)
 			template_error("copy_as_negative:unsigned type");
-		if constexpr(is_basic_type<decltype(x)>){
-			if constexpr(is_float_type<decltype(x)>)
+		elseif constexpr(type_info<T> == type_info<void>)
+			return copy_as_negative<to_signed_t<Arg_t>>(x,negative);
+		elseif constexpr(is_basic_type<Arg_t>) {
+			if constexpr(is_float_type<Arg_t>)
 				return(T)::std::copysign(x,negative?-1:1);
 			else
 				return(T)negative?T{}-x:x;
 		}
 		else
-			return copy_as_negative<T>((T)x,negative);
-	}
-	[[nodiscard]]force_inline constexpr auto copy_as_negative(auto x,bool negative=1)noexcept{
-		return copy_as_negative<to_signed_t<decltype(x)>>(x,negative);
+			return(T)negative?T{}-x:x;
 	}
 	[[nodiscard]]force_inline constexpr auto copy_as_not_negative(auto x)noexcept{
 		return copy_as_negative(x,false);

@@ -241,7 +241,7 @@ namespace rand_n{
 	template<class T>
 	struct rand_t:base_rand_t{
 		static constexpr bool common_able=::std::is_trivially_constructible_v<T>;
-		static constexpr bool range_able=is_arithmetic_type<T> && !(is_float_type<T> && is_big_type<T>);//大浮点数不支持范围（因为其无限精度）
+		static constexpr bool range_able=is_arithmetic_type<T> && !is_big_float_type<T>;//大浮点数不支持范围（因为其无限精度）
 		static constexpr bool able=common_able || range_able;
 		static constexpr bool nothrow=able;
 	private:
