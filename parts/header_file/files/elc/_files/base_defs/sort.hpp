@@ -96,15 +96,15 @@ namespace sort_n{
 	void insertion_sort(iter_t begin, iter_t end, compare_t compare = compare_t()) {
 		// 从第二个元素开始，依次将其插入到前面已排序的数组中
 		for (auto i = begin + 1; i < end; i++) {
-			auto key = std::move(*i);
+			auto key = move(*i);
 			auto j = i - 1;
 			// 将比key大的元素向后移动
 			while (j >= begin && compare(*j, key)==strong_ordering::greater) {
-				*(j + 1) = std::move(*j);
+				*(j + 1) = move(*j);
 				j--;
 			}
 			// 将key插入到正确的位置
-			*(j + 1) = std::move(key);
+			*(j + 1) = move(key);
 		}
 	}
 	template<typename array_t, typename compare_t = default_compare_t>

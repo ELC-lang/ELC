@@ -13,6 +13,7 @@
 
 //benchmark static definition
 #define BENCHMARK_STATIC_DEFINE
+#pragma comment(lib, "Shlwapi.lib")
 
 #include <gtest/gtest.h>
 #include <benchmark/benchmark.h>
