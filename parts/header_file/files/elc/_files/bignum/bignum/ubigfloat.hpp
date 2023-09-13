@@ -141,10 +141,8 @@ public:
 				const auto bitnum_now=get_bitnum(_numerator);
 				const ptrdiff_t diff=bitnum_now-basic_environment::threshold_precision_bit<T>;
 				if(diff>0){
-					const auto rounding=is_rounding_bit(_numerator.bit_at(diff-1));//视情况进位
 					_numerator>>=diff;
-					if(rounding)
-						++_numerator;
+					++_numerator;
 					exp+=diff;
 				}
 			}

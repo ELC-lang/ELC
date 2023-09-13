@@ -65,7 +65,13 @@ static void ELC_to_string(benchmark::State& state){
 		if(!elc::defs::full_equal_in_byte(num,check_num)){
 			#if defined(_DEBUG)
 				auto debug_view = str.c_str();
-				__debugbreak();
+				if constexpr(elc::defs::is_basic_float_type<T>){
+					const auto num_info=elc::defs::get_precision_and_exponent(num);
+					const auto check_num_info=elc::defs::get_precision_and_exponent(check_num);
+					__debugbreak();
+				}
+				else
+					__debugbreak();
 			#endif
 			mismatch_num++;
 		}
