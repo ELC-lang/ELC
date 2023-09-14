@@ -113,7 +113,7 @@ namespace elc::defs{
 
 		//T* output only for text_ostream
 		template<typename T,text_ostream stream_T> requires(!::std::is_function_v<T>)
-		inline decltype(auto)operator<<(stream_T&&stream,T*data)noexcept(noexcept_text_ostream<stream_T>){
+		inline decltype(auto)operator<<(stream_T&&stream,T*const&data)noexcept(noexcept_text_ostream<stream_T>){
 			//output name of type at first
 			stream << type_info<T>.get_name();
 			if constexpr(::std::is_polymorphic_v<T> && !::std::is_final_v<T>){//RTTI
@@ -127,7 +127,7 @@ namespace elc::defs{
 		}
 		//function output only for text_ostream
 		template<typename T,text_ostream stream_T> requires(::std::is_function_v<T>)
-		inline decltype(auto)operator<<(stream_T&&stream,T*data)noexcept(noexcept_text_ostream<stream_T>){
+		inline decltype(auto)operator<<(stream_T&&stream,T*const&data)noexcept(noexcept_text_ostream<stream_T>){
 			//output name of type at first
 			stream << get_function_name(data);
 			//output address

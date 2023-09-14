@@ -125,5 +125,27 @@ decltype(auto)operator>>(stream_T&&stream,callable_T&&callable)noexcept(invoke<c
 	return callable(stream);
 }
 
+template<text_ostream_class text_ostream_T,class T>
+decltype(auto) base_array_output(text_ostream_T&&stream,const T*array,size_t size)noexcept(noexcept_text_ostream_class<text_ostream_T>){
+	typedef typename remove_cvref<text_ostream_T>::char_type char_T;
+	stream << char_T{'['};
+	for(auto i=array;i!=array+size;++i){
+		if(i!=array)
+			stream << char_T{','};
+		stream << *i;
+	}
+	return stream << char_T{']'};
+}
+//operator<< of array_t with text_stream
+template<text_ostream_class text_ostream_T,class T>
+decltype(auto)operator<<(text_ostream_T&&stream,const array_t<T>&array)noexcept(noexcept_text_ostream_class<text_ostream_T>){
+	return base_array_output(stream,array.data(),array.size());
+}
+//operator<< of navie array with text_stream
+template<text_ostream_class text_ostream_T,class T,size_t N> requires(type_info<typename remove_cvref<text_ostream_T>::char_type> != type_info<T>)
+decltype(auto)operator<<(text_ostream_T&&stream,const T(&array)[N])noexcept(noexcept_text_ostream_class<text_ostream_T>){
+	return base_array_output(stream,array,N);
+}
+
 //file_end
 
