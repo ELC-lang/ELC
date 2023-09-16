@@ -44,7 +44,7 @@ namespace string_n{
 		typedef char_T								value_type;
 		typedef value_type							char_type;
 		typedef size_t								size_type;
-		static constexpr size_t						npos = range_n::npos;
+		static constexpr size_t						npos = bit::npos;
 
 	private:
 		//_cso_info用于存储不同cso情况下string所用到的数据
@@ -176,6 +176,7 @@ namespace string_n{
 		}
 		string_t(size_t size,char_T ch)noexcept{_ncso_construct_mptr(get<same_value_compress_string_data_t<char_T>>(size,ch));}
 		string_t(char_T ch,size_t size)noexcept requires(type_info<size_t>!=type_info<char_T>):string_t(size,ch){}
+		string_t(array_t<char_t> base)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(move(base)));}
 
 		string_t(size_t size)noexcept{_ncso_construct_mptr(get<comn_string_data_t<char_T>>(size));}
 		//END_BLOCK
@@ -1107,8 +1108,10 @@ namespace string_n{
 	//array like支持
 	template<class T>
 	[[nodiscard]]inline auto size_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return a.size(); }
+	push_and_disable_msvc_warning(26460);//参数1可以为const 但是这是有意的
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(string_t<remove_cv<T>>& a)noexcept{ return a.c_str(); }
+	pop_msvc_warning();
 	template<class T>
 	[[nodiscard]]inline auto begin_of_array_like(const string_t<remove_cv<T>>& a)noexcept{ return a.c_str(); }
 

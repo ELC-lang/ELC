@@ -48,10 +48,10 @@ namespace array_n{
 		/*
 		构造size个T
 		*/
-		explicit array_t(note::size_t<size_t>size)noexcept(get<T>.nothrow<>){
+		explicit array_t(note::size_t size)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value]();
 		}
-		explicit array_t(note::size_t<size_t>size,const T&elem)noexcept(get<T>.nothrow<>){
+		explicit array_t(note::size_t size,const T&elem)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value](elem);
 		}
 		/*
@@ -64,13 +64,13 @@ namespace array_n{
 		}
 		/*初始化器进行构建*/
 		template<class Func> requires(invoke<Func>.with_return_type<T>.able<>)
-		array_t(note::size_t<size_t>size, Func&&func)noexcept(get<T>.nothrow<Func>){
+		array_t(note::size_t size, Func&&func)noexcept(get<T>.nothrow<Func>){
 			_m=get<T>[size.value]();
 			for(auto&i:*this)
 				i=func();
 		}
 		template<class Func> requires(invoke<Func>.with_return_type<T>.able<size_t>)
-		array_t(note::size_t<size_t>size, Func&&func)noexcept(get<T>.nothrow<Func>){
+		array_t(note::size_t size, Func&&func)noexcept(get<T>.nothrow<Func>){
 			_m=get<T>[size.value]();
 			for(size_t i=0;i<size.value;++i)
 				(*this)[i]=func(i);

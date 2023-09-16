@@ -174,7 +174,7 @@ protected:
 			return{_static_data_p->get_data(_static_data_p),note::size(min(_size-begin,max_static_data_size))};
 		}
 		else
-			return{&_value,note::size<size_t>(1)};
+			return{&_value,note::size(1)};
 	}
 	[[nodiscard]]virtual bool same_struct_equal(ptr_t with)noexcept(equal.nothrow<char_T>)override final{
 		auto wp=down_cast<this_t*>(with.get());

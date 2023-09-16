@@ -109,7 +109,7 @@ namespace string_view_n{
 	/// array_like_view_t的特化类型，表明这是字符串
 	template<typename char_T>
 	struct string_view_t:array_like_view_t<const char_T>{
-		static constexpr size_t npos=range_n::npos;
+		static constexpr size_t npos=bit::npos;
 		typedef array_like_view_t<const char_T> base_t;
 		typedef char_T*string_ptr_t;
 		typedef const char_T*const_string_ptr_t;

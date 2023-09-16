@@ -174,7 +174,7 @@ namespace range_n{
 	[[nodiscard]]constexpr const T* in_range(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
 		if(range.is_bitmark_for_unindex_workable){
 			auto result = range.bitmark_for_unindex[pattern];
-			return result==range_n::npos?nullptr:range.begin()+result;
+			return result==npos?nullptr:range.begin()+result;
 		}
 		else
 			return in_range(pattern,(const constexpr_str_view_t<T>&)range);
@@ -192,7 +192,7 @@ namespace range_n{
 	[[nodiscard]]constexpr const T* in_range_but_reverse(const remove_cvref<T>&pattern,const constexpr_str_t<T>&range){
 		if(range.is_bitmark_for_unindex_workable){
 			auto result = range.bitmark_for_unindex[pattern];
-			return result==range_n::npos?nullptr:range.begin()+result;
+			return result==npos?nullptr:range.begin()+result;
 		}
 		else
 			return in_range_but_reverse(pattern,(const constexpr_str_view_t<T>&)range);

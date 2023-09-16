@@ -161,7 +161,7 @@ elc依赖的基础函数.
 					for(auto c:err_msg){
 						s = ::std::c32rtomb(err_msg_write, c, &stat);
 						push_and_disable_msvc_warning(26475)//强转警告diss
-						if(s == range_n::npos)
+						if(s == npos)
 							die();
 						pop_msvc_warning();
 						err_msg_write += s;

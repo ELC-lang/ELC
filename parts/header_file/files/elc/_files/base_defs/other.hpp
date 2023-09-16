@@ -45,9 +45,6 @@ constexpr struct discard_t{
 }discard{};
 
 template<typename T>
-inline void just_a_use(T&&){}
-
-template<typename T>
 distinctive inline T const_default_value_of{};//?
 
 enable_adl(the_destroy);

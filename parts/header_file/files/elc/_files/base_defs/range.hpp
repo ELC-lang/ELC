@@ -38,8 +38,8 @@ namespace range_n{
 		constexpr range_t(const T begin,const T end):_begin(begin),_end(end){}
 		constexpr range_t(note::from_t<const T>begin,note::to_t<const T>end):_begin(begin),_end(end+1){}
 		constexpr range_t(note::to_t<const T>end,note::from_t<const T>begin):_begin(begin),_end(end+1){}
-		constexpr range_t(const T begin,note::size_t<const T>size):_begin(begin),_end(begin+size()){}
-		constexpr range_t(const T begin,note::size_t<size_t>size):_begin(begin),_end(begin+size()){}
+		constexpr range_t(const T begin,note::size_type_t<const T>size):_begin(begin),_end(begin+size()){}
+		constexpr range_t(const T begin,note::size_t size):_begin(begin),_end(begin+size()){}
 
 		constexpr size_t size()noexcept{return _end-_begin;}
 		constexpr auto end()noexcept{return _end;}
@@ -160,11 +160,6 @@ namespace range_n{
 			}
 		}
 	};
-	push_and_disable_msvc_warning(26475);//强制转换警告diss
-	//  npos
-	/// 用以指定不存在的位置
-	static constexpr size_t npos = size_t(-1);
-	pop_msvc_warning();
 	/// 若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
 	[[nodiscard]]constexpr T* in_range(const remove_cvref<T>&pattern,const array_like_view_t<T>&range){

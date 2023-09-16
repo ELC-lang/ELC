@@ -212,6 +212,7 @@ namespace math{
 	// min和max在下一个文件中定义，所以先用std的
 	using ::std::min;
 	using ::std::max;
+	using ::std::move;
 
 	//isNaN
 	template<arithmetic_type T>
@@ -442,6 +443,28 @@ namespace math{
 	[[nodiscard]]force_inline constexpr auto log(const T&a,const U&b)noexcept{
 		return log(a)/log(b);
 	}
+	//integer_log
+	template<unsigned_integer_type T1,unsigned_integer_type T2>
+	[[nodiscard]]size_t integer_log(const T1& a,const T2& b)noexcept{
+		auto integer_log_impl = recursive_lambda(const T1& a,T1& tester,const T2 this_lv,const size_t num)noexcept -> size_t{
+			size_t aret=0;
+			{
+				const auto next_lv=this_lv*this_lv;
+				if(next_lv<a)
+					aret=self_recursion(a,tester,next_lv,num*2);
+			}
+			floop
+				if(auto tmp=tester*this_lv;tmp>a)return aret;
+				else{
+					tester=move(tmp);
+					aret+=num;
+				}
+		};
+		auto integer_log_impl_caller = get_recursive_lambda_caller(integer_log_impl,noexcept);
+		T1 tester=1u;
+		return integer_log_impl_caller(a,tester,b,1u);
+	}
+
 	//pow
 	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
 	template<arithmetic_type T,arithmetic_type U=unsigned> requires(!is_big_type<T>)
@@ -964,6 +987,7 @@ using math::isInf;
 using math::abs;
 using math::exp;
 using math::log;
+using math::integer_log;
 using math::pow;
 using math::ceil;
 using math::floor;

@@ -8,7 +8,7 @@ int main(){
 	using namespace elc;//out & endline & string
 	using namespace elc::defs;//note
 
-	string a={U'烫',note::size<size_t>(165489453133213)};//my super long string!
+	string a={U'烫',note::size(165489453133213)};//my super long string!
 	out<<a.substr(542132486521,3)<<endline;//烫*3
 	out<<a.memory_cost()<<endline
 	   <<a.size()<<endline;

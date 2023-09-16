@@ -200,8 +200,8 @@ class name{}\
 /*! 让lambda递归更加美观 */
 #define recursive_lambda(...) lambda(auto&&lambda_RLSRRS,__VA_ARGS__)
 /*! 让lambda递归更加美观 */
-#define get_recursive_lambda_caller(name) \
-exlambda(auto&&...Args){\
+#define get_recursive_lambda_caller(name,...) \
+exlambda(auto&&...Args)__VA_ARGS__{\
 	return name(name,Args...);\
 }
 /*! 让lambda定义更加美观 */

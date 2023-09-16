@@ -29,6 +29,13 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 namespace bit{
+	push_and_disable_msvc_warning(26475);//强制转换警告diss
+	// npos!
+	/// 用以指定不存在的位置
+	template<unsigned_basic_integer_type T>
+	constexpr T npos_of=T(-1);
+	pop_msvc_warning();
+	constexpr auto npos=npos_of<size_t>;
 	/// 位操作：循环左移（无mod）
 	/// 不使用std版本而是自己写的原因：std版本右操作数只能是int而不能是size_t或别的，标准会傻逼
 	template<unsigned_basic_integer_type T>
@@ -235,7 +242,19 @@ namespace bit{
 			//默认通用实现
 			return countr_one(T(~v));
 	}
+	/// is_all_bit_one
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr bool all_bit_is_one(const T v)noexcept{
+		return v==npos_of<T>;
+	}
+	/// is_all_bit_zero
+	template<unsigned_basic_integer_type T>
+	[[nodiscard]]force_inline constexpr bool all_bit_is_zero(const T v)noexcept{
+		return v;
+	}
 }
+using bit::npos_of;
+using bit::npos;
 using bit::rotl;
 using bit::rotr;
 using bit::rotl_nomod;
@@ -246,6 +265,8 @@ using bit::countl_zero;
 using bit::countr_zero;
 using bit::countl_one;
 using bit::countr_one;
+using bit::all_bit_is_one;
+using bit::all_bit_is_zero;
 
 //file_end
 

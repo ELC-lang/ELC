@@ -325,6 +325,15 @@ namespace to_string_n{
 				}
 			}
 		}
+		template<float_type T,unsigned_integer_type num_base_t>
+		[[nodiscard]]string string_builder(T num,num_base_t number,ptrdiff_t&exp)const noexcept{
+			//根据类型需求对number进行截断
+			apply_info_threshold<T>(number,exp,num);
+			//先获取number的字符串
+			auto tmp=to_string_and_add_exp(move(number),exp);
+			//然后就着exp输出
+			return build_expression_str(move(tmp),exp);
+		}
 		template<exponent_float_type T>//适用于任何指数法记录的浮点类型
 		[[nodiscard]]string to_string_base(T num)const noexcept{
 			//首先，猜测分数
@@ -385,12 +394,7 @@ namespace to_string_n{
 					number<<=exp;
 					exp=new_exp;
 				}
-				//根据类型需求对number进行截断
-				apply_info_threshold<T>(number,exp,num);
-				//先获取number的字符串
-				auto tmp=to_string_and_add_exp(move(number),exp);
-				//然后就着exp输出
-				return build_expression_str(tmp,exp);
+				return string_builder(num,move(number),exp);
 			}
 			else{
 				//可惜没有额外的优化
@@ -445,12 +449,7 @@ namespace to_string_n{
 				clear_backup();
 				numerator*=complete;
 			}
-			//根据类型需求对numerator进行截断
-			apply_info_threshold<T>(numerator,exp,num);
-			//先获取numerator的字符串
-			auto tmp=to_string_and_add_exp(move(numerator),exp);
-			//然后就着exp输出
-			return build_expression_str(move(tmp),exp);
+			return string_builder(num,move(numerator),exp);
 		}
 	private:
 		//to_string定义完了，开始定义from_string_get

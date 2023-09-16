@@ -44,9 +44,11 @@ namespace note_n{
 
 	def_note(from);
 	def_note(to);
-	def_note(size);
+	def_note(size_type);
 
 	#undef def_note
+	typedef size_type_t<::size_t> size_t;
+	constexpr size_t size(::size_t v){return{v};}
 	constexpr struct fail_t{}fail{};
 }
 namespace note=note_n;

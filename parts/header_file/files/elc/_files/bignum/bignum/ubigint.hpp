@@ -90,14 +90,18 @@ public:
 		if constexpr(type_info<T>!=type_info<ubigint>){
 			if constexpr(has_min<T>){
 				constexpr auto min_value=min(type_info<T>);
-				if(min_value)
+				if constexpr(min_value)
 					if(*this<min_value)
 						return false;
 			}
 			if constexpr(has_max<T>){
 				constexpr auto max_value=max(type_info<T>);
-				if(*this>max_value)
+				constexpr size_t max_byte_size=ceil_div(get_bitnum(max_value),CHAR_BIT);
+				if(_data.size_in_byte()>max_byte_size)
 					return false;
+				if constexpr(not all_bit_is_one(max_byte_size))
+					if(*this>max_value)
+						return false;
 			}
 		}
 		return true;
