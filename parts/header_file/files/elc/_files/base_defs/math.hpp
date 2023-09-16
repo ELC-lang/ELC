@@ -444,9 +444,9 @@ namespace math{
 		return log(a)/log(b);
 	}
 	//integer_log
-	template<unsigned_integer_type T1,unsigned_integer_type T2>
-	[[nodiscard]]force_inline constexpr size_t integer_log(const T1& a,const T2& b)noexcept{
-		auto integer_log_impl = recursive_lambda(const T1& a,T1& tester,const T2 this_lv,const size_t num)noexcept -> size_t{
+	template<unsigned_integer_type T>
+	[[nodiscard]]force_inline constexpr size_t integer_log(const T& a,const auto& b)noexcept{
+		auto integer_log_impl = recursive_lambda(const T& a,T& tester,const T this_lv,const size_t num)noexcept -> size_t{
 			size_t aret=0;
 			{
 				const auto next_lv=this_lv*this_lv;
@@ -461,8 +461,8 @@ namespace math{
 				}
 		};
 		auto integer_log_impl_caller = get_recursive_lambda_caller(integer_log_impl,noexcept);
-		T1 tester=1u;
-		return integer_log_impl_caller(a,tester,b,1u);
+		T tester=1u;
+		return integer_log_impl_caller(a,tester,move(b),1u);
 	}
 
 	//pow

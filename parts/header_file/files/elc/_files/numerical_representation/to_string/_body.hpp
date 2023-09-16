@@ -142,7 +142,7 @@ namespace to_string_n{
 				auto result=divmod(num,radix);
 				if(result.mod)
 					break;
-				num=move(result.quot);
+				num=T(move(result.quot));
 				++exp;
 			}while(num);
 			return to_string_base(move(num));

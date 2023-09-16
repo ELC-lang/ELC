@@ -920,29 +920,6 @@ public:
 		else
 			return fast_divmod_base(a_view,b_view);
 	}
-	//friend integer_log
-	//不知为何不保留这个友元的话msvc在flout输出中对integer_log的调用会爆栈，即使这个重载和默认实现没什么区别
-private:
-	[[nodiscard]]friend size_t integer_log_base(const ubigint& a,ubigint& tester,const ubigint this_lv,const size_t num)noexcept{
-		size_t aret=0;
-		{
-			auto next_lv=this_lv*this_lv;
-			if(next_lv<a)
-				aret=integer_log_base(a,tester,next_lv,num*2);
-		}
-		floop{
-			auto tmp=tester*this_lv;
-			if(tmp>a)return aret;
-			tester=move(tmp);
-			aret+=num;
-		}
-	}
-public:
-	template<unsigned_integer_type T>
-	[[nodiscard]]friend size_t integer_log(const ubigint& a,const T& b)noexcept{
-		ubigint tester=1u;
-		return integer_log_base(a,tester,b,1u);
-	}
 	//operator<<
 	template<integer_type T>
 	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
