@@ -290,32 +290,36 @@ namespace to_string_n{
 				}
 				//舍入相关
 				const auto rounding_threshold=radix/2;
-				auto rounding=exlambda(bool skip_zeros,auto backup_updater)noexcept{
+				auto rounding=exlambda(bool skip_zeros,auto backup_updater,auto exp_updater)noexcept{
 					auto result=divmod(move(num),radix);
 					if(skip_zeros)//处理多余的0
 						if(!result.mod){
 							backup_updater(assign(num,move(result.quot)),++exp);
+							exp_updater(exp);
 							result=divmod(move(num),radix);
 						}
 					if(result.mod>=rounding_threshold)//舍入
 						++result.quot;
 					num=move(result.quot);
 					++exp;
+					exp_updater(exp);
 				};
 				//更新exp并舍入num直到num小于info_threshold_num
 				while(num>info_threshold_num)
-					rounding(false,do_nothing);
+					rounding(false,do_nothing,do_nothing);
 				//额外的舍入检查为了更精确的处理
 				if(num>info_threshold_base){
 					auto num_backup=num;auto exp_backup=exp;
 					auto backup_updater=exlambda(const auto&new_num,const auto&new_exp)noexcept{
 						num_backup=new_num;exp_backup=new_exp;
 					};
+					auto exp_pows=pow((ubigint)radix,exp);
+					auto exp_updater=exlambda(const auto&)noexcept{exp_pows*=radix;};
 					floop{
 						//首先进行舍入
-						rounding(true,backup_updater);
+						rounding(true,backup_updater,exp_updater);
 						//然后判断是否需要继续
-						auto tmp_bigfloat=num*pow((ubigint)radix,exp);
+						auto tmp_bigfloat=num*exp_pows;
 						if(tmp_bigfloat.convert_to<T>()==check_num)
 							backup_updater(num,exp);
 						else
