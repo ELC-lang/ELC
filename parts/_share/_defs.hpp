@@ -201,7 +201,7 @@ class name{}\
 #define recursive_lambda(...) lambda(auto&&lambda_RLSRRS,__VA_ARGS__)
 /*! 让lambda递归更加美观 */
 #define get_recursive_lambda_caller(name,...) \
-exlambda(auto&&...Args)__VA_ARGS__{\
+exlambda(auto&&...Args)__VA_ARGS__ lambda_force_inline{\
 	return name(name,Args...);\
 }
 /*! 让lambda定义更加美观 */
@@ -214,6 +214,17 @@ exlambda(auto&&...Args)__VA_ARGS__{\
 #define self_recursion(...) lambda_RLSRRS(lambda_RLSRRS,__VA_ARGS__)
 //recursive_lambda_self_referential_reserved_symbolname
 #define lambda_RLSRRS _my_jb_super_sb_name_
+
+#if defined(_MSC_VER) && !defined(__clang__)
+	#define lambda_inline [[msvc::forceinline]]
+	#define lambda_force_inline [[msvc::forceinline]]
+#elif
+	#define lambda_inline [[gnu::always_inline]]
+	#define lambda_force_inline [[gnu::always_inline]]
+#else
+	#define lambda_inline
+	#define lambda_force_inline
+#endif
 
 #define MAGIC//ahh,ko no tenno da!
 

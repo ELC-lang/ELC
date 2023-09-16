@@ -921,6 +921,7 @@ public:
 			return fast_divmod_base(a_view,b_view);
 	}
 	//friend integer_log
+	//不知为何不保留这个友元的话msvc在flout输出中对integer_log的调用会爆栈，即使这个重载和默认实现没什么区别
 private:
 	[[nodiscard]]friend size_t integer_log_base(const ubigint& a,ubigint& tester,const ubigint this_lv,const size_t num)noexcept{
 		size_t aret=0;

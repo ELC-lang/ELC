@@ -445,7 +445,7 @@ namespace math{
 	}
 	//integer_log
 	template<unsigned_integer_type T1,unsigned_integer_type T2>
-	[[nodiscard]]size_t integer_log(const T1& a,const T2& b)noexcept{
+	[[nodiscard]]force_inline constexpr size_t integer_log(const T1& a,const T2& b)noexcept{
 		auto integer_log_impl = recursive_lambda(const T1& a,T1& tester,const T2 this_lv,const size_t num)noexcept -> size_t{
 			size_t aret=0;
 			{

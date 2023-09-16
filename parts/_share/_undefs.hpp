@@ -122,6 +122,8 @@
 #undef lambda_with_catch
 #undef self_recursion
 #undef lambda_RLSRRS
+#undef lambda_inline
+#undef lambda_force_inline
 
 #undef MAGIC
 
