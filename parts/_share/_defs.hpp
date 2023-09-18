@@ -105,6 +105,11 @@
 	#undef void
 #endif
 //
+#if defined(ELC_PUBLIC_ALL)
+	#define protected public
+	#define private public
+#endif
+//
 #if defined(ELC_RESOLVE_GLOBAL_NAME_CONFLICTS)
 	#undef rand
 #endif

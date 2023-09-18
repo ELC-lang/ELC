@@ -301,8 +301,7 @@ namespace to_string_n{
 					if(result.mod>=rounding_threshold)//舍入
 						++result.quot;
 					num=move(result.quot);
-					++exp;
-					exp_updater(exp);
+					exp_updater(++exp);
 				};
 				//更新exp并舍入num直到num小于info_threshold_num
 				while(num>info_threshold_num)

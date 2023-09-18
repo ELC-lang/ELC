@@ -61,6 +61,11 @@
 	#define void the_void
 #endif
 //
+#if defined(ELC_PUBLIC_ALL)
+	#undef protected
+	#undef private
+#endif
+//
 #if defined(ELC_RESOLVE_GLOBAL_NAME_CONFLICTS)
 	#define rand the_rand
 #endif

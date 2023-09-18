@@ -59,6 +59,9 @@ static void destroy(T*a)noexcept{
 constexpr struct do_nothing_t{
 	template<class...Args>
 	void operator()(Args&&...)noexcept{}
+	constexpr bool operator==(const do_nothing_t&)noexcept{return true;}
+	template<typename T>
+	constexpr bool operator==(T&)noexcept{return false;}
 }do_nothing;
 
 //file_end
