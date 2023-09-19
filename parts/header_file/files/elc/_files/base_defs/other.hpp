@@ -64,5 +64,30 @@ constexpr struct do_nothing_t{
 	constexpr bool operator==(T&)noexcept{return false;}
 }do_nothing;
 
+template<typename T>
+struct times_provider_t{
+	typedef times_provider_t<T> this_t;
+	T loop_times=0u;
+	T loop_end_value;
+	struct iterator_t{
+		this_t* _m;
+		constexpr iterator_t& operator++()noexcept{
+			++_m->loop_times;
+			return*this;
+		}
+		constexpr this_t& operator*()noexcept{
+			return*_m;
+		}
+		constexpr bool operator==(auto)noexcept{
+			return _m->loop_times==_m->loop_end_value;
+		}
+	};
+	constexpr iterator_t begin(){
+		return {this};
+	}
+	constexpr auto end(){return 0;}
+	constexpr times_provider_t(const T&v)noexcept:loop_end_value(v){}
+};
+
 //file_end
 

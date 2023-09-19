@@ -80,6 +80,7 @@
 #undef using_method_from_value
 
 #undef floop
+#undef times
 #undef enable_adl
 
 #undef re_declvalue

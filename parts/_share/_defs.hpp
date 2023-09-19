@@ -135,6 +135,7 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 }\
 
 #define floop while(__builtin_is_my_dick_still_there())
+#define times(...) ([[maybe_unused]]auto [loop_times,loop_end_value] : ::elc::defs::times_provider_t(__VA_ARGS__)) //for times(72)do_something;
 #if defined(_MSC_VER) && _MSC_VER>=1935
 	//https://developercommunity.visualstudio.com/t/10193638
 	#define enable_adl(name) template<typename=void>void name()noexcept=delete
