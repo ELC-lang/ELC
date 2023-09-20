@@ -45,6 +45,20 @@
 		constexpr auto&the_rand=rand;
 	}
 	#define rand the_rand
+	
+	#if defined(_MSC_VER)//msvc上type_info也是全局内容
+		namespace elc::defs{
+			template<class T>
+			constexpr auto&the_type_info=type_info<T>;
+		}
+		namespace elc{
+			using defs::the_type_info;
+		}
+		namespace std{
+			typedef type_info the_type_info;
+		}
+		#define type_info the_type_info
+	#endif
 #endif
 
 //file_end

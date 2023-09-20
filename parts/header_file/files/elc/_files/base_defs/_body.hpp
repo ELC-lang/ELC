@@ -67,9 +67,8 @@ namespace elc::defs{ //在elc::defs中定义内容
 		#include "arithmetic_type_info_prover_decl.hpp"
 		#include "compare.hpp"
 		#include "min_max.hpp"
-		#include "math.hpp"
-
 		#include "literal_support.hpp"
+		#include "math.hpp"
 	}
 
 	//由于vcruntime的type_info在全局定义,这里需要额外声明使用base::type_info.

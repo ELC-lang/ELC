@@ -35,6 +35,7 @@
 	using namespace elc::defs;
 	#define ELC_CODE_REALM
 	#include "../../../_share/_defs.hpp"
+	#include "resolve_global_name_conflicts"
 #endif
 
 //file_end
