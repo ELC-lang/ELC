@@ -366,7 +366,7 @@ namespace math{
 						#if defined(_MSC_VER)//msvc上long double就是double
 							return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
 						#elif defined(ELC_BASE_ENV_HAS_INT128)
-							return union_cast<T>(0x5F1E45D78623ECB73CAB40BC89254388_u128-(union_cast<const int128_t>(v)>>1));
+							return union_cast<T>(0x5F1E45D78623ECB73CAB40BC89254389_u128-(union_cast<const int128_t>(v)>>1));
 						#else
 							do_nothing;//可以寄了
 						#endif
