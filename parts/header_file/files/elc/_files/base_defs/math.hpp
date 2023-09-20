@@ -371,14 +371,14 @@ namespace math{
 							do_nothing;//可以寄了
 						#endif
 					elseif constexpr(is_big_type<T>)
-						return sqrt(static_cast<double>(v));
+						return sqrt(static_cast<long double>(v));
 			return v/2u;
 		}();
 		//newton-raphson
 		floop{
 			auto next_ret=(aret+v/aret)/2u;
 			if(abs(next_ret-aret)<epsilon)
-				return aret;
+				return next_ret;//既然都算出来了，为什么不使用next_ret而是aret？
 			else
 				aret=move(next_ret);
 		}
