@@ -29,189 +29,6 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 namespace math{
-	/*! 无符号位的对应类型 */
-	template<typename T>
-	using to_unsigned_t = typename arithmetic_type_info_prover<remove_cvref<T>>::unsigned_type;
-	/*! 有符号位的对应类型 */
-	template<typename T>
-	using to_signed_t = typename arithmetic_type_info_prover<remove_cvref<T>>::signed_type;
-
-	/// 概念名称空间
-	/// 基于标准库的概念，但是使用帮助类型来便于后续定义中的新算数类型重载
-	inline namespace concepts{
-		/// 算术类型概念
-		template<typename T>
-		concept arithmetic_type=arithmetic_type_info_prover<remove_cvref<T>>::is_arithmetic_type;
-		template<typename T>
-		concept is_arithmetic_type=arithmetic_type<T>;
-
-		/// 基础类型概念
-		template<typename T>
-		concept basic_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_basic_type;
-		template<typename T>
-		concept is_basic_type=basic_type<T>;
-
-		/// 大数类型概念
-		template<typename T>
-		concept big_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_big_type;
-		template<typename T>
-		concept is_big_type=big_type<T>;
-
-		/// 浮点类型概念
-		template<typename T>
-		concept float_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_float_type;
-		template<typename T>
-		concept is_float_type=float_type<T>;
-
-		//浮点数类型：指数记录法
-		template<typename T>
-		concept exponent_float_type=is_float_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_exponent_float_type;
-		template<typename T>
-		concept is_exponent_float_type=exponent_float_type<T>;
-
-		//浮点数类型：分数记录法
-		template<typename T>
-		concept fraction_float_type=is_float_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_fraction_float_type;
-		template<typename T>
-		concept is_fraction_float_type=fraction_float_type<T>;
-
-		/// 基础浮点数类型概念
-		template<typename T>
-		concept basic_float_type=float_type<T> && basic_type<T>;
-		template<typename T>
-		concept is_basic_float_type=basic_float_type<T>;
-
-		/// 整数类型概念
-		template<typename T>
-		concept integer_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_integer_type;
-		template<typename T>
-		concept is_integer_type=integer_type<T>;
-
-		/// 基础整数类型概念
-		template<typename T>
-		concept basic_integer_type=integer_type<T> && basic_type<T>;
-		template<typename T>
-		concept is_basic_integer_type=basic_integer_type<T>;
-
-		/// 有符号类型概念
-		template<typename T>
-		concept signed_type=arithmetic_type<T> && arithmetic_type_info_prover<remove_cvref<T>>::is_signed;
-		template<typename T>
-		concept is_signed=signed_type<T>;
-
-		/// 无符号类型概念
-		template<typename T>
-		concept unsigned_type=arithmetic_type<T> && !is_signed<T>;
-		template<typename T>
-		concept is_unsigned=unsigned_type<T>;
-
-		/// 有符号整数类型概念
-		template<typename T>
-		concept signed_integer_type=integer_type<T> && is_signed<T>;
-		template<typename T>
-		concept is_signed_integer_type=signed_integer_type<T>;
-
-		/// 无符号整数类型概念
-		template<typename T>
-		concept unsigned_integer_type=integer_type<T> && is_unsigned<T>;
-		template<typename T>
-		concept is_unsigned_integer_type=unsigned_integer_type<T>;
-
-		/// 无符号浮点数类型概念
-		template<typename T>
-		concept unsigned_float_type=float_type<T> && is_unsigned<T>;
-		template<typename T>
-		concept is_unsigned_float_type=unsigned_float_type<T>;
-
-		/// 有符号浮点数类型概念
-		template<typename T>
-		concept signed_float_type=float_type<T> && is_signed<T>;
-		template<typename T>
-		concept is_signed_float_type=signed_float_type<T>;
-
-		/// 有符号基础整数类型概念
-		template<typename T>
-		concept signed_basic_integer_type=basic_integer_type<T> && is_signed<T>;
-		template<typename T>
-		concept is_signed_basic_integer_type=signed_basic_integer_type<T>;
-
-		/// 无符号基础整数类型概念
-		template<typename T>
-		concept unsigned_basic_integer_type=basic_integer_type<T> && is_unsigned<T>;
-		template<typename T>
-		concept is_unsigned_basic_integer_type=unsigned_basic_integer_type<T>;
-
-		/// 有符号基础浮点数类型概念
-		template<typename T>
-		concept signed_basic_float_type=basic_float_type<T> && is_signed<T>;
-		template<typename T>
-		concept is_signed_basic_float_type=signed_basic_float_type<T>;
-
-		/// 无符号基础浮点数类型概念
-		template<typename T>
-		concept unsigned_basic_float_type=basic_float_type<T> && is_unsigned<T>;
-		template<typename T>
-		concept is_unsigned_basic_float_type=unsigned_basic_float_type<T>;
-
-		/// 大整数类型概念
-		template<typename T>
-		concept big_integer_type=integer_type<T> && big_type<T>;
-		template<typename T>
-		concept is_big_integer_type=big_integer_type<T>;
-
-		/// 大浮点数类型概念
-		template<typename T>
-		concept big_float_type=float_type<T> && big_type<T>;
-		template<typename T>
-		concept is_big_float_type=big_float_type<T>;
-
-		/// 无符号大整数类型概念
-		template<typename T>
-		concept unsigned_big_integer_type=big_integer_type<T> && is_unsigned<T>;
-		template<typename T>
-		concept is_unsigned_big_integer_type=unsigned_big_integer_type<T>;
-
-		/// 有符号大整数类型概念
-		template<typename T>
-		concept signed_big_integer_type=big_integer_type<T> && is_signed<T>;
-		template<typename T>
-		concept is_signed_big_integer_type=signed_big_integer_type<T>;
-
-		/// 无符号大浮点数类型概念
-		template<typename T>
-		concept unsigned_big_float_type=big_float_type<T> && is_unsigned<T>;
-		template<typename T>
-		concept is_unsigned_big_float_type=unsigned_big_float_type<T>;
-
-		/// 有符号大浮点数类型概念
-		template<typename T>
-		concept signed_big_float_type=big_float_type<T> && is_signed<T>;
-		template<typename T>
-		concept is_signed_big_float_type=signed_big_float_type<T>;
-
-		/// 有NaN的类型概念
-		template<typename T>
-		concept has_NaN=arithmetic_type_info_prover<remove_cvref<T>>::has_NaN;
-
-		/// 有inf的类型概念
-		template<typename T>
-		concept has_inf=arithmetic_type_info_prover<remove_cvref<T>>::has_inf;
-
-		/// 有min的类型概念
-		template<typename T>
-		concept has_min=arithmetic_type_info_prover<remove_cvref<T>>::has_min;
-
-		/// 有max的类型概念
-		template<typename T>
-		concept has_max=arithmetic_type_info_prover<remove_cvref<T>>::has_max;
-
-		/// 有min和max的类型概念
-		template<typename T>
-		concept has_min_max=has_min<T> && has_max<T>;
-	}
-	// min和max在下一个文件中定义，所以先用std的
-	using ::std::min;
-	using ::std::max;
 	using ::std::move;
 
 	//isNaN
@@ -226,7 +43,7 @@ namespace math{
 	template<basic_type T>
 	[[nodiscard]]force_inline constexpr bool isInf(const T&v)noexcept{
 		if constexpr(has_inf<T>)
-			return v==std::numeric_limits<T>::infinity() || v==-std::numeric_limits<T>::infinity();
+			return v==arithmetic_type_info_prover<T>::Inf() || v==arithmetic_type_info_prover<T>::negative_Inf();
 		else
 			return false;
 	}
@@ -373,7 +190,7 @@ namespace math{
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr bool is_close(const T&a,const T&b)noexcept{
 		if constexpr(basic_float_type<T>)
-			return abs(a-b)<=::std::numeric_limits<T>::epsilon();
+			return abs(a-b)<=arithmetic_type_info_prover<T>::epsilon();
 		else
 			return a==b;
 	}
@@ -531,29 +348,42 @@ namespace math{
 			return ::std::floor(v);
 	}
 	//sqrt
-	//不使用std版本而是自己写的原因：std版本不是constexpr，标准会傻逼
-	template<arithmetic_type T>
-	[[nodiscard]]force_inline constexpr auto sqrt(const T&v)noexcept{
-		if(in_consteval||!is_basic_type<T>){
-			typedef decltype(lambda()noexcept{
-				if constexpr(is_basic_type<T>)
-					return ::std::sqrt(T{});
-				else
-					return T{};
-			}()) RT;
-			auto sqrt_impl = recursive_lambda(const RT x,const RT curr,const RT prev)noexcept -> RT{
-				return is_close(curr,prev) ? curr : self_recursion(x,(curr+x/curr)/RT{2u},curr);
-			};
-			auto sqrt_impl_caller = get_recursive_lambda_caller(sqrt_impl);
-			if(v >= 0u && v < ::std::numeric_limits<RT>::infinity())
-				return sqrt_impl_caller((RT)v,(RT)v,(RT)0u);
+	template<float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept;
+	template<float_type T>
+	[[nodiscard]]inline constexpr T sqrt(const T&v,const T&epsilon)noexcept{
+		if constexpr(has_NaN<T> && has_inf<T>)
+			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
+				return arithmetic_type_info_prover<T>::NaN();
+		T aret=exlambda()->T{
+			if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
+				if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
+					if constexpr(type_info<T> == type_info<float>)
+						return union_cast<T>(0x5F375A86-(union_cast<const ::std::int32_t>(v)>>1));
+					elseif constexpr(type_info<T> == type_info<double>)
+						return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const ::std::int64_t>(v)>>1));
+					elseif constexpr(is_big_type<T>)
+						return sqrt(static_cast<double>(v));
+			return v/2u;
+		}();
+		//newton-raphson
+		floop{
+			auto next_ret=(aret+v/aret)/2u;
+			if(abs(next_ret-aret)<epsilon)
+				return aret;
 			else
-				return ::std::numeric_limits<RT>::quiet_NaN();
+				aret=move(next_ret);
 		}
-		elseif constexpr(is_basic_type<T>)
-			return ::std::sqrt(v);
 	}
-
+	//sqrt with one parameter
+	template<float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept{
+		return sqrt(v,arithmetic_type_info_prover<T>::epsilon());
+	}
+	template<integer_type T>
+	[[nodiscard]]force_inline constexpr auto sqrt(const T&v)noexcept{
+		return sqrt(static_cast<float_type_of<T>>(v));
+	}
 	/*! 判断某数是否是素数,无预先检查以供其他素数相关函数快速调用. */
 	template<arithmetic_type T>
 	[[nodiscard]]inline constexpr bool is_prime_num_no_pre_check(T a)noexcept{
@@ -929,7 +759,6 @@ namespace math{
 		return factorial<T>(m,start)*factorial<T>(n-m,start+m);
 	}
 }
-using namespace math::concepts;
 
 namespace bit{
 	template<unsigned_basic_integer_type T>
@@ -968,7 +797,6 @@ namespace math{
 		return x << shift;
 	}
 }
-using math::to_unsigned_t;
 using math::is_negative;
 using math::copy_as_negative;
 using math::copy_as_not_negative;

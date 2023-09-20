@@ -48,14 +48,35 @@ namespace math{
 		static constexpr bool is_signed=::std::is_signed_v<T>;
 		//bool：是否有NaN
 	private:
-		static constexpr bool has_NaN_helper()noexcept{
+		static constexpr bool has_quiet_NaN_helper()noexcept{
 			if constexpr(is_arithmetic_type)
-				return ::std::numeric_limits<T>::has_quiet_NaN || ::std::numeric_limits<T>::has_signaling_NaN;
+				return ::std::numeric_limits<T>::has_quiet_NaN;
+			else
+				return false;
+		}
+		static constexpr bool has_signaling_NaN_helper()noexcept{
+			if constexpr(is_arithmetic_type)
+				return ::std::numeric_limits<T>::has_signaling_NaN;
 			else
 				return false;
 		}
 	public:
-		static constexpr bool has_NaN=has_NaN_helper();
+		static constexpr bool has_quiet_NaN=has_quiet_NaN_helper();
+		static constexpr bool has_signaling_NaN=has_signaling_NaN_helper();
+		static constexpr bool has_NaN=has_quiet_NaN || has_signaling_NaN;
+
+		static constexpr auto quiet_NaN()noexcept requires(has_quiet_NaN){
+			return ::std::numeric_limits<T>::quiet_NaN();
+		}
+		static constexpr auto signaling_NaN()noexcept requires(has_signaling_NaN){
+			return ::std::numeric_limits<T>::signaling_NaN();
+		}
+		static constexpr auto NaN()noexcept requires(has_NaN){
+			if constexpr(has_quiet_NaN)
+				return quiet_NaN();
+			else
+				return signaling_NaN();
+		}
 		//bool：是否有inf
 	private:
 		static constexpr bool has_inf_helper()noexcept{
@@ -66,6 +87,12 @@ namespace math{
 		}
 	public:
 		static constexpr bool has_inf=has_inf_helper();
+		static constexpr auto Inf()noexcept requires(has_inf){
+			return ::std::numeric_limits<T>::infinity();
+		}
+		static constexpr auto negative_Inf()noexcept requires(has_inf){
+			return -Inf();
+		}
 	public:
 		//bool：是否有最小值
 		static constexpr bool has_min=is_arithmetic_type;
@@ -80,6 +107,13 @@ namespace math{
 		}
 		static constexpr auto max()noexcept requires(has_max){
 			return ::std::numeric_limits<T>::max();
+		}
+	public:
+		//bool：是否有默认极限值
+		static constexpr bool has_epsilon=is_arithmetic_type;
+	public:
+		static constexpr auto epsilon()noexcept requires(has_epsilon){
+			return ::std::numeric_limits<T>::epsilon();
 		}
 	public:
 		//对应的无符号和有符号类型
@@ -98,6 +132,13 @@ namespace math{
 				return T();
 			elseif constexpr(is_integer_type)//同上
 				return::std::make_signed_t<T>();
+		}());
+		//对应的浮点数类型
+		using float_type=decltype(lambda{
+			if constexpr(is_float_type)
+				return T();
+			elseif constexpr(is_integer_type)
+				return .0;
 		}());
 	};
 }

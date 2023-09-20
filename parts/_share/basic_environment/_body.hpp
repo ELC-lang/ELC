@@ -31,9 +31,6 @@ namespace elc::defs{
 	#include "_defs.hpp"
 
 	namespace basic_environment{
-		/// 每个bit（不是字节）的可能性
-		/// 为什么c艹委员会不定义这个？
-		constexpr size_t BIT_POSSIBILITY=1<<1;
 		typedef bool bit_type;
 		[[nodiscard]]constexpr force_inline bool is_rounding_bit(bit_type v)noexcept{
 			if constexpr(BIT_POSSIBILITY==2)
@@ -373,7 +370,6 @@ namespace elc::defs{
 			return divide_t{};
 		}
 	}
-	using basic_environment::BIT_POSSIBILITY;
 	using basic_environment::bit_type;
 	using basic_environment::is_rounding_bit;
 

@@ -63,9 +63,12 @@ namespace base::math{
 		static constexpr bool has_min = false;
 		//bool：是否有max
 		static constexpr bool has_max = false;
+		//bool：是否有默认极限值
+		static constexpr bool has_epsilon = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
+		using float_type = bigfloat;
 	};
 
 	template<>struct arithmetic_type_info_prover<ubigint>{
@@ -94,9 +97,12 @@ namespace base::math{
 		static ubigint min()noexcept;
 		//bool：是否有max
 		static constexpr bool has_max = false;
+		//bool：是否有默认极限值
+		static constexpr bool has_epsilon = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
+		using float_type = ubigfloat;
 	};
 
 	template<>struct arithmetic_type_info_prover<bigfloat>{
@@ -123,9 +129,12 @@ namespace base::math{
 		static constexpr bool has_min = false;
 		//bool：是否有max
 		static constexpr bool has_max = false;
+		//bool：是否有默认极限值
+		static constexpr bool has_epsilon = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;
+		using float_type = bigfloat;
 	};
 
 	template<>struct arithmetic_type_info_prover<ubigfloat>{
@@ -154,9 +163,12 @@ namespace base::math{
 		static ubigfloat min()noexcept;
 		//bool：是否有max
 		static constexpr bool has_max = false;
+		//bool：是否有默认极限值
+		static constexpr bool has_epsilon = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;
+		using float_type = ubigfloat;
 	};
 }
 

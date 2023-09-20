@@ -30,6 +30,7 @@
 */
 //include default_data_type：基础数据类型定义
 #include "../../../../../_share/default_data_type.hpp"
+#include "../../../../../_share/basic_environment/BIT_POSSIBILITY.hpp"
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
