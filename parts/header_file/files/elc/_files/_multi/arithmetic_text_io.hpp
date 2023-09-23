@@ -39,6 +39,7 @@ namespace elc::defs{
 
 		inline const auto&default_numerical_representation=decimal;
 		inline const auto&default_bool_representation=common_bool_representation;
+		inline const auto&default_bitset_representation=binary;
 
 		template<text_stream stream_T>
 		inline decltype(auto)get_numerical_representation_of(stream_T&&stream)noexcept{
@@ -54,6 +55,14 @@ namespace elc::defs{
 				return stream.get_bool_representation();
 			else
 				return default_bool_representation;
+		}
+
+		template<text_stream stream_T>
+		inline decltype(auto)get_bitset_representation_of(stream_T&&stream)noexcept{
+			if constexpr was_not_an_ill_form(stream.get_bitset_representation())
+				return stream.get_bitset_representation();
+			else
+				return default_bitset_representation;
 		}
 
 		//arithmetic output only for text_ostream
@@ -79,6 +88,12 @@ namespace elc::defs{
 			else
 				stream << representation.get_other_prefix() << union_cast<unsigned_specific_size_t<sizeof(bool)>>(data) << representation.get_other_suffix();
 			return stream;
+		}
+
+		//bitset output only for text_ostream
+		template<size_t bit_num,text_ostream stream_T>
+		inline decltype(auto)operator<<(stream_T&&stream,const bitset<bit_num>&data)noexcept(noexcept_text_ostream<stream_T>){
+			return stream << to_string(data,get_bitset_representation_of(stream));
 		}
 
 		//arithmetic input only for text_istream

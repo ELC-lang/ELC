@@ -42,10 +42,6 @@
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
-	namespace base{
-		#include "tools/_body.hpp"
-	}
-
 	namespace memory{
 		#include "memory/_body.hpp"//依赖list
 	}

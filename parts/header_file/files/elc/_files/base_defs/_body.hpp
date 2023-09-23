@@ -100,6 +100,8 @@ namespace elc::defs{ //在elc::defs中定义内容
 	using namespace memory;
 
 	namespace base{
+		#include "iterator.hpp"
+		#include "bitset.hpp"
 		#include "hash.hpp"
 		#include "range.hpp"
 		#include "sort.hpp"
@@ -110,6 +112,12 @@ namespace elc::defs{ //在elc::defs中定义内容
 		#include "count_able.hpp"
 		#include "invoke.hpp"
 		#include "maybe_fail_reference.hpp"
+		#include "flag.hpp"
+		#include "mark_type.hpp"
+
+		#include "list.hpp"
+
+		#include "function_base.hpp"
 	}
 
 	#include "../_share/_undefs.hpp"

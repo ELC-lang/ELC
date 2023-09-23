@@ -685,6 +685,10 @@ namespace to_string_n{
 		[[nodiscard]]string operator()(T&&val)const noexcept{
 			return (*this)(forward<T>(val),decimal);
 		}
+		template<size_t N,numerical_representation Repres>
+		[[nodiscard]]string operator()(const bitset<N>&val,const Repres&repres)const noexcept{
+			return (*this)(ubigint(val),repres).pad_left(N,repres.get_char(0));
+		}
 	}to_string{};
 	/// @brief from_string_get
 	template<arithmetic_type T>
