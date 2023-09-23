@@ -497,6 +497,12 @@ public:
 		if(is_negative(other))return false;
 		return _numerator == abs(move(other)) * _denominator;
 	}
+	template<basic_integer_type T>
+	[[nodiscard]]bool operator==(const T& other)const noexcept{
+		if constexpr(is_signed<T>)
+			if(is_negative(other))return false;
+		return _numerator == abs(other) * _denominator;
+	}
 	//operator<=>
 	[[nodiscard]]auto operator<=>(const ubigfloat& other)const noexcept{
 		return _numerator * other._denominator <=> other._numerator * _denominator;
@@ -514,6 +520,12 @@ public:
 	[[nodiscard]]auto operator<=>(bigint&& other)const noexcept{
 		if(is_negative(other))return strong_ordering::greater;
 		return _numerator <=> abs(move(other)) * _denominator;
+	}
+	template<basic_integer_type T>
+	[[nodiscard]]auto operator<=>(const T& other)const noexcept{
+		if constexpr(is_signed<T>)
+			if(is_negative(other))return strong_ordering::greater;
+		return _numerator <=> abs(other) * _denominator;
 	}
 	//operatorX for rvalue
 	[[nodiscard]]ubigfloat&& operator+(const ubigfloat& other)&&noexcept{
@@ -690,7 +702,19 @@ template<signed_basic_integer_type T>
 }
 template<unsigned_basic_integer_type T>
 [[nodiscard]]inline ubigint operator*(const ubigint& lhs,const T& rhs)noexcept{
+	return lhs * ubigint(rhs);
+}
+template<unsigned_basic_integer_type T>
+[[nodiscard]]inline ubigint operator*(ubigint&& lhs,const T& rhs)noexcept{
 	return move(lhs) * ubigint(rhs);
+}
+template<unsigned_basic_integer_type T>
+[[nodiscard]]inline ubigint operator*(const T& lhs,const ubigint& rhs)noexcept{
+	return ubigint(lhs) * rhs;
+}
+template<unsigned_basic_integer_type T>
+[[nodiscard]]inline ubigint operator*(const T& lhs,ubigint&& rhs)noexcept{
+	return ubigint(lhs) * move(rhs);
 }
 [[nodiscard]]inline ubigfloat&& operator*(ubigint&& lhs,ubigfloat&& rhs)noexcept{
 	return move(rhs) * move(lhs);

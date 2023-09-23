@@ -79,8 +79,11 @@ namespace math{
 		else
 			return(T)negative?T{}-x:x;
 	}
-	[[nodiscard]]force_inline constexpr auto copy_as_not_negative(auto x)noexcept{
-		return copy_as_negative(x,false);
+	//copy_as_not_negative? 那不就是abs吗
+	/*! 符号位反转 */
+	template<arithmetic_type T>
+	[[nodiscard]]force_inline constexpr auto reverse_sign(const T&x)noexcept{
+		return copy_as_negative(x,!is_negative(x));
 	}
 	/*! 任意算数类型安全转型(ub避免.). */
 	template<arithmetic_type T,arithmetic_type U>
@@ -144,8 +147,8 @@ namespace math{
 	//ceil_div
 	template<arithmetic_type T,arithmetic_type U>
 	[[nodiscard]]force_inline constexpr auto ceil_div(const T&a,const U&b)noexcept{
-		const auto info=divmod(a,b);
-		return info.quot+(info.mod?1u:0u);
+		const auto[quot,mod]=divmod(a,b);
+		return quot+(mod?1u:0u);
 	}
 
 	/*! 设置浮点舍入 */
@@ -807,7 +810,7 @@ namespace math{
 }
 using math::is_negative;
 using math::copy_as_negative;
-using math::copy_as_not_negative;
+using math::reverse_sign;
 using math::to_size_t;
 using math::mod;
 using math::is_odd;

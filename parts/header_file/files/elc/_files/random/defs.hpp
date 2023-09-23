@@ -32,8 +32,10 @@ namespace rand_n{
 	typedef uint_t seed_type;//考虑到通用性以便于跨平台通用的seed，不可以使用uintmax_t
 
 	//修复32位环境下的溢出问题
-	typedef uint64_t size_t;
-	typedef int64_t ptrdiff_t;
+	#if !(defined(__x86_64__) || defined(__ppc64__) || defined(__aarch64__) || defined(_WIN64))
+		typedef uint64_t size_t;
+		typedef int64_t ptrdiff_t;
+	#endif
 
 	namespace linear_congruential_arguments_n{
 		//type
@@ -115,7 +117,7 @@ namespace rand_n{
 	distinctive inline struct rand_seed_t{
 	private:
 		seed_type			   _seed, _seed_origin;
-		static constexpr auto  εντροπία_bitnum = CHAR_BIT;
+		static constexpr auto  εντροπία_bitnum = bitnum_of(byte);
 		static constexpr auto  εντροπία_num = size_t(pow(BIT_POSSIBILITY, εντροπία_bitnum));
 		static constexpr auto  εντροπία_size = εντροπία_num * sizeof(seed_type);
 		byte _εντροπία_data[εντροπία_size];

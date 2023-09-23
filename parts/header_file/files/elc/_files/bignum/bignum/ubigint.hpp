@@ -96,7 +96,7 @@ public:
 			}
 			if constexpr(has_max<T>){
 				constexpr auto max_value=max(type_info<T>);
-				constexpr size_t max_byte_size=ceil_div(get_bitnum(max_value),CHAR_BIT);
+				constexpr size_t max_byte_size=ceil_div(get_bitnum(max_value),bitnum_of(byte));
 				if(_data.size_in_byte()>max_byte_size)
 					return false;
 				if constexpr(not all_bit_is_one(max_byte_size))
@@ -281,6 +281,7 @@ private:
 	[[nodiscard]]static data_type add_base(data_view_type a,data_view_type b)noexcept{
 		if(a.size()<b.size())
 			swap(a,b);
+		if(!b.size())return data_type(a);
 		auto base_size = a.size();
 		const auto size_diff = get_safety_add_buf_size_diff(a,b);
 		const auto size = base_size+size_diff;
@@ -294,7 +295,9 @@ private:
 		return tmp;
 	}
 	static void add_to_base(data_type&a,data_view_type b)noexcept{
+		if(!b.size())return;
 		const auto this_view = get_data_view_of_data(a);
+		if(!this_view.size()){a=b;return;}
 		const auto&other_view = b;
 		const auto origin_size = this_view.size();
 		const auto new_size = get_safety_add_buf_size_with_not_compared_buf(this_view,other_view);
