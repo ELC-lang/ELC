@@ -3,12 +3,10 @@
 
 #include "../../files/elc/random"
 #include "../../files/elc/bignum"
-
-using namespace elc;
+#include "../../files/elc/code_realm"
 
 int main() {
-	using elc::rand;
-	for(int i = 3000; i--;) {
+	for times(3000) {
 		auto	 test	  = rand<double>.not_NaN();
 		bigfloat a		  = test;
 		auto	 cvt_back = a.convert_to<double>();

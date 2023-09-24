@@ -6,6 +6,6 @@ void func(){}
 int main(size_t argc,char**_argv) {
 	using namespace elc;
 	using namespace elc::defs;
-	function_t<void()> test=&func;
+	function_t test=&func;
 	test();
 }
