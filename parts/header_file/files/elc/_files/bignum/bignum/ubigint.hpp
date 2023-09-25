@@ -931,21 +931,9 @@ public:
 		aret<<=n;
 		return aret;
 	}
-	[[nodiscard]]ubigint operator<<(ubigint n)const&noexcept{
-		if(!*this)return ubigint{};
-		auto aret=*this;
-		aret<<=n;
-		return aret;
-	}
 	//operator>>
 	template<integer_type T>
 	[[nodiscard]]ubigint operator>>(T n)const&noexcept{
-		if(!*this)return ubigint{};
-		auto aret=*this;
-		aret>>=n;
-		return aret;
-	}
-	[[nodiscard]]ubigint operator>>(ubigint n)const&noexcept{
 		if(!*this)return ubigint{};
 		auto aret=*this;
 		aret>>=n;
@@ -969,12 +957,6 @@ public:
 		add_to_base(_data,other);
 		return*this;
 	}
-	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint operator+(T&&other)const&noexcept{
-		auto aret = *this;
-		aret+=other;
-		return aret;
-	}
 	//operator-=
 	ubigint& operator-=(const ubigint& other)&noexcept{
 		const auto this_view = get_data_view();
@@ -985,29 +967,17 @@ public:
 			sub_with_base(_data,other_view);//already shrink_to_fit ed
 		return*this;
 	}
-	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint operator-(T&&other)noexcept{
-		return *this - ubigint{other};
-	}
 	//operator*=
 	ubigint& operator*=(const ubigint& other)&noexcept{
 		//as muti always need new alloc, so we use just use operator*.
 		*this = *this * other;
 		return*this;
 	}
-	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint operator*(T&&other)noexcept{
-		return *this * ubigint{other};
-	}
 	//operator/=
 	ubigint& operator/=(const ubigint& other)&noexcept{
 		//as div always need new alloc, so we use just use operator/.
 		*this = *this / other;
 		return*this;
-	}
-	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint operator/(T&&other)noexcept{
-		return *this / ubigint{other};
 	}
 	//operator%=
 	ubigint& operator%=(const ubigint& other)&noexcept{
@@ -1021,10 +991,6 @@ public:
 		if(this_view.size() < other_view.size())return*this;
 		fast_mod_with_base(_data,other_view);
 		return*this;
-	}
-	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint operator%(T&&other)noexcept{
-		return *this % ubigint{other};
 	}
 	//operator<<=
 	template<integer_type T>
@@ -1041,11 +1007,12 @@ public:
 			if(n){
 				auto i=newsize_diff;
 				const auto end=newsize;
-				const auto another_offset=bitnum_of(base_type)-n;
+				const auto offset=to_size_t(n);
+				const auto another_offset=bitnum_of(base_type)-offset;
 				base_type carry=0;
 				for(;i<end;++i){
 					const auto tmp=_data[i];
-					_data[i]=(tmp<<n)|carry;
+					_data[i]=(tmp<<offset)|carry;
 					carry=tmp>>another_offset;
 				}
 				if(carry)_data.push_back(carry);
@@ -1056,37 +1023,13 @@ public:
 			else return*this<<=abs(n);
 		}
 	}
-	ubigint& operator<<=(ubigint n)&noexcept{
-		if(!*this)return*this;
-		const auto oldsize=_data.size();
-		const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
-		const auto newsize=oldsize+newsize_diff;
-		if(newsize_diff){
-			_data.insert(0,newsize_diff,base_type{0});
-			n%=bitnum_of(base_type);
-		}
-		if(n){
-			const auto offset=to_size_t(n);
-			auto i=newsize_diff;
-			const auto end=newsize;
-			const auto another_offset=bitnum_of(base_type)-offset;
-			base_type carry=0;
-			for(;i<end;++i){
-				const auto tmp=_data[i];
-				_data[i]=(tmp<<offset)|carry;
-				carry=tmp>>another_offset;
-			}
-			if(carry)_data.push_back(carry);
-		}
-		return*this;
-	}
 	//operator>>=
 	template<integer_type T>
 	inline ubigint& operator>>=(T n)&noexcept{
 		if(!*this)return*this;
 		if constexpr(unsigned_type<T>){
 			const auto oldsize=_data.size();
-			const auto newsize_diff=n/bitnum_of(base_type);
+			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
 			const auto newsize=oldsize-newsize_diff;
 			if(newsize_diff){
 				if(newsize_diff>=oldsize)return*this=zero;
@@ -1095,11 +1038,12 @@ public:
 			}
 			if(n){
 				auto i=newsize;
-				const auto another_offset=bitnum_of(base_type)-n;
+				const auto offset=to_size_t(n);
+				const auto another_offset=bitnum_of(base_type)-offset;
 				base_type carry=0;
 				for(;i--;){
 					const auto tmp=_data[i];
-					_data[i]=(tmp>>n)|carry;
+					_data[i]=(tmp>>offset)|carry;
 					carry=tmp<<another_offset;
 				}
 				shrink_to_fit();
@@ -1110,87 +1054,34 @@ public:
 			else return*this>>=abs(n);
 		}
 	}
-	ubigint& operator>>=(ubigint n)&noexcept{
-		if(!*this)return*this;
-		const auto oldsize=_data.size();
-		const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
-		const auto newsize=oldsize-newsize_diff;
-		if(newsize_diff){
-			if(newsize_diff>=oldsize)return*this=zero;
-			_data.forward_resize(newsize);
-			n%=bitnum_of(base_type);
-		}
-		if(n){
-			const size_t offset=to_size_t(n);
-			auto i=newsize;
-			const auto another_offset=bitnum_of(base_type)-offset;
-			base_type carry=0;
-			for(;i--;){
-				const auto tmp=_data[i];
-				_data[i]=(tmp>>offset)|carry;
-				carry=tmp<<another_offset;
-			}
-			shrink_to_fit();
-		}
-		return*this;
-	}
 	//operatorX for rvalue
-	[[nodiscard]]ubigint&& operator+(const ubigint& other)&&noexcept{
-		return move(*this+=other);
+	template<unsigned_integer_type T>
+	[[nodiscard]]ubigint&& operator+(T&&n)&&noexcept{
+		return move(*this+=forward<T>(n));
 	}
-	[[nodiscard]]ubigint&& operator-(const ubigint& other)&&noexcept{
-		return move(*this-=other);
+	template<unsigned_integer_type T>
+	[[nodiscard]]ubigint&& operator-(T&&n)&&noexcept{
+		return move(*this-=forward<T>(n));
 	}
-	[[nodiscard]]ubigint&& operator*(const ubigint& other)&&noexcept{
-		return move(*this*=other);
+	template<unsigned_integer_type T>
+	[[nodiscard]]ubigint&& operator*(T&&n)&&noexcept{
+		return move(*this*=forward<T>(n));
 	}
-	[[nodiscard]]ubigint&& operator/(const ubigint& other)&&noexcept{
-		return move(*this/=other);
+	template<unsigned_integer_type T>
+	[[nodiscard]]ubigint&& operator/(T&&n)&&noexcept{
+		return move(*this/=forward<T>(n));
 	}
-	[[nodiscard]]ubigint&& operator%(const ubigint& other)&&noexcept{
-		return move(*this%=other);
+	template<unsigned_integer_type T>
+	[[nodiscard]]ubigint&& operator%(T&&n)&&noexcept{
+		return move(*this%=forward<T>(n));
 	}
 	template<integer_type T>
 	[[nodiscard]]ubigint&& operator<<(T&&n)&&noexcept{
 		return move(*this<<=n);
 	}
-	[[nodiscard]]ubigint&& operator<<(const ubigint& other)&&noexcept{
-		return move(*this<<=other);
-	}
 	template<integer_type T>
 	[[nodiscard]]ubigint&& operator>>(T&&n)&&noexcept{
 		return move(*this>>=n);
-	}
-	[[nodiscard]]ubigint&& operator>>(const ubigint& other)&&noexcept{
-		return move(*this>>=other);
-	}
-	[[nodiscard]]ubigint&& operator+(ubigint&& other)const&noexcept{
-		return move(other+=*this);
-	}
-	[[nodiscard]]ubigint&& operator*(ubigint&& other)const&noexcept{
-		return move(other*=*this);
-	}
-	//both is r_value
-	[[nodiscard]]ubigint&& operator+(ubigint&& other)&&noexcept{
-		return move(*this+=other);
-	}
-	[[nodiscard]]ubigint&& operator-(ubigint&& other)&&noexcept{
-		return move(*this-=other);
-	}
-	[[nodiscard]]ubigint&& operator*(ubigint&& other)&&noexcept{
-		return move(*this*=other);
-	}
-	[[nodiscard]]ubigint&& operator/(ubigint&& other)&&noexcept{
-		return move(*this/=other);
-	}
-	[[nodiscard]]ubigint&& operator%(ubigint&& other)&&noexcept{
-		return move(*this%=other);
-	}
-	[[nodiscard]]ubigint&& operator<<(ubigint&& other)&&noexcept{
-		return move(*this<<=other);
-	}
-	[[nodiscard]]ubigint&& operator>>(ubigint&& other)&&noexcept{
-		return move(*this>>=other);
 	}
 	//operator!
 	[[nodiscard]]bool operator!()const noexcept{
@@ -1261,6 +1152,32 @@ public:
 		return !is_odd(x);
 	}
 };
+
+template<typename T>
+concept ubigint_cvref=type_info<remove_cvref<T>> == type_info<ubigint>;
+
+template<integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<ubigint>)
+[[nodiscard]]inline auto operator+(T&&a,ubigint_t&&b)noexcept{
+	return forward<ubigint_t>(b)+forward<T>(a);
+}
+template<unsigned_integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<ubigint>)
+[[nodiscard]]inline auto operator-(T&&a,ubigint_t&&b)noexcept{
+	return remove_cvref<T>(ubigint{forward<T>(a)}-forward<ubigint_t>(b));
+}
+template<unsigned_integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<ubigint>)
+[[nodiscard]]inline auto operator*(T&&a,ubigint_t&&b)noexcept{
+	return forward<ubigint_t>(b)*forward<T>(a);
+}
+template<integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<ubigint>)
+[[nodiscard]]inline auto operator/(T&&a,ubigint_t&&b)noexcept{
+	const bool sign=is_negative(a);
+	return copy_as_negative(remove_cvref<T>(ubigint{abs(forward<T>(a))}/forward<ubigint_t>(b)),sign);
+}
+template<integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<ubigint>)
+[[nodiscard]]inline auto operator%(T&&a,ubigint_t&&b)noexcept{
+	const bool sign=is_negative(a);
+	return copy_as_negative(remove_cvref<T>(ubigint{abs(forward<T>(a))}%forward<ubigint_t>(b)),sign);
+}
 
 BREAK_NAMESPACE
 //注入math::arithmetic_type_info_prover

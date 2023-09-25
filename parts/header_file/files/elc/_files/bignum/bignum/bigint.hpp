@@ -33,6 +33,8 @@ class bigint;
 [[nodiscard]]bigint copy_as_negative(ubigint&&,bool sign=true)noexcept;
 using math::copy_as_negative;//避免可能的符号覆盖
 
+[[nodiscard]]inline bigint operator-(const ubigint&num)noexcept;
+
 class bigint{
 	ubigint _num;
 	bool _is_negative=0;
@@ -47,60 +49,29 @@ public:
 	bigint()noexcept = default;
 	bigint(const bigint&)noexcept = default;
 	bigint(bigint&&)noexcept = default;
-	bigint(const ubigint&a)noexcept:_num(a),_is_negative(false){}
-	bigint(ubigint&&a)noexcept:_num(move(a)),_is_negative(false){}
 	template<integer_type T>
-	bigint(T value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
+	bigint(T&&value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
 
 	bigint& operator=(const bigint&)&noexcept = default;
 	bigint& operator=(bigint&&)&noexcept = default;
-	bigint& operator=(const ubigint&a)&noexcept{
-		_num = a;
-		_is_negative = false;
-		return *this;
-	}
-	bigint& operator=(ubigint&&a)&noexcept{
-		_num = move(a);
-		_is_negative = false;
-		return *this;
-	}
-	template<typename T> requires(unsigned_integer_type<T>)
-	bigint& operator=(T value)&noexcept{
-		_num = value;
-		_is_negative = false;
-		return *this;
-	}
 	template<basic_float_type T>
 	explicit bigint(T&&value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
 
 	~bigint() = default;
 public:
 	//operator==
-	[[nodiscard]]bool operator==(const bigint& other)const noexcept{
-		if(_is_negative != other._is_negative)
-			return false;
-		return _num == other._num;
-	}
 	template<integer_type T>
-	[[nodiscard]]bool operator==(T value)const noexcept{
+	[[nodiscard]]bool operator==(T&&value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return false;
-		return _num == abs(value);
+		return _num == abs(forward<T>(value));
 	}
 	//operator<=>
-	[[nodiscard]]auto operator<=>(const bigint& other)const noexcept{
-		if(_is_negative != other._is_negative)
-			return _is_negative?strong_ordering::less:strong_ordering::greater;
-		auto tmp = _num <=> other._num;
-		if(_is_negative)
-			tmp=compare.reverse(tmp);
-		return tmp;
-	}
 	template<integer_type T>
-	[[nodiscard]]auto operator<=>(T value)const noexcept{
+	[[nodiscard]]auto operator<=>(T&&value)const noexcept{
 		if(_is_negative != is_negative(value))
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
-		auto tmp = _num <=> abs(value);
+		auto tmp = _num <=> abs(forward<T>(value));
 		if(_is_negative)
 			tmp=compare.reverse(tmp);
 		return tmp;
@@ -159,13 +130,6 @@ public:
 		return a._is_negative;
 	}
 	//friend copy_as_negative
-	[[nodiscard]]friend bigint copy_as_negative(const bigint& a,bool sign=true)noexcept{
-		return {a._num,sign};
-	}
-	[[nodiscard]]friend bigint&& copy_as_negative(bigint&& a,bool sign=true)noexcept{
-		a._is_negative=sign;
-		return move(a);
-	}
 	[[nodiscard]]friend bigint copy_as_negative(const ubigint& a,bool sign)noexcept{
 		return {a,sign};
 	}
@@ -177,93 +141,55 @@ public:
 		return a.convert_to<size_t>();
 	}
 	//operator+
-	[[nodiscard]]bigint operator+(const bigint& other)const&noexcept{
-		if(_is_negative == other._is_negative)
-			return {_num+other._num,_is_negative};
+	template<integer_type T>
+	[[nodiscard]]bigint operator+(T&&other)const&noexcept{
+		if(_is_negative == is_negative(other))
+			return {_num+abs(forward<T>(other)),_is_negative};
 		elseif(_is_negative)
-			return other-(-*this);
+			return forward<T>(other)-(-*this);
 		else
-			return *this-(-other);
+			return *this-(-forward<T>(other));
 	}
 	//operator-
-	[[nodiscard]]bigint operator-(const bigint& other)const&noexcept{
-		bool sign = _is_negative;
-		if(_is_negative != other._is_negative)
-			return {_num+other._num,sign};
-		if(_num < other._num){
+	template<integer_type T>
+	[[nodiscard]]bigint operator-(T&&other)const&noexcept{
+		const bool sign = _is_negative;
+		const auto other_sign = is_negative(other);
+		const auto other_abs = abs(forward<T>(other));
+		if(_is_negative != other_sign)
+			return {_num+other_abs,sign};
+		if(_num < other_abs){
 			sign=!sign;
-			return {other._num-_num,sign};
+			return {other_abs-_num,sign};
 		}
-		return {_num-other._num,sign};
+		return {_num-other_abs,sign};
 	}
 	//operator*
-	[[nodiscard]]bigint operator*(const bigint& other)const&noexcept{
-		const bool sign = _is_negative != other._is_negative;
-		return bigint{_num*other._num,sign};
-	}
-	[[nodiscard]]bigint operator*(const ubigint& other)const&noexcept{
-		return bigint{_num*other,_is_negative};
-	}
 	template<integer_type T>
-	[[nodiscard]]bigint operator*(T other)const&noexcept{
-		if constexpr(signed_type<T>)
-			return *this*bigint(other);
-		else
-			return *this*ubigint(other);
+	[[nodiscard]]bigint operator*(T&&other)const&noexcept{
+		const bool sign = _is_negative != is_negative(other);
+		return bigint{_num*abs(forward<T>(other)),sign};
 	}
 	//operator/
-	[[nodiscard]]bigint operator/(const bigint& other)const&noexcept{
-		const bool sign = _is_negative != other._is_negative;
-		return bigint{_num/other._num,sign};
-	}
-	[[nodiscard]]bigint operator/(const ubigint& other)const&noexcept{
-		return bigint{_num/other,_is_negative};
-	}
 	template<integer_type T>
-	[[nodiscard]]bigint operator/(T other)const&noexcept{
-		if constexpr(signed_type<T>)
-			return *this/bigint(other);
-		else
-			return *this/ubigint(other);
+	[[nodiscard]]bigint operator/(T&&other)const&noexcept{
+		const bool sign = _is_negative != is_negative(other);
+		return bigint{_num/abs(forward<T>(other)),sign};
 	}
 	//operator%
-	[[nodiscard]]bigint operator%(const bigint& other)const&noexcept{
-		return bigint{_num%other._num,_is_negative};
-	}
-	[[nodiscard]]bigint operator%(const ubigint& other)const&noexcept{
-		return bigint{_num%other,_is_negative};
-	}
 	template<integer_type T>
-	[[nodiscard]]bigint operator%(T other)const&noexcept{
-		return *this%ubigint(abs(other));
+	[[nodiscard]]bigint operator%(T&&other)const&noexcept{
+		return bigint{_num%abs(forward<T>(other)),_is_negative};
 	}
 	//operator<<
 	template<integer_type T>
 	[[nodiscard]]bigint operator<<(T n)const&noexcept{
 		return bigint{_num<<n,_is_negative};
 	}
-	[[nodiscard]]bigint operator<<(const bigint& n)const&noexcept{
-		if(n._is_negative)
-			return *this>>n._num;
-		else
-			return *this<<n._num;
-	}
-	[[nodiscard]]bigint operator<<(const ubigint& n)const&noexcept{
-		return {_num<<n,_is_negative};
-	}
 	//operator>>
 	template<integer_type T>
 	[[nodiscard]]bigint operator>>(T n)const&noexcept{
 		return bigint{_num>>n,_is_negative};
-	}
-	[[nodiscard]]bigint operator>>(const bigint& n)const&noexcept{
-		if(n._is_negative)
-			return *this<<n._num;
-		else
-			return *this>>n._num;
-	}
-	[[nodiscard]]bigint operator>>(const ubigint& n)const&noexcept{
-		return {_num>>n,_is_negative};
 	}
 	//friend operator<< and operator>> for ubigint
 	[[nodiscard]]friend bigint operator<<(const ubigint& a,const bigint& b)noexcept{
@@ -279,112 +205,56 @@ public:
 			return a>>b._num;
 	}
 	//operator+=
-	bigint& operator+=(const bigint& other)&noexcept{
-		if(_is_negative == other._is_negative)
-			_num+=other._num;
+	template<integer_type T>
+	bigint& operator+=(T&& other)&noexcept{
+		if(_is_negative == is_negative(other))
+			_num+=abs(forward<T>(other));
 		elseif(_is_negative)
-			*this = other-(-move(*this));
+			*this = forward<T>(other)-(-move(*this));
 		else
-			*this -= -other;
-		return *this;
-	}
-	bigint& operator+=(bigint&& other)&noexcept{
-		if(_is_negative == other._is_negative)
-			_num+=move(other._num);
-		elseif(_is_negative)
-			*this = other-=(-move(*this));
-		else
-			*this -= -move(other);
+			*this -= -forward<T>(other);
 		return *this;
 	}
 	//operator-=
-	bigint& operator-=(const bigint& other)&noexcept{
-		if(_is_negative != other._is_negative)
-			_num+=other._num;
-		if(_num < other._num){
+	template<integer_type T>
+	bigint& operator-=(T&& other)&noexcept{
+		const auto other_sign = is_negative(other);
+		const auto other_abs = abs(forward<T>(other));
+		if(_is_negative == other_sign)
+			_num+=other_abs;
+		if(_num < other_abs){
 			_is_negative=!_is_negative;
-			_num = other._num-_num;
+			_num = other_abs-_num;
 		}
 		else
-			_num-=other._num;
-		return*this;
-	}
-	bigint& operator-=(bigint&& other)&noexcept{
-		if(_is_negative != other._is_negative)
-			_num+=move(other._num);
-		if(_num < other._num){
-			_is_negative=!_is_negative;
-			_num = move(other._num)-_num;
-		}
-		else
-			_num-=move(other._num);
+			_num-=other_abs;
 		return*this;
 	}
 	//operator*=
-	bigint& operator*=(const bigint& other)&noexcept{
-		_is_negative = _is_negative != other._is_negative;
-		_num *= other._num;
-		return*this;
-	}
-	bigint& operator*=(bigint&& other)&noexcept{
-		_is_negative = _is_negative != other._is_negative;
-		_num *= move(other._num);
-		return*this;
-	}
 	template<integer_type T>
-	bigint& operator*=(T other)&noexcept{
-		if constexpr(signed_type<T>)
-			return *this*=bigint(other);
-		else
-			return *this*=ubigint(other);
+	bigint& operator*=(T&&other)&noexcept{
+		_is_negative = _is_negative != is_negative(other);
+		_num *= abs(forward<T>(other));
+		return*this;
 	}
 	//operator/=
-	bigint& operator/=(const bigint& other)&noexcept{
-		_is_negative = _is_negative != other._is_negative;
-		_num /= other._num;
-		return*this;
-	}
-	bigint& operator/=(bigint&& other)&noexcept{
-		_is_negative = _is_negative != other._is_negative;
-		_num /= move(other._num);
-		return*this;
-	}
 	template<integer_type T>
-	bigint& operator/=(T other)&noexcept{
-		if constexpr(signed_type<T>)
-			return *this/=bigint(other);
-		else
-			return *this/=ubigint(other);
+	bigint& operator/=(T&&other)&noexcept{
+		_is_negative = _is_negative != is_negative(other);
+		_num /= abs(forward<T>(other));
+		return*this;
 	}
 	//operator%=
-	bigint& operator%=(const bigint& other)&noexcept{
-		//_is_negative = _is_negative;
-		_num %= other._num;
-		return*this;
-	}
-	bigint& operator%=(bigint&& other)&noexcept{
-		//_is_negative = _is_negative;
-		_num %= move(other._num);
-		return*this;
-	}
 	template<integer_type T>
-	bigint& operator%=(T other)&noexcept{
-		return *this%=ubigint(abs(other));
+	bigint& operator%=(T&&other)&noexcept{
+		//_is_negative = _is_negative;
+		_num %= abs(forward<T>(other));
+		return*this;
 	}
 	//operator<<=
 	template<integer_type T>
 	bigint& operator<<=(T n)&noexcept{
 		_num <<= n;
-		return*this;
-	}
-	bigint& operator<<=(const bigint& other)&noexcept{
-		if(other._is_negative)
-			return*this>>=other._num;
-		else
-			return*this<<=other._num;
-	}
-	bigint& operator<<=(const ubigint& other)&noexcept{
-		_num <<= other;
 		return*this;
 	}
 	//operator>>=
@@ -393,29 +263,6 @@ public:
 		_num >>= n;
 		return*this;
 	}
-	bigint& operator>>=(const bigint& other)&noexcept{
-		if(other._is_negative)
-			return*this<<=other._num;
-		else
-			return*this>>=other._num;
-	}
-	bigint& operator>>=(const ubigint& other)&noexcept{
-		_num >>= other;
-		return*this;
-	}
-	//friend operator<<= and operator>>= for ubigint
-	friend ubigint& operator<<=(ubigint& lhs, const bigint& rhs)noexcept{
-		if(rhs._is_negative)
-			return lhs>>=rhs._num;
-		else
-			return lhs<<=rhs._num;
-	}
-	friend ubigint& operator>>=(ubigint& lhs, const bigint& rhs)noexcept{
-		if(rhs._is_negative)
-			return lhs<<=rhs._num;
-		else
-			return lhs>>=rhs._num;
-	}
 	//operatorX for rvalue
 	[[nodiscard]]bigint&& operator+(const bigint& other)&&noexcept{
 		return move(*this+=other);
@@ -423,61 +270,25 @@ public:
 	[[nodiscard]]bigint&& operator-(const bigint& other)&&noexcept{
 		return move(*this-=other);
 	}
-	[[nodiscard]]bigint&& operator*(const bigint& other)&&noexcept{
-		return move(*this*=other);
-	}
-	[[nodiscard]]bigint&& operator*(const ubigint& other)&&noexcept{
-		return move(*this*=other);
+	template<integer_type T>
+	[[nodiscard]]bigint&& operator*(T&&other)&&noexcept{
+		return move(*this*=forward<T>(other));
 	}
 	template<integer_type T>
-	[[nodiscard]]bigint&& operator*(T other)&&noexcept{
-		return move(*this*=other);
-	}
-	[[nodiscard]]bigint&& operator/(const bigint& other)&&noexcept{
-		return move(*this/=other);
-	}
-	[[nodiscard]]bigint&& operator/(const ubigint& other)&&noexcept{
-		return move(*this/=other);
+	[[nodiscard]]bigint&& operator/(T&&other)&&noexcept{
+		return move(*this/=forward<T>(other));
 	}
 	template<integer_type T>
-	[[nodiscard]]bigint&& operator/(T other)&&noexcept{
-		return move(*this/=other);
-	}
-	[[nodiscard]]bigint&& operator%(const bigint& other)&&noexcept{
-		return move(*this%=other);
-	}
-	[[nodiscard]]bigint&& operator%(const ubigint& other)&&noexcept{
-		return move(*this%=other);
+	[[nodiscard]]bigint&& operator%(T&&other)&&noexcept{
+		return move(*this%=forward<T>(other));
 	}
 	template<integer_type T>
-	[[nodiscard]]bigint&& operator%(T other)&&noexcept{
-		return move(*this%=other);
+	[[nodiscard]]bigint&& operator<<(T&&other)&&noexcept{
+		return move(*this<<=forward<T>(other));
 	}
 	template<integer_type T>
-	[[nodiscard]]bigint&& operator<<(T other)&&noexcept{
-		return move(*this<<=other);
-	}
-	[[nodiscard]]bigint&& operator<<(const bigint& other)&&noexcept{
-		return move(*this<<=other);
-	}
-	[[nodiscard]]bigint&& operator<<(const ubigint& other)&&noexcept{
-		return move(*this<<=other);
-	}
-	template<integer_type T>
-	[[nodiscard]]bigint&& operator>>(T other)&&noexcept{
-		return move(*this>>=other);
-	}
-	[[nodiscard]]bigint&& operator>>(const bigint& other)&&noexcept{
-		return move(*this>>=other);
-	}
-	[[nodiscard]]bigint&& operator>>(const ubigint& other)&&noexcept{
-		return move(*this>>=other);
-	}
-	friend ubigint&& operator<<(ubigint&& lhs, const bigint& rhs)noexcept{
-		return move(lhs<<=rhs);
-	}
-	friend ubigint&& operator>>(ubigint&& lhs, const bigint& rhs)noexcept{
-		return move(lhs>>=rhs);
+	[[nodiscard]]bigint&& operator>>(T&&other)&&noexcept{
+		return move(*this>>=forward<T>(other));
 	}
 	[[nodiscard]]bigint&& operator+(bigint&& other)const&noexcept{
 		return move(move(other)+*this);
@@ -538,6 +349,41 @@ public:
 
 [[nodiscard]]inline bigint operator-(const ubigint&num)noexcept{
 	return copy_as_negative(num);
+}
+
+template<typename T>
+concept bigint_cvref=type_info<remove_cvref<T>> == type_info<bigint>;
+
+template<integer_type T,bigint_cvref bigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator+(T&&a,bigint_t&&b)noexcept{
+	return forward<bigint_t>(b)+forward<T>(a);
+}
+template<integer_type T,bigint_cvref bigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator-(T&&a,bigint_t&&b)noexcept{
+	return -forward<bigint_t>(b)+forward<T>(a);
+}
+template<integer_type T,bigint_cvref bigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator*(T&&a,bigint_t&&b)noexcept{
+	return forward<bigint_t>(b)*forward<T>(a);
+}
+template<integer_type T,bigint_cvref bigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator/(T&&a,bigint_t&&b)noexcept{
+	const bool sign=is_negative(a) != is_negative(b);
+	return copy_as_negative(remove_cvref<T>(bigint{abs(forward<T>(a))}/forward<bigint_t>(b)),sign);
+}
+template<integer_type T,bigint_cvref bigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator%(T&&a,bigint_t&&b)noexcept{
+	const bool sign=is_negative(a);
+	return copy_as_negative(remove_cvref<T>(bigint{abs(forward<T>(a))}%forward<bigint_t>(b)),sign);
+}
+
+template<signed_integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator-(T&&a,ubigint_t&&b)noexcept{
+	return bigint{forward<T>(a)}-forward<ubigint_t>(b);
+}
+template<signed_integer_type T,ubigint_cvref ubigint_t> requires(type_info<remove_cvref<T>> != type_info<bigint>)
+[[nodiscard]]inline auto operator*(T&&a,ubigint_t&&b)noexcept{
+	return bigint{forward<T>(a)}*forward<ubigint_t>(b);
 }
 
 //file_end

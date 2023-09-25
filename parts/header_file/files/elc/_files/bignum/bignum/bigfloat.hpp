@@ -348,5 +348,56 @@ public:
 	}
 };
 
+template<typename T>
+concept bigfloat_cvref=type_info<remove_cvref<T>> == type_info<bigfloat>;
+
+//pow of bigint
+using math::pow;
+template<signed_integer_type T,bigint_cvref bigint_t>
+[[nodiscard]]inline bigfloat pow(bigint_t&&base,T&&exp)noexcept{
+	if(is_negative(exp))
+		return bigfloat{1u} / pow(forward<bigint_t>(base),abs(forward<T>(exp)));
+	else
+		return pow(forward<bigint_t>(base),abs(forward<T>(exp)));
+}
+template<signed_basic_integer_type T1,signed_integer_type T2>
+[[nodiscard]]inline ubigfloat pow(T1&& base,T2&& exp)noexcept{
+	return pow(bigint{forward<T1>(base)},forward<T2>(exp));
+}
+
+template<arithmetic_type T,bigfloat_cvref bigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
+[[nodiscard]]inline bigfloat operator+(T&& lhs,bigfloat_t&& rhs)noexcept{
+	return forward<bigfloat_t>(rhs) + forward<T>(lhs);
+}
+template<arithmetic_type T,bigfloat_cvref bigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
+[[nodiscard]]inline bigfloat operator-(T&& lhs,bigfloat_t&& rhs)noexcept{
+	return bigfloat{forward<T>(lhs)} - forward<bigfloat_t>(rhs);
+}
+template<arithmetic_type T,bigfloat_cvref bigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
+[[nodiscard]]inline bigfloat operator*(T&& lhs,bigfloat_t&& rhs)noexcept{
+	return forward<bigfloat_t>(rhs) * forward<T>(lhs);
+}
+template<arithmetic_type T,bigfloat_cvref bigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
+[[nodiscard]]inline bigfloat operator/(T&& lhs,bigfloat_t&& rhs)noexcept{
+	return bigfloat{forward<T>(lhs)} / forward<bigfloat_t>(rhs);
+}
+
+template<signed_type T,ubigfloat_cvref ubigfloat_t>
+[[nodiscard]]inline bigfloat operator+(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return bigfloat{forward<T>(lhs)} + forward<ubigfloat_t>(rhs);
+}
+template<signed_type T,ubigfloat_cvref ubigfloat_t>
+[[nodiscard]]inline bigfloat operator-(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return bigfloat{forward<T>(lhs)} - forward<ubigfloat_t>(rhs);
+}
+template<signed_type T,ubigfloat_cvref ubigfloat_t>
+[[nodiscard]]inline bigfloat operator*(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return bigfloat{forward<T>(lhs)} * forward<ubigfloat_t>(rhs);
+}
+template<signed_type T,ubigfloat_cvref ubigfloat_t>
+[[nodiscard]]inline bigfloat operator/(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return bigfloat{forward<T>(lhs)} / forward<ubigfloat_t>(rhs);
+}
+
 //file_end
 

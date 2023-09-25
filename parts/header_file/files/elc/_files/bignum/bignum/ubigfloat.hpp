@@ -38,13 +38,9 @@ public:
 	ubigfloat(ubigfloat&& other)noexcept=default;
 	ubigfloat& operator=(const ubigfloat& other)&noexcept=default;
 	ubigfloat& operator=(ubigfloat&& other)&noexcept=default;
-	ubigfloat(const bigint& other)noexcept:_numerator(abs(other)){}
-	ubigfloat(bigint&& other)noexcept:_numerator(abs(move(other))){}
-	ubigfloat(const ubigint& other)noexcept:_numerator(other){}
-	ubigfloat(ubigint&& other)noexcept:_numerator(move(other)){}
 
 	template<unsigned_integer_type T>
-	ubigfloat(T num)noexcept:_numerator(num){}
+	ubigfloat(T&&num)noexcept:_numerator(forward<T>(num)){}
 	template<basic_float_type T>
 	ubigfloat(T num)noexcept{
 		if(isNaN(num))return;
@@ -270,16 +266,16 @@ public:
 		return ubigfloat{move(numerator), move(denominator)};
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat operator+(const T& other)const&noexcept{
-		auto numerator = _numerator + other * _denominator;
+	[[nodiscard]]ubigfloat operator+(T&& other)const&noexcept{
+		auto numerator = _numerator + forward<T>(other) * _denominator;
 		return ubigfloat{move(numerator), _denominator};
 	}
 	template<signed_integer_type T>
-	[[nodiscard]]ubigfloat operator+(const T& other)const&noexcept{
+	[[nodiscard]]ubigfloat operator+(T&& other)const&noexcept{
 		if(is_negative(other))
-			return *this - abs(other);
+			return *this - abs(forward<T>(other));
 		else
-			return *this + abs(other);
+			return *this + abs(forward<T>(other));
 	}
 	//operator-
 	[[nodiscard]]ubigfloat operator-(const ubigfloat& other)const&noexcept{
@@ -288,16 +284,16 @@ public:
 		return ubigfloat{move(numerator), move(denominator)};
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat operator-(const T& other)const&noexcept{
-		auto numerator = _numerator - other * _denominator;
+	[[nodiscard]]ubigfloat operator-(T&& other)const&noexcept{
+		auto numerator = _numerator - forward<T>(other) * _denominator;
 		return ubigfloat{move(numerator), _denominator};
 	}
 	template<signed_integer_type T>
-	[[nodiscard]]ubigfloat operator-(const T& other)const&noexcept{
+	[[nodiscard]]ubigfloat operator-(T&& other)const&noexcept{
 		if(is_negative(other))
-			return *this + abs(other);
+			return *this + abs(forward<T>(other));
 		else
-			return *this - abs(other);
+			return *this - abs(forward<T>(other));
 	}
 	//operator*
 	[[nodiscard]]ubigfloat operator*(const ubigfloat& other)const&noexcept{
@@ -306,8 +302,8 @@ public:
 		return ubigfloat{move(numerator), move(denominator)};
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat operator*(const T& other)const&noexcept{
-		auto numerator = _numerator * other;
+	[[nodiscard]]ubigfloat operator*(T&& other)const&noexcept{
+		auto numerator = _numerator * forward<T>(other);
 		return ubigfloat{move(numerator), _denominator};
 	}
 	//operator/
@@ -317,8 +313,8 @@ public:
 		return ubigfloat{move(numerator), move(denominator)};
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat operator/(const T& other)const&noexcept{
-		auto denominator = _denominator * other;
+	[[nodiscard]]ubigfloat operator/(T&& other)const&noexcept{
+		auto denominator = _denominator * forward<T>(other);
 		return ubigfloat{_numerator, move(denominator)};
 	}
 	//operator+=
@@ -328,16 +324,16 @@ public:
 		return*this;
 	}
 	template<unsigned_integer_type T>
-	ubigfloat& operator+=(const T& other)&noexcept{
-		_numerator += other * _denominator;
+	ubigfloat& operator+=(T&& other)&noexcept{
+		_numerator += forward<T>(other) * _denominator;
 		return*this;
 	}
 	template<signed_integer_type T>
-	ubigfloat& operator+=(const T& other)&noexcept{
+	ubigfloat& operator+=(T&& other)&noexcept{
 		if(is_negative(other))
-			return*this -= abs(other);
+			return*this -= abs(forward<T>(other));
 		else
-			return*this += abs(other);
+			return*this += abs(forward<T>(other));
 	}
 	//operator-=
 	ubigfloat& operator-=(const ubigfloat& other)&noexcept{
@@ -346,16 +342,16 @@ public:
 		return*this;
 	}
 	template<unsigned_integer_type T>
-	ubigfloat& operator-=(const T& other)&noexcept{
-		_numerator -= other * _denominator;
+	ubigfloat& operator-=(T&& other)&noexcept{
+		_numerator -= forward<T>(other) * _denominator;
 		return*this;
 	}
 	template<signed_integer_type T>
-	ubigfloat& operator-=(const T& other)&noexcept{
+	ubigfloat& operator-=(T&& other)&noexcept{
 		if(is_negative(other))
-			return*this += abs(other);
+			return*this += abs(forward<T>(other));
 		else
-			return*this -= abs(other);
+			return*this -= abs(forward<T>(other));
 	}
 	//operator*=
 	ubigfloat& operator*=(const ubigfloat& other)&noexcept{
@@ -364,8 +360,8 @@ public:
 		return*this;
 	}
 	template<unsigned_integer_type T>
-	ubigfloat& operator*=(const T& other)&noexcept{
-		_numerator *= other;
+	ubigfloat& operator*=(T&& other)&noexcept{
+		_numerator *= forward<T>(other);
 		return*this;
 	}
 	//operator/=
@@ -375,8 +371,8 @@ public:
 		return*this;
 	}
 	template<unsigned_integer_type T>
-	ubigfloat& operator/=(const T& other)&noexcept{
-		_denominator *= other;
+	ubigfloat& operator/=(T&& other)&noexcept{
+		_denominator *= forward<T>(other);
 		return*this;
 	}
 	//operator==
@@ -384,56 +380,59 @@ public:
 		return _numerator * other._denominator == other._numerator * _denominator;
 	}
 	template<integer_type T>
-	[[nodiscard]]bool operator==(const T& other)const noexcept{
+	[[nodiscard]]bool operator==(T&& other)const noexcept{
 		if constexpr(is_signed<T>)
 			if(is_negative(other))return false;
-		return _numerator == abs(other) * _denominator;
+		return _numerator == abs(forward<T>(other)) * _denominator;
 	}
 	//operator<=>
 	[[nodiscard]]auto operator<=>(const ubigfloat& other)const noexcept{
 		return _numerator * other._denominator <=> other._numerator * _denominator;
 	}
 	template<integer_type T>
-	[[nodiscard]]auto operator<=>(const T& other)const noexcept{
+	[[nodiscard]]auto operator<=>(T&& other)const noexcept{
 		if constexpr(is_signed<T>)
 			if(is_negative(other))return strong_ordering::greater;
-		return _numerator <=> abs(other) * _denominator;
+		return _numerator <=> abs(forward<T>(other)) * _denominator;
 	}
 	//operatorX for rvalue
 	[[nodiscard]]ubigfloat&& operator+(const ubigfloat& other)&&noexcept{
 		return move(*this += other);
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat&& operator+(const T& other)&&noexcept{
-		return move(*this += other);
+	[[nodiscard]]ubigfloat&& operator+(T&& other)&&noexcept{
+		return move(*this += forward<T>(other));
 	}
 	template<signed_integer_type T>
-	[[nodiscard]]ubigfloat&& operator+(const T& other)&&noexcept{
-		return move(*this += other);
+	[[nodiscard]]ubigfloat&& operator+(T&& other)&&noexcept{
+		return move(*this += forward<T>(other));
 	}
 	[[nodiscard]]ubigfloat&& operator-(const ubigfloat& other)&&noexcept{
 		return move(*this -= other);
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat&& operator-(const T& other)&&noexcept{
-		return move(*this -= other);
+	[[nodiscard]]ubigfloat&& operator-(T&& other)&&noexcept{
+		return move(*this -= forward<T>(other));
 	}
 	template<signed_integer_type T>
-	[[nodiscard]]ubigfloat&& operator-(const T& other)&&noexcept{
-		return move(*this -= other);
+	[[nodiscard]]ubigfloat&& operator-(T&& other)&&noexcept{
+		return move(*this -= forward<T>(other));
 	}
 	[[nodiscard]]ubigfloat&& operator*(const ubigfloat& other)&&noexcept{
 		return move(*this *= other);
 	}
+	[[nodiscard]]ubigfloat&& operator*(ubigfloat&& other)&&noexcept{
+		return move(*this *= move(other));
+	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat&& operator*(const T& other)&&noexcept{
+	[[nodiscard]]ubigfloat&& operator*(T&& other)&&noexcept{
 		return move(*this *= other);
 	}
 	[[nodiscard]]ubigfloat&& operator/(const ubigfloat& other)&&noexcept{
 		return move(*this /= other);
 	}
 	template<unsigned_integer_type T>
-	[[nodiscard]]ubigfloat&& operator/(const T& other)&&noexcept{
+	[[nodiscard]]ubigfloat&& operator/(T&& other)&&noexcept{
 		return move(*this /= other);
 	}
 	[[nodiscard]]ubigfloat&& operator+(ubigfloat&& other)const&noexcept{
@@ -480,92 +479,39 @@ public:
 		return move(*this).operator ubigint();
 	}
 };
+
+template<typename T>
+concept ubigfloat_cvref=type_info<remove_cvref<T>> == type_info<ubigfloat>;
+
 //pow of bigint
-[[nodiscard]]inline ubigint pow(ubigint base,ubigint exp)noexcept{
-	return math::pow(move(base),move(exp));
-}
-template<unsigned_basic_integer_type T>
-[[nodiscard]]inline ubigint pow(T base,ubigint exp)noexcept{
-	return pow(ubigint(base),move(exp));
-}
-[[nodiscard]]inline ubigfloat pow(ubigint base,bigint exp)noexcept{
+using math::pow;
+template<signed_integer_type T,ubigint_cvref ubigint_t>
+[[nodiscard]]inline ubigfloat pow(ubigint_t base,T&&exp)noexcept{
 	if(is_negative(exp))
-		return ubigfloat{1u} / pow(move(base),abs(move(exp)));
+		return ubigfloat{1u} / pow(forward<ubigint_t>(base),abs(forward<T>(exp)));
 	else
-		return pow(move(base),abs(move(exp)));
+		return pow(forward<ubigint_t>(base),abs(forward<T>(exp)));
 }
-template<unsigned_basic_integer_type T>
-[[nodiscard]]inline ubigfloat pow(T base,bigint exp)noexcept{
-	return pow(ubigint(base),move(exp));
+template<unsigned_basic_integer_type T1,signed_integer_type T2>
+[[nodiscard]]inline ubigfloat pow(T1&& base,T2&& exp)noexcept{
+	return pow(ubigint{forward<T1>(base)},forward<T2>(exp));
 }
-template<signed_basic_integer_type T>
-[[nodiscard]]inline ubigfloat pow(ubigint base,T exp)noexcept{
-	return pow(move(base),bigint(exp));
+
+template<unsigned_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<ubigfloat>)
+[[nodiscard]]inline ubigfloat operator+(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return forward<ubigfloat_t>(rhs) + forward<T>(lhs);
 }
-//operator +-*= of ubigint and ubigfloat
-[[nodiscard]]inline ubigfloat operator+(const ubigint& lhs,const ubigfloat& rhs)noexcept{
-	return rhs + lhs;
+template<unsigned_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<ubigfloat>)
+[[nodiscard]]inline ubigfloat operator-(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return ubigfloat{forward<T>(lhs)} - forward<ubigfloat_t>(rhs);
 }
-[[nodiscard]]inline ubigfloat operator+(ubigint&& lhs,const ubigfloat& rhs)noexcept{
-	return ubigfloat(move(lhs)) + rhs;
+template<unsigned_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<ubigfloat>)
+[[nodiscard]]inline ubigfloat operator*(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return forward<ubigfloat_t>(rhs) * forward<T>(lhs);
 }
-[[nodiscard]]inline ubigfloat&& operator+(const ubigint& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) + lhs;
-}
-[[nodiscard]]inline ubigfloat&& operator+(ubigint&& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) + move(lhs);
-}
-[[nodiscard]]inline ubigfloat operator-(const ubigint& lhs,const ubigfloat& rhs)noexcept{
-	return ubigfloat(lhs) - rhs;
-}
-[[nodiscard]]inline ubigfloat operator-(ubigint&& lhs,const ubigfloat& rhs)noexcept{
-	return ubigfloat(move(lhs)) - rhs;
-}
-[[nodiscard]]inline ubigfloat&& operator-(const ubigint& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs=ubigfloat(lhs)-move(rhs));
-}
-[[nodiscard]]inline ubigfloat&& operator-(ubigint&& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs=ubigfloat(move(lhs))-move(rhs));
-}
-[[nodiscard]]inline ubigfloat operator*(const ubigint& lhs,const ubigfloat& rhs)noexcept{
-	return rhs * lhs;
-}
-[[nodiscard]]inline ubigfloat operator*(ubigint&& lhs,const ubigfloat& rhs)noexcept{
-	return ubigfloat(move(lhs)) * rhs;
-}
-[[nodiscard]]inline ubigfloat&& operator*(const ubigint& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) * lhs;
-}
-template<unsigned_basic_integer_type T>
-[[nodiscard]]inline ubigint operator*(const ubigint& lhs,const T& rhs)noexcept{
-	return lhs * ubigint(rhs);
-}
-template<unsigned_basic_integer_type T>
-[[nodiscard]]inline ubigint operator*(ubigint&& lhs,const T& rhs)noexcept{
-	return move(lhs) * ubigint(rhs);
-}
-template<unsigned_basic_integer_type T>
-[[nodiscard]]inline ubigint operator*(const T& lhs,const ubigint& rhs)noexcept{
-	return ubigint(lhs) * rhs;
-}
-template<unsigned_basic_integer_type T>
-[[nodiscard]]inline ubigint operator*(const T& lhs,ubigint&& rhs)noexcept{
-	return ubigint(lhs) * move(rhs);
-}
-[[nodiscard]]inline ubigfloat&& operator*(ubigint&& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs) * move(lhs);
-}
-[[nodiscard]]inline ubigfloat operator/(const ubigint& lhs,const ubigfloat& rhs)noexcept{
-	return ubigfloat(lhs) / rhs;
-}
-[[nodiscard]]inline ubigfloat operator/(ubigint&& lhs,const ubigfloat& rhs)noexcept{
-	return ubigfloat(move(lhs)) / rhs;
-}
-[[nodiscard]]inline ubigfloat&& operator/(const ubigint& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs=ubigfloat(lhs)/move(rhs));
-}
-[[nodiscard]]inline ubigfloat&& operator/(ubigint&& lhs,ubigfloat&& rhs)noexcept{
-	return move(rhs=ubigfloat(move(lhs))/move(rhs));
+template<unsigned_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<ubigfloat>)
+[[nodiscard]]inline ubigfloat operator/(T&& lhs,ubigfloat_t&& rhs)noexcept{
+	return ubigfloat{forward<T>(lhs)} / forward<ubigfloat_t>(rhs);
 }
 
 BREAK_NAMESPACE
