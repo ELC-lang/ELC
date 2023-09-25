@@ -275,7 +275,7 @@ public:
 	}
 	//operator<=>
 	template<arithmetic_type T>
-	[[nodiscard]]auto operator<=>(const bigint& other)const noexcept{
+	[[nodiscard]]auto operator<=>(const T& other)const noexcept{
 		if(_is_negative!=is_negative(other))
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
 		const bool needs_reverse=_is_negative;
