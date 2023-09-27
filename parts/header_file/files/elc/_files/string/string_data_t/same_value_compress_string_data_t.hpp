@@ -53,7 +53,7 @@ struct same_value_compress_string_data_t final:base_string_data_t<char_T>,instan
 	size_t _size;
 	char_T _value;
 	ptr_t _static_data_p;//必要时创建一个较大的数组，用于向外提供数据
-	static constexpr size_t max_static_data_size=size_t(pow(BIT_POSSIBILITY, 9));
+	static constexpr size_t max_static_data_size=size_t(pow(BIT_POSSIBILITY, 9u));
 
 	same_value_compress_string_data_t(size_t size,char_T value)noexcept:_size(size),_value(value){}
 	same_value_compress_string_data_t(size_t size,char_T value,ptr_t static_data_p)noexcept:_size(size),_value(value),_static_data_p(static_data_p){}
