@@ -1019,29 +1019,29 @@ namespace math{
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T arccos(T num, const to_unsigned_t<T>&epsilon)noexcept{
+	[[nodiscard]]constexpr to_unsigned_t<T> arccos(T num, const to_unsigned_t<T>&epsilon)noexcept{
 		return pi_with_epsilon(epsilon)/2u - arctan(num, epsilon);
 	}
 	template<signed_float_type T> requires(has_epsilon<T>)
-	[[nodiscard]]force_inline constexpr T arccos(T num)noexcept{
+	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccos(T num)noexcept{
 		return arccos(num, arithmetic_type_info_prover<T>::epsilon());
 	}
 
-	template<signed_float_type T>
+	template<float_type T>
 	[[nodiscard]]constexpr T arcsin(T num, const to_unsigned_t<T>&epsilon)noexcept{
 		return arctan(num/reciprocal(sqrt(1-pow(num), epsilon)), epsilon);
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr T arcsin(T num)noexcept{
 		return arcsin(num, arithmetic_type_info_prover<T>::epsilon());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T arccot(T num, const to_unsigned_t<T>&epsilon)noexcept{
+	[[nodiscard]]constexpr to_unsigned_t<T> arccot(T num, const to_unsigned_t<T>&epsilon)noexcept{
 		return pi_with_epsilon(epsilon)/2u - arctan(num, epsilon);
 	}
 	template<signed_float_type T> requires(has_epsilon<T>)
-	[[nodiscard]]force_inline constexpr T arccot(T num)noexcept{
+	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccot(T num)noexcept{
 		return arccot(num, arithmetic_type_info_prover<T>::epsilon());
 	}
 
@@ -1054,11 +1054,11 @@ namespace math{
 		return arcsec(num, arithmetic_type_info_prover<T>::epsilon());
 	}
 
-	template<signed_float_type T>
+	template<float_type T>
 	[[nodiscard]]constexpr T arccsc(T num, const to_unsigned_t<T>&epsilon)noexcept{
 		return arcsin(reciprocal(num), epsilon);
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr T arccsc(T num)noexcept{
 		return arccsc(num, arithmetic_type_info_prover<T>::epsilon());
 	}
