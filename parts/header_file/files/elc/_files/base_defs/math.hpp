@@ -364,7 +364,7 @@ namespace math{
 	template<float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept;
 	template<float_type T>
-	[[nodiscard]]inline constexpr T sqrt(const T&v,const T&epsilon)noexcept{
+	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
@@ -1020,7 +1020,7 @@ namespace math{
 
 	template<signed_float_type T>
 	[[nodiscard]]constexpr to_unsigned_t<T> arccos(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return pi_with_epsilon(epsilon)/2u - arctan(num, epsilon);
+		return to_unsigned_t<T>(pi_with_epsilon(epsilon)/2u - arctan(num, epsilon));
 	}
 	template<signed_float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccos(T num)noexcept{
@@ -1038,7 +1038,7 @@ namespace math{
 
 	template<signed_float_type T>
 	[[nodiscard]]constexpr to_unsigned_t<T> arccot(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return pi_with_epsilon(epsilon)/2u - arctan(num, epsilon);
+		return to_unsigned_t<T>(pi_with_epsilon(epsilon)/2u - arctan(num, epsilon));
 	}
 	template<signed_float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccot(T num)noexcept{
