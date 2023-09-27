@@ -85,6 +85,16 @@ namespace math{
 	[[nodiscard]]force_inline constexpr auto reverse_sign(const T&x)noexcept{
 		return copy_as_negative(x,!is_negative(x));
 	}
+	/*! 符号位反转，如果X为真 */
+	template<arithmetic_type T>
+	[[nodiscard]]force_inline constexpr auto reverse_sign_if(bool x,const T&y)noexcept{
+		return x?reverse_sign(y):y;
+	}
+	/*! 倒数 */
+	template<basic_float_type T>
+	[[nodiscard]]force_inline constexpr auto reciprocal(const T&x)noexcept{
+		return T{1}/x;
+	}
 	/*! 任意算数类型安全转型(ub避免.). */
 	template<arithmetic_type T,arithmetic_type U>
 	[[nodiscard]]force_inline constexpr T safe_arithmetic_cast(U x)noexcept{
@@ -770,6 +780,40 @@ namespace math{
 		return factorial<T>(m,start)*factorial<T>(n-m,start+m);
 	}
 }
+using math::is_negative;
+using math::copy_as_negative;
+using math::reverse_sign;
+using math::reverse_sign_if;
+using math::to_size_t;
+using math::mod;
+using math::is_odd;
+using math::is_even;
+using math::divmod;
+using math::ceil_div;
+using math::set_rounding;
+using math::get_rounding;
+using math::rounding_auto_setter;
+using math::is_close;
+using math::isNaN;
+using math::isInf;
+using math::abs;
+using math::exp;
+using math::log;
+using math::integer_log;
+using math::pow;
+using math::ceil;
+using math::floor;
+using math::sqrt;
+using math::trunc;
+using math::is_prime_num;
+using math::get_prime_num_big_or_eq_than;
+using math::get_prime_num_big_than;
+using math::get_next_gold_size_to_resize_for_array;
+using math::get_next_gold_size_to_resize_for_hash;
+using math::get_prime_factorization;
+using math::prime_factorization_table_t;
+using math::unique_prime_factorization_table_t;
+using math::factorial;
 
 namespace bit{
 	template<unsigned_basic_integer_type T>
@@ -808,40 +852,229 @@ namespace math{
 		return x << shift;
 	}
 }
-using math::is_negative;
-using math::copy_as_negative;
-using math::reverse_sign;
-using math::to_size_t;
-using math::mod;
-using math::is_odd;
-using math::is_even;
-using math::divmod;
-using math::ceil_div;
-using math::set_rounding;
-using math::get_rounding;
-using math::rounding_auto_setter;
-using math::is_close;
-using math::isNaN;
-using math::isInf;
-using math::abs;
-using math::exp;
-using math::log;
-using math::integer_log;
-using math::pow;
-using math::ceil;
-using math::floor;
-using math::sqrt;
-using math::trunc;
-using math::is_prime_num;
-using math::get_prime_num_big_or_eq_than;
-using math::get_prime_num_big_than;
-using math::get_next_gold_size_to_resize_for_array;
-using math::get_next_gold_size_to_resize_for_hash;
-using math::get_prime_factorization;
-using math::prime_factorization_table_t;
-using math::unique_prime_factorization_table_t;
 using math::gcd;
-using math::factorial;
+
+namespace magic_number{
+	using ::std::move;
+
+	template<unsigned_big_float_type T>
+	struct pi_with_epsilon_t{
+	private:
+		typedef to_signed_t<T> float_t;
+		typedef to_unsigned_t<T> ufloat_t;
+		typedef integer_type_of<T> int_t;
+		typedef to_unsigned_t<int_t> uint_t;
+
+		float_t result{}, sum=magic_number::god;
+		ufloat_t epsilon;
+		uint_t k{}, _3k{}, _6k{}; bool sign = true;
+		uint_t _545140134k_p13591409 = 13591409u; // 545140134*k+13591409
+		uint_t _3k_factorial = 1u, _6k_factorial = 1u, k_factorial_pow_3 = 1u;
+		ufloat_t sqrt_640320 = sqrt(ufloat_t{640320u},epsilon);//我们需要缓存这个与epsilon有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
+		ufloat_t _640320_pow_3kplus1p5 = sqrt_640320*640320u;//初始值1.5次方
+		const uint_t _545140134_ = 545140134u;
+		const uint_t _640320pow3 = pow(uint_t{640320u},3u);
+	public:
+		constexpr pi_with_epsilon_t(ufloat_t the_epsilon = magic_number::god)noexcept: epsilon(move(the_epsilon)){}
+		[[nodiscard]]constexpr T operator()()noexcept{
+			while (abs(sum) > epsilon) {
+				sum = copy_as_negative(
+					(				_545140134k_p13591409 * _6k_factorial				)
+					/ //= 	--------------------------------------------------------
+					(		_3k_factorial*k_factorial_pow_3 * _640320_pow_3kplus1p5		)
+				,sign);
+				++k;
+				for times(3) _3k_factorial *= ++_3k;
+				for times(6) _6k_factorial *= ++_6k;
+				k_factorial_pow_3 *= pow(k,3u);
+				_545140134k_p13591409 += _545140134_;
+				_640320_pow_3kplus1p5 *= _640320pow3;
+				sign = !sign;
+
+				result += sum;
+			};
+			return abs(reciprocal(12*result));
+		}
+		[[nodiscard]]constexpr T operator()(ufloat_t new_epsilon)noexcept{
+			if(new_epsilon < epsilon){
+				//epsilon变小了，我们需要重新计算
+				//首先 我们将result中的sqrt_640320去除.
+				//将现有的result看作(X0 X1 X2 ... Xn) 的和, 其中Xi = Yi/_640320_pow_3kplus1p5.
+				//而_640320_pow_3kplus1p5 = sqrt_640320*640320^3i.
+				//设Ai = Yi/640320^3i, 则Xi = Ai*sqrt_640320.
+				//我们可以将result看作Ai*sqrt_640320的和.
+				auto magic_number = sqrt_640320;
+				//计算新的sqrt_640320.
+				sqrt_640320 = sqrt(ufloat_t{640320u},new_epsilon);
+				magic_number /= sqrt_640320;
+				//去除旧数据的影响.
+				result /= magic_number;
+				_640320_pow_3kplus1p5 *= magic_number;
+				//更新epsilon.
+				epsilon = move(new_epsilon);
+			}
+			return operator()();
+		}
+	};
+	template<unsigned_float_type T>
+	distinctive inline pi_with_epsilon_t<T> pi_with_epsilon_impl{};
+	template<float_type T>
+	auto pi_with_epsilon(T&&epsilon)noexcept{
+		if constexpr(is_basic_float_type<T>)
+			return (T)magic_number::pi;//啊？
+		else
+			return pi_with_epsilon_impl<to_unsigned_t<remove_cvref<T>>>(forward<T>(epsilon));
+	}
+}
+using magic_number::pi_with_epsilon;
+
+namespace math{
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T sin(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		size_t i = 1; bool negation = false; // 取反
+		T base = num, result = num, num_pow = pow(num); // 求num2的次方
+		while (abs(base) > epsilon) {
+			base *= num_pow/((i+1)*(i+2)); // 求阶乘
+			negation = !negation; // 每次循环取反
+			result += reverse_sign_if(negation,base); // 求和
+			i += 2;
+		}
+		return result;
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T sin(T num)noexcept{
+		return sin(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<float_type T>
+	[[nodiscard]]constexpr T arctan(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		/*
+		arctan (-x) = -arctan(x)
+		arctan (1/x) = 0.5 * pi - arctan(x) [x > 0]
+		*/
+		if constexpr(signed_type<T>)
+			if (num < 0) return copy_as_negative(arctan(abs(num), epsilon));
+		if (num > 1) return pi_with_epsilon(epsilon)/2u - arctan(reciprocal(move(num)), epsilon);
+
+		size_t i = 1; bool negation = false; // 取反
+		to_signed_t<T> result = num;
+		T numerator_base = num, sum, num_pow = pow(num); // 求num2的次方
+		do {
+			numerator_base *= num_pow; // 求阶乘
+			negation = !negation; // 每次循环取反
+			sum = numerator_base/i; // 单步计算结果
+			result += reverse_sign_if(negation,sum); // 求和
+			i += 2;
+		}while (abs(sum) > epsilon);
+		return (T)result;
+	}
+	template<float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T arctan(T num)noexcept{
+		return arctan(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T cos(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return sin(pi_with_epsilon(epsilon)/2u - num, epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T cos(T num)noexcept{
+		return cos(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T tan(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return sin(num, epsilon)/cos(num, epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T tan(T num)noexcept{
+		return tan(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T cot(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return cos(num, epsilon)/sin(num, epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T cot(T num)noexcept{
+		return cot(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T sec(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return reciprocal(cos(num, epsilon));
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T sec(T num)noexcept{
+		return sec(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T csc(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return reciprocal(sin(num, epsilon));
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T csc(T num)noexcept{
+		return csc(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T arccos(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return pi_with_epsilon(epsilon)/2u - arctan(num, epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T arccos(T num)noexcept{
+		return arccos(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T arcsin(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return arctan(num/reciprocal(sqrt(1-pow(num), epsilon)), epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T arcsin(T num)noexcept{
+		return arcsin(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T arccot(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return pi_with_epsilon(epsilon)/2u - arctan(num, epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T arccot(T num)noexcept{
+		return arccot(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T arcsec(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return arccos(reciprocal(num), epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T arcsec(T num)noexcept{
+		return arcsec(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+
+	template<signed_float_type T>
+	[[nodiscard]]constexpr T arccsc(T num, const to_unsigned_t<T>&epsilon)noexcept{
+		return arcsin(reciprocal(num), epsilon);
+	}
+	template<signed_float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T arccsc(T num)noexcept{
+		return arccsc(num, arithmetic_type_info_prover<T>::epsilon());
+	}
+}
+using math::sin;
+using math::cos;
+using math::tan;
+using math::arccos;
+using math::arcsin;
+using math::arctan;
+using math::cot;
+using math::sec;
+using math::csc;
+using math::arccot;
+using math::arcsec;
+using math::arccsc;
 
 //file_end
 

@@ -34,8 +34,8 @@ class bigfloat;
 using math::copy_as_negative;//避免可能的符号覆盖
 
 class bigfloat{
-	ubigfloat _num;
 	bool _is_negative=false;
+	ubigfloat _num;
 public:
 	//constructors
 	bigfloat()noexcept=default;
@@ -51,7 +51,7 @@ public:
 	bigfloat(ubigint&& other)noexcept:_num(move(other)){}
 
 	template<arithmetic_type T>
-	bigfloat(T num)noexcept:_num(abs(num)),_is_negative(is_negative(num)){}
+	bigfloat(T&&num)noexcept:_is_negative(is_negative(num)),_num(abs(forward<T>(num))){}
 public:
 	template<arithmetic_type T>
 	[[nodiscard]]bool is_safe_convert_to()const noexcept{
@@ -136,6 +136,14 @@ public:
 	}
 	[[nodiscard]]friend ubigint&& get_denominator(bigfloat&& a)noexcept{
 		return get_denominator(move(a._num));
+	}
+	//friend reciprocal
+	[[nodiscard]]friend bigfloat reciprocal(const bigfloat& a)noexcept{
+		return bigfloat{reciprocal(a._num), a._is_negative};
+	}
+	[[nodiscard]]friend bigfloat&& reciprocal(bigfloat&& a)noexcept{
+		a._num=reciprocal(move(a._num));
+		return move(a);
 	}
 	//friend trunc
 	[[nodiscard]]friend bigint trunc(const bigfloat& a)noexcept{
@@ -300,15 +308,6 @@ public:
 	template<arithmetic_type T>
 	[[nodiscard]]bigfloat&& operator/(const T&other)&&noexcept{
 		return move(*this /= other);
-	}
-	[[nodiscard]]bigfloat&& operator+(bigfloat&& other)const noexcept{
-		return move(move(other) + *this);
-	}
-	[[nodiscard]]bigfloat&& operator-(bigfloat&& other)const noexcept{
-		return move((-move(other)) + *this);
-	}
-	[[nodiscard]]bigfloat&& operator*(bigfloat&& other)const noexcept{
-		return move(move(other) * *this);
 	}
 	//operator!
 	[[nodiscard]]bool operator!()const noexcept{

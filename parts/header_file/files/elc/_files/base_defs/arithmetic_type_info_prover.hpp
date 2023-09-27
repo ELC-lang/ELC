@@ -140,6 +140,13 @@ namespace math{
 			elseif constexpr(is_integer_type)
 				return .0;
 		}());
+		//对应的整数类型
+		using integer_type=decltype(lambda{
+			if constexpr(is_integer_type)
+				return T();
+			elseif constexpr(is_float_type)
+				return 0;
+		}());
 	};
 }
 

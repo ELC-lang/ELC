@@ -34,10 +34,11 @@ class bigint;
 using math::copy_as_negative;//避免可能的符号覆盖
 
 [[nodiscard]]inline bigint operator-(const ubigint&num)noexcept;
+[[nodiscard]]inline bigint operator-(ubigint&&num)noexcept;
 
 class bigint{
-	ubigint _num;
 	bool _is_negative=0;
+	ubigint _num;
 
 	bigint(const ubigint&num,bool is_negative)noexcept:_num(num),_is_negative(is_negative){
 		if(!_num)_is_negative = false;
@@ -49,13 +50,13 @@ public:
 	bigint()noexcept = default;
 	bigint(const bigint&)noexcept = default;
 	bigint(bigint&&)noexcept = default;
-	template<integer_type T>
-	bigint(T&&value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
 
 	bigint& operator=(const bigint&)&noexcept = default;
 	bigint& operator=(bigint&&)&noexcept = default;
+	template<integer_type T>
+	bigint(T&&value)noexcept:_is_negative(is_negative(value)),_num(abs(forward<T>(value))){}
 	template<basic_float_type T>
-	explicit bigint(T&&value)noexcept:_num(abs(value)),_is_negative(is_negative(value)){}
+	explicit bigint(T&&value)noexcept:_is_negative(is_negative(value)),_num(abs(forward<T>(value))){}
 
 	~bigint() = default;
 public:
@@ -347,8 +348,11 @@ public:
 	}
 };
 
-[[nodiscard]]inline bigint operator-(const ubigint&num)noexcept{
+[[nodiscard]]inline bigint operator-(const ubigint& num)noexcept{
 	return copy_as_negative(num);
+}
+[[nodiscard]]inline bigint operator-(ubigint&& num)noexcept{
+	return copy_as_negative(move(num));
 }
 
 template<typename T>

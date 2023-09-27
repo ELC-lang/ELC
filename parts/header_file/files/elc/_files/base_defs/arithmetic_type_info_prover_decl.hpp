@@ -43,6 +43,9 @@ namespace math{
 	/*! 对应的浮点数类型 */
 	template<typename T>
 	using float_type_of = typename arithmetic_type_info_prover<remove_cvref<T>>::float_type;
+	/*! 对应的整数类型 */
+	template<typename T>
+	using integer_type_of = typename arithmetic_type_info_prover<remove_cvref<T>>::integer_type;
 
 	/// 概念名称空间
 	/// 基于标准库的概念，但是使用帮助类型来便于后续定义中的新算数类型重载
@@ -225,6 +228,7 @@ namespace math{
 using math::to_unsigned_t;
 using math::to_signed_t;
 using math::float_type_of;
+using math::integer_type_of;
 using namespace math::concepts;
 
 //file_end

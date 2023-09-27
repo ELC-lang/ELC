@@ -196,6 +196,13 @@ public:
 	[[nodiscard]]friend bool is_negative(const ubigfloat&)noexcept{
 		return false;
 	}
+	//friend reciprocal
+	[[nodiscard]]friend ubigfloat reciprocal(const ubigfloat& a)noexcept{
+		return ubigfloat{a._denominator,a._numerator};
+	}
+	[[nodiscard]]friend ubigfloat reciprocal(ubigfloat&& a)noexcept{
+		return ubigfloat{move(a._denominator),move(a._numerator)};
+	}
 	//friend get_numerator
 	[[nodiscard]]friend const ubigint& get_numerator(const ubigfloat& a)noexcept{
 		return a._numerator;

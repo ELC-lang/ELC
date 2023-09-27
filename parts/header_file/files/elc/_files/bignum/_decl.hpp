@@ -69,6 +69,7 @@ namespace base::math{
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
 		using float_type = bigfloat;
+		using integer_type = bigint;
 	};
 
 	template<>struct arithmetic_type_info_prover<ubigint>{
@@ -103,6 +104,7 @@ namespace base::math{
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
 		using float_type = ubigfloat;
+		using integer_type = ubigint;
 	};
 
 	template<>struct arithmetic_type_info_prover<bigfloat>{
@@ -135,6 +137,7 @@ namespace base::math{
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;
 		using float_type = bigfloat;
+		using integer_type = bigint;
 	};
 
 	template<>struct arithmetic_type_info_prover<ubigfloat>{
@@ -169,6 +172,7 @@ namespace base::math{
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;
 		using float_type = ubigfloat;
+		using integer_type = ubigint;
 	};
 }
 
