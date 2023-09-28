@@ -54,8 +54,17 @@ namespace array_n{
 		explicit array_t(note::size_t size,const T&elem)noexcept(get<T>.nothrow<>){
 			_m=get<T>[size.value](elem);
 		}
+		// ::std::initializer_list<T>的构造
+		array_t(::std::initializer_list<T>&&list)noexcept(get<T>.as_array.nothrow<::std::initializer_list<T>>){
+			_m=get<T>.as_array(array_like_view_t<const T>{list});
+		}
+		// T[N]的构造
+		template<size_t N>
+		array_t(T(&a)[N])noexcept(get<T>.as_array.nothrow<T(&)[N]>){
+			_m=get<T>.as_array(a);
+		}
 		/*
-		此重载适用于T[N]，std::init_list<T>以及range_t<const T*>
+		此重载适用于range_t<const T*>
 		*/
 		//template<as_concept<get<T>.as_array.able> U>
 		template<class U> requires(get<T>.as_array.able<U> && type_info<remove_cvref<U>>!=type_info<this_t>)
@@ -260,12 +269,12 @@ namespace array_n{
 
 
 		template<typename U>
-		[[nodiscard]]iterator find(U&&a)noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
-			return in_range(*this,a);
+		[[nodiscard]]iterator find(U&&a)noexcept{
+			return in_range(a,array_like_view_t<T>{*this});
 		}
 		template<typename U>
-		[[nodiscard]]const_iterator find(U&&a)const noexcept requires was_not_an_ill_form(in_range(declvalue(this_t),a)){
-			return in_range(*this,a);
+		[[nodiscard]]const_iterator find(U&&a)const noexcept{
+			return in_range(a,array_like_view_t<const T>{*this});
 		}
 	};
 	template<typename T>

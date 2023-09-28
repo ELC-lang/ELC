@@ -200,8 +200,8 @@ public:
 	[[nodiscard]]friend ubigfloat reciprocal(const ubigfloat& a)noexcept{
 		return ubigfloat{a._denominator,a._numerator};
 	}
-	[[nodiscard]]friend ubigfloat reciprocal(ubigfloat&& a)noexcept{
-		return ubigfloat{move(a._denominator),move(a._numerator)};
+	[[nodiscard]]friend ubigfloat&& reciprocal(ubigfloat&& a)noexcept{
+		return swap(a._denominator,a._numerator),move(a);
 	}
 	//friend get_numerator
 	[[nodiscard]]friend const ubigint& get_numerator(const ubigfloat& a)noexcept{

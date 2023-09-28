@@ -364,37 +364,43 @@ namespace math{
 	template<float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept;
 	template<float_type T>
+	inline constexpr T sqrt_to_new_epsilon(T&num,const T&v,const to_unsigned_t<T>&epsilon)noexcept{
+		//newton-raphson
+		floop{
+			auto next_ret=(num+v/num)/2u;
+			const bool end=abs(next_ret-num)<epsilon;
+			num=move(next_ret);//既然都算出来了，为什么不使用next_ret而是aret？
+			if(end)
+				return next_ret;
+		}
+	}
+	template<float_type T>
+	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{
+		if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
+			if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
+				if constexpr(type_info<T> == type_info<float>)
+					return union_cast<T>(0x5F375A86-(union_cast<const int32_t>(v)>>1));
+				elseif constexpr(type_info<T> == type_info<double>)
+					return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
+				elseif constexpr(type_info<T> == type_info<long double>)
+					#if defined(_MSC_VER)//msvc上long double就是double
+						return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
+					#elif defined(ELC_BASE_ENV_HAS_INT128)
+						return union_cast<T>(0x5F1E45D78623ECB73CAB40BC89254389_u128-(union_cast<const int128_t>(v)>>1));
+					#else
+						do_nothing;//可以寄了
+					#endif
+				elseif constexpr(is_big_type<T>)
+					return sqrt(static_cast<long double>(v));
+		return v/2u;
+	}
+	template<float_type T>
 	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		T aret=exlambda()->T{
-			if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
-				if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
-					if constexpr(type_info<T> == type_info<float>)
-						return union_cast<T>(0x5F375A86-(union_cast<const int32_t>(v)>>1));
-					elseif constexpr(type_info<T> == type_info<double>)
-						return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
-					elseif constexpr(type_info<T> == type_info<long double>)
-						#if defined(_MSC_VER)//msvc上long double就是double
-							return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
-						#elif defined(ELC_BASE_ENV_HAS_INT128)
-							return union_cast<T>(0x5F1E45D78623ECB73CAB40BC89254389_u128-(union_cast<const int128_t>(v)>>1));
-						#else
-							do_nothing;//可以寄了
-						#endif
-					elseif constexpr(is_big_type<T>)
-						return sqrt(static_cast<long double>(v));
-			return v/2u;
-		}();
-		//newton-raphson
-		floop{
-			auto next_ret=(aret+v/aret)/2u;
-			if(abs(next_ret-aret)<epsilon)
-				return next_ret;//既然都算出来了，为什么不使用next_ret而是aret？
-			else
-				aret=move(next_ret);
-		}
+		T aret=quick_sqrt(v);
+		return sqrt_to_new_epsilon(aret,v,epsilon);
 	}
 	//sqrt with one parameter
 	template<float_type T> requires(has_epsilon<T>)
@@ -803,6 +809,8 @@ using math::integer_log;
 using math::pow;
 using math::ceil;
 using math::floor;
+using math::sqrt_to_new_epsilon;
+using math::quick_sqrt;
 using math::sqrt;
 using math::trunc;
 using math::is_prime_num;
@@ -905,7 +913,7 @@ namespace magic_number{
 				//我们可以将result看作Ai*sqrt_640320的和.
 				auto magic_number = sqrt_640320;
 				//计算新的sqrt_640320.
-				sqrt_640320 = sqrt(ufloat_t{640320u},new_epsilon);
+				sqrt_to_new_epsilon(sqrt_640320,ufloat_t{640320u},new_epsilon);
 				magic_number /= sqrt_640320;
 				//去除旧数据的影响.
 				result /= magic_number;
@@ -953,7 +961,7 @@ namespace math{
 		arctan (1/x) = 0.5 * pi - arctan(x) [x > 0]
 		*/
 		if constexpr(signed_type<T>)
-			if (num < 0) return copy_as_negative(arctan(abs(num), epsilon));
+			if (num < 0) return -arctan(abs(num), epsilon);
 		if (num > 1) return pi_with_epsilon(epsilon)/2u - arctan(reciprocal(move(num)), epsilon);
 
 		size_t i = 1; bool negation = false; // 取反

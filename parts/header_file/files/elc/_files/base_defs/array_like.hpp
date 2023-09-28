@@ -35,7 +35,7 @@ namespace array_like_n{
 	template<class T,size_t N>
 	[[nodiscard]]inline constexpr size_t size_of_array_like(T(&)[N])noexcept{return N;}
 	template<class T>
-	[[nodiscard]]inline size_t size_of_array_like(::std::initializer_list<T>&a)noexcept{return a.size();}
+	[[nodiscard]]inline size_t size_of_array_like(::std::initializer_list<remove_cvref<T>>&a)noexcept{return a.size();}
 
 	enable_adl(begin_of_array_like);
 	template<class T>
@@ -43,7 +43,7 @@ namespace array_like_n{
 	template<class T,size_t N>
 	[[nodiscard]]inline constexpr auto begin_of_array_like(T(&a)[N])noexcept{return addressof(a[0]);}
 	template<class T>
-	[[nodiscard]]inline const T* begin_of_array_like(::std::initializer_list<T>&a)noexcept{return a.begin();}
+	[[nodiscard]]inline const T* begin_of_array_like(::std::initializer_list<remove_cvref<T>>&a)noexcept{return a.begin();}
 
 	enable_adl(end_of_array_like);
 	template<class T>
@@ -71,6 +71,8 @@ namespace array_like_n{
 									);
 	template<class T,class U>
 	constexpr bool is_array_like_for=strict_is_array_like_for<T,U>||strict_is_array_like_for<const T,U>;
+
+	static_assert(is_array_like_for<int,::std::initializer_list<int>>);
 
 	template<class T>
 	struct array_like_view_t{

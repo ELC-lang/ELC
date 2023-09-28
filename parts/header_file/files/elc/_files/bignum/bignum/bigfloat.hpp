@@ -33,6 +33,9 @@ class bigfloat;
 [[nodiscard]]bigfloat copy_as_negative(ubigfloat&&,bool sign=true)noexcept;
 using math::copy_as_negative;//避免可能的符号覆盖
 
+[[nodiscard]]inline bigfloat operator-(const ubigfloat&num)noexcept;
+[[nodiscard]]inline bigfloat operator-(ubigfloat&&num)noexcept;
+
 class bigfloat{
 	bool _is_negative=false;
 	ubigfloat _num;
@@ -142,7 +145,7 @@ public:
 		return bigfloat{reciprocal(a._num), a._is_negative};
 	}
 	[[nodiscard]]friend bigfloat&& reciprocal(bigfloat&& a)noexcept{
-		a._num=reciprocal(move(a._num));
+		discard=reciprocal(move(a._num));//swap it!
 		return move(a);
 	}
 	//friend trunc
@@ -346,6 +349,13 @@ public:
 		return ubigint(move(_num));
 	}
 };
+
+[[nodiscard]]inline bigfloat operator-(const ubigfloat&num)noexcept{
+	return copy_as_negative(num);
+}
+[[nodiscard]]inline bigfloat operator-(ubigfloat&&num)noexcept{
+	return copy_as_negative(move(num));
+}
 
 template<typename T>
 concept bigfloat_cvref=type_info<remove_cvref<T>> == type_info<bigfloat>;
