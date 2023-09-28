@@ -36,7 +36,7 @@ namespace note_n{
 		force_inline constexpr name##_t(T a)noexcept:value(a){}\
 		template<class U>\
 		force_inline constexpr name##_t(name##_t<U>a)noexcept:value(a.value){}\
-		force_inline constexpr operator T()noexcept{return value;}\
+		force_inline explicit constexpr operator T()noexcept{return value;}\
 		force_inline constexpr T operator()()noexcept{return value;}\
 	};\
 	template<typename T>\
