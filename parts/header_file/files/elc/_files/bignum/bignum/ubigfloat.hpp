@@ -46,8 +46,8 @@ public:
 		if(isNaN(num))return;
 		//将一个浮点类型无损的转换为两个bigint相除
 		if(is_negative(num))num = -num;
-		if constexpr(::std::numeric_limits<T>::has_infinity)
-			if(num == ::std::numeric_limits<T>::infinity()){
+		if constexpr(has_inf<T>)
+			if(num == arithmetic_type_info_prover<T>::Inf()){
 				_numerator = 1u;
 				_denominator = zero;
 				return;
@@ -101,9 +101,9 @@ public:
 		elseif constexpr(type_info<T>!=type_info<ubigfloat>){//浮点数
 			if(!_denominator)
 				if constexpr(has_inf<T>)
-					return ::std::numeric_limits<T>::infinity();
+					return arithmetic_type_info_prover<T>::Inf();
 				else
-					return ::std::numeric_limits<T>::max();
+					return arithmetic_type_info_prover<T>::max();
 
 			constexpr auto precision_base_bitnum = bitnum_of(float_precision_base_t<T>);
 			//将大分数转换为合适的指数和基数的组合

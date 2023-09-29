@@ -128,12 +128,11 @@ namespace to_string_n{
 		[[nodiscard]]string to_string_with_exp(T num)const noexcept{
 			ptrdiff_t exp;
 			auto aret=to_string_and_set_exp(move(num),exp);
-			return build_expression_str(aret,exp);
+			return build_expression_str(move(aret),exp);
 		}
 		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
 		[[nodiscard]]string to_string_and_set_exp(T num,ptrdiff_t&exp)const noexcept{
-			exp=0;
-			return to_string_and_add_exp(move(num),exp);
+			return to_string_and_add_exp(move(num),exp=0);
 		}
 		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
 		[[nodiscard]]string to_string_and_add_exp(T num,ptrdiff_t&exp)const noexcept{
@@ -160,18 +159,16 @@ namespace to_string_n{
 			if constexpr(is_big_type<T>){
 				//大整数类型可以通过分治法来提高效率
 				constexpr auto partition_method_threshold=max(type_info<size_t>);
-				if(num>partition_method_threshold){
+				if(num > partition_method_threshold){
 					T base{radix};
-					size_t len=1;//计算余数部分要补的前导0
+					size_t len=1;//余数部分要补的前导0个数
 					//计算分割点
 					while(base.memory_usage()*3 < num.memory_usage()){
 						len *= 2;
 						base *= base;
 					}
 					//算出分割后的高位和低位
-					auto result = divmod(num, base);
-					auto&high = result.quot;
-					auto&low = result.mod;
+					auto [high,low] = divmod(num, base);
 					return to_string(move(high)) + to_string(move(low)).pad_left(_repres.get_char(0), len);
 				}
 				else
@@ -197,8 +194,8 @@ namespace to_string_n{
 			//首先，特殊值检查
 			if(isNaN(num)){
 				if constexpr(is_basic_type<T>){
-					if constexpr(::std::numeric_limits<T>::has_signaling_NaN){
-						constexpr auto signaling_NaN = ::std::numeric_limits<T>::signaling_NaN();
+					if constexpr(arithmetic_type_info_prover<T>::has_signaling_NaN){
+						constexpr auto signaling_NaN = arithmetic_type_info_prover<T>::signaling_NaN();
 						if(full_equal_in_byte(signaling_NaN,num)){
 							return _repres.get_signaling_nan();
 						}
@@ -207,8 +204,8 @@ namespace to_string_n{
 							return string()+_repres.get_negative_sign()+_repres.get_signaling_nan();
 						}
 					}
-					if constexpr(::std::numeric_limits<T>::has_quiet_NaN){
-						constexpr auto quiet_NaN = ::std::numeric_limits<T>::quiet_NaN();
+					if constexpr(arithmetic_type_info_prover<T>::has_quiet_NaN){
+						constexpr auto quiet_NaN = arithmetic_type_info_prover<T>::quiet_NaN();
 						if(full_equal_in_byte(quiet_NaN,num)){
 							return _repres.get_quiet_nan();
 						}
@@ -239,11 +236,11 @@ namespace to_string_n{
 			}
 			if(isInf(num)){
 				if constexpr(is_basic_type<T>){
-					constexpr auto infinity = ::std::numeric_limits<T>::infinity();
+					constexpr auto infinity = arithmetic_type_info_prover<T>::Inf();
 					if(full_equal_in_byte(infinity,num)){
 						return _repres.get_inf();
 					}
-					auto negative_infinity = copy_as_negative(infinity);
+					constexpr auto negative_infinity = arithmetic_type_info_prover<T>::negative_Inf();
 					if(full_equal_in_byte(negative_infinity,num)){
 						return string()+_repres.get_negative_sign()+_repres.get_inf();
 					}
@@ -516,9 +513,9 @@ namespace to_string_n{
 		[[nodiscard]]ubigfloat from_string_get_unsigneded(const string&str,convert_state_t&state)const noexcept{
 			//首先判断特殊值
 			if(str==_repres.get_nan())
-				return ::std::numeric_limits<double>::quiet_NaN();
+				return arithmetic_type_info_prover<double>::quiet_NaN();
 			elseif(str==_repres.get_inf())
-				return ::std::numeric_limits<double>::infinity();
+				return arithmetic_type_info_prover<double>::infinity();
 			else
 				return from_string_get_base<ubigfloat>(str,state);
 		}
@@ -527,13 +524,13 @@ namespace to_string_n{
 		template<basic_float_type T>
 		[[nodiscard]]T from_string_get_unsigneded(string str,convert_state_t&state)const noexcept{
 			//首先判断特殊值
-			if constexpr(::std::numeric_limits<T>::has_signaling_NaN || ::std::numeric_limits<T>::has_quiet_NaN){
-				if constexpr(::std::numeric_limits<T>::has_signaling_NaN)
+			if constexpr(has_NaN<T>){
+				if constexpr(arithmetic_type_info_prover<T>::has_signaling_NaN)
 					if(str==_repres.get_signaling_nan())
-						return ::std::numeric_limits<T>::signaling_NaN();
-				if constexpr(::std::numeric_limits<T>::has_quiet_NaN)
+						return arithmetic_type_info_prover<T>::signaling_NaN();
+				if constexpr(arithmetic_type_info_prover<T>::has_quiet_NaN)
 					if(str==_repres.get_quiet_nan())
-						return ::std::numeric_limits<T>::quiet_NaN();
+						return arithmetic_type_info_prover<T>::quiet_NaN();
 				if(str.starts_with(_repres.get_nan())){
 					str.remove_front(_repres.get_nan().size());
 					if(str && str.back()==_repres.get_unknown_data_end_sign()){
@@ -560,12 +557,12 @@ namespace to_string_n{
 						return state.success()?data_cast<T>(block):T{};
 					}
 					else
-						return ::std::numeric_limits<T>::quiet_NaN();
+						return arithmetic_type_info_prover<T>::quiet_NaN();
 				}
 			}
-			if constexpr(::std::numeric_limits<T>::has_infinity)
+			if constexpr(has_inf<T>)
 				if(str==_repres.get_inf())
-					return ::std::numeric_limits<T>::infinity();
+					return arithmetic_type_info_prover<T>::Inf();
 			//由于基本类型的浮点数转换实现有损，所以这里直接转换为ubigfloat再转换为T：安全、大范围、稳健（尽管速度慢）
 			return from_string_get_base<ubigfloat>(move(str),state).convert_to<T>();
 		}

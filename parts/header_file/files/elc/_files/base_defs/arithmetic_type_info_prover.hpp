@@ -149,6 +149,7 @@ namespace math{
 		}());
 	};
 }
+using math::arithmetic_type_info_prover;
 
 //file_end
 
