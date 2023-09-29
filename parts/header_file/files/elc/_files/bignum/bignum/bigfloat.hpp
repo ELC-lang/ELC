@@ -391,19 +391,19 @@ template<arithmetic_type T,bigfloat_cvref bigfloat_t> requires(type_info<remove_
 	return bigfloat{forward<T>(lhs)} / forward<bigfloat_t>(rhs);
 }
 
-template<signed_type T,ubigfloat_cvref ubigfloat_t>
+template<signed_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
 [[nodiscard]]inline bigfloat operator+(T&& lhs,ubigfloat_t&& rhs)noexcept{
 	return bigfloat{forward<T>(lhs)} + forward<ubigfloat_t>(rhs);
 }
-template<signed_type T,ubigfloat_cvref ubigfloat_t>
+template<signed_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
 [[nodiscard]]inline bigfloat operator-(T&& lhs,ubigfloat_t&& rhs)noexcept{
 	return bigfloat{forward<T>(lhs)} - forward<ubigfloat_t>(rhs);
 }
-template<signed_type T,ubigfloat_cvref ubigfloat_t>
+template<signed_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
 [[nodiscard]]inline bigfloat operator*(T&& lhs,ubigfloat_t&& rhs)noexcept{
 	return bigfloat{forward<T>(lhs)} * forward<ubigfloat_t>(rhs);
 }
-template<signed_type T,ubigfloat_cvref ubigfloat_t>
+template<signed_type T,ubigfloat_cvref ubigfloat_t> requires(type_info<remove_cvref<T>> != type_info<bigfloat>)
 [[nodiscard]]inline bigfloat operator/(T&& lhs,ubigfloat_t&& rhs)noexcept{
 	return bigfloat{forward<T>(lhs)} / forward<ubigfloat_t>(rhs);
 }
