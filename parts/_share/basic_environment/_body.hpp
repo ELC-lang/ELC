@@ -335,13 +335,11 @@ namespace elc::defs{
 			struct divide_t{
 				T numerator;
 				size_t denominator;
-			private:
-				bool _success;
-			public:
-				constexpr divide_t(T numerator,size_t denominator)noexcept:_success(true),numerator(numerator),denominator(denominator){}
-				constexpr divide_t()noexcept:_success(false),numerator(0),denominator(0){}
+				bool is_success;
+				constexpr divide_t(T numerator,size_t denominator)noexcept:is_success(true),numerator(numerator),denominator(denominator){}
+				constexpr divide_t()noexcept:is_success(false),numerator(0),denominator(0){}
 				[[nodiscard]]constexpr bool success()const noexcept{
-					return _success;
+					return is_success;
 				}
 				[[nodiscard]]constexpr explicit operator bool()const noexcept{
 					return success();

@@ -188,74 +188,94 @@ namespace to_string_n{
 			}
 		}
 		//浮点数部分
+		template<float_type T>
+		[[nodiscard]]string to_string_NaN_handle(T num)const noexcept{
+			if constexpr(is_basic_type<T>){
+				if constexpr(arithmetic_type_info_prover<T>::has_signaling_NaN){
+					constexpr auto signaling_NaN = arithmetic_type_info_prover<T>::signaling_NaN();
+					if(full_equal_in_byte(signaling_NaN,num)){
+						return _repres.get_signaling_nan();
+					}
+					auto negative_signaling_NaN = copy_as_negative(signaling_NaN);
+					if(full_equal_in_byte(negative_signaling_NaN,num)){
+						return string()+_repres.get_negative_sign()+_repres.get_signaling_nan();
+					}
+				}
+				if constexpr(arithmetic_type_info_prover<T>::has_quiet_NaN){
+					constexpr auto quiet_NaN = arithmetic_type_info_prover<T>::quiet_NaN();
+					if(full_equal_in_byte(quiet_NaN,num)){
+						return _repres.get_quiet_nan();
+					}
+					auto negative_quiet_NaN = copy_as_negative(quiet_NaN);
+					if(full_equal_in_byte(negative_quiet_NaN,num)){
+						return string()+_repres.get_negative_sign()+_repres.get_quiet_nan();
+					}
+				}
+				string aret=_repres.get_nan();
+				aret+=_repres.get_unknown_data_start_sign();
+				const auto radix = _repres.get_radix();
+				const auto unknown_data_split_sign = _repres.get_unknown_data_split_sign();
+				const bool needs_split_sign = radix < number_of_possible_values_per<char>;
+				data_view<T> view{&num};
+				for(const byte c: view){
+					aret += to_string((unsigned char)c);
+					if(needs_split_sign)
+						aret += unknown_data_split_sign;
+				}
+				if(needs_split_sign)
+					aret.back()=_repres.get_unknown_data_end_sign();
+				else
+					aret+=_repres.get_unknown_data_end_sign();
+				return aret;
+			}
+			else
+				return _repres.get_nan();
+		}
+		template<float_type T>
+		[[nodiscard]]string to_string_Inf_handle(T num)const noexcept{
+			if constexpr(is_basic_type<T>){
+				constexpr auto infinity = arithmetic_type_info_prover<T>::Inf();
+				if(full_equal_in_byte(infinity,num)){
+					return _repres.get_inf();
+				}
+				constexpr auto negative_infinity = arithmetic_type_info_prover<T>::negative_Inf();
+				if(full_equal_in_byte(negative_infinity,num)){
+					return string()+_repres.get_negative_sign()+_repres.get_inf();
+				}
+			}
+			else{
+				if(is_negative(num))
+					return _repres.get_negative_sign()+_repres.get_inf();
+				else
+					return _repres.get_inf();
+			}
+		}
 	public:
 		template<float_type T>
 		[[nodiscard]]string to_string(T num)const noexcept{
 			//首先，特殊值检查
-			if(isNaN(num)){
-				if constexpr(is_basic_type<T>){
-					if constexpr(arithmetic_type_info_prover<T>::has_signaling_NaN){
-						constexpr auto signaling_NaN = arithmetic_type_info_prover<T>::signaling_NaN();
-						if(full_equal_in_byte(signaling_NaN,num)){
-							return _repres.get_signaling_nan();
-						}
-						auto negative_signaling_NaN = copy_as_negative(signaling_NaN);
-						if(full_equal_in_byte(negative_signaling_NaN,num)){
-							return string()+_repres.get_negative_sign()+_repres.get_signaling_nan();
-						}
-					}
-					if constexpr(arithmetic_type_info_prover<T>::has_quiet_NaN){
-						constexpr auto quiet_NaN = arithmetic_type_info_prover<T>::quiet_NaN();
-						if(full_equal_in_byte(quiet_NaN,num)){
-							return _repres.get_quiet_nan();
-						}
-						auto negative_quiet_NaN = copy_as_negative(quiet_NaN);
-						if(full_equal_in_byte(negative_quiet_NaN,num)){
-							return string()+_repres.get_negative_sign()+_repres.get_quiet_nan();
-						}
-					}
-					string aret=_repres.get_nan();
-					aret+=_repres.get_unknown_data_start_sign();
-					const auto radix = _repres.get_radix();
-					const auto unknown_data_split_sign = _repres.get_unknown_data_split_sign();
-					const bool needs_split_sign = radix < number_of_possible_values_per<char>;
-					data_view<T> view{&num};
-					for(const byte c: view){
-						aret += to_string((unsigned char)c);
-						if(needs_split_sign)
-							aret += unknown_data_split_sign;
-					}
-					if(needs_split_sign)
-						aret.back()=_repres.get_unknown_data_end_sign();
-					else
-						aret+=_repres.get_unknown_data_end_sign();
-					return aret;
-				}
-				else
-					return _repres.get_nan();
-			}
-			if(isInf(num)){
-				if constexpr(is_basic_type<T>){
-					constexpr auto infinity = arithmetic_type_info_prover<T>::Inf();
-					if(full_equal_in_byte(infinity,num)){
-						return _repres.get_inf();
-					}
-					constexpr auto negative_infinity = arithmetic_type_info_prover<T>::negative_Inf();
-					if(full_equal_in_byte(negative_infinity,num)){
-						return string()+_repres.get_negative_sign()+_repres.get_inf();
-					}
-				}
-				else{
-					if(is_negative(num))
-						return _repres.get_negative_sign()+_repres.get_inf();
-					else
-						return _repres.get_inf();
-				}
-			}
+			if(isNaN(num))
+				return to_string_NaN_handle(move(num));
+			elseif(isInf(num))
+				return to_string_Inf_handle(move(num));
+			//然后分符号处理
 			if(is_negative(num))
 				return _repres.get_negative_sign()+to_string_unsigneded(abs(move(num)));
 			else
 				return to_string_unsigneded(abs(move(num)));
+		}
+		template<fraction_float_type T>//适用于任何分数法记录的浮点类型
+		[[nodiscard]]string to_string_fractional(T num)const noexcept{
+			//首先，特殊值检查
+			if(isNaN(num))
+				return to_string_NaN_handle(move(num));
+			elseif(isInf(num))
+				return to_string_Inf_handle(move(num));
+			//然后分符号处理
+			if(is_negative(num))
+				return _repres.get_negative_sign()+to_string_fractional_base(abs(move(num)));
+			else
+				return to_string_fractional_base(abs(move(num)));
 		}
 	private:
 		template<float_type T>
@@ -337,40 +357,35 @@ namespace to_string_n{
 		template<exponent_float_type T>//适用于任何指数法记录的浮点类型
 		[[nodiscard]]string to_string_base(T num)const noexcept{
 			//首先，猜测分数
-			{
-				auto divide_info=to_divide(num);
-				if(divide_info){
-					auto&numerator=divide_info.numerator;
-					auto&denominator=divide_info.denominator;
-					if(denominator!=1u){//分母不为1：正规分数
-						ptrdiff_t exp=0;
-						const auto complete=_repres.get_denominator_complement(denominator,exp);
-						//现在denominator是1？若不是则说明这是一个无限小数
-						//若无限小数，以分数形式输出
-						if(denominator!=1u){
-							//先恢复denominator
-							denominator*=complete;
-							//呃，这里我们需要稍微处理一下numerator，考虑到其类型是T，而不是什么整数类型
-							//若numerator小于size_t的最大值，那么我们就可以直接转换为size_t
-							//否则，我们就需要转换为ubigint
-							string aret;
-							if(numerator<=max(type_info<size_t>))
-								aret=to_string_with_exp(to_size_t(numerator));
-							else
-								aret=to_string_with_exp((ubigint)numerator);
-							return aret+_repres.get_fractional_separator()+to_string_unsigneded(denominator);
-						}
-						//否则我们下落到以小数形式输出
+			if(auto[numerator,denominator,divide_success]=to_divide(num);divide_success){
+				if(denominator!=1u){//分母不为1：正规分数
+					ptrdiff_t exp=0;
+					const auto complete=_repres.get_denominator_complement(denominator,exp);
+					//现在denominator是1？若不是则说明这是一个无限小数
+					//若无限小数，以分数形式输出
+					if(denominator!=1u){
+						//先恢复denominator
+						denominator*=complete;
+						//呃，这里我们需要稍微处理一下numerator，考虑到其类型是T，而不是什么整数类型
+						//若numerator小于size_t的最大值，那么我们就可以直接转换为size_t
+						//否则，我们就需要转换为ubigint
+						string aret;
+						if(numerator<=max(type_info<size_t>))
+							aret=to_string_with_exp(to_size_t(numerator));
+						else
+							aret=to_string_with_exp((ubigint)numerator);
+						return aret+_repres.get_fractional_separator()+to_string_unsigneded(denominator);
 					}
-					//整数部分可以在这里处理，但是若进入ubigint处理会出现不必要的计算
-					elseif(numerator<=max(type_info<size_t>))
-						return to_string_with_exp(to_size_t(numerator));
-					//所以在下面再处理特大整数的情况
+					//否则我们下落到以小数形式输出
 				}
+				//整数部分可以在这里处理，但是若进入ubigint处理会出现不必要的计算
+				elseif(numerator<=max(type_info<size_t>))
+					return to_string_with_exp(to_size_t(numerator));
+				//所以在下面再处理特大整数的情况
 			}
 			//然后分情况处理
-			const auto info=get_precision_and_exponent(num);//声明个info和exp先
-			ptrdiff_t exp=info.exponent;
+			const auto[precision,exponent]=get_precision_and_exponent(num);//声明个info和exp先
+			ptrdiff_t exp=exponent;
 			//首先判断进制是否是BIT_POSSIBILITY的整数倍
 			if(_repres.is_bit_friendly_radix()){
 				const auto radix=_repres.get_radix();
@@ -379,7 +394,7 @@ namespace to_string_n{
 				//所以我们需要做的就是，呃
 				//首先新建一个base是radix的exp值，并将现有的exp降低为0
 				//对于exp部分，塞入number
-				ubigint number=info.precision;//避免溢出
+				ubigint number=precision;//避免溢出
 				if(exp<0)
 					number*=pow((ubigint)radix_diff,abs(exp));
 				elseif(exp>0){
@@ -402,12 +417,12 @@ namespace to_string_n{
 				if(exp<0){
 					//将num转换为分数，然后输出
 					//需要化简分数吗？呃，虚空说答案是不
-					const auto numerator=info.precision;
-					const auto denominator=ubigint(1u)<<abs(info.exponent);
+					const auto numerator=precision;
+					const auto denominator=ubigint(1u)<<abs(exponent);
 					return to_string_with_exp(numerator)+_repres.get_fractional_separator()+to_string_unsigneded(denominator);
 				}
 				else{
-					ubigint number=info.precision;
+					ubigint number=precision;
 					number<<=exp;
 					return to_string_with_exp(number);
 				}
@@ -450,6 +465,35 @@ namespace to_string_n{
 				numerator*=complete;
 			}
 			return string_builder(num,move(numerator),exp);
+		}
+		template<fraction_float_type T>//适用于任何分数法记录的浮点类型
+		[[nodiscard]]string to_string_fractional_base(T num)const noexcept{
+			auto& numerator=get_numerator_as_ref(num);
+			if(!numerator)return _repres.get_char(0);
+			auto& denominator=get_denominator_as_ref(num);
+			array_t<remove_cvref<decltype(numerator)>> numerator_array;
+			string result;
+			{
+				const auto info=divmod(numerator,denominator);
+				result=to_string(info.quot);
+				numerator=move(info.mod);
+			}
+			result+=_repres.get_fractional_sign();
+			auto functional_part_begin=result.size();
+			const auto radix=_repres.get_radix();
+			while(numerator){
+				numerator*=radix;
+				const auto info=divmod(numerator,denominator);
+				numerator=move(info.mod);
+				if(auto index=numerator_array.find(numerator);index!=nullptr){
+					result.insert(index-numerator_array.begin()+functional_part_begin,_repres.get_repetition_sign_start());
+					result+=_repres.get_repetition_sign_end();
+					break;
+				}
+				result+=_repres.get_char(to_size_t(info.quot));
+				numerator_array.push_back(numerator);
+			}
+			return result;
 		}
 	private:
 		//to_string定义完了，开始定义from_string_get
@@ -685,6 +729,24 @@ namespace to_string_n{
 		template<size_t N,numerical_representation Repres>
 		[[nodiscard]]string operator()(const bitset<N>&val,const Repres&repres)const noexcept{
 			return (*this)(ubigint(val),repres).pad_left(N,repres.get_char(0));
+		}
+		/**
+		 * 这个函数用于以小数形式转换分数法记录的浮点类型，并在循环小数部分的循环节上加上方括号
+		 * e.g. to_string_fractional(1/3_bigfloat) -> "0.[3]"
+		 * elc的stream并不会支持将这个函数设置为默认的输出方式，原因如下：
+		 * 	1.以小数形式输出一个无限循环小数尽管在某些情况下对人类阅读友好，但是大多数情况下我们不需要顾及这一点
+		 * 	2.这个函数在运行时维护一个不确定大小且可能很大的数组并在生成每一位时遍历它，拥有较高的时间和空间复杂度
+		 * 	3.这个函数在大多数情况下没有分数形式输出的结果字数少
+		 * 在你需要更为可读的调试或者别的什么特殊需求的时候，大可显式地调用这个函数
+		**/
+		template<fraction_float_type T,numerical_representation Repres>
+		[[nodiscard]]string fractional(T&&val,const Repres&repres)const noexcept{
+			const string_convert_impl<Repres> impl{repres};
+			return impl.to_string_fractional(forward<T>(val));
+		}
+		template<fraction_float_type T>//适用于任何分数法记录的浮点类型
+		[[nodiscard]]string fractional(T&&val)const noexcept{
+			return fractional(forward<T>(val),decimal);
 		}
 	}to_string{};
 	/// @brief from_string_get

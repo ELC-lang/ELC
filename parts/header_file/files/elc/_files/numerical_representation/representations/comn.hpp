@@ -49,6 +49,8 @@ struct base_numerical_representation_t{
 	[[nodiscard]]virtual char_t get_unknown_data_start_sign()const noexcept=0;
 	[[nodiscard]]virtual char_t get_unknown_data_split_sign()const noexcept=0;
 	[[nodiscard]]virtual char_t get_unknown_data_end_sign()const noexcept=0;
+	[[nodiscard]]virtual char_t get_repetition_sign_start()const noexcept=0;
+	[[nodiscard]]virtual char_t get_repetition_sign_end()const noexcept=0;
 	[[nodiscard]]virtual char_t get_char(size_t index)const noexcept=0;
 	[[nodiscard]]virtual size_t get_index(char_t c)const noexcept=0;
 	[[nodiscard]]virtual bool is_valid_char(char_t ch)const noexcept=0;
@@ -92,6 +94,7 @@ class comn_constexpr_numerical_representation_t:public base_numerical_representa
 	char_t _fractional_separator=ec('/');
 	char_t _exponent_separator=ec('e');
 	char_t _unknown_data_start_sign=ec('['), _unknown_data_split_sign=ec(','), _unknown_data_end_sign=ec(']');
+	char_t _repetition_sign_start=ec('['), _repetition_sign_end=ec(']');
 public:
 	constexpr comn_constexpr_numerical_representation_t()noexcept=default;
 	consteval comn_constexpr_numerical_representation_t(
@@ -102,12 +105,14 @@ public:
 		const constexpr_str& inf,
 		char_t fractional_separator,
 		char_t exponent_separator,
-		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign)noexcept:
+		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign,
+		char_t repetition_sign_start, char_t repetition_sign_end)noexcept:
 		_fractional_sign(fractional_sign),_positive_sign(positive_sign),_negative_sign(negative_sign),
 		_nan(nan),_signaling_nan(signaling_nan),_quiet_nan(quiet_nan),_inf(inf),
 		_fractional_separator(fractional_separator),
 		_exponent_separator(exponent_separator),
-		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign){}
+		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign),
+		_repetition_sign_start(repetition_sign_start),_repetition_sign_end(repetition_sign_end){}
 	constexpr comn_constexpr_numerical_representation_t(char_t exponent_separator)noexcept:
 		_exponent_separator(exponent_separator){}
 
@@ -147,6 +152,12 @@ public:
 	[[nodiscard]]constexpr virtual char_t get_unknown_data_end_sign()const noexcept override{
 		return _unknown_data_end_sign;
 	}
+	[[nodiscard]]constexpr virtual char_t get_repetition_sign_start()const noexcept override{
+		return _repetition_sign_start;
+	}
+	[[nodiscard]]constexpr virtual char_t get_repetition_sign_end()const noexcept override{
+		return _repetition_sign_end;
+	}
 };
 
 /// @brief 一个简单的数字表示方式，只有一个字符表示0，其他数字可以直接用_zero+index表示
@@ -166,13 +177,15 @@ public:
 		const constexpr_str& inf,
 		char_t fractional_separator,
 		char_t exponent_separator,
-		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign)noexcept:
+		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign,
+		char_t repetition_sign_start, char_t repetition_sign_end)noexcept:
 		comn_constexpr_numerical_representation_t(
 			fractional_sign,positive_sign,negative_sign,
 			nan,signaling_nan,quiet_nan,inf,
 			fractional_separator,
 			exponent_separator,
-			unknown_data_start_sign,unknown_data_split_sign,unknown_data_end_sign
+			unknown_data_start_sign,unknown_data_split_sign,unknown_data_end_sign,
+			repetition_sign_start,repetition_sign_end
 		){}
 	constexpr constexpr_continuous_numerical_representation_t()noexcept{};
 	constexpr constexpr_continuous_numerical_representation_t(char_t exponent_separator)noexcept:
@@ -211,7 +224,8 @@ distinctive inline constexpr constexpr_continuous_numerical_representation_t<ec(
 	/*inf*/es"꒾"_constexpr_str,
 	/*fractional_separator*/ec('꒼'),
 	/*exponent_separator*/ec('꒫'),
-	/*unknown_data_start_sign*/ec('꒸'),/*unknown_data_split_sign*/ec('꓄'),/*unknown_data_end_sign*/ec('꒹')
+	/*unknown_data_start_sign*/ec('꒸'),/*unknown_data_split_sign*/ec('꓄'),/*unknown_data_end_sign*/ec('꒹'),
+	/*repetition_sign_start*/ec('꒸'),/*repetition_sign_end*/ec('꒹')
 };
 //16和72进制的码表不是连续的，所以不能用constexpr_continuous_numerical_representation_t
 pop_msvc_warning();
@@ -234,13 +248,15 @@ public:
 		const constexpr_str& inf,
 		char_t fractional_separator,
 		char_t exponent_separator,
-		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign)noexcept:
+		char_t unknown_data_start_sign, char_t unknown_data_split_sign, char_t unknown_data_end_sign,
+		char_t repetition_sign_start, char_t repetition_sign_end)noexcept:
 		comn_constexpr_numerical_representation_t(
 			fractional_sign,positive_sign,negative_sign,
 			nan,signaling_nan,quiet_nan,inf,
 			fractional_separator,
 			exponent_separator,
-			unknown_data_start_sign,unknown_data_split_sign,unknown_data_end_sign
+			unknown_data_start_sign,unknown_data_split_sign,unknown_data_end_sign,
+			repetition_sign_start,repetition_sign_end
 		){}
 	constexpr constexpr_str_numerical_representation_t()noexcept{};
 	constexpr constexpr_str_numerical_representation_t(char_t exponent_separator)noexcept:
@@ -285,6 +301,7 @@ class comn_numerical_representation_t final:public base_numerical_representation
 	char_t _fractional_separator;
 	char_t _exponent_separator;
 	char_t _unknown_data_start_sign, _unknown_data_split_sign, _unknown_data_end_sign;
+	char_t _repetition_sign_start, _repetition_sign_end;
 	array_t<size_t> _unique_prime_factorization_table;
 public:
 	comn_numerical_representation_t(
@@ -296,13 +313,15 @@ public:
 		string inf=es"Infinity"_constexpr_str,
 		char_t fractional_separator=ec('.'),
 		char_t exponent_separator=ec('e'),
-		char_t unknown_data_start_sign=ec('['), char_t unknown_data_split_sign=ec(','), char_t unknown_data_end_sign=ec(']'))noexcept:
+		char_t unknown_data_start_sign=ec('['), char_t unknown_data_split_sign=ec(','), char_t unknown_data_end_sign=ec(']'),
+		char_t repetition_sign_start=ec('['), char_t repetition_sign_end=ec(']'))noexcept:
 		_radix_table(move(radix_table)),
 		_fractional_sign(fractional_sign),_positive_sign(positive_sign),_negative_sign(negative_sign),
 		_nan(move(nan)),_signaling_nan(move(signaling_nan)),_quiet_nan(move(quiet_nan)),_inf(move(inf)),
 		_fractional_separator(fractional_separator),
 		_exponent_separator(exponent_separator),
-		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign){
+		_unknown_data_start_sign(unknown_data_start_sign),_unknown_data_split_sign(unknown_data_split_sign),_unknown_data_end_sign(unknown_data_end_sign),
+		_repetition_sign_start(repetition_sign_start),_repetition_sign_end(repetition_sign_end){
 		//计算质因数：get_prime_factorization(num).unique().to<容器类型>();
 		_unique_prime_factorization_table=get_prime_factorization(_radix_table.size()).unique().to<array_t<size_t>>();
 	}
@@ -344,6 +363,12 @@ public:
 	}
 	[[nodiscard]]constexpr virtual char_t get_unknown_data_end_sign()const noexcept override{
 		return _unknown_data_end_sign;
+	}
+	[[nodiscard]]constexpr virtual char_t get_repetition_sign_start()const noexcept override{
+		return _repetition_sign_start;
+	}
+	[[nodiscard]]constexpr virtual char_t get_repetition_sign_end()const noexcept override{
+		return _repetition_sign_end;
 	}
 	[[nodiscard]]virtual char_t get_char(size_t index)const noexcept override{
 		return _radix_table[index];
