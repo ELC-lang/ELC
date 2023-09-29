@@ -33,9 +33,9 @@
 	namespace elc::defs{}
 	using namespace elc;
 	using namespace elc::defs;
-	#define ELC_CODE_REALM
 	#include "resolve_global_name_conflicts"
 	#include "../../../_share/_defs.hpp"
+	#define ELC_CODE_REALM
 #endif
 
 //file_end

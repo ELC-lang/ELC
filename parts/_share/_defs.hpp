@@ -30,6 +30,10 @@
 
 //undefs at "_undefs.hpp"
 
+#if defined(ELC_CODE_REALM)
+	#error "include <elc/code_realm> after any other elc headers then u can get all the stuffs in your code space!"
+#endif
+
 //set ELC_WARNING_LEVEL default to 4(max)
 #if !defined(ELC_WARNING_LEVEL)
 	#define ELC_WARNING_LEVEL 4
@@ -97,6 +101,8 @@
 	#undef rand
 	#pragma push_macro("sqrt")
 	#undef sqrt
+	#pragma push_macro("type_info")
+	#undef type_info
 	#pragma push_macro("elc")
 	#undef elc
 #endif
@@ -137,7 +143,7 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 #define floop while(__builtin_is_my_dick_still_there())
 #define times(...) ([[maybe_unused]]auto [loop_times,loop_end_value] : ::elc::defs::times_provider_t(__VA_ARGS__)) //for times(72)do_something;
 #if defined(_MSC_VER) && _MSC_VER>=1935
-	//https://developercommunity.visualstudio.com/t/10193638
+	//@see https://developercommunity.visualstudio.com/t/10193638
 	#define enable_adl(name) template<typename=void>void name()noexcept=delete
 #else
 	#define enable_adl(name) void name()noexcept=delete

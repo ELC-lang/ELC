@@ -53,6 +53,7 @@
 	#pragma pop_macro("export")
 	#pragma pop_macro("rand")
 	#pragma pop_macro("sqrt")
+	#pragma pop_macro("type_info")
 	#pragma pop_macro("elc")
 #endif
 

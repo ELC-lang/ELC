@@ -30,21 +30,22 @@
 */
 #include "../../../_share/pre_checks.hpp"
 #if !defined(ELC_RESOLVE_GLOBAL_NAME_CONFLICTS)
-	//make sure std::rand && elc::rand defined
-	#include <cstdlib>
-	#include "random"
 	#define ELC_RESOLVE_GLOBAL_NAME_CONFLICTS
-	namespace elc::defs{
-		template<class T>
-		constexpr auto&the_rand=rand<T>;
-	}
-	namespace elc{
-		using defs::the_rand;
-	}
-	namespace std{
-		constexpr auto&the_rand=rand;
-	}
-	#define rand the_rand
+	#if defined(ELC_RANDOM)
+		//make sure std::rand defined
+		#include <cstdlib>
+		namespace elc::defs{
+			template<class T>
+			constexpr auto&the_rand=rand<T>;
+		}
+		namespace elc{
+			using defs::the_rand;
+		}
+		namespace std{
+			constexpr auto&the_rand=rand;
+		}
+		#define rand the_rand
+	#endif
 	
 	#if defined(_MSC_VER)//msvc上type_info也是全局内容
 		namespace elc::defs{

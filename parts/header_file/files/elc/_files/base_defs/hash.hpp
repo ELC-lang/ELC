@@ -269,7 +269,7 @@ namespace hash_n{
 		@returns array_like_view_t<T> 对象的哈希值。
 		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]inline constexpr hash_value_t hash(const array_like_view_t<T>a)const noexcept(nothrow<T>){
+		[[nodiscard]]inline constexpr hash_value_t hash(const array_like_view_t<T>&a)const noexcept(nothrow<T>){
 			return hash(a.begin(),a.size());
 		}
 		/*!
@@ -282,7 +282,7 @@ namespace hash_n{
 		@returns array_like_view_t<T> 对象的哈希值。
 		*/
 		template<class T> requires is_not_signal_value_for_array_like<T>
-		[[nodiscard]]inline constexpr hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>a)const noexcept{
+		[[nodiscard]]inline constexpr hash_value_t with_calculated_before(hash_value_t before,size_t before_size,const array_like_view_t<T>&a)const noexcept{
 			return with_calculated_before(before,before_size,a.begin(),a.size());
 		}
 

@@ -123,17 +123,17 @@ using constexpr_str_n::operator ""_constexpr_str;
 //重载range操作
 namespace range_n{
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
+	[[nodiscard]]constexpr T* in_range(const constexpr_str_t<T>&pattern,array_like_view_t<T> range){
 		return pattern.match_pattern.match(range);
 	}
 	template<typename T>
-	[[nodiscard]]constexpr T* in_range_but_reverse(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
+	[[nodiscard]]constexpr T* in_range_but_reverse(const constexpr_str_t<T>&pattern,array_like_view_t<T> range){
 		return pattern.reverse_match_pattern.match(range);
 	}
 	//find_first_of
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
+	[[nodiscard]]constexpr T* find_first_of(const constexpr_str_t<T>&pattern,array_like_view_t<T> range){
 		if(pattern.is_bitmark_workable)
 			return find_first_of_bitmark(pattern.bitmark_for_finds,range);
 		else
@@ -142,7 +142,7 @@ namespace range_n{
 	//find_last_of
 	//若成功找到匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
+	[[nodiscard]]constexpr T* find_last_of(const constexpr_str_t<T>&pattern,array_like_view_t<T> range){
 		if(pattern.is_bitmark_workable)
 			return find_last_of_bitmark(pattern.bitmark_for_finds,range);
 		else
@@ -151,7 +151,7 @@ namespace range_n{
 	//find_first_not_of
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_first_not_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
+	[[nodiscard]]constexpr T* find_first_not_of(const constexpr_str_t<T>&pattern,array_like_view_t<T> range){
 		if(pattern.is_bitmark_workable)
 			return find_first_not_of_bitmark(pattern.bitmark_for_finds,range);
 		else
@@ -160,7 +160,7 @@ namespace range_n{
 	//find_last_not_of
 	//若成功找到不匹配的数据项，返回其开头，若未找到，返回nullptr
 	template<typename T>
-	[[nodiscard]]constexpr T* find_last_not_of(const constexpr_str_t<T>&pattern,const array_like_view_t<T>&range){
+	[[nodiscard]]constexpr T* find_last_not_of(const constexpr_str_t<T>&pattern,array_like_view_t<T> range){
 		if(pattern.is_bitmark_workable)
 			return find_last_not_of_bitmark(pattern.bitmark_for_finds,range);
 		else
