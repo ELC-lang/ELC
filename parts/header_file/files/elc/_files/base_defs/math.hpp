@@ -924,8 +924,7 @@ namespace magic_number{
 			update_sqrt_640320(sqrt_iteration(sqrt_640320,ufloat_t{640320u}));
 		}
 		[[nodiscard]]constexpr void do_iteration()noexcept{
-			do_base_iteration();
-			do_sqrt_iteration();
+			do_base_iteration();do_sqrt_iteration();
 		}
 		[[nodiscard]]constexpr T operator()()noexcept{
 			while (abs(sum) > epsilon)

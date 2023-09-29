@@ -235,13 +235,10 @@ namespace to_string_n{
 		[[nodiscard]]string to_string_Inf_handle(T num)const noexcept{
 			if constexpr(is_basic_type<T>){
 				constexpr auto infinity = arithmetic_type_info_prover<T>::Inf();
-				if(full_equal_in_byte(infinity,num)){
+				if(full_equal_in_byte(infinity,num))
 					return _repres.get_inf();
-				}
-				constexpr auto negative_infinity = arithmetic_type_info_prover<T>::negative_Inf();
-				if(full_equal_in_byte(negative_infinity,num)){
+				else
 					return string()+_repres.get_negative_sign()+_repres.get_inf();
-				}
 			}
 			else{
 				if(is_negative(num))

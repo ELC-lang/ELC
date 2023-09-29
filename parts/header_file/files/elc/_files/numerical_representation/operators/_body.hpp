@@ -37,7 +37,7 @@ struct specified_numerical_representation_ostream_wrapper: virtual text_ostream_
 
 	virtual int_t seek(seek_type dir,int_t off)noexcept_as(stream.seek(seek_type::cur,0)) override{return stream.seek(dir,off);}
 	virtual int_t tell()noexcept_as(stream.tell()) override{return stream.tell();}
-	virtual void seek_to(int_t pos)noexcept_as(stream.seek_to(pos)) override{return stream.seek_to(pos);}
+	virtual bool seek_to(int_t pos)noexcept_as(stream.seek_to(pos)) override{return stream.seek_to(pos);}
 	virtual void sync()noexcept_as(stream.sync()) override{return stream.sync();}
 	virtual void flush()noexcept_as(stream.flush()) override{return stream.flush();}
 	virtual void close()noexcept_as(stream.close()) override{return stream.close();}
