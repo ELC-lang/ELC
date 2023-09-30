@@ -86,6 +86,29 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 		_m.resize(end_count);
 	}
 
+	void marge_same_value_type()noexcept{
+		while(type_info<this_t> == typeid(*_to) && _to->is_unique()){
+			//合并重复的end_apply_string_data_t以防树状结构过深
+			const auto p=down_cast<this_t*>(_to.get());
+			const auto p_begin=(const char_T*)(p->_m.begin());
+			const auto p_size=p->_used_size;
+			if(_m.size()-_used_size>=p_size)
+				copy_assign[p_size](note::from<const char_T*>(p_begin),note::to<char_T*>(_m.end()));
+			else{
+				const auto size_now=this->get_size();
+				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
+				_m.insert_with_forward_resize(_used_size,p_size,p_begin,size_new);
+			}
+			_to_size=p->_to_size;
+			_used_size+=p->_used_size;
+			_to=p->_to;
+		}
+	}
+	void self_changed()noexcept{
+		marge_same_value_type();
+		base_t::self_changed();
+	}
+
 	[[nodiscard]]virtual ptr_t get_substr_data(size_t begin,size_t size)noexcept override final{
 		if(begin+size<=_to_size)
 			return _to->get_substr_data(begin,size);

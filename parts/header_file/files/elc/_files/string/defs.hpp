@@ -218,6 +218,10 @@ namespace string_n{
 			push_back(str);
 			return *this;
 		}
+		string_t& operator+=(string_t&&str)&noexcept{
+			push_back(move(str));
+			return *this;
+		}
 		string_t& operator+=(string_view_t str)&noexcept{
 			push_back(str);
 			return *this;
@@ -230,7 +234,7 @@ namespace string_n{
 		}
 		template<typename U>
 		[[nodiscard]]string_t&& operator+(U&& b)&&noexcept_as(*this+=b) requires was_not_an_ill_form(*this+=b){		  //对右值的operator+优化为operator+=
-			*this+=b;
+			*this+=forward<U>(b);
 			return move(*this);
 		}
 		//END_BLOCK
@@ -556,6 +560,18 @@ namespace string_n{
 				_m=_m->apply_str_to_end(str._m);
 			}
 		}
+		void push_back(string_t&& str)&noexcept{
+			full_copy_cso_check(*this);
+			full_copy_cso_check(str);
+			if(_in_cso()&&!str._in_cso())
+				_cso_fin(str._m->apply_str_to_begin(to_string_view_t()));
+			elseif(str._in_cso())
+				push_back(str.to_string_view_t());
+			else{
+				_cso_check();
+				_m=_m->apply_str_to_end(move(str._m));
+			}
+		}
 		void push_back(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_end(str); }
 		void push_back(char_T ch)&noexcept{ push_back(string_view_t{&ch,1}); }
 		void push_back(const arec_t&& ch)&noexcept{ push_back(move(ch).operator char_T()); }
@@ -581,6 +597,18 @@ namespace string_n{
 			else{
 				_cso_check();
 				_m=_m->apply_str_to_begin(str._m);
+			}
+		}
+		void push_front(string_t&& str)&noexcept{
+			full_copy_cso_check(*this);
+			full_copy_cso_check(str);
+			if(_in_cso()&&!str._in_cso())
+				_cso_fin(str._m->apply_str_to_end(to_string_view_t()));
+			elseif(str._in_cso())
+				push_front(str.to_string_view_t());
+			else{
+				_cso_check();
+				_m=_m->apply_str_to_begin(move(str._m));
 			}
 		}
 		void push_front(string_view_t str)&noexcept{ _cso_check();_m=_m->apply_str_to_begin(str); }
