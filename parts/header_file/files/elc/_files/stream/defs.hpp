@@ -153,7 +153,7 @@ namespace base_streams_impl_n{
 			size_t writed=0;
 			while(writed<size){
 				const auto result=char_set::utf32_to_auto(buf[writed],code_convert_buf);
-				if(!result)
+				if(!result)//如果buf[writed] == 3452816845(0xCDCDCDCD)，说明这是一个未初始化的内存，肯定是容器或者其他地方出了问题
 					die_with(locale::str::code_convert_error);
 				_base->write(code_convert_buf,result.processed_output().size());
 				writed++;

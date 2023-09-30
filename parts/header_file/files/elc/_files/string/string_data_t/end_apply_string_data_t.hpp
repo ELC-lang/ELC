@@ -93,14 +93,14 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			const auto p_begin=(const char_T*)(p->_m.begin());
 			const auto p_size=p->_used_size;
 			if(_m.size()-_used_size>=p_size)
-				copy_assign[p_size](note::from<const char_T*>(p_begin),note::to<char_T*>(_m.end()));
+				copy_assign[p_size](note::from<const char_T*>(p_begin),note::to<char_T*>(_m.data()+_used_size));
 			else{
 				const auto size_now=this->get_size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_forward_resize(_used_size,p_size,p_begin,size_new);
+				_m.insert_with_resize(_used_size,p_size,p_begin,size_new);
 			}
 			_to_size=p->_to_size;
-			_used_size+=p->_used_size;
+			_used_size+=p_size;
 			_to=p->_to;
 		}
 	}
