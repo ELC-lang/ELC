@@ -106,6 +106,13 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 	}
 	void self_changed()noexcept{
 		marge_same_value_type();
+		#if defined(_MSC_VER) && defined(ELC_STRING_CHECKING_NOT_INITED_CHARS)
+		push_and_disable_msvc_warning(4310);//截断常量警告diss
+		for(size_t i=0;i<_used_size;i++)
+			if(_m[i]==char_T(0xCDCDCDCD))
+				__debugbreak();
+		pop_msvc_warning();
+		#endif
 		base_t::self_changed();
 	}
 

@@ -107,11 +107,11 @@ elc依赖的基础函数.
 					__debugbreak();
 			#endif
 			#if defined(_WINMAIN_)
-				::MessageBoxW(NULL,L"elc died.",NULL,MB_ICONERROR);
+				::MessageBoxW(NULL,L"\nelc died.",NULL,MB_ICONERROR);
 			#endif
 			die_state state;
 			Init_die_state(state);
-			ConsoleLog(state,"elc died.\n");
+			ConsoleLog(state,"\nelc died.\n");
 			ConsoleLogEnd(state);
 			::std::abort();
 		}
@@ -134,7 +134,7 @@ elc依赖的基础函数.
 					#endif
 					die_state state;
 					Init_die_state(state);
-					ConsoleLog(state,L"elc died because:\n");
+					ConsoleLog(state,L"\nelc died because:\n");
 					ConsoleLog(state,err_msg_in_wchar);
 					ConsoleLog(state,L"\n");
 					ConsoleLogEnd(state);
@@ -146,7 +146,7 @@ elc依赖的基础函数.
 					#endif
 					die_state state;
 					Init_die_state(state);
-					ConsoleLog(state,L"elc died because:\n");
+					ConsoleLog(state,L"\nelc died because:\n");
 					ConsoleLog(state,err_msg_in_wchar);
 					ConsoleLog(state,L"\n");
 					ConsoleLogEnd(state);
@@ -172,7 +172,7 @@ elc依赖的基础函数.
 					#endif
 					die_state state;
 					Init_die_state(state);
-					ConsoleLog(state,"elc died because:\n");
+					ConsoleLog(state,"\nelc died because:\n");
 					ConsoleLog(state,err_msg_in_char);
 					ConsoleLog(state,"\n");
 					ConsoleLogEnd(state);

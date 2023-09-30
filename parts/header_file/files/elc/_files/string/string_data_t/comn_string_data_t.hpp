@@ -60,6 +60,13 @@ struct comn_string_data_t final:base_string_data_t<char_T>,instance_struct<comn_
 		_p_reverse_match_pattern=nullptr;
 	}
 	void self_changed()noexcept{
+		#if defined(_MSC_VER) && defined(ELC_STRING_CHECKING_NOT_INITED_CHARS)
+		push_and_disable_msvc_warning(4310);//截断常量警告diss
+		for(size_t i=0;i<_m.size();i++)
+			if(_m[i]==char_T(0xCDCDCDCD))
+				__debugbreak();
+		pop_msvc_warning();
+		#endif
 		clear_match_pattern();
 		base_t::self_changed();
 	}

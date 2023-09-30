@@ -78,12 +78,13 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			const auto p_size=p->_used_size;
 			const auto p_begin=(const char_T*)(p->_m.end())-p_size;
 			const auto this_begin=_m.end()-_used_size;
-			if(_m.size()-_used_size>=p_size)
+			const auto pos=_m.size()-_used_size;
+			if(pos>=p_size)
 				copy_assign[p_size](note::from<const char_T*>(p_begin),note::to<char_T*>(this_begin-p_size));
 			else{
 				const auto size_now=this->get_size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_forward_resize(_used_size,p_size,p_begin,size_new);
+				_m.insert_with_forward_resize(pos,p_size,p_begin,size_new);
 			}
 			_to_size=p->_to_size;
 			_used_size+=p_size;
@@ -92,6 +93,13 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 	}
 	void self_changed()noexcept{
 		marge_same_value_type();
+		#if defined(_MSC_VER) && defined(ELC_STRING_CHECKING_NOT_INITED_CHARS)
+		push_and_disable_msvc_warning(4310);//截断常量警告diss
+			for(size_t i=0;i<_used_size;++i)
+				if(_m.end()[i-_used_size]==char_T(0xCDCDCDCD))
+					__debugbreak();
+		pop_msvc_warning();
+		#endif
 		base_t::self_changed();
 	}
 
@@ -189,12 +197,13 @@ public:
 	}
 	[[nodiscard]]virtual ptr_t apply_str_to_begin(string_view_t str)noexcept(copy_construct_nothrow&&apply_data_nothrow)override final{
 		if(this->is_unique()){
-			if(_m.size()-_used_size>=str.size())
+			const auto pos=_m.size()-_used_size;
+			if(pos>=str.size())
 				copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
 			else{
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_forward_resize(0,str.size(),str.begin(),size_new);
+				_m.insert_with_forward_resize(pos,str.size(),str.begin(),size_new);
 			}
 			_used_size+=str.size();
 			self_changed();

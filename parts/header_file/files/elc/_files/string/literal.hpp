@@ -30,10 +30,15 @@
 */
 namespace string_n{
 	template<constexpr_str_n::constexpr_str_t_literal_helper str_helper>
-	inline constexpr string operator""_elc_string()noexcept{
+	inline constexpr string operator""_string()noexcept{
 		return string(constexpr_str_n::operator""_constexpr_str<str_helper>());
 	}
+	template<constexpr_str_n::constexpr_str_t_literal_helper str_helper>
+	inline constexpr string operator""_elc_string()noexcept{
+		return operator""_string<str_helper>();
+	}
 }
+using string_n::operator""_string;
 using string_n::operator""_elc_string;
 
 //file_end
