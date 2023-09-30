@@ -812,7 +812,7 @@ private:
 		size_t base = (b.size()+1) / 2;
 		//符合3/2时，进行试商
 		if(a.size() <= base*3) {
-			base = b.size() / 2;
+			base = (b.size()-1) / 2;
 			auto a_high = a.subview(base);//不需要re_shrink：subview是舍弃低位，下同
 			auto b_high = b.subview(base);
 			//数值优化，这意味着余数不可用（下方的remain确实被舍弃了所以可以这样优化）
