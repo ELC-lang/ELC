@@ -133,7 +133,8 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			return this->apply_str_to_end(str);
 		elseif(this->is_unique()){
 			if(pos<_used_size){
-				if(_m.size()-_used_size>=str.size()){
+				const auto pos_base=_m.size()-_used_size;
+				if(pos_base>=str.size()){
 					char_T* orogin_head_begin=_m.end()-_used_size;
 					char_T* head_begin=orogin_head_begin-str.size();
 					copy_assign[pos](note::from<const char_T*>(orogin_head_begin),note::to<char_T*>(head_begin));
@@ -142,7 +143,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 				else{
 					const auto size_now=this->get_size()+str.size();
 					const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-					_m.insert_with_forward_resize(pos,str.size(),str.begin(),size_new);
+					_m.insert_with_forward_resize(pos_base+pos,str.size(),str.begin(),size_new);
 				}
 				_used_size+=str.size();
 			}else{
