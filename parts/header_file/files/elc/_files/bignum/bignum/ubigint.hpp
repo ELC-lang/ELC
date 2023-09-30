@@ -786,8 +786,8 @@ private:
 		return fast_divmod_base(a.get_data_view(),b.get_data_view());
 	}
 	[[nodiscard]]static data_type fast_div_base(data_view_type a,data_view_type b)noexcept{
-		if(a.size()<=fast_div_base_threshold)return div_base(a,b);
 		no_mod_optimisation_of_div(a,b);
+		if(a.size()<=fast_div_base_threshold)return div_base_no_optimisation(a,b);
 		const auto [a_after_reg,b_after_reg,muti]=fast_div_regularisation(a,b);
 		return fast_divmod_base_impl(a_after_reg,b_after_reg).quot._data;
 	}
