@@ -292,7 +292,7 @@ namespace base_streams_impl_n{
 					string_view str{buf+size-tie_size,tie_size};
 					while(str.size()){
 						const auto pos=str.find(ec('\r'));
-						if(pos==string_view::npos){
+						if(pos==npos){
 							*_tie_with<<str;
 							break;
 						}

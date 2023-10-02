@@ -926,18 +926,70 @@ public:
 	//operator<<
 	template<integer_type T>
 	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
-		if(!*this)return ubigint{};
-		auto aret=*this;
-		aret<<=n;
-		return aret;
+		if constexpr(signed_type<T>){
+			if(is_negative(n))return*this>>abs(n);
+			else return*this<<abs(n);
+		}
+		else{
+			if(!*this)return ubigint{};
+			const auto oldsize=_data.size();
+			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+			const auto newsize=oldsize+newsize_diff;
+			data_type aret{note::size(newsize)};
+			if(newsize_diff){
+				copy_assign[newsize_diff](note::to(aret.data()),base_type{0});
+				n%=bitnum_of(base_type);
+			}
+			if(n){
+				size_t i=0;
+				const auto end=oldsize;
+				const auto offset=to_size_t(n);
+				const auto another_offset=bitnum_of(base_type)-offset;
+				base_type carry=0;
+				for(;i<end;++i){
+					const auto tmp=_data[i];
+					aret[i+newsize_diff]=(tmp<<offset)|carry;
+					carry=tmp>>another_offset;
+				}
+				if(carry)aret.push_back(carry);
+			}
+			else
+				copy_assign[oldsize](aret.data()+newsize_diff,_data.data());
+			return ubigint{move(aret)};
+		}
 	}
 	//operator>>
 	template<integer_type T>
 	[[nodiscard]]ubigint operator>>(T n)const&noexcept{
-		if(!*this)return ubigint{};
-		auto aret=*this;
-		aret>>=n;
-		return aret;
+		if constexpr(signed_type<T>){
+			if(is_negative(n))return*this<<abs(n);
+			else return*this>>abs(n);
+		}
+		else{
+			if(!*this)return ubigint{};
+			const auto oldsize=_data.size();
+			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
+			const auto newsize=oldsize-newsize_diff;
+			if(newsize_diff>=oldsize)return ubigint{};
+			data_type aret{note::size(newsize)};
+			if(newsize_diff)
+				n%=bitnum_of(base_type);
+			if(n){
+				size_t i=oldsize;
+				const auto offset=to_size_t(n);
+				const auto another_offset=bitnum_of(base_type)-offset;
+				base_type carry=0;
+				for(;i--;){
+					const auto tmp=_data[i];
+					aret[i-newsize_diff]=(tmp>>offset)|carry;
+					carry=tmp<<another_offset;
+				}
+				shrink_to_fit(aret);
+			}
+			else
+				copy_assign[newsize](aret.data(),_data.data()+newsize_diff);
+			return ubigint{move(aret)};
+		}
 	}
 	//operator+=
 	ubigint& operator+=(const ubigint& other)&noexcept{
@@ -995,8 +1047,12 @@ public:
 	//operator<<=
 	template<integer_type T>
 	inline ubigint& operator<<=(T n)&noexcept{
-		if(!*this)return*this;
-		if constexpr(unsigned_type<T>){
+		if constexpr(signed_type<T>){
+			if(is_negative(n))return*this>>=abs(n);
+			else return*this<<=abs(n);
+		}
+		else{
+			if(!*this)return*this;
 			const auto oldsize=_data.size();
 			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
 			const auto newsize=oldsize+newsize_diff;
@@ -1018,16 +1074,17 @@ public:
 				if(carry)_data.push_back(carry);
 			}
 			return*this;
-		}else{
-			if(n<0)return*this>>=abs(n);
-			else return*this<<=abs(n);
 		}
 	}
 	//operator>>=
 	template<integer_type T>
 	inline ubigint& operator>>=(T n)&noexcept{
-		if(!*this)return*this;
-		if constexpr(unsigned_type<T>){
+		if constexpr(signed_type<T>){
+			if(is_negative(n))return*this<<=abs(n);
+			else return*this>>=abs(n);
+		}
+		else{
+			if(!*this)return*this;
 			const auto oldsize=_data.size();
 			const auto newsize_diff=to_size_t(n/bitnum_of(base_type));
 			const auto newsize=oldsize-newsize_diff;
@@ -1049,9 +1106,6 @@ public:
 				shrink_to_fit();
 			}
 			return*this;
-		}else{
-			if(n<0)return*this<<=abs(n);
-			else return*this>>=abs(n);
 		}
 	}
 	//operatorX for rvalue
