@@ -462,6 +462,15 @@ public:
 		_numerator/=g;
 		_denominator/=g;
 	}
+	//friend simplify
+	friend decltype(auto) simplify(ubigfloat& a)noexcept{
+		a.simplify();
+		return a;
+	}
+	friend decltype(auto) simplify(ubigfloat&& a)noexcept{
+		a.simplify();
+		return move(a);
+	}
 	//friend pow
 	friend [[nodiscard]] ubigfloat pow(ubigfloat base,bigint exp)noexcept{
 		ubigfloat aret;

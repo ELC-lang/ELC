@@ -369,14 +369,18 @@ namespace math{
 		return (num+v/num)/2u;
 	}
 	template<float_type T>
-	inline constexpr T sqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon)noexcept{
-		floop{
+	inline constexpr T sqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
+		while(epsilon_saver>epsilon){
 			auto next_ret=sqrt_iteration(num,v);
-			const bool end=abs(next_ret-num)<epsilon;
-			num=move(next_ret);//既然都算出来了，为什么不使用next_ret而是aret？
-			if(end)
-				return next_ret;
+			epsilon_saver=abs(next_ret-num);
+			num=move(next_ret);
 		}
+		return num;
+	}
+	template<float_type T>
+	inline constexpr T sqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon)noexcept{
+		auto epsilon_saver=to_unsigned_t<T>{num};
+		return sqrt_to_new_epsilon(num,v,epsilon,epsilon_saver);
 	}
 	template<float_type T>
 	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{
@@ -397,6 +401,13 @@ namespace math{
 				elseif constexpr(is_big_type<T>)
 					return sqrt(static_cast<long double>(v));
 		return v/2u;
+	}
+	template<float_type T>
+	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
+		if constexpr(has_NaN<T> && has_inf<T>)
+			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
+				return arithmetic_type_info_prover<T>::NaN();
+		return sqrt_to_new_epsilon(quick_sqrt(v),v,epsilon,epsilon_saver);
 	}
 	template<float_type T>
 	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
@@ -882,12 +893,14 @@ namespace magic_number{
 		uint_t k{}, _3k{}, _6k{}; bool sign = true;
 		uint_t _545140134k_p13591409 = 13591409u; // 545140134*k+13591409
 		uint_t _3k_factorial = 1u, _6k_factorial = 1u, k_factorial_pow_3 = 1u;
-		ufloat_t sqrt_640320 = sqrt(ufloat_t{640320u},epsilon);//我们需要缓存这个与epsilon有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
+		ufloat_t _640320 = 640320u;
+		ufloat_t sqrt_640320_epsilon_saver=_640320;
+		ufloat_t sqrt_640320 = sqrt(_640320,epsilon,sqrt_640320_epsilon_saver);//我们需要缓存这个与epsilon有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
 		ufloat_t _640320_pow_3kplus1p5 = sqrt_640320*640320u;//初始值1.5次方
 		const uint_t _545140134_ = 545140134u;
 		const uint_t _640320pow3 = pow(uint_t{640320u},3u);
 
-		[[nodiscard]]constexpr void update_sqrt_640320(ufloat_t new_value)noexcept{
+		constexpr void update_sqrt_640320(ufloat_t new_value)noexcept{
 			//首先 我们将result中的sqrt_640320去除.
 			//将现有的result看作(X0 X1 X2 ... Xn) 的和, 其中Xi = Yi/_640320_pow_3kplus1p5.
 			//而_640320_pow_3kplus1p5 = sqrt_640320*640320^3i.
@@ -904,7 +917,7 @@ namespace magic_number{
 		[[nodiscard]]constexpr T take_value()noexcept{
 			return abs(reciprocal(12*result));
 		}
-		[[nodiscard]]constexpr void do_base_iteration()noexcept{
+		constexpr void do_base_iteration()noexcept{
 			sum = copy_as_negative(
 				(				_545140134k_p13591409 * _6k_factorial				)
 				/ //= 	--------------------------------------------------------
@@ -920,11 +933,16 @@ namespace magic_number{
 
 			result += sum;
 		}
-		[[nodiscard]]constexpr void do_sqrt_iteration()noexcept{
-			update_sqrt_640320(sqrt_iteration(sqrt_640320,ufloat_t{640320u}));
+		constexpr void do_sqrt_iteration()noexcept{
+			update_sqrt_640320(sqrt_iteration(sqrt_640320,_640320));
 		}
-		[[nodiscard]]constexpr void do_iteration()noexcept{
+		constexpr void do_iteration()noexcept{
 			do_base_iteration();do_sqrt_iteration();
+		}
+		constexpr void clean_up()noexcept{
+			simplify(_640320_pow_3kplus1p5);
+			simplify(sqrt_640320);
+			simplify(result);
 		}
 		[[nodiscard]]constexpr T operator()()noexcept{
 			while (abs(sum) > epsilon)
@@ -933,8 +951,8 @@ namespace magic_number{
 		}
 		[[nodiscard]]constexpr T operator()(ufloat_t new_epsilon)noexcept{
 			if(new_epsilon < epsilon){
-				//epsilon变小了，我们需要重新计算sqrt_640320
-				update_sqrt_640320(sqrt_to_new_epsilon(sqrt_640320,ufloat_t{640320u},new_epsilon));
+				if(sqrt_640320_epsilon_saver>new_epsilon)//epsilon变小了，我们需要重新计算sqrt_640320
+					update_sqrt_640320(sqrt_to_new_epsilon(sqrt_640320,_640320,new_epsilon,sqrt_640320_epsilon_saver));
 				//更新epsilon.
 				epsilon = move(new_epsilon);
 			}
@@ -944,7 +962,7 @@ namespace magic_number{
 	template<unsigned_float_type T>
 	distinctive inline pi_with_epsilon_impl_t<T> pi_with_epsilon_impl{};
 	distinctive inline constexpr struct pi_with_epsilon_t{
-		template<float_type T>
+		template<unsigned_big_float_type T>
 		static auto&_impl = pi_with_epsilon_impl<to_unsigned_t<remove_cvref<T>>>;
 		template<float_type T>
 		auto operator()(T&&epsilon)const noexcept{
@@ -953,15 +971,16 @@ namespace magic_number{
 			else
 				return _impl<T>(forward<T>(epsilon));
 		}
-		template<float_type T>
+		template<unsigned_big_float_type T>
 		struct for_type_t{
-			auto operator()(T epsilon)const noexcept{return _impl<T>(forward<T>(epsilon));}
+			[[nodiscard]]auto operator()(T epsilon)const noexcept{return _impl<T>(forward<T>(epsilon));}
 			void do_base_iteration()const noexcept{_impl<T>.do_base_iteration();}
 			void do_sqrt_iteration()const noexcept{_impl<T>.do_sqrt_iteration();}
 			void do_iteration()const noexcept{_impl<T>.do_iteration();}
-			auto take_value()const noexcept{return _impl<T>.take_value();}
+			[[nodiscard]]auto take_value()const noexcept{return _impl<T>.take_value();}
+			void clean_up()const noexcept{_impl<T>.clean_up();}
 		};
-		template<float_type T>
+		template<unsigned_big_float_type T>
 		static constexpr auto for_type = for_type_t<T>{};//这个是为了让用户可以自己调用do_iteration等函数
 	}pi_with_epsilon{};
 }

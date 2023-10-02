@@ -427,8 +427,7 @@ namespace to_string_n{
 		}
 		template<fraction_float_type T>//适用于任何分数法记录的浮点类型
 		[[nodiscard]]string to_string_base(T num)const noexcept{
-			//化简
-			num.simplify();
+			simplify(num);//化简
 			ptrdiff_t exp=0;
 			auto& numerator=get_numerator_as_ref(num);
 			if(!numerator)

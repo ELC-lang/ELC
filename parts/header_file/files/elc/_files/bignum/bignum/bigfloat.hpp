@@ -324,6 +324,15 @@ public:
 	void simplify()noexcept{
 		_num.simplify();
 	}
+	//friend simplify
+	friend decltype(auto) simplify(bigfloat& a)noexcept{
+		a.simplify();
+		return a;
+	}
+	friend decltype(auto) simplify(bigfloat&& a)noexcept{
+		a.simplify();
+		return move(a);
+	}
 	//friend pow
 	friend [[nodiscard]] bigfloat pow(bigfloat base,ubigint exp)noexcept{
 		const bool sign=is_negative(base)&&is_odd(exp);
