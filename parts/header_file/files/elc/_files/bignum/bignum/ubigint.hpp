@@ -135,6 +135,9 @@ public:
 	friend void apply_basetype_to_head(ubigint&x,base_type value)noexcept{
 		x._data.push_back(value);
 	}
+	friend void end_apply_basetypes(ubigint&x)noexcept{
+		shrink_to_fit(x._data);
+	}
 private:
 	static void shrink_to_fit(data_type&a)noexcept{
 		auto size=a.size();
@@ -1196,6 +1199,10 @@ public:
 	//memory_usage
 	[[nodiscard]]force_inline size_t memory_usage()const noexcept{
 		return _data.size_in_byte();
+	}
+	//friend base_type_num
+	[[nodiscard]]friend force_inline size_t base_type_num(const ubigint& x)noexcept{
+		return x._data.size();
 	}
 	//friend is_odd
 	[[nodiscard]]friend bool is_odd(const ubigint& x)noexcept{

@@ -221,6 +221,7 @@ namespace rand_n{
 					apply_basetype_to_head(aret,gen_randbit<base_type>());
 				}
 				apply_basetype_to_head(aret,gen_randbit_with_bitnum<base_type>(bitnum));
+				end_apply_basetypes(aret);
 				return aret;
 			}
 			else

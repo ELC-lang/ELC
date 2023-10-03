@@ -142,6 +142,7 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 
 #define floop while(__builtin_is_my_dick_still_there())
 #define times(...) ([[maybe_unused]]auto [loop_times,loop_end_value] : ::elc::defs::times_provider_t(__VA_ARGS__)) //for times(72)do_something;
+#define debug_times(...) (debug_timer_t timer;[[maybe_unused]]auto [loop_times,loop_end_value] : ::elc::defs::times_provider_t((timer.reset(),(__VA_ARGS__)))) //for times(72)do_something;
 #if defined(_MSC_VER) && _MSC_VER>=1935
 	//@see https://developercommunity.visualstudio.com/t/10193638
 	#define enable_adl(name) template<typename=void>void name()noexcept=delete
@@ -156,6 +157,8 @@ auto name(Args&&...rest)__VA_ARGS__ noexcept_as(re_declvalue(value_name).name(de
 
 /*! 实例化到此将引发错误 */
 #define template_error(reason) static_assert(template_error_helper<T>,reason)
+/*! 实例化到此将引发错误 */
+#define template_error_of_type(type,reason) static_assert(template_error_helper<type>,reason)
 /*! 实例化到此将引发警告 */
 #define template_warning(reason) template_warning_helper<T>(reason)
 

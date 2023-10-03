@@ -392,7 +392,7 @@ namespace math{
 					return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
 				elseif constexpr(type_info<T> == type_info<long double>)
 					#if defined(_MSC_VER)//msvc上long double就是double
-						return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
+						return quick_sqrt(static_cast<double>(v));
 					#elif defined(ELC_BASE_ENV_HAS_INT128)
 						return union_cast<T>(0x5F1E45D78623ECB73CAB40BC89254389_u128-(union_cast<const int128_t>(v)>>1));
 					#else

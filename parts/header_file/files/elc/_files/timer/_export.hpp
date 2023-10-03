@@ -1,7 +1,7 @@
-//code_realm
-//at namespace ::
-/*@
-未完成的elc解释器include文件
+//_export.hpp
+//at namespace elc
+/*
+未完成的elc解释器template文件
 由steve02081504与Alex0125设计、编写
 转载时请在不对此文件做任何修改的同时注明出处
 项目地址：https://github.com/ELC-lang/ELC
@@ -28,15 +28,9 @@
 	 =???++++++++++++++++++++++++++III?
 	   ?++++++++++++++++++++++++++++I+
 */
-#include "../../../_share/pre_checks.hpp"
-#if !defined(ELC_CODE_REALM)
-	namespace elc::defs{}
-	using namespace elc;
-	using namespace elc::defs;
-	#include "../../../_share/_defs.hpp"
-	#include "resolve_global_name_conflicts"
-	#define ELC_CODE_REALM
-#endif
+#define export using defs::timer_n::
+export debug_timer_t;
+#undef export
 
 //file_end
 

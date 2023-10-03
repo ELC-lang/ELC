@@ -60,6 +60,15 @@
 		}
 		#define type_info the_type_info
 	#endif
+	#if defined(_INC_MATH)//float_t
+		namespace elc{
+			typedef float_t the_float_t;
+		}
+		namespace std{
+			typedef float_t the_float_t;
+		}
+		#define float_t the_float_t
+	#endif
 #endif
 
 //file_end

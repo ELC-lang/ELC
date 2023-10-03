@@ -1,4 +1,4 @@
-//code_realm
+//lib_loader
 //at namespace ::
 /*@
 未完成的elc解释器include文件
@@ -29,13 +29,11 @@
 	   ?++++++++++++++++++++++++++++I+
 */
 #include "../../../_share/pre_checks.hpp"
-#if !defined(ELC_CODE_REALM)
-	namespace elc::defs{}
-	using namespace elc;
-	using namespace elc::defs;
-	#include "../../../_share/_defs.hpp"
-	#include "resolve_global_name_conflicts"
-	#define ELC_CODE_REALM
+#if !defined(ELC_TIMER)
+	#include <chrono>
+	#include "stream"
+	#define ELC_TIMER
+	#include "_files/timer/_body.hpp"
 #endif
 
 //file_end

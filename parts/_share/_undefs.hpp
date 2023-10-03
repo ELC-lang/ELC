@@ -82,6 +82,7 @@
 
 #undef floop
 #undef times
+#undef debug_times
 #undef enable_adl
 
 #undef re_declvalue
@@ -90,6 +91,7 @@
 #undef declvalue
 
 #undef template_error
+#undef template_error_of_type
 #undef template_warning
 
 #undef type_info_of
