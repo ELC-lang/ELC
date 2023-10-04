@@ -137,13 +137,13 @@ namespace to_string_n{
 		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
 		[[nodiscard]]string to_string_and_add_exp(T num,ptrdiff_t&exp)const noexcept{
 			const auto radix=_repres.get_radix();
-			do{
+			while(num){
 				auto result=divmod(num,radix);
 				if(result.mod)
 					break;
 				num=T(move(result.quot));
 				++exp;
-			}while(num);
+			}
 			return to_string_base(move(num));
 		}
 		template<unsigned_integer_type T>//适用于任何c++无符号整数类型以及elc的ubigint
