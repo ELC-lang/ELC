@@ -386,20 +386,12 @@ namespace math{
 	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{
 		if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
 			if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
-				if constexpr(type_info<T> == type_info<float>)
-					return union_cast<T>(0x5F375A86-(union_cast<const int32_t>(v)>>1));
-				elseif constexpr(type_info<T> == type_info<double>)
-					return union_cast<T>(0x5FE6EB50C7B537A9-(union_cast<const int64_t>(v)>>1));
-				elseif constexpr(type_info<T> == type_info<long double>)
-					#if defined(_MSC_VER)//msvc上long double就是double
-						return quick_sqrt(static_cast<double>(v));
-					#elif defined(ELC_BASE_ENV_HAS_INT128)
-						return union_cast<T>(0x5F1E45D78623ECB73CAB40BC89254389_u128-(union_cast<const int128_t>(v)>>1));
-					#else
-						do_nothing;//可以寄了
-					#endif
-				elseif constexpr(is_big_type<T>)
+				if constexpr(is_big_type<T>)
 					return sqrt(static_cast<long double>(v));
+				else{
+					constexpr auto magic = basic_environment::float_infos::quick_sqrt_magic_number<T>;
+					return union_cast<T>(magic-(union_cast<const decltype(magic)>(v)>>1));
+				}
 		return v/2u;
 	}
 	template<float_type T>

@@ -30,7 +30,6 @@
 */
 //include default_data_type：基础数据类型定义
 #include "../../../../../_share/default_data_type.hpp"
-#include "../../../../../_share/basic_environment/BIT_POSSIBILITY.hpp"
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 
@@ -68,7 +67,6 @@ namespace elc::defs{ //在elc::defs中定义内容
 		#include "compare.hpp"
 		#include "min_max.hpp"
 		#include "literal_support.hpp"
-		#include "math.hpp"
 	}
 
 	//由于vcruntime的type_info在全局定义,这里需要额外声明使用base::type_info.
@@ -78,7 +76,17 @@ namespace elc::defs{ //在elc::defs中定义内容
 
 	#include "../_share/_undefs.hpp"
 }
-#include "../../../../../_share/basic_environment/_body.hpp"
+#include "../../../../../_share/basic_environment/pre_math.hpp"
+namespace elc::defs{ //在elc::defs中定义内容
+	#include "../_share/_defs.hpp"
+
+	namespace base{
+		#include "math.hpp"
+	}
+
+	#include "../_share/_undefs.hpp"
+}
+#include "../../../../../_share/basic_environment/after_math.hpp"
 namespace elc::defs{ //在elc::defs中定义内容
 	#include "../_share/_defs.hpp"
 

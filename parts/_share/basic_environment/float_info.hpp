@@ -70,6 +70,9 @@ namespace float_infos{
 		typedef int8_t exponent_signed_type;
 		//浮点数的指数部分的掩码
 		static constexpr auto exponent_mask=uint16_t(0x7FFFu);
+
+		//快速开方魔数
+		static constexpr auto quick_sqrt_magic_number=int16_t(0x5F37);
 	};
 	struct float32_float_info{
 		//精确数部分的掩码
@@ -97,6 +100,9 @@ namespace float_infos{
 		typedef int8_t exponent_signed_type;
 		//浮点数的指数部分的掩码
 		static constexpr auto exponent_mask=uint32_t(0x7FFFFFFFu);
+
+		//快速开方魔数
+		static constexpr auto quick_sqrt_magic_number=int32_t(0x5F375A86);
 	};
 	struct float64_float_info{
 		//精确数部分的掩码
@@ -124,6 +130,9 @@ namespace float_infos{
 		typedef int16_t exponent_signed_type;
 		//浮点数的指数部分的掩码
 		static constexpr auto exponent_mask=uint64_t(0x7FFFFFFFFFFFFFFFu);
+
+		//快速开方魔数
+		static constexpr auto quick_sqrt_magic_number=int64_t(0x5FE6EB50C7B537A9);
 	};
 	#if defined(ELC_BASE_ENV_HAS_INT128)
 	struct float128_float_info{
@@ -152,6 +161,9 @@ namespace float_infos{
 		typedef int16_t exponent_signed_type;
 		//浮点数的指数部分的掩码
 		static constexpr auto exponent_mask=0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
+
+		//快速开方魔数
+		static constexpr auto quick_sqrt_magic_number=0x5F1E45D78623ECB73CAB40BC89254389_i128;
 	};
 	#endif
 	struct bfloat16_float_info{
@@ -180,6 +192,9 @@ namespace float_infos{
 		typedef int8_t exponent_signed_type;
 		//浮点数的指数部分的掩码
 		static constexpr auto exponent_mask=uint16_t(0x7FFFu);
+
+		//快速开方魔数
+		static constexpr auto quick_sqrt_magic_number=int16_t(0x5F37);
 	};
 
 	template<basic_float_type T>
@@ -263,6 +278,10 @@ namespace float_infos{
 	//浮点数的指数部分的掩码
 	template<basic_float_type T>
 	constexpr auto exponent_mask=float_info<T>::exponent_mask;
+
+	//快速开方魔数
+	template<basic_float_type T>
+	constexpr auto quick_sqrt_magic_number=float_info<T>::quick_sqrt_magic_number;
 }
 
 //file_end
