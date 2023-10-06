@@ -548,12 +548,14 @@ namespace math{
 
 	/// 线性插值.
 	namespace linear_interpolation{
-		[[nodiscard]]inline constexpr auto get_k(auto y1,auto y2,auto δx)noexcept{
+		template<arithmetic_type T1,arithmetic_type T2,arithmetic_type result_T>
+		[[nodiscard]]inline constexpr auto get_k(T1 y1,T2 y2,result_T δx)noexcept{
 			auto δy=sub(y2,y1);
 			auto k=δy/δx;
 			return k;
 		}
-		[[nodiscard]]inline constexpr auto get_k(auto y1,auto y2)noexcept{
+		template<arithmetic_type T1,arithmetic_type T2>
+		[[nodiscard]]inline constexpr auto get_k(T1 y1,T2 y2)noexcept{
 			return get_k(y1,y2,1.0);
 		}
 		[[nodiscard]]inline constexpr auto get_result(auto y1,auto k,auto δx)noexcept{

@@ -399,22 +399,24 @@ namespace string_n{
 		);
 	public:
 		static constexpr bool floating_arec_able=floating_arec_result_able||floating_arec_set_able;
-		class floating_arec_t: non_copyable,non_moveable{
+		template<class=void> requires floating_arec_able
+		class floating_arec_t_impl: non_copyable,non_moveable{
 			string_t* _to;
 			float_t	  _index;
 			size_t	  _index_x1;
 			size_t	  _index_x2;
 
 			friend class string_t;
+			typedef floating_arec_t_impl<> this_t;
 		public:
 			static constexpr bool result_able=floating_arec_result_able;
 			static constexpr bool set_able=floating_arec_set_able;
 
-			floating_arec_t(string_t* to,float_t index)noexcept:_to(to),_index(index){
+			floating_arec_t_impl(string_t* to,float_t index)noexcept:_to(to),_index(index){
 				_index_x1=static_cast<size_t>(index);
 				_index_x2=_index_x1+1;
 			}
-			floating_arec_t(special_init_t,const floating_arec_t&ref)noexcept:_to(ref._to),_index(ref._index){}
+			floating_arec_t_impl(special_init_t,const this_t&ref)noexcept:_to(ref._to),_index(ref._index){}
 			[[nodiscard]]operator floating_arec_result_type()const&&noexcept requires result_able{
 				char_T y1=_to->arec(_index_x1);
 				char_T y2=_to->arec(_index_x2);
@@ -423,7 +425,7 @@ namespace string_n{
 							math::linear_interpolation::get_k(y1,y2),
 														   			  δx);
 			}
-			floating_arec_t&& operator=(floating_arec_result_type a)&&noexcept requires set_able{
+			this_t&& operator=(floating_arec_result_type a)&&noexcept requires set_able{
 				char_T y1=_to->arec(_index_x1);
 				char_T y2=_to->arec(_index_x2);
 				auto k=math::linear_interpolation::get_k(y1,y2);
@@ -436,8 +438,10 @@ namespace string_n{
 				return move(*this);
 			}
 		};
-		[[nodiscard]]floating_arec_t operator[](float_t index)noexcept requires floating_arec_able{ return{this,index}; }
-		[[nodiscard]]const floating_arec_t operator[](float_t index)const noexcept requires floating_arec_able{ return{remove_const(this),index}; }
+		#define floating_arec_t floating_arec_t_impl<>
+		[[nodiscard]]auto operator[](float_t index)noexcept requires floating_arec_able{ return floating_arec_t{this,index}; }
+		[[nodiscard]]const auto operator[](float_t index)const noexcept requires floating_arec_able{ return floating_arec_t{remove_const(this),index}; }
+		#undef floating_arec_t
 
 		//泛型arec.
 		template<arithmetic_type T>
