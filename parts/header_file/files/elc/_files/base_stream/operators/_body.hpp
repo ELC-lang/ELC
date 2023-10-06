@@ -102,11 +102,9 @@ inline constexpr struct endline_t{
 			if(ch==char_T{'\n'})
 				break;
 			if(ch==char_T{'\r'}){
-				if(!stream.waitting_for_data() && stream>>ch) {
-					if(ch!=char_T{'\n'})
+				if(!stream.waitting_for_data() && stream>>ch)
+					if(ch!=char_T{'\n'})//可能的\r\n结尾
 						stream.unread(&ch,1);
-					break;
-				}
 				break;
 			}
 		}

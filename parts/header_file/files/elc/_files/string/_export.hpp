@@ -33,6 +33,7 @@ export string_t;
 export string;
 export string_view_t;
 export string_view;
+export operator""_string;
 export operator""_elc_string;
 export operator""_constexpr_str;
 #undef export
