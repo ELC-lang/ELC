@@ -154,6 +154,9 @@ namespace array_like_n{
 			if(pos>size())pos=size();
 			return this_t{_begin+pos,size()-pos};
 		}
+		[[nodiscard]]constexpr operator array_like_view_t<const T>()const noexcept{
+			return array_like_view_t<const T>{_begin,_size};
+		}
 	};
 	template<typename T>
 	struct array_end_by_zero_t:array_like_view_t<T>{
