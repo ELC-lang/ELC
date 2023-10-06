@@ -1057,7 +1057,7 @@ namespace string_n{
 			while(!is.is_end()&&is.peek()!='\r'&&is.peek()!='\n')
 				str+=is.get();
 			is>>endline;//处理结尾
-			return is;
+			return str;
 		}
 		#undef _m
 	};
