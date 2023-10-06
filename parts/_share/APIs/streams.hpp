@@ -153,7 +153,7 @@ elc依赖的基础函数.
 		inline bool is_wait_input(handle_type stream)noexcept{
 			#if SYSTEM_TYPE == windows
 				if(stream.is_terminal())
-					return WaitForSingleObject(stream, 0) == WAIT_TIMEOUT;
+					return WaitForSingleObject(stream, 0) == WAIT_OBJECT_0;
 				else
 					return false;
 			#elif SYSTEM_TYPE == linux

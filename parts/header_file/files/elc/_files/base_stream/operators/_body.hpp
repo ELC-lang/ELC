@@ -103,9 +103,9 @@ inline constexpr struct endline_t{
 				break;
 			if(ch==char_T{'\r'}){
 				if(!stream.waitting_for_data() && stream>>ch) {
-					if(ch==char_T{'\n'})
-						break;
-					stream.unread(&ch,1);
+					if(ch!=char_T{'\n'})
+						stream.unread(&ch,1);
+					break;
 				}
 				break;
 			}
