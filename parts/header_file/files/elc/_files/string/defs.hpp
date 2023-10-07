@@ -871,34 +871,34 @@ namespace string_n{
 		//
 
 		//contains
-		constexpr bool contains(string_view_t str)const noexcept{
+		[[nodiscard]]constexpr bool contains(string_view_t str)const noexcept{
 			return find(str) != npos;
 		}
-		constexpr bool contains(constexpr_str_t&str)const noexcept{
+		[[nodiscard]]constexpr bool contains(constexpr_str_t&str)const noexcept{
 			return find(str) != npos;
 		}
-		constexpr bool contains(const string_t&str)const noexcept{
+		[[nodiscard]]constexpr bool contains(const string_t&str)const noexcept{
 			return find(str) != npos;
 		}
-		constexpr bool contains(char_T ch)const noexcept{
+		[[nodiscard]]constexpr bool contains(char_T ch)const noexcept{
 			return find(ch) != npos;
 		}
-		constexpr bool contains(const_string_ptr_t str)const noexcept{
+		[[nodiscard]]constexpr bool contains(const_string_ptr_t str)const noexcept{
 			return find(str) != npos;
 		}
 
 		//starts_with
-		constexpr bool starts_with(string_view_t str)const noexcept{
+		[[nodiscard]]constexpr bool starts_with(string_view_t str)const noexcept{
 			if(size()<str.size())
 				return false;
 			return substr(0,str.size()) == str;
 		}
-		constexpr bool starts_with(constexpr_str_t&str)const noexcept{
+		[[nodiscard]]constexpr bool starts_with(constexpr_str_t&str)const noexcept{
 			if(size()<str.size())
 				return false;
 			return substr(0,str.size()) == str;
 		}
-		constexpr bool starts_with(const string_t&str)const noexcept{
+		[[nodiscard]]constexpr bool starts_with(const string_t&str)const noexcept{
 			if(size()<str.size())
 				return false;
 			if(str._in_chr_cso())
@@ -906,27 +906,27 @@ namespace string_n{
 			else
 				return substr(0,str.size()) == str;
 		}
-		constexpr bool starts_with(char_T ch)const noexcept{
+		[[nodiscard]]constexpr bool starts_with(char_T ch)const noexcept{
 			if(size()<1)
 				return false;
 			return operator[](0) == ch;
 		}
-		constexpr bool starts_with(const_string_ptr_t str)const noexcept{
+		[[nodiscard]]constexpr bool starts_with(const_string_ptr_t str)const noexcept{
 			return starts_with(string_view_t{str});
 		}
 
 		//ends_with
-		constexpr bool ends_with(string_view_t str)const noexcept{
+		[[nodiscard]]constexpr bool ends_with(string_view_t str)const noexcept{
 			if(size()<str.size())
 				return false;
 			return substr(size()-str.size()) == str;
 		}
-		constexpr bool ends_with(constexpr_str_t&str)const noexcept{
+		[[nodiscard]]constexpr bool ends_with(constexpr_str_t&str)const noexcept{
 			if(size()<str.size())
 				return false;
 			return substr(size()-str.size()) == str;
 		}
-		constexpr bool ends_with(const string_t&str)const noexcept{
+		[[nodiscard]]constexpr bool ends_with(const string_t&str)const noexcept{
 			if(size()<str.size())
 				return false;
 			if(str._in_chr_cso())
@@ -934,17 +934,17 @@ namespace string_n{
 			else
 				return substr(size()-str.size()) == str;
 		}
-		constexpr bool ends_with(char_T ch)const noexcept{
+		[[nodiscard]]constexpr bool ends_with(char_T ch)const noexcept{
 			if(size()<1)
 				return false;
 			return operator[](size()-1) == ch;
 		}
-		constexpr bool ends_with(char_T ch,size_t count)const noexcept{
+		[[nodiscard]]constexpr bool ends_with(char_T ch,size_t count)const noexcept{
 			if(size() < count)
 				return false;
 			return find_last_not_of(ch) <= size()-count;
 		}
-		constexpr bool ends_with(const_string_ptr_t str)const noexcept{
+		[[nodiscard]]constexpr bool ends_with(const_string_ptr_t str)const noexcept{
 			return ends_with(string_view_t{str});
 		}
 
@@ -953,21 +953,21 @@ namespace string_n{
 		}
 
 		//pad_left
-		this_t pad_left(size_t size,char_T ch)const noexcept{
+		[[nodiscard]]this_t pad_left(size_t size,char_T ch)const noexcept{
 			if(size<=this->size())
 				return *this;
 			return string_t{size-this->size(),ch}+*this;
 		}
-		this_t pad_left(char_T ch,size_t size)const noexcept{
+		[[nodiscard]]this_t pad_left(char_T ch,size_t size)const noexcept{
 			return pad_left(size,ch);
 		}
 		//pad_right
-		this_t pad_right(size_t size,char_T ch)const noexcept{
+		[[nodiscard]]this_t pad_right(size_t size,char_T ch)const noexcept{
 			if(size<=this->size())
 				return *this;
 			return *this+string_t{size-this->size(),ch};
 		}
-		this_t pad_right(char_T ch,size_t size)const noexcept{
+		[[nodiscard]]this_t pad_right(char_T ch,size_t size)const noexcept{
 			return pad_right(size,ch);
 		}
 
@@ -987,10 +987,10 @@ namespace string_n{
 
 		//replace
 		//TODO: 右值版replace
-		this_t replace(size_t pos,size_t size,const string_t& str)const noexcept{
+		[[nodiscard]]this_t replace(size_t pos,size_t size,const string_t& str)const noexcept{
 			return substr(0,pos)+str+substr(pos+size);
 		}
-		this_t replace(char_T ch,char_T ch2)const noexcept{
+		[[nodiscard]]this_t replace(char_T ch,char_T ch2)const noexcept{
 			this_t aret;
 			size_t pos=0;
 			floop{
@@ -1003,7 +1003,7 @@ namespace string_n{
 			aret+=substr(pos);
 			return aret;
 		}
-		this_t replace(char_T ch,const string_t& str)const noexcept{
+		[[nodiscard]]this_t replace(char_T ch,const string_t& str)const noexcept{
 			this_t aret;
 			size_t pos=0;
 			floop{
@@ -1016,7 +1016,7 @@ namespace string_n{
 			aret+=substr(pos);
 			return aret;
 		}
-		this_t replace(const string_t& str1,const string_t& str2)const noexcept{
+		[[nodiscard]]this_t replace(const string_t& str1,const string_t& str2)const noexcept{
 			this_t aret;
 			size_t pos=0;
 			floop{
@@ -1065,7 +1065,19 @@ namespace string_n{
 		}
 		#undef _m
 	};
+}
 
+namespace stream_n{
+	//单参数getline
+	template<text_istream_class text_istream_T>
+	[[nodiscard]]inline auto getline(text_istream_T& is)noexcept(noexcept_text_istream_class<text_istream_T>){
+		typedef typename remove_cvref<text_istream_T>::char_type char_T;
+		string_n::string_t<char_T> str;
+		return getline(is,str);
+	}
+}
+
+namespace string_n{
 	//推导指引
 	template<class char_T>
 	string_t(const char_T*) -> string_t<char_T>;
