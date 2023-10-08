@@ -72,7 +72,7 @@ namespace float_infos{
 		static constexpr auto exponent_mask=uint16_t(0x7FFFu);
 
 		//快速开方魔数
-		static constexpr auto quick_sqrt_magic_number=int16_t(0x5F37);
+		static constexpr auto quick_sqrt_magic_number=int16_t(0x5F8B);
 	};
 	struct float32_float_info{
 		//精确数部分的掩码
@@ -194,7 +194,7 @@ namespace float_infos{
 		static constexpr auto exponent_mask=uint16_t(0x7FFFu);
 
 		//快速开方魔数
-		static constexpr auto quick_sqrt_magic_number=int16_t(0x5F37);
+		static constexpr auto quick_sqrt_magic_number=int16_t(0x5FF1);
 	};
 
 	template<basic_float_type T>
