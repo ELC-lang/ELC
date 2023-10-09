@@ -163,7 +163,7 @@ namespace float_infos{
 		static constexpr auto exponent_mask=0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
 
 		//快速开方魔数
-		static constexpr auto quick_invsqrt_magic_number=0x5F1E45D78623ECB73CAB40BC89254389_i128;
+		static constexpr auto quick_invsqrt_magic_number=-0x72FFC263BBFB20013FFAD486DF24B9B3_i128;
 	};
 	#endif
 	struct bfloat16_float_info{
