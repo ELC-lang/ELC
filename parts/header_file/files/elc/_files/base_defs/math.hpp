@@ -360,6 +360,58 @@ namespace math{
 		else
 			return ::std::floor(v);
 	}
+	//invsqrt
+	template<float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T invsqrt(const T&v)noexcept;
+	template<float_type T>
+	inline constexpr T invsqrt_iteration(const T&num,const T&v)noexcept{
+		//newton-raphson
+		return num*(3u-v*num*num)/2u;
+	}
+	template<float_type T>
+	inline constexpr T invsqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
+		while(epsilon_saver>epsilon){
+			auto next_ret=invsqrt_iteration(num,v);
+			epsilon_saver=abs(next_ret-num);
+			num=move(next_ret);
+		}
+		return num;
+	}
+	template<float_type T>
+	[[nodiscard]]inline constexpr T quick_invsqrt(const T&v)noexcept{
+		if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
+			if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
+				if constexpr(is_big_type<T>)
+					return quick_invsqrt(static_cast<long double>(v));
+				else{
+					constexpr auto magic = basic_environment::float_infos::quick_invsqrt_magic_number<T>;
+					return union_cast<T>(magic-(union_cast<const decltype(magic)>(v)>>1));
+				}
+		return 2u/v;
+	}
+	template<float_type T>
+	[[nodiscard]]inline constexpr T invsqrt(const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
+		if constexpr(has_NaN<T> && has_inf<T>)
+			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
+				return arithmetic_type_info_prover<T>::NaN();
+		return invsqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon,epsilon_saver);
+	}
+	template<float_type T>
+	[[nodiscard]]inline constexpr T invsqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
+		if constexpr(has_NaN<T> && has_inf<T>)
+			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
+				return arithmetic_type_info_prover<T>::NaN();
+		return invsqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon);
+	}
+	//invsqrt with one parameter
+	template<float_type T> requires(has_epsilon<T>)
+	[[nodiscard]]force_inline constexpr T invsqrt(const T&v)noexcept{
+		return invsqrt(v,arithmetic_type_info_prover<T>::epsilon());
+	}
+	template<integer_type T>
+	[[nodiscard]]force_inline constexpr auto invsqrt(const T&v)noexcept{
+		return invsqrt(static_cast<float_type_of<T>>(v));
+	}
 	//sqrt
 	template<float_type T> requires(has_epsilon<T>)
 	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept;
@@ -383,15 +435,14 @@ namespace math{
 		return sqrt_to_new_epsilon(num,v,epsilon,epsilon_saver);
 	}
 	template<float_type T>
-	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{
-		if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
-			if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
-				if constexpr(is_big_type<T>)
-					return sqrt(static_cast<long double>(v));
-				else{
-					constexpr auto magic = basic_environment::float_infos::quick_sqrt_magic_number<T>;
-					return union_cast<T>(magic-(union_cast<const decltype(magic)>(v)>>1));
-				}
+	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
+		if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
+			if constexpr(is_big_type<T>)
+				return quick_sqrt(static_cast<long double>(v));
+			else{
+				using namespace basic_environment::float_infos;
+				return union_cast<T>((union_cast<data_type<T>>(v)>>1) + (data_type<T>(exponent_diff<T>) << (precision_base_bit<T> - 1)));
+			}
 		return v/2u;
 	}
 	template<float_type T>
@@ -399,14 +450,14 @@ namespace math{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return sqrt_to_new_epsilon(quick_sqrt(v),v,epsilon,epsilon_saver);
+		return sqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon,epsilon_saver);
 	}
 	template<float_type T>
 	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return sqrt_to_new_epsilon(quick_sqrt(v),v,epsilon);
+		return sqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon);
 	}
 	//sqrt with one parameter
 	template<float_type T> requires(has_epsilon<T>)
@@ -817,6 +868,10 @@ using math::integer_log;
 using math::pow;
 using math::ceil;
 using math::floor;
+using math::invsqrt_iteration;
+using math::invsqrt_to_new_epsilon;
+using math::quick_invsqrt;
+using math::invsqrt;
 using math::sqrt_iteration;
 using math::sqrt_to_new_epsilon;
 using math::quick_sqrt;
