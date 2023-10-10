@@ -47,18 +47,25 @@
 		#define rand the_rand
 	#endif
 	
-	#if defined(_MSC_VER)//msvc上type_info也是全局内容
+	#if defined(_MSC_VER)
 		namespace elc::defs{
 			template<class T>
 			constexpr auto&the_type_info=type_info<T>;
+			template<float_type T>requires(has_epsilon<T>)
+			[[nodiscard]]force_inline constexpr T the_sqrt(const T&v){return sqrt(v);}
+			template<integer_type T>[[nodiscard]]force_inline constexpr auto the_sqrt(const T&v){return sqrt(v);}
 		}
 		namespace elc{
 			using defs::the_type_info;
 		}
 		namespace std{
 			typedef type_info the_type_info;
+			[[nodiscard]]float the_sqrt(const float&v){return sqrtf(v);}
+			[[nodiscard]]double the_sqrt(const double&v){return sqrt(v);}
+			[[nodiscard]]long double the_sqrt(const long double&v){return sqrtl(v);}
 		}
 		#define type_info the_type_info
+		#define sqrt the_sqrt
 	#endif
 	#if defined(_INC_MATH)//float_t
 		namespace elc{

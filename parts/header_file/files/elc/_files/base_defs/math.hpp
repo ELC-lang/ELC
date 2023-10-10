@@ -384,8 +384,8 @@ namespace math{
 				if constexpr(is_big_type<T>)
 					return quick_invsqrt(static_cast<long double>(v));
 				else{
-					constexpr auto magic = basic_environment::float_infos::quick_invsqrt_magic_number<T>;
-					return union_cast<T>(magic-(union_cast<const decltype(magic)>(v)>>1));
+					using namespace basic_environment::float_infos;
+					return union_cast<T>((quick_invsqrt_magic_number<T> - union_cast<const data_type<T>>(v))>>1);
 				}
 		return 2u/v;
 	}
