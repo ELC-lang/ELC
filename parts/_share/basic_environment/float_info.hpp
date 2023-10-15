@@ -37,7 +37,7 @@ double:
 	Sign bit: 1 bit
 	Exponent: 11 bits
 	Significand precision: 53 bits (52 explicitly stored)
-long double(IEEE-754 binary128):
+IEEE-754 binary128:
 	Sign bit: 1 bit
 	Exponent width: 15 bits
 	Significand precision: 113 bits (112 explicitly stored)
@@ -163,7 +163,7 @@ namespace float_infos{
 		static constexpr auto exponent_mask=0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_u128;
 
 		//快速开方魔数
-		static constexpr auto quick_invsqrt_magic_number=0xB2E33F324820BFFD8005AD87D212C5B0_u128;
+		static constexpr auto quick_invsqrt_magic_number=0xBFFCDD90BCFBC61B561ECBF4C7DF5F72_u128;
 	};
 	#endif
 	struct bfloat16_float_info{
@@ -230,7 +230,7 @@ namespace float_infos{
 		elseif constexpr(type_info<T> == type_info<long double>){
 			#if defined(_MSC_VER)//msvc上long double就是double
 				return float64_float_info{};
-			#elif defined(ELC_BASE_ENV_HAS_INT128)
+			#elif defined(ELC_BASE_ENV_HAS_INT128) && defined(__aarch64__)//aarch64上long double是float128
 				return float128_float_info{};
 			#else
 				//"long double is not supported"
