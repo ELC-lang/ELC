@@ -357,6 +357,11 @@ public:
 	[[nodiscard]]explicit operator ubigint()&&noexcept{
 		return ubigint(move(_num));
 	}
+	//hash
+	[[nodiscard]]force_inline hash_t hash()const noexcept{
+		const auto tmp = hash_n::hash(_num)._value;
+		return hash_t{_is_negative?tmp*7u:tmp};
+	}
 };
 
 [[nodiscard]]inline bigfloat operator-(const ubigfloat&num)noexcept{

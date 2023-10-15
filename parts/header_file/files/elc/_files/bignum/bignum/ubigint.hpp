@@ -1212,6 +1212,10 @@ public:
 	[[nodiscard]]friend bool is_even(const ubigint& x)noexcept{
 		return !is_odd(x);
 	}
+	//hash
+	[[nodiscard]]force_inline hash_t hash()const noexcept{
+		return hash_n::hash(_data);
+	}
 };
 
 template<typename T>

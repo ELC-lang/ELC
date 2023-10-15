@@ -346,6 +346,11 @@ public:
 	friend [[nodiscard]] bool is_even(const bigint& n)noexcept{
 		return is_even(n._num);
 	}
+	//hash
+	[[nodiscard]]force_inline hash_t hash()const noexcept{
+		const auto tmp = hash_n::hash(_num)._value;
+		return hash_t{_is_negative?tmp*7u:tmp};
+	}
 };
 
 [[nodiscard]]inline bigint operator-(const ubigint& num)noexcept{

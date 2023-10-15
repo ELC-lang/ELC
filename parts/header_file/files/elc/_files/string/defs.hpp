@@ -1048,8 +1048,39 @@ namespace string_n{
 			using namespace char_set;
 			while(isspace(is.peek()))
 				is.get();
+			/*/
+			size_t insert_pos=0;
+			while(!is.is_end()){
+				const auto c=is.peek();
+				switch (c){
+				case char_T(38)://right
+					is.get();
+					if(insert_pos<str.size())
+						insert_pos++;
+					break;
+				case char_T(37)://left
+					is.get();
+					if(insert_pos>0)
+						insert_pos--;
+					break;
+				case char_T(8)://backspace
+					is.get();
+					if(insert_pos>0)
+						str.erase(--insert_pos);
+					break;
+				
+				default:
+					if(isspace(c))
+						return is;
+					else
+						str.insert(insert_pos++,is.get());
+					break;
+				}
+			}
+			/*/
 			while(!is.is_end()&&!isspace(is.peek()))
 				str+=is.get();
+			//*/
 			return is;
 		}
 		template<class text_istream_T> requires(type_info<text_istream_T>.base_on<text_istream_t<char_T>>)
@@ -1058,8 +1089,39 @@ namespace string_n{
 			using namespace char_set;
 			while(isspace(is.peek()))
 				is.get();
+			/*/
+			size_t insert_pos=0;
+			while(!is.is_end()){
+				const auto c=is.peek();
+				switch (c){
+				case char_T(38)://right
+					is.get();
+					if(insert_pos<str.size())
+						insert_pos++;
+					break;
+				case char_T(37)://left
+					is.get();
+					if(insert_pos>0)
+						insert_pos--;
+					break;
+				case char_T(8)://backspace
+					is.get();
+					if(insert_pos>0)
+						str.erase(--insert_pos);
+					break;
+				case char_T('\r'):
+				case char_T('\n'):
+					is>>endline;//处理结尾
+					return str;
+				default:
+					str.push_back(is.get());
+					break;
+				}
+			}
+			/*/
 			while(!is.is_end()&&is.peek()!='\r'&&is.peek()!='\n')
 				str+=is.get();
+			//*/
 			is>>endline;//处理结尾
 			return str;
 		}

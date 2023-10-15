@@ -494,6 +494,10 @@ public:
 	[[nodiscard]]explicit operator bigint()&&noexcept{
 		return move(*this).operator ubigint();
 	}
+	//hash
+	[[nodiscard]]force_inline hash_t hash()const noexcept{
+		return hash_t{hash_n::hash(_numerator)._value*13+hash_n::hash(_denominator)._value};
+	}
 };
 
 template<typename T>
