@@ -435,15 +435,17 @@ namespace math{
 		return sqrt_to_new_ε(num,v,ε,ε_saver);
 	}
 	template<float_type T>
-	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
-		if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
-			if constexpr(is_big_type<T>)
-				return quick_sqrt(static_cast<long double>(v));
-			else{
-				using namespace basic_environment::float_infos;
-				return union_cast<T>((union_cast<data_type<T>>(v)>>1) + (data_type<T>(exponent_diff<T>) << (precision_base_bit<T> - 1)));
-			}
+	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{
+		if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
+			if(!in_consteval)//编译期计算不能使用union_cast，让编译器慢慢算去吧
+				if constexpr(is_big_type<T>)
+					return quick_sqrt(static_cast<long double>(v));
+				else{
+					using namespace basic_environment::float_infos;
+					return union_cast<T>((union_cast<data_type<T>>(v)>>1) + (data_type<T>(exponent_diff<T>) << (precision_base_bit<T> - 1)));
+				}
 		return v/2u;
+		//return reciprocal(quick_invsqrt(v));
 	}
 	template<float_type T>
 	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
@@ -932,7 +934,7 @@ namespace magic_number{
 	using ::std::move;
 
 	template<unsigned_big_float_type T>
-	struct pi_with_ε_impl_t{
+	struct π_with_ε_impl_t{
 	private:
 		typedef to_signed_t<T> float_t;
 		typedef to_unsigned_t<T> ufloat_t;
@@ -953,7 +955,7 @@ namespace magic_number{
 		size_t base_accurate = 0,sqrt_accuracy_multiplier = 1;//考虑到sqrt_iteration每次都会精度翻倍，而base_iteration每次只会精度增加14，所以我们可以通过追加这个值来省去一些不必要的sqrt迭代
 
 	public:
-		constexpr pi_with_ε_impl_t(ufloat_t the_ε = magic_number::god)noexcept: ε(move(the_ε)){}
+		constexpr π_with_ε_impl_t(ufloat_t the_ε = magic_number::god)noexcept: ε(move(the_ε)){}
 		[[nodiscard]]constexpr T take_value()noexcept{
 			return abs(reciprocal(12u*result/sqrt_640320));
 		}
@@ -1004,14 +1006,14 @@ namespace magic_number{
 		}
 	};
 	template<unsigned_float_type T>
-	distinctive inline pi_with_ε_impl_t<T> pi_with_ε_impl{};
-	distinctive inline constexpr struct pi_with_ε_t{
+	distinctive inline π_with_ε_impl_t<T> π_with_ε_impl{};
+	distinctive inline constexpr struct π_with_ε_t{
 		template<unsigned_big_float_type T>
-		static auto&_impl = pi_with_ε_impl<to_unsigned_t<remove_cvref<T>>>;
+		static auto&_impl = π_with_ε_impl<to_unsigned_t<remove_cvref<T>>>;
 		template<float_type T>
 		auto operator()(T&&ε)const noexcept{
 			if constexpr(is_basic_float_type<T>)
-				return (T)magic_number::pi;//啊？
+				return (T)magic_number::π;//啊？
 			else
 				return _impl<T>(forward<T>(ε));
 		}
@@ -1026,9 +1028,9 @@ namespace magic_number{
 		};
 		template<unsigned_big_float_type T>
 		static constexpr auto for_type = for_type_t<T>{};//这个是为了让用户可以自己调用do_iteration等函数
-	}pi_with_ε{};
+	}π_with_ε{};
 }
-using magic_number::pi_with_ε;
+using magic_number::π_with_ε;
 
 namespace math{
 	template<signed_float_type T>
@@ -1052,11 +1054,11 @@ namespace math{
 	[[nodiscard]]constexpr T arctan(T num, const to_unsigned_t<T>&ε)noexcept{
 		/*
 		arctan (-x) = -arctan(x)
-		arctan (1/x) = 0.5 * pi - arctan(x) [x > 0]
+		arctan (1/x) = 0.5 * π - arctan(x) [x > 0]
 		*/
 		if constexpr(signed_type<T>)
 			if (num < 0) return -arctan(abs(num), ε);
-		if (num > 1) return pi_with_ε(ε)/2u - arctan(reciprocal(move(num)), ε);
+		if (num > 1) return π_with_ε(ε)/2u - arctan(reciprocal(move(num)), ε);
 
 		size_t i = 1; bool negation = false; // 取反
 		to_signed_t<T> result = num;
@@ -1077,7 +1079,7 @@ namespace math{
 
 	template<signed_float_type T>
 	[[nodiscard]]constexpr T cos(T num, const to_unsigned_t<T>&ε)noexcept{
-		return sin(pi_with_ε(ε)/2u - num, ε);
+		return sin(π_with_ε(ε)/2u - num, ε);
 	}
 	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T cos(T num)noexcept{
@@ -1122,7 +1124,7 @@ namespace math{
 
 	template<signed_float_type T>
 	[[nodiscard]]constexpr to_unsigned_t<T> arccos(T num, const to_unsigned_t<T>&ε)noexcept{
-		return to_unsigned_t<T>(pi_with_ε(ε)/2u - arctan(num, ε));
+		return to_unsigned_t<T>(π_with_ε(ε)/2u - arctan(num, ε));
 	}
 	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccos(T num)noexcept{
@@ -1140,7 +1142,7 @@ namespace math{
 
 	template<signed_float_type T>
 	[[nodiscard]]constexpr to_unsigned_t<T> arccot(T num, const to_unsigned_t<T>&ε)noexcept{
-		return to_unsigned_t<T>(pi_with_ε(ε)/2u - arctan(num, ε));
+		return to_unsigned_t<T>(π_with_ε(ε)/2u - arctan(num, ε));
 	}
 	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccot(T num)noexcept{
