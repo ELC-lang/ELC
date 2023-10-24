@@ -135,7 +135,7 @@ public:
 			{
 				//对多余的精度进行舍入，仍然，这是可能有损的
 				const auto bitnum_now=get_bitnum(_numerator);
-				const ptrdiff_t diff=bitnum_now-basic_environment::threshold_precision_bit<T>;
+				const ptrdiff_t diff=bitnum_now-bitnum_of(basic_environment::float_precision_base_t<T>);
 				if(diff>0){
 					_numerator>>=diff;
 					++_numerator;
