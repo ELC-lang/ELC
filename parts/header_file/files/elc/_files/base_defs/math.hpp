@@ -945,48 +945,36 @@ namespace magic_number{
 		uint_t _545140134k_p13591409 = 13591409u; // 545140134*k+13591409
 		uint_t _3k_factorial = 1u, _6k_factorial = 1u, k_factorial_pow_3 = 1u;
 		ufloat_t _640320 = 640320u;
-		ufloat_t sqrt_640320_ε_saver=_640320;
+		ufloat_t sqrt_640320_ε_saver=ε*BIT_POSSIBILITY;
 		ufloat_t sqrt_640320 = sqrt(_640320,ε,sqrt_640320_ε_saver);//我们需要缓存这个与ε有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
-		ufloat_t _640320_pow_3kplus1p5 = sqrt_640320*640320u;//初始值1.5次方
+		uint_t _640320_pow_3kplus1 = 640320u;//初始值1次方
 		const uint_t _545140134_ = 545140134u;
 		const uint_t _640320pow3 = pow(uint_t{640320u},3u);
 		size_t base_accurate = 0,sqrt_accuracy_multiplier = 1;//考虑到sqrt_iteration每次都会精度翻倍，而base_iteration每次只会精度增加14，所以我们可以通过追加这个值来省去一些不必要的sqrt迭代
 
-		constexpr void update_sqrt_640320(ufloat_t new_value)noexcept{
-			//首先 我们将result中的sqrt_640320去除.
-			//将现有的result看作(X0 X1 X2 ... Xn) 的和, 其中Xi = Yi/_640320_pow_3kplus1p5.
-			//而_640320_pow_3kplus1p5 = sqrt_640320*640320^3i.
-			//设Ai = Yi/640320^3i, 则Xi = Ai*sqrt_640320.
-			//我们可以将result看作Ai*sqrt_640320的和.
-			auto magic_number = move(sqrt_640320) / new_value;
-			sqrt_640320=move(new_value);
-			//去除旧数据的影响.
-			result /= magic_number;
-			_640320_pow_3kplus1p5 *= magic_number;
-		}
 	public:
 		constexpr pi_with_ε_impl_t(ufloat_t the_ε = magic_number::god)noexcept: ε(move(the_ε)){}
 		[[nodiscard]]constexpr T take_value()noexcept{
-			return abs(reciprocal(12*result));
+			return abs(reciprocal(12u*result/sqrt_640320));
 		}
 		constexpr void do_base_iteration()noexcept{
 			sum = copy_as_negative(
 				(				_545140134k_p13591409 * _6k_factorial				)
 				/ //= 	--------------------------------------------------------
-				(		_3k_factorial*k_factorial_pow_3 * _640320_pow_3kplus1p5		)
+				(		_3k_factorial*k_factorial_pow_3 * _640320_pow_3kplus1		)
 			,sign);
 			++k;
 			for times(3) _3k_factorial *= ++_3k;
 			for times(6) _6k_factorial *= ++_6k;
 			k_factorial_pow_3 *= pow(k,3u);
 			_545140134k_p13591409 += _545140134_;
-			_640320_pow_3kplus1p5 *= _640320pow3;
+			_640320_pow_3kplus1 *= _640320pow3;
 			sign = !sign;
 
 			result += sum;
 		}
 		constexpr void do_sqrt_iteration()noexcept{
-			update_sqrt_640320(sqrt_iteration(sqrt_640320,_640320));
+			sqrt_640320=sqrt_iteration(sqrt_640320,_640320);
 		}
 		constexpr void do_iteration()noexcept{
 			do_base_iteration();
@@ -997,7 +985,6 @@ namespace magic_number{
 			}
 		}
 		constexpr void clean_up()noexcept{
-			simplify(_640320_pow_3kplus1p5);
 			simplify(sqrt_640320);
 			simplify(result);
 		}
@@ -1009,7 +996,7 @@ namespace magic_number{
 		[[nodiscard]]constexpr T operator()(ufloat_t new_ε)noexcept{
 			if(new_ε < ε){
 				if(sqrt_640320_ε_saver>new_ε)//ε变小了，我们需要重新计算sqrt_640320
-					update_sqrt_640320(sqrt_to_new_ε(sqrt_640320,_640320,new_ε,sqrt_640320_ε_saver));
+					sqrt_640320=sqrt_to_new_ε(sqrt_640320,_640320,new_ε,sqrt_640320_ε_saver);
 				//更新ε.
 				ε = move(new_ε);
 			}
