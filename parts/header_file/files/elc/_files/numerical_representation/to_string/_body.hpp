@@ -304,7 +304,7 @@ namespace to_string_n{
 				}
 				//舍入相关
 				const auto rounding_threshold=radix/2;
-				auto rounding=exlambda(bool skip_zeros,auto backup_updater,auto exp_updater)noexcept{
+				auto rounding=exλ(bool skip_zeros,auto backup_updater,auto exp_updater)noexcept{
 					auto result=divmod(move(num),radix);
 					if(skip_zeros)//处理多余的0
 						if(!result.mod){
@@ -323,11 +323,11 @@ namespace to_string_n{
 				//额外的舍入检查为了更精确的处理
 				if(num>info_threshold_base){
 					auto num_backup=num;auto exp_backup=exp;
-					auto backup_updater=exlambda(const auto&new_num,const auto&new_exp)noexcept{
+					auto backup_updater=exλ(const auto&new_num,const auto&new_exp)noexcept{
 						num_backup=new_num;exp_backup=new_exp;
 					};
 					auto exp_pows=pow((ubigint)radix,exp);
-					auto exp_updater=exlambda(const auto&)noexcept{exp_pows*=radix;};
+					auto exp_updater=exλ(const auto&)noexcept{exp_pows*=radix;};
 					floop{
 						//首先进行舍入
 						rounding(true,backup_updater,exp_updater);
@@ -438,7 +438,7 @@ namespace to_string_n{
 			const auto radix=_repres.get_radix();
 			{
 				auto denominator_backup=denominator;//备份denominator用于在发现此为无限小数时继续输出（省去还原计算）
-				auto clear_backup=exlambda()noexcept{denominator_backup=decltype(denominator_backup){};};//即时清空denominator_backup以节省内存
+				auto clear_backup=exλ()noexcept{denominator_backup=decltype(denominator_backup){};};//即时清空denominator_backup以节省内存
 				//化简为numerator*radix^exp
 				{
 					auto result=divmod(denominator,radix);

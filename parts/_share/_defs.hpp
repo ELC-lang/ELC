@@ -212,33 +212,33 @@ class name{}\
 #define was_not_an_ill_form_and_noexcept(...) (bool(requires{__VA_ARGS__;{__VA_ARGS__}noexcept;}))
 #define was_not_an_ill_form_with_parameter(...) (bool(requires __VA_ARGS__ ))
 
-/*! 让lambda递归更加美观 */
-#define recursive_lambda(...) lambda(auto&&lambda_RLSRRS,__VA_ARGS__)
-/*! 让lambda递归更加美观 */
-#define get_recursive_lambda_caller(name,...) \
-exlambda(auto&&...Args)__VA_ARGS__ lambda_force_inline{\
+/*! 让λ递归更加美观 */
+#define recursive_λ(...) λ(auto&&λ_RLSRRS,__VA_ARGS__)
+/*! 让λ递归更加美观 */
+#define get_recursive_λ_caller(name,...) \
+exλ(auto&&...Args)__VA_ARGS__ λ_force_inline{\
 	return name(name,Args...);\
 }
-/*! 让lambda定义更加美观 */
-#define lambda []
-/*! 让lambda定义更加美观 */
-#define exlambda [&]
-/*! 让lambda定义更加美观 */
-#define lambda_with_catch(...) [__VA_ARGS__]
-/*! 让lambda定义更加美观 */
-#define self_recursion(...) lambda_RLSRRS(lambda_RLSRRS,__VA_ARGS__)
-//recursive_lambda_self_referential_reserved_symbolname
-#define lambda_RLSRRS _my_jb_super_sb_name_
+/*! 让λ定义更加美观 */
+#define λ []
+/*! 让λ定义更加美观 */
+#define exλ [&]
+/*! 让λ定义更加美观 */
+#define λ_with_catch(...) [__VA_ARGS__]
+/*! 让λ定义更加美观 */
+#define self_recursion(...) λ_RLSRRS(λ_RLSRRS,__VA_ARGS__)
+//recursive_λ_self_referential_reserved_symbolname
+#define λ_RLSRRS _my_jb_super_sb_name_
 
 #if defined(_MSC_VER) && !defined(__clang__)
-	#define lambda_inline [[msvc::forceinline]]
-	#define lambda_force_inline [[msvc::forceinline]]
+	#define λ_inline [[msvc::forceinline]]
+	#define λ_force_inline [[msvc::forceinline]]
 #elif
-	#define lambda_inline [[gnu::always_inline]]
-	#define lambda_force_inline [[gnu::always_inline]]
+	#define λ_inline [[gnu::always_inline]]
+	#define λ_force_inline [[gnu::always_inline]]
 #else
-	#define lambda_inline
-	#define lambda_force_inline
+	#define λ_inline
+	#define λ_force_inline
 #endif
 
 #define MAGIC//ahh,ko no tenno da!

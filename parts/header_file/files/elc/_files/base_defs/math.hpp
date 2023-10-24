@@ -203,7 +203,7 @@ namespace math{
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr bool is_close(const T&a,const T&b)noexcept{
 		if constexpr(basic_float_type<T>)
-			return abs(a-b)<=arithmetic_type_info_prover<T>::epsilon();
+			return abs(a-b)<=arithmetic_type_info_prover<T>::ε();
 		else
 			return a==b;
 	}
@@ -226,20 +226,20 @@ namespace math{
 	template<float_type T>
 	[[nodiscard]]force_inline constexpr T exp(const T&v)noexcept{
 		if(in_consteval||!is_basic_type<T>){
-			typedef decltype(lambda{
+			typedef decltype(λ{
 				if constexpr(is_basic_type<T>)
 					return ::std::exp(T{});
 				else
 					return T{};
 			}()) RT;
-			auto exp_impl = recursive_lambda(RT x,RT sum,RT n,size_t i,RT t)noexcept -> RT{
-				const auto epsilon=sum+t/n;
-				if(is_close(sum,epsilon))
+			auto exp_impl = recursive_λ(RT x,RT sum,RT n,size_t i,RT t)noexcept -> RT{
+				const auto ε=sum+t/n;
+				if(is_close(sum,ε))
 					return sum;
 				else
-					return self_recursion(x,epsilon,n*i,i+1,t*x);
+					return self_recursion(x,ε,n*i,i+1,t*x);
 			};
-			auto exp_impl_caller = get_recursive_lambda_caller(exp_impl);
+			auto exp_impl_caller = get_recursive_λ_caller(exp_impl);
 			return exp_impl_caller(RT{v},RT{1u},RT{1u},2,RT{v});
 		}
 		elseif constexpr(is_basic_type<T>)
@@ -250,20 +250,20 @@ namespace math{
 	template<arithmetic_type T>
 	[[nodiscard]]force_inline constexpr auto log(const T&a)noexcept{
 		if(in_consteval||!is_basic_type<T>){
-			typedef decltype(lambda()noexcept{
+			typedef decltype(λ()noexcept{
 				if constexpr(is_basic_type<T>)
 					return ::std::log(T{});
 				else
 					return T{};
 			}()) RT;
-			auto log_impl = recursive_lambda(const RT x,const RT y)noexcept -> RT{
-				auto log_iter = lambda(RT x,RT y)noexcept{
+			auto log_impl = recursive_λ(const RT x,const RT y)noexcept -> RT{
+				auto log_iter = λ(RT x,RT y)noexcept{
 					const auto exp_y = exp(y);
 					return y + T{2u}*(x-exp_y)/(x+exp_y);
 				};
 				return RT(is_close(y,log_iter(x,y)) ? y : self_recursion(x,log_iter(x,y)));
 			};
-			auto log_impl_caller = get_recursive_lambda_caller(log_impl);
+			auto log_impl_caller = get_recursive_λ_caller(log_impl);
 			return log_impl_caller((RT)a,RT{0u});
 		}
 		elseif constexpr(is_basic_type<T>)
@@ -276,7 +276,7 @@ namespace math{
 	//integer_log
 	template<unsigned_integer_type T>
 	[[nodiscard]]force_inline constexpr size_t integer_log(const T& a,const auto& b)noexcept{
-		auto integer_log_impl = recursive_lambda(const T& a,T& tester,const T this_lv,const size_t num)noexcept -> size_t{
+		auto integer_log_impl = recursive_λ(const T& a,T& tester,const T this_lv,const size_t num)noexcept -> size_t{
 			size_t aret=0;
 			{
 				const auto next_lv=this_lv*this_lv;
@@ -290,7 +290,7 @@ namespace math{
 					aret+=num;
 				}
 		};
-		auto integer_log_impl_caller = get_recursive_lambda_caller(integer_log_impl,noexcept);
+		auto integer_log_impl_caller = get_recursive_λ_caller(integer_log_impl,noexcept);
 		T tester=1u;
 		return integer_log_impl_caller(a,tester,move(b),1u);
 	}
@@ -339,7 +339,7 @@ namespace math{
 	template<float_type T> requires is_basic_type<T>
 	[[nodiscard]]force_inline constexpr auto ceil(const T&v)noexcept{
 		if in_consteval{
-			auto ceil_impl = lambda(T x, T y)noexcept{
+			auto ceil_impl = λ(T x, T y)noexcept{
 				return is_close(x,y) ? y : y+T{1};
 			};
 			return v<0 ? -static_cast<T>(to_uintmax_t(-v)) : ceil_impl(v,static_cast<T>(to_uintmax_t(v)));
@@ -352,7 +352,7 @@ namespace math{
 	template<float_type T> requires is_basic_type<T>
 	[[nodiscard]]force_inline constexpr auto floor(const T&v)noexcept{
 		if in_consteval{
-			auto floor_impl = lambda(T x, T y)noexcept{
+			auto floor_impl = λ(T x, T y)noexcept{
 				return is_close(x,y) ? y : y-T{1};
 			};
 			return v<0 ? -static_cast<T>(to_uintmax_t(-v+T{1})) : floor_impl(v,static_cast<T>(to_uintmax_t(v)));
@@ -361,7 +361,7 @@ namespace math{
 			return ::std::floor(v);
 	}
 	//invsqrt
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T invsqrt(const T&v)noexcept;
 	template<float_type T>
 	inline constexpr T invsqrt_iteration(const T&num,const T&v)noexcept{
@@ -369,10 +369,10 @@ namespace math{
 		return num*(3u-v*num*num)/2u;
 	}
 	template<float_type T>
-	inline constexpr T invsqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
-		while(epsilon_saver>epsilon){
+	inline constexpr T invsqrt_to_new_ε(T num,const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
+		while(ε_saver>ε){
 			auto next_ret=invsqrt_iteration(num,v);
-			epsilon_saver=abs(next_ret-num);
+			ε_saver=abs(next_ret-num);
 			num=move(next_ret);
 		}
 		return num;
@@ -390,30 +390,30 @@ namespace math{
 		return 2u/v;
 	}
 	template<float_type T>
-	[[nodiscard]]inline constexpr T invsqrt(const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
+	[[nodiscard]]inline constexpr T invsqrt(const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return invsqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon,epsilon_saver);
+		return invsqrt_to_new_ε(quick_invsqrt(v),v,ε,ε_saver);
 	}
 	template<float_type T>
-	[[nodiscard]]inline constexpr T invsqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
+	[[nodiscard]]inline constexpr T invsqrt(const T&v,const to_unsigned_t<T>&ε)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return invsqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon);
+		return invsqrt_to_new_ε(quick_invsqrt(v),v,ε);
 	}
 	//invsqrt with one parameter
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T invsqrt(const T&v)noexcept{
-		return invsqrt(v,arithmetic_type_info_prover<T>::epsilon());
+		return invsqrt(v,arithmetic_type_info_prover<T>::ε());
 	}
 	template<integer_type T>
 	[[nodiscard]]force_inline constexpr auto invsqrt(const T&v)noexcept{
 		return invsqrt(static_cast<float_type_of<T>>(v));
 	}
 	//sqrt
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept;
 	template<float_type T>
 	inline constexpr T sqrt_iteration(const T&num,const T&v)noexcept{
@@ -421,18 +421,18 @@ namespace math{
 		return (num+v/num)/2u;
 	}
 	template<float_type T>
-	inline constexpr T sqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
-		while(epsilon_saver>epsilon){
+	inline constexpr T sqrt_to_new_ε(T num,const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
+		while(ε_saver>ε){
 			auto next_ret=sqrt_iteration(num,v);
-			epsilon_saver=abs(next_ret-num);
+			ε_saver=abs(next_ret-num);
 			num=move(next_ret);
 		}
 		return num;
 	}
 	template<float_type T>
-	inline constexpr T sqrt_to_new_epsilon(T num,const T&v,const to_unsigned_t<T>&epsilon)noexcept{
-		auto epsilon_saver=to_unsigned_t<T>{num};
-		return sqrt_to_new_epsilon(num,v,epsilon,epsilon_saver);
+	inline constexpr T sqrt_to_new_ε(T num,const T&v,const to_unsigned_t<T>&ε)noexcept{
+		auto ε_saver=to_unsigned_t<T>{ε*BIT_POSSIBILITY};
+		return sqrt_to_new_ε(num,v,ε,ε_saver);
 	}
 	template<float_type T>
 	[[nodiscard]]inline constexpr T quick_sqrt(const T&v)noexcept{if constexpr(BIT_POSSIBILITY==2)// evil floating point bit level hacking
@@ -446,23 +446,23 @@ namespace math{
 		return v/2u;
 	}
 	template<float_type T>
-	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon,to_unsigned_t<T>&epsilon_saver)noexcept{
+	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return sqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon,epsilon_saver);
+		return sqrt_to_new_ε(quick_invsqrt(v),v,ε,ε_saver);
 	}
 	template<float_type T>
-	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&epsilon)noexcept{
+	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&ε)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return sqrt_to_new_epsilon(quick_invsqrt(v),v,epsilon);
+		return sqrt_to_new_ε(quick_invsqrt(v),v,ε);
 	}
 	//sqrt with one parameter
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept{
-		return sqrt(v,arithmetic_type_info_prover<T>::epsilon());
+		return sqrt(v,arithmetic_type_info_prover<T>::ε());
 	}
 	template<integer_type T>
 	[[nodiscard]]force_inline constexpr auto sqrt(const T&v)noexcept{
@@ -694,7 +694,7 @@ namespace math{
 	template<unsigned_integer_type number_T,number_T number>
 	struct prime_factorization_table_t{
 		typedef prime_factorization_table_t<number_T,number> this_t;
-		static constexpr size_t table_size=lambda{
+		static constexpr size_t table_size=λ{
 			number_T i=2,m=number;
 			size_t aret=0;
 			while(m!=1){
@@ -764,7 +764,7 @@ namespace math{
 	template<unsigned_integer_type number_T,number_T number>
 	struct unique_prime_factorization_table_t{
 		typedef unique_prime_factorization_table_t<number_T,number> this_t;
-		static constexpr size_t table_size=lambda{
+		static constexpr size_t table_size=λ{
 			number_T i=2,m=number;
 			size_t aret=0;
 			while(m!=1){
@@ -869,11 +869,11 @@ using math::pow;
 using math::ceil;
 using math::floor;
 using math::invsqrt_iteration;
-using math::invsqrt_to_new_epsilon;
+using math::invsqrt_to_new_ε;
 using math::quick_invsqrt;
 using math::invsqrt;
 using math::sqrt_iteration;
-using math::sqrt_to_new_epsilon;
+using math::sqrt_to_new_ε;
 using math::quick_sqrt;
 using math::sqrt;
 using math::trunc;
@@ -904,6 +904,8 @@ namespace bit{
 using namespace bit;//干净的符号导出！
 
 namespace math{
+	using ::std::move;
+
 	//求出最大公约数
 	template<integer_type T>
 	[[nodiscard]]inline auto gcd(T x, T y)noexcept{
@@ -921,7 +923,7 @@ namespace math{
 			x-=y;
 		}
 		// 返回 x 左移 shift 位的结果
-		return x << shift;
+		return move(x) << shift;
 	}
 }
 using math::gcd;
@@ -930,7 +932,7 @@ namespace magic_number{
 	using ::std::move;
 
 	template<unsigned_big_float_type T>
-	struct pi_with_epsilon_impl_t{
+	struct pi_with_ε_impl_t{
 	private:
 		typedef to_signed_t<T> float_t;
 		typedef to_unsigned_t<T> ufloat_t;
@@ -938,16 +940,17 @@ namespace magic_number{
 		typedef to_unsigned_t<int_t> uint_t;
 
 		float_t result{}, sum=magic_number::god;
-		ufloat_t epsilon;
+		ufloat_t ε;
 		uint_t k{}, _3k{}, _6k{}; bool sign = true;
 		uint_t _545140134k_p13591409 = 13591409u; // 545140134*k+13591409
 		uint_t _3k_factorial = 1u, _6k_factorial = 1u, k_factorial_pow_3 = 1u;
 		ufloat_t _640320 = 640320u;
-		ufloat_t sqrt_640320_epsilon_saver=_640320;
-		ufloat_t sqrt_640320 = sqrt(_640320,epsilon,sqrt_640320_epsilon_saver);//我们需要缓存这个与epsilon有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
+		ufloat_t sqrt_640320_ε_saver=_640320;
+		ufloat_t sqrt_640320 = sqrt(_640320,ε,sqrt_640320_ε_saver);//我们需要缓存这个与ε有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
 		ufloat_t _640320_pow_3kplus1p5 = sqrt_640320*640320u;//初始值1.5次方
 		const uint_t _545140134_ = 545140134u;
 		const uint_t _640320pow3 = pow(uint_t{640320u},3u);
+		size_t base_accurate = 0,sqrt_accuracy_multiplier = 1;//考虑到sqrt_iteration每次都会精度翻倍，而base_iteration每次只会精度增加14，所以我们可以通过追加这个值来省去一些不必要的sqrt迭代
 
 		constexpr void update_sqrt_640320(ufloat_t new_value)noexcept{
 			//首先 我们将result中的sqrt_640320去除.
@@ -962,7 +965,7 @@ namespace magic_number{
 			_640320_pow_3kplus1p5 *= magic_number;
 		}
 	public:
-		constexpr pi_with_epsilon_impl_t(ufloat_t the_epsilon = magic_number::god)noexcept: epsilon(move(the_epsilon)){}
+		constexpr pi_with_ε_impl_t(ufloat_t the_ε = magic_number::god)noexcept: ε(move(the_ε)){}
 		[[nodiscard]]constexpr T take_value()noexcept{
 			return abs(reciprocal(12*result));
 		}
@@ -986,7 +989,12 @@ namespace magic_number{
 			update_sqrt_640320(sqrt_iteration(sqrt_640320,_640320));
 		}
 		constexpr void do_iteration()noexcept{
-			do_base_iteration();do_sqrt_iteration();
+			do_base_iteration();
+			base_accurate += 14;
+			if(base_accurate >> sqrt_accuracy_multiplier){
+				do_sqrt_iteration();
+				sqrt_accuracy_multiplier++;
+			}
 		}
 		constexpr void clean_up()noexcept{
 			simplify(_640320_pow_3kplus1p5);
@@ -994,35 +1002,35 @@ namespace magic_number{
 			simplify(result);
 		}
 		[[nodiscard]]constexpr T operator()()noexcept{
-			while (abs(sum) > epsilon)
+			while (abs(sum) > ε)
 				do_base_iteration();
 			return take_value();
 		}
-		[[nodiscard]]constexpr T operator()(ufloat_t new_epsilon)noexcept{
-			if(new_epsilon < epsilon){
-				if(sqrt_640320_epsilon_saver>new_epsilon)//epsilon变小了，我们需要重新计算sqrt_640320
-					update_sqrt_640320(sqrt_to_new_epsilon(sqrt_640320,_640320,new_epsilon,sqrt_640320_epsilon_saver));
-				//更新epsilon.
-				epsilon = move(new_epsilon);
+		[[nodiscard]]constexpr T operator()(ufloat_t new_ε)noexcept{
+			if(new_ε < ε){
+				if(sqrt_640320_ε_saver>new_ε)//ε变小了，我们需要重新计算sqrt_640320
+					update_sqrt_640320(sqrt_to_new_ε(sqrt_640320,_640320,new_ε,sqrt_640320_ε_saver));
+				//更新ε.
+				ε = move(new_ε);
 			}
 			return operator()();
 		}
 	};
 	template<unsigned_float_type T>
-	distinctive inline pi_with_epsilon_impl_t<T> pi_with_epsilon_impl{};
-	distinctive inline constexpr struct pi_with_epsilon_t{
+	distinctive inline pi_with_ε_impl_t<T> pi_with_ε_impl{};
+	distinctive inline constexpr struct pi_with_ε_t{
 		template<unsigned_big_float_type T>
-		static auto&_impl = pi_with_epsilon_impl<to_unsigned_t<remove_cvref<T>>>;
+		static auto&_impl = pi_with_ε_impl<to_unsigned_t<remove_cvref<T>>>;
 		template<float_type T>
-		auto operator()(T&&epsilon)const noexcept{
+		auto operator()(T&&ε)const noexcept{
 			if constexpr(is_basic_float_type<T>)
 				return (T)magic_number::pi;//啊？
 			else
-				return _impl<T>(forward<T>(epsilon));
+				return _impl<T>(forward<T>(ε));
 		}
 		template<unsigned_big_float_type T>
 		struct for_type_t{
-			[[nodiscard]]auto operator()(T epsilon)const noexcept{return _impl<T>(forward<T>(epsilon));}
+			[[nodiscard]]auto operator()(T ε)const noexcept{return _impl<T>(forward<T>(ε));}
 			void do_base_iteration()const noexcept{_impl<T>.do_base_iteration();}
 			void do_sqrt_iteration()const noexcept{_impl<T>.do_sqrt_iteration();}
 			void do_iteration()const noexcept{_impl<T>.do_iteration();}
@@ -1031,16 +1039,16 @@ namespace magic_number{
 		};
 		template<unsigned_big_float_type T>
 		static constexpr auto for_type = for_type_t<T>{};//这个是为了让用户可以自己调用do_iteration等函数
-	}pi_with_epsilon{};
+	}pi_with_ε{};
 }
-using magic_number::pi_with_epsilon;
+using magic_number::pi_with_ε;
 
 namespace math{
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T sin(T num, const to_unsigned_t<T>&epsilon)noexcept{
+	[[nodiscard]]constexpr T sin(T num, const to_unsigned_t<T>&ε)noexcept{
 		size_t i = 1; bool negation = false; // 取反
 		T base = num, result = num, num_pow = pow(num); // 求num2的次方
-		while (abs(base) > epsilon) {
+		while (abs(base) > ε) {
 			base *= num_pow/((i+1)*(i+2)); // 求阶乘
 			negation = !negation; // 每次循环取反
 			result += reverse_sign_if(negation,base); // 求和
@@ -1048,20 +1056,20 @@ namespace math{
 		}
 		return result;
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T sin(T num)noexcept{
-		return sin(num, arithmetic_type_info_prover<T>::epsilon());
+		return sin(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<float_type T>
-	[[nodiscard]]constexpr T arctan(T num, const to_unsigned_t<T>&epsilon)noexcept{
+	[[nodiscard]]constexpr T arctan(T num, const to_unsigned_t<T>&ε)noexcept{
 		/*
 		arctan (-x) = -arctan(x)
 		arctan (1/x) = 0.5 * pi - arctan(x) [x > 0]
 		*/
 		if constexpr(signed_type<T>)
-			if (num < 0) return -arctan(abs(num), epsilon);
-		if (num > 1) return pi_with_epsilon(epsilon)/2u - arctan(reciprocal(move(num)), epsilon);
+			if (num < 0) return -arctan(abs(num), ε);
+		if (num > 1) return pi_with_ε(ε)/2u - arctan(reciprocal(move(num)), ε);
 
 		size_t i = 1; bool negation = false; // 取反
 		to_signed_t<T> result = num;
@@ -1072,102 +1080,102 @@ namespace math{
 			sum = numerator_base/i; // 单步计算结果
 			result += reverse_sign_if(negation,sum); // 求和
 			i += 2;
-		}while (abs(sum) > epsilon);
+		}while (abs(sum) > ε);
 		return (T)result;
 	}
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T arctan(T num)noexcept{
-		return arctan(num, arithmetic_type_info_prover<T>::epsilon());
+		return arctan(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T cos(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return sin(pi_with_epsilon(epsilon)/2u - num, epsilon);
+	[[nodiscard]]constexpr T cos(T num, const to_unsigned_t<T>&ε)noexcept{
+		return sin(pi_with_ε(ε)/2u - num, ε);
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T cos(T num)noexcept{
-		return cos(num, arithmetic_type_info_prover<T>::epsilon());
+		return cos(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T tan(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return sin(num, epsilon)/cos(num, epsilon);
+	[[nodiscard]]constexpr T tan(T num, const to_unsigned_t<T>&ε)noexcept{
+		return sin(num, ε)/cos(num, ε);
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T tan(T num)noexcept{
-		return tan(num, arithmetic_type_info_prover<T>::epsilon());
+		return tan(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T cot(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return cos(num, epsilon)/sin(num, epsilon);
+	[[nodiscard]]constexpr T cot(T num, const to_unsigned_t<T>&ε)noexcept{
+		return cos(num, ε)/sin(num, ε);
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T cot(T num)noexcept{
-		return cot(num, arithmetic_type_info_prover<T>::epsilon());
+		return cot(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T sec(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return reciprocal(cos(num, epsilon));
+	[[nodiscard]]constexpr T sec(T num, const to_unsigned_t<T>&ε)noexcept{
+		return reciprocal(cos(num, ε));
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T sec(T num)noexcept{
-		return sec(num, arithmetic_type_info_prover<T>::epsilon());
+		return sec(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T csc(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return reciprocal(sin(num, epsilon));
+	[[nodiscard]]constexpr T csc(T num, const to_unsigned_t<T>&ε)noexcept{
+		return reciprocal(sin(num, ε));
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T csc(T num)noexcept{
-		return csc(num, arithmetic_type_info_prover<T>::epsilon());
+		return csc(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr to_unsigned_t<T> arccos(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return to_unsigned_t<T>(pi_with_epsilon(epsilon)/2u - arctan(num, epsilon));
+	[[nodiscard]]constexpr to_unsigned_t<T> arccos(T num, const to_unsigned_t<T>&ε)noexcept{
+		return to_unsigned_t<T>(pi_with_ε(ε)/2u - arctan(num, ε));
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccos(T num)noexcept{
-		return arccos(num, arithmetic_type_info_prover<T>::epsilon());
+		return arccos(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<float_type T>
-	[[nodiscard]]constexpr T arcsin(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return arctan(num/reciprocal(sqrt(1-pow(num), epsilon)), epsilon);
+	[[nodiscard]]constexpr T arcsin(T num, const to_unsigned_t<T>&ε)noexcept{
+		return arctan(num/reciprocal(sqrt(1-pow(num), ε)), ε);
 	}
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T arcsin(T num)noexcept{
-		return arcsin(num, arithmetic_type_info_prover<T>::epsilon());
+		return arcsin(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr to_unsigned_t<T> arccot(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return to_unsigned_t<T>(pi_with_epsilon(epsilon)/2u - arctan(num, epsilon));
+	[[nodiscard]]constexpr to_unsigned_t<T> arccot(T num, const to_unsigned_t<T>&ε)noexcept{
+		return to_unsigned_t<T>(pi_with_ε(ε)/2u - arctan(num, ε));
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr to_unsigned_t<T> arccot(T num)noexcept{
-		return arccot(num, arithmetic_type_info_prover<T>::epsilon());
+		return arccot(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<signed_float_type T>
-	[[nodiscard]]constexpr T arcsec(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return arccos(reciprocal(num), epsilon);
+	[[nodiscard]]constexpr T arcsec(T num, const to_unsigned_t<T>&ε)noexcept{
+		return arccos(reciprocal(num), ε);
 	}
-	template<signed_float_type T> requires(has_epsilon<T>)
+	template<signed_float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T arcsec(T num)noexcept{
-		return arcsec(num, arithmetic_type_info_prover<T>::epsilon());
+		return arcsec(num, arithmetic_type_info_prover<T>::ε());
 	}
 
 	template<float_type T>
-	[[nodiscard]]constexpr T arccsc(T num, const to_unsigned_t<T>&epsilon)noexcept{
-		return arcsin(reciprocal(num), epsilon);
+	[[nodiscard]]constexpr T arccsc(T num, const to_unsigned_t<T>&ε)noexcept{
+		return arcsin(reciprocal(num), ε);
 	}
-	template<float_type T> requires(has_epsilon<T>)
+	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T arccsc(T num)noexcept{
-		return arccsc(num, arithmetic_type_info_prover<T>::epsilon());
+		return arccsc(num, arithmetic_type_info_prover<T>::ε());
 	}
 }
 using math::sin;

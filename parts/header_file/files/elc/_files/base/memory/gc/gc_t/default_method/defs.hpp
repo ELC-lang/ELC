@@ -66,7 +66,7 @@ namespace default_gc_for_type{
 				roots_of<T>.map_and_mark();
 			if constexpr(info.has_attribute(can_shrink) || (info.has_attribute(mark_able_for_gc)&&info.has_attribute(have_root)))
 				map_all<T>(
-					lambda(T*a)noexcept{
+					λ(T*a)noexcept{
 						if constexpr(info.has_attribute(can_shrink))
 							a->shrink();
 						if constexpr(info.has_attribute(mark_able_for_gc)&&info.has_attribute(have_root)){

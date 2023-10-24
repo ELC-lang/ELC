@@ -226,7 +226,7 @@ inline constexpr auto utf8_to_utf16(char16_t *out, const char8_t *in, size_t len
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char8_t, char16_t>(success, string_view_t<char8_t>(in_start, in - in_start), string_view_t<char16_t>(out_start, out - out_start));
 	};
 	while(in < end){
@@ -267,7 +267,7 @@ inline constexpr auto utf8_to_utf32(char32_t *out, const char8_t *in, size_t len
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char8_t, char32_t>(success, string_view_t<char8_t>(in_start, in - in_start), string_view_t<char32_t>(out_start, out - out_start));
 	};
 	while(in < end){
@@ -309,7 +309,7 @@ inline constexpr auto utf16_to_utf8(char8_t *out, const char16_t *in, size_t len
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char16_t, char8_t>(success, string_view_t<char16_t>(in_start, in - in_start), string_view_t<char8_t>(out_start, out - out_start));
 	};
 	while(in < end){
@@ -348,7 +348,7 @@ inline constexpr auto utf16_to_utf32(char32_t *out, const char16_t *in, size_t l
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char16_t, char32_t>(success, string_view_t<char16_t>(in_start, in - in_start), string_view_t<char32_t>(out_start, out - out_start));
 	};
 	while(in < end){
@@ -384,7 +384,7 @@ inline constexpr auto utf32_to_utf8(char8_t *out, const char32_t *in, size_t len
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char32_t, char8_t>(success, string_view_t<char32_t>(in_start, in - in_start), string_view_t<char8_t>(out_start, out - out_start));
 	};
 	while(in < end){
@@ -419,7 +419,7 @@ inline constexpr auto utf32_to_utf16(char16_t *out, const char32_t *in, size_t l
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char32_t, char16_t>(success, string_view_t<char32_t>(in_start, in - in_start), string_view_t<char16_t>(out_start, out - out_start));
 	};
 	while(in < end){
@@ -454,7 +454,7 @@ inline constexpr auto utf32_to_utf32(char32_t *out, const char32_t *in, size_t l
 	//for return
 	const auto out_start = out;
 	const auto in_start = in;
-	auto result_builder = exlambda(bool success)noexcept{
+	auto result_builder = exλ(bool success)noexcept{
 		return code_convert_result<char32_t, char32_t>(success, string_view_t<char32_t>(in_start, in - in_start), string_view_t<char32_t>(out_start, out - out_start));
 	};
 	while(in < end){

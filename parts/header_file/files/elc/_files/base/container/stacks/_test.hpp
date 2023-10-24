@@ -40,7 +40,7 @@ inline void test(){
 		a.remove(2);
 		stest_accert(a.size()==2);
 		int add_num=0;
-		a.for_each(lambda_with_catch(&add_num)(int a){add_num+=a;});
+		a.for_each(λ_with_catch(&add_num)(int a){add_num+=a;});
 		stest_accert(add_num==4);
 		auto_stack_t<int>b=a;
 		stest_accert(b.not_in_stack(2));

@@ -30,7 +30,7 @@
 */
 //warp for not_unreadable_istream to make it unreadable
 template<class stream_T> requires not_unreadable_istream_class<stream_T>
-struct unreadable_wrap:stream_T,instance_struct<unreadable_wrap<stream_T>>,virtual decltype(lambda{
+struct unreadable_wrap:stream_T,instance_struct<unreadable_wrap<stream_T>>,virtual decltype(λ{
 	if constexpr(noexcept_stream_class<stream_T>) {
 		if constexpr(data_stream_class<stream_T>)
 			return type_info<noexcept_data_istream_t>;

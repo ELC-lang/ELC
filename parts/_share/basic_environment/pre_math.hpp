@@ -67,7 +67,7 @@ namespace elc::defs{
 		typedef ::std::uintmax_t basic_uintmax_t;
 		typedef ::std::intmax_t basic_intmax_t;
 		//更新uintmax_t和intmax_t的代指
-		typedef decltype(lambda{
+		typedef decltype(λ{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
 			if constexpr(sizeof(basic_uintmax_t) < sizeof(uint128_t))
 				return uint128_t{};
@@ -75,7 +75,7 @@ namespace elc::defs{
 			#endif
 				return basic_uintmax_t{};
 		}()) uintmax_t;
-		typedef decltype(lambda{
+		typedef decltype(λ{
 			#if defined(ELC_BASE_ENV_HAS_INT128)
 			if constexpr(sizeof(basic_intmax_t) < sizeof(int128_t))
 				return int128_t{};

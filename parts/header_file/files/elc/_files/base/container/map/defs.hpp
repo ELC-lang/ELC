@@ -105,7 +105,7 @@ namespace map_n{
 		#define expr declvalue(func_t)(declvalue(T&))
 		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)noexcept_as(expr){
-			_m.for_each(lambda(data_t&a)noexcept_as(expr){
+			_m.for_each(λ(data_t&a)noexcept_as(expr){
 				func(a._value);
 			});
 		}
@@ -114,7 +114,7 @@ namespace map_n{
 		#define expr declvalue(func_t)(declvalue(const T&))
 		template<typename func_t> requires was_not_an_ill_form(expr)
 		void for_each(func_t&&func)const noexcept_as(expr){
-			_m.for_each(lambda(data_t&a)noexcept_as(expr){
+			_m.for_each(λ(data_t&a)noexcept_as(expr){
 				func(add_const<T&>(a._value));
 			});
 		}
@@ -122,7 +122,7 @@ namespace map_n{
 
 		static constexpr bool shrink_nothow=stack_t<data_t>::remove_nothrow;
 		void shrink()const noexcept(shrink_nothow){
-			_m.for_each_bucket(lambda(stack_t<data_t>&a)noexcept(shrink_nothow && equal.nothrow<T>){
+			_m.for_each_bucket(λ(stack_t<data_t>&a)noexcept(shrink_nothow && equal.nothrow<T>){
 				while(a.remove(data_t::seek_value_t(const_default_value_of<T>)));
 			});
 		}
@@ -135,7 +135,7 @@ namespace map_n{
 			if(size()!=a.size())
 				return 0;
 			try{
-				_m.for_each(lambda_with_catch(&a)(data_t&b){
+				_m.for_each(λ_with_catch(&a)(data_t&b){
 					if(a[b._key]!=b._value)
 						throw (this_t*)(nullptr);
 				});

@@ -248,7 +248,7 @@ public:
 	}
 	//调试用，返回一个可以输出到流的内部结构查看器
 	[[nodiscard]]auto get_data_viewer()const noexcept{
-		return lambda_with_catch(this)(auto&stream)noexcept->auto&{
+		return λ_with_catch(this)(auto&stream)noexcept->auto&{
 			for(auto& i: _data)
 				stream << i << U' ';
 			return stream;
@@ -632,7 +632,7 @@ private:
 	//除法实现
 	[[nodiscard]]static base_type div_with_base_no_optimisation(data_type&buf,base_type*a,data_view_type b)noexcept{
 		data_view_type tryto{a,b.size()+1};
-		const calc_type dividend=exlambda{
+		const calc_type dividend=exλ{
 			const base_type*p=tryto.rbegin();
 			auto tmp=calc_type(*p);tmp*=base_type_mod;tmp+=calc_type(p[-1]);
 			return tmp;

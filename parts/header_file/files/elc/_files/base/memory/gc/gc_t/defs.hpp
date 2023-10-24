@@ -49,7 +49,7 @@ public:
 	[[nodiscard]]inline bool success()const noexcept{
 		bool success=_gc_success_identifiers.empty();
 		_gc_success_identifiers.for_each(
-			lambda_with_catch(&success)(const success_identifier_t&a)noexcept{
+			λ_with_catch(&success)(const success_identifier_t&a)noexcept{
 				if(not success)
 					success=a();
 			}

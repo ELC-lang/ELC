@@ -124,15 +124,15 @@
 #undef was_not_an_ill_form_and_noexcept
 #undef was_not_an_ill_form_with_parameter
 
-#undef recursive_lambda
-#undef get_recursive_lambda_caller
-#undef lambda
-#undef exlambda
-#undef lambda_with_catch
+#undef recursive_λ
+#undef get_recursive_λ_caller
+#undef λ
+#undef exλ
+#undef λ_with_catch
 #undef self_recursion
-#undef lambda_RLSRRS
-#undef lambda_inline
-#undef lambda_force_inline
+#undef λ_RLSRRS
+#undef λ_inline
+#undef λ_force_inline
 
 #undef MAGIC
 

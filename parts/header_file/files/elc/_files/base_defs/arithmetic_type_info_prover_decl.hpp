@@ -220,9 +220,9 @@ namespace math{
 		template<typename T>
 		concept has_min_max=has_min<T> && has_max<T>;
 
-		/// 有epsilon的类型概念
+		/// 有ε的类型概念
 		template<typename T>
-		concept has_epsilon=arithmetic_type_info_prover<remove_cvref<T>>::has_epsilon;
+		concept has_ε=arithmetic_type_info_prover<remove_cvref<T>>::has_ε;
 	}
 }
 using math::to_unsigned_t;

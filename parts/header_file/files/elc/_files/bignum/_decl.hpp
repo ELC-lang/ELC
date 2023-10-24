@@ -64,7 +64,7 @@ namespace base::math{
 		//bool：是否有max
 		static constexpr bool has_max = false;
 		//bool：是否有默认极限值
-		static constexpr bool has_epsilon = false;
+		static constexpr bool has_ε = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
@@ -99,7 +99,7 @@ namespace base::math{
 		//bool：是否有max
 		static constexpr bool has_max = false;
 		//bool：是否有默认极限值
-		static constexpr bool has_epsilon = false;
+		static constexpr bool has_ε = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigint;
 		using signed_type = bigint;
@@ -132,7 +132,7 @@ namespace base::math{
 		//bool：是否有max
 		static constexpr bool has_max = false;
 		//bool：是否有默认极限值
-		static constexpr bool has_epsilon = false;
+		static constexpr bool has_ε = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;
@@ -167,7 +167,7 @@ namespace base::math{
 		//bool：是否有max
 		static constexpr bool has_max = false;
 		//bool：是否有默认极限值
-		static constexpr bool has_epsilon = false;
+		static constexpr bool has_ε = false;
 		//对应的无符号和有符号类型
 		using unsigned_type = ubigfloat;
 		using signed_type = bigfloat;

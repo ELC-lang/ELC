@@ -51,7 +51,7 @@ public:
 
 	void map_and_mark()noexcept_as(declvalue(value_t)->map_and_mark()){
 		_roots.for_each(
-			lambda(value_t&a)noexcept_as(a->map_and_mark())
+			λ(value_t&a)noexcept_as(a->map_and_mark())
 			{
 				a->map_and_mark();
 			}

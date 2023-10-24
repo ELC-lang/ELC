@@ -46,7 +46,7 @@ namespace elc::defs{
 
 		/*! 给定大小的无符号整数类型 */
 		template<size_t size>
-		using unsigned_specific_size_t=decltype(lambda{
+		using unsigned_specific_size_t=decltype(λ{
 			#define TYPE_MAPPER(type) if constexpr(size == sizeof(type))return (type)0;else
 			#include "./arithmetic_mapper/unsigned_mapper.hpp"
 			#undef TYPE_MAPPER
@@ -54,7 +54,7 @@ namespace elc::defs{
 		}());
 		/*! 至少有给定大小的快速无符号整数类型 */
 		template<size_t size>
-		using unsigned_specific_size_fast_t=decltype(lambda{
+		using unsigned_specific_size_fast_t=decltype(λ{
 			#define TYPE_MAPPER(type) if constexpr(size <= sizeof(type))return (type)0;else
 			#include "./arithmetic_mapper/unsigned_fast_mapper.hpp"
 			#undef TYPE_MAPPER
@@ -62,7 +62,7 @@ namespace elc::defs{
 		}());
 		/*! 给定大小的有符号整数类型 */
 		template<size_t size>
-		using signed_specific_size_t=decltype(lambda{
+		using signed_specific_size_t=decltype(λ{
 			#define TYPE_MAPPER(type) if constexpr(size == sizeof(type))return (type)0;else
 			#include "./arithmetic_mapper/signed_mapper.hpp"
 			#undef TYPE_MAPPER
@@ -70,7 +70,7 @@ namespace elc::defs{
 		}());
 		/*! 至少有给定大小的快速有符号整数类型 */
 		template<size_t size>
-		using signed_specific_size_fast_t=decltype(lambda{
+		using signed_specific_size_fast_t=decltype(λ{
 			#define TYPE_MAPPER(type) if constexpr(size <= sizeof(type))return (type)0;else
 			#include "./arithmetic_mapper/signed_fast_mapper.hpp"
 			#undef TYPE_MAPPER

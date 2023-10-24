@@ -60,30 +60,30 @@ struct invoke_t{
 		static constexpr bool nothrow= ::std::is_nothrow_invocable_r_v<Ret_t,T,Args...>;
 
 		/*!
-		A function that returns a lambda that applies a function to a value.
+		A function that returns a λ that applies a function to a value.
 
 		@param rest The arguments to the function.
 
-		@returns A lambda that applies the function to a value.
+		@returns A λ that applies the function to a value.
 		*/
 		template<class...Args> requires able<Args...>
 		decltype(auto)_as(Args&&...rest)const noexcept(nothrow<Args...>){//invoke<T>.with_return_type<Ret_t>._as(...)
-			return lambda_with_catch(rest...)(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
+			return λ_with_catch(rest...)(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
 		}
 	};
 	template<class Ret_t>
 	static constexpr with_return_type_t<Ret_t>with_return_type{};
 
 	/*!
-	A function that returns a lambda that applies a function to a value.
+	A function that returns a λ that applies a function to a value.
 
 	@param rest The arguments to the function.
 
-	@returns A lambda that applies the function to a value.
+	@returns A λ that applies the function to a value.
 	*/
 	template<class...Args> requires able<Args...>
 	decltype(auto)_as(Args&&...rest)const noexcept(nothrow<Args...>){//invoke<T>._as(...)
-		return lambda_with_catch(rest...)(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
+		return λ_with_catch(rest...)(const T&a)noexcept(nothrow<Args...>){return a(forward<Args>(rest)...);};
 	}
 };
 template<typename T>

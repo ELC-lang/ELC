@@ -614,11 +614,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 4611686018427387904
-      Lambda = Poisson mean =      54.2101
+      λ = Poisson mean =      54.2101
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    5421.01
+Total expected number = N*λ      :    5421.01
 Total observed number                 :    5310
 p-value of test                       :    0.93
 
@@ -643,11 +643,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 9223372036854775808
-      Lambda = Poisson mean =     216.8404
+      λ = Poisson mean =     216.8404
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    4336.81
+Total expected number = N*λ      :    4336.81
 Total observed number                 :    4396
 p-value of test                       :    0.19
 
@@ -672,11 +672,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 18446744073709551616
-      Lambda = Poisson mean =     365.9182
+      λ = Poisson mean =     365.9182
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    7318.36
+Total expected number = N*λ      :    7318.36
 Total observed number                 :    7263
 p-value of test                       :    0.74
 
@@ -701,11 +701,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 9223372036854775808
-      Lambda = Poisson mean =     216.8404
+      λ = Poisson mean =     216.8404
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    4336.81
+Total expected number = N*λ      :    4336.81
 Total observed number                 :    4302
 p-value of test                       :    0.70
 
@@ -730,11 +730,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 9223372036854775808
-      Lambda = Poisson mean =     216.8404
+      λ = Poisson mean =     216.8404
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    4336.81
+Total expected number = N*λ      :    4336.81
 Total observed number                 :    4416
 p-value of test                       :    0.12
 
@@ -759,11 +759,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 18446744073709551616
-      Lambda = Poisson mean =     365.9182
+      λ = Poisson mean =     365.9182
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    7318.36
+Total expected number = N*λ      :    7318.36
 Total observed number                 :    7400
 p-value of test                       :    0.17
 
@@ -788,11 +788,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 18446744073709551616
-      Lambda = Poisson mean =     365.9182
+      λ = Poisson mean =     365.9182
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    7318.36
+Total expected number = N*λ      :    7318.36
 Total observed number                 :    7272
 p-value of test                       :    0.70
 
@@ -817,11 +817,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 18446744073709551616
-      Lambda = Poisson mean =     365.9182
+      λ = Poisson mean =     365.9182
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    7318.36
+Total expected number = N*λ      :    7318.36
 Total observed number                 :    7328
 p-value of test                       :    0.46
 
@@ -846,11 +846,11 @@ smarsa_BirthdaySpacings test:
 
 
       Number of cells = d^t = 18446744073709551616
-      Lambda = Poisson mean =     365.9182
+      λ = Poisson mean =     365.9182
 
 
 ----------------------------------------------------
-Total expected number = N*Lambda      :    7318.36
+Total expected number = N*λ      :    7318.36
 Total observed number                 :    7366
 p-value of test                       :    0.29
 

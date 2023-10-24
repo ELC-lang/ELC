@@ -110,14 +110,14 @@ namespace math{
 		}
 	public:
 		//bool：是否有默认极限值
-		static constexpr bool has_epsilon=is_arithmetic_type;
+		static constexpr bool has_ε=is_arithmetic_type;
 	public:
-		static constexpr auto epsilon()noexcept requires(has_epsilon){
+		static constexpr auto ε()noexcept requires(has_ε){
 			return ::std::numeric_limits<T>::epsilon();
 		}
 	public:
 		//对应的无符号和有符号类型
-		using unsigned_type=decltype(lambda{
+		using unsigned_type=decltype(λ{
 			if constexpr(type_info<T> == type_info<bool>)
 				return T();
 			elseif constexpr(is_float_type)//基础浮点类型没有对应的无符号
@@ -125,7 +125,7 @@ namespace math{
 			elseif constexpr(is_integer_type)//考虑到charX_t，所有整数类型都应该过一遍make_unsigned_t
 				return::std::make_unsigned_t<T>();
 		}());
-		using signed_type=decltype(lambda{
+		using signed_type=decltype(λ{
 			if constexpr(type_info<T> == type_info<bool>)
 				return T();
 			elseif constexpr(is_float_type)
@@ -134,14 +134,14 @@ namespace math{
 				return::std::make_signed_t<T>();
 		}());
 		//对应的浮点数类型
-		using float_type=decltype(lambda{
+		using float_type=decltype(λ{
 			if constexpr(is_float_type)
 				return T();
 			elseif constexpr(is_integer_type)
 				return .0;
 		}());
 		//对应的整数类型
-		using integer_type=decltype(lambda{
+		using integer_type=decltype(λ{
 			if constexpr(is_integer_type)
 				return T();
 			elseif constexpr(is_float_type)

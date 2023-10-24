@@ -39,7 +39,7 @@ namespace function_n{
 			#else
 				function_t<void()noexcept>
 			#endif
-			a(lambda_with_catch (&tester)()noexcept{ tester=1; });
+			a(λ_with_catch (&tester)()noexcept{ tester=1; });
 			static_assert(type_info<decltype(a)> == type_info<function_t<void()noexcept>>);
 			stest_accert(tester==0);
 			a();

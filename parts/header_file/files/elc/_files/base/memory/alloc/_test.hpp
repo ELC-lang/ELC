@@ -32,7 +32,7 @@
 Checks for memory leaks.
 */
 inline void check_memory_lack()noexcept{
-	stest_mapeventlogwith(lambda(const void*p,steventlist*a)noexcept{
+	stest_mapeventlogwith(λ(const void*p,steventlist*a)noexcept{
 		stest_putsf(L"内存泄露于%p,分配自:",p);
 		stest_printeventlist(stdout,stest_copyeventlist(a));
 		//alloc_n::base_free(remove_const(p));

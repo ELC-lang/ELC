@@ -51,9 +51,11 @@
 		namespace elc::defs{
 			template<class T>
 			constexpr auto&the_type_info=type_info<T>;
-			template<float_type T>requires(has_epsilon<T>)
+			template<float_type T>requires(has_ε<T>)
 			[[nodiscard]]force_inline constexpr T the_sqrt(const T&v){return sqrt(v);}
 			template<integer_type T>[[nodiscard]]force_inline constexpr auto the_sqrt(const T&v){return sqrt(v);}
+			template<float_type T>[[nodiscard]]inline constexpr T the_sqrt(const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{return sqrt(v,ε,ε_saver);}
+			template<float_type T>[[nodiscard]]inline constexpr T the_sqrt(const T&v,const to_unsigned_t<T>&ε)noexcept{return sqrt(v,ε);}
 		}
 		namespace elc{
 			using defs::the_type_info;
