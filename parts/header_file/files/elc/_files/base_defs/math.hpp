@@ -442,7 +442,7 @@ namespace math{
 					return quick_sqrt(static_cast<long double>(v));
 				else{
 					using namespace basic_environment::float_infos;
-					return union_cast<T>((union_cast<data_type<T>>(v)>>1) + (data_type<T>(exponent_diff<T>) << (precision_base_bit<T> - 1)));
+					return union_cast<T>((union_cast<const data_type<T>>(v)>>1) + (data_type<T>(exponent_diff<T>) << (precision_base_bit<T> - 1)));
 				}
 		return v/2u;
 		//return reciprocal(quick_invsqrt(v));
@@ -452,14 +452,14 @@ namespace math{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return sqrt_to_new_ε(quick_invsqrt(v),v,ε,ε_saver);
+		return sqrt_to_new_ε(quick_sqrt(v),v,ε,ε_saver);
 	}
 	template<float_type T>
 	[[nodiscard]]inline constexpr T sqrt(const T&v,const to_unsigned_t<T>&ε)noexcept{
 		if constexpr(has_NaN<T> && has_inf<T>)
 			if(v < 0u || v >= arithmetic_type_info_prover<T>::Inf())
 				return arithmetic_type_info_prover<T>::NaN();
-		return sqrt_to_new_ε(quick_invsqrt(v),v,ε);
+		return sqrt_to_new_ε(quick_sqrt(v),v,ε);
 	}
 	//sqrt with one parameter
 	template<float_type T> requires(has_ε<T>)
@@ -960,9 +960,9 @@ namespace magic_number{
 			return abs(reciprocal(12u*result/sqrt_640320));
 		}
 		constexpr void do_base_iteration()noexcept{
-			sum = copy_as_negative(
+			sum = copy_as_negative(ufloat_t
 				(				_545140134k_p13591409 * _6k_factorial				)
-				/ //= 	--------------------------------------------------------
+				/ //= --------------------------------------------------------
 				(		_3k_factorial*k_factorial_pow_3 * _640320_pow_3kplus1		)
 			,sign);
 			++k;
