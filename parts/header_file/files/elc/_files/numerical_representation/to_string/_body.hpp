@@ -157,9 +157,10 @@ namespace to_string_n{
 				aret.pre_alloc_before_begin(info_threshold);
 			}
 			if constexpr(is_big_type<T>){
-				//大整数类型可以通过分治法来提高效率
-				constexpr auto partition_method_threshold=max(type_info<size_t>);
-				if(num > partition_method_threshold){
+				if(num.is_safe_convert_to<size_t>())
+					return to_string(num.convert_to<size_t>());
+				else{
+					//大整数类型可以通过分治法来提高效率
 					T base{radix};
 					size_t len=1;//余数部分要补的前导0个数
 					//计算分割点
@@ -168,11 +169,9 @@ namespace to_string_n{
 						base *= base;
 					}
 					//算出分割后的高位和低位
-					auto [high,low] = divmod(num, base);
+					auto [high,low] = divmod(move(num),move(base));
 					return to_string(move(high)) + to_string(move(low)).pad_left(_repres.get_char(0), len);
 				}
-				else
-					return to_string(num.convert_to<size_t>());
 			}
 			else{
 				push_and_disable_msvc_warning(4244);

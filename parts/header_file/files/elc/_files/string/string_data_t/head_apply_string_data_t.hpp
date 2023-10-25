@@ -75,20 +75,11 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		while(type_info<this_t> == typeid(*_to) && _to->is_unique()){
 			//合并重复的head_apply_string_data_t以防树状结构过深
 			const auto p=down_cast<this_t*>(_to.get());
-			const auto p_size=p->_used_size;
-			const auto p_begin=(const char_T*)(p->_m.end())-p_size;
-			const auto this_begin=_m.end()-_used_size;
-			const auto pos=_m.size()-_used_size;
-			if(pos>=p_size)
-				copy_assign[p_size](note::from<const char_T*>(p_begin),note::to<char_T*>(this_begin-p_size));
-			else{
-				const auto size_now=this->get_size();
-				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_forward_resize(pos,p_size,p_begin,size_new);
-			}
+			discard=p->apply_str_to_begin(string_view_t{(char_T*)_m.end()-_used_size,_used_size});
+			_used_size=p->_used_size;
 			_to_size=p->_to_size;
-			_used_size+=p_size;
-			_to=p->_to;
+			_m=move(p->_m);
+			_to=move(p->_to);
 		}
 	}
 	void self_changed()noexcept{
