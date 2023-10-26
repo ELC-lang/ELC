@@ -94,7 +94,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 			_used_size=p->_used_size;
 			_to_size=p->_to_size;
 			_m=move(p->_m);
-			_to=p->_to;//不要使用移动语义：智能指针的移动语义基于swap，会导致p->_to自我指向，进而导致内存泄漏
+			_to=p->_to;//不要使用移动语义：智能指针的移动语义基于swap，会导致p->_to指向p，进而导致内存泄漏
 		}
 	}
 	void self_changed()noexcept{
