@@ -714,6 +714,7 @@ namespace to_string_n{
 	constexpr struct to_string_t{
 		template<arithmetic_type T,numerical_representation Repres>
 		[[nodiscard]]string operator()(T&&val,const Repres&repres)const noexcept{
+			ELC_TEST_EVENTNAME("to_string");
 			const string_convert_impl<Repres> impl{repres};
 			return impl.to_string(forward<T>(val));
 		}
@@ -737,6 +738,7 @@ namespace to_string_n{
 		**/
 		template<fraction_float_type T,numerical_representation Repres>
 		[[nodiscard]]string fractional(T&&val,const Repres&repres)const noexcept{
+			ELC_TEST_EVENTNAME("to_string.fractional");
 			const string_convert_impl<Repres> impl{repres};
 			return impl.to_string_fractional(forward<T>(val));
 		}
@@ -751,6 +753,7 @@ namespace to_string_n{
 		typedef convert_state_t state_t;
 		template<numerical_representation Repres>
 		[[nodiscard]]T operator()(const string&str,const Repres&repres,convert_state_t&state)const noexcept{
+			ELC_TEST_EVENTNAME("from_string_get");
 			const string_convert_impl<Repres> impl{repres};
 			return impl.from_string_get<T>(str,state);
 		}
@@ -768,6 +771,7 @@ namespace to_string_n{
 		//单个字符
 		template<numerical_representation Repres>
 		[[nodiscard]]T operator()(const char_t&ch,const Repres&repres,convert_state_t&state)const noexcept{
+			ELC_TEST_EVENTNAME("from_string_get");
 			const string_convert_impl<Repres> impl{repres};
 			return impl.from_string_get<T>(ch,state);
 		}
