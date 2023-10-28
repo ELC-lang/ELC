@@ -917,6 +917,25 @@ public:
 		else
 			return fast_divmod_base(a_view,b_view);
 	}
+	//left_shift_in_base_type
+	template<integer_type T>
+	[[nodiscard]]ubigint left_shift_in_base_type(T n)const&noexcept{
+		if constexpr(signed_type<T>){
+			if(is_negative(n))return right_shift_in_base_type(abs(n));
+			else return left_shift_in_base_type(abs(n));
+		}
+		else{
+			if(!*this)return ubigint{};
+			const auto oldsize=_data.size();
+			const auto newsize_diff=to_size_t(n);
+			const auto newsize=oldsize+newsize_diff;
+			data_type aret{note::size(newsize)};
+			if(newsize_diff)
+				copy_assign[newsize_diff](note::to(aret.data()),base_type{0});
+			copy_assign[oldsize](aret.data()+newsize_diff,_data.data());
+			return ubigint{move(aret)};
+		}
+	}
 	//operator<<
 	template<integer_type T>
 	[[nodiscard]]ubigint operator<<(T n)const&noexcept{
@@ -949,6 +968,24 @@ public:
 			}
 			else
 				copy_assign[oldsize](aret.data()+newsize_diff,_data.data());
+			return ubigint{move(aret)};
+		}
+	}
+	//right_shift_in_base_type
+	template<integer_type T>
+	[[nodiscard]]ubigint right_shift_in_base_type(T n)const&noexcept{
+		if constexpr(signed_type<T>){
+			if(is_negative(n))return left_shift_in_base_type(abs(n));
+			else return right_shift_in_base_type(abs(n));
+		}
+		else{
+			if(!*this)return ubigint{};
+			const auto oldsize=_data.size();
+			const auto newsize_diff=to_size_t(n);
+			const auto newsize=oldsize-newsize_diff;
+			if(newsize_diff>=oldsize)return ubigint{};
+			data_type aret{note::size(newsize)};
+			copy_assign[newsize](aret.data(),_data.data()+newsize_diff);
 			return ubigint{move(aret)};
 		}
 	}

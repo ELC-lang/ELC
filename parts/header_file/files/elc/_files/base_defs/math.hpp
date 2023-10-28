@@ -940,7 +940,7 @@ namespace math{
 		size_t m=exλ{
 			size_t m1=x.size_in_base_type(),m2=y.size_in_base_type();
 			if(m1>m2)
-				x = x>>((m1-m2)*bitnum_of(T::base_type));
+				x = x.right_shift_in_base_type(m1-m2);
 			//else if(m1<m2)：不可能，因为x≥y
 			return m2;
 		}();
@@ -949,7 +949,7 @@ namespace math{
 		do{
 			while(x && y) {//外循环
 				--m;//提高精度
-				T a = x >> (m * bitnum_of(T::base_type)), b = y >> (m * bitnum_of(T::base_type));//取最显著数位
+				T a = x.right_shift_in_base_type(m), b = y.right_shift_in_base_type(m);//取最显著数位
 				/*初始化矩阵[A B a]为扩展的同一矩阵[1 0 a]
 						  [C D b]			   [0 1 b]
 				*/
