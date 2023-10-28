@@ -936,9 +936,16 @@ namespace math{
 				return euclidean_gcd(abs(x), abs(y));
 		while(y){
 			if(x < y)swap(x, y);
-			x%=y;
+			x = swap(y, x%y);
 		}
 		return x;
+	}
+	template<integer_type T>
+	[[nodiscard]]inline auto base_gcd(T x, T y)noexcept{
+		if constexpr(BIT_POSSIBILITY==2)
+			return binary_gcd(move(x), move(y));
+		else
+			return euclidean_gcd(move(x), move(y));
 	}
 	template<unsigned_big_integer_type T>
 	[[nodiscard]]inline auto lehmer_gcd(T x, T y)noexcept{
@@ -946,7 +953,7 @@ namespace math{
 		if(x < y)swap(x, y);
 
 		size_t m=y.size_in_base_type();
-		if(m <= 1)return euclidean_gcd(x, y);//如果y只包含一位数（或根本没有），则使用其他方法求出结果
+		if(m <= 1)return base_gcd(move(x), move(y));//如果y只包含一位数（或根本没有），则使用其他方法求出结果
 		T A, B, C, D;
 	outer_loop:
 		while(x && y) {//外循环
@@ -993,8 +1000,14 @@ namespace math{
 	
 	template<integer_type T>
 	[[nodiscard]]inline auto gcd(T x, T y)noexcept{
-		if constexpr(BIT_POSSIBILITY==2)
+		if constexpr(BIT_POSSIBILITY==2){
+			if constexpr(is_big_type<T>){
+				constexpr size_t lehmer_threshold = 1<<8;
+				if(max(x.size_in_base_type(),y.size_in_base_type()) >= lehmer_threshold)
+					return lehmer_gcd(move(x), move(y));
+			}
 			return binary_gcd(move(x), move(y));
+		}
 		else
 			return lehmer_gcd(move(x), move(y));
 	}
