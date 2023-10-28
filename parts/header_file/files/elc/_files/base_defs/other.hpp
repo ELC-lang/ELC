@@ -64,6 +64,34 @@ constexpr struct do_nothing_t{
 	constexpr bool operator==(T&)noexcept{return false;}
 }do_nothing;
 
+//swap
+template<typename T1,typename T2>
+inline constexpr_as_auto void swap(T1&a,T2&b)noexcept_as_auto{
+	using ::std::move;
+	auto tmp=move(b);
+	b=move(a);
+	a=move(tmp);
+}
+/*
+如何不用中间变量swap两个值？
+方法一：
+a=a+b
+b=a-b
+a=a-b
+方法二：
+a^=b^=a^=b
+道理我都懂，可是还是用中间变量快些
+XD
+更多方法欢迎补充
+*/
+template<typename T1,typename T2>
+inline constexpr_as_auto [[nodiscard]]T1 swap(T1&a,const T2&b)noexcept_as_auto{
+	using ::std::move;
+	T1 tmp=move(a);
+	a=b;
+	return tmp;
+}
+
 template<typename T>
 struct times_provider_t{
 	typedef times_provider_t<T> this_t;

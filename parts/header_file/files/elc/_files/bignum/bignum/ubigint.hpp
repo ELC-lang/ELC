@@ -246,14 +246,6 @@ public:
 			return other==0?strong_ordering::equivalent:strong_ordering::less;
 		}
 	}
-	//调试用，返回一个可以输出到流的内部结构查看器
-	[[nodiscard]]auto get_data_viewer()const noexcept{
-		return λ_with_catch(this)(auto&stream)noexcept->auto&{
-			for(auto& i: _data)
-				stream << i << U' ';
-			return stream;
-		};
-	}
 private:
 	//operator+-*/%s
 	typedef unsigned_specific_size_fast_t<2*sizeof(base_type)> calc_type;
@@ -632,10 +624,9 @@ private:
 	//除法实现
 	[[nodiscard]]static base_type div_with_base_no_optimisation(data_type&buf,base_type*a,data_view_type b)noexcept{
 		data_view_type tryto{a,b.size()+1};
-		const calc_type dividend=exλ{
+		const auto dividend=(calc_type)exλ{
 			const base_type*p=tryto.rbegin();
-			auto tmp=calc_type(*p);tmp*=base_type_mod;tmp+=calc_type(p[-1]);
-			return tmp;
+			return calc_type(*p)*base_type_mod+calc_type(p[-1]);
 		}();
 		const calc_type divisor=calc_type(b.back());
 		calc_type left=dividend/(divisor+1);
@@ -1200,6 +1191,25 @@ public:
 	[[nodiscard]]force_inline size_t memory_usage()const noexcept{
 		return _data.size_in_byte();
 	}
+	//size_in_byte
+	[[nodiscard]]force_inline size_t size_in_byte()const noexcept{
+		return _data.size_in_byte();
+	}
+	//size_in_base_type
+	[[nodiscard]]force_inline size_t size_in_base_type()const noexcept{
+		return _data.size();
+	}
+	//fast_size_method
+	[[nodiscard]]force_inline size_t fast_size_method()const noexcept{
+		return _data.size();
+	}
+	//row_data
+	[[nodiscard]]force_inline data_type& row_data()noexcept{
+		return _data;
+	}
+	[[nodiscard]]force_inline const data_type& row_data()const noexcept{
+		return _data;
+	}
 	//friend base_type_num
 	[[nodiscard]]friend force_inline size_t base_type_num(const ubigint& x)noexcept{
 		return x._data.size();
@@ -1215,6 +1225,14 @@ public:
 	//hash
 	[[nodiscard]]force_inline hash_t hash()const noexcept{
 		return hash_n::hash(_data);
+	}
+	//swap_with
+	force_inline void swap_with(ubigint& other)noexcept{
+		swap(_data,other._data);
+	}
+	//friend swap
+	friend force_inline void swap(ubigint& a,ubigint& b)noexcept{
+		a.swap_with(b);
 	}
 };
 

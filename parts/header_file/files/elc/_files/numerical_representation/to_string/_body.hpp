@@ -164,7 +164,7 @@ namespace to_string_n{
 					T base{radix};
 					size_t len=1;//余数部分要补的前导0个数
 					//计算分割点
-					while(base.memory_usage()*3 < num.memory_usage()){
+					while(base.fast_size_method()*3 < num.fast_size_method()){
 						len *= 2;
 						base *= base;
 					}

@@ -910,7 +910,7 @@ namespace math{
 
 	//求出最大公约数
 	template<integer_type T>
-	[[nodiscard]]inline auto gcd(T x, T y)noexcept{
+	[[nodiscard]]inline auto base_gcd(T x, T y)noexcept{
 		size_t shift = 0;
 		while(y){
 			//都是偶数时，shift++并位移
@@ -926,6 +926,65 @@ namespace math{
 		}
 		// 返回 x 左移 shift 位的结果
 		return move(x) << shift;
+	}
+	//求出最大公约数
+	template<unsigned_big_integer_type T>
+	[[nodiscard]]inline auto gcd(T x, T y)noexcept{
+		//假设x≥y
+		if(x < y)swap(x, y);
+		//如果y只包含一位数，则使用其他方法求出结果
+		if (y.size_in_base_type() == 1)
+			return base_gcd(x, y);
+
+		//如果x和y的数位长度不同，使x和y的长度相等于m
+		size_t m=exλ{
+			size_t m1=x.size_in_base_type(),m2=y.size_in_base_type();
+			if(m1>m2)
+				x = x>>((m1-m2)*bitnum_of(T::base_type));
+			//else if(m1<m2)：不可能，因为x≥y
+			return m2;
+		}();
+
+		T A, B, C, D;
+		do{
+			while(x && y) {//外循环
+				--m;//提高精度
+				T a = x >> (m * bitnum_of(T::base_type)), b = y >> (m * bitnum_of(T::base_type));//取最显著数位
+				/*初始化矩阵[A B a]为扩展的同一矩阵[1 0 a]
+						  [C D b]			   [0 1 b]
+				*/
+				A = 1u, B = T{}, C = T{}, D = 1u;
+				//对(a+A,b+C)和(a+B,b+D)同时执行欧几里得算法，直到商不同为止
+				do{
+					const auto w1 = (a+A) / (b+C);
+					const auto w2 = (a+B) / (b+D);
+					if(w1 != w2)break;
+					const auto& w = w1;//w为欧几里得算法长除法链中当前长除法的商
+					/*根据扩展欧几里得算法的矩阵表述替换当前矩阵[A B a]到矩阵积[0  1]	[A B a]   [C	D	 a	 ]
+														 [C D b]			  ⋅			=
+																	   [1 −w]	[C D b]   [A−wC B−wD a−wb]
+					*/
+					A-=w*C;swap(A,C);
+					B-=w*D;swap(B,D);
+					a-=w*b;swap(a,b);
+				}while(B);//B≠0则继续
+				//B=0意味着陷入了死锁；执行欧几里得算法的正常步骤，然后重新开始外循环
+				x = swap(y, x%y);
+			}
+			//将对压缩形式的前数位执行的欧几里得算法步骤应用到x和y上
+			auto new_x = A*x+B*y, new_y = C*x+D*y;
+			x = move(new_x),y = move(new_y);
+		}while(y);//如果y≠0，则转到外循环的起点。
+		return x;
+	}
+	template<basic_integer_type T>
+	[[nodiscard]]force_inline auto gcd(T x, T y)noexcept{
+		return base_gcd(x, y);
+	}
+	template<signed_big_integer_type T>
+	[[nodiscard]]force_inline auto gcd(T x, T y)noexcept{
+		const bool sign = is_negative(x) && is_negative(y);
+		return copy_as_negative(gcd(abs(x), abs(y)), sign);
 	}
 }
 using math::gcd;

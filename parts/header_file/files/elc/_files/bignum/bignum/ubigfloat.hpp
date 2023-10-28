@@ -498,6 +498,15 @@ public:
 	[[nodiscard]]force_inline hash_t hash()const noexcept{
 		return hash_t{hash_n::hash(_numerator)._value*13+hash_n::hash(_denominator)._value};
 	}
+	//swap_with
+	void swap_with(ubigfloat& other)noexcept{
+		swap(_numerator,other._numerator);
+		swap(_denominator,other._denominator);
+	}
+	//friend swap
+	friend force_inline void swap(ubigfloat& a,ubigfloat& b)noexcept{
+		a.swap_with(b);
+	}
 };
 
 template<typename T>

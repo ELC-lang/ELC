@@ -145,11 +145,8 @@ public:
 	constexpr auto&operator<<=(size_t n)noexcept{
 		const auto [move_step,offset]=divmod(n,bitnum_of(byte));
 		byte carry{};
-		for(size_t i=data_size-move_step-1;i!=npos;--i){
-			const auto tmp=_data[i];
-			_data[i]=byte((tmp<<offset)|carry);
-			carry=tmp>>(bitnum_of(byte)-offset);
-		}
+		for(size_t i=data_size-move_step-1;i!=npos;--i)
+			carry=swap(_data[i],byte((_data[i]<<offset)|carry))>>(bitnum_of(byte)-offset);
 		for(size_t i=0;i<move_step;++i)
 			_data[i]=byte{};
 		return*this;
@@ -157,11 +154,8 @@ public:
 	constexpr auto&operator>>=(size_t n)noexcept{
 		const auto [move_step,offset]=divmod(n,bitnum_of(byte));
 		byte carry{};
-		for(size_t i=move_step;i!=data_size;++i){
-			const auto tmp=_data[i];
-			_data[i]=byte((tmp>>offset)|carry);
-			carry=tmp<<(bitnum_of(byte)-offset);
-		}
+		for(size_t i=move_step;i!=data_size;++i)
+			carry=swap(_data[i],byte((_data[i]>>offset)|carry))<<(bitnum_of(byte)-offset);
 		for(size_t i=data_size-move_step;i!=data_size;++i)
 			_data[i]=byte{};
 		return*this;

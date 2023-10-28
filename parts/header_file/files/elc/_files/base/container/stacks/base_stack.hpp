@@ -164,9 +164,7 @@ public:
 	}
 	void move_top_to(this_t&a)noexcept{
 		_size--;
-		auto tmp=_m;
-		_m=_m->_next;
-		a.add(tmp);
+		a.add(swap(_m,add_const(_m->_next)));
 	}
 };
 

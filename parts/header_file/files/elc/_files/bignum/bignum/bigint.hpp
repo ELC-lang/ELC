@@ -351,6 +351,15 @@ public:
 		const auto tmp = hash_n::hash(_num)._value;
 		return hash_t{_is_negative?tmp*7u:tmp};
 	}
+	//swap_with
+	void swap_with(bigint& other)noexcept{
+		swap(_is_negative,other._is_negative);
+		swap(_num,other._num);
+	}
+	//friend swap
+	friend force_inline void swap(bigint& a,bigint& b)noexcept{
+		a.swap_with(b);
+	}
 };
 
 [[nodiscard]]inline bigint operator-(const ubigint& num)noexcept{
