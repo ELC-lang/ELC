@@ -45,13 +45,12 @@ public:
 	ubigfloat(T num)noexcept{
 		if(isNaN(num))return;
 		//将一个浮点类型无损的转换为两个bigint相除
+		if(isInf(num)){
+			_numerator = 1u;
+			_denominator = zero;
+			return;
+		}
 		if(is_negative(num))num = -num;
-		if constexpr(has_inf<T>)
-			if(num == arithmetic_type_info_prover<T>::Inf()){
-				_numerator = 1u;
-				_denominator = zero;
-				return;
-			}
 		const auto info=get_precision_and_exponent(num);
 		if(info.exponent<0){//小数，有猜测价值
 			//优先进行猜测以处理近似的简单分数
@@ -227,8 +226,8 @@ public:
 	[[nodiscard]]friend constexpr bool isNaN(const ubigfloat&)noexcept{
 		return false;
 	}
-	//friend isinf
-	[[nodiscard]]friend bool isinf(const ubigfloat&a)noexcept{
+	//friend isInf
+	[[nodiscard]]friend bool isInf(const ubigfloat&a)noexcept{
 		return!a._denominator;
 	}
 	//friend trunc
@@ -463,7 +462,7 @@ public:
 		_denominator/=g;
 	}
 	//friend simplify
-	friend decltype(auto) simplify(ubigfloat& a)noexcept{
+	friend auto& simplify(ubigfloat& a)noexcept{
 		a.simplify();
 		return a;
 	}

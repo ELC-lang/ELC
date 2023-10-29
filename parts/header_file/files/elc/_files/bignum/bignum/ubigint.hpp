@@ -1029,10 +1029,10 @@ public:
 		return*this;
 	}
 	template<unsigned_basic_integer_type T>
-	[[nodiscard]]ubigint& operator+(T&&other)&&noexcept{
+	[[nodiscard]]ubigint&& operator+(T&&other)&&noexcept{
 		//using add_to_base to avoid new alloc
 		add_to_base(_data,other);
-		return*this;
+		return move(*this);
 	}
 	//operator-=
 	ubigint& operator-=(const ubigint& other)&noexcept{

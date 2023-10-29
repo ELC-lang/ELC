@@ -124,9 +124,9 @@ namespace base::math{
 		//bool：是否是有符号类型
 		static constexpr bool is_signed = true;
 		//bool：是否有NaN
-		static constexpr bool has_NaN = true;
+		static constexpr bool has_NaN = false;
 		//bool：是否有inf
-		static constexpr bool has_inf = false;
+		static constexpr bool has_inf = true;
 		//bool：是否有min
 		static constexpr bool has_min = false;
 		//bool：是否有max
@@ -157,9 +157,9 @@ namespace base::math{
 		//bool：是否是有符号类型
 		static constexpr bool is_signed = false;
 		//bool：是否有NaN
-		static constexpr bool has_NaN = true;
+		static constexpr bool has_NaN = false;
 		//bool：是否有inf
-		static constexpr bool has_inf = false;
+		static constexpr bool has_inf = true;
 		//bool：是否有min
 		static constexpr bool has_min = true;
 		//min

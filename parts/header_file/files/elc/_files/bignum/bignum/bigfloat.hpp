@@ -108,6 +108,14 @@ public:
 	[[nodiscard]]friend ubigfloat&& abs(bigfloat&& a)noexcept{
 		return move(a._num);
 	}
+	//friend isNaN
+	[[nodiscard]]friend constexpr bool isNaN(const bigfloat&)noexcept{
+		return false;
+	}
+	//friend isInf
+	[[nodiscard]]friend bool isInf(const bigfloat&a)noexcept{
+		return isInf(a._num);
+	}
 	//friend is_negative
 	[[nodiscard]]friend bool is_negative(const bigfloat& a)noexcept{
 		return a._is_negative;
@@ -173,11 +181,11 @@ public:
 	}
 	//operator+
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat operator+(const T&other)const&noexcept{
+	[[nodiscard]]bigfloat operator+(T&&other)const&noexcept{
 		if(_is_negative==is_negative(other))
-			return bigfloat{_num+abs(other), _is_negative};
+			return bigfloat{_num+abs(forward<T>(other)), _is_negative};
 		else{
-			auto uother=abs(other);
+			auto uother=abs(forward<T>(other));
 			if(_num>uother)
 				return bigfloat{_num-move(uother), _is_negative};
 			else
@@ -186,11 +194,11 @@ public:
 	}
 	//operator-
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat operator-(const T&other)const&noexcept{
+	[[nodiscard]]bigfloat operator-(T&&other)const&noexcept{
 		if(_is_negative!=is_negative(other))
-			return bigfloat{_num+abs(other), _is_negative};
+			return bigfloat{_num+abs(forward<T>(other)), _is_negative};
 		else{
-			auto uother=abs(other);
+			auto uother=abs(forward<T>(other));
 			if(_num>uother)
 				return bigfloat{_num-move(uother), _is_negative};
 			else
@@ -199,30 +207,30 @@ public:
 	}
 	//operator*
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat operator*(const T&other)const&noexcept{
+	[[nodiscard]]bigfloat operator*(T&&other)const&noexcept{
 		const bool sign=_is_negative!=is_negative(other);
-		return bigfloat{_num*abs(other), sign};
+		return bigfloat{_num*abs(forward<T>(other)), sign};
 	}
 	//operator/
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat operator/(const T&other)const&noexcept{
+	[[nodiscard]]bigfloat operator/(T&&other)const&noexcept{
 		const bool sign=_is_negative!=is_negative(other);
-		return bigfloat{_num/abs(other), sign};
+		return bigfloat{_num/abs(forward<T>(other)), sign};
 	}
 	//operator+=
 	template<unsigned_type T>
-	bigfloat& operator+=(const T& other)&noexcept{
-		_num+=other;
+	bigfloat& operator+=(T&&other)&noexcept{
+		_num+=forward<T>(other);
 		return*this;
 	}
 	template<arithmetic_type T>
-	bigfloat& operator+=(const T&other)&noexcept{
+	bigfloat& operator+=(T&&other)&noexcept{
 		if(_is_negative==is_negative(other)){
-			_num+=abs(other);
+			_num+=abs(forward<T>(other));
 			return*this;
 		}
 		else{
-			auto uother=abs(other);
+			auto uother=abs(forward<T>(other));
 			if(_num>uother){
 				_num-=move(uother);
 				return*this;
@@ -236,9 +244,9 @@ public:
 	}
 	//operator-=
 	template<arithmetic_type T>
-	bigfloat& operator-=(const T&other)&noexcept{
+	bigfloat& operator-=(T&&other)&noexcept{
 		if(_is_negative==is_negative(other)){
-			auto uother=abs(other);
+			auto uother=abs(forward<T>(other));
 			if(_num>uother){
 				_num-=move(uother);
 				return*this;
@@ -250,67 +258,67 @@ public:
 			}
 		}
 		else{
-			_num+=abs(other);
+			_num+=abs(forward<T>(other));
 			return*this;
 		}
 	}
 	//operator*=
 	template<unsigned_type T>
-	bigfloat& operator*=(const T& other)&noexcept{
-		_num*=other;
+	bigfloat& operator*=(T&&other)&noexcept{
+		_num*=forward<T>(other);
 		return*this;
 	}
 	template<arithmetic_type T>
-	bigfloat& operator*=(const T&other)&noexcept{
+	bigfloat& operator*=(T&&other)&noexcept{
 		_is_negative=_is_negative!=is_negative(other);
-		_num*=abs(other);
+		_num*=abs(forward<T>(other));
 		return*this;
 	}
 	//operator/=
 	template<unsigned_type T>
-	bigfloat& operator/=(const T& other)&noexcept{
-		_num/=other;
+	bigfloat& operator/=(T&&other)&noexcept{
+		_num/=forward<T>(other);
 		return*this;
 	}
 	template<arithmetic_type T>
-	bigfloat& operator/=(const T&other)&noexcept{
+	bigfloat& operator/=(T&&other)&noexcept{
 		_is_negative=_is_negative!=is_negative(other);
-		_num/=abs(other);
+		_num/=abs(forward<T>(other));
 		return*this;
 	}
 	//operator==
 	template<arithmetic_type T>
-	[[nodiscard]]bool operator==(const T& other)const noexcept{
+	[[nodiscard]]bool operator==(T&&other)const noexcept{
 		if(_is_negative!=is_negative(other))return false;
-		return _num==abs(other);
+		return _num==abs(forward<T>(other));
 	}
 	//operator<=>
 	template<arithmetic_type T>
-	[[nodiscard]]auto operator<=>(const T& other)const noexcept{
+	[[nodiscard]]auto operator<=>(T&&other)const noexcept{
 		if(_is_negative!=is_negative(other))
 			return _is_negative?strong_ordering::less:strong_ordering::greater;
 		const bool needs_reverse=_is_negative;
-		auto result=_num <=> abs(other);
+		auto result=_num <=> abs(forward<T>(other));
 		if(needs_reverse)
 			result=compare.reverse(result);
 		return result;
 	}
 	//operatorX for rvalue
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat&& operator+(const T& other)&&noexcept{
-		return move(*this += other);
+	[[nodiscard]]bigfloat&& operator+(T&&other)&&noexcept{
+		return move(*this += forward<T>(other));
 	}
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat&& operator-(const T&other)&&noexcept{
-		return move(*this -= other);
+	[[nodiscard]]bigfloat&& operator-(T&&other)&&noexcept{
+		return move(*this -= forward<T>(other));
 	}
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat&& operator*(const T&other)&&noexcept{
-		return move(*this *= other);
+	[[nodiscard]]bigfloat&& operator*(T&&other)&&noexcept{
+		return move(*this *= forward<T>(other));
 	}
 	template<arithmetic_type T>
-	[[nodiscard]]bigfloat&& operator/(const T&other)&&noexcept{
-		return move(*this /= other);
+	[[nodiscard]]bigfloat&& operator/(T&&other)&&noexcept{
+		return move(*this /= forward<T>(other));
 	}
 	//operator!
 	[[nodiscard]]bool operator!()const noexcept{
