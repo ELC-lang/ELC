@@ -38,17 +38,17 @@
 #define ELC_TEST_CHECK_MEMORY_LACK
 #include <elc/core>
 #include <elc/string>
-#include <elc/lib_loader>
-#include <elc/void_name>
+//#include <elc/lib_loader>
 //#include <elc/namespace>
+
+#include <elc/code_realm>
+#include <elc/void_name>
 
 #if defined(_MSC_VER)
 	#define delete [[gsl::suppress(i.11,r.11)]]delete
 #endif
 
-void ste::stst(){
-	using namespace elc;
-	using namespace elc::defs;
+::void ste::stst(){
 	using namespace elc::defs::core;
 	using elc::void;
 	{

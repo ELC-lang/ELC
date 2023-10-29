@@ -39,6 +39,8 @@
 #define ELC_TEST_CHECK_MEMORY_LACK
 #include <elc/core>
 #include <elc/string>
-#include <elc/lib_loader>
-#include <elc/void_name>
+//#include <elc/lib_loader>
 //#include <elc/namespace>
+
+#include <elc/code_realm>
+#include <elc/void_name>
