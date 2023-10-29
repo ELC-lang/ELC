@@ -968,11 +968,7 @@ namespace math{
 				const auto w = (a+A) / (b+C);//w为欧几里得算法长除法链中当前长除法的商
 				{
 					const auto w2 = (a+B) / (b+D);
-					if(w != w2)
-						if(!B){//B=0意味着陷入了死锁；执行欧几里得算法的正常步骤，然后重新开始外循环
-							x = swap(y, x%y);
-							goto outer_loop;
-						}else break;
+					if(w != w2)break;
 				}
 				/*根据扩展欧几里得算法的矩阵表述替换当前矩阵[A B a]到矩阵积[0  1]	[A B a]   [C	D	 a	 ]
 													 [C D b]			  ⋅			=
@@ -982,6 +978,10 @@ namespace math{
 				B-=w*D;swap(B,D);
 				a-=w*b;swap(a,b);
 			}while(B);//B≠0则继续
+			if(!B){//B=0意味着陷入了死锁；执行欧几里得算法的正常步骤，然后重新开始外循环
+				x = swap(y, x%y);
+				goto outer_loop;
+			}
 			//将对压缩形式的前数位执行的欧几里得算法步骤应用到x和y上
 			auto new_x = A*x+B*y, new_y = C*x+D*y;
 			x = move(new_x),y = move(new_y);
@@ -1027,21 +1027,25 @@ namespace magic_number{
 
 		float_t result{}, sum=magic_number::god;
 		ufloat_t ε;
-		uint_t k{}, _3k{}, _6k{}; bool sign = true;
+		/*论证6k、3k、k不需要用大数：
+		6k的迭代次数是max(type_info<size_t>) / 6
+		考虑每次迭代π的有效位数增加14位（10进制下），那么即使在64bit的古董计算机下6k溢出时π可以达到的有效位数大约是4.3042403e+19个（十进制位）
+		这远远超过了一般的计算机算力和大多数的精度要求，所以我们可以放心地使用size_t而不是uint_t来存储6k的值，更不用说3k和k了
+		*/
+		size_t k{}, _3k{}, _6k{}; bool sign = true;
 		uint_t _545140134k_p13591409 = 13591409u; // 545140134*k+13591409
 		uint_t _3k_factorial = 1u, _6k_factorial = 1u, k_factorial_pow_3 = 1u;
-		ufloat_t _640320 = 640320u;
+		inline static const ufloat_t _640320 = 640320u;
 		ufloat_t sqrt_640320_ε_saver=ε*BIT_POSSIBILITY;
 		ufloat_t sqrt_640320 = sqrt(_640320,ε,sqrt_640320_ε_saver);//我们需要缓存这个与ε有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
 		uint_t _640320_pow_3kplus1 = 640320u;//初始值1次方
-		const uint_t _545140134_ = 545140134u;
-		const uint_t _640320pow3 = pow(uint_t{640320u},3u);
+		static constexpr auto _640320pow3 = 262537412640768000u;
 		size_t base_accurate = 0,sqrt_accuracy_multiplier = 1;//考虑到sqrt_iteration每次都会精度翻倍，而base_iteration每次只会精度增加14，所以我们可以通过追加这个值来省去一些不必要的sqrt迭代
 
 	public:
 		constexpr π_with_ε_impl_t(ufloat_t the_ε = magic_number::god)noexcept: ε(move(the_ε)){}
 		[[nodiscard]]constexpr T take_value()noexcept{
-			return abs(reciprocal(12u*result/sqrt_640320));
+			return reciprocal(12u*abs(result)/sqrt_640320);
 		}
 		constexpr void do_base_iteration()noexcept{
 			sum = copy_as_negative(ufloat_t
@@ -1052,8 +1056,8 @@ namespace magic_number{
 			++k;
 			for times(3) _3k_factorial *= ++_3k;
 			for times(6) _6k_factorial *= ++_6k;
-			k_factorial_pow_3 *= pow(k,3u);
-			_545140134k_p13591409 += _545140134_;
+			k_factorial_pow_3 *= pow<uint_t>(k,3u);
+			_545140134k_p13591409 += 545140134u;
 			_640320_pow_3kplus1 *= _640320pow3;
 			sign = !sign;
 
