@@ -40,7 +40,7 @@ namespace iterator_n{
 		constexpr reverse_base_t(const this_t&a)noexcept(construct<base_t_rw>.nothrow<const base_t_rw&>):_m(a._m){}
 		constexpr reverse_base_t(this_t&&a)noexcept(construct<base_t_rw>.nothrow<base_t_rw&&>):_m(move(a._m)){}
 		constexpr this_t& operator=(const this_t&a)&noexcept{_m=a._m;return*this;}
-		constexpr this_t& operator=(const this_t&&a)&noexcept{_m=move(a._m);return*this;}
+		constexpr this_t& operator=(this_t&&a)&noexcept{_m=move(a._m);return*this;}
 		constexpr auto operator==(const this_t&a)const noexcept{return _m==a._m;}
 		constexpr auto operator<=>(const this_t&a)const noexcept{return _m<=>a._m;}
 

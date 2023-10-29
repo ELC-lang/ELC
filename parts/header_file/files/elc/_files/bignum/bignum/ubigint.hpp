@@ -753,9 +753,9 @@ private:
 	[[nodiscard]]static auto fast_div_regularisation(data_view_type a,data_view_type b)noexcept{
 		constexpr auto max_calc_type=min(max(type_info<calc_type>),base_type_mod*base_type_mod-1);
 		const auto first2=(b.back()*base_type_mod+*(b.rbegin()+1)+1);
-		const ubigint muti=max_calc_type/first2;
-		const ubigint a_after_reg{fast_muti_base(a,muti)};
-		const ubigint b_after_reg{fast_muti_base(b,muti)};
+		ubigint muti=max_calc_type/first2;
+		ubigint a_after_reg{fast_muti_base(a,muti)};
+		ubigint b_after_reg{fast_muti_base(b,muti)};
 		struct result_t{
 			ubigint a_after_reg;
 			ubigint b_after_reg;

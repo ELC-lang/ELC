@@ -561,6 +561,11 @@ namespace lifetime_n{
 
 		//特殊使用
 		template<class T>
+		[[nodiscard,deprecated("moveing a const object is meaningless")]]
+		constexpr const T&& operator()(const T&a)const noexcept{
+			return static_cast<const T&&>(a);
+		}
+		template<class T>
 		[[nodiscard]]constexpr remove_ref<T>&& operator()(T&&a)const noexcept{
 			return static_cast<remove_ref<T>&&>(a);
 		}

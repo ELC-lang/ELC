@@ -185,7 +185,10 @@ public:
 		return ubigfloat{numerator,denominator};
 	}
 	//friend abs
-	[[nodiscard]]friend ubigfloat abs(const ubigfloat& a)noexcept{
+	[[nodiscard]]friend const ubigfloat& abs(const ubigfloat& a)noexcept{
+		return a;
+	}
+	[[nodiscard]]friend ubigfloat abs(ubigfloat& a)noexcept{
 		return a;
 	}
 	[[nodiscard]]friend ubigfloat&& abs(ubigfloat&& a)noexcept{
@@ -245,16 +248,16 @@ public:
 	};
 	typedef split_result_t_base<> split_result_t;
 	[[nodiscard]]friend auto split(const ubigfloat& a)noexcept{
-		const auto result=divmod(a._numerator,a._denominator);
+		auto result=divmod(a._numerator,a._denominator);
 		return split_result_t{move(result.quot),ubigfloat{move(result.mod),a._denominator}};
 	}
 	[[nodiscard]]friend auto split(ubigfloat&& a)noexcept{
-		const auto result=divmod(move(a._numerator),a._denominator);
+		auto result=divmod(move(a._numerator),a._denominator);
 		return split_result_t{move(result.quot),ubigfloat{move(result.mod),move(a._denominator)}};
 	}
 	//friend trunc_with_sub
 	[[nodiscard]]friend ubigint trunc_with_sub(ubigfloat& a)noexcept{
-		const auto result=divmod(move(a._numerator),a._denominator);
+		auto result=divmod(move(a._numerator),a._denominator);
 		a._numerator=move(result.mod);
 		return result.quot;
 	}

@@ -102,7 +102,10 @@ public:
 		return move(*this);
 	}
 	//friend abs
-	[[nodiscard]]friend ubigfloat abs(const bigfloat& a)noexcept{
+	[[nodiscard]]friend const ubigfloat& abs(const bigfloat& a)noexcept{
+		return a._num;
+	}
+	[[nodiscard]]friend ubigfloat abs(bigfloat& a)noexcept{
 		return a._num;
 	}
 	[[nodiscard]]friend ubigfloat&& abs(bigfloat&& a)noexcept{
