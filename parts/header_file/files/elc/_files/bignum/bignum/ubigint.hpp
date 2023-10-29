@@ -490,17 +490,11 @@ private:
 		size_t i=0;
 		calc_type num=0;
 		while(i!=a.size()){
-			num+=calc_type(a[i])*calc_type(b);
-			*buf = base_type(num%base_type_mod);
+			num+=calc_type(a[i++])*calc_type(b);
+			*buf++ = base_type(num%base_type_mod);
 			num/=base_type_mod;
-
-			i++;
-			buf++;
 		}
-		if(num)
-			*buf = base_type(num);
-		else
-			*buf = base_type{0};
+		*buf = base_type(num);
 	}
 	static void muti_with_base(base_type*buf,data_view_type a,base_type b)noexcept{
 		if(!b){
