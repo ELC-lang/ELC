@@ -363,13 +363,13 @@ namespace math{
 	//invsqrt
 	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T invsqrt(const T&v)noexcept;
-	template<float_type T>
-	inline constexpr T invsqrt_iteration(const T&num,const T&v)noexcept{
+	template<float_type T,arithmetic_type U=T>
+	inline constexpr T invsqrt_iteration(const T&num,const U&v)noexcept{
 		//newton-raphson
 		return num*(3u-v*num*num)/2u;
 	}
-	template<float_type T>
-	inline constexpr T invsqrt_to_new_ε(T num,const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
+	template<float_type T,arithmetic_type U=T>
+	inline constexpr T invsqrt_to_new_ε(T num,const U&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
 		while(ε_saver>ε){
 			auto next_ret=invsqrt_iteration(num,v);
 			ε_saver=abs(next_ret-num);
@@ -415,13 +415,13 @@ namespace math{
 	//sqrt
 	template<float_type T> requires(has_ε<T>)
 	[[nodiscard]]force_inline constexpr T sqrt(const T&v)noexcept;
-	template<float_type T>
-	inline constexpr T sqrt_iteration(const T&num,const T&v)noexcept{
+	template<float_type T,arithmetic_type U=T>
+	inline constexpr T sqrt_iteration(const T&num,const U&v)noexcept{
 		//newton-raphson
 		return (num+v/num)/2u;
 	}
-	template<float_type T>
-	inline constexpr T sqrt_to_new_ε(T num,const T&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
+	template<float_type T,arithmetic_type U=T>
+	inline constexpr T sqrt_to_new_ε(T num,const U&v,const to_unsigned_t<T>&ε,to_unsigned_t<T>&ε_saver)noexcept{
 		while(ε_saver>ε){
 			auto next_ret=sqrt_iteration(num,v);
 			ε_saver=abs(next_ret-num);
@@ -429,8 +429,8 @@ namespace math{
 		}
 		return num;
 	}
-	template<float_type T>
-	inline constexpr T sqrt_to_new_ε(T num,const T&v,const to_unsigned_t<T>&ε)noexcept{
+	template<float_type T,arithmetic_type U=T>
+	inline constexpr T sqrt_to_new_ε(T num,const U&v,const to_unsigned_t<T>&ε)noexcept{
 		auto ε_saver=to_unsigned_t<T>{ε*BIT_POSSIBILITY};
 		return sqrt_to_new_ε(num,v,ε,ε_saver);
 	}
@@ -1025,8 +1025,8 @@ namespace magic_number{
 		typedef integer_type_of<T> int_t;
 		typedef to_unsigned_t<int_t> uint_t;
 
-		float_t result{}, sum=magic_number::god;
-		ufloat_t ε;
+		ufloat_t ε=reciprocal(ufloat_t{30u});
+		float_t result{}, sum=ε;
 		/*论证6k、3k、k不需要用大数：
 		6k的迭代次数是max(type_info<size_t>) / 6
 		考虑每次迭代π的有效位数增加14位（10进制下），那么即使在64bit的古董计算机下6k溢出时π可以达到的有效位数大约是4.3042403e+19个（十进制位）
@@ -1035,17 +1035,16 @@ namespace magic_number{
 		size_t k{}, _3k{}, _6k{}; bool sign = true;
 		uint_t _545140134k_p13591409 = 13591409u; // 545140134*k+13591409
 		uint_t _3k_factorial = 1u, _6k_factorial = 1u, k_factorial_pow_3 = 1u;
-		inline static const ufloat_t _640320 = 640320u;
-		ufloat_t sqrt_640320_ε_saver=ε*BIT_POSSIBILITY;
-		ufloat_t sqrt_640320 = sqrt(_640320,ε,sqrt_640320_ε_saver);//我们需要缓存这个与ε有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
+		ufloat_t sqrt_640320_ε_saver=reciprocal(ufloat_t{5u});
+		ufloat_t sqrt_640320 = 800u;//我们需要缓存这个与ε有关的值 以便在下一次更高精度的迭代中对缓存的值进行利用
 		uint_t _640320_pow_3kplus1 = 640320u;//初始值1次方
 		static constexpr auto _640320pow3 = 262537412640768000u;
-		size_t base_accurate = 0,sqrt_accuracy_multiplier = 1;//考虑到sqrt_iteration每次都会精度翻倍，而base_iteration每次只会精度增加14，所以我们可以通过追加这个值来省去一些不必要的sqrt迭代
+		size_t base_accurate = 0,sqrt_accuracy_multiplier = 3;//考虑到sqrt_iteration每次都会精度翻倍，而base_iteration每次只会精度增加14，所以我们可以通过追加这个值来省去一些不必要的sqrt迭代
 
 	public:
-		constexpr π_with_ε_impl_t(ufloat_t the_ε = magic_number::god)noexcept: ε(move(the_ε)){}
+		constexpr π_with_ε_impl_t()noexcept{}
 		[[nodiscard]]constexpr T take_value()noexcept{
-			return reciprocal(12u*abs(result)/sqrt_640320);
+			return reciprocal(12u*abs(base_accurate?result:21u)/sqrt_640320);
 		}
 		constexpr void do_base_iteration()noexcept{
 			sum = copy_as_negative(ufloat_t
@@ -1053,69 +1052,57 @@ namespace magic_number{
 				/ //= --------------------------------------------------------
 				(		_3k_factorial*k_factorial_pow_3 * _640320_pow_3kplus1		)
 			,sign);
-			++k;
 			for times(3) _3k_factorial *= ++_3k;
 			for times(6) _6k_factorial *= ++_6k;
-			k_factorial_pow_3 *= pow<uint_t>(k,3u);
+			k_factorial_pow_3 *= pow<uint_t>(++k,3u);
 			_545140134k_p13591409 += 545140134u;
 			_640320_pow_3kplus1 *= _640320pow3;
 			sign = !sign;
 
 			result += sum;
+			base_accurate += 14;
 		}
 		constexpr void do_sqrt_iteration()noexcept{
-			sqrt_640320=sqrt_iteration(sqrt_640320,_640320);
+			sqrt_640320=sqrt_iteration(sqrt_640320,640320u);
+			sqrt_accuracy_multiplier++;
 		}
 		constexpr void do_iteration()noexcept{
 			do_base_iteration();
-			base_accurate += 14;
-			if(base_accurate >> sqrt_accuracy_multiplier){
+			if(base_accurate && (base_accurate-8) >> sqrt_accuracy_multiplier)
 				do_sqrt_iteration();
-				sqrt_accuracy_multiplier++;
-			}
 		}
 		constexpr void clean_up()noexcept{
 			simplify(sqrt_640320);
 			simplify(result);
 		}
 		[[nodiscard]]constexpr T operator()()noexcept{
-			while (abs(sum) > ε)
-				do_base_iteration();
+			if(!base_accurate)do_base_iteration();
 			return take_value();
 		}
 		[[nodiscard]]constexpr T operator()(ufloat_t new_ε)noexcept{
 			if(new_ε < ε){
 				if(sqrt_640320_ε_saver>new_ε)//ε变小了，我们需要重新计算sqrt_640320
-					sqrt_640320=sqrt_to_new_ε(sqrt_640320,_640320,new_ε,sqrt_640320_ε_saver);
+					sqrt_640320=sqrt_to_new_ε(sqrt_640320,640320u,new_ε,sqrt_640320_ε_saver);
 				//更新ε.
 				ε = move(new_ε);
+				while (abs(sum) > ε)
+					do_base_iteration();
 			}
-			return operator()();
+			return take_value();
 		}
 	};
-	template<unsigned_float_type T>
-	distinctive inline π_with_ε_impl_t<T> π_with_ε_impl{};
+	template<arithmetic_type T>
+	using π_type = to_unsigned_t<float_type_of<remove_cvref<T>>>;
 	distinctive inline constexpr struct π_with_ε_t{
 		template<unsigned_big_float_type T>
-		static auto&_impl = π_with_ε_impl<to_unsigned_t<remove_cvref<T>>>;
+		static inline π_with_ε_impl_t<T> for_type{};
 		template<float_type T>
 		auto operator()(T&&ε)const noexcept{
 			if constexpr(is_basic_float_type<T>)
-				return (T)magic_number::π;//啊？
+				return (T)π;//啊？
 			else
-				return _impl<T>(forward<T>(ε));
+				return for_type<T>(forward<T>(ε));
 		}
-		template<unsigned_big_float_type T>
-		struct for_type_t{
-			[[nodiscard]]auto operator()(T ε)const noexcept{return _impl<T>(forward<T>(ε));}
-			void do_base_iteration()const noexcept{_impl<T>.do_base_iteration();}
-			void do_sqrt_iteration()const noexcept{_impl<T>.do_sqrt_iteration();}
-			void do_iteration()const noexcept{_impl<T>.do_iteration();}
-			[[nodiscard]]auto take_value()const noexcept{return _impl<T>.take_value();}
-			void clean_up()const noexcept{_impl<T>.clean_up();}
-		};
-		template<unsigned_big_float_type T>
-		static constexpr auto for_type = for_type_t<T>{};//这个是为了让用户可以自己调用do_iteration等函数
 	}π_with_ε{};
 }
 using magic_number::π_with_ε;

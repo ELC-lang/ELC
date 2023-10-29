@@ -336,7 +336,7 @@ public:
 		_num.simplify();
 	}
 	//friend simplify
-	friend decltype(auto) simplify(bigfloat& a)noexcept{
+	friend auto& simplify(bigfloat& a)noexcept{
 		a.simplify();
 		return a;
 	}

@@ -75,7 +75,7 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 		while(type_info<this_t> == typeid(*_to) && _to->is_unique()){
 			//合并重复的head_apply_string_data_t以防树状结构过深
 			const auto p=down_cast<this_t*>(_to.get());
-			discard=p->apply_str_to_begin(string_view_t{(char_T*)_m.end()-_used_size,_used_size});
+			discard=p->apply_str_to_begin(string_view_t{_m.cend()-_used_size,_used_size});
 			_used_size=p->_used_size;
 			_to_size=p->_to_size;
 			_m=move(p->_m);
