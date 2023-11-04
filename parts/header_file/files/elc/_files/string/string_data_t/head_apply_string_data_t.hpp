@@ -126,15 +126,15 @@ struct head_apply_string_data_t final:base_string_data_t<char_T>,instance_struct
 			if(pos<_used_size){
 				const auto pos_base=_m.size()-_used_size;
 				if(pos_base>=str.size()){
-					char_T* orogin_head_begin=_m.end()-_used_size;
-					char_T* head_begin=orogin_head_begin-str.size();
-					copy_assign[pos](note::from<const char_T*>(orogin_head_begin),note::to<char_T*>(head_begin));
+					char_T* origin_head_begin=_m.end()-_used_size;
+					char_T* head_begin=origin_head_begin-str.size();
+					copy_assign[pos](note::from<const char_T*>(origin_head_begin),note::to<char_T*>(head_begin));
 					copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(head_begin+pos));
 				}
 				else{
 					const auto size_now=this->get_size()+str.size();
 					const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-					_m.insert_with_forward_resize(pos_base+pos,str.size(),str.begin(),size_new);
+					_m.part_used_insert_with_forward_resize(pos_base+pos,str.size(),str.begin(),size_new,_used_size);
 				}
 				_used_size+=str.size();
 			}else{
@@ -191,11 +191,11 @@ public:
 		if(this->is_unique()){
 			const auto pos=_m.size()-_used_size;
 			if(pos>=str.size())
-				copy_assign[str.size()](note::from<const char_T*>(str.begin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
+				copy_assign[str.size()](note::from<const char_T*>(str.cbegin()),note::to<char_T*>(_m.end()-_used_size-str.size()));
 			else{
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_forward_resize(pos,str.size(),str.begin(),size_new);
+				_m.part_used_insert_with_forward_resize(pos,str.size(),str.begin(),size_new,_used_size);
 			}
 			_used_size+=str.size();
 			self_changed();

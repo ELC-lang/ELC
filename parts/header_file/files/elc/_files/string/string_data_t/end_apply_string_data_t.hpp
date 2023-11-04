@@ -151,7 +151,7 @@ struct end_apply_string_data_t final:base_string_data_t<char_T>,instance_struct<
 				else{
 					const auto size_now=this->get_size()+str.size();
 					const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-					_m.insert_with_resize(pos,str.size(),str.begin(),size_new);
+					_m.part_used_insert_with_resize(pos,str.size(),str.begin(),size_new,_used_size);
 				}
 				_used_size+=str.size();
 			}
@@ -204,7 +204,7 @@ public:
 			else{
 				const auto size_now=this->get_size()+str.size();
 				const auto size_new=get_next_gold_size_to_resize_for_array(size_now);
-				_m.insert_with_resize(_used_size,str.size(),str.begin(),size_new);
+				_m.part_used_insert_with_resize(_used_size,str.size(),str.begin(),size_new,_used_size);
 			}
 			_used_size+=str.size();
 			self_changed();

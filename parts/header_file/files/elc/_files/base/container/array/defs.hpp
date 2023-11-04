@@ -126,9 +126,15 @@ namespace array_n{
 		void insert_with_resize(size_t index,size_t count,const T*data,size_t new_size)noexcept(insert_nothrow){
 			get_resize.insert_with_resize(_m,index,count,data,new_size);
 		}
+		void part_used_insert_with_resize(size_t index,size_t count,const T*data,size_t new_size,size_t used_size)noexcept(insert_nothrow){
+			get_resize.insert_with_resize.with_used_size[used_size](_m,index,count,data,new_size);
+		}
 		static constexpr bool insert_with_forward_resize_nothrow = get_forward_resize.insert_with_resize.nothrow<T>;
 		void insert_with_forward_resize(size_t index,size_t count,const T*data,size_t new_size)noexcept(insert_with_forward_resize_nothrow){
 			get_forward_resize.insert_with_resize(_m,index,count,data,new_size);
+		}
+		void part_used_insert_with_forward_resize(size_t index,size_t count,const T*data,size_t new_size,size_t used_size)noexcept(insert_with_forward_resize_nothrow){
+			get_forward_resize.insert_with_resize.with_used_size[used_size](_m,index,count,data,new_size);
 		}
 		[[nodiscard]]bool empty()const noexcept{
 			return _m==null_ptr;
