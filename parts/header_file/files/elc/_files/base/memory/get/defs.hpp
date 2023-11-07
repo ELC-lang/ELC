@@ -38,9 +38,11 @@ namespace abstract_base_n{
 	用法：is_common_attribute
 	*/
 	common_attribute_t abstract_base;
+	common_attribute_t instance_struct;
 }
 namespace get_n{
 	using abstract_base_n::abstract_base;
+	using abstract_base_n::instance_struct;
 	//struct build_by_get_only{};已定义于 "../../base_defs/special_attribute.hpp"
 
 	/*!
@@ -609,20 +611,23 @@ namespace get_n{
 		void operator()(T*a)const noexcept(nothrow<T>){
 			const APIs::alloc::source_location_guard slg;
 			if(a!=null_ptr){
-				if constexpr(type_info<T>.has_attribute(abstract_base))
-					#if defined(_MSC_VER)
-						[[gsl::suppress(f.6)]]
-					#endif
-					attribute_ptr_cast<abstract_base>(a)->abstract_method_unget_this();
-				else{
-					if constexpr(!destruct.nothrow<T>)
-						template_warning("the destructer of T was not noexcept,this may cause memory lack.");
-					if constexpr(type_info<T>.has_attribute(never_in_array))
-						destruct(a);
-					else
-						destruct[get_size_of_alloc(a)](a);
-					free(a);
-				}
+				if constexpr(::std::is_polymorphic_v<T> && !::std::is_final_v<T>)
+					if constexpr(type_info<T>.has_attribute(abstract_base)){
+						#if defined(_MSC_VER)
+							[[gsl::suppress(f.6)]]
+						#endif
+						attribute_ptr_cast<abstract_base>(a)->abstract_method_unget_this();
+						return;
+					}
+					elseif constexpr(type_info<T>.not_has_attribute(instance_struct))
+						template_warning("T is polymorphic, but there is no elc::abstract_base attribute to provide information to elc's memory system, which could lead to incorrect unget handling.");
+				if constexpr(!destruct.nothrow<T>)
+					template_warning("the destructer of T was not noexcept,this may cause memory lack.");
+				if constexpr(type_info<T>.has_attribute(never_in_array))
+					destruct(a);
+				else
+					destruct[get_size_of_alloc(a)](a);
+				free(a);
 			}
 		}
 		/*适用于unget(this,not destruct);*/

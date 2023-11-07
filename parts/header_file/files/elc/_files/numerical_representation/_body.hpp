@@ -41,6 +41,8 @@ namespace elc::defs{
 	}
 	using numerical_representation_n::to_string;
 	using numerical_representation_n::from_string_get;
+	using numerical_representation_n::to_string_t;
+	using numerical_representation_n::from_string_get_t;
 	using numerical_representation_n::decimal;
 	using numerical_representation_n::binary;
 	using numerical_representation_n::octal;

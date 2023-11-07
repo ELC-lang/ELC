@@ -554,7 +554,7 @@ namespace to_string_n{
 			if(str==_repres.get_nan())
 				return arithmetic_type_info_prover<double>::quiet_NaN();
 			elseif(str==_repres.get_inf())
-				return arithmetic_type_info_prover<double>::infinity();
+				return arithmetic_type_info_prover<double>::Inf();
 			else
 				return from_string_get_base<ubigfloat>(str,state);
 		}
@@ -792,6 +792,8 @@ namespace to_string_n{
 }
 using to_string_n::to_string;
 using to_string_n::from_string_get;
+using to_string_n::to_string_t;
+using to_string_n::from_string_get_t;
 
 //file_end
 

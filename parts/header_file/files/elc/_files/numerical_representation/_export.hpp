@@ -31,8 +31,8 @@
 #define export using defs::
 export to_string;
 export from_string_get;
-export to_string;
-export from_string_get;
+export to_string_t;
+export from_string_get_t;
 export decimal;
 export binary;
 export octal;
