@@ -579,23 +579,23 @@ namespace math{
 	[[nodiscard]]inline constexpr auto get_prime_num_big_than(T a)noexcept{
 		return get_prime_num_big_or_eq_than(a+1u);
 	}
-	push_and_disable_msvc_warning(26467);//gold_of_resize永远为正数
+	push_and_disable_msvc_warning(26467);//φ永远为正数
 	/// 已知当前array的size，求下一个合适的提前分配大小
 	template<unsigned_integer_type size_T>
 	[[nodiscard]]inline constexpr size_T get_next_gold_size_to_resize_for_array(size_T size)noexcept{
 		/*
-		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
+		每次扩容后的空间与原空间比大致为φ可以最小化时空负担.
 		*/
-		return size_T(size*magic_number::gold_of_resize);
+		return size_T(size*magic_number::φ);
 	}
 	/// 已知当前hash table的size，求下一个合适的桶大小
 	template<unsigned_integer_type size_T>
 	[[nodiscard]]inline constexpr size_T get_next_gold_size_to_resize_for_hash(size_T size)noexcept{
 		/*
 		素数大小的桶数可以使hash table中的每个桶尽可能活跃.
-		每次扩容后的空间与原空间比大致为gold of resize可以最小化时空负担.
+		每次扩容后的空间与原空间比大致为φ可以最小化时空负担.
 		*/
-		return size_T(get_prime_num_big_or_eq_than(size*magic_number::gold_of_resize));
+		return size_T(get_prime_num_big_or_eq_than(size*magic_number::φ));
 	}
 	pop_msvc_warning();
 
